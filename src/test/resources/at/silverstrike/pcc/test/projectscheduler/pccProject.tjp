@@ -1,0 +1,44 @@
+project "Sample project" 2010-10-25 +1m 
+{
+  timeformat "%d.%m.%Y %H:%M"
+
+  numberformat "-" "" "." "," 1
+  currencyformat "(" ")" "." "," 0
+
+  now 2010-10-25
+
+  currency "EUR"
+
+  timingresolution 15 min
+  
+  scenario plan "Plan" {
+  }
+}
+
+copyright "DP"
+resource R1210 "DP"
+{
+	limits { dailymax 8.00h }
+}
+task T2010 "Some interesting task"
+{
+	start ${now}
+
+	priority 200
+	allocate R1210
+
+	effort 2.50h
+
+	
+	
+}
+taskreport status "pccDeadlines" {
+ formats csv
+ columns id, end
+}
+
+export "pccBookings.tji" {
+  definitions *
+  taskattributes *
+  hideresource 0
+}
