@@ -1,0 +1,21 @@
+﻿Project Control Center - Maintenance Documentation
+
+APT documentation format
+
+  See http://maven.apache.org/doxia/references/apt-format.html
+
+How to execute PCC
+  1) mkdir target/pcc (if this directory is missing)
+  2) mvn jetty:run
+  3) Navigate your browser to http://localhost:8080/pcc/
+
+How to execute PCC with logging
+  1) mkdir target/pcc (if this directory is missing)
+  2) mvn -Dslf4j=false -Dlog4j.configuration=file:./target/classes/log4j.properties jetty:run
+  3) Navigate your browser to http://localhost:8080/pcc/
+
+How to update the project's documentation, including reports
+
+  mvn site
+
+

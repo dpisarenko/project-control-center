@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+	<!--
+		This file is part of Project Control Center (PCC). Project Control
+		Center (PCC) is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or (at
+		your option) any later version. Project Control Center (PCC) is
+		distributed in the hope that it will be useful, but WITHOUT ANY
+		WARRANTY; without even the implied warranty of MERCHANTABILITY or
+		FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+		for more details. You should have received a copy of the GNU General
+		Public License along with Project Control Center (PCC). If not, see
+		<http://www.gnu.org/licenses/>. Copyright 2010 Dmitri Anatol'evich
+		Pisarenko
+	-->
+<!DOCTYPE hibernate-mapping PUBLIC
+         "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="at.silverstrike.pcc.impl.persistence.DefaultResource"
+		table="TBL_RESOURCE" dynamic-update="false" dynamic-insert="false">
+
+		<id name="id" column="RESOURCE_ID" type="java.lang.Long"
+			unsaved-value="-1">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="abbreviation" />
+
+		<joined-subclass name="at.silverstrike.pcc.impl.persistence.DefaultWorker"
+			table="TBL_WORKER" lazy="false">
+			<key column="RESOURCE_ID" />
+			<property name="firstName" />
+			<property name="middleName" />
+			<property name="surname" />
+		</joined-subclass>
+
+	</class>
+</hibernate-mapping>

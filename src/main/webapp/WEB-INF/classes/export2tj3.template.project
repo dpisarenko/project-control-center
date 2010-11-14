@@ -1,0 +1,18 @@
+project "${projectName}" ${now} +${schedulingHorizonMonths}m 
+{
+  timeformat "%d.%m.%Y %H:%M"
+
+  numberformat "-" "" "." "," 1
+  currencyformat "(" ")" "." "," 0
+
+  now ${now}
+
+  currency "${currency}"
+
+  timingresolution 15 min
+  
+  scenario plan "Plan" {
+  }
+}
+
+copyright "${copyright}"

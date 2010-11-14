@@ -1,0 +1,9 @@
+task T${id} "${name}"
+{
+	${startDateTime}
+	priority ${priority}
+	${resourceAllocations}
+	${effortInfo}
+	
+	${childTasks}
+}

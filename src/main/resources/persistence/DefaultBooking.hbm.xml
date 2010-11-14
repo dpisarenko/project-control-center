@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+	<!--
+		This file is part of Project Control Center (PCC). Project Control
+		Center (PCC) is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or (at
+		your option) any later version. Project Control Center (PCC) is
+		distributed in the hope that it will be useful, but WITHOUT ANY
+		WARRANTY; without even the implied warranty of MERCHANTABILITY or
+		FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+		for more details. You should have received a copy of the GNU General
+		Public License along with Project Control Center (PCC). If not, see
+		<http://www.gnu.org/licenses/>. Copyright 2010 Dmitri Anatol'evich
+		Pisarenko
+	-->
+
+<!DOCTYPE hibernate-mapping PUBLIC
+         "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="at.silverstrike.pcc.impl.persistence.DefaultBooking"
+		table="TBL_BOOKING" dynamic-update="false" dynamic-insert="false">
+
+		<id name="id" column="BOOKING_ID" type="java.lang.Long"
+			unsaved-value="-1">
+			<generator class="native">
+			</generator>
+		</id>
+
+
+		<property name="startDateTime" />
+		<property name="duration" />
+
+		<many-to-one name="process"
+			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess" />
+		<many-to-one name="resource"
+			class="at.silverstrike.pcc.impl.persistence.DefaultResource" />
+
+	</class>
+</hibernate-mapping>

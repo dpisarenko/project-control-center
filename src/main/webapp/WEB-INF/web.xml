@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   This file is part of Project Control Center (PCC).
+   
+   Project Control Center (PCC) is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   Project Control Center (PCC) is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with Project Control Center (PCC).  If not, see <http://www.gnu.org/licenses/>.
+
+   Copyright 2010 Dmitri Anatol'evich Pisarenko
+-->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>pcc</display-name>
+  <context-param>
+    <description>
+  	Vaadin production mode</description>
+    <param-name>productionMode</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>Project Control Center Application</servlet-name>
+    <servlet-class>
+  	com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
+    <init-param>
+      <description>
+  		Vaadin application class to start</description>
+      <param-name>application</param-name>
+      <param-value>at.silverstrike.pcc.ProjectControlCenterApplication</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Project Control Center Application</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <listener>
+    <listener-class>at.silverstrike.pcc.impl.persistence.DatabaseStartStopServletContextListener</listener-class>
+  </listener>
+</web-app>

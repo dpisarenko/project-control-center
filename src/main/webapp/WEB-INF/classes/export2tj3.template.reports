@@ -1,0 +1,10 @@
+taskreport status "pccDeadlines" {
+ formats csv
+ columns id, end
+}
+
+export "pccBookings.tji" {
+  definitions *
+  taskattributes *
+  hideresource 0
+}
