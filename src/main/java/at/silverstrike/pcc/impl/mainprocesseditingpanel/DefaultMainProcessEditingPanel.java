@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
-import at.silverstrike.pcc.api.debugids.DebugIdUniquenessViolation;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanel;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanelFactory;
 import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanel;

@@ -36,6 +36,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanel;
 import at.silverstrike.pcc.api.model.ControlProcess;
 import at.silverstrike.pcc.api.model.ProcessState;
@@ -65,7 +66,7 @@ import eu.livotov.tpt.i18n.TM;
 class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     private static final double HOURS_IN_DAY = 24.0;
     private static final double HOURS_IN_HOUR = 1.0;
-    private static final double HOURS_IN_MINUTE = 1./60.;
+    private static final double HOURS_IN_MINUTE = 1. / 60.;
 
     private class SaveButtonRelevantListener implements
             Property.ValueChangeListener {
@@ -188,6 +189,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 
     private ComboBox typeComboBox;
 
+    private DebugIdRegistry debugIdRegistry;
+
     public DefaultEditingProcessPanel() {
         initSaveErrorMessagesByValidationResults();
     }
@@ -198,9 +201,13 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         this.setHeight("400px");
 
         setCaption(TM.get("editingprocesspanel.15-panel-caption"));
+        this.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.1"));
 
         final GridLayout buttonPanel = createButtonPanel();
 
+        buttonPanel.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.2-buttonPanel"));
         addComponent(buttonPanel);
 
         final GridLayout grid = new GridLayout(3, 7);
@@ -210,6 +217,9 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         processNameTextArea.setRows(5);
         processNameTextArea.setColumns(25);
         processNameTextArea.setWidth("100%");
+        processNameTextArea.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.3-processNameTextArea"));
+
         grid.addComponent(processNameTextArea, 0, 0, 2, 0);
 
         createHandOffControls(grid);
@@ -256,7 +266,9 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     @Override
     public void setInjector(final Injector anInjector) {
         if (anInjector != null) {
-            persistence = anInjector.getInstance(Persistence.class);
+            this.persistence = anInjector.getInstance(Persistence.class);
+            this.debugIdRegistry =
+                    anInjector.getInstance(DebugIdRegistry.class);
         }
     }
 
@@ -314,11 +326,11 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
             process.setProcessType(getProcessType());
 
             // Save min. effort
-            process.setBestCaseEffort(getEffortInHours(this.minEffortTextBox, 
+            process.setBestCaseEffort(getEffortInHours(this.minEffortTextBox,
                     this.minTimeUnitComboBox));
 
             // Save max. effort
-            process.setWorstCaseEffort(getEffortInHours(this.maxEffortTextBox, 
+            process.setWorstCaseEffort(getEffortInHours(this.maxEffortTextBox,
                     this.maxTimeUnitComboBox));
 
             // Save priority
@@ -331,32 +343,29 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 
     private Integer getPriority() {
         Integer priority;
-        
-        try
-        {
-            priority = Integer.parseInt((String)this.priorityTextBox.getValue());
-        }
-        catch (final NumberFormatException exception)
-        {
+
+        try {
+            priority =
+                    Integer.parseInt((String) this.priorityTextBox.getValue());
+        } catch (final NumberFormatException exception) {
             priority = -1;
         }
-        
+
         return priority;
     }
 
-    private Double getEffortInHours(final TextField aTextField, final ComboBox anUnitComboBox) {
+    private Double getEffortInHours(final TextField aTextField,
+            final ComboBox anUnitComboBox) {
         double effortInUnit;
-        
-        try
-        {
-            effortInUnit = Double.parseDouble((String)aTextField.getValue());
-        }
-        catch (final NumberFormatException exception)
-        {
+
+        try {
+            effortInUnit = Double.parseDouble((String) aTextField.getValue());
+        } catch (final NumberFormatException exception) {
             effortInUnit = -1.;
         }
-        
-        return convertEffort(effortInUnit, anUnitComboBox, HOURS_IN_MINUTE, HOURS_IN_HOUR,
+
+        return convertEffort(effortInUnit, anUnitComboBox, HOURS_IN_MINUTE,
+                HOURS_IN_HOUR,
                 HOURS_IN_DAY);
     }
 
@@ -383,6 +392,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 
         startButton =
                 new Button(TM.get("editingprocesspanel.1-start-caption"));
+        startButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.9-startButton"));
         startButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
 
@@ -393,6 +404,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         });
         stopButton =
                 new Button(TM.get("editingprocesspanel.2-pause-caption"));
+        stopButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.10-stopButton"));
         stopButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
 
@@ -404,6 +417,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         markAsCompleted =
                 new Button(TM
                         .get("editingprocesspanel.3-mark-as-completed-caption"));
+        markAsCompleted.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.11-markAsCompleted"));
         markAsCompleted.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
 
@@ -416,6 +431,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         cancelButton =
                 new Button(TM
                         .get("editingprocesspanel.4-mark-as-completed-caption"));
+        cancelButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.12-cancelButton"));
         cancelButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
 
@@ -427,6 +444,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 
         reactivateButton =
                 new Button(TM.get("editingprocesspanel.6-reactivate-caption"));
+        reactivateButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.13-reactivateButton"));
         reactivateButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
 
@@ -439,6 +458,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         deleteButton =
                 new Button(TM
                         .get("editingprocesspanel.5-mark-as-completed-caption"));
+        deleteButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.14-deleteButton"));
         deleteButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
 
@@ -449,6 +470,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         });
 
         saveButton = new Button(TM.get("editingprocesspanel.12-save"));
+        saveButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.15-saveButton"));
         saveButton.setImmediate(true);
         saveButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
@@ -471,13 +494,23 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     private void createDependencyControls(final GridLayout aGrid) {
         final GridLayout dependencyGrid = new GridLayout(2, 2);
         final ListSelect dependencyList = new ListSelect();
+
         final Button deleteButton =
                 new Button(
                         get("editingprocesspanel.24-delete-dependency-button"));
+        deleteButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.16-dependencyDeleteButton"));
+
         final Button addButton =
                 new Button(get("editingprocesspanel.25-add-dependency-button"));
+        addButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.17-dependencyAddButton"));
         final ComboBox dependencyComboBox = new ComboBox();
 
+        dependencyComboBox.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.18-dependencyComboBox"));
+        dependencyList.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.19-dependencyList"));
         dependencyList.setRows(10);
         dependencyGrid
                 .setCaption(get("editingprocesspanel.23-dependencies-caption"));
@@ -496,17 +529,25 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         final Label minEffortLabel =
                 new Label(TM.get("editingprocesspanel.17-min-effort-label"));
         minEffortTextBox = new TextField();
+        minEffortTextBox.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.20-minEffortTextBox"));
         minEffortTextBox.setImmediate(true);
 
         minTimeUnitComboBox = new ComboBox();
+        minTimeUnitComboBox.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.21-minTimeUnitComboBox"));
         minTimeUnitComboBox.setImmediate(true);
 
         final Label maxEffortLabel =
                 new Label(TM.get("editingprocesspanel.18-max-effort-label"));
         maxEffortTextBox = new TextField();
+        maxEffortTextBox.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.22-maxEffortTextBox"));
         maxEffortTextBox.setImmediate(true);
 
         maxTimeUnitComboBox = new ComboBox();
+        maxTimeUnitComboBox.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.23-maxTimeUnitComboBox"));
         maxTimeUnitComboBox.setImmediate(true);
 
         aGrid.addComponent(minEffortLabel, 0, 3);
@@ -532,11 +573,14 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     private void createHandOffControls(final GridLayout grid) {
         final Label controlSubjectLabel =
                 new Label(TM.get("editingprocesspanel.7-control-subject"));
-        controlSubjectComboBox = new ComboBox();
+        controlSubjectLabel.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.4-controlSubjectLabel"));
 
+        controlSubjectComboBox = new ComboBox();
+        controlSubjectComboBox.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.5-controlSubjectComboBox"));
         controlSubjectComboBox
                 .setItemCaptionMode(ITEM_CAPTION_MODE_PROPERTY);
-
         controlSubjectComboBox
                 .setItemCaptionPropertyId(ABBREVIATED_PROCESS_NAME);
         controlSubjectComboBox.addContainerProperty(
@@ -566,7 +610,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 
         handoffButton =
                 new Button(TM.get("editingprocesspanel.11-handoff"));
-
+        handoffButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.6-handoffButton"));
         handoffButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
 
@@ -586,6 +631,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
                 new Label(get("editingprocesspanel.22-priority-caption"));
         priorityTextBox = new TextField();
         priorityTextBox.setImmediate(true);
+        priorityTextBox.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.7-priorityTextBox"));
 
         aGrid.addComponent(priorityLabel, 0, 5);
         aGrid.addComponent(priorityTextBox, 1, 5);
@@ -594,6 +641,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     private void createTypeControls(final GridLayout grid) {
         final Label typeLabel = new Label(TM.get("editingprocesspanel.8-type"));
         typeComboBox = new ComboBox();
+        typeComboBox.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.8-typeComboBox"));
 
         grid.addComponent(typeLabel, 0, 2);
         grid.addComponent(typeComboBox, 1, 2);

@@ -32,6 +32,7 @@ import com.vaadin.ui.Window.Notification;
 
 import eu.livotov.tpt.i18n.TM;
 
+import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 
@@ -44,7 +45,8 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private TextField middleNameTextField;
     private TextField surnameTextField;
     private TextField dailyMaxTextField;
-    
+    private DebugIdRegistry debugIdRegistry;
+
     public DefaultWorkerPanel() {
     }
 
@@ -78,6 +80,11 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
     @Override
     public void setInjector(final Injector anInjector) {
         this.injector = anInjector;
+
+        if (anInjector != null) {
+            this.debugIdRegistry =
+                    anInjector.getInstance(DebugIdRegistry.class);
+        }
     }
 
     @Override
@@ -87,39 +94,64 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
 
     @Override
     public void initGui() {
+        this.setDebugId(this.debugIdRegistry.getDebugId("workerpanel.1"));
+
         final GridLayout grid = new GridLayout(2, 6);
 
+        grid.setDebugId(this.debugIdRegistry.getDebugId("workerpanel.2-grid"));
         grid.setWidth("400px");
 
         final Label abbreviationLabel =
                 new Label(TM.get("workerpanel.1-abbreviation"));
         abbreviationTextField = new TextField();
+        abbreviationTextField.setDebugId(this.debugIdRegistry
+                .getDebugId("workerpanel.3-abbreviationTextField"));
+
         grid.addComponent(abbreviationLabel, 0, 0);
         grid.addComponent(abbreviationTextField, 1, 0);
 
-        final Label firstNameLabel = new Label(TM.get("workerpanel.2-first-name"));
+        final Label firstNameLabel =
+                new Label(TM.get("workerpanel.2-first-name"));
         firstNameTextField = new TextField();
+        firstNameTextField.setDebugId(this.debugIdRegistry
+                .getDebugId("workerpanel.4-firstNameTextField"));
         grid.addComponent(firstNameLabel, 0, 1);
         grid.addComponent(firstNameTextField, 1, 1);
 
-        final Label middleNameLabel = new Label(TM.get("workerpanel.3-middle-name"));
+        final Label middleNameLabel =
+                new Label(TM.get("workerpanel.3-middle-name"));
         middleNameTextField = new TextField();
+        middleNameTextField.setDebugId(this.debugIdRegistry
+                .getDebugId("workerpanel.5-middleNameTextField"));
         grid.addComponent(middleNameLabel, 0, 2);
         grid.addComponent(middleNameTextField, 1, 2);
 
         final Label surnameLabel = new Label(TM.get("workerpanel.4-surname"));
         surnameTextField = new TextField();
+        surnameTextField.setDebugId(this.debugIdRegistry
+                .getDebugId("workerpanel.6-surnameTextField"));
         grid.addComponent(surnameLabel, 0, 3);
         grid.addComponent(surnameTextField, 1, 3);
 
-        final Label dailyMaxLabel = new Label(TM.get("workerpanel.5-daily-max"));
+        final Label dailyMaxLabel =
+                new Label(TM.get("workerpanel.5-daily-max"));
         dailyMaxTextField = new TextField();
+        dailyMaxTextField.setDebugId(this.debugIdRegistry
+                .getDebugId("workerpanel.7-dailyMaxTextField"));
         grid.addComponent(dailyMaxLabel, 0, 4);
         grid.addComponent(dailyMaxTextField, 1, 4);
-        
+
         final HorizontalLayout buttonPanel = new HorizontalLayout();
+        buttonPanel.setDebugId(this.debugIdRegistry
+                .getDebugId("workerpanel.8-buttonPanel"));
+
         final Button okButton = new Button(TM.get("application.1-ok"));
+        okButton.setDebugId(this.debugIdRegistry
+                .getDebugId("workerpanel.9-okButton"));
+
         final Button cancelButton = new Button(TM.get("application.2-cancel"));
+        cancelButton.setDebugId(this.debugIdRegistry
+                .getDebugId("workerpanel.10-cancelButton"));
 
         okButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
