@@ -1,21 +1,13 @@
 /**
  * This file is part of Project Control Center (PCC).
  * 
- * Project Control Center (PCC) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
  * 
- * Project Control Center (PCC) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * PCC (Project Control Center) project is intellectual property of 
+ * Dmitri Anatol'evich Pisarenko.
  * 
- * You should have received a copy of the GNU General Public License
- * along with Project Control Center (PCC).  If not, see <http://www.gnu.org/licenses/>.
- *
  * Copyright 2010 Dmitri Anatol'evich Pisarenko
- **/
+ * All rights reserved
+ */
 
 package at.silverstrike.pcc.impl.editingprocesspanel;
 
@@ -45,6 +37,8 @@ import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.model.Worker;
 import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
+import at.silverstrike.pcc.api.webguibus.WorkerAddedMessage;
 
 import com.google.inject.Injector;
 import com.vaadin.data.Item;
@@ -191,12 +185,16 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 
     private DebugIdRegistry debugIdRegistry;
 
+    private WebGuiBus webGuiBus;
+    
     public DefaultEditingProcessPanel() {
         initSaveErrorMessagesByValidationResults();
     }
 
     @Override
     public void initGui() {
+        this.webGuiBus.addListener(this);
+        
         this.setWidth("100%");
         this.setHeight("400px");
 
@@ -269,6 +267,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
             this.persistence = anInjector.getInstance(Persistence.class);
             this.debugIdRegistry =
                     anInjector.getInstance(DebugIdRegistry.class);
+            this.webGuiBus = anInjector.getInstance(WebGuiBus.class);
         }
     }
 
@@ -587,6 +586,28 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
                 ABBREVIATED_PROCESS_NAME,
                 String.class, null);
 
+        fillWorkerComboBox();
+
+        handoffButton =
+                new Button(TM.get("editingprocesspanel.11-handoff"));
+        handoffButton.setDebugId(this.debugIdRegistry
+                .getDebugId("editingprocesspanel.6-handoffButton"));
+        handoffButton.addListener(new ClickListener() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void buttonClick(final ClickEvent event) {
+                handoffButtonClicked();
+            }
+        });
+
+        grid.addComponent(controlSubjectLabel, 0, 1);
+        grid.addComponent(controlSubjectComboBox, 1, 1);
+        grid.addComponent(handoffButton, 2, 1);
+    }
+
+    private void fillWorkerComboBox() {
+        controlSubjectComboBox.removeAllItems();
         final List<Worker> workers = persistence.getAllWorkers();
 
         for (final Worker worker : workers) {
@@ -607,23 +628,6 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
             item.getItemProperty(ABBREVIATED_PROCESS_NAME).setValue(
                     abbreviatedName);
         }
-
-        handoffButton =
-                new Button(TM.get("editingprocesspanel.11-handoff"));
-        handoffButton.setDebugId(this.debugIdRegistry
-                .getDebugId("editingprocesspanel.6-handoffButton"));
-        handoffButton.addListener(new ClickListener() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                DefaultEditingProcessPanel.this.handoffButtonClicked();
-            }
-        });
-
-        grid.addComponent(controlSubjectLabel, 0, 1);
-        grid.addComponent(controlSubjectComboBox, 1, 1);
-        grid.addComponent(handoffButton, 2, 1);
     }
 
     private void createPriorityControls(final GridLayout aGrid) {
@@ -987,5 +991,10 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         }
 
         return result;
+    }
+
+    @Override
+    public void workerAdded(final WorkerAddedMessage aMessage) {
+        fillWorkerComboBox();
     }
 }
