@@ -32,13 +32,14 @@ import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
+import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
-import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.
-    DefaultEstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainprocesseditingpanel.DefaultMainProcessEditingPanelFactory;
@@ -50,6 +51,8 @@ import at.silverstrike.pcc.impl.schedulingpanel.DefaultSchedulingPanelFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultBookingsFile2BookingsFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultTj3BookingsParserFactory;
 import at.silverstrike.pcc.impl.tj3deadlinesparser.DefaultTj3DeadlinesFileParserFactory;
+import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusFactory;
+import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusMessageFactory;
 import at.silverstrike.pcc.impl.workerpanel.DefaultWorkerPanelFactory;
 
 import com.google.inject.AbstractModule;
@@ -91,6 +94,11 @@ class InjectorModule extends AbstractModule {
                 new DefaultMainProcessEditingPanelFactory());
         bind(ProjectSchedulerFactory.class).toInstance(
                 new DefaultProjectSchedulerFactory());
-        bind(DebugIdRegistry.class).toInstance(new DefaultDebugIdRegistryFactory().create());
+        bind(DebugIdRegistry.class).toInstance(
+                new DefaultDebugIdRegistryFactory().create());
+        bind(WebGuiBus.class)
+                .toInstance(new DefaultWebGuiBusFactory().create());
+        bind(WebGuiBusMessageFactory.class).toInstance(
+                new DefaultWebGuiBusMessageFactory());
     }
 }

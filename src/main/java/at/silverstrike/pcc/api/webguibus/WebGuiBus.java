@@ -1,7 +1,7 @@
 package at.silverstrike.pcc.api.webguibus;
 
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-
-public interface WebGuiBus extends ModuleWithInjectableDependencies {
+public interface WebGuiBus {
     void addListener(final WebGuiBusListener aListener);
+    
+    void broadcastWorkerAddedMessage(final WorkerAddedMessage aMessage);
 }

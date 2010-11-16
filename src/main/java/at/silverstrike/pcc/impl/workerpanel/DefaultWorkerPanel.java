@@ -34,6 +34,9 @@ import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
+import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
+import at.silverstrike.pcc.api.webguibus.WorkerAddedMessage;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 
 class DefaultWorkerPanel extends Panel implements WorkerPanel {
@@ -46,6 +49,8 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private TextField surnameTextField;
     private TextField dailyMaxTextField;
     private DebugIdRegistry debugIdRegistry;
+    private WebGuiBus webGuiBus;
+    private WebGuiBusMessageFactory webGuiBusMessageFactory;
 
     public DefaultWorkerPanel() {
     }
@@ -65,6 +70,10 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
 
             persistence.createHumanResource(abbreviation, firstName,
                     middleName, surname);
+
+            final WorkerAddedMessage message =
+                    this.webGuiBusMessageFactory.createWorkerAddedMessage();
+            this.webGuiBus.broadcastWorkerAddedMessage(message);
         } else {
             getWindow().showNotification(this.errorMessage, null,
                     Notification.TYPE_ERROR_MESSAGE);
@@ -84,6 +93,9 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
         if (anInjector != null) {
             this.debugIdRegistry =
                     anInjector.getInstance(DebugIdRegistry.class);
+            this.webGuiBus = anInjector.getInstance(WebGuiBus.class);
+            this.webGuiBusMessageFactory =
+                    anInjector.getInstance(WebGuiBusMessageFactory.class);
         }
     }
 
