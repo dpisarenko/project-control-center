@@ -8,4 +8,5 @@
 # Copyright 2010 Dmitri Anatol'evich Pisarenko
 # All rights reserved
 
-mvn jetty:run
+rm pcc.log
+mvn -DUSER_HOME="/home/dp118m/dev/pcc" jetty:run 2>&1 | tee pcc.log
