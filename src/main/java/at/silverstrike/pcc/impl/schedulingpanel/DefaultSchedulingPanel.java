@@ -1,9 +1,14 @@
 package at.silverstrike.pcc.impl.schedulingpanel;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
@@ -31,6 +36,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
     private ProgressIndicator progressIndicator;
 
     private TextField loggingTextArea;
+    private Persistence persistence;
 
     public DefaultSchedulingPanel() {
     }
@@ -78,6 +84,11 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
     @Override
     public void setInjector(final Injector anInjector) {
         injector = anInjector;
+        
+        if (anInjector != null)
+        {
+            this.persistence = anInjector.getInstance(Persistence.class);
+        }
     }
 
     @Override
@@ -92,6 +103,14 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
                 injector.getInstance(ProjectSchedulerFactory.class);
         final ProjectScheduler scheduler = factory.create();
 
+        scheduler.getProjectExportInfo().setControlProcessesToExport(this.persistence.getAllNotDeletedTasks());
+        
+        final List<Resource> resources = new LinkedList<Resource>();
+        resources.addAll(this.persistence.getAllWorkers());
+        
+        scheduler.getProjectExportInfo().setResourcesToExport(resources);
+        
+        
         appendToLoggingTextArea("0");
         
         scheduler.setDirectory(System.getProperty("user.dir"));
@@ -103,7 +122,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
             appendToLoggingTextArea("2");
             progressIndicator.setEnabled(false);
         } catch (final PccException exception) {
-            appendToLoggingTextArea("3");
+            appendToLoggingTextArea("3" + exception.toString());
             LOGGER.error("", exception);
             progressIndicator.setEnabled(false);
             appendToLoggingTextArea("4");

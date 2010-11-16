@@ -8,5 +8,4 @@
 # Copyright 2010 Dmitri Anatol'evich Pisarenko
 # All rights reserved
 
-rm pcc.log*
 mvn jetty:run
