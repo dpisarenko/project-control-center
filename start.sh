@@ -9,4 +9,4 @@
 # All rights reserved
 
 rm pcc.log
-mvn -DUSER_HOME="/home/dp118m/dev/pcc" jetty:run 2>&1 | tee pcc.log
+mvn jetty:run 2>&1 | tee pcc.log

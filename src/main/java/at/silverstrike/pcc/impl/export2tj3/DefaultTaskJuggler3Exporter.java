@@ -341,6 +341,9 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
     private String substituteProjectHeaderPlaceholders(
             final String projectTemplate) {
 
+        LOGGER.error("projectTemplate: {}", projectTemplate);
+        LOGGER.error("this.projectExportInfo: {}", this.projectExportInfo);
+        
         final String projectHeader =
                 projectTemplate.replace(PLACEHOLDER_PROJECT_NAME,
                         this.projectExportInfo.getProjectName()).replace(
