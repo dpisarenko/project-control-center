@@ -1,1 +1,0 @@
-mvn test -Dtest=at.silverstrike.pcc.test.tj3deadlinesparser.TestDefaultTj3DeadlinesFileParserFactory
