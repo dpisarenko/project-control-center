@@ -469,6 +469,7 @@ public class DefaultPersistence implements Persistence {
             }
         } catch (final Exception exception) {
             LOGGER.error("", exception);
+            throw new RuntimeException(exception);
         }
         return returnValue;
     }
