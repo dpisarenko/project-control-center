@@ -1,5 +1,6 @@
 package at.silverstrike.pcc.impl.schedulingpanel;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -109,6 +110,11 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         resources.addAll(this.persistence.getAllWorkers());
         
         scheduler.getProjectExportInfo().setResourcesToExport(resources);
+        
+        scheduler.getProjectExportInfo().setProjectName("pcc");
+        scheduler.getProjectExportInfo().setNow(new Date());
+        scheduler.getProjectExportInfo().setCopyright("Dmitri Pisarenko");
+        scheduler.getProjectExportInfo().setCurrency("EUR");
         
         
         appendToLoggingTextArea("0");

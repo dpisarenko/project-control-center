@@ -22,6 +22,8 @@ package at.silverstrike.pcc.impl.projectscheduler;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import at.silverstrike.pcc.api.model.ControlProcess;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
@@ -96,4 +98,18 @@ class DefaultProjectExportInfo implements ProjectExportInfo {
         this.resourcesToExport = resourcesToExport;
     }
 
+    @Override
+    public String toString() {
+        final ToStringBuilder builder = new ToStringBuilder(this);
+        
+        builder.append("schedulingHorizonMonths", this.schedulingHorizonMonths);
+        builder.append("projectName", this.projectName);
+        builder.append("now", this.now);
+        builder.append("copyright", this.copyright);
+        builder.append("currency", this.currency);
+        builder.append("controlProcessesToExport", this.controlProcessesToExport);
+        builder.append("resourcesToExport", this.resourcesToExport);
+
+        return builder.toString();
+    }
 }
