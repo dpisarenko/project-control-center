@@ -32,6 +32,7 @@ import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
+import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
@@ -80,7 +81,7 @@ class InjectorModule extends AbstractModule {
                 new DefaultBookingsFile2BookingsFactory());
         bind(TaskJuggler3Exporter.class).toInstance(
                 new DefaultTaskJuggler3ExporterFactory().create());
-        bind(DefaultTj3DeadlinesFileParserFactory.class).toInstance(
+        bind(Tj3DeadlinesFileParserFactory.class).toInstance(
                 new DefaultTj3DeadlinesFileParserFactory());
         bind(DefaultTj3BookingsParserFactory.class).toInstance(
                 new DefaultTj3BookingsParserFactory());
