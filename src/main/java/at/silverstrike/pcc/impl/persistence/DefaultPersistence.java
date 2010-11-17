@@ -457,7 +457,7 @@ public class DefaultPersistence implements Persistence {
             final Query query =
                     session.createQuery("from DefaultDailyPlan p where "
                             + "(p.date = :day) and "
-                            + "(p.resource.name = :resource)");
+                            + "(p.resource.abbreviation = :resource)");
 
             query.setParameter("day", newDate);
             query.setParameter("resource", resource);
