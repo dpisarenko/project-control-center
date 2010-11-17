@@ -60,7 +60,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     List<ControlProcess> getAllIntentsAndGoalRegions();
 
     Long createHumanResource(String abbreviation, String firstName,
-            String middleName, String surname);
+            String middleName, String surname, double dailyMaxWorkTimeInHours);
 
     List<Worker> getAllWorkers();
 

@@ -68,8 +68,19 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
                     (String) this.middleNameTextField.getValue();
             final String surname = (String) this.surnameTextField.getValue();
 
+            double dailyMaxWorkTimeInHours = 0.;
+            
+            try
+            {
+                dailyMaxWorkTimeInHours = Double.parseDouble((String)this.dailyMaxTextField.getValue());
+            }
+            catch (final NumberFormatException exception)
+            {
+                
+            }
+            
             persistence.createHumanResource(abbreviation, firstName,
-                    middleName, surname);
+                    middleName, surname, dailyMaxWorkTimeInHours);
 
             final WorkerAddedMessage message =
                     this.webGuiBusMessageFactory.createWorkerAddedMessage();

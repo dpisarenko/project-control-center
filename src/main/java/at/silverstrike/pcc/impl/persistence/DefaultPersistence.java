@@ -152,7 +152,7 @@ public class DefaultPersistence implements Persistence {
     @Override
     public Long createHumanResource(final String anAbbreviation,
             final String aFirstName, final String aMiddleName,
-            final String aSurname) {
+            final String aSurname, double dailyMaxWorkTimeInHours) {
         final Transaction tx = session.beginTransaction();
         Long id = null;
 
@@ -163,6 +163,7 @@ public class DefaultPersistence implements Persistence {
             worker.setFirstName(aFirstName);
             worker.setMiddleName(aMiddleName);
             worker.setSurname(aSurname);
+            worker.setDailyLimitInHours(dailyMaxWorkTimeInHours);
 
             session.save(worker);
 
