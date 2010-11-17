@@ -27,6 +27,8 @@ import com.vaadin.ui.Button.ClickListener;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
+    private static final int ONE_MONTH = 1;
+
     private static final String NEWLINE = System.getProperty("line.separator");
 
     private static final long serialVersionUID = 1L;
@@ -115,7 +117,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         scheduler.getProjectExportInfo().setNow(new Date());
         scheduler.getProjectExportInfo().setCopyright("Dmitri Pisarenko");
         scheduler.getProjectExportInfo().setCurrency("EUR");
-        
+        scheduler.getProjectExportInfo().setSchedulingHorizonMonths(ONE_MONTH);
         
         appendToLoggingTextArea("0");
         
