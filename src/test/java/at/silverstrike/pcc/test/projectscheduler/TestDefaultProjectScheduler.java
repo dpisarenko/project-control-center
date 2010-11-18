@@ -5,9 +5,13 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
+
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +19,13 @@ import org.slf4j.LoggerFactory;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.DailyPlan;
+import at.silverstrike.pcc.api.model.DailySchedule;
+import at.silverstrike.pcc.api.model.DailyToDoList;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
+import at.silverstrike.pcc.impl.jruby.RubyDateTimeUtils;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
@@ -87,7 +95,7 @@ public class TestDefaultProjectScheduler {
         assertTrue("Bookings file doesn't exist.", bookingsFile.exists());
         assertTrue("Deadlines file doesn't exist.", deadlinesFile.exists());
     }
-    
+
     @Test
     public void testRun01() {
         /**
@@ -98,27 +106,21 @@ public class TestDefaultProjectScheduler {
         /**
          * Init persistence
          */
-        try
-        {
-            persistence.openSession();   
-        }
-        catch (final RuntimeException exception)
-        {
+        try {
+            persistence.openSession();
+        } catch (final RuntimeException exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        } catch (final Exception exception) {
             LOGGER.error("", exception);
             Assert.fail(exception.getMessage());
         }
-        catch (final Exception exception)
-        {
-            LOGGER.error("", exception);
-            Assert.fail(exception.getMessage());
-        }
-        
-        
+
         /**
          * Empty the database
          */
         persistence.clearDatabase();
-        
+
         /**
          * Create the injector
          */
@@ -145,8 +147,7 @@ public class TestDefaultProjectScheduler {
         /**
          * Save all task and resource data in the database
          */
-               
-        
+
         /**
          * Set input data
          */
@@ -154,11 +155,10 @@ public class TestDefaultProjectScheduler {
                 .setDirectory(DIR);
 
         /**
-         * Verify that our only tasks exists in the database before invokation of the method under test
+         * Verify that our only tasks exists in the database before invokation
+         * of the method under test
          */
-        
-        
-        
+
         /**
          * Run the method under test
          */
@@ -168,14 +168,48 @@ public class TestDefaultProjectScheduler {
             LOGGER.error("", exception);
             fail(exception.getMessage());
         }
-        
+
         /**
          * Verify that now the result of getUncompletedTasksWithEstimatedEndTime
          * contains exactly one task.
          */
-        final List<ControlProcess> processes = persistence.getUncompletedTasksWithEstimatedEndTime();
-        
+        final List<ControlProcess> processes =
+                persistence.getUncompletedTasksWithEstimatedEndTime();
+
         Assert.assertNotNull(processes);
         Assert.assertEquals(1, processes.size());
+
+        final ControlProcess process = processes.get(0);
+
+        final Date date201010251130 =
+                RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 11, 30);
+
+        Assert.assertEquals(date201010251130, process.getBestEstimatedEndDateTime());
+        Assert.assertEquals(date201010251130, process.getAverageEstimatedEndDateTime());
+        Assert.assertEquals(date201010251130, process.getWorstEstimatedEndDateTime());
+        
+        /**
+         * Verify that daily plan exists
+         */
+        final String resource = projectInfo.getResourcesToExport().get(0).getAbbreviation();
+        
+        Assert.assertNotNull(resource);
+        Assert.assertFalse(StringUtils.isEmpty(resource));
+        
+        final DailyPlan dailyPlan = persistence.getDailyPlan(date201010251130, resource);
+        
+        Assert.assertNotNull(dailyPlan);
+        
+        final DailySchedule schedule = dailyPlan.getSchedule();
+        
+        Assert.assertNotNull(schedule);
+        
+        final DailyToDoList toDoList = dailyPlan.getToDoList();
+        
+        Assert.assertNotNull(toDoList);
+        
+        /**
+         * Verify that schedule exists
+         */
     }
 }
