@@ -57,7 +57,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public Long createHumanResource(String abbreviation, String firstName,
-            String middleName, String surname) {
+            String middleName, String surname, final double aWorkTime) {
         throw new NotImplementedException();
     }
 

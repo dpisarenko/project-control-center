@@ -82,7 +82,7 @@ class Helper {
     }
     
     private Resource getWorkerDP(final Persistence aPersistence) {
-        final Long id = aPersistence.createHumanResource("DP", "Dmitri", "Anatl'evich", "Pisarenko");
+        final Long id = aPersistence.createHumanResource("DP", "Dmitri", "Anatl'evich", "Pisarenko", 8.0);
         final Resource worker = aPersistence.getResource(id);
         worker.setDailyLimitInHours(8);
         return worker;

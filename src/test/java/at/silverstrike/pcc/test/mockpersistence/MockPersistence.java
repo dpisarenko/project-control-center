@@ -61,7 +61,8 @@ class MockPersistence implements Persistence {
     @Override
     public Long createHumanResource(final String abbreviation,
             final String firstName,
-            final String middleName, final String surname) {
+            final String middleName, final String surname,
+            final double aWorkHours) {
         throw new NotImplementedException();
 
     }
