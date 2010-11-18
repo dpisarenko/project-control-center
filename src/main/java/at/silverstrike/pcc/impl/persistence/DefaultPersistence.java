@@ -790,7 +790,7 @@ public class DefaultPersistence implements Persistence {
             final Date lastPlannedDay) {
         final Query bookingsQuery =
                 session.createQuery("from DefaultBooking "
-                        + "where (startDateTime >= :minDate) && "
+                        + "where (startDateTime >= :minDate) and "
                         + "(startDateTime <= :maxDate)");
         bookingsQuery.setParameter("minDate", now);
         bookingsQuery.setParameter("maxDate", lastPlannedDay);
