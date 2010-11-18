@@ -296,7 +296,7 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
 
         try {
-            session.createQuery("delete from DefaultDailyPlan").executeUpdate();
+            session.createQuery("delete DefaultDailyPlan").executeUpdate();
 
             final Date now = new Date();
             final Date lastPlannedDay =
@@ -704,7 +704,7 @@ public class DefaultPersistence implements Persistence {
     @SuppressWarnings("unchecked")
     private void createDailyPlans(final Session session, final Date now) {
         final List<Resource> resources =
-                (List<Resource>) session.createSQLQuery("from DefaultResource")
+                (List<Resource>) session.createQuery("from DefaultResource")
                         .list();
 
         for (int i = 0; i < DAYS_TO_PLAN_AHEAD; i++) {
