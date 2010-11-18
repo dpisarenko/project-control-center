@@ -825,7 +825,7 @@ public class DefaultPersistence implements Persistence {
         final Query query =
                 session.createQuery("from DefaultControlProcess " + "where "
                         + "(averageEstimatedEndDateTime >= :minDate)"
-                        + " && (averageEstimatedEndDateTime <= :maxDate)");
+                        + " and (averageEstimatedEndDateTime <= :maxDate)");
 
         query.setParameter("minDate", now);
         query.setParameter("maxDate", lastPlannedDay);
