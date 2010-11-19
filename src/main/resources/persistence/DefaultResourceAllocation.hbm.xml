@@ -29,7 +29,8 @@
 
 
 		<many-to-one name="resource"
-			class="at.silverstrike.pcc.impl.persistence.DefaultResource" />
+			class="at.silverstrike.pcc.impl.persistence.DefaultResource"
+			embed-xml="false" />
 
 		<joined-subclass
 			name="at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"
