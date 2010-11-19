@@ -22,16 +22,15 @@
 		<property name="worstEstimatedEndDateTime" />
 
 		<many-to-one name="parent"
-			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"
-			embed-xml="false" />
+			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"/>
 
-		<set name="resourceAllocations" embed-xml="false">
+		<set name="resourceAllocations">
 			<key column="DAILY_TO_DO_LIST_ID" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation" />
 		</set>
 
-		<set name="predecessors" embed-xml="false">
+		<set name="predecessors">
 			<key column="PREDECESSOR_ID" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess" />

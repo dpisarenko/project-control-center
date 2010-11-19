@@ -14,8 +14,7 @@
 
 		<property name="date" />
 		<many-to-one name="resource"
-			class="at.silverstrike.pcc.impl.persistence.DefaultResource"
-			embed-xml="false" />
+			class="at.silverstrike.pcc.impl.persistence.DefaultResource"/>
 		<one-to-one name="toDoList"
 			class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList" />
 		<one-to-one name="schedule"
