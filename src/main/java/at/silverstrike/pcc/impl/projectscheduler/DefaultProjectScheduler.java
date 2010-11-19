@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,6 +63,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
     private Injector injector;
     private String directory;
     private ProjectExportInfo projectExportInfo;
+    private Date now;
 
     public DefaultProjectScheduler()
     {
@@ -101,7 +103,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
         persistence.updateBookings(this.bookingTuples);
 
         // Update daily plans
-        persistence.generateDailyPlans();
+        persistence.generateDailyPlans(this.now);
     }
 
     private void parseDeadlinesFile(final String parentDir) throws PccException {
@@ -225,6 +227,10 @@ class DefaultProjectScheduler implements ProjectScheduler {
 
     public ProjectExportInfo getProjectExportInfo() {
         return projectExportInfo;
+    }
+
+    public void setNow(Date now) {
+        this.now = now;
     }
 
 }

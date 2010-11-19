@@ -153,6 +153,7 @@ public class TestDefaultProjectScheduler {
          */
         objectUnderTest
                 .setDirectory(DIR);
+        objectUnderTest.setNow(projectInfo.getNow());
 
         /**
          * Verify that our only tasks exists in the database before invokation

@@ -34,7 +34,7 @@
 		<joined-subclass
 			name="at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"
 			table="TBL_DAILY_LIMIT_RESOURCE_ALLOCATION" lazy="false">
-			<key column="resourceAllocationId" />
+			<key column="RESOURCE_ALLOCATION_ID" />
 			<property name="dailyLimit" />
 		</joined-subclass>
 

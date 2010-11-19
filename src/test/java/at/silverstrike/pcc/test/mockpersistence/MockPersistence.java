@@ -100,7 +100,7 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public void generateDailyPlans() {
+    public void generateDailyPlans(final Date aNow) {
         throw new NotImplementedException();
 
     }

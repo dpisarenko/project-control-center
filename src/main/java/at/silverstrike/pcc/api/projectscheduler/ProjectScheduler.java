@@ -19,6 +19,8 @@
 
 package at.silverstrike.pcc.api.projectscheduler;
 
+import java.util.Date;
+
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.conventions.SingleActivityModule;
 
@@ -36,5 +38,5 @@ public interface ProjectScheduler extends ModuleWithInjectableDependencies,
     ProjectExportInfo getProjectExportInfo();
     
     void setDirectory(final String aProperty);
-
+    void setNow(final Date aDate);
 }

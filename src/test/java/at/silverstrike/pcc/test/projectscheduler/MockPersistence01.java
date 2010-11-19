@@ -68,7 +68,7 @@ class MockPersistence01 extends MockPersistenceAdapter {
     }
 
     @Override
-    public void generateDailyPlans() {
+    public void generateDailyPlans(final Date aNow) {
     }
 
     @Override

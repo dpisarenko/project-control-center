@@ -86,7 +86,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      */
     void updateBookings(List<BookingTuple> bookingTuples);
 
-    void generateDailyPlans();
+    void generateDailyPlans(final Date aNow);
 
     Booking createBooking();
 

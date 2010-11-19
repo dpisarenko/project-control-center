@@ -16,16 +16,16 @@ project "Sample project" 2010-10-25 +1m
 }
 
 copyright "DP"
-resource R12 "DP"
+resource R25 "DP"
 {
 	limits { dailymax 8.00h }
 }
-task T13 "Some interesting task"
+task T26 "Some interesting task"
 {
 	start ${now}
 
 	priority 200
-	allocate R12
+	allocate R25
 
 	effort 2.50h
 

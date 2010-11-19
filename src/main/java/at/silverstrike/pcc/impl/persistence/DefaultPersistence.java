@@ -292,23 +292,22 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public void generateDailyPlans() {
+    public void generateDailyPlans(final Date aNow) {
         final Transaction tx = session.beginTransaction();
 
         try {
             session.createQuery("delete DefaultDailyPlan").executeUpdate();
 
-            final Date now = new Date();
             final Date lastPlannedDay =
-                    DateUtils.addDays(now, DAYS_TO_PLAN_AHEAD);
+                    DateUtils.addDays(aNow, DAYS_TO_PLAN_AHEAD);
 
-            createDailyPlans(session, now);
+            createDailyPlans(session, aNow);
 
             // Create daily to-do lists
-            updateDailyToDoLists(session, now, lastPlannedDay);
+            updateDailyToDoLists(session, aNow, lastPlannedDay);
 
             // Create daily schedules
-            updateDailySchedules(session, now, lastPlannedDay);
+            updateDailySchedules(session, aNow, lastPlannedDay);
 
             tx.commit();
         } catch (final Exception exception) {
@@ -788,12 +787,19 @@ public class DefaultPersistence implements Persistence {
     @SuppressWarnings("unchecked")
     private void updateDailySchedules(final Session session, final Date now,
             final Date lastPlannedDay) {
+//        final Query bookingsQuery =
+//            session.createQuery("from DefaultBooking "
+//                    + "where (startDateTime >= :minDate) and "
+//                    + "(startDateTime <= :maxDate)");
+        
+        
         final Query bookingsQuery =
                 session.createQuery("from DefaultBooking "
-                        + "where (startDateTime >= :minDate) and "
-                        + "(startDateTime <= :maxDate)");
-        bookingsQuery.setParameter("minDate", now);
-        bookingsQuery.setParameter("maxDate", lastPlannedDay);
+//                        + "where (startDateTime >= :minDate) and "
+//                        + "(startDateTime <= :maxDate)"
+                        );
+//        bookingsQuery.setParameter("minDate", now);
+//        bookingsQuery.setParameter("maxDate", lastPlannedDay);
 
         final List<Booking> bookings = bookingsQuery.list();
 
