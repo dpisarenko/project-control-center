@@ -24,7 +24,7 @@
 		<many-to-one name="parent"
 			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"/>
 
-		<bag name="resourceAllocations" cascade="save-update">
+		<bag name="resourceAllocations">
 			<key column="DAILY_TO_DO_LIST_ID" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation" />
