@@ -4,8 +4,7 @@
          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultDailyPlan"
-		table="TBL_DAILY_PLAN" dynamic-update="false" dynamic-insert="false"
-		lazy="false">
+		table="TBL_DAILY_PLAN">
 
 		<id name="id" column="DAILY_PLAN_ID" type="java.lang.Long"
 			unsaved-value="-1">

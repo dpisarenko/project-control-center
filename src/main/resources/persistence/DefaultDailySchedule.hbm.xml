@@ -6,8 +6,7 @@
 
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule"
-		table="TBL_DAILY_SCHEDULE" dynamic-update="false" dynamic-insert="false"
-		lazy="false">
+		table="TBL_DAILY_SCHEDULE">
 
 		<id name="id" column="DAILY_SCHEDULE_ID" type="java.lang.Long"
 			unsaved-value="-1">

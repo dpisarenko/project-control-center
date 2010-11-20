@@ -4,8 +4,7 @@
          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultResource"
-		table="TBL_RESOURCE" dynamic-update="false" dynamic-insert="false"
-		lazy="false">
+		table="TBL_RESOURCE">
 		<id name="id" column="RESOURCE_ID" type="java.lang.Long"
 			unsaved-value="-1">
 			<generator class="native">

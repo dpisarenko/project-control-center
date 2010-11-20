@@ -5,8 +5,7 @@
 
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList"
-		table="TBL_DAILY_TO_DO_LIST" dynamic-update="false" dynamic-insert="false"
-		lazy="false">
+		table="TBL_DAILY_TO_DO_LIST">
 
 		<id name="id" column="DAILY_TO_DO_LIST_ID" type="java.lang.Long"
 			unsaved-value="-1">
