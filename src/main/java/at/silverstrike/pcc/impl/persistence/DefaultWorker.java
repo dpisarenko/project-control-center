@@ -31,7 +31,6 @@ class DefaultWorker extends DefaultResource implements Worker {
     private String firstName;
     private String middleName;
     private String surname;
-    private Long resourceId;
 
     public String getFirstName() {
         return firstName;
@@ -57,14 +56,6 @@ class DefaultWorker extends DefaultResource implements Worker {
         this.surname = surName;
     }
 
-    public Long getResourceId() {
-        return resourceId;
-    }
-
-    public void setResourceId(final Long resourceId) {
-        this.resourceId = resourceId;
-    }
-
     @Override
     public String toString() {
         final ToStringBuilder builder = new ToStringBuilder(this);
@@ -72,7 +63,6 @@ class DefaultWorker extends DefaultResource implements Worker {
         builder.append("firstName", this.firstName);
         builder.append("middleName", this.middleName);
         builder.append("surname", this.surname);
-        builder.append("resourceId", this.resourceId);
         builder.append("abbreviation", this.getAbbreviation());
         builder.append("id", this.getId());
 
