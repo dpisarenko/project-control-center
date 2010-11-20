@@ -12,7 +12,7 @@
 		</id>
 		<property name="abbreviation" />
 		<joined-subclass name="at.silverstrike.pcc.impl.persistence.DefaultWorker"
-			table="TBL_WORKER" lazy="false">
+			table="TBL_WORKER">
 			<key column="RESOURCE_ID" />
 			<property name="firstName" />
 			<property name="middleName" />

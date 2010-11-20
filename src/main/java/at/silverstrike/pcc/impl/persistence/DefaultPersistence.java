@@ -757,7 +757,7 @@ public class DefaultPersistence implements Persistence {
         cnf.setProperty(Environment.SHOW_SQL, "true");
         cnf.setProperty(Environment.HBM2DDL_AUTO, "update");
         cnf.setProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-
+        
         cnf.addResource("persistence/DefaultResource.hbm.xml");
         cnf.addResource("persistence/DefaultResourceAllocation.hbm.xml");
         cnf.addResource("persistence/DefaultControlProcess.hbm.xml");

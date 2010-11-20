@@ -25,7 +25,7 @@
 			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"/>
 
 		<bag name="resourceAllocations">
-			<key column="DAILY_TO_DO_LIST_ID" />
+			<key column="PROCESS_ID" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation" />
 		</bag>
