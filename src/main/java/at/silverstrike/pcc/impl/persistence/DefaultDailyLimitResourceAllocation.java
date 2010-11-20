@@ -19,6 +19,8 @@
 
 package at.silverstrike.pcc.impl.persistence;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import at.silverstrike.pcc.api.model.DailyLimitResourceAllocation;
 
 class DefaultDailyLimitResourceAllocation extends
@@ -41,4 +43,17 @@ class DefaultDailyLimitResourceAllocation extends
 	public void setResourceAllocationId(final Long resourceAllocationId) {
 		this.resourceAllocationId = resourceAllocationId;
 	}
+
+    @Override
+    public String toString() {
+        final ToStringBuilder builder = new ToStringBuilder(this);
+
+        builder.append("id", this.getId());
+        builder.append("resource", this.getResource());
+        builder.append("dailyLimit", this.dailyLimit);
+        builder.append("resourceAllocationId", this.resourceAllocationId);
+        
+        return builder.toString();
+
+    }
 }

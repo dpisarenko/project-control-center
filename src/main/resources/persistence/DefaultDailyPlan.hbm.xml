@@ -14,10 +14,13 @@
 
 		<property name="date" />
 		<many-to-one name="resource"
-			class="at.silverstrike.pcc.impl.persistence.DefaultResource"/>
+			class="at.silverstrike.pcc.impl.persistence.DefaultResource"
+			lazy="false"/>
 		<one-to-one name="toDoList"
-			class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList" />
+			class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList"
+			lazy="false" />
 		<one-to-one name="schedule"
-			class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" />
+			class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" 
+			lazy="false"/>
 	</class>
 </hibernate-mapping>

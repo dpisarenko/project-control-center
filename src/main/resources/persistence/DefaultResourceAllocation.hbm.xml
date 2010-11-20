@@ -2,27 +2,24 @@
 <!DOCTYPE hibernate-mapping PUBLIC
          "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation"
-		table="TBL_RESOURCE_ALLOCATION">
-
+		table="TBL_RESOURCE_ALLOCATION"
+		lazy="false">
 		<id name="id" column="RESOURCE_ALLOCATION_ID" type="java.lang.Long"
 			unsaved-value="-1">
 			<generator class="native">
 			</generator>
 		</id>
-
-
 		<many-to-one name="resource"
-			class="at.silverstrike.pcc.impl.persistence.DefaultResource"/>
-
+			class="at.silverstrike.pcc.impl.persistence.DefaultResource"
+			lazy="false"/>
 		<joined-subclass
 			name="at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"
-			table="TBL_DAILY_LIMIT_RESOURCE_ALLOCATION">
+			table="TBL_DAILY_LIMIT_RESOURCE_ALLOCATION"
+			lazy="false">
 			<key column="RESOURCE_ALLOCATION_ID" />
 			<property name="dailyLimit" />
 		</joined-subclass>
-
 	</class>
 </hibernate-mapping>

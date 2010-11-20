@@ -4,7 +4,8 @@
          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultResource"
-		table="TBL_RESOURCE">
+		table="TBL_RESOURCE"
+		lazy="false">
 		<id name="id" column="RESOURCE_ID" type="java.lang.Long"
 			unsaved-value="-1">
 			<generator class="native">
@@ -12,7 +13,8 @@
 		</id>
 		<property name="abbreviation" />
 		<joined-subclass name="at.silverstrike.pcc.impl.persistence.DefaultWorker"
-			table="TBL_WORKER">
+			table="TBL_WORKER"
+			lazy="false">
 			<key column="RESOURCE_ID" />
 			<property name="firstName" />
 			<property name="middleName" />

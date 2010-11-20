@@ -19,29 +19,43 @@
 
 package at.silverstrike.pcc.impl.persistence;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 class DefaultResourceAllocation implements ResourceAllocation {
-	private Resource resource;
-	private Long id;
-	
-	
-	public Resource getResource() {
-		return resource;
-	}
-	public void setResource(final Resource resource) {
-		this.resource = resource;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(final Long id) {
-		this.id = id;
-	}
-	
+    private Resource resource;
+    private Long id;
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(final Resource resource) {
+        this.resource = resource;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        final ToStringBuilder builder = new ToStringBuilder(this);
+
+        builder.append("id", this.id);
+        builder.append("resource", resource);
+
+        return builder.toString();
+    }
+
 }

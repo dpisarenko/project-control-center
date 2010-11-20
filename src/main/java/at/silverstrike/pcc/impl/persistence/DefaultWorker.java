@@ -19,6 +19,8 @@
 
 package at.silverstrike.pcc.impl.persistence;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import at.silverstrike.pcc.api.model.Worker;
 
 /**
@@ -65,8 +67,16 @@ class DefaultWorker extends DefaultResource implements Worker {
 
     @Override
     public String toString() {
-        return this.getAbbreviation() + ": " + this.getFirstName() + " "
-                + this.getMiddleName() + " " + this.getSurname();
+        final ToStringBuilder builder = new ToStringBuilder(this);
+
+        builder.append("firstName", this.firstName);
+        builder.append("middleName", this.middleName);
+        builder.append("surname", this.surname);
+        builder.append("resourceId", this.resourceId);
+        builder.append("abbreviation", this.getAbbreviation());
+        builder.append("id", this.getId());
+
+        return builder.toString();
     }
 
 }

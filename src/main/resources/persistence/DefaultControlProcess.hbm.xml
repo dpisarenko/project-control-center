@@ -4,7 +4,7 @@
          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"
-		table="TBL_PROCESS">
+		table="TBL_PROCESS" lazy="false">
 
 		<id name="id" column="PROCESS_ID" type="java.lang.Long"
 			unsaved-value="-1">
@@ -22,19 +22,21 @@
 		<property name="worstEstimatedEndDateTime" />
 
 		<many-to-one name="parent"
-			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"/>
+			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"
+			lazy="false"/>
 
-		<bag name="resourceAllocations">
+		<bag name="resourceAllocations" lazy="false">
 			<key column="PROCESS_ID" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation" />
 		</bag>
-
-		<set name="predecessors">
-			<key column="PREDECESSOR_ID" />
+<!-- 
+		<set name="predecessors" 
+			lazy="false">
+			<key column="PROCESS_ID" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess" />
 		</set>
-
+		 -->
 	</class>
 </hibernate-mapping>

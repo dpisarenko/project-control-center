@@ -13,8 +13,8 @@
 			</generator>
 		</id>
 
-		<bag name="tasksToCompleteToday">
-			<key column="PROCESS_ID" />
+		<bag name="tasksToCompleteToday" lazy="false">
+			<key column="DAILY_TO_DO_LIST_ID" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation" />
 		</bag>

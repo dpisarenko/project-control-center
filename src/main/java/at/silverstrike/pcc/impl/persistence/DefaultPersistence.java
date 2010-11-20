@@ -582,7 +582,12 @@ public class DefaultPersistence implements Persistence {
             final ResourceAllocation allocation =
                     new DefaultResourceAllocation();
             allocation.setResource(resource);
-            session.save(allocation);
+            
+            if (allocation.getId() == null) {
+                session.save(allocation);
+            } else {
+                session.update(allocation);
+            }
 
             if (process.getResourceAllocations() != null) {
                 process.getResourceAllocations().clear();
@@ -593,7 +598,11 @@ public class DefaultPersistence implements Persistence {
 
             process.getResourceAllocations().add(allocation);
 
-            session.update(process);
+            if (process.getId() == null) {
+                session.save(process);
+            } else {
+                session.update(process);
+            }
 
             tx.commit();
         } catch (final Exception exception) {
@@ -757,7 +766,7 @@ public class DefaultPersistence implements Persistence {
         cnf.setProperty(Environment.SHOW_SQL, "true");
         cnf.setProperty(Environment.HBM2DDL_AUTO, "update");
         cnf.setProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-        
+
         cnf.addResource("persistence/DefaultResource.hbm.xml");
         cnf.addResource("persistence/DefaultResourceAllocation.hbm.xml");
         cnf.addResource("persistence/DefaultControlProcess.hbm.xml");
