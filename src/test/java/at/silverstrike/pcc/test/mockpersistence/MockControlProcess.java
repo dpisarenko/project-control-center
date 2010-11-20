@@ -20,7 +20,8 @@
 package at.silverstrike.pcc.test.mockpersistence;
 
 import java.util.Date;
-import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import at.silverstrike.pcc.api.model.ControlProcess;
@@ -46,7 +47,7 @@ class MockControlProcess implements ControlProcess {
 
     private ProcessType processType;
 
-    private Set<ResourceAllocation> resourceAllocations;
+    private List<ResourceAllocation> resourceAllocations;
 
     private ProcessState state;
 
@@ -56,7 +57,7 @@ class MockControlProcess implements ControlProcess {
 
     public MockControlProcess()
     {
-        this.resourceAllocations = new HashSet<ResourceAllocation>();
+        this.resourceAllocations = new LinkedList<ResourceAllocation>();
     }
     
     @Override
@@ -100,7 +101,7 @@ class MockControlProcess implements ControlProcess {
         return processType;
     }
 
-    public Set<ResourceAllocation> getResourceAllocations() {
+    public List<ResourceAllocation> getResourceAllocations() {
         return resourceAllocations;
     }
 
@@ -154,7 +155,7 @@ class MockControlProcess implements ControlProcess {
     }
 
     public void setResourceAllocations(
-            final Set<ResourceAllocation> resourceAllocations) {
+            final List<ResourceAllocation> resourceAllocations) {
         this.resourceAllocations = resourceAllocations;
     }
 

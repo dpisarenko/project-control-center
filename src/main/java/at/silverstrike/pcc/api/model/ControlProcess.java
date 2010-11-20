@@ -20,6 +20,7 @@
 package at.silverstrike.pcc.api.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
@@ -57,8 +58,8 @@ public interface ControlProcess extends UniquelyIdentifiableObject {
 	 */
 	void setWorstCaseEffort(final Double anEffortInHours);
 
-	void setResourceAllocations(Set<ResourceAllocation> aResourceAllocations);
-	Set<ResourceAllocation> getResourceAllocations();
+	void setResourceAllocations(List<ResourceAllocation> aResourceAllocations);
+	List<ResourceAllocation> getResourceAllocations();
 	
 	void setPriority(final Integer aPriority);
 	Integer getPriority();

@@ -4,7 +4,8 @@
          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"
-		table="TBL_PROCESS" dynamic-update="false" dynamic-insert="false">
+		table="TBL_PROCESS" dynamic-update="false" dynamic-insert="false"
+		lazy="false">
 
 		<id name="id" column="PROCESS_ID" type="java.lang.Long"
 			unsaved-value="-1">
@@ -24,11 +25,11 @@
 		<many-to-one name="parent"
 			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"/>
 
-		<set name="resourceAllocations">
+		<bag name="resourceAllocations" cascade="save-update" lazy="false">
 			<key column="DAILY_TO_DO_LIST_ID" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation" />
-		</set>
+		</bag>
 
 		<set name="predecessors">
 			<key column="PREDECESSOR_ID" />

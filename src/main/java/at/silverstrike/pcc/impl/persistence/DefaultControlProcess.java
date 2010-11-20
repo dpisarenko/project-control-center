@@ -20,6 +20,7 @@
 package at.silverstrike.pcc.impl.persistence;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import at.silverstrike.pcc.api.model.ControlProcess;
@@ -40,7 +41,7 @@ class DefaultControlProcess implements ControlProcess {
     private Integer priority;
     private ProcessType processType;
     private ControlProcess parent;
-    private Set<ResourceAllocation> resourceAllocations;
+    private List<ResourceAllocation> resourceAllocations;
     private Date averageEstimatedEndDateTime;
     private Date bestEstimatedEndDateTime;
     private Date worstEstimatedEndDateTime;
@@ -107,12 +108,12 @@ class DefaultControlProcess implements ControlProcess {
         this.priority = priority;
     }
 
-    public Set<ResourceAllocation> getResourceAllocations() {
+    public List<ResourceAllocation> getResourceAllocations() {
         return resourceAllocations;
     }
 
     public void setResourceAllocations(
-            final Set<ResourceAllocation> resourceAllocations) {
+            final List<ResourceAllocation> resourceAllocations) {
         this.resourceAllocations = resourceAllocations;
     }
 

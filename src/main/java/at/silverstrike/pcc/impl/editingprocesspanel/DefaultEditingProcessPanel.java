@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -768,7 +767,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     }
 
     private Worker getWorker(final ControlProcess aProcess) {
-        final Set<ResourceAllocation> allocations =
+        final List<ResourceAllocation> allocations =
                 aProcess.getResourceAllocations();
         final Worker worker;
 

@@ -5,7 +5,8 @@
 
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation"
-		table="TBL_RESOURCE_ALLOCATION" dynamic-update="false" dynamic-insert="false">
+		table="TBL_RESOURCE_ALLOCATION" dynamic-update="false" dynamic-insert="false"
+		lazy="false">
 
 		<id name="id" column="RESOURCE_ALLOCATION_ID" type="java.lang.Long"
 			unsaved-value="-1">

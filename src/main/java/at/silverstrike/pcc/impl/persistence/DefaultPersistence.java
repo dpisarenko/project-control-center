@@ -26,7 +26,6 @@ import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_004_OPEN_SESSION
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -589,7 +588,7 @@ public class DefaultPersistence implements Persistence {
                 process.getResourceAllocations().clear();
             } else {
                 process
-                        .setResourceAllocations(new HashSet<ResourceAllocation>());
+                        .setResourceAllocations(new LinkedList<ResourceAllocation>());
             }
 
             process.getResourceAllocations().add(allocation);
@@ -787,19 +786,12 @@ public class DefaultPersistence implements Persistence {
     @SuppressWarnings("unchecked")
     private void updateDailySchedules(final Session session, final Date now,
             final Date lastPlannedDay) {
-//        final Query bookingsQuery =
-//            session.createQuery("from DefaultBooking "
-//                    + "where (startDateTime >= :minDate) and "
-//                    + "(startDateTime <= :maxDate)");
-        
-        
         final Query bookingsQuery =
                 session.createQuery("from DefaultBooking "
-//                        + "where (startDateTime >= :minDate) and "
-//                        + "(startDateTime <= :maxDate)"
-                        );
-//        bookingsQuery.setParameter("minDate", now);
-//        bookingsQuery.setParameter("maxDate", lastPlannedDay);
+                        + "where (startDateTime >= :minDate) and "
+                        + "(startDateTime <= :maxDate)");
+        bookingsQuery.setParameter("minDate", now);
+        bookingsQuery.setParameter("maxDate", lastPlannedDay);
 
         final List<Booking> bookings = bookingsQuery.list();
 
