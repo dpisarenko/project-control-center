@@ -180,22 +180,27 @@ public class DefaultPersistence implements Persistence {
     @Override
     public void createProcessParent(final String name, final Long parentItemId,
             final ProcessType aProcessType) {
-        session.beginTransaction();
+        final Transaction tx = session.beginTransaction();
 
         final DefaultControlProcess task = new DefaultControlProcess();
 
         task.setName(name);
         task.setProcessType(aProcessType);
 
-        if (parentItemId != null) {
-            final DefaultControlProcess parentTask =
-                    (DefaultControlProcess) session.get(
-                            DefaultControlProcess.class, parentItemId);
+        try {
+            if (parentItemId != null) {
+                final DefaultControlProcess parentTask =
+                        (DefaultControlProcess) session.get(
+                                DefaultControlProcess.class, parentItemId);
 
-            task.setParent(parentTask);
+                task.setParent(parentTask);
+            }
+            session.save(task);
+            tx.commit();
+        } catch (Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
         }
-        session.save(task);
-        session.getTransaction().commit();
     }
 
     @Override
@@ -227,6 +232,7 @@ public class DefaultPersistence implements Persistence {
     @Override
     public void createSubTask(final String aProcessName,
             final Long aParentProcessId) {
+        final Transaction tx = session.beginTransaction();
         try {
             ControlProcess parentProcess = null;
             if (aParentProcessId != null) {
@@ -241,19 +247,27 @@ public class DefaultPersistence implements Persistence {
             newProcess.setName(aProcessName);
 
             session.save(newProcess);
+            tx.commit();
         } catch (final Exception exception) {
             LOGGER.error("", exception);
+            tx.rollback();
         }
     }
 
     @Override
     public Long createTask(final String processName) {
+        final Transaction tx = session.beginTransaction();
+
         final DefaultControlProcess task = new DefaultControlProcess();
         task.setName(processName);
 
-        session.beginTransaction();
-        session.save(task);
-        session.getTransaction().commit();
+        try {
+            session.save(task);
+            tx.commit();
+        } catch (Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
 
         return task.getId();
     }
@@ -349,23 +363,31 @@ public class DefaultPersistence implements Persistence {
     public List<ControlProcess> getAllNotDeletedTasks() {
         final List<ControlProcess> returnValue =
                 new LinkedList<ControlProcess>();
+        final Transaction tx = session.beginTransaction();
 
-        session.beginTransaction();
-        final Query query =
-                session
-                        .createQuery("from DefaultControlProcess where (state <> "
-                                + STATE_DELETED + ")");
+        try {
+            final Query query =
+                    session
+                            .createQuery("from DefaultControlProcess where (state <> "
+                                    + STATE_DELETED + ")");
 
-        query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
+            query
+                    .setParameter(STATE_DELETED.substring(1),
+                            ProcessState.DELETED);
 
-        final List result = query.list();
+            final List result = query.list();
 
-        for (final Object record : result) {
-            if (record instanceof DefaultControlProcess) {
-                returnValue.add((DefaultControlProcess) record);
+            for (final Object record : result) {
+                if (record instanceof DefaultControlProcess) {
+                    returnValue.add((DefaultControlProcess) record);
+                }
             }
+            tx.commit();
+
+        } catch (Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
         }
-        session.getTransaction().commit();
 
         return returnValue;
     }
@@ -375,20 +397,28 @@ public class DefaultPersistence implements Persistence {
     public List<Worker> getAllWorkers() {
         final List<Worker> returnValue = new LinkedList<Worker>();
 
-        session.beginTransaction();
-        final List result =
-                (List<Worker>) session.createQuery("from DefaultWorker").list();
+        final Transaction tx = session.beginTransaction();
 
-        LOGGER.debug("result: " + result.size());
+        try {
+            final List result =
+                    (List<Worker>) session.createQuery("from DefaultWorker")
+                            .list();
 
-        for (final Object record : result) {
-            LOGGER.debug("record: " + record.toString());
+            LOGGER.debug("result: " + result.size());
 
-            if (record instanceof DefaultWorker) {
-                returnValue.add((DefaultWorker) record);
+            for (final Object record : result) {
+                LOGGER.debug("record: " + record.toString());
+
+                if (record instanceof DefaultWorker) {
+                    returnValue.add((DefaultWorker) record);
+                }
             }
+            tx.commit();
+
+        } catch (Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
         }
-        session.getTransaction().commit();
 
         return returnValue;
     }
@@ -398,39 +428,48 @@ public class DefaultPersistence implements Persistence {
     public List<ControlProcess> getChildTasks(final ControlProcess aParent) {
         final List<ControlProcess> returnValue =
                 new LinkedList<ControlProcess>();
-
-        session.beginTransaction();
-        Query query = null;
-        if (aParent != null) {
-            query =
-                    session.createQuery("from DefaultControlProcess p "
-                            + "where (p.parent != null) and "
-                            + "(p.parent.id = :parentId) and (state <> "
-                            + STATE_DELETED + ") ");
-            query.setParameter("parentId", aParent.getId());
-        } else {
-            query =
-                    session.createQuery("from DefaultControlProcess p "
-                            + "where (p.parent is null) and (state <> "
-                            + STATE_DELETED + ")");
-        }
-
-        query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
-
-        final List result = query.list();
-
-        for (final Object record : result) {
-            if (record instanceof ControlProcess) {
-                returnValue.add((ControlProcess) record);
+        final Transaction tx = session.beginTransaction();
+        
+        try
+        {
+            Query query = null;
+            if (aParent != null) {
+                query =
+                        session.createQuery("from DefaultControlProcess p "
+                                + "where (p.parent != null) and "
+                                + "(p.parent.id = :parentId) and (state <> "
+                                + STATE_DELETED + ") ");
+                query.setParameter("parentId", aParent.getId());
+            } else {
+                query =
+                        session.createQuery("from DefaultControlProcess p "
+                                + "where (p.parent is null) and (state <> "
+                                + STATE_DELETED + ")");
             }
+
+            query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
+
+            final List result = query.list();
+
+            for (final Object record : result) {
+                if (record instanceof ControlProcess) {
+                    returnValue.add((ControlProcess) record);
+                }
+            }
+            tx.commit();
         }
-        session.getTransaction().commit();
+        catch (Exception exception)
+        {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
 
         return returnValue;
     }
 
     @Override
     public List<ControlProcess> getChildTasks(final Long aProcessId) {
+        final Transaction tx = session.beginTransaction();
         try {
             ControlProcess process = null;
             if (aProcessId != null) {
@@ -439,10 +478,12 @@ public class DefaultPersistence implements Persistence {
                                 DefaultControlProcess.class, aProcessId);
             }
 
+            tx.commit();
             return this.getChildTasks(process);
 
         } catch (final Exception exception) {
             LOGGER.error("", exception);
+            tx.rollback();
             return new LinkedList<ControlProcess>();
         }
     }
@@ -582,7 +623,7 @@ public class DefaultPersistence implements Persistence {
             final ResourceAllocation allocation =
                     new DefaultResourceAllocation();
             allocation.setResource(resource);
-            
+
             if (allocation.getId() == null) {
                 session.save(allocation);
             } else {
@@ -671,9 +712,18 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public void updateTask(final ControlProcess process) {
-        session.beginTransaction();
-        session.update(process);
-        session.getTransaction().commit();
+        final Transaction tx = session.beginTransaction();
+
+        try
+        {
+            session.update(process);
+            tx.commit();
+        }
+        catch (Exception exception)
+        {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
     }
 
     @Override
