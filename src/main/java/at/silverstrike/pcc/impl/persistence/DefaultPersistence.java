@@ -593,7 +593,7 @@ public class DefaultPersistence implements Persistence {
 
             process.getResourceAllocations().add(allocation);
 
-            session.saveOrUpdate(process);
+            session.update(process);
 
             tx.commit();
         } catch (final Exception exception) {
