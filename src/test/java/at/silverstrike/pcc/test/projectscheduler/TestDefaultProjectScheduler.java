@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
+import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.ControlProcess;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
@@ -27,6 +28,7 @@ import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.impl.jruby.RubyDateTimeUtils;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
+import at.silverstrike.pcc.test.conventions.TestConventions;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 import com.google.inject.Injector;
@@ -209,12 +211,42 @@ public class TestDefaultProjectScheduler {
         
         Assert.assertNotNull(schedule);
         
+        final List<Booking> bookings = schedule.getBookings();
+        
+        Assert.assertNotNull(bookings);
+        Assert.assertEquals(1, bookings.size());
+        
+        final Booking booking = bookings.get(0);
+        
+        Assert.assertEquals(1.25, booking.getDuration(), TestConventions.DELTA);
+        Assert.assertNotNull(booking.getProcess());
+        Assert.assertNotNull(booking.getResource());
+        
+        final ControlProcess expectedTask = projectInfo.getControlProcessesToExport().get(0);
+        
+        Assert.assertEquals(expectedTask.getName(), booking.getProcess().getName());
+        Assert.assertEquals(projectInfo.getResourcesToExport().get(0).getAbbreviation(), booking.getResource().getAbbreviation());
+
+        final Date date201010250930 =
+            RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 11, 30);
+
+        
+        Assert.assertEquals(date201010250930, booking.getStartDateTime());
+        Assert.assertEquals(date201010251130, booking.getEndDateTime());
+        
         final DailyToDoList toDoList = dailyPlan.getToDoList();
         
         Assert.assertNotNull(toDoList);
         
-        /**
-         * Verify that schedule exists
-         */
+        final List<ControlProcess> tasks = toDoList.getTasksToCompleteToday();
+        
+        Assert.assertNotNull(tasks);
+        
+        Assert.assertEquals(1, tasks.size());
+        
+        final ControlProcess task = tasks.get(0);
+        
+        Assert.assertEquals(expectedTask.getId(), task.getId());
+        Assert.assertEquals(expectedTask.getName(), task.getName());        
     }
 }
