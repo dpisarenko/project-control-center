@@ -32,6 +32,7 @@ import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
+import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
@@ -78,7 +79,7 @@ class InjectorModule extends AbstractModule {
                 new DefaultJRubySandBoxFactory());
         bind(EmbeddedFileReader.class).toInstance(
                 new DefaultEmbeddedFileReaderFactory().create());
-        bind(DefaultBookingsFile2BookingsFactory.class).toInstance(
+        bind(BookingsFile2BookingsFactory.class).toInstance(
                 new DefaultBookingsFile2BookingsFactory());
         bind(TaskJuggler3Exporter.class).toInstance(
                 new DefaultTaskJuggler3ExporterFactory().create());
