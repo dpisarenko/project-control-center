@@ -845,12 +845,18 @@ public class DefaultPersistence implements Persistence {
     @SuppressWarnings("unchecked")
     private void updateDailySchedules(final Session session, final Date now,
             final Date lastPlannedDay) {
+        Date startDateTime = DateUtils.setHours(now, 0);
+        startDateTime = DateUtils.setMinutes(startDateTime, 0);
+        
+        Date endDateTime = DateUtils.setHours(lastPlannedDay, 23);
+        endDateTime = DateUtils.setMinutes(endDateTime, 59);
+        
         final Query bookingsQuery =
                 session.createQuery("from DefaultBooking "
                         + "where (startDateTime >= :minDate) and "
                         + "(startDateTime <= :maxDate)");
-        bookingsQuery.setParameter("minDate", now);
-        bookingsQuery.setParameter("maxDate", lastPlannedDay);
+        bookingsQuery.setParameter("minDate", startDateTime);
+        bookingsQuery.setParameter("maxDate", endDateTime);
 
         final List<Booking> bookings = bookingsQuery.list();
 

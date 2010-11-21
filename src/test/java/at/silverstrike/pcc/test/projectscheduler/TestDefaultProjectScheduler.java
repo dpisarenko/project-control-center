@@ -227,11 +227,11 @@ public class TestDefaultProjectScheduler {
         Assert.assertEquals(expectedTask.getName(), booking.getProcess().getName());
         Assert.assertEquals(projectInfo.getResourcesToExport().get(0).getAbbreviation(), booking.getResource().getAbbreviation());
 
-        final Date date201010250930 =
-            RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 11, 30);
+        final Date date201010250900 =
+            RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 9, 0);
 
         
-        Assert.assertEquals(date201010250930, booking.getStartDateTime());
+        Assert.assertEquals(date201010250900, booking.getStartDateTime());
         Assert.assertEquals(date201010251130, booking.getEndDateTime());
         
         final DailyToDoList toDoList = dailyPlan.getToDoList();
