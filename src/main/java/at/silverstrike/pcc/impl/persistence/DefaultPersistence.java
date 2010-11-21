@@ -770,7 +770,7 @@ public class DefaultPersistence implements Persistence {
                 final DailyPlan plan = new DefaultDailyPlan();
 
                 plan.setResource(resource);
-                plan.setDate(currentDay);
+                plan.setDate(setTimeTo00(currentDay));
                 plan.setSchedule(schedule);
                 plan.setToDoList(toDoList);
 
@@ -842,11 +842,8 @@ public class DefaultPersistence implements Persistence {
     @SuppressWarnings("unchecked")
     private void updateDailySchedules(final Session session, final Date now,
             final Date lastPlannedDay) {
-        Date startDateTime = DateUtils.setHours(now, 0);
-        startDateTime = DateUtils.setMinutes(startDateTime, 0);
-
-        Date endDateTime = DateUtils.setHours(lastPlannedDay, 23);
-        endDateTime = DateUtils.setMinutes(endDateTime, 59);
+        final Date startDateTime = setTimeTo00(now);
+        final Date endDateTime = setTimeTo2359(lastPlannedDay);
 
         final Query bookingsQuery =
                 session.createQuery("from DefaultBooking "
@@ -862,10 +859,8 @@ public class DefaultPersistence implements Persistence {
                     session.createQuery("from DefaultDailyPlan "
                             + "where (date = :day) and "
                             + "(resource = :resource)");
-
-            Date day = DateUtils.setHours(curBooking.getStartDateTime(), 0);
-            day = DateUtils.setMinutes(day, 0);
             
+            final Date day = setTimeTo00(curBooking.getStartDateTime());
             final Resource resource = curBooking.getResource();
 
             dailyPlanQuery.setParameter("day", day);
@@ -877,15 +872,35 @@ public class DefaultPersistence implements Persistence {
             if (!foundDailyPlans.isEmpty()) {
                 final DailyPlan dailyPlan = (DailyPlan) foundDailyPlans.get(0);
 
-                dailyPlan.getSchedule().getBookings().add(curBooking);
+                List<Booking> dailyPlanBookings = dailyPlan.getSchedule().getBookings();
+                
+                if (dailyPlanBookings == null)
+                {
+                    dailyPlanBookings = new LinkedList<Booking>();
+                    dailyPlan.getSchedule().setBookings(dailyPlanBookings);
+                }
+                
+                dailyPlanBookings.add(curBooking);
             } else {
                 LOGGER
                         .error(
                                 M_005_DAILY_PLAN_NOT_FOUND
                                         + ": Daily plan for resource '{}' and date '{}' not found.",
-                                new Object[] { day, resource.getAbbreviation() });
+                                new Object[] { resource.getAbbreviation(), day });
             }
         }
+    }
+
+    private Date setTimeTo2359(final Date lastPlannedDay) {
+        Date endDateTime = DateUtils.setHours(lastPlannedDay, 23);
+        endDateTime = DateUtils.setMinutes(endDateTime, 59);
+        return endDateTime;
+    }
+
+    private Date setTimeTo00(final Date now) {
+        Date startDateTime = DateUtils.setHours(now, 0);
+        startDateTime = DateUtils.setMinutes(startDateTime, 0);
+        return startDateTime;
     }
 
     @SuppressWarnings("unchecked")
