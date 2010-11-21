@@ -911,8 +911,8 @@ public class DefaultPersistence implements Persistence {
                         + "(averageEstimatedEndDateTime >= :minDate)"
                         + " and (averageEstimatedEndDateTime <= :maxDate)");
 
-        query.setParameter("minDate", now);
-        query.setParameter("maxDate", lastPlannedDay);
+        query.setParameter("minDate", setTimeTo00(now));
+        query.setParameter("maxDate", setTimeTo2359(lastPlannedDay));
         final List<ControlProcess> processes =
                 (List<ControlProcess>) query.list();
 
@@ -924,8 +924,8 @@ public class DefaultPersistence implements Persistence {
                                 + "where (date = :day) and "
                                 + "(resource = :resource)");
 
-                dailyPlanQuery.setParameter("day", curProcess
-                        .getAverageEstimatedEndDateTime());
+                dailyPlanQuery.setParameter("day", setTimeTo00(curProcess
+                        .getAverageEstimatedEndDateTime()));
                 dailyPlanQuery.setParameter("resource", allocation
                         .getResource());
 
@@ -935,7 +935,7 @@ public class DefaultPersistence implements Persistence {
                 if (!foundDailyPlans.isEmpty()) {
                     final DailyPlan dailyPlan =
                             (DailyPlan) foundDailyPlans.get(0);
-
+                    
                     dailyPlan.getToDoList().getTasksToCompleteToday().add(
                             curProcess);
                 } else {

@@ -202,8 +202,11 @@ public class TestDefaultProjectScheduler {
         
         Assert.assertNotNull(resource);
         Assert.assertFalse(StringUtils.isEmpty(resource));
-        
-        final DailyPlan dailyPlan = persistence.getDailyPlan(date201010251130, resource);
+
+        final Date date201010250000 =
+            RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 0, 0);
+
+        final DailyPlan dailyPlan = persistence.getDailyPlan(date201010250000, resource);
         
         Assert.assertNotNull(dailyPlan);
         
@@ -218,7 +221,7 @@ public class TestDefaultProjectScheduler {
         
         final Booking booking = bookings.get(0);
         
-        Assert.assertEquals(1.25, booking.getDuration(), TestConventions.DELTA);
+        Assert.assertEquals(2.75, booking.getDuration(), TestConventions.DELTA);
         Assert.assertNotNull(booking.getProcess());
         Assert.assertNotNull(booking.getResource());
         
@@ -232,7 +235,11 @@ public class TestDefaultProjectScheduler {
 
         
         Assert.assertEquals(date201010250900, booking.getStartDateTime());
-        Assert.assertEquals(date201010251130, booking.getEndDateTime());
+
+        final Date date201010251145 =
+            RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 11, 45);
+
+        Assert.assertEquals(date201010251145, booking.getEndDateTime());
         
         final DailyToDoList toDoList = dailyPlan.getToDoList();
         
