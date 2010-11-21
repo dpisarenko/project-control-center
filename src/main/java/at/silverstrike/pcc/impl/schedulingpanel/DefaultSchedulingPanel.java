@@ -114,7 +114,10 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         scheduler.getProjectExportInfo().setResourcesToExport(resources);
         
         scheduler.getProjectExportInfo().setProjectName("pcc");
-        scheduler.getProjectExportInfo().setNow(new Date());
+        
+        final Date now = new Date();
+        
+        scheduler.getProjectExportInfo().setNow(now );
         scheduler.getProjectExportInfo().setCopyright("Dmitri Pisarenko");
         scheduler.getProjectExportInfo().setCurrency("EUR");
         scheduler.getProjectExportInfo().setSchedulingHorizonMonths(ONE_MONTH);
@@ -123,6 +126,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         
         scheduler.setDirectory(System.getProperty("user.dir") + "/");
         scheduler.setInjector(injector);
+        scheduler.setNow(now );
 
         try {
             appendToLoggingTextArea("1");
