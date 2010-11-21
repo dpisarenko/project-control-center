@@ -16,7 +16,7 @@
 		<bag name="tasksToCompleteToday" lazy="false">
 			<key column="DAILY_TO_DO_LIST_ID" />
 			<one-to-many
-				class="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation" />
+				class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess" />
 		</bag>
 	</class>
 </hibernate-mapping>

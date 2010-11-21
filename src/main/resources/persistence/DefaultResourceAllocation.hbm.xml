@@ -6,7 +6,9 @@
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation"
 		table="TBL_RESOURCE_ALLOCATION"
 		lazy="false">
-		<id name="id" column="RESOURCE_ALLOCATION_ID" type="java.lang.Long"
+		<id name="id" 
+			column="RESOURCE_ALLOCATION_ID" 
+			type="java.lang.Long"
 			unsaved-value="-1">
 			<generator class="native">
 			</generator>

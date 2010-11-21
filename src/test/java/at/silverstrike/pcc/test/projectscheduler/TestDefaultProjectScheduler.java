@@ -98,6 +98,10 @@ public class TestDefaultProjectScheduler {
 
     @Test
     public void testRun01() {
+        LOGGER.info("");
+        LOGGER.info("Starting test case testRun01");
+        LOGGER.info("");
+        
         /**
          * Create persistence
          */

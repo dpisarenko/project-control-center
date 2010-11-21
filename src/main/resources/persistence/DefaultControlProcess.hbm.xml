@@ -5,7 +5,6 @@
 <hibernate-mapping>
 	<class name="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"
 		table="TBL_PROCESS" lazy="false">
-
 		<id name="id" column="PROCESS_ID" type="java.lang.Long"
 			unsaved-value="-1">
 			<generator class="native">
@@ -24,7 +23,7 @@
 		<many-to-one name="parent"
 			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"
 			lazy="false"/>
-
+		
 		<bag name="resourceAllocations" lazy="false">
 			<key column="PROCESS_ID" />
 			<one-to-many
