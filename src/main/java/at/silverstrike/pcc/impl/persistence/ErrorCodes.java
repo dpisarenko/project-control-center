@@ -13,4 +13,6 @@ final class ErrorCodes {
     public static final String M_003_OPEN_SESSION = PREFIX + "003";
     
     public static final String M_004_OPEN_SESSION = PREFIX + "004";
+    
+    public static final String M_005_DAILY_PLAN_NOT_FOUND = PREFIX + "005";
 }

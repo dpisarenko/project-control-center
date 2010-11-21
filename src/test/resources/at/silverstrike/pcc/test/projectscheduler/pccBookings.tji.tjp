@@ -3,20 +3,20 @@ project prj "Sample project" "1.0" 2010-10-25-00:00-+0200 - 2010-11-24-09:00-+01
 
 projectids prj
 
-resource R4 "DP"
+resource R5 "DP"
 
-task T4 "Some interesting task" {
+task T5 "Some interesting task" {
   start 2010-10-25-09:00-+0200
   end 2010-10-25-11:30-+0200
   scheduling asap
   scheduled
 }
-supplement task T4 {
+supplement task T5 {
   priority 200
-  booking R4 2010-10-25-09:00-+0200 + 2.75h { overtime 2 }
+  booking R5 2010-10-25-09:00-+0200 + 2.75h { overtime 2 }
   complete 0.0
 }
-supplement resource R4 {
+supplement resource R5 {
   workinghours sun off
                 workinghours mon 9:00 - 12:00, 13:00 - 18:00
                 workinghours tue 9:00 - 12:00, 13:00 - 18:00
