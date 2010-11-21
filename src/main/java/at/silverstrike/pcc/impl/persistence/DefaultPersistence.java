@@ -863,7 +863,9 @@ public class DefaultPersistence implements Persistence {
                             + "where (date = :day) and "
                             + "(resource = :resource)");
 
-            final Date day = curBooking.getStartDateTime();
+            Date day = DateUtils.setHours(curBooking.getStartDateTime(), 0);
+            day = DateUtils.setMinutes(day, 0);
+            
             final Resource resource = curBooking.getResource();
 
             dailyPlanQuery.setParameter("day", day);
@@ -881,7 +883,7 @@ public class DefaultPersistence implements Persistence {
                         .error(
                                 M_005_DAILY_PLAN_NOT_FOUND
                                         + ": Daily plan for resource '{}' and date '{}' not found.",
-                                new Object[] { day, resource });
+                                new Object[] { day, resource.getAbbreviation() });
             }
         }
     }
