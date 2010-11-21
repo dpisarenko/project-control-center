@@ -121,7 +121,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         
         appendToLoggingTextArea("0");
         
-        scheduler.setDirectory(System.getProperty("user.dir"));
+        scheduler.setDirectory(System.getProperty("user.dir") + "/");
         scheduler.setInjector(injector);
 
         try {
