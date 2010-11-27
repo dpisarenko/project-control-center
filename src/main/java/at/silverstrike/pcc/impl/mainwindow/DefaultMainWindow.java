@@ -97,6 +97,7 @@ class DefaultMainWindow implements MainWindow {
         final DailyPlanPanel panel = factory.create();
 
         panel.setInjector(this.injector);
+        panel.attach();
         panel.initGui();
 
         return panel.toPanel();

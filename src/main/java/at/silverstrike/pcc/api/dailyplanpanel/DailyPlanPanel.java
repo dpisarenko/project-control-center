@@ -29,5 +29,8 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
  */
 public interface DailyPlanPanel extends AbstractedPanel,
 		ModuleWithInjectableDependencies, InitializableGuiComponent {
-
+    /**
+     * Attaches the panel to the application.
+     */
+    void attach();
 }
