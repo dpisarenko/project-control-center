@@ -1021,11 +1021,16 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
         try {
             final String[] entitiesToDelete =
-                    { "DefaultDailyToDoList",
-                            "DefaultDailySchedule", "DefaultDailyPlan",
-                            "DefaultBooking",
-                            "DefaultResourceAllocation",
-                            "DefaultControlProcess", "DefaultResource" };
+                    { 
+                    "DefaultDailyLimitResourceAllocation",
+                    "DefaultResourceAllocation",
+                    "DefaultBooking",
+                    "DefaultDailyPlan",
+                    "DefaultDailySchedule",
+                    "DefaultResource",
+                    "DefaultControlProcess",
+                    "DefaultDailyToDoList",
+                    "DefaultWorker"};
 
             for (final String entityToDelete : entitiesToDelete) {
                 final Query query = session.createQuery("delete from "
@@ -1034,7 +1039,7 @@ public class DefaultPersistence implements Persistence {
             }
             tx.commit();
         } catch (final Exception exception) {
-            LOGGER.error("", exception);
+            LOGGER.error(ErrorCodes.M_011_CLEAR_DATABASE, exception);
             tx.rollback();
         }
     }

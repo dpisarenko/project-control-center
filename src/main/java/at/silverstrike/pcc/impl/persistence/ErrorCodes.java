@@ -25,4 +25,6 @@ final class ErrorCodes {
     public static final String M_009_GET_DAILY_PLAN = PREFIX + "009";
     
     public static final String M_010_GENERATE_DAILY_PLANS = PREFIX + "010";
+    
+    public static final String M_011_CLEAR_DATABASE = PREFIX + "011";
 }
