@@ -23,7 +23,10 @@ import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_001_OPEN_SESSION
 import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_002_OPEN_SESSION;
 import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_003_OPEN_SESSION;
 import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_004_OPEN_SESSION;
-import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_005_DAILY_PLAN_NOT_FOUND;
+import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_005_DAILY_PLAN_NOT_FOUND_SCHEDULE;
+import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_008_DAILY_PLAN_LIST2;
+import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_009_GET_DAILY_PLAN;
+import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_010_GENERATE_DAILY_PLANS;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -317,6 +320,8 @@ public class DefaultPersistence implements Persistence {
 
             createDailyPlans(session, aNow);
 
+            printDailyPlans(ErrorCodes.M_007_DAILY_PLAN_LIST1);
+
             // Create daily to-do lists
             updateDailyToDoLists(session, aNow, lastPlannedDay);
 
@@ -325,7 +330,7 @@ public class DefaultPersistence implements Persistence {
 
             tx.commit();
         } catch (final Exception exception) {
-            LOGGER.error("", exception);
+            LOGGER.error(M_010_GENERATE_DAILY_PLANS, exception);
             tx.rollback();
         }
 
@@ -494,12 +499,14 @@ public class DefaultPersistence implements Persistence {
         DailyPlan returnValue = null;
 
         try {
+            printDailyPlans(M_008_DAILY_PLAN_LIST2);
+
             final Query query =
                     session.createQuery("from DefaultDailyPlan p where "
                             + "(p.date = :day) and "
                             + "(p.resource.abbreviation = :resource)");
 
-            query.setParameter("day", newDate);
+            query.setParameter("day", setTimeTo00(newDate));
             query.setParameter("resource", resource);
 
             final List<DailyPlan> plans = (List<DailyPlan>) query.list();
@@ -508,10 +515,41 @@ public class DefaultPersistence implements Persistence {
                 returnValue = plans.get(0);
             }
         } catch (final Exception exception) {
-            LOGGER.error("", exception);
+            LOGGER.error(M_009_GET_DAILY_PLAN, exception);
             throw new RuntimeException(exception);
         }
         return returnValue;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void printDailyPlans(final String aText) {
+        LOGGER.debug("{}: Daily plans (start)", aText);
+
+        final Query debugQuery =
+                session.createQuery("from DefaultDailyPlan");
+
+        final List<DailyPlan> plans2 = (List<DailyPlan>) debugQuery.list();
+
+        for (final DailyPlan plan : plans2) {
+
+            LOGGER
+                    .debug(
+                            "Daily plan, date: {}, resource: {}, tasks: {}",
+                            new Object[] {
+                                    plan.getDate(),
+                                    plan.getResource().getAbbreviation(),
+                                    plan.getToDoList()
+                                            .getTasksToCompleteToday()
+                                            .size() });
+
+            if ((plan.getSchedule() != null)
+                    && (plan.getSchedule().getBookings() != null)) {
+                LOGGER.debug("Schedule items: {}", plan.getSchedule()
+                        .getBookings().size());
+            }
+        }
+
+        LOGGER.debug("{}: Daily plans (end)", aText);
     }
 
     /**
@@ -859,7 +897,7 @@ public class DefaultPersistence implements Persistence {
                     session.createQuery("from DefaultDailyPlan "
                             + "where (date = :day) and "
                             + "(resource = :resource)");
-            
+
             final Date day = setTimeTo00(curBooking.getStartDateTime());
             final Resource resource = curBooking.getResource();
 
@@ -872,19 +910,21 @@ public class DefaultPersistence implements Persistence {
             if (!foundDailyPlans.isEmpty()) {
                 final DailyPlan dailyPlan = (DailyPlan) foundDailyPlans.get(0);
 
-                List<Booking> dailyPlanBookings = dailyPlan.getSchedule().getBookings();
-                
-                if (dailyPlanBookings == null)
-                {
+                List<Booking> dailyPlanBookings =
+                        dailyPlan.getSchedule().getBookings();
+
+                if (dailyPlanBookings == null) {
                     dailyPlanBookings = new LinkedList<Booking>();
                     dailyPlan.getSchedule().setBookings(dailyPlanBookings);
                 }
-                
+
                 dailyPlanBookings.add(curBooking);
+
+                session.update(dailyPlanBookings);
             } else {
                 LOGGER
                         .error(
-                                M_005_DAILY_PLAN_NOT_FOUND
+                                M_005_DAILY_PLAN_NOT_FOUND_SCHEDULE
                                         + ": Daily plan for resource '{}' and date '{}' not found.",
                                 new Object[] { resource.getAbbreviation(), day });
             }
@@ -894,12 +934,14 @@ public class DefaultPersistence implements Persistence {
     private Date setTimeTo2359(final Date lastPlannedDay) {
         Date endDateTime = DateUtils.setHours(lastPlannedDay, 23);
         endDateTime = DateUtils.setMinutes(endDateTime, 59);
+        endDateTime = DateUtils.setSeconds(endDateTime, 59);
         return endDateTime;
     }
 
     private Date setTimeTo00(final Date now) {
         Date startDateTime = DateUtils.setHours(now, 0);
         startDateTime = DateUtils.setMinutes(startDateTime, 0);
+        startDateTime = DateUtils.setSeconds(startDateTime, 0);
         return startDateTime;
     }
 
@@ -911,10 +953,18 @@ public class DefaultPersistence implements Persistence {
                         + "(averageEstimatedEndDateTime >= :minDate)"
                         + " and (averageEstimatedEndDateTime <= :maxDate)");
 
-        query.setParameter("minDate", setTimeTo00(now));
-        query.setParameter("maxDate", setTimeTo2359(lastPlannedDay));
+        final Date minDate = setTimeTo00(now);
+        final Date maxDate = setTimeTo2359(lastPlannedDay);
+
+        query.setParameter("minDate", minDate);
+        query.setParameter("maxDate", maxDate);
+
         final List<ControlProcess> processes =
                 (List<ControlProcess>) query.list();
+
+        LOGGER.debug("updateDailyToDoLists, minDate: {}, maxDate: {}",
+                new Object[] { minDate, maxDate });
+        LOGGER.debug("updateDailyToDoLists, processes: {}", processes.size());
 
         for (final ControlProcess curProcess : processes) {
             for (final ResourceAllocation allocation : curProcess
@@ -924,10 +974,18 @@ public class DefaultPersistence implements Persistence {
                                 + "where (date = :day) and "
                                 + "(resource = :resource)");
 
-                dailyPlanQuery.setParameter("day", setTimeTo00(curProcess
-                        .getAverageEstimatedEndDateTime()));
-                dailyPlanQuery.setParameter("resource", allocation
-                        .getResource());
+                final Date day = setTimeTo00(curProcess
+                        .getAverageEstimatedEndDateTime());
+                final Resource resource = allocation
+                        .getResource();
+
+                dailyPlanQuery.setParameter("day", day);
+                dailyPlanQuery.setParameter("resource", resource);
+
+                LOGGER
+                        .debug(
+                                "updateDailyToDoLists, process: {}, day: {}, resource: {}",
+                                new Object[] { curProcess, day, resource });
 
                 final List<DailyPlan> foundDailyPlans =
                         (List<DailyPlan>) dailyPlanQuery.list();
@@ -935,13 +993,26 @@ public class DefaultPersistence implements Persistence {
                 if (!foundDailyPlans.isEmpty()) {
                     final DailyPlan dailyPlan =
                             (DailyPlan) foundDailyPlans.get(0);
-                    
+
                     dailyPlan.getToDoList().getTasksToCompleteToday().add(
                             curProcess);
+
+                    LOGGER.debug("Updating daily plan: {}", dailyPlan);
+                    session.update(dailyPlan);
+                    LOGGER
+                            .debug("Updating daily plan: {} completed",
+                                    dailyPlan);
+
                 } else {
-                    LOGGER.error("Daily plan not found.");
+                    LOGGER
+                            .error(
+                                    ErrorCodes.M_006_DAILY_PLAN_NOT_FOUND_TO_DO
+                                            + ": Daily plan for resource {} and day {} not found.",
+                                    new Object[] { resource.getAbbreviation(),
+                                            day });
                 }
             }
+
         }
     }
 

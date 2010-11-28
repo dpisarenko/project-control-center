@@ -141,12 +141,15 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         } else {
             resource = null;
         }
-
+        LOGGER.debug("resource: " + app);
+        LOGGER.debug("newDate: " + newDate);
         final Persistence persistence =
                 this.injector.getInstance(Persistence.class);
 
         final DailyPlan dailyPlan = persistence.getDailyPlan(newDate, resource);
 
+        LOGGER.debug("dailyPlan: " + dailyPlan);
+        
         updateToDoTable(dailyPlan);
         updateScheduleTable(dailyPlan);
     }
