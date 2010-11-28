@@ -920,7 +920,7 @@ public class DefaultPersistence implements Persistence {
 
                 dailyPlanBookings.add(curBooking);
 
-                session.update(dailyPlanBookings);
+                session.update(dailyPlan);
             } else {
                 LOGGER
                         .error(
