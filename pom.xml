@@ -8,6 +8,12 @@
 	<version>1.0</version>
 	<name>Project Control Center</name>
 
+	<scm>
+		<connection>scm:git:git://git@dp118m.beanstalkapp.com:/pcc.git</connection>
+		<developerConnection>scm:git:git@dp118m.beanstalkapp.com:/pcc.git</developerConnection>
+	</scm>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -24,6 +30,15 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<goals>install</goals>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -103,9 +118,9 @@
 						<artifactId>javassist</artifactId>
 						<version>3.8.0.GA</version>
 					</dependency>
-					
-					
-					
+
+
+
 					<dependency>
 						<groupId>com.google.inject</groupId>
 						<artifactId>guice</artifactId>
@@ -202,7 +217,13 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<distributionManagement>
+		<repository>
+			<id>local.repo</id>
+			<name>Local repository</name>
+			<url>file://${basedir}/mavenrepo</url>
+		</repository>
+	</distributionManagement>
 	<repositories>
 		<repository>
 			<id>vaadin-snapshots</id>
@@ -391,10 +412,10 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>2.0.1</version>
 			</plugin>
-	      <plugin>
-	        <groupId>org.codehaus.mojo</groupId>
-	        <artifactId>jdepend-maven-plugin</artifactId>
-	      </plugin>			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jdepend-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</reporting>
 
