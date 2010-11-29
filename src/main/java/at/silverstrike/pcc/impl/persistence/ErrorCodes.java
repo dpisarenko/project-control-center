@@ -27,4 +27,8 @@ final class ErrorCodes {
     public static final String M_010_GENERATE_DAILY_PLANS = PREFIX + "010";
     
     public static final String M_011_CLEAR_DATABASE = PREFIX + "011";
+    
+    public static final String M_012_CREATE_HUMAN_RESOURCE = PREFIX + "012";
+    
+    public static final String M_013_CREATE_HUMAN_RESOURCE2 = PREFIX + "013";
 }

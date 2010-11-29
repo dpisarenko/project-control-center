@@ -173,8 +173,10 @@ public class DefaultPersistence implements Persistence {
             tx.commit();
 
             id = worker.getId();
+            
+            LOGGER.debug("{}: dailyMaxWorkTimeInHours: {}", new Object[] {ErrorCodes.M_013_CREATE_HUMAN_RESOURCE2, dailyMaxWorkTimeInHours});
         } catch (final Exception exception) {
-            LOGGER.error("", exception);
+            LOGGER.error(ErrorCodes.M_012_CREATE_HUMAN_RESOURCE, exception);
             tx.rollback();
         }
 
@@ -935,6 +937,7 @@ public class DefaultPersistence implements Persistence {
         Date endDateTime = DateUtils.setHours(lastPlannedDay, 23);
         endDateTime = DateUtils.setMinutes(endDateTime, 59);
         endDateTime = DateUtils.setSeconds(endDateTime, 59);
+        endDateTime = DateUtils.setMilliseconds(endDateTime, 999);
         return endDateTime;
     }
 
@@ -942,6 +945,7 @@ public class DefaultPersistence implements Persistence {
         Date startDateTime = DateUtils.setHours(now, 0);
         startDateTime = DateUtils.setMinutes(startDateTime, 0);
         startDateTime = DateUtils.setSeconds(startDateTime, 0);
+        startDateTime = DateUtils.setMilliseconds(startDateTime, 0);
         return startDateTime;
     }
 

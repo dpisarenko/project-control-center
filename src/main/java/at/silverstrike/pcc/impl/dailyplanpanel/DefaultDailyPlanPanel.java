@@ -133,22 +133,20 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         final Date newDate = (Date) anEvent.getProperty().getValue();
 
         Application app = getApplication();
-        LOGGER.debug("getApplication(): " + app);
-
         final String resource;
         if (app != null) {
             resource = (String) app.getUser();
         } else {
             resource = null;
         }
-        LOGGER.debug("resource: " + app);
-        LOGGER.debug("newDate: " + newDate);
+        LOGGER.debug("{}: Application: '{}', resource: '{}', newDate: '{}' ", new Object[] {ErrorCodes.M_001_SELECTED_DAY_CHANGED, app, resource, newDate});
+
         final Persistence persistence =
                 this.injector.getInstance(Persistence.class);
 
         final DailyPlan dailyPlan = persistence.getDailyPlan(newDate, resource);
 
-        LOGGER.debug("dailyPlan: " + dailyPlan);
+        LOGGER.debug("{}: dailyPlan: {}", new Object[]{ErrorCodes.M_002_SELECTED_DAY_CHANGED2, dailyPlan});
         
         updateToDoTable(dailyPlan);
         updateScheduleTable(dailyPlan);
