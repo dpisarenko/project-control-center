@@ -5,11 +5,12 @@
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
 	<packaging>war</packaging>
-	<version>1.0</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>Project Control Center</name>
 
 	<scm>
-		<connection>scm:git:git://git@dp118m.beanstalkapp.com:/pcc.git</connection>
+		<connection>scm:git:git@dp118m.beanstalkapp.com:/pcc.git</connection>
+		<url>scm:git:git@dp118m.beanstalkapp.com:/pcc.git</url>
 		<developerConnection>scm:git:git@dp118m.beanstalkapp.com:/pcc.git</developerConnection>
 	</scm>
 
@@ -30,6 +31,11 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+		      <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-release-plugin</artifactId>
+			<version>2.0-beta-9</version>
+		      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-plugin</artifactId>
@@ -266,6 +272,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
+
 			<artifactId>antlr</artifactId>
 			<version>3.2</version>
 		</dependency>
