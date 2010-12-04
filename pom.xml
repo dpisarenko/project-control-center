@@ -10,12 +10,12 @@
 	<scm>
 		<connection>scm:git:ssh://dp118m.beanstalkapp.com/pcc.git</connection>
 		<url>scm:git:ssh://dp118m.beanstalkapp.com/pcc.git</url>
-		<developerConnection>scm:git:[fetch=]ssh://dp118m.beanstalkapp.com/pcc.git[push=]beanstalk</developerConnection>
+		<developerConnection>beanstalk</developerConnection>
 <!-- 
 scm:git:git@dp118m.beanstalkapp.com:/pcc.git
 scm:git:ssh://server_name[:port]/path_to_repository
 scm:git:ssh://dp118m.beanstalkapp.com/pcc.git
-
+scm:git:[fetch=]ssh://dp118m.beanstalkapp.com/pcc.git[push=]
 
 <developerConnection>scm:git:ssh://dp118m.beanstalkapp.com/pcc.git</developerConnection>
 -->		
