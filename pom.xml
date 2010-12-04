@@ -4,7 +4,7 @@
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.14</version>
+	<version>1.0.15-SNAPSHOT</version>
 	<name>Project Control Center</name>
 
 	<scm>
