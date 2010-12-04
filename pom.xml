@@ -4,7 +4,7 @@
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.3</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<name>Project Control Center</name>
 
 	<scm>
@@ -13,9 +13,9 @@
 <!-- 
 scm:git:git@dp118m.beanstalkapp.com:/pcc.git
 scm:git:ssh://server_name[:port]/path_to_repository
-
+scm:git:ssh://dp118m.beanstalkapp.com/pcc.git
 -->
-		<developerConnection>scm:git:git@dp118m.beanstalkapp.com:/pcc.git</developerConnection>
+		<developerConnection>scm:git:ssh://dp118m.beanstalkapp.com/pcc.git</developerConnection>
 	</scm>
 
 
