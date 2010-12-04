@@ -1,4 +1,14 @@
 <?xml version="1.0"?>
+<!--
+  This file is part of Project Control Center (PCC).
+  
+  PCC (Project Control Center) project is intellectual property of 
+  Dmitri Anatol'evich Pisarenko.
+  
+  Copyright 2010 Dmitri Anatol'evich Pisarenko
+  All rights reserved
+-->
+
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.1//EN" "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
 
 <module name="Checker">
@@ -96,6 +106,14 @@
 	<module name="Header">
 		<property name="headerFile" value="checkstyle.xml.header" />
 		<property name="fileExtensions" value="xml" />
+	</module>
+	<module name="Header">
+		<property name="headerFile" value="checkstyle.rb.header" />
+		<property name="fileExtensions" value="rb" />
+	</module>
+	<module name="Header">
+		<property name="headerFile" value="checkstyle.properties.header" />
+		<property name="fileExtensions" value="properties" />
 	</module>
 	<module name="FileLength">
 		<property name="max" value="2000" />
