@@ -19,6 +19,10 @@
 
 package at.silverstrike.pcc.impl.injectorfactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanelFactory;
@@ -35,6 +39,8 @@ import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
+import at.silverstrike.pcc.api.version.PccVersionReader;
+import at.silverstrike.pcc.api.version.PccVersionReaderFactory;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
@@ -54,6 +60,7 @@ import at.silverstrike.pcc.impl.schedulingpanel.DefaultSchedulingPanelFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultBookingsFile2BookingsFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultTj3BookingsParserFactory;
 import at.silverstrike.pcc.impl.tj3deadlinesparser.DefaultTj3DeadlinesFileParserFactory;
+import at.silverstrike.pcc.impl.version.DefaultPccVersionReaderFactory;
 import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusFactory;
 import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusMessageFactory;
 import at.silverstrike.pcc.impl.workerpanel.DefaultWorkerPanelFactory;
@@ -61,7 +68,9 @@ import at.silverstrike.pcc.impl.workerpanel.DefaultWorkerPanelFactory;
 import com.google.inject.AbstractModule;
 
 class InjectorModule extends AbstractModule {
-
+    private final Logger LOGGER =
+        LoggerFactory.getLogger(InjectorModule.class);
+    
     @Override
     protected void configure() {
         bind(ProcessPanelFactory.class).toInstance(
@@ -102,6 +111,19 @@ class InjectorModule extends AbstractModule {
         bind(WebGuiBus.class)
                 .toInstance(new DefaultWebGuiBusFactory().create());
         bind(WebGuiBusMessageFactory.class).toInstance(
-                new DefaultWebGuiBusMessageFactory());
+                new DefaultWebGuiBusMessageFactory());        
+        bind(PccVersionReader.class).toInstance(getVersionReader());
+        
+    }
+
+    private PccVersionReader getVersionReader() {
+        final PccVersionReaderFactory factory = new DefaultPccVersionReaderFactory();
+        final PccVersionReader versionReader = factory.create();
+        try {
+            versionReader.run();
+        } catch (final PccException exception) {
+            LOGGER.error(ErrorCodes.M_001_VERSION_READER, exception);
+        }
+        return versionReader;
     }
 }

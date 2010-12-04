@@ -25,7 +25,8 @@ public class MessageCodePrefixRegistry {
         schedulingpanel,
         tj3bookingsparser,
         tj3deadlinesparser,
-        workerpanel
+        workerpanel,
+        version
     }
 
     private Map<Module, String> prefixesByModules;
@@ -66,5 +67,6 @@ public class MessageCodePrefixRegistry {
         this.prefixesByModules.put(Module.tj3bookingsparser, "017");
         this.prefixesByModules.put(Module.tj3deadlinesparser, "018");
         this.prefixesByModules.put(Module.workerpanel, "019");
+        this.prefixesByModules.put(Module.version, "020");
     }
 }

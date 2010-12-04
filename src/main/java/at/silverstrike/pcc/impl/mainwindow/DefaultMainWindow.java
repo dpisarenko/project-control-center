@@ -36,6 +36,7 @@ import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanelFa
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
+import at.silverstrike.pcc.api.version.PccVersionReader;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 
@@ -57,7 +58,9 @@ class DefaultMainWindow implements MainWindow {
     public void initGui() {
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
         
-        mainWindow = new Window(TM.get("mainwindow.1-title"));
+        final PccVersionReader versionReader = this.injector.getInstance(PccVersionReader.class);
+        
+        mainWindow = new Window(TM.get("mainwindow.1-title", versionReader.getVersion()));
         mainWindow.setDebugId(this.debugIdRegistry.getDebugId("mainwindow.1"));
         
         

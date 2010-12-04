@@ -10,6 +10,7 @@ import com.google.inject.Injector;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
+import at.silverstrike.pcc.api.version.PccVersionReader;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
 
 public class TestDefaultInjectorFactory {
@@ -25,6 +26,7 @@ public class TestDefaultInjectorFactory {
         {
             injector.getInstance(DebugIdRegistry.class);
             injector.getInstance(Tj3DeadlinesFileParserFactory.class);
+            injector.getInstance(PccVersionReader.class);
         }
         catch (final ConfigurationException exception)
         {
