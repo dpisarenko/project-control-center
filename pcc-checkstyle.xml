@@ -103,18 +103,6 @@
 		<property name="headerFile" value="checkstyle.java.header" />
 		<property name="fileExtensions" value="java" />
 	</module>
-	<module name="Header">
-		<property name="headerFile" value="checkstyle.xml.header" />
-		<property name="fileExtensions" value="xml" />
-	</module>
-	<module name="Header">
-		<property name="headerFile" value="checkstyle.rb.header" />
-		<property name="fileExtensions" value="rb" />
-	</module>
-	<module name="Header">
-		<property name="headerFile" value="checkstyle.properties.header" />
-		<property name="fileExtensions" value="properties" />
-	</module>
 	<module name="FileLength">
 		<property name="max" value="2000" />
 	</module>
