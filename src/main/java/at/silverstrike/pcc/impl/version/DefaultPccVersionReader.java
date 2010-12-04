@@ -3,9 +3,6 @@ package at.silverstrike.pcc.impl.version;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import junit.framework.Assert;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
