@@ -1,3 +1,14 @@
+/**
+ * This file is part of Project Control Center (PCC).
+ * 
+ * PCC (Project Control Center) project is intellectual property of 
+ * Dmitri Anatol'evich Pisarenko.
+ * 
+ * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * All rights reserved
+ *
+ **/
+
 // $ANTLR 3.2 Sep 23, 2009 12:02:23 src/main/java/at/silverstrike/pcc/impl/tj3bookingsparser/grammar/Bookings.g 2010-11-05 07:17:39
 
 package at.silverstrike.pcc.impl.tj3bookingsparser.grammar;

@@ -1,6 +1,4 @@
-#
 # This file is part of Project Control Center (PCC).
-# 
 # 
 # PCC (Project Control Center) project is intellectual property of 
 # Dmitri Anatol'evich Pisarenko.

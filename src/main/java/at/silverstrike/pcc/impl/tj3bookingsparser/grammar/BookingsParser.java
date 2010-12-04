@@ -1,3 +1,14 @@
+/**
+ * This file is part of Project Control Center (PCC).
+ * 
+ * PCC (Project Control Center) project is intellectual property of 
+ * Dmitri Anatol'evich Pisarenko.
+ * 
+ * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * All rights reserved
+ *
+ **/
+
 // $ANTLR 3.2 Sep 23, 2009 12:02:23 src/main/java/at/silverstrike/pcc/impl/tj3bookingsparser/grammar/Bookings.g 2010-11-05 07:17:38
  
 
@@ -12,24 +23,7 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- * This file is part of Project Control Center (PCC).
- * 
- * Project Control Center (PCC) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * Project Control Center (PCC) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Project Control Center (PCC).  If not, see <http://www.gnu.org/licenses/>.
- *
- * Copyright 2010 Dmitri Anatol'evich Pisarenko
- **/
+
 public class BookingsParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Project", "Prj", "String", "DateTimeWithTimeZone", "Hyphen", "OpenParen", "CloseParen", "Projectids", "Resource", "Identifier", "Task", "Start", "End", "Scheduling", "Asap", "Scheduled", "Supplement", "Priority", "IntegerNumber", "Complete", "FloatingPointNumber", "Workinghours", "DayOfWeek", "Off", "Comma", "Time", "Colon", "Booking", "Plus", "Overtime", "D", "A", "Space", "'h'"
