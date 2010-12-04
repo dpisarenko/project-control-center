@@ -3,6 +3,8 @@ package at.silverstrike.pcc.impl.version;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.jar.Manifest;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -12,7 +14,7 @@ import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.version.PccVersionReader;
 
 class DefaultPccVersionReader implements PccVersionReader {
-    private static final String PROPERTY_FILE_PATH = "META-INF/maven/at.swdev/pcc/pom.properties";
+    private static final String PROPERTY_FILE_PATH = "version/application.properties";
     private static final String VERSION_PROPERTY_NAME = "version";
     private final Logger LOGGER =
         LoggerFactory.getLogger(DefaultPccVersionReader.class);
@@ -25,7 +27,8 @@ class DefaultPccVersionReader implements PccVersionReader {
 
     @Override
     public void run() throws PccException {
-        final Properties properties = new Properties();        
+        final Properties properties = new Properties();
+        
         final InputStream inputStream = getClass().getClassLoader().getResourceAsStream(PROPERTY_FILE_PATH);
         try {
             properties.load(inputStream);
