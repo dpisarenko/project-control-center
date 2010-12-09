@@ -1,7 +1,15 @@
+# This file is part of Project Control Center (PCC).
+# 
+# PCC (Project Control Center) project is intellectual property of 
+# Dmitri Anatol'evich Pisarenko.
+# 
+# Copyright 2010 Dmitri Anatol'evich Pisarenko
+# All rights reserved
+
 project "MyProject" 2010-10-18 +1m 
 {
   timeformat "%d.%m.%Y %H:%M"
-  
+
   numberformat "-" "" "." "," 1
   currencyformat "(" ")" "." "," 0
 
@@ -10,28 +18,76 @@ project "MyProject" 2010-10-18 +1m
   currency "€"
 
   timingresolution 15 min
-
+  
   scenario plan "Plan" {
   }
 }
 
 copyright "Dmitri Pisarenko"
+# This file is part of Project Control Center (PCC).
+# 
+# PCC (Project Control Center) project is intellectual property of 
+# Dmitri Anatol'evich Pisarenko.
+# 
+# Copyright 2010 Dmitri Anatol'evich Pisarenko
+# All rights reserved
+
 resource R1210 "DP"
 {
 	limits { dailymax 8.00h }
 }
+# This file is part of Project Control Center (PCC).
+# 
+# PCC (Project Control Center) project is intellectual property of 
+# Dmitri Anatol'evich Pisarenko.
+# 
+# Copyright 2010 Dmitri Anatol'evich Pisarenko
+# All rights reserved
+
 task T2010 "Some interesting task"
 {
-	start ${now}
-	
+	# This file is part of Project Control Center (PCC).
+# 
+# PCC (Project Control Center) project is intellectual property of 
+# Dmitri Anatol'evich Pisarenko.
+# 
+# Copyright 2010 Dmitri Anatol'evich Pisarenko
+# All rights reserved
+
+start ${now}
+
 	priority 200
-	allocate R1210
+	# This file is part of Project Control Center (PCC).
+# 
+# PCC (Project Control Center) project is intellectual property of 
+# Dmitri Anatol'evich Pisarenko.
+# 
+# Copyright 2010 Dmitri Anatol'evich Pisarenko
+# All rights reserved
+
+allocate R1210
+
+	# This file is part of Project Control Center (PCC).
+# 
+# PCC (Project Control Center) project is intellectual property of 
+# Dmitri Anatol'evich Pisarenko.
+# 
+# Copyright 2010 Dmitri Anatol'evich Pisarenko
+# All rights reserved
+
+effort 2.50h
+
 	
-	effort 2.50h
-
-
-
+	
 }
+# This file is part of Project Control Center (PCC).
+# 
+# PCC (Project Control Center) project is intellectual property of 
+# Dmitri Anatol'evich Pisarenko.
+# 
+# Copyright 2010 Dmitri Anatol'evich Pisarenko
+# All rights reserved
+
 taskreport status "pccDeadlines" {
  formats csv
  columns id, end
