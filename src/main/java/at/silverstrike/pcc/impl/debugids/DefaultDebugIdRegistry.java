@@ -18,6 +18,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
 import at.silverstrike.pcc.api.debugids.DebugIdKeyNotFoundException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdUniquenessViolation;
@@ -31,15 +32,18 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
     
     public DefaultDebugIdRegistry()
     {
+        loadData(DEBUGIDS_FILE);
+    }
+
+    private void loadData(final String aFileName) {
         try
         {
-            properties.load(getClass().getClassLoader().getResourceAsStream(DEBUGIDS_FILE));
+            properties.load(getClass().getClassLoader().getResourceAsStream(aFileName));
         }
         catch (final Exception exception)
         {
-            LOGGER.error(ErrorCodes.M_001_CTOR, exception);
+            LOGGER.error(ErrorCodes.M_001_LOAD_DATA, exception);
         }
-
     }
     
     @Override
@@ -57,6 +61,18 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
         this.alreadyFetchedKeys.add(aKey);
         
         return this.properties.getProperty(aKey);
+    }
+
+    @Override
+    public String getDebugId(final Module aModule, final String aKey)
+            throws DebugIdUniquenessViolation {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setDebugIdsFile(final String aFileName) {
+        loadData(aFileName);
     }
 
 }
