@@ -11,10 +11,14 @@
 
 package at.silverstrike.pcc.api.debugids;
 
+import java.util.List;
+
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
 
 public interface DebugIdRegistry {
     void setDebugIdsFile(final String aFileName);
     String getDebugId(final String aKey) throws DebugIdUniquenessViolation;
     String getDebugId(final Module aModule, final String aKey) throws DebugIdUniquenessViolation;
+    List<DebugIdKey> getAllKeys();
+    String getDebugId(DebugIdKey debugIdKey);
 }

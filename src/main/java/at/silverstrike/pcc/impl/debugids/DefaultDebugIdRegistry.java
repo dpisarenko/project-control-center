@@ -12,13 +12,16 @@
 package at.silverstrike.pcc.impl.debugids;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
+import at.silverstrike.pcc.api.debugids.DebugIdKey;
 import at.silverstrike.pcc.api.debugids.DebugIdKeyNotFoundException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdUniquenessViolation;
@@ -73,6 +76,16 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
     @Override
     public void setDebugIdsFile(final String aFileName) {
         loadData(aFileName);
+    }
+
+    @Override
+    public List<DebugIdKey> getAllKeys() {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public String getDebugId(DebugIdKey debugIdKey) {
+        throw new NotImplementedException();
     }
 
 }
