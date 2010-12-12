@@ -16,6 +16,7 @@ import static com.vaadin.ui.SplitPanel.ORIENTATION_HORIZONTAL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.ControlProcess;
 import at.silverstrike.pcc.api.model.DailyPlan;
+import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
@@ -178,12 +180,21 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         this.scheduleTable.removeAllItems();
 
         if (aDailyPlan != null) {
-            for (final Booking booking : aDailyPlan.getSchedule().getBookings()) {
-                this.scheduleTable.addItem(getBookingCells(booking), booking
-                        .getId());
+            final DailySchedule schedule = aDailyPlan.getSchedule();
+            
+            if (schedule != null)
+            {
+                final List<Booking> bookings = schedule.getBookings();
+                
+                if (bookings != null)
+                {
+                    for (final Booking booking : bookings) {
+                        this.scheduleTable.addItem(getBookingCells(booking), booking
+                                .getId());
+                    }                                    
+                }
             }
         }
-
     }
 
     private final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
