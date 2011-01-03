@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 14:05:07 src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g 2011-01-03 03:08:57
+// $ANTLR 3.2 Sep 23, 2009 14:05:07 src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g 2011-01-03 03:22:10
  
 
 package at.silverstrike.pcc.impl.tj3bookingsparser.grammar; 
@@ -347,7 +347,7 @@ public class BookingsParser extends Parser {
 
 
     // $ANTLR start "supplementTask"
-    // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:77:1: supplementTask returns [DefaultSupplementStatement suppStmt] : Supplement Task taskId= Identifier OpenParen (bStmt= booking )* ( Priority IntegerNumber )* ( Complete FloatingPointNumber )* CloseParen ;
+    // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:77:1: supplementTask returns [DefaultSupplementStatement suppStmt] : Supplement Task taskId= Identifier OpenParen ( Priority IntegerNumber )* (bStmt= booking )* ( Complete FloatingPointNumber )* CloseParen ;
     public final DefaultSupplementStatement supplementTask() throws RecognitionException {
         DefaultSupplementStatement suppStmt = null;
 
@@ -356,8 +356,8 @@ public class BookingsParser extends Parser {
 
 
         try {
-            // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:78:2: ( Supplement Task taskId= Identifier OpenParen (bStmt= booking )* ( Priority IntegerNumber )* ( Complete FloatingPointNumber )* CloseParen )
-            // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:79:3: Supplement Task taskId= Identifier OpenParen (bStmt= booking )* ( Priority IntegerNumber )* ( Complete FloatingPointNumber )* CloseParen
+            // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:78:2: ( Supplement Task taskId= Identifier OpenParen ( Priority IntegerNumber )* (bStmt= booking )* ( Complete FloatingPointNumber )* CloseParen )
+            // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:79:3: Supplement Task taskId= Identifier OpenParen ( Priority IntegerNumber )* (bStmt= booking )* ( Complete FloatingPointNumber )* CloseParen
             {
 
             			suppStmt = new DefaultSupplementStatement();
@@ -367,27 +367,23 @@ public class BookingsParser extends Parser {
             taskId=(Token)match(input,Identifier,FOLLOW_Identifier_in_supplementTask207); 
             suppStmt.setTaskId((taskId!=null?taskId.getText():null)); 
             match(input,OpenParen,FOLLOW_OpenParen_in_supplementTask213); 
-            // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:84:2: (bStmt= booking )*
+            // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:84:2: ( Priority IntegerNumber )*
             loop4:
             do {
                 int alt4=2;
                 int LA4_0 = input.LA(1);
 
-                if ( (LA4_0==Booking) ) {
+                if ( (LA4_0==Priority) ) {
                     alt4=1;
                 }
 
 
                 switch (alt4) {
             	case 1 :
-            	    // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:85:2: bStmt= booking
+            	    // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:84:3: Priority IntegerNumber
             	    {
-            	    pushFollow(FOLLOW_booking_in_supplementTask221);
-            	    bStmt=booking();
-
-            	    state._fsp--;
-
-            	    suppStmt.addBookingStatement( bStmt ); 
+            	    match(input,Priority,FOLLOW_Priority_in_supplementTask217); 
+            	    match(input,IntegerNumber,FOLLOW_IntegerNumber_in_supplementTask219); 
 
             	    }
             	    break;
@@ -397,23 +393,27 @@ public class BookingsParser extends Parser {
                 }
             } while (true);
 
-            // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:87:2: ( Priority IntegerNumber )*
+            // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:85:2: (bStmt= booking )*
             loop5:
             do {
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
-                if ( (LA5_0==Priority) ) {
+                if ( (LA5_0==Booking) ) {
                     alt5=1;
                 }
 
 
                 switch (alt5) {
             	case 1 :
-            	    // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:87:3: Priority IntegerNumber
+            	    // src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g:86:2: bStmt= booking
             	    {
-            	    match(input,Priority,FOLLOW_Priority_in_supplementTask231); 
-            	    match(input,IntegerNumber,FOLLOW_IntegerNumber_in_supplementTask233); 
+            	    pushFollow(FOLLOW_booking_in_supplementTask229);
+            	    bStmt=booking();
+
+            	    state._fsp--;
+
+            	    suppStmt.addBookingStatement( bStmt ); 
 
             	    }
             	    break;
@@ -884,9 +884,9 @@ public class BookingsParser extends Parser {
     public static final BitSet FOLLOW_Task_in_supplementTask203 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_Identifier_in_supplementTask207 = new BitSet(new long[]{0x0000000000000200L});
     public static final BitSet FOLLOW_OpenParen_in_supplementTask213 = new BitSet(new long[]{0x0000000080A00400L});
-    public static final BitSet FOLLOW_booking_in_supplementTask221 = new BitSet(new long[]{0x0000000080A00400L});
-    public static final BitSet FOLLOW_Priority_in_supplementTask231 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_IntegerNumber_in_supplementTask233 = new BitSet(new long[]{0x0000000000A00400L});
+    public static final BitSet FOLLOW_Priority_in_supplementTask217 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_IntegerNumber_in_supplementTask219 = new BitSet(new long[]{0x0000000080A00400L});
+    public static final BitSet FOLLOW_booking_in_supplementTask229 = new BitSet(new long[]{0x0000000080800400L});
     public static final BitSet FOLLOW_Complete_in_supplementTask239 = new BitSet(new long[]{0x0000000001000000L});
     public static final BitSet FOLLOW_FloatingPointNumber_in_supplementTask241 = new BitSet(new long[]{0x0000000000800400L});
     public static final BitSet FOLLOW_CloseParen_in_supplementTask246 = new BitSet(new long[]{0x0000000000000002L});
