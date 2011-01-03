@@ -47,7 +47,7 @@ import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
  * 
  */
 class DefaultProjectScheduler implements ProjectScheduler {
-    private static final String RUBY_PATH = "/var/lib/gems/1.8/bin/tj3 ";
+    private static final String RUBY_PATH = "C:\\Ruby191\\bin\\tj3.bat ";
     private Logger LOGGER = LoggerFactory.getLogger(DefaultProjectScheduler.class);
 
     private List<ProcessEndTimeTuple> endTimeTuples;

@@ -765,7 +765,9 @@ public class DefaultPersistence implements Persistence {
 
         try {
             for (final ProcessEndTimeTuple tuple : endTimeTuples) {
-                final ControlProcess process =
+                LOGGER.debug("tuple.getProcessId(): {}", tuple.getProcessId());
+                
+            	final ControlProcess process =
                         (ControlProcess) session.load(
                                 DefaultControlProcess.class, tuple
                                         .getProcessId());
