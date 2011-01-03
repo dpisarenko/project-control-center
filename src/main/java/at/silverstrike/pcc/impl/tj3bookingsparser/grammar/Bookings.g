@@ -81,11 +81,11 @@ supplementTask returns [DefaultSupplementStatement suppStmt]
 		}	
 	Supplement Task taskId=Identifier {suppStmt.setTaskId($taskId.text); } 
 	OpenParen
-	Priority IntegerNumber
 	(
 	bStmt=booking {suppStmt.addBookingStatement( $bStmt.stmt ); }
 	)*
-	Complete FloatingPointNumber
+	(Priority IntegerNumber)*
+	(Complete FloatingPointNumber)*
 	CloseParen
 	;
 

@@ -73,7 +73,7 @@ class MockPersistence01 extends MockPersistenceAdapter {
         final BookingTuple tuple = aBookingTuples.get(0);
 
         Assert.assertEquals(DATE_TIME_2010_10_25_09_00, tuple.getBooking().getStartDateTime());
-        Assert.assertEquals(2.75, tuple.getBooking().getDuration());
+        Assert.assertEquals(2.50, tuple.getBooking().getDuration());
         Assert.assertEquals(2010L, tuple.getProcessId());
         Assert.assertEquals(1210L, tuple.getResourceId());
     }

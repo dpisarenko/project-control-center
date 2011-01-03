@@ -232,7 +232,7 @@ public class TestDefaultProjectScheduler {
         
         final Booking booking = bookings.get(0);
         
-        Assert.assertEquals(2.75, booking.getDuration(), TestConventions.DELTA);
+        Assert.assertEquals(2.5, booking.getDuration(), TestConventions.DELTA);
         Assert.assertNotNull(booking.getProcess());
         Assert.assertNotNull(booking.getResource());
         
@@ -247,10 +247,7 @@ public class TestDefaultProjectScheduler {
         
         Assert.assertEquals(date201010250900, booking.getStartDateTime());
 
-        final Date date201010251145 =
-            RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 11, 45);
-
-        Assert.assertEquals(date201010251145, booking.getEndDateTime());
+        Assert.assertEquals(date201010251130, booking.getEndDateTime());
         
         final DailyToDoList toDoList = dailyPlan.getToDoList();
         
