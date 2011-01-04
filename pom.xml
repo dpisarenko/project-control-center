@@ -13,7 +13,7 @@
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.16-SNAPSHOT</version>
+	<version>1.0.16</version>
 	<name>Project Control Center</name>
 
 	<scm>
