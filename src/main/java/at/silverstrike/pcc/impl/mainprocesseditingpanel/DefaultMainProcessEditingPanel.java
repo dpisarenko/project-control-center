@@ -62,331 +62,334 @@ import eu.livotov.tpt.i18n.TM;
  * 
  */
 class DefaultMainProcessEditingPanel extends Panel implements
-        MainProcessEditingPanel, ProcessPanelListener {
-    public static final Object PROJECT_PROPERTY_NAME = "name";
+		MainProcessEditingPanel, ProcessPanelListener {
+	public static final Object PROJECT_PROPERTY_NAME = "name";
 
-    private final static Logger LOGGER =
-        LoggerFactory.getLogger(DefaultMainProcessEditingPanel.class);
+	private final static Logger LOGGER = LoggerFactory
+			.getLogger(DefaultMainProcessEditingPanel.class);
 
-    private static final Object PROJECT_PROPERTY_ID = "id";
-    private static final long serialVersionUID = 1L;
+	private static final Object PROJECT_PROPERTY_ID = "id";
+	private static final long serialVersionUID = 1L;
 
-    private static final Integer TREE_ROOT_ID = 0;
+	private static final Integer TREE_ROOT_ID = 0;
 
-    private Button createChildButton;
+	private Button createChildButton;
 
-    private Button createSiblingButton;
+	private Button createSiblingButton;
 
-    private Button deleteProjectButton;
+	private Button deleteProjectButton;
 
-    private Injector injector;
+	private Injector injector;
 
-    private Persistence persistence;
+	private Persistence persistence;
 
-    private EditingProcessPanel processEditingPanel;
+	private EditingProcessPanel processEditingPanel;
 
-    private ProcessPanel processPanel;
+	private ProcessPanel processPanel;
 
-    private Tree projectTree;
+	private Tree projectTree;
 
-    private HierarchicalContainer projectTreeData;
+	private HierarchicalContainer projectTreeData;
 
-    private Long selectedProjectId;
-    
-    private DebugIdRegistry debugIdRegistry;
+	private Long selectedProjectId;
+
+	private DebugIdRegistry debugIdRegistry;
 
 	private Button exportButton;
-    
-    public DefaultMainProcessEditingPanel() {
-        
-    }
-    
-    @Override
-    public void initGui() {
-        this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
-        
-        this.setDebugId(this.debugIdRegistry.getDebugId("mainprocesseditingpanel.1"));
-        
-        final SplitPanel splitPanel1 = new SplitPanel();
 
-        splitPanel1.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
-        splitPanel1.setHeight("600px");
-        splitPanel1.setWidth("100%");
+	public DefaultMainProcessEditingPanel() {
 
-        splitPanel1.setSplitPosition(10);
+	}
 
-        splitPanel1.addComponent(getTreePanel());
-        splitPanel1.addComponent(getSplitPanel2());
+	@Override
+	public void initGui() {
+		this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
-        addComponent(splitPanel1);
-    }
+		this.setDebugId(this.debugIdRegistry
+				.getDebugId("mainprocesseditingpanel.1"));
 
-    @Override
-    public void setInjector(final Injector anInjector) {
-        injector = anInjector;
-        persistence = injector.getInstance(Persistence.class);
-    }
+		final SplitPanel splitPanel1 = new SplitPanel();
 
-    @Override
-    public void taskAdded() {
-        updateTree();
-    }
+		splitPanel1.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
+		splitPanel1.setHeight("600px");
+		splitPanel1.setWidth("100%");
 
-    /**
-     * @see at.silverstrike.pcc.api.conventions.AbstractedPanel#toPanel()
-     */
-    @Override
-    public Panel toPanel() {
-        return this;
-    }
+		splitPanel1.setSplitPosition(10);
 
-    protected void createChildButtonClicked() {
-        persistence.createChildProcess(selectedProjectId);
-        updateTree();
+		splitPanel1.addComponent(getTreePanel());
+		splitPanel1.addComponent(getSplitPanel2());
 
-    }
+		addComponent(splitPanel1);
+	}
 
-    protected void createSiblingButtonClicked() {
-        persistence.createSiblingProcess(selectedProjectId);
-        updateTree();
-    }
+	@Override
+	public void setInjector(final Injector anInjector) {
+		injector = anInjector;
+		persistence = injector.getInstance(Persistence.class);
+	}
 
-    protected void deleteProjectButtonClicked() {
+	@Override
+	public void taskAdded() {
+		updateTree();
+	}
 
-        if (selectedProjectId == null) {
-            getWindow().showNotification(
-                    TM.get("mainprocesseditingpanel.6-delete-project"),
-                    Notification.TYPE_ERROR_MESSAGE);
-        } else {
-            persistence.deleteProcess(selectedProjectId);
-            updateTree();
-        }
-    }
+	/**
+	 * @see at.silverstrike.pcc.api.conventions.AbstractedPanel#toPanel()
+	 */
+	@Override
+	public Panel toPanel() {
+		return this;
+	}
 
-    protected void projectTreeValueChanged(final ValueChangeEvent event) {
-        final Object itemId = event.getProperty().getValue();
+	protected void createChildButtonClicked() {
+		persistence.createChildProcess(selectedProjectId);
+		updateTree();
 
-        final Item item = projectTreeData.getItem(itemId);
+	}
 
-        if (item != null) {
-            selectedProjectId =
-                    (Long) item.getItemProperty(PROJECT_PROPERTY_ID).getValue();
+	protected void createSiblingButtonClicked() {
+		persistence.createSiblingProcess(selectedProjectId);
+		updateTree();
+	}
 
-            processPanel.setParentProcessId(selectedProjectId);
-            processPanel.setProcessesToShow(persistence
-                    .getChildTasks(selectedProjectId));
+	protected void deleteProjectButtonClicked() {
 
-            if (TREE_ROOT_ID.equals(itemId)) {
-                deleteProjectButton.setEnabled(false);
-                createSiblingButton.setEnabled(false);
-            } else if (selectedProjectId != null) {
-                deleteProjectButton.setEnabled(true);
-                createSiblingButton.setEnabled(true);
-                createChildButton.setEnabled(true);
-            } else if (selectedProjectId == null) {
-                deleteProjectButton.setEnabled(false);
-                createSiblingButton.setEnabled(false);
-                createChildButton.setEnabled(false);
-            }
-        }
-    }
+		if (selectedProjectId == null) {
+			getWindow().showNotification(
+					TM.get("mainprocesseditingpanel.6-delete-project"),
+					Notification.TYPE_ERROR_MESSAGE);
+		} else {
+			persistence.deleteProcess(selectedProjectId);
+			updateTree();
+		}
+	}
 
-    private int addNodes(final HierarchicalContainer container,
-            final List<ControlProcess> processes, final Integer parentId,
-            final Persistence persistence, final int aTreeItemId) {
-        int treeItemId = aTreeItemId;
-        if (processes == null) {
-            return treeItemId;
-        }
+	protected void projectTreeValueChanged(final ValueChangeEvent event) {
+		final Object itemId = event.getProperty().getValue();
 
-        for (final ControlProcess process : processes) {
-            final int processItemId = treeItemId++;
-            final Item processItem = container.addItem(processItemId);
+		final Item item = projectTreeData.getItem(itemId);
 
-            processItem.getItemProperty(PROJECT_PROPERTY_ID).setValue(
-                    process.getId());
-            processItem.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
-                    process.getName());
-            container.setChildrenAllowed(processItemId, true);
-            if (parentId != null) {
-                container.setParent(processItemId, parentId);
-            } else {
-                container.setParent(processItemId, TREE_ROOT_ID);
-            }
+		if (item != null) {
+			selectedProjectId = (Long) item
+					.getItemProperty(PROJECT_PROPERTY_ID).getValue();
 
-            final List<ControlProcess> subProcessesWithChildren =
-                    persistence.getSubProcessesWithChildren(process.getId());
-            treeItemId =
-                    addNodes(container, subProcessesWithChildren,
-                            processItemId, persistence, treeItemId);
-        }
+			processPanel.setParentProcessId(selectedProjectId);
+			processPanel.setProcessesToShow(persistence
+					.getChildTasks(selectedProjectId));
 
-        return treeItemId;
-    }
+			if (TREE_ROOT_ID.equals(itemId)) {
+				deleteProjectButton.setEnabled(false);
+				createSiblingButton.setEnabled(false);
+			} else if (selectedProjectId != null) {
+				deleteProjectButton.setEnabled(true);
+				createSiblingButton.setEnabled(true);
+				createChildButton.setEnabled(true);
+			} else if (selectedProjectId == null) {
+				deleteProjectButton.setEnabled(false);
+				createSiblingButton.setEnabled(false);
+				createChildButton.setEnabled(false);
+			}
+		}
+	}
 
-    private HorizontalLayout getProcessEditingPanel() {
-        final HorizontalLayout panel = new HorizontalLayout();
-        final EditingProcessPanelFactory factory =
-                injector.getInstance(EditingProcessPanelFactory.class);
-        processEditingPanel = factory.create();
-        processEditingPanel.setInjector(injector);
-        processEditingPanel.initGui();
-        panel.addComponent(processEditingPanel.toPanel());
+	private int addNodes(final HierarchicalContainer container,
+			final List<ControlProcess> processes, final Integer parentId,
+			final Persistence persistence, final int aTreeItemId) {
+		int treeItemId = aTreeItemId;
+		if (processes == null) {
+			return treeItemId;
+		}
 
-        return panel;
-    }
+		for (final ControlProcess process : processes) {
+			final int processItemId = treeItemId++;
+			final Item processItem = container.addItem(processItemId);
 
-    private HorizontalLayout getProcessListPanel() {
-        final HorizontalLayout panel = new HorizontalLayout();
-        final ProcessPanelFactory processPanelFactory =
-                injector.getInstance(ProcessPanelFactory.class);
-        processPanel = processPanelFactory.create();
+			processItem.getItemProperty(PROJECT_PROPERTY_ID).setValue(
+					process.getId());
+			processItem.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
+					process.getName());
+			container.setChildrenAllowed(processItemId, true);
+			if (parentId != null) {
+				container.setParent(processItemId, parentId);
+			} else {
+				container.setParent(processItemId, TREE_ROOT_ID);
+			}
 
-        final Persistence persistence =
-                injector.getInstance(Persistence.class);
+			final List<ControlProcess> subProcessesWithChildren = persistence
+					.getSubProcessesWithChildren(process.getId());
+			treeItemId = addNodes(container, subProcessesWithChildren,
+					processItemId, persistence, treeItemId);
+		}
 
-        processPanel.setInjector(injector);
-        processPanel.setProcessPanelListener(this);
-        processPanel.initGui();
-        processPanel.setProcessesToShow(persistence.getAllNotDeletedTasks());
+		return treeItemId;
+	}
 
-        panel.addComponent(processPanel.toPanel());
+	private HorizontalLayout getProcessEditingPanel() {
+		final HorizontalLayout panel = new HorizontalLayout();
+		final EditingProcessPanelFactory factory = injector
+				.getInstance(EditingProcessPanelFactory.class);
+		processEditingPanel = factory.create();
+		processEditingPanel.setInjector(injector);
+		processEditingPanel.initGui();
+		panel.addComponent(processEditingPanel.toPanel());
 
-        return panel;
-    }
+		return panel;
+	}
 
-    private HierarchicalContainer getProjectTreeData() {
-        final HierarchicalContainer projectTreeData =
-                new HierarchicalContainer();
-        projectTreeData.addContainerProperty(PROJECT_PROPERTY_ID, Long.class,
-                null);
-        projectTreeData.addContainerProperty(PROJECT_PROPERTY_NAME,
-                String.class, null);
+	private HorizontalLayout getProcessListPanel() {
+		final HorizontalLayout panel = new HorizontalLayout();
+		final ProcessPanelFactory processPanelFactory = injector
+				.getInstance(ProcessPanelFactory.class);
+		processPanel = processPanelFactory.create();
 
-        final List<ControlProcess> topLevelProcesses =
-                persistence.getSubProcessesWithChildren(null);
+		final Persistence persistence = injector.getInstance(Persistence.class);
 
-        if (topLevelProcesses != null) {
-            LOGGER.debug("topLevelProcesses: " + topLevelProcesses.size());
-        }
+		processPanel.setInjector(injector);
+		processPanel.setProcessPanelListener(this);
+		processPanel.initGui();
+		processPanel.setProcessesToShow(persistence.getAllNotDeletedTasks());
 
-        final Item root = projectTreeData.addItem(TREE_ROOT_ID);
-        root.getItemProperty(PROJECT_PROPERTY_ID).setValue(null);
-        root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
-                TM.get("mainprocesseditingpanel.7-root"));
+		panel.addComponent(processPanel.toPanel());
 
-        addNodes(projectTreeData, topLevelProcesses, null, persistence, 1);
+		return panel;
+	}
 
-        return projectTreeData;
-    }
+	private HierarchicalContainer getProjectTreeData() {
+		final HierarchicalContainer projectTreeData = new HierarchicalContainer();
+		projectTreeData.addContainerProperty(PROJECT_PROPERTY_ID, Long.class,
+				null);
+		projectTreeData.addContainerProperty(PROJECT_PROPERTY_NAME,
+				String.class, null);
 
-    private Component getSplitPanel2() {
-        final SplitPanel splitPanel2 = new SplitPanel();
+		final List<ControlProcess> topLevelProcesses = persistence
+				.getSubProcessesWithChildren(null);
 
-        splitPanel2.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
-        splitPanel2.addComponent(getProcessListPanel());
-        splitPanel2.addComponent(getProcessEditingPanel());
+		if (topLevelProcesses != null) {
+			LOGGER.debug("topLevelProcesses: " + topLevelProcesses.size());
+		}
 
-        processPanel.setEditingProcessPanel(processEditingPanel);
+		final Item root = projectTreeData.addItem(TREE_ROOT_ID);
+		root.getItemProperty(PROJECT_PROPERTY_ID).setValue(null);
+		root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
+				TM.get("mainprocesseditingpanel.7-root"));
 
-        return splitPanel2;
-    }
+		addNodes(projectTreeData, topLevelProcesses, null, persistence, 1);
 
-    private Component getTreePanel() {
-        final VerticalLayout layout = new VerticalLayout();
-        projectTree =
-                new Tree(TM
-                        .get("mainprocesseditingpanel.1-projectTree-caption"));
-        projectTree.setImmediate(true);
-        updateTree();
-        projectTree.setItemCaptionPropertyId(PROJECT_PROPERTY_NAME);
-        projectTree.setItemCaptionMode(ITEM_CAPTION_MODE_PROPERTY);
-        projectTree.addListener(new Property.ValueChangeListener() {
-            private static final long serialVersionUID = 1L;
+		return projectTreeData;
+	}
 
-            @Override
-            public void valueChange(final ValueChangeEvent event) {
-                projectTreeValueChanged(event);
-            }
-        });
+	private Component getSplitPanel2() {
+		final SplitPanel splitPanel2 = new SplitPanel();
 
-        layout.addComponent(projectTree);
+		splitPanel2.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
+		splitPanel2.addComponent(getProcessListPanel());
+		splitPanel2.addComponent(getProcessEditingPanel());
 
-        createSiblingButton =
-                new Button(TM
-                        .get("mainprocesseditingpanel.2-createSiblingButton"));
+		processPanel.setEditingProcessPanel(processEditingPanel);
 
-        createSiblingButton.setDebugId(this.debugIdRegistry.getDebugId("mainprocesseditingpanel.2"));
-        
-        createChildButton =
-                new Button(TM
-                        .get("mainprocesseditingpanel.5-createChildButton"));
-        createChildButton.setDebugId(this.debugIdRegistry.getDebugId("mainprocesseditingpanel.3"));
-        
-        deleteProjectButton =
-                new Button(TM
-                        .get("mainprocesseditingpanel.4-deleteProjectButton"));
+		return splitPanel2;
+	}
 
-        deleteProjectButton.setEnabled(false);
+	private Component getTreePanel() {
+		final VerticalLayout layout = new VerticalLayout();
+		projectTree = new Tree(
+				TM.get("mainprocesseditingpanel.1-projectTree-caption"));
+		projectTree.setImmediate(true);
+		updateTree();
+		projectTree.setItemCaptionPropertyId(PROJECT_PROPERTY_NAME);
+		projectTree.setItemCaptionMode(ITEM_CAPTION_MODE_PROPERTY);
+		projectTree.addListener(new Property.ValueChangeListener() {
+			private static final long serialVersionUID = 1L;
 
-        exportButton = new Button(TM.get("mainprocesseditingpanel.8-export-xml"));
-        
-        
-        layout.addComponent(createSiblingButton);
-        layout.addComponent(createChildButton);
-        layout.addComponent(deleteProjectButton);
-        layout.addComponent(exportButton);
+			@Override
+			public void valueChange(final ValueChangeEvent event) {
+				projectTreeValueChanged(event);
+			}
+		});
 
-        createSiblingButton.addListener(new ClickListener() {
-            private static final long serialVersionUID = 1L;
+		layout.addComponent(projectTree);
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                createSiblingButtonClicked();
-            }
-        });
+		createSiblingButton = new Button(
+				TM.get("mainprocesseditingpanel.2-createSiblingButton"));
 
-        createChildButton.addListener(new ClickListener() {
-            private static final long serialVersionUID = 1L;
+		createSiblingButton.setDebugId(this.debugIdRegistry
+				.getDebugId("mainprocesseditingpanel.2"));
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                createChildButtonClicked();
-            }
-        });
+		createChildButton = new Button(
+				TM.get("mainprocesseditingpanel.5-createChildButton"));
+		createChildButton.setDebugId(this.debugIdRegistry
+				.getDebugId("mainprocesseditingpanel.3"));
 
-        deleteProjectButton.addListener(new ClickListener() {
-            private static final long serialVersionUID = 1L;
+		deleteProjectButton = new Button(
+				TM.get("mainprocesseditingpanel.4-deleteProjectButton"));
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                deleteProjectButtonClicked();
-            }
-        });
-        
-        exportButton.addListener(new ClickListener() {
-        	private static final long serialVersionUID = 1L;
-        	
+		deleteProjectButton.setEnabled(false);
+
+		exportButton = new Button(
+				TM.get("mainprocesseditingpanel.8-export-xml"));
+
+		layout.addComponent(createSiblingButton);
+		layout.addComponent(createChildButton);
+		layout.addComponent(deleteProjectButton);
+		layout.addComponent(exportButton);
+
+		createSiblingButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				createSiblingButtonClicked();
+			}
+		});
+
+		createChildButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				createChildButtonClicked();
+			}
+		});
+
+		deleteProjectButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				deleteProjectButtonClicked();
+			}
+		});
+
+		exportButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				exportButtonClicked();
 			}
 		});
 
-        return layout;
-    }
+		return layout;
+	}
 
-    private DateFormat XML_DUMP_TIMESTAMP_DATE_FORMAT = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss.xml");
-    
-    protected void exportButtonClicked() {
-    	final UserData userData = this.persistence.getUserData();
-    	final XmlSerializerFactory serializerFactory = this.injector.getInstance(XmlSerializerFactory.class);
-    	final XmlSerializer serializer = serializerFactory.create();
-    	
-    	FileOutputStream fileOutputStream = null;
-    	
-    	try {
-			fileOutputStream = new FileOutputStream(new File(XML_DUMP_TIMESTAMP_DATE_FORMAT.format(new Date())));
+	private final static String XML_DUMP_FILENAME_TEMPLATE = "PCC_DATA_${timestamp}.xml";
+	private DateFormat XML_DUMP_TIMESTAMP_DATE_FORMAT = new SimpleDateFormat(
+			"yyyy_MM_dd_HH_mm_ss");
+
+	protected void exportButtonClicked() {
+		final UserData userData = this.persistence.getUserData();
+		final XmlSerializerFactory serializerFactory = this.injector
+				.getInstance(XmlSerializerFactory.class);
+		final XmlSerializer serializer = serializerFactory.create();
+
+		FileOutputStream fileOutputStream = null;
+
+		try {
+			final String filename = XML_DUMP_FILENAME_TEMPLATE.replace(
+					"${timestamp}",
+					XML_DUMP_TIMESTAMP_DATE_FORMAT.format(new Date()));
+
+			fileOutputStream = new FileOutputStream(new File(filename));
 			serializer.setOutputStream(fileOutputStream);
 			serializer.setUserData(userData);
 			serializer.run();
@@ -394,16 +397,14 @@ class DefaultMainProcessEditingPanel extends Panel implements
 			LOGGER.error(ErrorCodes.M_001_EXPORT_FAILURE, exception);
 		} catch (final PccException exception) {
 			LOGGER.error(ErrorCodes.M_001_EXPORT_FAILURE, exception);
-		}
-		finally
-		{
+		} finally {
 			IOUtils.closeQuietly(fileOutputStream);
 		}
 	}
 
 	private void updateTree() {
-        projectTreeData = getProjectTreeData();
-        projectTree.setContainerDataSource(projectTreeData);
-        projectTree.expandItemsRecursively(TREE_ROOT_ID);
-    }
+		projectTreeData = getProjectTreeData();
+		projectTree.setContainerDataSource(projectTreeData);
+		projectTree.expandItemsRecursively(TREE_ROOT_ID);
+	}
 }
