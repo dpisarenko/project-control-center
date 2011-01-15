@@ -376,7 +376,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
         return layout;
     }
 
-    private DateFormat XML_DUMP_TIMESTAMP_DATE_FORMAT = new SimpleDateFormat("PCC_XML_DUMP_yyyy_MM_dd_HH_mm_ss.xml");
+    private DateFormat XML_DUMP_TIMESTAMP_DATE_FORMAT = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss.xml");
     
     protected void exportButtonClicked() {
     	final UserData userData = this.persistence.getUserData();

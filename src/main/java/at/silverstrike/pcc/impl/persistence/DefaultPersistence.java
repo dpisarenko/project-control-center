@@ -1065,11 +1065,13 @@ public class DefaultPersistence implements Persistence {
 		final Query dailyPlanQuery = session.createQuery("from DefaultDailyPlan");
 		final List<DailyPlan> dailyPlans = dailyPlanQuery.list();
 		
+		final Query processesQuery = session.createQuery("from DefaultControlProcess");
+		final List<ControlProcess> processes = processesQuery.list();
 		
 		userData.setBookings(bookings);
-		userData.setDailyPlans(null);
+		userData.setDailyPlans(dailyPlans);
 		userData.setIdentifier("dp");
-		userData.setProcesses(null);
+		userData.setProcesses(processes);
 		
 		return userData;
 	}

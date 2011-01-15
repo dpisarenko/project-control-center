@@ -24,6 +24,7 @@ import at.silverstrike.pcc.api.model.ControlProcess;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.persistence.PersistenceState;
@@ -181,4 +182,9 @@ public abstract class MockPersistenceAdapter implements Persistence {
         return null;
     }
     
+    @Override
+    public UserData getUserData()
+    {
+    	return null;
+    }
 }

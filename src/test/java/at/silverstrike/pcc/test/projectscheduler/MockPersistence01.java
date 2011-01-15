@@ -23,6 +23,7 @@ import junit.framework.Assert;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.ControlProcess;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
 import at.silverstrike.pcc.impl.jruby.RubyDateTimeUtils;
@@ -87,4 +88,9 @@ class MockPersistence01 extends MockPersistenceAdapter {
         // TODO Auto-generated method stub
         return null;
     }
+
+	@Override
+	public UserData getUserData() {
+		return null;
+	}
 }
