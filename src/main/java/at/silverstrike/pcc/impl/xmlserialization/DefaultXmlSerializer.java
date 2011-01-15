@@ -1,3 +1,14 @@
+/**
+ * This file is part of Project Control Center (PCC).
+ * 
+ * PCC (Project Control Center) project is intellectual property of 
+ * Dmitri Anatol'evich Pisarenko.
+ * 
+ * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * All rights reserved
+ *
+ **/
+
 package at.silverstrike.pcc.impl.xmlserialization;
 
 import java.io.IOException;
@@ -13,15 +24,14 @@ import at.silverstrike.pcc.api.xmlserialization.XmlSerializer;
 class DefaultXmlSerializer implements XmlSerializer {
 	private UserData userData;
 	private OutputStream outputStream;
-	
+
 	public void run() throws PccException {
 		XStream xstream = new XStream(new DomDriver());
 		String xml = xstream.toXML(userData);
 		try {
 			outputStream.write(xml.getBytes());
-		} catch (final IOException e) {
-			System.out.println("Error while writting to output stream.");
-			e.printStackTrace();
+		} catch (final IOException exception) {
+			throw new PccException(exception);
 		}
 	}
 
@@ -32,5 +42,4 @@ class DefaultXmlSerializer implements XmlSerializer {
 	public void setOutputStream(final OutputStream aOutputStream) {
 		this.outputStream = aOutputStream;
 	}
-
 }
