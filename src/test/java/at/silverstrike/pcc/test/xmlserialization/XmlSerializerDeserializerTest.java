@@ -137,8 +137,9 @@ public class XmlSerializerDeserializerTest extends TestCase {
 		// in test/resources/at/swdev/
 		// test/xmlserialization/testSerializationDeserialization.xml
 		File targetFile = null;
-		targetFile = new File("src/test/resources/at/silverstrike/"
-            + "pcc/test/xmlserialization/testSerializationDeserialization.xml");
+		targetFile = new File(
+				"src/test/resources/at/silverstrike/"
+						+ "pcc/test/xmlserialization/testSerializationDeserialization.xml");
 		FileOutputStream fileOutputStream = null;
 		// Init fileOutputStream
 		try {
@@ -176,5 +177,179 @@ public class XmlSerializerDeserializerTest extends TestCase {
 		Assert.assertEquals(writtenData.getProcesses().size(), readData
 				.getProcesses().size());
 
+		Assert.assertNotNull(readData);
+
+		// test processes
+		int writtenProcessesSize = writtenData.getProcesses().size();
+		int readProcessesSize = readData.getProcesses().size();
+		Assert.assertEquals(writtenProcessesSize, readProcessesSize);
+		if (writtenProcessesSize == readProcessesSize) {
+			for (int i = 0; i < writtenProcessesSize; i++) {
+				TestProcess(writtenData.getProcesses().get(i), readData
+						.getProcesses().get(i));
+			}
+		}
+
+		// test identifier
+		Assert.assertEquals(writtenData.getIdentifier(),
+				readData.getIdentifier());
+
+		// test bookings
+		int writtenDataBookingsSize = writtenData.getBookings().size();
+		int readDataBookingsSize = readData.getBookings().size();
+		Assert.assertEquals(writtenDataBookingsSize, readDataBookingsSize);
+		if (writtenDataBookingsSize == readDataBookingsSize) {
+			for (int i = 0; i < writtenDataBookingsSize; i++) {
+				Booking written = writtenData.getBookings().get(i);
+				Booking read = readData.getBookings().get(i);
+				TestBooking(written, read);
+			}
+		}
+
+		// test daily plans
+		int writtenDataDailyPlansSize = writtenData.getDailyPlans().size();
+		int readDataDailyPlansSize = readData.getDailyPlans().size();
+		Assert.assertEquals(writtenDataDailyPlansSize, readDataDailyPlansSize);
+		if (writtenDataDailyPlansSize == readDataDailyPlansSize) {
+			for (int i = 0; i < writtenDataDailyPlansSize; i++) {
+				DailyPlan written = writtenData.getDailyPlans().get(i);
+				DailyPlan read = readData.getDailyPlans().get(i);
+				TestDailyPlan(written, read);
+			}
+		}
+	}
+
+	private void TestDailyPlan(DailyPlan written, DailyPlan read) {
+		if (written.getDate() != null)
+			Assert.assertEquals(written.getDate(), read.getDate());
+		if (written.getId() != null)
+			Assert.assertEquals(written.getId(), read.getId());
+		if (written.getResource() != null)
+			TestResource(written.getResource(), read.getResource());
+		if (written.getSchedule() != null)
+			TestSchedule(written.getSchedule(), read.getSchedule());
+		if (written.getToDoList() != null)
+			TestDailyToDoList(written.getToDoList(), read.getToDoList());
+	}
+
+	private void TestDailyToDoList(DailyToDoList written, DailyToDoList read) {
+		if (written.getId() != null)
+			Assert.assertEquals(written.getId(), read.getId());
+		if (written.getTasksToCompleteToday() != null) {
+			int writtenProcesses = written.getTasksToCompleteToday().size();
+			int readProcesses = read.getTasksToCompleteToday().size();
+			Assert.assertEquals(writtenProcesses, readProcesses);
+			if (writtenProcesses == readProcesses) {
+				for (int i = 0; i < writtenProcesses; i++) {
+					TestProcess(written.getTasksToCompleteToday().get(i), read
+							.getTasksToCompleteToday().get(i));
+				}
+			}
+		}
+	}
+
+	private void TestResource(Resource written, Resource read) {
+		if (written.getAbbreviation() != null)
+			Assert.assertEquals(written.getAbbreviation(),
+					read.getAbbreviation());
+		Assert.assertEquals(written.getDailyLimitInHours(),
+				read.getDailyLimitInHours());
+		if (written.getId() != null)
+			Assert.assertEquals(written.getId(), read.getId());
+	}
+
+	private void TestSchedule(DailySchedule written, DailySchedule read) {
+		if (written.getId() != null)
+			Assert.assertEquals(written.getId(), read.getId());
+		if (written.getBookings() != null) {
+			int writtenBooking = written.getBookings().size();
+			int readBooking = read.getBookings().size();
+			Assert.assertEquals(writtenBooking, readBooking);
+			if (writtenBooking == readBooking) {
+				for (int i = 0; i < writtenBooking; i++) {
+					TestBooking(written.getBookings().get(i), read
+							.getBookings().get(i));
+				}
+			}
+		}
+	}
+
+	private void TestBooking(Booking written, Booking read) {
+		if (written.getDuration() != 0)
+			Assert.assertEquals(written.getDuration(), read.getDuration());
+		if (written.getEndDateTime() != null)
+			Assert.assertEquals(written.getEndDateTime(), read.getEndDateTime());
+		if (written.getId() != null)
+			Assert.assertEquals(written.getId(), read.getId());
+		if (written.getStartDateTime() != null)
+			Assert.assertEquals(written.getStartDateTime(),
+					read.getStartDateTime());
+		if (written.getResource() != null)
+			TestResource(written.getResource(), read.getResource());
+		if (written.getProcess() != null)
+			TestProcess(written.getProcess(), read.getProcess());
+	}
+
+	private void TestProcess(ControlProcess written, ControlProcess read) {
+		if (written.getName() != null)
+			Assert.assertEquals(written.getName(), read.getName());
+		if (written.getAverageEstimatedEndDateTime() != null)
+			Assert.assertEquals(written.getAverageEstimatedEndDateTime(),
+					read.getAverageEstimatedEndDateTime());
+		if (written.getBestCaseEffort() != null)
+			Assert.assertEquals(written.getBestCaseEffort(),
+					read.getBestCaseEffort());
+		if (written.getBestEstimatedEndDateTime() != null)
+			Assert.assertEquals(written.getBestEstimatedEndDateTime(),
+					read.getBestEstimatedEndDateTime());
+		if (written.getId() != null)
+			Assert.assertEquals(written.getId(), read.getId());
+		if (written.getParent() != null)
+			TestProcess(written.getParent(), read.getParent());
+		if (written.getPredecessors() != null) {
+			int writtenPredecesors = written.getPredecessors().size();
+			int readPredecesors = read.getPredecessors().size();
+			Assert.assertEquals(writtenPredecesors, readPredecesors);
+			if (writtenPredecesors == readPredecesors) {
+				for (int i = 0; i < writtenPredecesors; i++) {
+					TestProcess((ControlProcess) written.getPredecessors()
+							.toArray()[i], (ControlProcess) read
+							.getPredecessors().toArray()[i]);
+				}
+			}
+		}
+		if (written.getPriority() != null)
+			Assert.assertEquals(written.getPriority(), read.getPriority());
+		if (written.getProcessType() != null)
+			Assert.assertEquals(written.getProcessType(), read.getProcessType());
+		if (written.getResourceAllocations() != null) {
+			int writtenResourceAllocation = written.getResourceAllocations()
+					.size();
+			int readResourceAllocation = read.getResourceAllocations().size();
+			Assert.assertEquals(writtenResourceAllocation,
+					readResourceAllocation);
+			if (writtenResourceAllocation == readResourceAllocation) {
+				for (int i = 0; i < writtenResourceAllocation; i++) {
+					TestResourceAllocation(written.getResourceAllocations()
+							.get(i), read.getResourceAllocations().get(i));
+				}
+			}
+		}
+		if (written.getState() != null)
+			Assert.assertEquals(written.getState(), read.getState());
+		if (written.getWorstCaseEffort() != null)
+			Assert.assertEquals(written.getWorstCaseEffort(),
+					read.getWorstCaseEffort());
+		if (written.getWorstEstimatedEndDateTime() != null)
+			Assert.assertEquals(written.getWorstEstimatedEndDateTime(),
+					read.getWorstEstimatedEndDateTime());
+	}
+
+	private void TestResourceAllocation(ResourceAllocation written,
+			ResourceAllocation read) {
+		if (written.getId() != null)
+			Assert.assertEquals(written.getId(), read.getId());
+		if (written.getResource() != null)
+			TestResource(written.getResource(), read.getResource());
 	}
 }
