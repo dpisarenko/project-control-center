@@ -389,7 +389,11 @@ class DefaultMainProcessEditingPanel extends Panel implements
 					"${timestamp}",
 					XML_DUMP_TIMESTAMP_DATE_FORMAT.format(new Date()));
 
-			fileOutputStream = new FileOutputStream(new File(filename));
+			final File file = new File(filename);
+			
+			LOGGER.debug("Exporting data to XML file '{}'", file.getAbsolutePath());
+			
+			fileOutputStream = new FileOutputStream(file);
 			serializer.setOutputStream(fileOutputStream);
 			serializer.setUserData(userData);
 			serializer.run();
