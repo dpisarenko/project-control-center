@@ -36,6 +36,8 @@ import at.silverstrike.pcc.api.version.PccVersionReaderFactory;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
+import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
+import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
@@ -56,66 +58,70 @@ import at.silverstrike.pcc.impl.version.DefaultPccVersionReaderFactory;
 import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusFactory;
 import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusMessageFactory;
 import at.silverstrike.pcc.impl.workerpanel.DefaultWorkerPanelFactory;
+import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlDeserializerFactory;
+import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 
 import com.google.inject.AbstractModule;
 
 class InjectorModule extends AbstractModule {
-    private final Logger LOGGER =
-        LoggerFactory.getLogger(InjectorModule.class);
-    
-    @Override
-    protected void configure() {
-        bind(ProcessPanelFactory.class).toInstance(
-                new DefaultProcessPanelFactory());
-        bind(Persistence.class).toInstance(new DefaultPersistence());
-        bind(MainWindowFactory.class)
-                .toInstance(new DefaultMainWindowFactory());
-        bind(EditingProcessPanelFactory.class).toInstance(
-                new DefaultEditingProcessPanelFactory());
-        bind(WorkerPanelFactory.class).toInstance(
-                new DefaultWorkerPanelFactory());
-        bind(SchedulingPanelFactory.class).toInstance(
-                new DefaultSchedulingPanelFactory());
-        bind(DefaultJRubySandBoxFactory.class).toInstance(
-                new DefaultJRubySandBoxFactory());
-        bind(EmbeddedFileReader.class).toInstance(
-                new DefaultEmbeddedFileReaderFactory().create());
-        bind(BookingsFile2BookingsFactory.class).toInstance(
-                new DefaultBookingsFile2BookingsFactory());
-        bind(TaskJuggler3Exporter.class).toInstance(
-                new DefaultTaskJuggler3ExporterFactory().create());
-        bind(Tj3DeadlinesFileParserFactory.class).toInstance(
-                new DefaultTj3DeadlinesFileParserFactory());
-        bind(Tj3BookingsParserFactory.class).toInstance(
-                new DefaultTj3BookingsParserFactory());
-        bind(ProjectScheduler.class).toInstance(
-                new DefaultProjectSchedulerFactory().create());
-        bind(EstimatedCompletionTimesPanelFactory.class).toInstance(
-                new DefaultEstimatedCompletionTimesPanelFactory());
-        bind(DailyPlanPanelFactory.class).toInstance(
-                new DefaultDailyPlanPanelFactory());
-        bind(MainProcessEditingPanelFactory.class).toInstance(
-                new DefaultMainProcessEditingPanelFactory());
-        bind(ProjectSchedulerFactory.class).toInstance(
-                new DefaultProjectSchedulerFactory());
-        bind(DebugIdRegistry.class).toInstance(
-                new DefaultDebugIdRegistryFactory().create());
-        bind(WebGuiBus.class)
-                .toInstance(new DefaultWebGuiBusFactory().create());
-        bind(WebGuiBusMessageFactory.class).toInstance(
-                new DefaultWebGuiBusMessageFactory());        
-        bind(PccVersionReader.class).toInstance(getVersionReader());
-        
-    }
+	private final Logger LOGGER = LoggerFactory.getLogger(InjectorModule.class);
 
-    private PccVersionReader getVersionReader() {
-        final PccVersionReaderFactory factory = new DefaultPccVersionReaderFactory();
-        final PccVersionReader versionReader = factory.create();
-        try {
-            versionReader.run();
-        } catch (final PccException exception) {
-            LOGGER.error(ErrorCodes.M_001_VERSION_READER, exception);
-        }
-        return versionReader;
-    }
+	@Override
+	protected void configure() {
+		bind(ProcessPanelFactory.class).toInstance(
+				new DefaultProcessPanelFactory());
+		bind(Persistence.class).toInstance(new DefaultPersistence());
+		bind(MainWindowFactory.class)
+				.toInstance(new DefaultMainWindowFactory());
+		bind(EditingProcessPanelFactory.class).toInstance(
+				new DefaultEditingProcessPanelFactory());
+		bind(WorkerPanelFactory.class).toInstance(
+				new DefaultWorkerPanelFactory());
+		bind(SchedulingPanelFactory.class).toInstance(
+				new DefaultSchedulingPanelFactory());
+		bind(DefaultJRubySandBoxFactory.class).toInstance(
+				new DefaultJRubySandBoxFactory());
+		bind(EmbeddedFileReader.class).toInstance(
+				new DefaultEmbeddedFileReaderFactory().create());
+		bind(BookingsFile2BookingsFactory.class).toInstance(
+				new DefaultBookingsFile2BookingsFactory());
+		bind(TaskJuggler3Exporter.class).toInstance(
+				new DefaultTaskJuggler3ExporterFactory().create());
+		bind(Tj3DeadlinesFileParserFactory.class).toInstance(
+				new DefaultTj3DeadlinesFileParserFactory());
+		bind(Tj3BookingsParserFactory.class).toInstance(
+				new DefaultTj3BookingsParserFactory());
+		bind(ProjectScheduler.class).toInstance(
+				new DefaultProjectSchedulerFactory().create());
+		bind(EstimatedCompletionTimesPanelFactory.class).toInstance(
+				new DefaultEstimatedCompletionTimesPanelFactory());
+		bind(DailyPlanPanelFactory.class).toInstance(
+				new DefaultDailyPlanPanelFactory());
+		bind(MainProcessEditingPanelFactory.class).toInstance(
+				new DefaultMainProcessEditingPanelFactory());
+		bind(ProjectSchedulerFactory.class).toInstance(
+				new DefaultProjectSchedulerFactory());
+		bind(DebugIdRegistry.class).toInstance(
+				new DefaultDebugIdRegistryFactory().create());
+		bind(WebGuiBus.class)
+				.toInstance(new DefaultWebGuiBusFactory().create());
+		bind(WebGuiBusMessageFactory.class).toInstance(
+				new DefaultWebGuiBusMessageFactory());
+		bind(PccVersionReader.class).toInstance(getVersionReader());
+		bind(XmlSerializerFactory.class).toInstance(
+				new DefaultXmlSerializerFactory());
+		bind(XmlDeserializerFactory.class).toInstance(
+				new DefaultXmlDeserializerFactory());
+	}
+
+	private PccVersionReader getVersionReader() {
+		final PccVersionReaderFactory factory = new DefaultPccVersionReaderFactory();
+		final PccVersionReader versionReader = factory.create();
+		try {
+			versionReader.run();
+		} catch (final PccException exception) {
+			LOGGER.error(ErrorCodes.M_001_VERSION_READER, exception);
+		}
+		return versionReader;
+	}
 }

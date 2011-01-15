@@ -13,20 +13,31 @@ package at.silverstrike.pcc.impl.mainprocesseditingpanel;
 
 import static com.vaadin.ui.AbstractSelect.ITEM_CAPTION_MODE_PROPERTY;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanel;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanelFactory;
 import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanel;
 import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanel;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
+import at.silverstrike.pcc.api.xmlserialization.XmlSerializer;
+import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.data.Item;
@@ -83,6 +94,8 @@ class DefaultMainProcessEditingPanel extends Panel implements
     private Long selectedProjectId;
     
     private DebugIdRegistry debugIdRegistry;
+
+	private Button exportButton;
     
     public DefaultMainProcessEditingPanel() {
         
@@ -316,9 +329,13 @@ class DefaultMainProcessEditingPanel extends Panel implements
 
         deleteProjectButton.setEnabled(false);
 
+        exportButton = new Button(TM.get("mainprocesseditingpanel.8-export-xml"));
+        
+        
         layout.addComponent(createSiblingButton);
         layout.addComponent(createChildButton);
         layout.addComponent(deleteProjectButton);
+        layout.addComponent(exportButton);
 
         createSiblingButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
@@ -346,11 +363,45 @@ class DefaultMainProcessEditingPanel extends Panel implements
                 deleteProjectButtonClicked();
             }
         });
+        
+        exportButton.addListener(new ClickListener() {
+        	private static final long serialVersionUID = 1L;
+        	
+			@Override
+			public void buttonClick(ClickEvent event) {
+				exportButtonClicked();
+			}
+		});
 
         return layout;
     }
 
-    private void updateTree() {
+    private DateFormat XML_DUMP_TIMESTAMP_DATE_FORMAT = new SimpleDateFormat("PCC_XML_DUMP_yyyy_MM_dd_HH_mm_ss.xml");
+    
+    protected void exportButtonClicked() {
+    	final UserData userData = this.persistence.getUserData();
+    	final XmlSerializerFactory serializerFactory = this.injector.getInstance(XmlSerializerFactory.class);
+    	final XmlSerializer serializer = serializerFactory.create();
+    	
+    	FileOutputStream fileOutputStream = null;
+    	
+    	try {
+			fileOutputStream = new FileOutputStream(new File(XML_DUMP_TIMESTAMP_DATE_FORMAT.format(new Date())));
+			serializer.setOutputStream(fileOutputStream);
+			serializer.setUserData(userData);
+			serializer.run();
+		} catch (final FileNotFoundException exception) {
+			LOGGER.error(ErrorCodes.M_001_EXPORT_FAILURE, exception);
+		} catch (final PccException exception) {
+			LOGGER.error(ErrorCodes.M_001_EXPORT_FAILURE, exception);
+		}
+		finally
+		{
+			IOUtils.closeQuietly(fileOutputStream);
+		}
+	}
+
+	private void updateTree() {
         projectTreeData = getProjectTreeData();
         projectTree.setContainerDataSource(projectTreeData);
         projectTree.expandItemsRecursively(TREE_ROOT_ID);

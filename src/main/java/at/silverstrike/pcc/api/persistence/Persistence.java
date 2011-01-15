@@ -22,6 +22,7 @@ import at.silverstrike.pcc.api.model.ControlProcess;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
@@ -138,4 +139,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     void clearDatabase();
     
     Resource getResource(final Long aResourceId);
+
+	UserData getUserData();
 }

@@ -45,6 +45,7 @@ import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.persistence.PersistenceState;
@@ -1052,4 +1053,24 @@ public class DefaultPersistence implements Persistence {
                     (Serializable) aResourceId);
         }
     }
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public UserData getUserData() {
+		final UserData userData = new DefaultUserData();
+
+		final Query bookingsQuery = session.createQuery("from DefaultBooking");
+		final List<Booking> bookings = bookingsQuery.list();
+
+		final Query dailyPlanQuery = session.createQuery("from DefaultDailyPlan");
+		final List<DailyPlan> dailyPlans = dailyPlanQuery.list();
+		
+		
+		userData.setBookings(bookings);
+		userData.setDailyPlans(null);
+		userData.setIdentifier("dp");
+		userData.setProcesses(null);
+		
+		return userData;
+	}
 }
