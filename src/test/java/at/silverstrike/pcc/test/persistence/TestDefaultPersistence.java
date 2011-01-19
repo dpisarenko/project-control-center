@@ -99,7 +99,6 @@ public class TestDefaultPersistence {
         Assert.assertEquals(0, processList2.size());
     	
         Assert.assertEquals(0, persistence.getChildTasks((Long)null).size());
-        Assert.assertEquals(0, persistence.getSubProcessesWithChildren((Long)null).size());
-        
-    }
+        Assert.assertNull(persistence.getSubProcessesWithChildren((Long)null));
+     }
 }
