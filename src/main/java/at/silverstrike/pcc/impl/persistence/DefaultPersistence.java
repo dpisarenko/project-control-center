@@ -68,6 +68,7 @@ public class DefaultPersistence implements Persistence {
     private static final String PROCESS_ID = "${processId}";
     private static final String STATE_BEING_ATTAINED = ":stateBeingAttained";
     private static final String STATE_DELETED = ":stateDeleted";
+    private static final String STATE_ATTAINED = ":stateAttained";
     private static final String STATE_SCHEDULED = ":stateScheduled";
     private static final String SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE =
             "from DefaultControlProcess p where (p.parent.id = ${processId}) and (state <> "
@@ -369,13 +370,16 @@ public class DefaultPersistence implements Persistence {
         try {
             final Query query =
                     session
-                            .createQuery("from DefaultControlProcess where (state <> "
-                                    + STATE_DELETED + ")");
+                            .createQuery("from DefaultControlProcess where ((state <> "
+                                    + STATE_DELETED + ") and (state <> " + STATE_ATTAINED + "))");
 
             query
                     .setParameter(STATE_DELETED.substring(1),
                             ProcessState.DELETED);
-
+            query
+            .setParameter(STATE_ATTAINED.substring(1),
+                    ProcessState.ATTAINED);
+            
             final List result = query.list();
 
             for (final Object record : result) {
