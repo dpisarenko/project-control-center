@@ -13,6 +13,7 @@ package at.silverstrike.pcc.api.conventions;
 
 import com.vaadin.ui.Panel;
 
+//change
 public interface AbstractedPanel extends InitializableGuiComponent{
 	
 	Panel toPanel();
