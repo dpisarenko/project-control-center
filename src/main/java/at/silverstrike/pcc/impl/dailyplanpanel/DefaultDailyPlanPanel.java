@@ -76,7 +76,7 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 	private static final String COLUMN_SCHEDULE_TO = "COLUMN_SCHEDULE_TO";
 	private static final String COLUMN_SCHEDULE_PROCESS = "COLUMN_SCHEDULE_PROCESS";
 
-	private Injector injector;
+	private transient Injector injector;
 	private Table scheduleTable;
 	private Table todoTable;
 
