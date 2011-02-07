@@ -32,8 +32,8 @@ class DefaultBookingsFile2Bookings implements BookingsFile2Bookings {
     
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd-HH:mm";
 	private List<BookingTuple> tuples;
-    private BookingsFile bookingsFile;
-    private Persistence persistence;
+    private BookingsFile bookingsFile = null;
+    private Persistence persistence = null;
     
     @Override
     public List<BookingTuple> getTuples() {

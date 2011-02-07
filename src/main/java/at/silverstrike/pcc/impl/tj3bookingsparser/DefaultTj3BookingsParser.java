@@ -39,7 +39,7 @@ import at.silverstrike.pcc.impl.tj3bookingsparser.grammar.BookingsParser;
 class DefaultTj3BookingsParser implements Tj3BookingsParser {
     private List<BookingTuple> bookings;
     private InputStream inputStream;
-    private Injector injector;
+    private Injector injector = null;
 
     public DefaultTj3BookingsParser() {
 

@@ -23,7 +23,7 @@ import at.silverstrike.pcc.api.xmlserialization.XmlSerializer;
 
 class DefaultXmlSerializer implements XmlSerializer {
 	private UserData userData;
-	private OutputStream outputStream;
+	private OutputStream outputStream = null;
 
 	public void run() throws PccException {
 		XStream xstream = new XStream(new DomDriver());
