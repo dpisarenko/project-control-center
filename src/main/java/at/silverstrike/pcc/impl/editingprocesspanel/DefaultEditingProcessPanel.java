@@ -61,6 +61,20 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 	private static final double HOURS_IN_HOUR = 1.0;
 	private static final double HOURS_IN_MINUTE = 1. / 60.;
 
+	private static final class StartButtonListener implements ClickListener {
+		private static final long serialVersionUID = 1L;
+		private DefaultEditingProcessPanel parent;
+		
+		public StartButtonListener(final DefaultEditingProcessPanel aParent) {
+			this.parent = aParent;
+		}
+
+		@Override
+		public void buttonClick(final ClickEvent event) {
+			this.parent.startButtonClicked();
+		}
+	}
+
 	private static class SaveButtonRelevantListener implements
 			Property.ValueChangeListener {
 		private static final long serialVersionUID = 1L;
@@ -378,14 +392,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		startButton = new Button(TM.get("editingprocesspanel.1-start-caption"));
 		startButton.setDebugId(this.debugIdRegistry
 				.getDebugId("editingprocesspanel.9-startButton"));
-		startButton.addListener(new ClickListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(final ClickEvent event) {
-				DefaultEditingProcessPanel.this.startButtonClicked();
-			}
-		});
+		startButton.addListener(new StartButtonListener(this));
 		stopButton = new Button(TM.get("editingprocesspanel.2-pause-caption"));
 		stopButton.setDebugId(this.debugIdRegistry
 				.getDebugId("editingprocesspanel.10-stopButton"));
