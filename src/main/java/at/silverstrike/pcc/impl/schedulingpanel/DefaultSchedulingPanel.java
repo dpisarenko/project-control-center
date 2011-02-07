@@ -44,13 +44,13 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private Injector injector;
-    private final Logger LOGGER =
+    private transient Injector injector;
+    private final static Logger LOGGER =
         LoggerFactory.getLogger(DefaultSchedulingPanel.class);
     private ProgressIndicator progressIndicator;
 
     private TextField loggingTextArea;
-    private Persistence persistence;
+    private transient Persistence persistence;
 
     public DefaultSchedulingPanel() {
     }
