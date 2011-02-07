@@ -184,7 +184,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
 				deleteProjectButton.setEnabled(true);
 				createSiblingButton.setEnabled(true);
 				createChildButton.setEnabled(true);
-			} else if (selectedProjectId == null) {
+			} else {
 				deleteProjectButton.setEnabled(false);
 				createSiblingButton.setEnabled(false);
 				createChildButton.setEnabled(false);
