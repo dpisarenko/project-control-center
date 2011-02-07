@@ -28,9 +28,10 @@ import at.silverstrike.pcc.api.tj3bookingsparser.IndBooking;
 import at.silverstrike.pcc.api.tj3bookingsparser.SupplementStatement;
 
 class DefaultBookingsFile2Bookings implements BookingsFile2Bookings {
-    private final static DateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
     
-    private List<BookingTuple> tuples;
+    
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd-HH:mm";
+	private List<BookingTuple> tuples;
     private BookingsFile bookingsFile;
     private Persistence persistence;
     
@@ -86,9 +87,14 @@ class DefaultBookingsFile2Bookings implements BookingsFile2Bookings {
         /**
          * Parse date/time
          */
-        return DATE_TIME_FORMAT.parse(dateTimeWithoutTimeZone);
+        return getDateTimeFormat().parse(dateTimeWithoutTimeZone);
     }
-
+    
+    private final static DateFormat getDateTimeFormat()
+    {
+    	return new SimpleDateFormat(DATE_TIME_FORMAT);
+    }
+    
     private long taskOrResourceIdStringToLong(final String anIdAsString) {
         return Long.parseLong(anIdAsString.substring(1));
     }
