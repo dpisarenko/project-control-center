@@ -53,13 +53,13 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
     private static final String COLUMN_ID = "id";
     private static final long serialVersionUID = 1L;
     private Table table = new Table();
-    private Persistence persistence;
+    private transient Persistence persistence = null;
     private TextField processNameTextField = new TextField();
     private Button addProcessButton = new Button();
-    private EditingProcessPanel editingProcessPanel;
+    private EditingProcessPanel editingProcessPanel = null;
     private Long parentProcessId;
     private ProcessPanelListener listener;
-    private Label parentProcessLabel;
+    private Label parentProcessLabel = null;
 
     public DefaultProcessPanel() {
         super();
