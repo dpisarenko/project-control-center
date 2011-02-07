@@ -174,6 +174,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
 	private void runTaskJuggler(final String parentDir, final Runtime rt)
 			throws PccException {
 		BufferedReader input = null;
+		BufferedReader error = null; 
 		try {
 			final String command = RUBY_PATH + TJ3_INPUT_FILE;
 
@@ -195,7 +196,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
 				LOGGER.debug("proc: " + line);
 			}
 
-			final BufferedReader error = new BufferedReader(
+			error = new BufferedReader(
 					new InputStreamReader(proc.getErrorStream()));
 
 			String errorLine = null;
@@ -215,6 +216,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
 		finally
 		{
 			closeQuietly(input);
+			closeQuietly(error);
 		}
 	}
 
