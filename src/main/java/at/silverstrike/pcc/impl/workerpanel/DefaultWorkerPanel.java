@@ -67,7 +67,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
             }
             catch (final NumberFormatException exception)
             {
-                
+            	dailyMaxWorkTimeInHours = -1.;
             }
             
             persistence.createHumanResource(abbreviation, firstName,
