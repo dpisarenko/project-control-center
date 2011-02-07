@@ -61,7 +61,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 	private static final double HOURS_IN_HOUR = 1.0;
 	private static final double HOURS_IN_MINUTE = 1. / 60.;
 
-	private class SaveButtonRelevantListener implements
+	private static class SaveButtonRelevantListener implements
 			Property.ValueChangeListener {
 		private static final long serialVersionUID = 1L;
 
