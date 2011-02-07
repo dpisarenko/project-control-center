@@ -61,10 +61,83 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 	private static final double HOURS_IN_HOUR = 1.0;
 	private static final double HOURS_IN_MINUTE = 1. / 60.;
 
+	private static final class SaveButtonListener implements ClickListener {
+		private static final long serialVersionUID = 1L;
+		private DefaultEditingProcessPanel parent;
+
+		public SaveButtonListener(final DefaultEditingProcessPanel aParent) {
+			this.parent = aParent;
+		}
+
+		@Override
+		public void buttonClick(final ClickEvent event) {
+			parent.saveButtonClicked();
+		}
+	}
+
+	private static final class DeleteButtonListener implements ClickListener {
+		private static final long serialVersionUID = 1L;
+		private DefaultEditingProcessPanel parent;
+
+		public DeleteButtonListener(final DefaultEditingProcessPanel aParent) {
+			this.parent = aParent;
+		}
+
+		@Override
+		public void buttonClick(final ClickEvent event) {
+			parent.deleteButtonClicked();
+		}
+	}
+
+	private static final class ReactivateButtonListener implements
+			ClickListener {
+		private static final long serialVersionUID = 1L;
+		private DefaultEditingProcessPanel parent;
+
+		public ReactivateButtonListener(final DefaultEditingProcessPanel aParent) {
+			this.parent = aParent;
+		}
+
+		@Override
+		public void buttonClick(final ClickEvent event) {
+			parent.reactivateButtonClicked();
+		}
+	}
+
+	private static final class CancelButtonListener implements ClickListener {
+		private static final long serialVersionUID = 1L;
+		private DefaultEditingProcessPanel parent;
+
+		public CancelButtonListener(final DefaultEditingProcessPanel aParent) {
+			this.parent = aParent;
+		}
+
+		@Override
+		public void buttonClick(final ClickEvent event) {
+			parent.cancelButtonClicked();
+		}
+	}
+
+	private static final class MarkAsCompletedButtonListener implements
+			ClickListener {
+		private static final long serialVersionUID = 1L;
+		private DefaultEditingProcessPanel parent;
+
+		public MarkAsCompletedButtonListener(
+				final DefaultEditingProcessPanel aParent) {
+			this.parent = aParent;
+		}
+
+		@Override
+		public void buttonClick(final ClickEvent event) {
+			this.parent.markAsCompletedButtonClicked();
+		}
+	}
+
 	private static final class StartButtonListener implements ClickListener {
 		private static final long serialVersionUID = 1L;
 		private DefaultEditingProcessPanel parent;
-		
+
 		public StartButtonListener(final DefaultEditingProcessPanel aParent) {
 			this.parent = aParent;
 		}
@@ -408,66 +481,30 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 				TM.get("editingprocesspanel.3-mark-as-completed-caption"));
 		markAsCompleted.setDebugId(this.debugIdRegistry
 				.getDebugId("editingprocesspanel.11-markAsCompleted"));
-		markAsCompleted.addListener(new ClickListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(final ClickEvent event) {
-				DefaultEditingProcessPanel.this.markAsCompletedButtonClicked();
-
-			}
-		});
+		markAsCompleted.addListener(new MarkAsCompletedButtonListener(this));
 		cancelButton = new Button(
 				TM.get("editingprocesspanel.4-mark-as-completed-caption"));
 		cancelButton.setDebugId(this.debugIdRegistry
 				.getDebugId("editingprocesspanel.12-cancelButton"));
-		cancelButton.addListener(new ClickListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(final ClickEvent event) {
-				DefaultEditingProcessPanel.this.cancelButtonClicked();
-			}
-		});
+		cancelButton.addListener(new CancelButtonListener(this));
 
 		reactivateButton = new Button(
 				TM.get("editingprocesspanel.6-reactivate-caption"));
 		reactivateButton.setDebugId(this.debugIdRegistry
 				.getDebugId("editingprocesspanel.13-reactivateButton"));
-		reactivateButton.addListener(new ClickListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(final ClickEvent event) {
-				DefaultEditingProcessPanel.this.reactivateButtonClicked();
-			}
-		});
+		reactivateButton.addListener(new ReactivateButtonListener(this));
 
 		deleteButton = new Button(
 				TM.get("editingprocesspanel.5-mark-as-completed-caption"));
 		deleteButton.setDebugId(this.debugIdRegistry
 				.getDebugId("editingprocesspanel.14-deleteButton"));
-		deleteButton.addListener(new ClickListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(final ClickEvent event) {
-				DefaultEditingProcessPanel.this.deleteButtonClicked();
-			}
-		});
+		deleteButton.addListener(new DeleteButtonListener(this));
 
 		saveButton = new Button(TM.get("editingprocesspanel.12-save"));
 		saveButton.setDebugId(this.debugIdRegistry
 				.getDebugId("editingprocesspanel.15-saveButton"));
 		saveButton.setImmediate(true);
-		saveButton.addListener(new ClickListener() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(final ClickEvent event) {
-				DefaultEditingProcessPanel.this.saveButtonClicked();
-			}
-		});
+		saveButton.addListener(new SaveButtonListener(this));
 
 		buttonPanel.addComponent(startButton, 0, 0);
 		buttonPanel.addComponent(stopButton, 1, 0);
