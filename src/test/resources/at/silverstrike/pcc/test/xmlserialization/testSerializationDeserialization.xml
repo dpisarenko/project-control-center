@@ -17,15 +17,15 @@
         <priority>1</priority>
         <parentProcess class="at.silverstrike.pcc.test.model.MockControlProcess"/>
         <type>GOAL</type>
-        <averageEstimatedEndDateTime>2011-02-01 17:10:33.934 CET</averageEstimatedEndDateTime>
-        <bestEstimatedEndDateTime>2011-02-01 17:10:33.934 CET</bestEstimatedEndDateTime>
-        <worstEstimatedEndDateTime>2011-02-01 17:10:33.934 CET</worstEstimatedEndDateTime>
+        <averageEstimatedEndDateTime>2011-02-07 17:04:34.912 CET</averageEstimatedEndDateTime>
+        <bestEstimatedEndDateTime>2011-02-07 17:04:34.912 CET</bestEstimatedEndDateTime>
+        <worstEstimatedEndDateTime>2011-02-07 17:04:34.912 CET</worstEstimatedEndDateTime>
         <predecessors/>
       </parentProcess>
       <type>GOAL</type>
-      <averageEstimatedEndDateTime>2011-02-01 17:10:33.934 CET</averageEstimatedEndDateTime>
-      <bestEstimatedEndDateTime>2011-02-01 17:10:33.934 CET</bestEstimatedEndDateTime>
-      <worstEstimatedEndDateTime>2011-02-01 17:10:33.937 CET</worstEstimatedEndDateTime>
+      <averageEstimatedEndDateTime>2011-02-07 17:04:34.912 CET</averageEstimatedEndDateTime>
+      <bestEstimatedEndDateTime>2011-02-07 17:04:34.912 CET</bestEstimatedEndDateTime>
+      <worstEstimatedEndDateTime>2011-02-07 17:04:34.913 CET</worstEstimatedEndDateTime>
       <predecessors>
         <at.silverstrike.pcc.test.model.MockControlProcess>
           <name>firstPredecessors</name>
@@ -43,9 +43,9 @@
           <priority>1</priority>
           <parentProcess class="at.silverstrike.pcc.test.model.MockControlProcess"/>
           <type>UNKNOWN</type>
-          <averageEstimatedEndDateTime>2011-02-01 17:10:33.934 CET</averageEstimatedEndDateTime>
-          <bestEstimatedEndDateTime>2011-02-01 17:10:33.934 CET</bestEstimatedEndDateTime>
-          <worstEstimatedEndDateTime>2011-02-01 17:10:33.937 CET</worstEstimatedEndDateTime>
+          <averageEstimatedEndDateTime>2011-02-07 17:04:34.912 CET</averageEstimatedEndDateTime>
+          <bestEstimatedEndDateTime>2011-02-07 17:04:34.912 CET</bestEstimatedEndDateTime>
+          <worstEstimatedEndDateTime>2011-02-07 17:04:34.913 CET</worstEstimatedEndDateTime>
         </at.silverstrike.pcc.test.model.MockControlProcess>
       </predecessors>
     </at.silverstrike.pcc.test.model.MockControlProcess>
@@ -55,7 +55,7 @@
       <resource class="at.silverstrike.pcc.test.model.MockResource">
         <dailyLimit>0.0</dailyLimit>
       </resource>
-      <date>2011-02-01 17:10:33.939 CET</date>
+      <date>2011-02-07 17:04:34.914 CET</date>
       <toDoList class="at.silverstrike.pcc.test.model.MockDailyToDoList">
         <tasksToCompleteToday/>
       </toDoList>
@@ -66,7 +66,7 @@
             <resource class="at.silverstrike.pcc.test.model.MockResource">
               <dailyLimit>0.0</dailyLimit>
             </resource>
-            <startDateTime>2011-02-01 17:10:33.941 CET</startDateTime>
+            <startDateTime>2011-02-07 17:04:34.916 CET</startDateTime>
             <durationInHours>3.4</durationInHours>
           </at.silverstrike.pcc.test.model.MockBooking>
         </bookings>
@@ -79,7 +79,7 @@
       <resource class="at.silverstrike.pcc.test.model.MockResource">
         <dailyLimit>0.0</dailyLimit>
       </resource>
-      <startDateTime>2011-02-01 17:10:33.942 CET</startDateTime>
+      <startDateTime>2011-02-07 17:04:34.916 CET</startDateTime>
       <durationInHours>1.6</durationInHours>
     </at.silverstrike.pcc.test.model.MockBooking>
   </bookings>

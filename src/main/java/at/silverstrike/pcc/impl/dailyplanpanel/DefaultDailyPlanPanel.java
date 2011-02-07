@@ -48,294 +48,306 @@ import at.silverstrike.pcc.api.persistence.Persistence;
  * 
  */
 class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
-    private final static Logger LOGGER =
-        LoggerFactory.getLogger(DefaultDailyPlanPanel.class);
+	private static final String DAY_IN_MONTH_FORMAT = "d";
 
-    private static final int COLUMN_INDEX_SCHEDULE_PROCESS = 3;
-    private static final int COLUMN_INDEX_SCHEDULE_TO = 2;
-    private static final int COLUMN_INDEX_SCHEDULE_FROM = 1;
-    private static final int COLUMN_INDEX_SCHEDULE_ID = 0;
-    private static final int SCHEDULE_COLUMNS_COUNT = 4;
-    private static final int TODO_COLUMNS_COUNT = 4;
-    private static final int COLUMN_INDEX_TODO_PRIORITY = 3;
-    private static final int COLUMN_INDEX_TODO_PROCESS_NAME = 2;
-    private static final int COLUMN_INDEX_TODO_PARENT = 1;
-    private static final int COLUMN_INDEX_TODO_IS_ATTAINED = 0;
-    private static final String DATE_LABEL_TEMPLATE =
-            "<h1>#{dayInMonth}</h1><h2>#{dayOfWeek}</h2><p>#{date}</p>";
-    private static final DateFormat FULL_DATE_FORMAT =
-            DateFormat.getDateInstance();
-    private static final SimpleDateFormat DAY_OF_WEEK_FORMAT =
-            new SimpleDateFormat("EEEE");
-    private static final SimpleDateFormat DAY_IN_MONTH_FORMAT =
-            new SimpleDateFormat("d");
-    private static final long serialVersionUID = 1L;
-    private static final String COLUMN_TODO_COMPLETED = "COLUMN_TODO_COMPLETED";
-    private static final String COLUMN_TODO_PARENT = "COLUMN_TODO_PARENT";
-    private static final String COLUMN_TODO_PROCESS = "COLUMN_TODO_PROCESS";
-    private static final String COLUMN_TODO_PRIORITY = "COLUMN_TODO_PRIORITY";
-    private static final String COLUMN_SCHEDULE_NUMBER =
-            "COLUMN_SCHEDULE_NUMBER";
-    private static final String COLUMN_SCHEDULE_FROM = "COLUMN_SCHEDULE_FROM";
-    private static final String COLUMN_SCHEDULE_TO = "COLUMN_SCHEDULE_TO";
-    private static final String COLUMN_SCHEDULE_PROCESS =
-            "COLUMN_SCHEDULE_PROCESS";
+	private final static Logger LOGGER = LoggerFactory
+			.getLogger(DefaultDailyPlanPanel.class);
 
-    private Injector injector;
-    private Table scheduleTable;
-    private Table todoTable;
+	private static final int COLUMN_INDEX_SCHEDULE_PROCESS = 3;
+	private static final int COLUMN_INDEX_SCHEDULE_TO = 2;
+	private static final int COLUMN_INDEX_SCHEDULE_FROM = 1;
+	private static final int COLUMN_INDEX_SCHEDULE_ID = 0;
+	private static final int SCHEDULE_COLUMNS_COUNT = 4;
+	private static final int TODO_COLUMNS_COUNT = 4;
+	private static final int COLUMN_INDEX_TODO_PRIORITY = 3;
+	private static final int COLUMN_INDEX_TODO_PROCESS_NAME = 2;
+	private static final int COLUMN_INDEX_TODO_PARENT = 1;
+	private static final int COLUMN_INDEX_TODO_IS_ATTAINED = 0;
+	private static final String DATE_LABEL_TEMPLATE = "<h1>#{dayInMonth}</h1><h2>#{dayOfWeek}</h2><p>#{date}</p>";
+	private static final DateFormat FULL_DATE_FORMAT = DateFormat
+			.getDateInstance();
+	private static final SimpleDateFormat DAY_OF_WEEK_FORMAT = new SimpleDateFormat(
+			"EEEE");
+	private static final long serialVersionUID = 1L;
+	private static final String COLUMN_TODO_COMPLETED = "COLUMN_TODO_COMPLETED";
+	private static final String COLUMN_TODO_PARENT = "COLUMN_TODO_PARENT";
+	private static final String COLUMN_TODO_PROCESS = "COLUMN_TODO_PROCESS";
+	private static final String COLUMN_TODO_PRIORITY = "COLUMN_TODO_PRIORITY";
+	private static final String COLUMN_SCHEDULE_NUMBER = "COLUMN_SCHEDULE_NUMBER";
+	private static final String COLUMN_SCHEDULE_FROM = "COLUMN_SCHEDULE_FROM";
+	private static final String COLUMN_SCHEDULE_TO = "COLUMN_SCHEDULE_TO";
+	private static final String COLUMN_SCHEDULE_PROCESS = "COLUMN_SCHEDULE_PROCESS";
 
-    public DefaultDailyPlanPanel() {
-    }
+	private Injector injector;
+	private Table scheduleTable;
+	private Table todoTable;
 
-    private Component getDatePanel() {
-        final HorizontalLayout layout = new HorizontalLayout();
-        final Date now = new Date();
-        final Label dateLabel =
-                new Label(DATE_LABEL_TEMPLATE.replace("#{dayInMonth}",
-                        getDayInMonth(now)).replace("#{dayOfWeek}",
-                        getDayOfWeek(now)).replace("#{date}", getFullDate(now)));
-        dateLabel.setContentMode(Label.CONTENT_XHTML);
+	public DefaultDailyPlanPanel() {
+	}
 
-        selectedDayDateField = new InlineDateField();
+	private Component getDatePanel() {
+		final HorizontalLayout layout = new HorizontalLayout();
+		final Date now = new Date();
+		final Label dateLabel = new Label(DATE_LABEL_TEMPLATE
+				.replace("#{dayInMonth}", getDayInMonth(now))
+				.replace("#{dayOfWeek}", getDayOfWeek(now))
+				.replace("#{date}", getFullDate(now)));
+		dateLabel.setContentMode(Label.CONTENT_XHTML);
 
-        // Set the value of the PopupDateField to current date
-        selectedDayDateField.setValue(now);
+		selectedDayDateField = new InlineDateField();
 
-        // Set the correct resolution
-        selectedDayDateField.setResolution(InlineDateField.RESOLUTION_DAY);
-        selectedDayDateField.setImmediate(true);
-        selectedDayDateField.setShowISOWeekNumbers(true);
+		// Set the value of the PopupDateField to current date
+		selectedDayDateField.setValue(now);
 
-        selectedDayDateField.addListener(new Listener() {
-            private static final long serialVersionUID = 1L;
+		// Set the correct resolution
+		selectedDayDateField.setResolution(InlineDateField.RESOLUTION_DAY);
+		selectedDayDateField.setImmediate(true);
+		selectedDayDateField.setShowISOWeekNumbers(true);
 
-            @Override
-            public void componentEvent(final Event event) {
-                if (event instanceof ValueChangeEvent) {
-                    selectedDayChanged((ValueChangeEvent) event);
-                }
-            }
-        });
+		selectedDayDateField.addListener(new Listener() {
+			private static final long serialVersionUID = 1L;
 
-        layout.addComponent(dateLabel);
-        layout.addComponent(selectedDayDateField);
-        return layout;
-    }
+			@Override
+			public void componentEvent(final Event event) {
+				if (event instanceof ValueChangeEvent) {
+					selectedDayChanged((ValueChangeEvent) event);
+				}
+			}
+		});
 
-    protected void selectedDayChanged(final ValueChangeEvent anEvent) {
-        final Date newDate = (Date) anEvent.getProperty().getValue();
+		layout.addComponent(dateLabel);
+		layout.addComponent(selectedDayDateField);
+		return layout;
+	}
 
-        Application app = getApplication();
-        final String resource;
-        if (app != null) {
-            resource = (String) app.getUser();
-        } else {
-            resource = null;
-        }
-        LOGGER.debug("{}: Application: '{}', resource: '{}', newDate: '{}' ", new Object[] {ErrorCodes.M_001_SELECTED_DAY_CHANGED, app, resource, newDate});
+	protected void selectedDayChanged(final ValueChangeEvent anEvent) {
+		final Date newDate = (Date) anEvent.getProperty().getValue();
 
-        final Persistence persistence =
-                this.injector.getInstance(Persistence.class);
+		Application app = getApplication();
+		final String resource;
+		if (app != null) {
+			resource = (String) app.getUser();
+		} else {
+			resource = null;
+		}
+		LOGGER.debug("{}: Application: '{}', resource: '{}', newDate: '{}' ",
+				new Object[] { ErrorCodes.M_001_SELECTED_DAY_CHANGED, app,
+						resource, newDate });
 
-        final DailyPlan dailyPlan = persistence.getDailyPlan(newDate, resource);
+		final Persistence persistence = this.injector
+				.getInstance(Persistence.class);
 
-        LOGGER.debug("{}: dailyPlan: {}", new Object[]{ErrorCodes.M_002_SELECTED_DAY_CHANGED2, dailyPlan});
-        
-        updateToDoTable(dailyPlan);
-        updateScheduleTable(dailyPlan);
-    }
+		final DailyPlan dailyPlan = persistence.getDailyPlan(newDate, resource);
 
-    private void updateToDoTable(final DailyPlan aDailyPlan) {
-        this.todoTable.removeAllItems();
+		LOGGER.debug("{}: dailyPlan: {}", new Object[] {
+				ErrorCodes.M_002_SELECTED_DAY_CHANGED2, dailyPlan });
 
-        if (aDailyPlan != null) {
-            for (ControlProcess task : aDailyPlan.getToDoList()
-                    .getTasksToCompleteToday()) {
-                this.todoTable.addItem(getTaskCells(task), task.getId());
-            }
-        }
-    }
+		updateToDoTable(dailyPlan);
+		updateScheduleTable(dailyPlan);
+	}
 
-    private Object[] getTaskCells(final ControlProcess aTask) {
-        final Object[] cells = new Object[TODO_COLUMNS_COUNT];
+	private void updateToDoTable(final DailyPlan aDailyPlan) {
+		this.todoTable.removeAllItems();
 
-        cells[COLUMN_INDEX_TODO_IS_ATTAINED] =
-                aTask.getState() == ProcessState.ATTAINED;
+		if (aDailyPlan != null) {
+			for (ControlProcess task : aDailyPlan.getToDoList()
+					.getTasksToCompleteToday()) {
+				this.todoTable.addItem(getTaskCells(task), task.getId());
+			}
+		}
+	}
 
-        if (aTask.getParent() != null) {
-            cells[COLUMN_INDEX_TODO_PARENT] = aTask.getParent().getName();
-        } else {
-            cells[COLUMN_INDEX_TODO_PARENT] = "";
-        }
+	private Object[] getTaskCells(final ControlProcess aTask) {
+		final Object[] cells = new Object[TODO_COLUMNS_COUNT];
 
-        cells[COLUMN_INDEX_TODO_PROCESS_NAME] = aTask.getName();
+		cells[COLUMN_INDEX_TODO_IS_ATTAINED] = aTask.getState() == ProcessState.ATTAINED;
 
-        cells[COLUMN_INDEX_TODO_PRIORITY] = "";
+		if (aTask.getParent() != null) {
+			cells[COLUMN_INDEX_TODO_PARENT] = aTask.getParent().getName();
+		} else {
+			cells[COLUMN_INDEX_TODO_PARENT] = "";
+		}
 
-        return cells;
-    }
+		cells[COLUMN_INDEX_TODO_PROCESS_NAME] = aTask.getName();
 
-    private void updateScheduleTable(final DailyPlan aDailyPlan) {
-        this.scheduleTable.removeAllItems();
+		cells[COLUMN_INDEX_TODO_PRIORITY] = "";
 
-        if (aDailyPlan != null) {
-            final DailySchedule schedule = aDailyPlan.getSchedule();
-            
-            if (schedule != null)
-            {
-                final List<Booking> bookings = schedule.getBookings();
-                
-                if (bookings != null)
-                {
-                    for (final Booking booking : bookings) {
-                        this.scheduleTable.addItem(getBookingCells(booking), booking
-                                .getId());
-                    }                                    
-                }
-            }
-        }
-    }
+		return cells;
+	}
 
-    private final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
-    private InlineDateField selectedDayDateField;
+	private void updateScheduleTable(final DailyPlan aDailyPlan) {
+		this.scheduleTable.removeAllItems();
 
-    private Object[] getBookingCells(final Booking aBooking) {
-        final Object[] cells = new Object[SCHEDULE_COLUMNS_COUNT];
+		if (aDailyPlan != null) {
+			final DailySchedule schedule = aDailyPlan.getSchedule();
 
-        cells[COLUMN_INDEX_SCHEDULE_ID] = aBooking.getId();
-        cells[COLUMN_INDEX_SCHEDULE_FROM] =
-                TIME_FORMAT.format(aBooking.getStartDateTime());
-        cells[COLUMN_INDEX_SCHEDULE_TO] =
-                TIME_FORMAT.format(aBooking.getEndDateTime());
-        cells[COLUMN_INDEX_SCHEDULE_PROCESS] = aBooking.getProcess().getName();
+			if (schedule != null) {
+				final List<Booking> bookings = schedule.getBookings();
 
-        return cells;
-    }
+				if (bookings != null) {
+					for (final Booking booking : bookings) {
+						this.scheduleTable.addItem(getBookingCells(booking),
+								booking.getId());
+					}
+				}
+			}
+		}
+	}
 
-    private String getDayInMonth(final Date aNow) {
-        return DAY_IN_MONTH_FORMAT.format(aNow);
-    }
+	private final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
+	private InlineDateField selectedDayDateField;
 
-    private String getDayOfWeek(final Date aNow) {
-        return DAY_OF_WEEK_FORMAT.format(aNow);
-    }
+	private Object[] getBookingCells(final Booking aBooking) {
+		final Object[] cells = new Object[SCHEDULE_COLUMNS_COUNT];
 
-    private String getFullDate(final Date aNow) {
-        return FULL_DATE_FORMAT.format(aNow);
-    }
+		cells[COLUMN_INDEX_SCHEDULE_ID] = aBooking.getId();
+		cells[COLUMN_INDEX_SCHEDULE_FROM] = TIME_FORMAT.format(aBooking
+				.getStartDateTime());
+		cells[COLUMN_INDEX_SCHEDULE_TO] = TIME_FORMAT.format(aBooking
+				.getEndDateTime());
+		cells[COLUMN_INDEX_SCHEDULE_PROCESS] = aBooking.getProcess().getName();
 
-    private Component getToDoAndSchedulePanel() {
-        final SplitPanel horizontalPanel = new SplitPanel();
-        horizontalPanel.setOrientation(ORIENTATION_HORIZONTAL);
-        horizontalPanel.setWidth("100%");
+		return cells;
+	}
 
-        horizontalPanel.addComponent(getToDoPanel());
-        horizontalPanel.addComponent(getSchedulePanel());
+	private String getDayInMonth(final Date aNow) {
+		return getDayInMonthFormat().format(aNow);
+	}
 
-        return horizontalPanel;
-    }
+	/**
+	 * I introduced this method to fix FindBugs error:
+	 * 
+	 * <pre>
+	 * Call to method of static
+	 * java.text.DateFormat in
+	 * at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanel
+	 * .getDayInMonth(Date)
+	 * </pre>
+	 * 
+	 * MT_CORRECTNESS STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE
+	 */
+	private final static DateFormat getDayInMonthFormat() {
+		return new SimpleDateFormat(DAY_IN_MONTH_FORMAT);
+	}
 
-    private Component getSchedulePanel() {
-        scheduleTable =
-                new Table(TM.get("dailyplanpanel.6-schedule-table-caption"));
+	private String getDayOfWeek(final Date aNow) {
+		return DAY_OF_WEEK_FORMAT.format(aNow);
+	}
 
-        scheduleTable.setWidth("100%");
+	private String getFullDate(final Date aNow) {
+		return FULL_DATE_FORMAT.format(aNow);
+	}
 
-        scheduleTable.setSelectable(true);
-        scheduleTable.setMultiSelect(false);
-        scheduleTable.setImmediate(true);
-        scheduleTable.setEditable(false);
+	private Component getToDoAndSchedulePanel() {
+		final SplitPanel horizontalPanel = new SplitPanel();
+		horizontalPanel.setOrientation(ORIENTATION_HORIZONTAL);
+		horizontalPanel.setWidth("100%");
 
-        scheduleTable.addContainerProperty(COLUMN_SCHEDULE_NUMBER, Long.class,
-                null);
-        scheduleTable.addContainerProperty(COLUMN_SCHEDULE_FROM, String.class,
-                null);
-        scheduleTable.addContainerProperty(COLUMN_SCHEDULE_TO, String.class,
-                null);
-        scheduleTable.addContainerProperty(COLUMN_SCHEDULE_PROCESS,
-                String.class, null);
+		horizontalPanel.addComponent(getToDoPanel());
+		horizontalPanel.addComponent(getSchedulePanel());
 
-        scheduleTable.setColumnHeader(COLUMN_SCHEDULE_NUMBER, TM
-                .get("dailyplanpanel.7-schedule-table-COLUMN_SCHEDULE_NUMBER"));
-        scheduleTable.setColumnHeader(COLUMN_SCHEDULE_FROM, TM
-                .get("dailyplanpanel.8-schedule-table-COLUMN_SCHEDULE_FROM"));
-        scheduleTable.setColumnHeader(COLUMN_SCHEDULE_TO, TM
-                .get("dailyplanpanel.9-schedule-table-COLUMN_SCHEDULE_TO"));
-        scheduleTable
-                .setColumnHeader(
-                        COLUMN_SCHEDULE_PROCESS,
-                        TM
-                                .get("dailyplanpanel.10-schedule-table-COLUMN_SCHEDULE_PROCESS"));
+		return horizontalPanel;
+	}
 
-        return wrapLayout(scheduleTable);
-    }
+	private Component getSchedulePanel() {
+		scheduleTable = new Table(
+				TM.get("dailyplanpanel.6-schedule-table-caption"));
 
-    private Component getToDoPanel() {
-        todoTable = new Table(TM.get("dailyplanpanel.1-to-do-panel-caption"));
+		scheduleTable.setWidth("100%");
 
-        todoTable.setWidth("100%");
+		scheduleTable.setSelectable(true);
+		scheduleTable.setMultiSelect(false);
+		scheduleTable.setImmediate(true);
+		scheduleTable.setEditable(false);
 
-        todoTable.setSelectable(true);
-        todoTable.setMultiSelect(false);
-        todoTable.setImmediate(true);
+		scheduleTable.addContainerProperty(COLUMN_SCHEDULE_NUMBER, Long.class,
+				null);
+		scheduleTable.addContainerProperty(COLUMN_SCHEDULE_FROM, String.class,
+				null);
+		scheduleTable.addContainerProperty(COLUMN_SCHEDULE_TO, String.class,
+				null);
+		scheduleTable.addContainerProperty(COLUMN_SCHEDULE_PROCESS,
+				String.class, null);
 
-        todoTable.addContainerProperty(COLUMN_TODO_COMPLETED, Boolean.class,
-                null);
-        todoTable.addContainerProperty(COLUMN_TODO_PARENT, String.class, null);
-        todoTable.addContainerProperty(COLUMN_TODO_PROCESS, String.class, null);
-        todoTable
-                .addContainerProperty(COLUMN_TODO_PRIORITY, String.class, null);
+		scheduleTable.setColumnHeader(COLUMN_SCHEDULE_NUMBER, TM
+				.get("dailyplanpanel.7-schedule-table-COLUMN_SCHEDULE_NUMBER"));
+		scheduleTable.setColumnHeader(COLUMN_SCHEDULE_FROM,
+				TM.get("dailyplanpanel.8-schedule-table-COLUMN_SCHEDULE_FROM"));
+		scheduleTable.setColumnHeader(COLUMN_SCHEDULE_TO,
+				TM.get("dailyplanpanel.9-schedule-table-COLUMN_SCHEDULE_TO"));
+		scheduleTable
+				.setColumnHeader(
+						COLUMN_SCHEDULE_PROCESS,
+						TM.get("dailyplanpanel.10-schedule-table-COLUMN_SCHEDULE_PROCESS"));
 
-        todoTable.setColumnHeader(COLUMN_TODO_COMPLETED, TM
-                .get("dailyplanpanel.2-todo-table-COLUMN_COMPLETED"));
-        todoTable.setColumnHeader(COLUMN_TODO_PARENT, TM
-                .get("dailyplanpanel.3-todo-table-COLUMN_PARENT"));
-        todoTable.setColumnHeader(COLUMN_TODO_PROCESS, TM
-                .get("dailyplanpanel.4-todo-table-COLUMN_PROCESS"));
-        todoTable.setColumnHeader(COLUMN_TODO_PRIORITY, TM
-                .get("dailyplanpanel.5-todo-table-COLUMN_PRIORITY"));
+		return wrapLayout(scheduleTable);
+	}
 
-        todoTable.setColumnIcon(COLUMN_TODO_COMPLETED, new ThemeResource(
-                "../runo/icons/16/ok.png"));
-        return wrapLayout(todoTable);
-    }
+	private Component getToDoPanel() {
+		todoTable = new Table(TM.get("dailyplanpanel.1-to-do-panel-caption"));
 
-    private Component wrapLayout(final Table todoTable) {
-        HorizontalLayout layout = new HorizontalLayout();
-        layout.addComponent(todoTable);
+		todoTable.setWidth("100%");
 
-        return layout;
-    }
+		todoTable.setSelectable(true);
+		todoTable.setMultiSelect(false);
+		todoTable.setImmediate(true);
 
-    /**
-     * @see at.silverstrike.pcc.api.conventions.AbstractedPanel#toPanel()
-     */
-    @Override
-    public Panel toPanel() {
-        return this;
-    }
+		todoTable.addContainerProperty(COLUMN_TODO_COMPLETED, Boolean.class,
+				null);
+		todoTable.addContainerProperty(COLUMN_TODO_PARENT, String.class, null);
+		todoTable.addContainerProperty(COLUMN_TODO_PROCESS, String.class, null);
+		todoTable
+				.addContainerProperty(COLUMN_TODO_PRIORITY, String.class, null);
 
-    @Override
-    public void setInjector(final Injector anInjector) {
-        this.injector = anInjector;
-    }
+		todoTable.setColumnHeader(COLUMN_TODO_COMPLETED,
+				TM.get("dailyplanpanel.2-todo-table-COLUMN_COMPLETED"));
+		todoTable.setColumnHeader(COLUMN_TODO_PARENT,
+				TM.get("dailyplanpanel.3-todo-table-COLUMN_PARENT"));
+		todoTable.setColumnHeader(COLUMN_TODO_PROCESS,
+				TM.get("dailyplanpanel.4-todo-table-COLUMN_PROCESS"));
+		todoTable.setColumnHeader(COLUMN_TODO_PRIORITY,
+				TM.get("dailyplanpanel.5-todo-table-COLUMN_PRIORITY"));
 
-    @Override
-    public void initGui() {
-        SplitPanel verticalSplitPanel = new SplitPanel();
+		todoTable.setColumnIcon(COLUMN_TODO_COMPLETED, new ThemeResource(
+				"../runo/icons/16/ok.png"));
+		return wrapLayout(todoTable);
+	}
 
-        verticalSplitPanel.setHeight("450px");
-        verticalSplitPanel.setWidth("100%");
+	private Component wrapLayout(final Table todoTable) {
+		HorizontalLayout layout = new HorizontalLayout();
+		layout.addComponent(todoTable);
 
-        final Component datePanel = getDatePanel();
-        verticalSplitPanel.addComponent(datePanel);
-        verticalSplitPanel.addComponent(getToDoAndSchedulePanel());
+		return layout;
+	}
 
-        verticalSplitPanel.setSplitPosition(40);
+	/**
+	 * @see at.silverstrike.pcc.api.conventions.AbstractedPanel#toPanel()
+	 */
+	@Override
+	public Panel toPanel() {
+		return this;
+	}
 
-        addComponent(verticalSplitPanel);
+	@Override
+	public void setInjector(final Injector anInjector) {
+		this.injector = anInjector;
+	}
 
-        this.selectedDayDateField.setValue(new Date());
-    }
+	@Override
+	public void initGui() {
+		SplitPanel verticalSplitPanel = new SplitPanel();
+
+		verticalSplitPanel.setHeight("450px");
+		verticalSplitPanel.setWidth("100%");
+
+		final Component datePanel = getDatePanel();
+		verticalSplitPanel.addComponent(datePanel);
+		verticalSplitPanel.addComponent(getToDoAndSchedulePanel());
+
+		verticalSplitPanel.setSplitPosition(40);
+
+		addComponent(verticalSplitPanel);
+
+		this.selectedDayDateField.setValue(new Date());
+	}
 }
