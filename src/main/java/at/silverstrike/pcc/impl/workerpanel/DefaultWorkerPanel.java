@@ -32,15 +32,15 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 
 class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private static final long serialVersionUID = 1L;
-    private Injector injector;
-    private TextField abbreviationTextField;
-    private TextField firstNameTextField;
-    private TextField middleNameTextField;
-    private TextField surnameTextField;
-    private TextField dailyMaxTextField;
-    private DebugIdRegistry debugIdRegistry;
-    private WebGuiBus webGuiBus;
-    private WebGuiBusMessageFactory webGuiBusMessageFactory;
+    private transient Injector injector = null;
+    private TextField abbreviationTextField = null;
+    private TextField firstNameTextField = null;
+    private TextField middleNameTextField = null;
+    private TextField surnameTextField = null;
+    private TextField dailyMaxTextField = null;
+    private transient DebugIdRegistry debugIdRegistry;
+    private transient WebGuiBus webGuiBus = null;
+    private WebGuiBusMessageFactory webGuiBusMessageFactory = null;
 
     public DefaultWorkerPanel() {
     }
