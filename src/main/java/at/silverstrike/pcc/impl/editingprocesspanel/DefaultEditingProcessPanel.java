@@ -156,10 +156,10 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 
 	private ComboBox minTimeUnitComboBox;
 
-	private Persistence persistence;
+	private transient Persistence persistence;
 	private TextField priorityTextBox;
 
-	private ControlProcess process;
+	private transient ControlProcess process;
 
 	private TextField processNameTextArea;
 
@@ -175,9 +175,9 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 
 	private ComboBox typeComboBox;
 
-	private DebugIdRegistry debugIdRegistry;
+	private transient DebugIdRegistry debugIdRegistry;
 
-	private WebGuiBus webGuiBus;
+	private transient WebGuiBus webGuiBus;
 
 	public DefaultEditingProcessPanel() {
 		initSaveErrorMessagesByValidationResults();
