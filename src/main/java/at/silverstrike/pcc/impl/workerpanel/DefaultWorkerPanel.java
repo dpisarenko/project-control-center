@@ -38,9 +38,9 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private TextField middleNameTextField = null;
     private TextField surnameTextField = null;
     private TextField dailyMaxTextField = null;
-    private transient DebugIdRegistry debugIdRegistry;
+    private transient DebugIdRegistry debugIdRegistry = null;
     private transient WebGuiBus webGuiBus = null;
-    private WebGuiBusMessageFactory webGuiBusMessageFactory = null;
+    private transient WebGuiBusMessageFactory webGuiBusMessageFactory = null;
 
     public DefaultWorkerPanel() {
     }
