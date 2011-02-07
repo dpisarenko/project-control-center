@@ -63,7 +63,7 @@ class DefaultEstimatedCompletionTimesPanel extends Panel implements
 
     private final Table processesTable = new Table();
 
-    private Injector injector;
+    private transient Injector injector = null;
 
     public DefaultEstimatedCompletionTimesPanel() {
         super();
