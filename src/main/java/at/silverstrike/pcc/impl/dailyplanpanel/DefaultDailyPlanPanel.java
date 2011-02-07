@@ -48,6 +48,8 @@ import at.silverstrike.pcc.api.persistence.Persistence;
  * 
  */
 class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
+	private static final String DAY_OF_WEEK_FORMAT = "EEEE";
+
 	private static final String DAY_IN_MONTH_FORMAT = "d";
 
 	private final static Logger LOGGER = LoggerFactory
@@ -64,10 +66,6 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 	private static final int COLUMN_INDEX_TODO_PARENT = 1;
 	private static final int COLUMN_INDEX_TODO_IS_ATTAINED = 0;
 	private static final String DATE_LABEL_TEMPLATE = "<h1>#{dayInMonth}</h1><h2>#{dayOfWeek}</h2><p>#{date}</p>";
-	private static final DateFormat FULL_DATE_FORMAT = DateFormat
-			.getDateInstance();
-	private static final SimpleDateFormat DAY_OF_WEEK_FORMAT = new SimpleDateFormat(
-			"EEEE");
 	private static final long serialVersionUID = 1L;
 	private static final String COLUMN_TODO_COMPLETED = "COLUMN_TODO_COMPLETED";
 	private static final String COLUMN_TODO_PARENT = "COLUMN_TODO_PARENT";
@@ -231,11 +229,19 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 	}
 
 	private String getDayOfWeek(final Date aNow) {
-		return DAY_OF_WEEK_FORMAT.format(aNow);
+		return getDayOfWeekFormat().format(aNow);
 	}
 
 	private String getFullDate(final Date aNow) {
-		return FULL_DATE_FORMAT.format(aNow);
+		return getFullDateFormat().format(aNow);
+	}
+
+	private final static DateFormat getFullDateFormat() {
+		return DateFormat.getDateInstance();
+	}
+
+	private final static DateFormat getDayOfWeekFormat() {
+		return new SimpleDateFormat(DAY_OF_WEEK_FORMAT);
 	}
 
 	private Component getToDoAndSchedulePanel() {
