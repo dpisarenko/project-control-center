@@ -223,7 +223,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 	}
 
 	private CharSequence getEffortAllocations(final ControlProcess process) {
-		String returnValue = "";
+		final StringBuilder stringBuilder = new StringBuilder();
 
 		if ((process != null) && (process.getResourceAllocations() != null)) {
 			for (final ResourceAllocation resourceAllocation : process
@@ -246,11 +246,11 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 									getResourceIdentifier(resourceAllocation
 											.getResource()));
 				}
-				returnValue += resourceAllocationInfo;
+				stringBuilder.append(resourceAllocationInfo);
 			}
 		}
 
-		return returnValue;
+		return stringBuilder.toString();
 	}
 
 	private CharSequence getEffortInfo(final ControlProcess process) {
@@ -272,16 +272,16 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
 	private String getTaskInformation(final ControlProcess process,
 			final ControlProcess parent) {
-		String childProcessDefinitions = "";
-
+		final StringBuilder stringBuilder = new StringBuilder();
 		final List<ControlProcess> childProcesses = getChildProcesses(process);
 		if (childProcesses != null) {
 			for (final ControlProcess childProcess : childProcesses) {
-				childProcessDefinitions += getTaskInformation(childProcess,
-						process);
+				stringBuilder.append(getTaskInformation(childProcess, process));
 			}
 		}
 
+		final String childProcessDefinitions = stringBuilder.toString();
+		
 		final String taskDefinition = taskTemplate
 				.replace(ID, formatLong(process.getId()))
 				.replace(NAME, shortenName(process.getName()))
