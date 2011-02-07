@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.projectscheduler;
 
+import static org.apache.commons.io.IOUtils.closeQuietly;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,182 +49,189 @@ import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
  * 
  */
 class DefaultProjectScheduler implements ProjectScheduler {
-    private static final String RUBY_PATH = "C:\\Ruby191\\bin\\tj3.bat ";
-    private Logger LOGGER = LoggerFactory.getLogger(DefaultProjectScheduler.class);
+	private static final String RUBY_PATH = "C:\\Ruby191\\bin\\tj3.bat ";
+	private Logger LOGGER = LoggerFactory
+			.getLogger(DefaultProjectScheduler.class);
 
-    private List<ProcessEndTimeTuple> endTimeTuples;
-    private List<BookingTuple> bookingTuples;
-    private Injector injector;
-    private String directory;
-    private ProjectExportInfo projectExportInfo;
-    private Date now;
+	private List<ProcessEndTimeTuple> endTimeTuples;
+	private List<BookingTuple> bookingTuples;
+	private Injector injector;
+	private String directory;
+	private ProjectExportInfo projectExportInfo;
+	private Date now;
 
-    public DefaultProjectScheduler()
-    {
-        this.projectExportInfo = new DefaultProjectExportInfo();
-    }
-    
-    @Override
-    public void setInjector(final Injector anInjector) {
-        this.injector = anInjector;
-    }
+	public DefaultProjectScheduler() {
+		this.projectExportInfo = new DefaultProjectExportInfo();
+	}
 
-    @Override
-    public void run() throws PccException {
-        // Write data into some file
-        writeOutProjectPlan(this.directory);
+	@Override
+	public void setInjector(final Injector anInjector) {
+		this.injector = anInjector;
+	}
 
-        // Invoke taskjuggler
-        final Runtime rt = Runtime.getRuntime();
-        try {
-            runTaskJuggler(this.directory, rt);
-        } catch (final IOException exception) {
-            throw new PccException(exception);
-        } catch (final InterruptedException exception) {
-            throw new PccException(exception);
-        }
+	@Override
+	public void run() throws PccException {
+		// Write data into some file
+		writeOutProjectPlan(this.directory);
 
-        resetTupleCollections();
+		// Invoke taskjuggler
+		final Runtime rt = Runtime.getRuntime();
 
-        // Parse deadlines.csv
-        parseDeadlinesFile(this.directory);
-        final Persistence persistence =
-                this.injector.getInstance(Persistence.class);
-        persistence.updateTaskEndTimes(this.endTimeTuples);
+		runTaskJuggler(this.directory, rt);
 
-        // Parse pccBookings.tji
-        parseBookingsFile(this.directory);
-        persistence.updateBookings(this.bookingTuples);
+		resetTupleCollections();
 
-        // Update daily plans
-        persistence.generateDailyPlans(this.now);
-    }
+		// Parse deadlines.csv
+		parseDeadlinesFile(this.directory);
+		final Persistence persistence = this.injector
+				.getInstance(Persistence.class);
+		persistence.updateTaskEndTimes(this.endTimeTuples);
 
-    private void parseDeadlinesFile(final String parentDir) throws PccException {
-        final Tj3DeadlinesFileParserFactory parserFactory =
-                this.injector.getInstance(Tj3DeadlinesFileParserFactory.class);
+		// Parse pccBookings.tji
+		parseBookingsFile(this.directory);
+		persistence.updateBookings(this.bookingTuples);
 
-        parserFactory.setInjector(this.injector);
+		// Update daily plans
+		persistence.generateDailyPlans(this.now);
+	}
 
-        final Tj3DeadlinesFileParser parser =
-                parserFactory.create();
-        final File deadlineCsvFile =
-                new File(parentDir + "/" + DEADLINE_CSV_FILE);
+	private void parseDeadlinesFile(final String parentDir) throws PccException {
+		final Tj3DeadlinesFileParserFactory parserFactory = this.injector
+				.getInstance(Tj3DeadlinesFileParserFactory.class);
 
-        try {
-            parser.setInputFileName(deadlineCsvFile.getAbsolutePath());
-            parser.run();
+		parserFactory.setInjector(this.injector);
 
-            this.endTimeTuples = parser.getProcessEndTimes();
-        } catch (final Exception exception) {
-            throw new PccException(exception);
-        }
-    }
+		final Tj3DeadlinesFileParser parser = parserFactory.create();
+		final File deadlineCsvFile = new File(parentDir + "/"
+				+ DEADLINE_CSV_FILE);
 
-    private void parseBookingsFile(final String parentDir) throws PccException {
-        final Tj3BookingsParserFactory factory =
-                this.injector.getInstance(Tj3BookingsParserFactory.class);
-        final Tj3BookingsParser parser = factory.create();
-        final File bookingsFile = new File(parentDir + BOOKINGS_FILE);
-        FileInputStream fileInputStream = null;
+		try {
+			parser.setInputFileName(deadlineCsvFile.getAbsolutePath());
+			parser.run();
 
-        try {
-            fileInputStream = new FileInputStream(bookingsFile);
+			this.endTimeTuples = parser.getProcessEndTimes();
+		} catch (final Exception exception) {
+			throw new PccException(exception);
+		}
+	}
 
-            parser.setInjector(this.injector);
-            parser.setInputStream(fileInputStream);
-            parser.run();
-            this.bookingTuples = parser.getBookings();
-        } catch (final FileNotFoundException exception) {
-            throw new PccException(exception);
-        } catch (final Exception exception) {
-            throw new PccException(exception);
-        } finally {
-            IOUtils.closeQuietly(fileInputStream);
-        }
-    }
+	private void parseBookingsFile(final String parentDir) throws PccException {
+		final Tj3BookingsParserFactory factory = this.injector
+				.getInstance(Tj3BookingsParserFactory.class);
+		final Tj3BookingsParser parser = factory.create();
+		final File bookingsFile = new File(parentDir + BOOKINGS_FILE);
+		FileInputStream fileInputStream = null;
 
-    private void writeOutProjectPlan(final String parentDir)
-            throws NoProcessesException, NoResourcesException, PccException {
-        final TaskJuggler3Exporter exporter =
-                this.injector.getInstance(TaskJuggler3Exporter.class);
+		try {
+			fileInputStream = new FileInputStream(bookingsFile);
 
-        exporter.setProjectExportInfo(this.projectExportInfo);
-        exporter.setInjector(this.injector);
+			parser.setInjector(this.injector);
+			parser.setInputStream(fileInputStream);
+			parser.run();
+			this.bookingTuples = parser.getBookings();
+		} catch (final FileNotFoundException exception) {
+			throw new PccException(exception);
+		} catch (final Exception exception) {
+			throw new PccException(exception);
+		} finally {
+			IOUtils.closeQuietly(fileInputStream);
+		}
+	}
 
-        exporter.run();
+	private void writeOutProjectPlan(final String parentDir)
+			throws NoProcessesException, NoResourcesException, PccException {
+		final TaskJuggler3Exporter exporter = this.injector
+				.getInstance(TaskJuggler3Exporter.class);
 
-        final String projectFileContents =
-                exporter.getTaskJugglerIIIProjectFileContents();
-        FileOutputStream outputStream = null;
-        try {
-            File path = new File(parentDir + "/" + TJ3_INPUT_FILE);
+		exporter.setProjectExportInfo(this.projectExportInfo);
+		exporter.setInjector(this.injector);
 
-            LOGGER.debug("path: " + path.getAbsolutePath());
+		exporter.run();
 
-            outputStream = new FileOutputStream(path);
+		final String projectFileContents = exporter
+				.getTaskJugglerIIIProjectFileContents();
+		FileOutputStream outputStream = null;
+		try {
+			File path = new File(parentDir + "/" + TJ3_INPUT_FILE);
 
-            IOUtils.write(projectFileContents, outputStream);
-        } catch (final Exception exception) {
-            LOGGER.debug("", exception);
-        } finally {
-            IOUtils.closeQuietly(outputStream);
-        }
-    }
+			LOGGER.debug("path: " + path.getAbsolutePath());
 
-    private void resetTupleCollections() {
-        this.endTimeTuples = new LinkedList<ProcessEndTimeTuple>();
-        this.bookingTuples = new LinkedList<BookingTuple>();
-    }
+			outputStream = new FileOutputStream(path);
 
-    private void runTaskJuggler(final String parentDir, final Runtime rt)
-            throws IOException, InterruptedException {
-        final String command = RUBY_PATH + TJ3_INPUT_FILE;
+			IOUtils.write(projectFileContents, outputStream);
+		} catch (final Exception exception) {
+			LOGGER.debug("", exception);
+		} finally {
+			IOUtils.closeQuietly(outputStream);
+		}
+	}
 
-        LOGGER.info("command: " + command);
+	private void resetTupleCollections() {
+		this.endTimeTuples = new LinkedList<ProcessEndTimeTuple>();
+		this.bookingTuples = new LinkedList<BookingTuple>();
+	}
 
-        final File parent = new File(parentDir);
-        final Process proc = rt.exec(command, null, parent);
+	private void runTaskJuggler(final String parentDir, final Runtime rt)
+			throws PccException {
+		BufferedReader input = null;
+		try {
+			final String command = RUBY_PATH + TJ3_INPUT_FILE;
 
-        LOGGER.info("parent: " + parent.getAbsolutePath());
+			LOGGER.info("command: " + command);
 
-        final BufferedReader input =
-                new BufferedReader(new InputStreamReader(proc.getInputStream()));
+			final File parent = new File(parentDir);
+			Process proc;
 
-        String line = null;
+			proc = rt.exec(command, null, parent);
 
-        while ((line = input.readLine()) != null) {
-            LOGGER.debug("proc: " + line);
-        }
+			LOGGER.info("parent: " + parent.getAbsolutePath());
 
-        final BufferedReader error =
-                new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+			input = new BufferedReader(new InputStreamReader(
+					proc.getInputStream()));
 
-        String errorLine = null;
+			String line = null;
 
-        while ((errorLine = error.readLine()) != null) {
-            LOGGER.debug("proc: " + errorLine);
-        }
+			while ((line = input.readLine()) != null) {
+				LOGGER.debug("proc: " + line);
+			}
 
-        final int result = proc.waitFor();
+			final BufferedReader error = new BufferedReader(
+					new InputStreamReader(proc.getErrorStream()));
 
-        LOGGER.info("result: " + result);
-    }
+			String errorLine = null;
 
-    public void setDirectory(final String directory) {
-        this.directory = directory;
-    }
+			while ((errorLine = error.readLine()) != null) {
+				LOGGER.debug("proc: " + errorLine);
+			}
 
-    public void setProjectExportInfo(final ProjectExportInfo projectExportInfo) {
-        this.projectExportInfo = projectExportInfo;
-    }
+			final int result = proc.waitFor();
 
-    public ProjectExportInfo getProjectExportInfo() {
-        return projectExportInfo;
-    }
+			LOGGER.info("result: " + result);
+		} catch (final IOException exception) {
+			throw new PccException(exception);
+		} catch (final InterruptedException exception) {
+			throw new PccException(exception);
+		}
+		finally
+		{
+			closeQuietly(input);
+		}
+	}
 
-    public void setNow(Date now) {
-        this.now = now;
-    }
+	public void setDirectory(final String directory) {
+		this.directory = directory;
+	}
+
+	public void setProjectExportInfo(final ProjectExportInfo projectExportInfo) {
+		this.projectExportInfo = projectExportInfo;
+	}
+
+	public ProjectExportInfo getProjectExportInfo() {
+		return projectExportInfo;
+	}
+
+	public void setNow(Date now) {
+		this.now = now;
+	}
 
 }
