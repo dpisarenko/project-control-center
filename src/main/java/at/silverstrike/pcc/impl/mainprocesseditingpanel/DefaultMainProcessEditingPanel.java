@@ -79,9 +79,9 @@ class DefaultMainProcessEditingPanel extends Panel implements
 
 	private Button deleteProjectButton;
 
-	private Injector injector;
+	private transient Injector injector;
 
-	private Persistence persistence;
+	private transient Persistence persistence;
 
 	private EditingProcessPanel processEditingPanel;
 
@@ -93,7 +93,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
 
 	private Long selectedProjectId;
 
-	private DebugIdRegistry debugIdRegistry;
+	private transient DebugIdRegistry debugIdRegistry;
 
 	private Button exportButton;
 
