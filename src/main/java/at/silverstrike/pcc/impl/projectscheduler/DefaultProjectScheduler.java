@@ -159,7 +159,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
 			outputStream = new FileOutputStream(path);
 
 			IOUtils.write(projectFileContents, outputStream);
-		} catch (final Exception exception) {
+		} catch (final IOException exception) {
 			LOGGER.debug("", exception);
 		} finally {
 			IOUtils.closeQuietly(outputStream);
