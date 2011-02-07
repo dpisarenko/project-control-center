@@ -55,12 +55,14 @@ class DefaultMainWindow implements MainWindow {
         mainWindow = new Window(TM.get("mainwindow.1-title", versionReader.getVersion()));
         mainWindow.setDebugId(this.debugIdRegistry.getDebugId("mainwindow.1"));
         
+        mainWindow.setWidth("100%");
+        mainWindow.setHeight("100%");
         
         this.tabSheet = new TabSheet();
         this.tabSheet.setDebugId(this.debugIdRegistry.getDebugId("mainwindow.2-tab-sheet"));
         
-        this.tabSheet.setHeight("500px");
-        this.tabSheet.setWidth("1200px");
+        this.tabSheet.setHeight("100%");
+        this.tabSheet.setWidth("100%");
 
         this.tabSheet.addTab(getMainProcessEditingPanel(), TM
                 .get("mainwindow.10-main-process-editing-panel"), null);

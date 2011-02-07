@@ -108,6 +108,8 @@ class DefaultMainProcessEditingPanel extends Panel implements
 		this.setDebugId(this.debugIdRegistry
 				.getDebugId("mainprocesseditingpanel.1"));
 
+		this.setHeight("100%");
+		
 		final SplitPanel splitPanel1 = new SplitPanel();
 
 		splitPanel1.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);

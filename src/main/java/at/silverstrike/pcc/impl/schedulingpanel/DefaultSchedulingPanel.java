@@ -58,7 +58,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
     @Override
     public void initGui() {
         this.setWidth("500px");
-        this.setHeight("400px");
+        this.setHeight("100%");
 
         setCaption(TM.get("schedulingpanel.1-caption"));
 

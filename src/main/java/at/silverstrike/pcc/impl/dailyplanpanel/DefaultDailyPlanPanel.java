@@ -75,6 +75,8 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 	private static final String COLUMN_SCHEDULE_FROM = "COLUMN_SCHEDULE_FROM";
 	private static final String COLUMN_SCHEDULE_TO = "COLUMN_SCHEDULE_TO";
 	private static final String COLUMN_SCHEDULE_PROCESS = "COLUMN_SCHEDULE_PROCESS";
+	private final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
+	private InlineDateField selectedDayDateField;
 
 	private transient Injector injector;
 	private Table scheduleTable;
@@ -191,9 +193,6 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 			}
 		}
 	}
-
-	private final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
-	private InlineDateField selectedDayDateField;
 
 	private Object[] getBookingCells(final Booking aBooking) {
 		final Object[] cells = new Object[SCHEDULE_COLUMNS_COUNT];
@@ -341,8 +340,10 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 
 	@Override
 	public void initGui() {
+		this.setSizeFull();
+		
 		SplitPanel verticalSplitPanel = new SplitPanel();
-
+		
 		verticalSplitPanel.setHeight("450px");
 		verticalSplitPanel.setWidth("100%");
 
@@ -354,6 +355,8 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 
 		addComponent(verticalSplitPanel);
 
+		verticalSplitPanel.setSizeFull();
+		
 		this.selectedDayDateField.setValue(new Date());
 	}
 }
