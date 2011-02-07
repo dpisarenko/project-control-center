@@ -33,7 +33,6 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private static final long serialVersionUID = 1L;
     private Injector injector;
-    private String errorMessage;
     private TextField abbreviationTextField;
     private TextField firstNameTextField;
     private TextField middleNameTextField;
@@ -77,7 +76,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
                     this.webGuiBusMessageFactory.createWorkerAddedMessage();
             this.webGuiBus.broadcastWorkerAddedMessage(message);
         } else {
-            getWindow().showNotification(this.errorMessage, null,
+            getWindow().showNotification("", null,
                     Notification.TYPE_ERROR_MESSAGE);
         }
 
