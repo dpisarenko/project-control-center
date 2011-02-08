@@ -340,8 +340,6 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 
 	@Override
 	public void initGui() {
-		this.setSizeFull();
-		
 		SplitPanel verticalSplitPanel = new SplitPanel();
 		
 		verticalSplitPanel.setHeight("450px");
@@ -354,8 +352,6 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 		verticalSplitPanel.setSplitPosition(40);
 
 		addComponent(verticalSplitPanel);
-
-		verticalSplitPanel.setSizeFull();
 		
 		this.selectedDayDateField.setValue(new Date());
 	}
