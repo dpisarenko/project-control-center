@@ -218,7 +218,7 @@ public class TestDefaultTaskJuggler3Exporter {
 	}
 
 	@Test
-	public void testDefect60() {
+	public void testDefect59() {
 		/**
 		 * Create the injector
 		 */
@@ -244,7 +244,7 @@ public class TestDefaultTaskJuggler3Exporter {
 		objectUnderTest.setProjectExportInfo(projectExportInfo);
 
 		projectExportInfo.setControlProcessesToExport(this.helper
-				.getTestDefect60Processes());
+				.getTestDefect59Processes());
 		projectExportInfo.setCopyright("Dmitri Pisarenko");
 		projectExportInfo.setCurrency(EURO);
 		projectExportInfo.setNow(helper.getDate18October2010());

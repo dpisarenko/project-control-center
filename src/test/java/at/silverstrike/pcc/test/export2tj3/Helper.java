@@ -123,7 +123,7 @@ class Helper {
         
         return processes;
     }
-    public List<ControlProcess> getTestDefect60Processes() {
+    public List<ControlProcess> getTestDefect59Processes() {
         final List<ControlProcess> processes = new LinkedList<ControlProcess>();
         
         final ControlProcess task = MOCK_OBJECT_FACTORY.createControlProcess(null);
