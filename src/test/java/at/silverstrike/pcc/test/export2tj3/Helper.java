@@ -22,6 +22,8 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,19 +128,14 @@ class Helper {
         
         final ControlProcess task = MOCK_OBJECT_FACTORY.createControlProcess(null);
         
-        
-//		final String taskDefinition = taskTemplate
-//		.replace(ID, formatLong(process.getId()))
-//		.replace(NAME, shortenName(process.getName()))
-//		.replace(START_DATE_TIME, getStartDateTime(parent))
-//		.replace(PRIORITY, formatInt(process.getPriority()))
-//		.replace(RESOURCE_ALLOCATIONS, getEffortAllocations(process))
-//		.replace(EFFORT_INFO, getEffortInfo(process))
-//		.replace(CHILD_TASKS, childProcessDefinitions);
-
-        
         task.setName(null);
         task.setPriority(null);
+        
+        Assert.assertNull(task.getName());
+        Assert.assertNull(task.getId());
+        Assert.assertNull(task.getPriority());
+        Assert.assertNull(task.getBestCaseEffort());
+        Assert.assertNull(task.getWorstCaseEffort());
         
         final ResourceAllocation resourceAllocation = MOCK_OBJECT_FACTORY.createResourceAllocation();
         resourceAllocation.setResource(getWorker1210());

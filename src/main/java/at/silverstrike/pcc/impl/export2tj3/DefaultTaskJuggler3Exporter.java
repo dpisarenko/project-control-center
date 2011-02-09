@@ -254,8 +254,20 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 	}
 
 	private CharSequence getEffortInfo(final ControlProcess process) {
-		return effortTemplate.replace(EFFORT,
-				formatDouble(process.getAverageCaseEffort()));
+		final Double bestCaseEffort = process.getBestCaseEffort();
+		final Double worstCaseEffort = process.getWorstCaseEffort();
+
+		if ((bestCaseEffort != null) && (worstCaseEffort != null)) {
+			return effortTemplate.replace(EFFORT,
+					formatDouble(process.getAverageCaseEffort()));
+		} else if ((bestCaseEffort != null) && (worstCaseEffort == null)) {
+			return effortTemplate.replace(EFFORT, formatDouble(bestCaseEffort));
+		} else if ((bestCaseEffort == null) && (worstCaseEffort != null)) {
+			return effortTemplate
+					.replace(EFFORT, formatDouble(worstCaseEffort));
+		} else {
+			return effortTemplate.replace(EFFORT, formatDouble(0.));
+		}
 	}
 
 	private String getResourceIdentifier(final Resource aResource) {
@@ -281,12 +293,21 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 		}
 
 		final String childProcessDefinitions = stringBuilder.toString();
-		
+
+		final Integer boxedPriority = process.getPriority();
+		final int priority;
+
+		if (boxedPriority != null) {
+			priority = boxedPriority;
+		} else {
+			priority = 0;
+		}
+
 		final String taskDefinition = taskTemplate
 				.replace(ID, formatLong(process.getId()))
 				.replace(NAME, shortenName(process.getName()))
 				.replace(START_DATE_TIME, getStartDateTime(parent))
-				.replace(PRIORITY, formatInt(process.getPriority()))
+				.replace(PRIORITY, formatInt(priority))
 				.replace(RESOURCE_ALLOCATIONS, getEffortAllocations(process))
 				.replace(EFFORT_INFO, getEffortInfo(process))
 				.replace(CHILD_TASKS, childProcessDefinitions);
@@ -295,7 +316,11 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 	}
 
 	private CharSequence shortenName(final String name) {
-		return StringUtils.abbreviate(name, MAX_TASK_NAME_LENGTH);
+		if (name != null) {
+			return StringUtils.abbreviate(name, MAX_TASK_NAME_LENGTH);
+		} else {
+			return "";
+		}
 	}
 
 	private String subsituteResourcePlaceHolders(
