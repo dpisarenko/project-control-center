@@ -121,5 +121,35 @@ class Helper {
         
         return processes;
     }
+    public List<ControlProcess> getTestDefect60Processes() {
+        final List<ControlProcess> processes = new LinkedList<ControlProcess>();
+        
+        final ControlProcess task = MOCK_OBJECT_FACTORY.createControlProcess(null);
+        
+        
+//		final String taskDefinition = taskTemplate
+//		.replace(ID, formatLong(process.getId()))
+//		.replace(NAME, shortenName(process.getName()))
+//		.replace(START_DATE_TIME, getStartDateTime(parent))
+//		.replace(PRIORITY, formatInt(process.getPriority()))
+//		.replace(RESOURCE_ALLOCATIONS, getEffortAllocations(process))
+//		.replace(EFFORT_INFO, getEffortInfo(process))
+//		.replace(CHILD_TASKS, childProcessDefinitions);
+
+        
+        task.setName(null);
+        task.setPriority(null);
+        
+        final ResourceAllocation resourceAllocation = MOCK_OBJECT_FACTORY.createResourceAllocation();
+        resourceAllocation.setResource(getWorker1210());
+        
+        assertNotNull(task.getResourceAllocations());
+        
+        task.getResourceAllocations().add(resourceAllocation);
+        
+        processes.add(task);
+        
+        return processes;
+    }
 
 }
