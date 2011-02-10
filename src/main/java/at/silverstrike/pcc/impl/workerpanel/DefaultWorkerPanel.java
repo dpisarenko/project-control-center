@@ -29,18 +29,20 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.webguibus.WorkerAddedMessage;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
+import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private static final long serialVersionUID = 1L;
-    private transient Injector injector = null;
-    private TextField abbreviationTextField = null;
-    private TextField firstNameTextField = null;
-    private TextField middleNameTextField = null;
-    private TextField surnameTextField = null;
-    private TextField dailyMaxTextField = null;
-    private transient DebugIdRegistry debugIdRegistry = null;
-    private transient WebGuiBus webGuiBus = null;
-    private transient WebGuiBusMessageFactory webGuiBusMessageFactory = null;
+    private Injector injector;
+    private String errorMessage;
+    private TextField abbreviationTextField;
+    private TextField firstNameTextField;
+    private TextField middleNameTextField;
+    private TextField surnameTextField;
+    private TextField dailyMaxTextField;
+    private DebugIdRegistry debugIdRegistry;
+    private WebGuiBus webGuiBus;
+    private WebGuiBusMessageFactory webGuiBusMessageFactory;
 
     public DefaultWorkerPanel() {
     }
@@ -66,7 +68,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
             }
             catch (final NumberFormatException exception)
             {
-            	dailyMaxWorkTimeInHours = -1.;
+                
             }
             
             persistence.createHumanResource(abbreviation, firstName,
@@ -76,7 +78,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
                     this.webGuiBusMessageFactory.createWorkerAddedMessage();
             this.webGuiBus.broadcastWorkerAddedMessage(message);
         } else {
-            getWindow().showNotification("", null,
+            getWindow().showNotification(this.errorMessage, null,
                     Notification.TYPE_ERROR_MESSAGE);
         }
 
@@ -107,18 +109,19 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
 
     @Override
     public void initGui() {
-        this.setDebugId(this.debugIdRegistry.getDebugId("workerpanel.1"));
+        this.setDebugId(this.debugIdRegistry.getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "1"));
 
         final GridLayout grid = new GridLayout(2, 6);
 
-        grid.setDebugId(this.debugIdRegistry.getDebugId("workerpanel.2-grid"));
+        grid.setDebugId(this.debugIdRegistry.
+        		getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "2-grid"));
         grid.setWidth("400px");
 
         final Label abbreviationLabel =
                 new Label(TM.get("workerpanel.1-abbreviation"));
         abbreviationTextField = new TextField();
         abbreviationTextField.setDebugId(this.debugIdRegistry
-                .getDebugId("workerpanel.3-abbreviationTextField"));
+                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "3-abbreviationTextField"));
 
         grid.addComponent(abbreviationLabel, 0, 0);
         grid.addComponent(abbreviationTextField, 1, 0);
@@ -127,7 +130,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
                 new Label(TM.get("workerpanel.2-first-name"));
         firstNameTextField = new TextField();
         firstNameTextField.setDebugId(this.debugIdRegistry
-                .getDebugId("workerpanel.4-firstNameTextField"));
+                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "4-firstNameTextField"));
         grid.addComponent(firstNameLabel, 0, 1);
         grid.addComponent(firstNameTextField, 1, 1);
 
@@ -135,14 +138,14 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
                 new Label(TM.get("workerpanel.3-middle-name"));
         middleNameTextField = new TextField();
         middleNameTextField.setDebugId(this.debugIdRegistry
-                .getDebugId("workerpanel.5-middleNameTextField"));
+                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "5-middleNameTextField"));
         grid.addComponent(middleNameLabel, 0, 2);
         grid.addComponent(middleNameTextField, 1, 2);
 
         final Label surnameLabel = new Label(TM.get("workerpanel.4-surname"));
         surnameTextField = new TextField();
         surnameTextField.setDebugId(this.debugIdRegistry
-                .getDebugId("workerpanel.6-surnameTextField"));
+                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "6-surnameTextField"));
         grid.addComponent(surnameLabel, 0, 3);
         grid.addComponent(surnameTextField, 1, 3);
 
@@ -150,21 +153,21 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
                 new Label(TM.get("workerpanel.5-daily-max"));
         dailyMaxTextField = new TextField();
         dailyMaxTextField.setDebugId(this.debugIdRegistry
-                .getDebugId("workerpanel.7-dailyMaxTextField"));
+                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "7-dailyMaxTextField"));
         grid.addComponent(dailyMaxLabel, 0, 4);
         grid.addComponent(dailyMaxTextField, 1, 4);
 
         final HorizontalLayout buttonPanel = new HorizontalLayout();
         buttonPanel.setDebugId(this.debugIdRegistry
-                .getDebugId("workerpanel.8-buttonPanel"));
+                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "8-buttonPanel"));
 
         final Button okButton = new Button(TM.get("application.1-ok"));
         okButton.setDebugId(this.debugIdRegistry
-                .getDebugId("workerpanel.9-okButton"));
+                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "9-okButton"));
 
         final Button cancelButton = new Button(TM.get("application.2-cancel"));
         cancelButton.setDebugId(this.debugIdRegistry
-                .getDebugId("workerpanel.10-cancelButton"));
+                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "10-cancelButton"));
 
         okButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;

@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanel;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanelFactory;
@@ -79,9 +80,9 @@ class DefaultMainProcessEditingPanel extends Panel implements
 
 	private Button deleteProjectButton;
 
-	private transient Injector injector;
+	private Injector injector;
 
-	private transient Persistence persistence;
+	private Persistence persistence;
 
 	private EditingProcessPanel processEditingPanel;
 
@@ -93,7 +94,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
 
 	private Long selectedProjectId;
 
-	private transient DebugIdRegistry debugIdRegistry;
+	private DebugIdRegistry debugIdRegistry;
 
 	private Button exportButton;
 
@@ -106,10 +107,8 @@ class DefaultMainProcessEditingPanel extends Panel implements
 		this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
 		this.setDebugId(this.debugIdRegistry
-				.getDebugId("mainprocesseditingpanel.1"));
+				.getDebugId(MessageCodePrefixRegistry.Module.mainprocesseditingpanel, "1"));
 
-		this.setHeight("100%");
-		
 		final SplitPanel splitPanel1 = new SplitPanel();
 
 		splitPanel1.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
@@ -186,7 +185,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
 				deleteProjectButton.setEnabled(true);
 				createSiblingButton.setEnabled(true);
 				createChildButton.setEnabled(true);
-			} else {
+			} else if (selectedProjectId == null) {
 				deleteProjectButton.setEnabled(false);
 				createSiblingButton.setEnabled(false);
 				createChildButton.setEnabled(false);
@@ -315,12 +314,12 @@ class DefaultMainProcessEditingPanel extends Panel implements
 				TM.get("mainprocesseditingpanel.2-createSiblingButton"));
 
 		createSiblingButton.setDebugId(this.debugIdRegistry
-				.getDebugId("mainprocesseditingpanel.2"));
+				.getDebugId(MessageCodePrefixRegistry.Module.mainprocesseditingpanel, "2"));
 
 		createChildButton = new Button(
 				TM.get("mainprocesseditingpanel.5-createChildButton"));
 		createChildButton.setDebugId(this.debugIdRegistry
-				.getDebugId("mainprocesseditingpanel.3"));
+				.getDebugId(MessageCodePrefixRegistry.Module.mainprocesseditingpanel, "3"));
 
 		deleteProjectButton = new Button(
 				TM.get("mainprocesseditingpanel.4-deleteProjectButton"));

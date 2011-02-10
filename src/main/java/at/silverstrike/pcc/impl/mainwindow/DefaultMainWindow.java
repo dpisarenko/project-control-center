@@ -18,6 +18,7 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
+import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
@@ -33,7 +34,7 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 
 class DefaultMainWindow implements MainWindow {
-    private Injector injector = null;
+    private Injector injector;
     private Window mainWindow;
     private TabSheet tabSheet;
     private DebugIdRegistry debugIdRegistry;
@@ -53,16 +54,16 @@ class DefaultMainWindow implements MainWindow {
         final PccVersionReader versionReader = this.injector.getInstance(PccVersionReader.class);
         
         mainWindow = new Window(TM.get("mainwindow.1-title", versionReader.getVersion()));
-        mainWindow.setDebugId(this.debugIdRegistry.getDebugId("mainwindow.1"));
+        mainWindow.setDebugId(this.debugIdRegistry
+        		.getDebugId(MessageCodePrefixRegistry.Module.mainwindow, "1"));
         
-        mainWindow.setWidth("100%");
-        mainWindow.setHeight("100%");
         
         this.tabSheet = new TabSheet();
-        this.tabSheet.setDebugId(this.debugIdRegistry.getDebugId("mainwindow.2-tab-sheet"));
+        this.tabSheet.setDebugId(this.debugIdRegistry
+        		.getDebugId(MessageCodePrefixRegistry.Module.mainwindow, "2-tab-sheet"));
         
-        this.tabSheet.setHeight("100%");
-        this.tabSheet.setWidth("100%");
+        this.tabSheet.setHeight("500px");
+        this.tabSheet.setWidth("1200px");
 
         this.tabSheet.addTab(getMainProcessEditingPanel(), TM
                 .get("mainwindow.10-main-process-editing-panel"), null);

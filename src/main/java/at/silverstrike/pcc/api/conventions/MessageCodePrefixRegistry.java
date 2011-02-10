@@ -41,13 +41,18 @@ public class MessageCodePrefixRegistry {
 
     private Map<Module, String> prefixesByModules;
 
-    private static volatile MessageCodePrefixRegistry instance;
+    private static MessageCodePrefixRegistry instance;
 
     public static MessageCodePrefixRegistry getInstance() {
         if (instance == null) {
             instance = new MessageCodePrefixRegistry();
         }
         return instance;
+    }
+    
+    public static String getMessageNumberSeparator()
+    {
+    	return PREFIX_MESSAGE_NUMBER_SEPARATOR;
     }
 
     public String getPrefix(final Module aModule) {

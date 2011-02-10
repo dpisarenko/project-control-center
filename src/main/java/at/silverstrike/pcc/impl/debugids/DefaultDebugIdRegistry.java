@@ -11,15 +11,17 @@
 
 package at.silverstrike.pcc.impl.debugids;
 
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
 import at.silverstrike.pcc.api.debugids.DebugIdKey;
 import at.silverstrike.pcc.api.debugids.DebugIdKeyNotFoundException;
@@ -32,6 +34,7 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
         LoggerFactory.getLogger(DefaultDebugIdRegistry.class);
     private Set<String> alreadyFetchedKeys = new HashSet<String>();
     private Properties properties = new Properties();
+    private List<DebugIdKey> debugKeys = new ArrayList<DebugIdKey>();
     
     public DefaultDebugIdRegistry()
     {
@@ -41,36 +44,37 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
     private void loadData(final String aFileName) {
         try
         {
-            properties.load(getClass().getClassLoader().getResourceAsStream(aFileName));
+            this.properties.load(getClass().getClassLoader().getResourceAsStream(aFileName));
         }
         catch (final Exception exception)
         {
             LOGGER.error(ErrorCodes.M_001_LOAD_DATA, exception);
         }
+        
+        DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
+        for(Enumeration<?> names = this.properties.propertyNames() ; names.hasMoreElements() ; )
+        {
+        	final String name = (String)names.nextElement();
+        	final int index = name.indexOf(MessageCodePrefixRegistry.getMessageNumberSeparator());
+        	assert(-1 != index);
+        	
+        	DebugIdKey debugIdKey = factory.create();
+        	debugIdKey.setModule(Module.valueOf(name.substring(0, index)));
+        	debugIdKey.setKey(name.substring(index + 1));
+        	
+        	this.debugKeys.add(debugIdKey);
+        }
     }
     
     @Override
-    public String getDebugId(final String aKey) throws DebugIdUniquenessViolation, DebugIdKeyNotFoundException {
-        if (this.alreadyFetchedKeys.contains(aKey))
-        {
-            throw new DebugIdUniquenessViolation(aKey);
-        }
-        
-        if (!this.properties.containsKey(aKey))
-        {
-            throw new DebugIdKeyNotFoundException(aKey);
-        }
-        
-        this.alreadyFetchedKeys.add(aKey);
-        
-        return this.properties.getProperty(aKey);
-    }
-
-    @Override
     public String getDebugId(final Module aModule, final String aKey)
-            throws DebugIdUniquenessViolation {
-        // TODO Auto-generated method stub
-        return null;
+            throws DebugIdUniquenessViolation, DebugIdKeyNotFoundException {
+    	DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
+    	DebugIdKey debugIdKey = factory.create();
+    	debugIdKey.setModule(aModule);
+    	debugIdKey.setKey(aKey);
+    	
+    	return this.getDebugId(debugIdKey);
     }
 
     @Override
@@ -80,12 +84,28 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
 
     @Override
     public List<DebugIdKey> getAllKeys() {
-        throw new NotImplementedException();
+        return debugKeys;
     }
 
     @Override
     public String getDebugId(DebugIdKey debugIdKey) {
-        throw new NotImplementedException();
+    	final String aModuleWithKey = debugIdKey.getModule().toString() + 
+    								  MessageCodePrefixRegistry.getMessageNumberSeparator() +
+    								  debugIdKey.getKey();
+    	
+    	if (!this.debugKeys.contains(debugIdKey))
+        {
+            throw new DebugIdKeyNotFoundException(aModuleWithKey);
+        }
+    	if (this.alreadyFetchedKeys.contains(aModuleWithKey))
+        {
+            throw new DebugIdUniquenessViolation(aModuleWithKey);
+        }
+        
+        this.alreadyFetchedKeys.add(aModuleWithKey);
+        
+        return (MessageCodePrefixRegistry.getInstance().getPrefix(debugIdKey.getModule()) + 
+        		this.properties.getProperty(aModuleWithKey));
     }
 
 }
