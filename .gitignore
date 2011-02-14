@@ -1,3 +1,4 @@
 target
 build
 derby.log
+src/test/resources/at/silverstrike/pcc/test/xmlserialization/testSerializationDeserialization.xml
