@@ -39,7 +39,6 @@ import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializer;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
-import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlDeserializerFactory;
 import at.silverstrike.pcc.test.mockpersistence.MockProjectExportInfo;
 import at.silverstrike.pcc.test.testutils.LineReader;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
@@ -268,11 +267,10 @@ public class TestDefaultTaskJuggler3Exporter {
 		 */
 		try {
 			objectUnderTest.run();
-		} catch (final InvalidDurationException exception)
-		{
+		} catch (final InvalidDurationException exception) {
 			/**
-			 * Since the duration of the process is null and it's less 
-			 * than the timing resolution, it is OK for us to land here.
+			 * Since the duration of the process is null and it's less than the
+			 * timing resolution, it is OK for us to land here.
 			 */
 		} catch (final PccException exception) {
 			LOGGER.error("", exception);
@@ -285,8 +283,15 @@ public class TestDefaultTaskJuggler3Exporter {
 
 	@Test
 	public void testDefect62() {
-		final XmlDeserializerFactory deserializerFactory;
-		deserializerFactory = new DefaultXmlDeserializerFactory();
+		/**
+		 * Create the injector
+		 */
+		final InjectorFactory injectorFactory = new MockInjectorFactory(
+				new MockInjectorModule());
+		final Injector injector = injectorFactory.createInjector();
+
+		final XmlDeserializerFactory deserializerFactory = injector
+				.getInstance(XmlDeserializerFactory.class);
 		final XmlDeserializer deserializer = deserializerFactory.create();
 
 		// Deserialize (start)
@@ -308,13 +313,6 @@ public class TestDefaultTaskJuggler3Exporter {
 
 		final UserData readData = deserializer.getUserData();
 		// Deserialize (end)
-
-		/**
-		 * Create the injector
-		 */
-		final InjectorFactory injectorFactory = new MockInjectorFactory(
-				new MockInjectorModule());
-		final Injector injector = injectorFactory.createInjector();
 
 		/**
 		 * Get object under test
