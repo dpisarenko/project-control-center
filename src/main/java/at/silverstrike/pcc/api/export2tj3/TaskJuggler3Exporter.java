@@ -30,7 +30,7 @@ public interface TaskJuggler3Exporter extends ModuleWithInjectableDependencies,
      * has finished, the resulting TaskJuggler III file contents can be fetched
      * by calling the method getTaskJugglerIIIProjectFileContents.
      */
-    void run() throws NoProcessesException, NoResourcesException, PccException;
+    void run() throws NoProcessesException, NoResourcesException, InvalidDurationException, PccException;
     
     /**
      * Returns the TaskJuggler III project file contents, which is equivalent to

@@ -21,146 +21,155 @@ import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 
 class MockControlProcess implements ControlProcess {
-    private Date averageEstimatedEndDateTime;
-    private Double bestCaseEffort;
+	private Date averageEstimatedEndDateTime;
+	private Double bestCaseEffort;
 
-    private Date bestEstimatedEndDateTime;
+	private Date bestEstimatedEndDateTime;
 
-    private Long id;
+	private Long id;
 
-    private String name;
+	private String name;
 
-    private ControlProcess parent;
+	private ControlProcess parent;
 
-    private Set<ControlProcess> predecessors;
+	private Set<ControlProcess> predecessors;
 
-    private Integer priority;
+	private Integer priority;
 
-    private ProcessType processType;
+	private ProcessType processType;
 
-    private List<ResourceAllocation> resourceAllocations;
+	private List<ResourceAllocation> resourceAllocations;
 
-    private ProcessState state;
+	private ProcessState state;
 
-    private Double worstCaseEffort;
+	private Double worstCaseEffort;
 
-    private Date worstEstimatedEndDateTime;
+	private Date worstEstimatedEndDateTime;
 
-    public MockControlProcess()
-    {
-        this.resourceAllocations = new LinkedList<ResourceAllocation>();
-    }
-    
-    @Override
-    public double getAverageCaseEffort() {
-        return (this.getBestCaseEffort() + this.getWorstCaseEffort()) / 2;
-    }
+	public MockControlProcess() {
+		this.resourceAllocations = new LinkedList<ResourceAllocation>();
+	}
 
-    public Date getAverageEstimatedEndDateTime() {
-        return averageEstimatedEndDateTime;
-    }
+	@Override
+	public double getAverageCaseEffort() {
+		if ((this.bestCaseEffort != null) && (this.worstCaseEffort == null)) {
+			return this.bestCaseEffort;
+		} else if ((this.bestCaseEffort == null)
+				&& (this.worstCaseEffort != null)) {
+			return this.worstCaseEffort;
+		} else if ((this.bestCaseEffort == null)
+				&& (this.worstCaseEffort == null)) {
+			return 0.;
+		} else {
+			return (this.bestCaseEffort + this.worstCaseEffort) / 2;
+		}
+	}
 
-    public Double getBestCaseEffort() {
-        return bestCaseEffort;
-    }
+	public Date getAverageEstimatedEndDateTime() {
+		return averageEstimatedEndDateTime;
+	}
 
-    public Date getBestEstimatedEndDateTime() {
-        return bestEstimatedEndDateTime;
-    }
+	public Double getBestCaseEffort() {
+		return bestCaseEffort;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Date getBestEstimatedEndDateTime() {
+		return bestEstimatedEndDateTime;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public ControlProcess getParent() {
-        return parent;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Set<ControlProcess> getPredecessors() {
-        return predecessors;
-    }
+	public ControlProcess getParent() {
+		return parent;
+	}
 
-    public Integer getPriority() {
-        return priority;
-    }
+	public Set<ControlProcess> getPredecessors() {
+		return predecessors;
+	}
 
-    public ProcessType getProcessType() {
-        return processType;
-    }
+	public Integer getPriority() {
+		return priority;
+	}
 
-    public List<ResourceAllocation> getResourceAllocations() {
-        return resourceAllocations;
-    }
+	public ProcessType getProcessType() {
+		return processType;
+	}
 
-    public ProcessState getState() {
-        return state;
-    }
+	public List<ResourceAllocation> getResourceAllocations() {
+		return resourceAllocations;
+	}
 
-    public Double getWorstCaseEffort() {
-        return worstCaseEffort;
-    }
+	public ProcessState getState() {
+		return state;
+	}
 
-    public Date getWorstEstimatedEndDateTime() {
-        return worstEstimatedEndDateTime;
-    }
+	public Double getWorstCaseEffort() {
+		return worstCaseEffort;
+	}
 
-    public void setAverageEstimatedEndDateTime(
-            final Date averageEstimatedEndDateTime) {
-        this.averageEstimatedEndDateTime = averageEstimatedEndDateTime;
-    }
+	public Date getWorstEstimatedEndDateTime() {
+		return worstEstimatedEndDateTime;
+	}
 
-    public void setBestCaseEffort(final Double bestCaseEffort) {
-        this.bestCaseEffort = bestCaseEffort;
-    }
+	public void setAverageEstimatedEndDateTime(
+			final Date averageEstimatedEndDateTime) {
+		this.averageEstimatedEndDateTime = averageEstimatedEndDateTime;
+	}
 
-    public void setBestEstimatedEndDateTime(final Date bestEstimatedEndDateTime) {
-        this.bestEstimatedEndDateTime = bestEstimatedEndDateTime;
-    }
+	public void setBestCaseEffort(final Double bestCaseEffort) {
+		this.bestCaseEffort = bestCaseEffort;
+	}
 
-    public void setId(final Long id) {
-        this.id = id;
-    }
+	public void setBestEstimatedEndDateTime(final Date bestEstimatedEndDateTime) {
+		this.bestEstimatedEndDateTime = bestEstimatedEndDateTime;
+	}
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    public void setParent(final ControlProcess parent) {
-        this.parent = parent;
-    }
+	public void setName(final String name) {
+		this.name = name;
+	}
 
-    public void setPredecessors(final Set<ControlProcess> predecessors) {
-        this.predecessors = predecessors;
-    }
+	public void setParent(final ControlProcess parent) {
+		this.parent = parent;
+	}
 
-    public void setPriority(final Integer priority) {
-        this.priority = priority;
-    }
+	public void setPredecessors(final Set<ControlProcess> predecessors) {
+		this.predecessors = predecessors;
+	}
 
-    public void setProcessType(final ProcessType processType) {
-        this.processType = processType;
-    }
+	public void setPriority(final Integer priority) {
+		this.priority = priority;
+	}
 
-    public void setResourceAllocations(
-            final List<ResourceAllocation> resourceAllocations) {
-        this.resourceAllocations = resourceAllocations;
-    }
+	public void setProcessType(final ProcessType processType) {
+		this.processType = processType;
+	}
 
-    public void setState(final ProcessState state) {
-        this.state = state;
-    }
+	public void setResourceAllocations(
+			final List<ResourceAllocation> resourceAllocations) {
+		this.resourceAllocations = resourceAllocations;
+	}
 
-    public void setWorstCaseEffort(final Double worstCaseEffort) {
-        this.worstCaseEffort = worstCaseEffort;
-    }
+	public void setState(final ProcessState state) {
+		this.state = state;
+	}
 
-    public void setWorstEstimatedEndDateTime(
-            final Date worstEstimatedEndDateTime) {
-        this.worstEstimatedEndDateTime = worstEstimatedEndDateTime;
-    }
+	public void setWorstCaseEffort(final Double worstCaseEffort) {
+		this.worstCaseEffort = worstCaseEffort;
+	}
+
+	public void setWorstEstimatedEndDateTime(
+			final Date worstEstimatedEndDateTime) {
+		this.worstEstimatedEndDateTime = worstEstimatedEndDateTime;
+	}
 
 }

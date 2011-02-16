@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
+import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.export2tj3.NoProcessesException;
 import at.silverstrike.pcc.api.export2tj3.NoProjectExportInfoException;
 import at.silverstrike.pcc.api.export2tj3.NoResourcesException;
@@ -101,6 +102,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 	private static final String RESOURCE_TEMPLATE = "export2tj3.template.resource";
 	private static final String START_DATE_TIME = "${startDateTime}";
 
+	private static final Double TIMING_RESOLUTION_IN_HOURS = 0.25;
+
 	private String effortTemplate;
 	private EmbeddedFileReader embeddedFileReader;
 	private Persistence persistence;
@@ -124,7 +127,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 	 */
 	@Override
 	public void run() throws NoProcessesException, NoResourcesException,
-			PccException {
+			PccException, InvalidDurationException {
 		validateInputs();
 
 		final StringBuilder builder = new StringBuilder();
@@ -356,7 +359,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 	}
 
 	private void validateInputs() throws NoProcessesException,
-			NoResourcesException, NoProjectExportInfoException {
+			NoResourcesException, NoProjectExportInfoException,
+			InvalidDurationException {
 		if (this.projectExportInfo == null) {
 			throw new NoProjectExportInfoException();
 		}
@@ -380,6 +384,20 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
 		if (resources.size() < 1) {
 			throw new NoResourcesException();
+		}
+
+		for (final ControlProcess proc : processes) {
+			checkTimingResolution(proc, proc.getBestCaseEffort());
+			checkTimingResolution(proc, proc.getAverageCaseEffort());
+			checkTimingResolution(proc, proc.getWorstCaseEffort());
+		}
+	}
+
+	private void checkTimingResolution(ControlProcess proc,
+			Double bestCaseEffort) throws InvalidDurationException {
+		if ((bestCaseEffort != null)
+				&& (bestCaseEffort < TIMING_RESOLUTION_IN_HOURS)) {
+			throw new InvalidDurationException(proc.getId(), proc.getName());
 		}
 	}
 

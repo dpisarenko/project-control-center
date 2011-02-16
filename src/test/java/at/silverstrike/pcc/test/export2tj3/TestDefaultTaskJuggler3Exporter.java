@@ -14,6 +14,9 @@ package at.silverstrike.pcc.test.export2tj3;
 import static at.silverstrike.pcc.test.testutils.LineComparer.assertLinesEqual;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -26,10 +29,17 @@ import org.junit.Test;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.export2tj3.NoProcessesException;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
+import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
+import at.silverstrike.pcc.api.xmlserialization.XmlDeserializer;
+import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
+import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlDeserializerFactory;
 import at.silverstrike.pcc.test.mockpersistence.MockProjectExportInfo;
 import at.silverstrike.pcc.test.testutils.LineReader;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
@@ -258,14 +268,110 @@ public class TestDefaultTaskJuggler3Exporter {
 		 */
 		try {
 			objectUnderTest.run();
+		} catch (final InvalidDurationException exception)
+		{
+			/**
+			 * Since the duration of the process is null and it's less 
+			 * than the timing resolution, it is OK for us to land here.
+			 */
 		} catch (final PccException exception) {
 			LOGGER.error("", exception);
 			Assert.fail(exception.getMessage());
 		} catch (final NullPointerException exception) {
 			LOGGER.error("", exception);
 			Assert.fail(exception.getMessage());
-
 		}
 	}
 
+	@Test
+	public void testDefect62() {
+		final XmlDeserializerFactory deserializerFactory;
+		deserializerFactory = new DefaultXmlDeserializerFactory();
+		final XmlDeserializer deserializer = deserializerFactory.create();
+
+		// Deserialize (start)
+		FileInputStream fileInputStream = null;
+		try {
+			fileInputStream = new FileInputStream(
+					"src/test/resources/at/silverstrike/"
+							+ "pcc/test/export2tj3/PCC_DATA_2011_02_11_15_05_57.xml");
+		} catch (final FileNotFoundException exception) {
+			LOGGER.error(exception.getMessage(), exception);
+			Assert.fail(exception.getMessage());
+		}
+		deserializer.setInputStream(fileInputStream);
+		try {
+			deserializer.run();
+		} catch (final PccException exception) {
+			Assert.fail(exception.getMessage());
+		}
+
+		final UserData readData = deserializer.getUserData();
+		// Deserialize (end)
+
+		/**
+		 * Create the injector
+		 */
+		final InjectorFactory injectorFactory = new MockInjectorFactory(
+				new MockInjectorModule());
+		final Injector injector = injectorFactory.createInjector();
+
+		/**
+		 * Get object under test
+		 */
+		final TaskJuggler3Exporter objectUnderTest = injector
+				.getInstance(TaskJuggler3Exporter.class);
+
+		Assert.assertNotNull(objectUnderTest);
+
+		objectUnderTest.setInjector(injector);
+
+		/**
+		 * Set input data
+		 */
+		final MockProjectExportInfo projectExportInfo = new MockProjectExportInfo();
+
+		// final MockObjectFactory mockObjectFactory = new MockObjectFactory();
+		Resource resource1 = null;
+		// resource1 = mockObjectFactory.createResource((long) 1);
+
+		ControlProcess task = readData.getProcesses().get(0);
+		resource1 = task.getResourceAllocations().get(0).getResource();
+		List<Resource> resourceList = new ArrayList<Resource>();
+		resourceList.add(resource1);
+
+		objectUnderTest.setProjectExportInfo(projectExportInfo);
+
+		projectExportInfo.setControlProcessesToExport(readData.getProcesses());
+		projectExportInfo.setCopyright("Dmitri Pisarenko");
+		projectExportInfo.setCurrency(EURO);
+		projectExportInfo.setNow(helper.getDate18October2010());
+		projectExportInfo.setProjectName("MyProject");
+		projectExportInfo.setResourcesToExport(resourceList);
+		projectExportInfo.setSchedulingHorizonMonths(ONE_MONTH);
+
+		/**
+		 * Run the method under test
+		 */
+		try {
+			objectUnderTest.run();
+			Assert.fail("TaskJuggler3Exporter didn't throw an exception, even though time is < 15min.");
+		} catch (final InvalidDurationException exception) {
+			Assert.assertNotNull("InvalidDurationException has no TaskNumber",
+					exception.getTaskNumber());
+			Assert.assertNotNull("InvalidDurationException has no TaskName",
+					exception.getTaskName());
+			Assert.assertEquals(
+					"InvalidDurationException has a wrong TaskNumber",
+					task.getId(), exception.getTaskNumber());
+			Assert.assertEquals(
+					"InvalidDurationException has a wrong TaskName",
+					task.getName(), exception.getTaskName());
+
+		} catch (final PccException exception) {
+			LOGGER.error("", exception);
+			Assert.fail(exception.getMessage());
+		}
+
+	}
 }
