@@ -264,4 +264,8 @@ public class TestDefaultProjectScheduler {
         Assert.assertEquals(expectedTask.getId(), task.getId());
         Assert.assertEquals(expectedTask.getName(), task.getName());        
     }
+    
+    @Test
+    public void testElementaryScenarioScheduling() {
+    }    
 }

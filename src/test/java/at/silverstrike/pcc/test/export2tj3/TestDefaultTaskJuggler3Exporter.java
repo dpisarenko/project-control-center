@@ -266,7 +266,6 @@ public class TestDefaultTaskJuggler3Exporter {
 			Assert.fail(exception.getMessage());
 
 		}
-
 	}
 
 }
