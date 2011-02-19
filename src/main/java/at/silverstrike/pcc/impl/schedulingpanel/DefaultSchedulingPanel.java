@@ -11,8 +11,6 @@
 
 package at.silverstrike.pcc.impl.schedulingpanel;
 
-import static com.vaadin.ui.Window.Notification.TYPE_ERROR_MESSAGE;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,7 +37,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Window.Notification;
 
 import eu.livotov.tpt.i18n.TM;
 
