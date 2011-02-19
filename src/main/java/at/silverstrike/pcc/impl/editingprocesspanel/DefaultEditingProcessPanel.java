@@ -231,7 +231,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 	public void setData(final Object aProcessid) {
 		process = persistence.getTask(aProcessid);
 
-		final String stateCaption = getStateCaption(process, aProcessid);
+		final String stateCaption = getStateCaption(aProcessid);
 
 		setCaption(stateCaption);
 
@@ -737,8 +737,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		}
 	}
 
-	private String getStateCaption(final ControlProcess aProcess,
-			final Object aProcessId) {
+	private String getStateCaption(final Object aProcessId) {
 		if (process == null) {
 			return TM.get("editingprocesspanel.27-caption-invalid-process",
 					aProcessId);
