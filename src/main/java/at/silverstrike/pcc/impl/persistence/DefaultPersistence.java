@@ -380,7 +380,7 @@ public class DefaultPersistence implements Persistence {
 			}
 			tx.commit();
 
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			LOGGER.error("", exception);
 			tx.rollback();
 		}
@@ -410,7 +410,7 @@ public class DefaultPersistence implements Persistence {
 			}
 			tx.commit();
 
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			LOGGER.error("", exception);
 			tx.rollback();
 		}
@@ -673,7 +673,7 @@ public class DefaultPersistence implements Persistence {
 	 * @see at.silverstrike.pcc.api.persistence.Persistence#openSession()
 	 */
 	@Override
-	public void openSession() {
+	public final void openSession() {
 		LOGGER.debug(ErrorCodes.M_001_OPEN_SESSION);
 		try {
 			tryToOpenSession(JDBC_CONN_STRING_EXISTING_DB);
@@ -688,16 +688,16 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void setInjector(final Injector anInjector) {
+	public void setInjector(final Injector aInjector) {
 	}
 
 	@Override
-	public void updateBookings(final List<BookingTuple> bookingTuples) {
+	public void updateBookings(final List<BookingTuple> aBookingTuples) {
 		final Transaction tx = session.beginTransaction();
 		try {
 			session.createQuery("delete from DefaultBooking");
 
-			for (final BookingTuple tuple : bookingTuples) {
+			for (final BookingTuple tuple : aBookingTuples) {
 				final Booking booking = tuple.getBooking();
 
 				LOGGER.debug("booking ID: {}", tuple.getBooking().getId());
@@ -725,20 +725,20 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void updateTask(final ControlProcess process) {
+	public void updateTask(final ControlProcess aProcess) {
 		final Transaction tx = session.beginTransaction();
 
 		try {
-			session.update(process);
+			session.update(aProcess);
 			tx.commit();
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			LOGGER.error("", exception);
 			tx.rollback();
 		}
 	}
 
 	@Override
-	public void updateTaskEndTimes(final List<ProcessEndTimeTuple> endTimeTuples) {
+	public void updateTaskEndTimes(final List<ProcessEndTimeTuple> aEndTimeTuples) {
 		LOGGER.debug("updateTaskEndTimes, 1");
 
 		final Transaction tx = session.beginTransaction();
@@ -746,7 +746,7 @@ public class DefaultPersistence implements Persistence {
 		LOGGER.debug("updateTaskEndTimes, 2");
 
 		try {
-			for (final ProcessEndTimeTuple tuple : endTimeTuples) {
+			for (final ProcessEndTimeTuple tuple : aEndTimeTuples) {
 				LOGGER.debug("tuple.getProcessId(): {}", tuple.getProcessId());
 
 				final ControlProcess process = (ControlProcess) session.load(
@@ -853,12 +853,12 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void updateDailySchedules(final Session session, final Date now,
-			final Date lastPlannedDay) {
-		final Date startDateTime = setTimeTo00(now);
-		final Date endDateTime = setTimeTo2359(lastPlannedDay);
+	private void updateDailySchedules(final Session aSession, final Date aNow,
+			final Date aLastPlannedDay) {
+		final Date startDateTime = setTimeTo00(aNow);
+		final Date endDateTime = setTimeTo2359(aLastPlannedDay);
 
-		final Query bookingsQuery = session.createQuery("from DefaultBooking "
+		final Query bookingsQuery = aSession.createQuery("from DefaultBooking "
 				+ "where (startDateTime >= :minDate) and "
 				+ "(startDateTime <= :maxDate)");
 		bookingsQuery.setParameter("minDate", startDateTime);
@@ -867,7 +867,7 @@ public class DefaultPersistence implements Persistence {
 		final List<Booking> bookings = bookingsQuery.list();
 
 		for (final Booking curBooking : bookings) {
-			final Query dailyPlanQuery = session
+			final Query dailyPlanQuery = aSession
 					.createQuery("from DefaultDailyPlan "
 							+ "where (date = :day) and "
 							+ "(resource = :resource)");
@@ -894,8 +894,8 @@ public class DefaultPersistence implements Persistence {
 
 				dailyPlanBookings.add(curBooking);
 
-				session.update(dailyPlan);
-				session.update(dailyPlan.getSchedule());
+				aSession.update(dailyPlan);
+				aSession.update(dailyPlan.getSchedule());
 			} else {
 				LOGGER.error(
 						ErrorCodes.M_005_DAILY_PLAN_NOT_FOUND_SCHEDULE
@@ -913,8 +913,8 @@ public class DefaultPersistence implements Persistence {
 		return endDateTime;
 	}
 
-	private Date setTimeTo00(final Date now) {
-		Date startDateTime = DateUtils.setHours(now, 0);
+	private Date setTimeTo00(final Date aNow) {
+		Date startDateTime = DateUtils.setHours(aNow, 0);
 		startDateTime = DateUtils.setMinutes(startDateTime, 0);
 		startDateTime = DateUtils.setSeconds(startDateTime, 0);
 		startDateTime = DateUtils.setMilliseconds(startDateTime, 0);
