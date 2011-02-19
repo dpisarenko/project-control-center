@@ -33,7 +33,6 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.webguibus.WorkerAddedMessage;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
-import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistry;
 
 class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private static final long serialVersionUID = 1L;
