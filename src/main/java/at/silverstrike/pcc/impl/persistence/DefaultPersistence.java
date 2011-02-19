@@ -80,7 +80,7 @@ public class DefaultPersistence implements Persistence {
 			+ "(bestEstimatedEndDateTime is not null) or "
 			+ "(worstEstimatedEndDateTime is not null))";
 
-	private final Logger LOGGER = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DefaultPersistence.class);
 	private Session session;
 	private SessionFactory sessionFactory;
@@ -94,7 +94,7 @@ public class DefaultPersistence implements Persistence {
 	 * @see at.silverstrike.pcc.api.persistence.Persistence#closeSession()
 	 */
 	@Override
-	public void closeSession() {
+	public final void closeSession() {
 		state = PersistenceState.CLOSING_CONNECTION;
 
 		if (sessionFactory == null) {
@@ -114,19 +114,19 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public Booking createBooking() {
+	public final Booking createBooking() {
 		return new DefaultBooking();
 	}
 
 	@Override
-	public void createChildProcess(final Long parentProcessId) {
+	public final void createChildProcess(final Long aParentProcessId) {
 		final Transaction tx = session.beginTransaction();
 		try {
 			ControlProcess parent = null;
 
-			if (parentProcessId != null) {
+			if (aParentProcessId != null) {
 				parent = (ControlProcess) session.get(
-						DefaultControlProcess.class, parentProcessId);
+						DefaultControlProcess.class, aParentProcessId);
 			}
 
 			final ControlProcess newProcess = new DefaultControlProcess();
@@ -142,20 +142,20 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public Long createHumanResource(final String anAbbreviation,
+	public final Long createHumanResource(final String aAbbreviation,
 			final String aFirstName, final String aMiddleName,
-			final String aSurname, double dailyMaxWorkTimeInHours) {
+			final String aSurname, final double aDailyMaxWorkTimeInHours) {
 		final Transaction tx = session.beginTransaction();
 		Long id = null;
 
 		try {
 			final DefaultWorker worker = new DefaultWorker();
 
-			worker.setAbbreviation(anAbbreviation);
+			worker.setAbbreviation(aAbbreviation);
 			worker.setFirstName(aFirstName);
 			worker.setMiddleName(aMiddleName);
 			worker.setSurname(aSurname);
-			worker.setDailyLimitInHours(dailyMaxWorkTimeInHours);
+			worker.setDailyLimitInHours(aDailyMaxWorkTimeInHours);
 
 			session.save(worker);
 
@@ -165,7 +165,7 @@ public class DefaultPersistence implements Persistence {
 
 			LOGGER.debug("{}: dailyMaxWorkTimeInHours: {}", new Object[] {
 					ErrorCodes.M_013_CREATE_HUMAN_RESOURCE2,
-					dailyMaxWorkTimeInHours });
+					aDailyMaxWorkTimeInHours });
 		} catch (final Exception exception) {
 			LOGGER.error(ErrorCodes.M_012_CREATE_HUMAN_RESOURCE, exception);
 			tx.rollback();
@@ -175,39 +175,39 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void createProcessParent(final String name, final Long parentItemId,
-			final ProcessType aProcessType) {
+	public final void createProcessParent(final String aName,
+			final Long aParentItemId, final ProcessType aProcessType) {
 		final Transaction tx = session.beginTransaction();
 
 		final DefaultControlProcess task = new DefaultControlProcess();
 
-		task.setName(name);
+		task.setName(aName);
 		task.setProcessType(aProcessType);
 
 		try {
-			if (parentItemId != null) {
+			if (aParentItemId != null) {
 				final DefaultControlProcess parentTask = (DefaultControlProcess) session
-						.get(DefaultControlProcess.class, parentItemId);
+						.get(DefaultControlProcess.class, aParentItemId);
 
 				task.setParent(parentTask);
 			}
 			session.save(task);
 			tx.commit();
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			LOGGER.error("", exception);
 			tx.rollback();
 		}
 	}
 
 	@Override
-	public void createSiblingProcess(final Long siblingProcessId) {
+	public final void createSiblingProcess(final Long aSiblingProcessId) {
 		final Transaction tx = session.beginTransaction();
 		try {
 			ControlProcess parent = null;
 
-			if (siblingProcessId != null) {
+			if (aSiblingProcessId != null) {
 				final ControlProcess sibling = (ControlProcess) session.get(
-						DefaultControlProcess.class, siblingProcessId);
+						DefaultControlProcess.class, aSiblingProcessId);
 
 				parent = sibling.getParent();
 			}
@@ -225,7 +225,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void createSubTask(final String aProcessName,
+	public final void createSubTask(final String aProcessName,
 			final Long aParentProcessId) {
 		final Transaction tx = session.beginTransaction();
 		try {
@@ -249,16 +249,16 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public Long createTask(final String processName) {
+	public final Long createTask(final String aProcessName) {
 		final Transaction tx = session.beginTransaction();
 
 		final DefaultControlProcess task = new DefaultControlProcess();
-		task.setName(processName);
+		task.setName(aProcessName);
 
 		try {
 			session.save(task);
 			tx.commit();
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			LOGGER.error("", exception);
 			tx.rollback();
 		}
@@ -268,11 +268,11 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void deleteProcess(final Long selectedProjectId) {
+	public final void deleteProcess(final Long aSelectedProjectId) {
 		final Transaction tx = session.beginTransaction();
 		try {
 			final String hql = "from DefaultControlProcess p where p.parent.id = "
-					+ selectedProjectId;
+					+ aSelectedProjectId;
 
 			final Query query = session.createQuery(hql);
 
@@ -284,7 +284,7 @@ public class DefaultPersistence implements Persistence {
 			}
 
 			final ControlProcess process = (ControlProcess) session.get(
-					DefaultControlProcess.class, selectedProjectId);
+					DefaultControlProcess.class, aSelectedProjectId);
 
 			session.delete(process);
 
@@ -297,7 +297,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void generateDailyPlans(final Date aNow) {
+	public final void generateDailyPlans(final Date aNow) {
 		final Transaction tx = session.beginTransaction();
 
 		try {
@@ -326,7 +326,7 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override
-	public List<ControlProcess> getAllIntentsAndGoalRegions() {
+	public final List<ControlProcess> getAllIntentsAndGoalRegions() {
 		final List<ControlProcess> returnValue = new LinkedList<ControlProcess>();
 
 		session.beginTransaction();
@@ -353,7 +353,7 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override
-	public List<ControlProcess> getAllNotDeletedTasks() {
+	public final List<ControlProcess> getAllNotDeletedTasks() {
 		final List<ControlProcess> returnValue = new LinkedList<ControlProcess>();
 		final Transaction tx = session.beginTransaction();
 
@@ -386,7 +386,7 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public List<Worker> getAllWorkers() {
+	public final List<Worker> getAllWorkers() {
 		final List<Worker> returnValue = new LinkedList<Worker>();
 
 		final Transaction tx = session.beginTransaction();
@@ -416,7 +416,7 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override
-	public List<ControlProcess> getChildTasks(final ControlProcess aParent) {
+	public final List<ControlProcess> getChildTasks(final ControlProcess aParent) {
 		final List<ControlProcess> returnValue = new LinkedList<ControlProcess>();
 		final Transaction tx = session.beginTransaction();
 
@@ -448,7 +448,7 @@ public class DefaultPersistence implements Persistence {
 				}
 			}
 			tx.commit();
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			LOGGER.error("", exception);
 			tx.rollback();
 		}
@@ -457,7 +457,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public List<ControlProcess> getChildTasks(final Long aProcessId) {
+	public final List<ControlProcess> getChildTasks(final Long aProcessId) {
 		final Transaction tx = session.beginTransaction();
 		try {
 			ControlProcess process = null;
@@ -478,7 +478,7 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public DailyPlan getDailyPlan(final Date newDate, final String resource) {
+	public final DailyPlan getDailyPlan(final Date aNewDate, final String aResource) {
 		DailyPlan returnValue = null;
 
 		try {
@@ -489,8 +489,8 @@ public class DefaultPersistence implements Persistence {
 							+ "(p.date = :day) and "
 							+ "(p.resource.abbreviation = :resource)");
 
-			query.setParameter("day", setTimeTo00(newDate));
-			query.setParameter("resource", resource);
+			query.setParameter("day", setTimeTo00(aNewDate));
+			query.setParameter("resource", aResource);
 
 			final List<DailyPlan> plans = (List<DailyPlan>) query.list();
 
@@ -534,7 +534,7 @@ public class DefaultPersistence implements Persistence {
 	 * @see at.silverstrike.pcc.api.persistence.Persistence#getSession()
 	 */
 	@Override
-	public Session getSession() {
+	public final Session getSession() {
 		if (sessionFactory == null) {
 			return null;
 		}
@@ -547,21 +547,21 @@ public class DefaultPersistence implements Persistence {
 	 * @see at.silverstrike.pcc.api.persistence.Persistence#getState()
 	 */
 	@Override
-	public PersistenceState getState() {
+	public final PersistenceState getState() {
 		return state;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ControlProcess> getSubProcessesWithChildren(final Long processId) {
+	public final List<ControlProcess> getSubProcessesWithChildren(final Long aProcessId) {
 		List<ControlProcess> processes = null;
 
 		try {
 			final String hql;
 
-			if (processId != null) {
+			if (aProcessId != null) {
 				hql = SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE.replace(
-						PROCESS_ID, processId.toString());
+						PROCESS_ID, aProcessId.toString());
 			} else {
 				hql = SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL;
 			}
@@ -574,7 +574,7 @@ public class DefaultPersistence implements Persistence {
 
 			processes = (List<ControlProcess>) query.list();
 
-			if ((processId == null)
+			if ((aProcessId == null)
 					&& ((processes == null) || (processes.size() < 1))) {
 				return getAllNotDeletedTasks();
 			}
@@ -585,7 +585,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public ControlProcess getTask(final Object aProcessid) {
+	public final ControlProcess getTask(final Object aProcessid) {
 		if (aProcessid == null) {
 			return null;
 		} else {
@@ -596,7 +596,7 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ControlProcess> getUncompletedTasksWithEstimatedEndTime() {
+	public final List<ControlProcess> getUncompletedTasksWithEstimatedEndTime() {
 		List<ControlProcess> processes = new LinkedList<ControlProcess>();
 
 		try {
@@ -616,13 +616,13 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void handoffProcess(final Long processId, final Long workerId) {
-		if (processId == null) {
+	public final void handoffProcess(final Long aProcessId, final Long aWorkerId) {
+		if (aProcessId == null) {
 			LOGGER.error("processId is null");
 			return;
 		}
 
-		if (workerId == null) {
+		if (aWorkerId == null) {
 			LOGGER.error("workerId is null");
 			return;
 		}
@@ -630,9 +630,9 @@ public class DefaultPersistence implements Persistence {
 		final Transaction tx = session.beginTransaction();
 		try {
 			final ControlProcess process = (ControlProcess) session.load(
-					DefaultControlProcess.class, processId);
+					DefaultControlProcess.class, aProcessId);
 			final Worker resource = (Worker) session.load(DefaultWorker.class,
-					workerId);
+					aWorkerId);
 			final ResourceAllocation allocation = new DefaultResourceAllocation();
 			allocation.setResource(resource);
 
