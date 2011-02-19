@@ -50,6 +50,10 @@ import com.google.inject.Injector;
  * 
  */
 public class DefaultPersistence implements Persistence {
+	private static final int LAST_HOUR = 23;
+	private static final int LAST_MINUTE = 59;
+	private static final int LAST_SECOND = 59;
+	private static final int LAST_MILLISECOND = 999;
 	public static final String DB_NAME = "pcc";
 	private static final int DAYS_TO_PLAN_AHEAD = 7;
 	private static final String JDBC_CONN_STRING_EXISTING_DB = "jdbc:derby:"
@@ -478,7 +482,8 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public final DailyPlan getDailyPlan(final Date aNewDate, final String aResource) {
+	public final DailyPlan getDailyPlan(final Date aNewDate,
+			final String aResource) {
 		DailyPlan returnValue = null;
 
 		try {
@@ -553,7 +558,8 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public final List<ControlProcess> getSubProcessesWithChildren(final Long aProcessId) {
+	public final List<ControlProcess> getSubProcessesWithChildren(
+			final Long aProcessId) {
 		List<ControlProcess> processes = null;
 
 		try {
@@ -899,11 +905,11 @@ public class DefaultPersistence implements Persistence {
 		}
 	}
 
-	private Date setTimeTo2359(final Date lastPlannedDay) {
-		Date endDateTime = DateUtils.setHours(lastPlannedDay, 23);
-		endDateTime = DateUtils.setMinutes(endDateTime, 59);
-		endDateTime = DateUtils.setSeconds(endDateTime, 59);
-		endDateTime = DateUtils.setMilliseconds(endDateTime, 999);
+	private Date setTimeTo2359(final Date aLastPlannedDay) {
+		Date endDateTime = DateUtils.setHours(aLastPlannedDay, LAST_HOUR);
+		endDateTime = DateUtils.setMinutes(endDateTime, LAST_MINUTE);
+		endDateTime = DateUtils.setSeconds(endDateTime, LAST_SECOND);
+		endDateTime = DateUtils.setMilliseconds(endDateTime, LAST_MILLISECOND);
 		return endDateTime;
 	}
 
@@ -916,14 +922,14 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void updateDailyToDoLists(final Session session, final Date now,
-			final Date lastPlannedDay) {
-		final Query query = session.createQuery("from DefaultControlProcess "
+	private void updateDailyToDoLists(final Session aSession, final Date aNow,
+			final Date aLastPlannedDay) {
+		final Query query = aSession.createQuery("from DefaultControlProcess "
 				+ "where " + "(averageEstimatedEndDateTime >= :minDate)"
 				+ " and (averageEstimatedEndDateTime <= :maxDate)");
 
-		final Date minDate = setTimeTo00(now);
-		final Date maxDate = setTimeTo2359(lastPlannedDay);
+		final Date minDate = setTimeTo00(aNow);
+		final Date maxDate = setTimeTo2359(aLastPlannedDay);
 
 		query.setParameter("minDate", minDate);
 		query.setParameter("maxDate", maxDate);
@@ -938,7 +944,7 @@ public class DefaultPersistence implements Persistence {
 		for (final ControlProcess curProcess : processes) {
 			for (final ResourceAllocation allocation : curProcess
 					.getResourceAllocations()) {
-				final Query dailyPlanQuery = session
+				final Query dailyPlanQuery = aSession
 						.createQuery("from DefaultDailyPlan "
 								+ "where (date = :day) and "
 								+ "(resource = :resource)");
@@ -965,7 +971,7 @@ public class DefaultPersistence implements Persistence {
 							.add(curProcess);
 
 					LOGGER.debug("Updating daily plan: {}", dailyPlan);
-					session.update(dailyPlan);
+					aSession.update(dailyPlan);
 					LOGGER.debug("Updating daily plan: {} completed", dailyPlan);
 
 				} else {
@@ -980,7 +986,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void clearDatabase() {
+	public final void clearDatabase() {
 		final Transaction tx = session.beginTransaction();
 		try {
 			final String[] entitiesToDelete = {
@@ -1003,7 +1009,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public Resource getResource(final Long aResourceId) {
+	public final Resource getResource(final Long aResourceId) {
 		if (aResourceId == null) {
 			return null;
 		} else {
@@ -1014,7 +1020,7 @@ public class DefaultPersistence implements Persistence {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public UserData getUserData() {
+	public final UserData getUserData() {
 		final UserData userData = new DefaultUserData();
 
 		final Query bookingsQuery = session.createQuery("from DefaultBooking");
