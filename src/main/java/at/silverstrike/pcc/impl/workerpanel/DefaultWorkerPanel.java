@@ -10,6 +10,9 @@
  **/
 package at.silverstrike.pcc.impl.workerpanel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
@@ -30,6 +33,7 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.webguibus.WorkerAddedMessage;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
+import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistry;
 
 class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private static final long serialVersionUID = 1L;
@@ -44,6 +48,9 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private WebGuiBus webGuiBus;
     private WebGuiBusMessageFactory webGuiBusMessageFactory;
 
+    private final Logger LOGGER =
+        LoggerFactory.getLogger(DefaultWorkerPanel.class);
+    
     public DefaultWorkerPanel() {
     }
 
@@ -68,7 +75,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
             }
             catch (final NumberFormatException exception)
             {
-                
+            	LOGGER.error("", exception);
             }
             
             persistence.createHumanResource(abbreviation, firstName,
