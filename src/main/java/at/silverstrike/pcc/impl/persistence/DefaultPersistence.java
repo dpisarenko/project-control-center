@@ -11,15 +11,6 @@
 
 package at.silverstrike.pcc.impl.persistence;
 
-import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_001_OPEN_SESSION;
-import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_002_OPEN_SESSION;
-import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_003_OPEN_SESSION;
-import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_004_OPEN_SESSION;
-import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_005_DAILY_PLAN_NOT_FOUND_SCHEDULE;
-import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_008_DAILY_PLAN_LIST2;
-import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_009_GET_DAILY_PLAN;
-import static at.silverstrike.pcc.impl.persistence.ErrorCodes.M_010_GENERATE_DAILY_PLANS;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
@@ -71,9 +62,15 @@ public class DefaultPersistence implements Persistence {
 	private static final String STATE_ATTAINED = ":stateAttained";
 	private static final String STATE_SCHEDULED = ":stateScheduled";
 	private static final String SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE = "from DefaultControlProcess p where (p.parent.id = ${processId}) and (state <> "
-			+ STATE_DELETED + ") and (state <> " + STATE_ATTAINED + ") order by priority desc";
+			+ STATE_DELETED
+			+ ") and (state <> "
+			+ STATE_ATTAINED
+			+ ") order by priority desc";
 	private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL = "from DefaultControlProcess p where (p.parent is null) and (state <> "
-			+ STATE_DELETED + ") and (state <> "  + STATE_ATTAINED + " order by priority desc";
+			+ STATE_DELETED
+			+ ") and (state <> "
+			+ STATE_ATTAINED
+			+ " order by priority desc";
 	private static final String UNCOMPLETED_TASKS_WITH_ESTIMATED_END_TIME_HQL = "from DefaultControlProcess where ((state = "
 			+ STATE_SCHEDULED
 			+ ") or (state = "
@@ -321,7 +318,7 @@ public class DefaultPersistence implements Persistence {
 
 			tx.commit();
 		} catch (final Exception exception) {
-			LOGGER.error(M_010_GENERATE_DAILY_PLANS, exception);
+			LOGGER.error(ErrorCodes.M_010_GENERATE_DAILY_PLANS, exception);
 			tx.rollback();
 		}
 
@@ -485,7 +482,7 @@ public class DefaultPersistence implements Persistence {
 		DailyPlan returnValue = null;
 
 		try {
-			printDailyPlans(M_008_DAILY_PLAN_LIST2);
+			printDailyPlans(ErrorCodes.M_008_DAILY_PLAN_LIST2);
 
 			final Query query = session
 					.createQuery("from DefaultDailyPlan p where "
@@ -501,7 +498,7 @@ public class DefaultPersistence implements Persistence {
 				returnValue = plans.get(0);
 			}
 		} catch (final Exception exception) {
-			LOGGER.error(M_009_GET_DAILY_PLAN, exception);
+			LOGGER.error(ErrorCodes.M_009_GET_DAILY_PLAN, exception);
 			throw new RuntimeException(exception);
 		}
 		return returnValue;
@@ -572,7 +569,8 @@ public class DefaultPersistence implements Persistence {
 			final Query query = session.createQuery(hql);
 
 			query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
-			query.setParameter(STATE_ATTAINED.substring(1), ProcessState.ATTAINED);
+			query.setParameter(STATE_ATTAINED.substring(1),
+					ProcessState.ATTAINED);
 
 			processes = (List<ControlProcess>) query.list();
 
@@ -670,15 +668,15 @@ public class DefaultPersistence implements Persistence {
 	 */
 	@Override
 	public void openSession() {
-		LOGGER.debug(M_001_OPEN_SESSION);
+		LOGGER.debug(ErrorCodes.M_001_OPEN_SESSION);
 		try {
 			tryToOpenSession(JDBC_CONN_STRING_EXISTING_DB);
-			LOGGER.debug(M_002_OPEN_SESSION);
+			LOGGER.debug(ErrorCodes.M_002_OPEN_SESSION);
 		} catch (final RuntimeException exception) {
-			LOGGER.debug(M_003_OPEN_SESSION, exception);
+			LOGGER.debug(ErrorCodes.M_003_OPEN_SESSION, exception);
 			tryToCreateDb(exception);
 		} catch (final Throwable exception) {
-			LOGGER.debug(M_004_OPEN_SESSION, exception);
+			LOGGER.debug(ErrorCodes.M_004_OPEN_SESSION, exception);
 			tryToCreateDb(exception);
 		}
 	}
@@ -894,7 +892,7 @@ public class DefaultPersistence implements Persistence {
 				session.update(dailyPlan.getSchedule());
 			} else {
 				LOGGER.error(
-						M_005_DAILY_PLAN_NOT_FOUND_SCHEDULE
+						ErrorCodes.M_005_DAILY_PLAN_NOT_FOUND_SCHEDULE
 								+ ": Daily plan for resource '{}' and date '{}' not found.",
 						new Object[] { resource.getAbbreviation(), day });
 			}
