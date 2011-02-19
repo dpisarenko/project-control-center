@@ -692,7 +692,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void updateBookings(final List<BookingTuple> aBookingTuples) {
+	public final void updateBookings(final List<BookingTuple> aBookingTuples) {
 		final Transaction tx = session.beginTransaction();
 		try {
 			session.createQuery("delete from DefaultBooking");
@@ -725,7 +725,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void updateTask(final ControlProcess aProcess) {
+	public final void updateTask(final ControlProcess aProcess) {
 		final Transaction tx = session.beginTransaction();
 
 		try {
@@ -738,7 +738,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public void updateTaskEndTimes(final List<ProcessEndTimeTuple> aEndTimeTuples) {
+	public final void updateTaskEndTimes(final List<ProcessEndTimeTuple> aEndTimeTuples) {
 		LOGGER.debug("updateTaskEndTimes, 1");
 
 		final Transaction tx = session.beginTransaction();
@@ -770,12 +770,12 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void createDailyPlans(final Session session, final Date now) {
-		final List<Resource> resources = (List<Resource>) session.createQuery(
+	private void createDailyPlans(final Session aSession, final Date aNow) {
+		final List<Resource> resources = (List<Resource>) aSession.createQuery(
 				"from DefaultResource").list();
 
 		for (int i = 0; i < DAYS_TO_PLAN_AHEAD; i++) {
-			final Date currentDay = DateUtils.addDays(now, i);
+			final Date currentDay = DateUtils.addDays(aNow, i);
 
 			for (final Resource resource : resources) {
 				final DailySchedule schedule = new DefaultDailySchedule();
@@ -787,15 +787,15 @@ public class DefaultPersistence implements Persistence {
 				plan.setSchedule(schedule);
 				plan.setToDoList(toDoList);
 
-				session.save(schedule);
-				session.save(toDoList);
-				session.save(plan);
+				aSession.save(schedule);
+				aSession.save(toDoList);
+				aSession.save(plan);
 			}
 		}
 	}
 
-	private void tryToCreateDb(final Throwable anException) {
-		LOGGER.error("tryToCreateDb, 1, ", anException);
+	private void tryToCreateDb(final Throwable aException) {
+		LOGGER.error("tryToCreateDb, 1, ", aException);
 		state = PersistenceState.CONNECTION_OPENINING_FAILURE;
 
 		try {
