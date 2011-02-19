@@ -65,17 +65,20 @@ public class DefaultPersistence implements Persistence {
 	private static final String STATE_DELETED = ":stateDeleted";
 	private static final String STATE_ATTAINED = ":stateAttained";
 	private static final String STATE_SCHEDULED = ":stateScheduled";
-	private static final String SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE = "from DefaultControlProcess p where (p.parent.id = ${processId}) and (state <> "
+	private static final String SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE = "from "
+			+ "DefaultControlProcess p where (p.parent.id = ${processId}) and (state <> "
 			+ STATE_DELETED
 			+ ") and (state <> "
 			+ STATE_ATTAINED
 			+ ") order by priority desc";
-	private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL = "from DefaultControlProcess p where (p.parent is null) and (state <> "
+	private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL = "from "
+			+ "DefaultControlProcess p where (p.parent is null) and (state <> "
 			+ STATE_DELETED
 			+ ") and (state <> "
 			+ STATE_ATTAINED
 			+ " order by priority desc";
-	private static final String UNCOMPLETED_TASKS_WITH_ESTIMATED_END_TIME_HQL = "from DefaultControlProcess where ((state = "
+	private static final String UNCOMPLETED_TASKS_WITH_ESTIMATED_END_TIME_HQL = "from "
+			+ "DefaultControlProcess where ((state = "
 			+ STATE_SCHEDULED
 			+ ") or (state = "
 			+ STATE_BEING_ATTAINED
@@ -738,7 +741,8 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public final void updateTaskEndTimes(final List<ProcessEndTimeTuple> aEndTimeTuples) {
+	public final void updateTaskEndTimes(
+			final List<ProcessEndTimeTuple> aEndTimeTuples) {
 		LOGGER.debug("updateTaskEndTimes, 1");
 
 		final Transaction tx = session.beginTransaction();
