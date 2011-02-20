@@ -16,6 +16,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.entrywindow.EntryWindow;
+import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
@@ -67,18 +69,27 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 
 		persistence.openSession();
 
-		final MainWindowFactory mainWindowFactory = injector
-				.getInstance(MainWindowFactory.class);
-		final MainWindow mainWindow = mainWindowFactory.create();
+		final EntryWindowFactory entryWindowFactory = injector
+				.getInstance(EntryWindowFactory.class);
+		final EntryWindow entryWindow = entryWindowFactory.create();
 
-		mainWindow.setInjector(injector);
-		mainWindow.initGui();
-
-		final Window vaadinWindow = mainWindow.getWindow();
+		entryWindow.setInjector(injector);
+		entryWindow.initGui();
 		
-		vaadinWindow.addParameterHandler(this);
+		setMainWindow(entryWindow.getWindow());
 		
-		setMainWindow(vaadinWindow);
+		// final MainWindowFactory mainWindowFactory = injector
+		// .getInstance(MainWindowFactory.class);
+		// final MainWindow mainWindow = mainWindowFactory.create();
+		//
+		// mainWindow.setInjector(injector);
+		// mainWindow.initGui();
+		//
+		// final Window vaadinWindow = mainWindow.getWindow();
+		//
+		// vaadinWindow.addParameterHandler(this);
+		//
+		// setMainWindow(vaadinWindow);
 	}
 
 	@Override
@@ -88,23 +99,20 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 	@Override
 	public void handleParameters(final Map<String, String[]> aParameters) {
 		LOGGER.debug("Parameters (START)");
-		
-		if (aParameters != null)
-		{
-			for (final String curKey : aParameters.keySet())
-			{
+
+		if (aParameters != null) {
+			for (final String curKey : aParameters.keySet()) {
 				LOGGER.debug("Key: " + curKey);
-				
+
 				final StringBuilder builder = new StringBuilder();
-				
+
 				builder.append("Values: ");
-				
-				for (final String valueElement : aParameters.get(curKey))
-				{
+
+				for (final String valueElement : aParameters.get(curKey)) {
 					builder.append(valueElement);
 					builder.append(", ");
 				}
-				
+
 				LOGGER.debug(builder.toString());
 			}
 		}
