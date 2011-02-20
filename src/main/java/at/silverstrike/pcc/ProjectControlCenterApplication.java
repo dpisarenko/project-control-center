@@ -19,14 +19,11 @@ import org.slf4j.LoggerFactory;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
-import at.silverstrike.pcc.api.mainwindow.MainWindow;
-import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.terminal.ParameterHandler;
-import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;

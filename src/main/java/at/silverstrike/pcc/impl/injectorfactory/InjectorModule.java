@@ -15,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
+import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanelFactory;
@@ -24,6 +26,8 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
+import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
+import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReaderFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
@@ -39,6 +43,7 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
+import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
@@ -49,6 +54,7 @@ import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainprocesseditingpanel.DefaultMainProcessEditingPanelFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
+import at.silverstrike.pcc.impl.parameterdatareader.DefaultParameterDataReaderFactory;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import at.silverstrike.pcc.impl.processpanel.DefaultProcessPanelFactory;
 import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
@@ -116,6 +122,18 @@ class InjectorModule extends AbstractModule {
 				new DefaultXmlDeserializerFactory());
 		bind(EntryWindowFactory.class).toInstance(
 				new DefaultEntryWindowFactory());
+		bind(ParameterDataReader.class).toInstance(getParameterDataReader());
+		bind(CultureToLanguageMapper.class).toInstance(getCultureToLanguageMapper());
+	}
+
+	private CultureToLanguageMapper getCultureToLanguageMapper() {
+		final CultureToLanguageMapperFactory factory = new DefaultCultureToLanguageMapperFactory();
+		return factory.create();
+	}
+
+	private ParameterDataReader getParameterDataReader() {
+		final ParameterDataReaderFactory factory = new DefaultParameterDataReaderFactory();
+		return factory.create();
 	}
 
 	private PccVersionReader getVersionReader() {

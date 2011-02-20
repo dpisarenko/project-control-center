@@ -13,27 +13,47 @@ package at.silverstrike.pcc.impl.parameterdatareader;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 
 class DefaultParameterDataReader implements ParameterDataReader {
-
+	private static final String DEFAULT_CULTURE = "en";
+	private final static String CULTURE = "culture";
+	
+	private Map<String, String[]> parameters;
+	private String culture = DEFAULT_CULTURE;
+	
 	@Override
 	public void run() throws PccException {
-		// TODO Auto-generated method stub
-
+		if (this.parameters != null)
+		{
+			final String[] values = this.parameters.get(CULTURE);
+			
+			if ((values != null) && (values.length > 0))
+			{
+				final String curCulture = values[0];
+				
+				if (!StringUtils.isBlank(curCulture))
+				{
+					this.culture = curCulture;
+				}
+				else
+				{
+					this.culture = DEFAULT_CULTURE;
+				}
+			}
+		}
 	}
 
 	@Override
-	public void setParameters(Map<String, String[]> aParameters) {
-		// TODO Auto-generated method stub
-
+	public void setParameters(final Map<String, String[]> aParameters) {
+		this.parameters = aParameters;
 	}
 
 	@Override
 	public String getCulture() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.culture;
 	}
-
 }
