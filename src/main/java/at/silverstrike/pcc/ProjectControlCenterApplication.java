@@ -59,8 +59,8 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 
 		this.setUser("DP");
 
-		InjectorFactory injectorFactory = new DefaultInjectorFactory();
-		Injector injector = injectorFactory.createInjector();
+		final InjectorFactory injectorFactory = new DefaultInjectorFactory();
+		final Injector injector = injectorFactory.createInjector();
 
 		persistence = injector.getInstance(Persistence.class);
 

@@ -61,9 +61,11 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 	public void initGui() {
 		window = new Window();
 		window.addParameterHandler(this);
+		window.setSizeFull();
 		
 		final GridLayout layout = new GridLayout(2, 1);
 		
+		layout.setSizeFull();
 		initSignupLabel();
 		initAuthPanel();
 		
@@ -71,6 +73,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		layout.addComponent(this.authPanel, 1, 0);
 		
 		window.addComponent(layout);
+		
 	}
 
 	@Override
@@ -114,10 +117,14 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 	private void updateCaptionsAuthPanel() {
 		this.openIdLabel.setCaption(TM.get("entrywindow.2-openIdLabel"));
 		this.authenticateButton.setCaption(TM.get("entrywindow.3-authenticateButton"));
+		
+		this.openIdLabel.setSizeFull();
+		this.authenticateButton.setSizeFull();
 	}
 
 	private void updateCaptionsSignupPanel() {
 		this.signupLabel.setCaption(TM.get("entrywindow.4-signuplabel"));
+		this.signupLabel.setSizeFull();
 	}
 		
 	private void initAuthPanel() {
@@ -130,9 +137,13 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		openIdTextField.setColumns(30);
 		authenticateButton = new Button();
 		
+		gridLayout.setSizeFull();
+		
 		gridLayout.addComponent(openIdLabel, 0, 0);
 		gridLayout.addComponent(openIdTextField, 1, 0);
 		gridLayout.addComponent(authenticateButton, 0, 1, 1, 1);
+		
+		this.authPanel.setSizeFull();
 	}
 	
 	private void initSignupLabel() {
