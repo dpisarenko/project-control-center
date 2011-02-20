@@ -41,6 +41,8 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		if (aInjector != null) {
 			this.parameterDataReader = aInjector
 					.getInstance(ParameterDataReader.class);
+			this.cultureToLanguageMapper = aInjector
+					.getInstance(CultureToLanguageMapper.class);
 		}
 	}
 
@@ -48,8 +50,9 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 	public void initGui() {
 		window = new Window(TM.get("mainwindow.1-title"));
 		window.addParameterHandler(this);
-		
-		final Label label = new Label("Language: " + TM.getDictionary().getDefaultLanguage());
+
+		final Label label = new Label("Language: "
+				+ TM.getDictionary().getDefaultLanguage());
 
 		window.addComponent(label);
 
@@ -77,9 +80,9 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		} catch (final PccException exception) {
 			LOGGER.error("", exception);
 		}
-		
+
 		final String language = this.cultureToLanguageMapper.getLanguage();
-		
+
 		TM.getDictionary().setDefaultLanguage(language);
 	}
 
