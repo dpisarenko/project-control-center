@@ -37,6 +37,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 	private CultureToLanguageMapper cultureToLanguageMapper;
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DefaultEntryWindow.class);
+	private Label label;
 
 	@Override
 	public void setInjector(final Injector aInjector) {
@@ -53,8 +54,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		window = new Window(TM.get("mainwindow.1-title"));
 		window.addParameterHandler(this);
 
-		final Label label = new Label("Language: "
-				+ TM.getDictionary().getDefaultLanguage());
+		label = new Label("****");
 
 		window.addComponent(label);
 
@@ -88,6 +88,14 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		LOGGER.debug("{}: Culture='{}', language='{}'", new Object[] {
 				ErrorCodes.M_001_HANDLE_PARAMETERS_3, culture, language });
 		TM.getDictionary().setDefaultLanguage(language);
+		
+		updateControls();
+	}
+
+	private void updateControls() {
+		this.window.setCaption(TM.get("mainwindow.1-title"));
+		this.label.setCaption("Language: "
+				+ TM.getDictionary().getDefaultLanguage());
 	}
 
 }
