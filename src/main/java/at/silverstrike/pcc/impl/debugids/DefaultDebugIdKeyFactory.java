@@ -14,7 +14,7 @@ package at.silverstrike.pcc.impl.debugids;
 import at.silverstrike.pcc.api.debugids.DebugIdKey;
 import at.silverstrike.pcc.api.debugids.DebugIdKeyFactory;
 
-public class DefaultDebugIdKeyFactory implements DebugIdKeyFactory {
+class DefaultDebugIdKeyFactory implements DebugIdKeyFactory {
 
     @Override
     public DebugIdKey create() {

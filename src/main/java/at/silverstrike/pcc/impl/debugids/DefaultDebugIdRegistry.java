@@ -29,83 +29,80 @@ import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdUniquenessViolation;
 
 class DefaultDebugIdRegistry implements DebugIdRegistry {
-    private static final String DEBUGIDS_FILE = "debugids/debugids.properties";
-    private final Logger LOGGER =
-        LoggerFactory.getLogger(DefaultDebugIdRegistry.class);
-    private Set<String> alreadyFetchedKeys = new HashSet<String>();
-    private Properties properties = new Properties();
-    private List<DebugIdKey> debugKeys = new ArrayList<DebugIdKey>();
-    
-    public DefaultDebugIdRegistry()
-    {
-        loadData(DEBUGIDS_FILE);
-    }
+	private static final String DEBUGIDS_FILE = "debugids/debugids.properties";
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(DefaultDebugIdRegistry.class);
+	private Set<String> alreadyFetchedKeys = new HashSet<String>();
+	private Properties properties = new Properties();
+	private List<DebugIdKey> debugKeys = new ArrayList<DebugIdKey>();
 
-    private void loadData(final String aFileName) {
-        try
-        {
-            this.properties.load(getClass().getClassLoader().getResourceAsStream(aFileName));
-        }
-        catch (final Exception exception)
-        {
-            LOGGER.error(ErrorCodes.M_001_LOAD_DATA, exception);
-        }
-        
-        DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
-        for(Enumeration<?> names = this.properties.propertyNames() ; names.hasMoreElements() ; )
-        {
-        	final String name = (String)names.nextElement();
-        	final int index = name.indexOf(MessageCodePrefixRegistry.getMessageNumberSeparator());
-        	assert(-1 != index);
-        	
-        	DebugIdKey debugIdKey = factory.create();
-        	debugIdKey.setModule(Module.valueOf(name.substring(0, index)));
-        	debugIdKey.setKey(name.substring(index + 1));
-        	
-        	this.debugKeys.add(debugIdKey);
-        }
-    }
-    
-    @Override
-    public String getDebugId(final Module aModule, final String aKey)
-            throws DebugIdUniquenessViolation, DebugIdKeyNotFoundException {
-    	DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
-    	DebugIdKey debugIdKey = factory.create();
-    	debugIdKey.setModule(aModule);
-    	debugIdKey.setKey(aKey);
-    	
-    	return this.getDebugId(debugIdKey);
-    }
+	public DefaultDebugIdRegistry() {
+		loadData(DEBUGIDS_FILE);
+	}
 
-    @Override
-    public void setDebugIdsFile(final String aFileName) {
-        loadData(aFileName);
-    }
+	private void loadData(final String aFileName) {
+		try {
+			this.properties.load(getClass().getClassLoader()
+					.getResourceAsStream(aFileName));
+		} catch (final Exception exception) {
+			LOGGER.error(ErrorCodes.M_001_LOAD_DATA, exception);
+		}
 
-    @Override
-    public List<DebugIdKey> getAllKeys() {
-        return debugKeys;
-    }
+		final DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
+		for (final Enumeration<?> names = this.properties.propertyNames(); names
+				.hasMoreElements();) {
+			final String name = (String) names.nextElement();
+			final int index = name.indexOf(MessageCodePrefixRegistry
+					.getMessageNumberSeparator());
 
-    @Override
-    public String getDebugId(DebugIdKey debugIdKey) {
-    	final String aModuleWithKey = debugIdKey.getModule().toString() + 
-    								  MessageCodePrefixRegistry.getMessageNumberSeparator() +
-    								  debugIdKey.getKey();
-    	
-    	if (!this.debugKeys.contains(debugIdKey))
-        {
-            throw new DebugIdKeyNotFoundException(aModuleWithKey);
-        }
-    	if (this.alreadyFetchedKeys.contains(aModuleWithKey))
-        {
-            throw new DebugIdUniquenessViolation(aModuleWithKey);
-        }
-        
-        this.alreadyFetchedKeys.add(aModuleWithKey);
-        
-        return (MessageCodePrefixRegistry.getInstance().getPrefix(debugIdKey.getModule()) + 
-        		this.properties.getProperty(aModuleWithKey));
-    }
+			if (index != -1) {
+				final DebugIdKey debugIdKey = factory.create();
+				debugIdKey.setModule(Module.valueOf(name.substring(0, index)));
+				debugIdKey.setKey(name.substring(index + 1));
+
+				this.debugKeys.add(debugIdKey);
+			}
+		}
+	}
+
+	@Override
+	public String getDebugId(final Module aModule, final String aKey) {
+		final DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
+		final DebugIdKey debugIdKey = factory.create();
+		debugIdKey.setModule(aModule);
+		debugIdKey.setKey(aKey);
+
+		return this.getDebugId(debugIdKey);
+	}
+
+	@Override
+	public void setDebugIdsFile(final String aFileName) {
+		loadData(aFileName);
+	}
+
+	@Override
+	public List<DebugIdKey> getAllKeys() {
+		return debugKeys;
+	}
+
+	@Override
+	public String getDebugId(final DebugIdKey aDebugIdKey) {
+		final String aModuleWithKey = aDebugIdKey.getModule().toString()
+				+ MessageCodePrefixRegistry.getMessageNumberSeparator()
+				+ aDebugIdKey.getKey();
+
+		if (!this.debugKeys.contains(aDebugIdKey)) {
+			throw new DebugIdKeyNotFoundException(aModuleWithKey);
+		}
+		if (this.alreadyFetchedKeys.contains(aModuleWithKey)) {
+			throw new DebugIdUniquenessViolation(aModuleWithKey);
+		}
+
+		this.alreadyFetchedKeys.add(aModuleWithKey);
+
+		return (MessageCodePrefixRegistry.getInstance().getPrefix(
+				aDebugIdKey.getModule()) + this.properties
+				.getProperty(aModuleWithKey));
+	}
 
 }

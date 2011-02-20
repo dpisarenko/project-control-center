@@ -49,7 +49,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
 	private static final String DAILY_LIMIT_IN_HOURS = "${dailyLimitInHours}";
 
-	private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
 			"yyyy-MM-dd");
 
 	private static final String EFFORT = "${effort}";
@@ -77,7 +77,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
 	private static final String NAME = "${name}";
 
-	private static DecimalFormat NUMBER_FORMAT = new DecimalFormat("#0.00");
+	private static final DecimalFormat NUMBER_FORMAT = new DecimalFormat("#0.00");
 
 	private static final String PLACEHOLDER_COPYRIGHT = "${copyright}";
 
@@ -126,8 +126,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 	 * @see at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter#run()
 	 */
 	@Override
-	public void run() throws NoProcessesException, NoResourcesException,
-			PccException, InvalidDurationException {
+	public void run() throws PccException {
 		validateInputs();
 
 		final StringBuilder builder = new StringBuilder();
@@ -171,15 +170,15 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 	}
 
 	@Override
-	public void setInjector(final Injector anInjector) {
-		if (anInjector != null) {
-			persistence = anInjector.getInstance(Persistence.class);
-			embeddedFileReader = anInjector
+	public void setInjector(final Injector aInjector) {
+		if (aInjector != null) {
+			persistence = aInjector.getInstance(Persistence.class);
+			embeddedFileReader = aInjector
 					.getInstance(EmbeddedFileReader.class);
 		}
 	}
 
-	private void addResourceInformation(final StringBuilder builder)
+	private void addResourceInformation(final StringBuilder aBuilder)
 			throws PccException {
 		final List<Resource> resources = this.projectExportInfo
 				.getResourcesToExport();
@@ -192,7 +191,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 				final String resourceDefinition = subsituteResourcePlaceHolders(
 						resourceDefinitionTemplate, resource);
 
-				builder.append(resourceDefinition);
+				aBuilder.append(resourceDefinition);
 			}
 		}
 	}
@@ -221,15 +220,15 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 		}
 	}
 
-	private List<ControlProcess> getChildProcesses(final ControlProcess process) {
-		return persistence.getChildTasks(process);
+	private List<ControlProcess> getChildProcesses(final ControlProcess aProcess) {
+		return persistence.getChildTasks(aProcess);
 	}
 
-	private CharSequence getEffortAllocations(final ControlProcess process) {
+	private CharSequence getEffortAllocations(final ControlProcess aProcess) {
 		final StringBuilder stringBuilder = new StringBuilder();
 
-		if ((process != null) && (process.getResourceAllocations() != null)) {
-			for (final ResourceAllocation resourceAllocation : process
+		if ((aProcess != null) && (aProcess.getResourceAllocations() != null)) {
+			for (final ResourceAllocation resourceAllocation : aProcess
 					.getResourceAllocations()) {
 				final String resourceAllocationInfo;
 
@@ -256,13 +255,13 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 		return stringBuilder.toString();
 	}
 
-	private CharSequence getEffortInfo(final ControlProcess process) {
-		final Double bestCaseEffort = process.getBestCaseEffort();
-		final Double worstCaseEffort = process.getWorstCaseEffort();
+	private CharSequence getEffortInfo(final ControlProcess aProcess) {
+		final Double bestCaseEffort = aProcess.getBestCaseEffort();
+		final Double worstCaseEffort = aProcess.getWorstCaseEffort();
 
 		if ((bestCaseEffort != null) && (worstCaseEffort != null)) {
 			return effortTemplate.replace(EFFORT,
-					formatDouble(process.getAverageCaseEffort()));
+					formatDouble(aProcess.getAverageCaseEffort()));
 		} else if ((bestCaseEffort != null) && (worstCaseEffort == null)) {
 			return effortTemplate.replace(EFFORT, formatDouble(bestCaseEffort));
 		} else if ((bestCaseEffort == null) && (worstCaseEffort != null)) {
@@ -277,27 +276,27 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 		return "R" + aResource.getId();
 	}
 
-	private CharSequence getStartDateTime(final ControlProcess parent) {
-		if (parent == null) {
+	private CharSequence getStartDateTime(final ControlProcess aParent) {
+		if (aParent == null) {
 			return startDateTimeTemplate;
 		} else {
 			return "";
 		}
 	}
 
-	private String getTaskInformation(final ControlProcess process,
-			final ControlProcess parent) {
+	private String getTaskInformation(final ControlProcess aProcess,
+			final ControlProcess aParent) {
 		final StringBuilder stringBuilder = new StringBuilder();
-		final List<ControlProcess> childProcesses = getChildProcesses(process);
+		final List<ControlProcess> childProcesses = getChildProcesses(aProcess);
 		if (childProcesses != null) {
 			for (final ControlProcess childProcess : childProcesses) {
-				stringBuilder.append(getTaskInformation(childProcess, process));
+				stringBuilder.append(getTaskInformation(childProcess, aProcess));
 			}
 		}
 
 		final String childProcessDefinitions = stringBuilder.toString();
 
-		final Integer boxedPriority = process.getPriority();
+		final Integer boxedPriority = aProcess.getPriority();
 		final int priority;
 
 		if (boxedPriority != null) {
@@ -307,42 +306,42 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 		}
 
 		final String taskDefinition = taskTemplate
-				.replace(ID, formatLong(process.getId()))
-				.replace(NAME, shortenName(process.getName()))
-				.replace(START_DATE_TIME, getStartDateTime(parent))
+				.replace(ID, formatLong(aProcess.getId()))
+				.replace(NAME, shortenName(aProcess.getName()))
+				.replace(START_DATE_TIME, getStartDateTime(aParent))
 				.replace(PRIORITY, formatInt(priority))
-				.replace(RESOURCE_ALLOCATIONS, getEffortAllocations(process))
-				.replace(EFFORT_INFO, getEffortInfo(process))
+				.replace(RESOURCE_ALLOCATIONS, getEffortAllocations(aProcess))
+				.replace(EFFORT_INFO, getEffortInfo(aProcess))
 				.replace(CHILD_TASKS, childProcessDefinitions);
 
 		return taskDefinition;
 	}
 
-	private CharSequence shortenName(final String name) {
-		if (name != null) {
-			return StringUtils.abbreviate(name, MAX_TASK_NAME_LENGTH);
+	private CharSequence shortenName(final String aName) {
+		if (aName != null) {
+			return StringUtils.abbreviate(aName, MAX_TASK_NAME_LENGTH);
 		} else {
 			return "";
 		}
 	}
 
 	private String subsituteResourcePlaceHolders(
-			final String resourceDefinitionTemplate, final Resource resource) {
-		final String resourceDefinition = resourceDefinitionTemplate
-				.replace(ABBREVIATION, resource.getAbbreviation())
-				.replace(RESOURCE_ID, resource.getId().toString())
+			final String aResourceDefinitionTemplate, final Resource aResource) {
+		final String resourceDefinition = aResourceDefinitionTemplate
+				.replace(ABBREVIATION, aResource.getAbbreviation())
+				.replace(RESOURCE_ID, aResource.getId().toString())
 				.replace(DAILY_LIMIT_IN_HOURS,
-						formatDouble(resource.getDailyLimitInHours()));
+						formatDouble(aResource.getDailyLimitInHours()));
 		return resourceDefinition;
 	}
 
 	private String substituteProjectHeaderPlaceholders(
-			final String projectTemplate) {
+			final String aProjectTemplate) {
 
-		LOGGER.error("projectTemplate: {}", projectTemplate);
+		LOGGER.error("projectTemplate: {}", aProjectTemplate);
 		LOGGER.error("this.projectExportInfo: {}", this.projectExportInfo);
 
-		final String projectHeader = projectTemplate
+		final String projectHeader = aProjectTemplate
 				.replace(PLACEHOLDER_PROJECT_NAME,
 						this.projectExportInfo.getProjectName())
 				.replace(PLACEHOLDER_COPYRIGHT,
@@ -393,11 +392,11 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 		}
 	}
 
-	private void checkTimingResolution(ControlProcess proc,
-			Double bestCaseEffort) throws InvalidDurationException {
-		if ((bestCaseEffort != null)
-				&& (bestCaseEffort < TIMING_RESOLUTION_IN_HOURS)) {
-			throw new InvalidDurationException(proc.getId(), proc.getName());
+	private void checkTimingResolution(final ControlProcess aProcess,
+			final Double aBestCaseEffort) throws InvalidDurationException {
+		if ((aBestCaseEffort != null)
+				&& (aBestCaseEffort < TIMING_RESOLUTION_IN_HOURS)) {
+			throw new InvalidDurationException(aProcess.getId(), aProcess.getName());
 		}
 	}
 
@@ -405,8 +404,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 		return projectExportInfo;
 	}
 
-	public void setProjectExportInfo(final ProjectExportInfo projectExportInfo) {
-		this.projectExportInfo = projectExportInfo;
+	public void setProjectExportInfo(final ProjectExportInfo aProjectExportInfo) {
+		this.projectExportInfo = aProjectExportInfo;
 	}
 
 }
