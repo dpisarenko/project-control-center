@@ -20,7 +20,11 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.terminal.ParameterHandler;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
@@ -37,8 +41,12 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 	private CultureToLanguageMapper cultureToLanguageMapper;
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DefaultEntryWindow.class);
-	private Label label;
-
+	private Panel authPanel;
+	private Label openIdLabel;
+	private TextField openIdTextField;
+	private Button authenticateButton;
+	private Label signupLabel;
+	
 	@Override
 	public void setInjector(final Injector aInjector) {
 		if (aInjector != null) {
@@ -51,13 +59,16 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 
 	@Override
 	public void initGui() {
-		window = new Window(TM.get("mainwindow.1-title"));
+		window = new Window();
 		window.addParameterHandler(this);
-
-		label = new Label("****");
-
-		window.addComponent(label);
-
+		
+		final GridLayout layout = new GridLayout(2, 1);
+		
+		initSignupLabel();
+		initAuthPanel();
+		
+		layout.addComponent(this.signupLabel, 0, 0);
+		layout.addComponent(this.authPanel, 1, 0);
 	}
 
 	@Override
@@ -93,9 +104,37 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 	}
 
 	private void updateControls() {
-		this.window.setCaption(TM.get("mainwindow.1-title"));
-		this.label.setCaption("Language: "
-				+ TM.getDictionary().getDefaultLanguage());
+		this.window.setCaption(TM.get("entrywindow.1-title"));
+		updateCaptionsSignupPanel();
+		updateCaptionsAuthPanel();
 	}
 
+	private void updateCaptionsAuthPanel() {
+		this.openIdLabel.setCaption(TM.get("entrywindow.2-openIdLabel"));
+		this.authenticateButton.setCaption(TM.get("entrywindow.3-authenticateButton"));
+	}
+
+	private void updateCaptionsSignupPanel() {
+		this.signupLabel.setCaption(TM.get("entrywindow.4-signuplabel"));
+	}
+		
+	private void initAuthPanel() {
+		final GridLayout gridLayout = new GridLayout(2, 2);
+		
+		this.authPanel = new Panel();
+		
+		openIdLabel = new Label();
+		openIdTextField = new TextField();
+		openIdTextField.setColumns(30);
+		authenticateButton = new Button();
+		
+		gridLayout.addComponent(openIdLabel, 0, 0);
+		gridLayout.addComponent(openIdTextField, 1, 0);
+		gridLayout.addComponent(authenticateButton, 0, 1, 1, 1);
+	}
+	
+	private void initSignupLabel() {
+		this.signupLabel = new Label();
+		this.signupLabel.setContentMode(Label.CONTENT_XHTML);
+	}
 }
