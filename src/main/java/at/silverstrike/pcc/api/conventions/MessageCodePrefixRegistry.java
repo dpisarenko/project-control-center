@@ -39,7 +39,8 @@ public final class MessageCodePrefixRegistry {
         version,
         culture2lang,
         entrywindow,
-        parameterdatareader
+        parameterdatareader,
+        openid
     }
 
     private Map<Module, String> prefixesByModules;
@@ -89,6 +90,6 @@ public final class MessageCodePrefixRegistry {
         this.prefixesByModules.put(Module.culture2lang, "021");
         this.prefixesByModules.put(Module.entrywindow, "022");
         this.prefixesByModules.put(Module.parameterdatareader, "023");
-
+        this.prefixesByModules.put(Module.openid, "024");
     }
 }

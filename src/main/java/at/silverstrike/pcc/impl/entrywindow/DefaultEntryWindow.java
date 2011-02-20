@@ -26,6 +26,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.Button.ClickEvent;
 
 import eu.livotov.tpt.i18n.TM;
 
@@ -133,6 +134,10 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		openIdTextField = new TextField();
 		openIdTextField.setColumns(30);
 		authenticateButton = new Button();
+		
+		final AuthenticateButtonListener listener = new AuthenticateButtonListener();
+		
+		this.authenticateButton.addListener(listener);
 		
 		gridLayout.addComponent(openIdLabel, 0, 0);
 		gridLayout.addComponent(openIdTextField, 1, 0);

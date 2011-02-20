@@ -11,25 +11,28 @@
 
 package at.silverstrike.pcc;
 
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
+import at.silverstrike.pcc.api.mainwindow.MainWindow;
+import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
+import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponder;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
 
 import com.google.inject.Injector;
-import com.vaadin.terminal.ParameterHandler;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
-public class ProjectControlCenterApplication extends TPTApplication implements
-		ParameterHandler {
+public class ProjectControlCenterApplication extends TPTApplication {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ProjectControlCenterApplication.class);
 	private static final String THEME = "pcc";
@@ -37,6 +40,8 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 	private static final long serialVersionUID = 1L;
 
 	private transient Persistence persistence;
+	private Injector injector;
+	private EntryWindow entryWindow;
 
 	@Override
 	public void close() {
@@ -60,7 +65,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 		this.setUser("DP");
 
 		final InjectorFactory injectorFactory = new DefaultInjectorFactory();
-		final Injector injector = injectorFactory.createInjector();
+		injector = injectorFactory.createInjector();
 
 		persistence = injector.getInstance(Persistence.class);
 
@@ -68,53 +73,50 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 
 		final EntryWindowFactory entryWindowFactory = injector
 				.getInstance(EntryWindowFactory.class);
-		final EntryWindow entryWindow = entryWindowFactory.create();
+		entryWindow = entryWindowFactory.create();
 
 		entryWindow.setInjector(injector);
 		entryWindow.initGui();
-		
+
 		setMainWindow(entryWindow.getWindow());
-		
-		
-		
-		// final MainWindowFactory mainWindowFactory = injector
-		// .getInstance(MainWindowFactory.class);
-		// final MainWindow mainWindow = mainWindowFactory.create();
-		//
-		// mainWindow.setInjector(injector);
-		// mainWindow.initGui();
-		//
-		// final Window vaadinWindow = mainWindow.getWindow();
-		//
-		// vaadinWindow.addParameterHandler(this);
-		//
-		// setMainWindow(vaadinWindow);
 	}
 
 	@Override
 	public void firstApplicationStartup() {
 	}
 
-	@Override
-	public void handleParameters(final Map<String, String[]> aParameters) {
-		LOGGER.debug("Parameters (START)");
+	public void onRequestStart(final HttpServletRequest aRequest,
+			final HttpServletResponse aResponse) {
+		final OpenIdAuthenticationResponder responder = this.injector
+				.getInstance(OpenIdAuthenticationResponder.class);
 
-		if (aParameters != null) {
-			for (final String curKey : aParameters.keySet()) {
-				LOGGER.debug("Key: " + curKey);
+		responder.setRequest(aRequest);
+		responder.setResponse(aResponse);
 
-				final StringBuilder builder = new StringBuilder();
-
-				builder.append("Values: ");
-
-				for (final String valueElement : aParameters.get(curKey)) {
-					builder.append(valueElement);
-					builder.append(", ");
-				}
-
-				LOGGER.debug(builder.toString());
-			}
+		try {
+			responder.run();
+		} catch (final PccException exception) {
+			LOGGER.error("", exception);
 		}
-		LOGGER.debug("Parameters (END)");
+
+		if (responder.isValidationSuccessful()) {
+			// Go to the main page
+			final MainWindowFactory mainWindowFactory = injector
+					.getInstance(MainWindowFactory.class);
+			final MainWindow mainWindow = mainWindowFactory.create();
+
+			mainWindow.setInjector(injector);
+			mainWindow.initGui();
+
+			this.setUser(responder.getIdentity());
+			
+			setMainWindow(mainWindow.getWindow());
+
+		} else {
+			this.setUser(null);
+			
+			// Go to the entry page
+			this.setMainWindow(this.entryWindow.getWindow());
+		}
 	}
 }
