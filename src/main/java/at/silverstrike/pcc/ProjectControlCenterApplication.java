@@ -55,6 +55,8 @@ public class ProjectControlCenterApplication extends TPTApplication {
 		}
 	}
 
+	private static boolean OPENID_DEBUGGED = false;
+
 	@Override
 	public void applicationInit() {
 		LOGGER.info("PCC application starts");
@@ -71,14 +73,26 @@ public class ProjectControlCenterApplication extends TPTApplication {
 
 		persistence.openSession();
 
-		final EntryWindowFactory entryWindowFactory = injector
-				.getInstance(EntryWindowFactory.class);
-		entryWindow = entryWindowFactory.create();
+		if (OPENID_DEBUGGED) {
+			final EntryWindowFactory entryWindowFactory = injector
+					.getInstance(EntryWindowFactory.class);
+			entryWindow = entryWindowFactory.create();
 
-		entryWindow.setInjector(injector);
-		entryWindow.initGui();
+			entryWindow.setInjector(injector);
+			entryWindow.initGui();
 
-		setMainWindow(entryWindow.getWindow());
+			setMainWindow(entryWindow.getWindow());
+		} else {
+			final MainWindowFactory mainWindowFactory = injector
+					.getInstance(MainWindowFactory.class);
+			final MainWindow mainWindow = mainWindowFactory.create();
+
+			mainWindow.setInjector(injector);
+			mainWindow.initGui();
+
+			setMainWindow(mainWindow.getWindow());
+		}
+
 	}
 
 	@Override
@@ -109,12 +123,12 @@ public class ProjectControlCenterApplication extends TPTApplication {
 			mainWindow.initGui();
 
 			this.setUser(responder.getIdentity());
-			
+
 			setMainWindow(mainWindow.getWindow());
 
 		} else {
 			this.setUser(null);
-			
+
 			// Go to the entry page
 			this.setMainWindow(this.entryWindow.getWindow());
 		}
