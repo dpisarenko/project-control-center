@@ -35,163 +35,170 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 class DefaultWorkerPanel extends Panel implements WorkerPanel {
-    private static final long serialVersionUID = 1L;
-    private Injector injector;
-    private String errorMessage;
-    private TextField abbreviationTextField;
-    private TextField firstNameTextField;
-    private TextField middleNameTextField;
-    private TextField surnameTextField;
-    private TextField dailyMaxTextField;
-    private DebugIdRegistry debugIdRegistry;
-    private WebGuiBus webGuiBus;
-    private WebGuiBusMessageFactory webGuiBusMessageFactory;
+	private static final int BUTTON_PANEL_ROW = 5;
+	private static final int DAILY_MAX_ROW_POS = 4;
+	private static final int SURNAME_ROW_POS = 3;
+	private static final long serialVersionUID = 1L;
+	private Injector injector;
+	private String errorMessage;
+	private TextField abbreviationTextField;
+	private TextField firstNameTextField;
+	private TextField middleNameTextField;
+	private TextField surnameTextField;
+	private TextField dailyMaxTextField;
+	private DebugIdRegistry debugIdRegistry;
+	private WebGuiBus webGuiBus;
+	private WebGuiBusMessageFactory webGuiBusMessageFactory;
 
-    private final Logger LOGGER =
-        LoggerFactory.getLogger(DefaultWorkerPanel.class);
-    
-    public DefaultWorkerPanel() {
-    }
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(DefaultWorkerPanel.class);
 
-    protected void okButtonClicked() {
-        if (validate()) {
-            Persistence persistence =
-                    this.injector.getInstance(Persistence.class);
+	public DefaultWorkerPanel() {
+	}
 
-            final String abbreviation =
-                    (String) this.abbreviationTextField.getValue();
-            final String firstName =
-                    (String) this.firstNameTextField.getValue();
-            final String middleName =
-                    (String) this.middleNameTextField.getValue();
-            final String surname = (String) this.surnameTextField.getValue();
+	protected void okButtonClicked() {
+		if (validate()) {
+			final Persistence persistence = this.injector
+					.getInstance(Persistence.class);
 
-            double dailyMaxWorkTimeInHours = 0.;
-            
-            try
-            {
-                dailyMaxWorkTimeInHours = Double.parseDouble((String)this.dailyMaxTextField.getValue());
-            }
-            catch (final NumberFormatException exception)
-            {
-            	LOGGER.error("", exception);
-            }
-            
-            persistence.createHumanResource(abbreviation, firstName,
-                    middleName, surname, dailyMaxWorkTimeInHours);
+			final String abbreviation = (String) this.abbreviationTextField
+					.getValue();
+			final String firstName = (String) this.firstNameTextField
+					.getValue();
+			final String middleName = (String) this.middleNameTextField
+					.getValue();
+			final String surname = (String) this.surnameTextField.getValue();
 
-            final WorkerAddedMessage message =
-                    this.webGuiBusMessageFactory.createWorkerAddedMessage();
-            this.webGuiBus.broadcastWorkerAddedMessage(message);
-        } else {
-            getWindow().showNotification(this.errorMessage, null,
-                    Notification.TYPE_ERROR_MESSAGE);
-        }
+			double dailyMaxWorkTimeInHours = 0.;
 
-    }
+			try {
+				dailyMaxWorkTimeInHours = Double
+						.parseDouble((String) this.dailyMaxTextField.getValue());
+			} catch (final NumberFormatException exception) {
+				LOGGER.error("", exception);
+			}
 
-    private boolean validate() {
-        // TODO Auto-generated method stub
-        return true;
-    }
+			persistence.createHumanResource(abbreviation, firstName,
+					middleName, surname, dailyMaxWorkTimeInHours);
 
-    @Override
-    public void setInjector(final Injector anInjector) {
-        this.injector = anInjector;
+			final WorkerAddedMessage message = this.webGuiBusMessageFactory
+					.createWorkerAddedMessage();
+			this.webGuiBus.broadcastWorkerAddedMessage(message);
+		} else {
+			getWindow().showNotification(this.errorMessage, null,
+					Notification.TYPE_ERROR_MESSAGE);
+		}
 
-        if (anInjector != null) {
-            this.debugIdRegistry =
-                    anInjector.getInstance(DebugIdRegistry.class);
-            this.webGuiBus = anInjector.getInstance(WebGuiBus.class);
-            this.webGuiBusMessageFactory =
-                    anInjector.getInstance(WebGuiBusMessageFactory.class);
-        }
-    }
+	}
 
-    @Override
-    public Panel toPanel() {
-        return this;
-    }
+	private boolean validate() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
-    @Override
-    public void initGui() {
-        this.setDebugId(this.debugIdRegistry.getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "1"));
+	@Override
+	public void setInjector(final Injector aInjector) {
+		this.injector = aInjector;
 
-        final GridLayout grid = new GridLayout(2, 6);
+		if (aInjector != null) {
+			this.debugIdRegistry = aInjector
+					.getInstance(DebugIdRegistry.class);
+			this.webGuiBus = aInjector.getInstance(WebGuiBus.class);
+			this.webGuiBusMessageFactory = aInjector
+					.getInstance(WebGuiBusMessageFactory.class);
+		}
+	}
 
-        grid.setDebugId(this.debugIdRegistry.
-        		getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "2-grid"));
-        grid.setWidth("400px");
+	@Override
+	public Panel toPanel() {
+		return this;
+	}
 
-        final Label abbreviationLabel =
-                new Label(TM.get("workerpanel.1-abbreviation"));
-        abbreviationTextField = new TextField();
-        abbreviationTextField.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "3-abbreviationTextField"));
+	@Override
+	public void initGui() {
+		this.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.workerpanel, "1"));
 
-        grid.addComponent(abbreviationLabel, 0, 0);
-        grid.addComponent(abbreviationTextField, 1, 0);
+		final GridLayout grid = new GridLayout(2, 6);
 
-        final Label firstNameLabel =
-                new Label(TM.get("workerpanel.2-first-name"));
-        firstNameTextField = new TextField();
-        firstNameTextField.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "4-firstNameTextField"));
-        grid.addComponent(firstNameLabel, 0, 1);
-        grid.addComponent(firstNameTextField, 1, 1);
+		grid.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.workerpanel, "2-grid"));
+		grid.setWidth("400px");
 
-        final Label middleNameLabel =
-                new Label(TM.get("workerpanel.3-middle-name"));
-        middleNameTextField = new TextField();
-        middleNameTextField.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "5-middleNameTextField"));
-        grid.addComponent(middleNameLabel, 0, 2);
-        grid.addComponent(middleNameTextField, 1, 2);
+		final Label abbreviationLabel = new Label(
+				TM.get("workerpanel.1-abbreviation"));
+		abbreviationTextField = new TextField();
+		abbreviationTextField.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.workerpanel,
+				"3-abbreviationTextField"));
 
-        final Label surnameLabel = new Label(TM.get("workerpanel.4-surname"));
-        surnameTextField = new TextField();
-        surnameTextField.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "6-surnameTextField"));
-        grid.addComponent(surnameLabel, 0, 3);
-        grid.addComponent(surnameTextField, 1, 3);
+		grid.addComponent(abbreviationLabel, 0, 0);
+		grid.addComponent(abbreviationTextField, 1, 0);
 
-        final Label dailyMaxLabel =
-                new Label(TM.get("workerpanel.5-daily-max"));
-        dailyMaxTextField = new TextField();
-        dailyMaxTextField.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "7-dailyMaxTextField"));
-        grid.addComponent(dailyMaxLabel, 0, 4);
-        grid.addComponent(dailyMaxTextField, 1, 4);
+		final Label firstNameLabel = new Label(
+				TM.get("workerpanel.2-first-name"));
+		firstNameTextField = new TextField();
+		firstNameTextField.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.workerpanel,
+				"4-firstNameTextField"));
+		grid.addComponent(firstNameLabel, 0, 1);
+		grid.addComponent(firstNameTextField, 1, 1);
 
-        final HorizontalLayout buttonPanel = new HorizontalLayout();
-        buttonPanel.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "8-buttonPanel"));
+		final Label middleNameLabel = new Label(
+				TM.get("workerpanel.3-middle-name"));
+		middleNameTextField = new TextField();
+		middleNameTextField.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.workerpanel,
+				"5-middleNameTextField"));
+		grid.addComponent(middleNameLabel, 0, 2);
+		grid.addComponent(middleNameTextField, 1, 2);
 
-        final Button okButton = new Button(TM.get("application.1-ok"));
-        okButton.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "9-okButton"));
+		final Label surnameLabel = new Label(TM.get("workerpanel.4-surname"));
+		surnameTextField = new TextField();
+		surnameTextField.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.workerpanel,
+				"6-surnameTextField"));
+		grid.addComponent(surnameLabel, 0, SURNAME_ROW_POS);
+		grid.addComponent(surnameTextField, 1, SURNAME_ROW_POS);
 
-        final Button cancelButton = new Button(TM.get("application.2-cancel"));
-        cancelButton.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.workerpanel, "10-cancelButton"));
+		final Label dailyMaxLabel = new Label(TM.get("workerpanel.5-daily-max"));
+		dailyMaxTextField = new TextField();
+		dailyMaxTextField.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.workerpanel,
+				"7-dailyMaxTextField"));
+		grid.addComponent(dailyMaxLabel, 0, DAILY_MAX_ROW_POS);
+		grid.addComponent(dailyMaxTextField, 1, DAILY_MAX_ROW_POS);
 
-        okButton.addListener(new ClickListener() {
-            private static final long serialVersionUID = 1L;
+		final HorizontalLayout buttonPanel = new HorizontalLayout();
+		buttonPanel.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.workerpanel, "8-buttonPanel"));
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                okButtonClicked();
-            }
-        });
+		final Button okButton = new Button(TM.get("application.1-ok"));
+		okButton.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.workerpanel, "9-okButton"));
 
-        cancelButton.setEnabled(false);
+		final Button cancelButton = new Button(TM.get("application.2-cancel"));
+		cancelButton.setDebugId(this.debugIdRegistry
+				.getDebugId(MessageCodePrefixRegistry.Module.workerpanel,
+						"10-cancelButton"));
 
-        buttonPanel.addComponent(okButton);
-        buttonPanel.addComponent(cancelButton);
+		okButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = 1L;
 
-        grid.addComponent(buttonPanel, 0, 5, 1, 5);
+			@Override
+			public void buttonClick(final ClickEvent aEvent) {
+				okButtonClicked();
+			}
+		});
 
-        this.addComponent(grid);
-    }
+		cancelButton.setEnabled(false);
+
+		buttonPanel.addComponent(okButton);
+		buttonPanel.addComponent(cancelButton);
+
+		grid.addComponent(buttonPanel, 0, BUTTON_PANEL_ROW, 1, BUTTON_PANEL_ROW);
+
+		this.addComponent(grid);
+	}
 
 }
