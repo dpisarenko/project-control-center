@@ -13,9 +13,9 @@ package at.silverstrike.pcc.api.mainwindow;
 
 import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import at.silverstrike.pcc.api.conventions.PccWindow;
 
-import com.vaadin.ui.Window;
-
-public interface MainWindow extends ModuleWithInjectableDependencies, InitializableGuiComponent {
-	Window getWindow();
+public interface MainWindow extends ModuleWithInjectableDependencies,
+		InitializableGuiComponent, PccWindow {
+	
 }
