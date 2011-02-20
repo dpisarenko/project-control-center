@@ -19,6 +19,7 @@ import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanelFactory;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
+import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanelFactory;
@@ -42,6 +43,7 @@ import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
+import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
@@ -112,6 +114,8 @@ class InjectorModule extends AbstractModule {
 				new DefaultXmlSerializerFactory());
 		bind(XmlDeserializerFactory.class).toInstance(
 				new DefaultXmlDeserializerFactory());
+		bind(EntryWindowFactory.class).toInstance(
+				new DefaultEntryWindowFactory());
 	}
 
 	private PccVersionReader getVersionReader() {

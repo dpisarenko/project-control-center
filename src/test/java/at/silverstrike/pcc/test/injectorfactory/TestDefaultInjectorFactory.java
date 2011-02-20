@@ -19,6 +19,7 @@ import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
 import at.silverstrike.pcc.api.version.PccVersionReader;
@@ -38,6 +39,7 @@ public class TestDefaultInjectorFactory {
             injector.getInstance(DebugIdRegistry.class);
             injector.getInstance(Tj3DeadlinesFileParserFactory.class);
             injector.getInstance(PccVersionReader.class);
+            injector.getInstance(EntryWindowFactory.class);
         }
         catch (final ConfigurationException exception)
         {
