@@ -69,6 +69,8 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		
 		layout.addComponent(this.signupLabel, 0, 0);
 		layout.addComponent(this.authPanel, 1, 0);
+		
+		window.addComponent(layout);
 	}
 
 	@Override
