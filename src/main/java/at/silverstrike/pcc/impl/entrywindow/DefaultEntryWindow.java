@@ -68,7 +68,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		layout.setSizeFull();
 		initAuthPanel();
 		
-		this.signupLabel = new Label("<H1>a</H1>"/*TM.get("entrywindow.4-signuplabel")*/, Label.CONTENT_XHTML);
+		this.signupLabel = new Label("", Label.CONTENT_XHTML);
 		
 		layout.addComponent(this.signupLabel, 0, 0);
 		layout.addComponent(this.authPanel, 1, 0);
@@ -111,21 +111,18 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 
 	private void updateControls() {
 		this.window.setCaption(TM.get("entrywindow.1-title"));
-		updateCaptionsSignupPanel();
+		this.signupLabel.setValue(TM.get("entrywindow.4-signuplabel"));
 		updateCaptionsAuthPanel();
 	}
 
 	private void updateCaptionsAuthPanel() {
-		this.openIdLabel.setCaption(TM.get("entrywindow.2-openIdLabel"));
+		this.openIdLabel.setValue(TM.get("entrywindow.2-openIdLabel"));
 		this.authenticateButton.setCaption(TM.get("entrywindow.3-authenticateButton"));
 		
 		this.openIdLabel.setSizeFull();
 		this.authenticateButton.setSizeFull();
 	}
 
-	private void updateCaptionsSignupPanel() {
-		this.signupLabel.setValue(TM.get("entrywindow.4-signuplabel"));
-	}
 		
 	private void initAuthPanel() {
 		final GridLayout gridLayout = new GridLayout(2, 2);
@@ -137,13 +134,11 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		openIdTextField.setColumns(30);
 		authenticateButton = new Button();
 		
-		gridLayout.setSizeFull();
-		
 		gridLayout.addComponent(openIdLabel, 0, 0);
 		gridLayout.addComponent(openIdTextField, 1, 0);
 		gridLayout.addComponent(authenticateButton, 0, 1, 1, 1);
 		
-		this.authPanel.setHeight("500px");
+		this.authPanel.addComponent(gridLayout);		
 		this.authPanel.setSizeFull();
 	}
 }
