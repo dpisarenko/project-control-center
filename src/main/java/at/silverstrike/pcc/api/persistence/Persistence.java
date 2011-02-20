@@ -29,116 +29,117 @@ import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
 
 public interface Persistence extends ModuleWithInjectableDependencies {
 
-    void openSession();
+	void openSession();
 
-    void closeSession();
+	void closeSession();
 
-    PersistenceState getState();
+	PersistenceState getState();
 
-    Session getSession();
+	Session getSession();
 
-    Long createTask(String processName);
+	Long createTask(final String aProcessName);
 
-    void createSubTask(final String aProcessName, final Long aParentProcessId);
+	void createSubTask(final String aProcessName, final Long aParentProcessId);
 
-    List<ControlProcess> getAllNotDeletedTasks();
+	List<ControlProcess> getAllNotDeletedTasks();
 
-    ControlProcess getTask(final Object aProcessid);
+	ControlProcess getTask(final Object aProcessid);
 
-    void updateTask(ControlProcess process);
+	void updateTask(final ControlProcess aProcess);
 
-    void createProcessParent(String name, Long parentItemId,
-            ProcessType aProcessType);
+	void createProcessParent(final String aName, final Long aParentItemId,
+			final ProcessType aProcessType);
 
-    List<ControlProcess> getAllIntentsAndGoalRegions();
+	List<ControlProcess> getAllIntentsAndGoalRegions();
 
-    Long createHumanResource(String abbreviation, String firstName,
-            String middleName, String surname, double dailyMaxWorkTimeInHours);
+	Long createHumanResource(final String aAbbreviation,
+			final String aFirstName, final String aMiddleName,
+			final String aSurname, final double aDailyMaxWorkTimeInHours);
 
-    List<Worker> getAllWorkers();
+	List<Worker> getAllWorkers();
 
-    List<ControlProcess> getChildTasks(final ControlProcess aParent);
+	List<ControlProcess> getChildTasks(final ControlProcess aParent);
 
-    /**
-     * Sets the estimate end time dates of the processes.
-     * 
-     * @param endTimeTuples
-     */
-    void updateTaskEndTimes(List<ProcessEndTimeTuple> endTimeTuples);
+	/**
+	 * Sets the estimate end time dates of the processes.
+	 * 
+	 * @param endTimeTuples
+	 */
+	void updateTaskEndTimes(final List<ProcessEndTimeTuple> aEndTimeTuples);
 
-    /**
-     * <pre>
-     * This method performs following steps:
-     * 
-     * 1) Start a transaction. 
-     * 2) Delete all bookings from all processes. 
-     * 3) Add booking information from the given tuples to all referenced 
-     * tasks. 
-     * 4) Commit transaction.
-     * </pre>
-     */
-    void updateBookings(List<BookingTuple> bookingTuples);
+	/**
+	 * <pre>
+	 * This method performs following steps:
+	 * 
+	 * 1) Start a transaction. 
+	 * 2) Delete all bookings from all processes. 
+	 * 3) Add booking information from the given tuples to all referenced 
+	 * tasks. 
+	 * 4) Commit transaction.
+	 * </pre>
+	 */
+	void updateBookings(final List<BookingTuple> aBookingTuples);
 
-    void generateDailyPlans(final Date aNow);
+	void generateDailyPlans(final Date aNow);
 
-    Booking createBooking();
+	Booking createBooking();
 
-    /**
-     * Returns a list of all tasks, which are not completed yet and have an
-     * estimated completion date/time.
-     */
-    List<ControlProcess> getUncompletedTasksWithEstimatedEndTime();
+	/**
+	 * Returns a list of all tasks, which are not completed yet and have an
+	 * estimated completion date/time.
+	 */
+	List<ControlProcess> getUncompletedTasksWithEstimatedEndTime();
 
-    /**
-     * Returns daily plan for specified resource on specified day.
-     */
-    DailyPlan getDailyPlan(Date newDate, String resource);
+	/**
+	 * Returns daily plan for specified resource on specified day.
+	 */
+	DailyPlan getDailyPlan(final Date aNewDate, final String aResource);
 
-    /**
-     * Returns a list of processes, which
-     * 
-     * a) are sub-processes of process with the specified ID as their parent
-     * process and b) have child processes themselves.
-     * 
-     * If processId is null, the top-level processes are returned.
-     */
-    List<ControlProcess> getSubProcessesWithChildren(final Long processId);
+	/**
+	 * Returns a list of processes, which
+	 * 
+	 * a) are sub-processes of process with the specified ID as their parent
+	 * process and b) have child processes themselves.
+	 * 
+	 * If processId is null, the top-level processes are returned.
+	 */
+	List<ControlProcess> getSubProcessesWithChildren(final Long aProcessId);
 
-    /**
-     * Creates a new process on the same hierarchy level as the process with
-     * given process id.
-     */
-    void createSiblingProcess(final Long siblingProcessId);
+	/**
+	 * Creates a new process on the same hierarchy level as the process with
+	 * given process id.
+	 */
+	void createSiblingProcess(final Long aSiblingProcessId);
 
-    /**
-     * Creates a process with given process as parent.
-     */
-    void createChildProcess(final Long parentProcessId);
+	/**
+	 * Creates a process with given process as parent.
+	 */
+	void createChildProcess(final Long aParentProcessId);
 
-    /**
-     * Deletes the process with specified ID and sets parent to null for all of
-     * its sub-processes.
-     */
-    void deleteProcess(final Long selectedProjectId);
+	/**
+	 * Deletes the process with specified ID and sets parent to null for all of
+	 * its sub-processes.
+	 */
+	void deleteProcess(final Long aSelectedProjectId);
 
-    /**
-     * 
-     * @param selectedProjectId
-     * @return
-     */
-    List<ControlProcess> getChildTasks(final Long aProcessId);
+	/**
+	 * 
+	 * @param selectedProjectId
+	 * @return
+	 */
+	List<ControlProcess> getChildTasks(final Long aProcessId);
 
-    /**
-     * Assigns the process with the specifid ID to the specified worker.
-     */
-    void handoffProcess(final Long processId, final Long workerId);
+	/**
+	 * Assigns the process with the specifid ID to the specified worker.
+	 */
+	void handoffProcess(final Long aProcessId, final Long aWorkerId);
 
-    /**
-     * Removes all data from the database
-     */
-    void clearDatabase();
-    
-    Resource getResource(final Long aResourceId);
+	/**
+	 * Removes all data from the database
+	 */
+	void clearDatabase();
+
+	Resource getResource(final Long aResourceId);
 
 	UserData getUserData();
 }
