@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.entrywindow;
 
+import static at.silverstrike.pcc.impl.entrywindow.ErrorCodes.M_001_HANDLE_PARAMETERS_1;
+
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -69,7 +71,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		try {
 			this.parameterDataReader.run();
 		} catch (final PccException exception) {
-			LOGGER.error("", exception);
+			LOGGER.error(M_001_HANDLE_PARAMETERS_1, exception);
 		}
 
 		final String culture = this.parameterDataReader.getCulture();
@@ -78,11 +80,13 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		try {
 			this.cultureToLanguageMapper.run();
 		} catch (final PccException exception) {
-			LOGGER.error("", exception);
+			LOGGER.error(ErrorCodes.M_001_HANDLE_PARAMETERS_2, exception);
 		}
 
 		final String language = this.cultureToLanguageMapper.getLanguage();
 
+		LOGGER.debug("{}: Culture='{}', language='{}'", new Object[] {
+				ErrorCodes.M_001_HANDLE_PARAMETERS_3, culture, language });
 		TM.getDictionary().setDefaultLanguage(language);
 	}
 

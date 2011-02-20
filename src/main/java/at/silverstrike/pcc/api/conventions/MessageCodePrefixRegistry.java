@@ -13,7 +13,7 @@ package at.silverstrike.pcc.api.conventions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MessageCodePrefixRegistry {
+public final class MessageCodePrefixRegistry {
     private static final String PREFIX_MESSAGE_NUMBER_SEPARATOR = ".";
 
     public enum Module {
@@ -36,7 +36,10 @@ public class MessageCodePrefixRegistry {
         tj3bookingsparser,
         tj3deadlinesparser,
         workerpanel,
-        version
+        version,
+        culture2lang,
+        entrywindow,
+        parameterdatareader
     }
 
     private Map<Module, String> prefixesByModules;
@@ -83,5 +86,9 @@ public class MessageCodePrefixRegistry {
         this.prefixesByModules.put(Module.tj3deadlinesparser, "018");
         this.prefixesByModules.put(Module.workerpanel, "019");
         this.prefixesByModules.put(Module.version, "020");
+        this.prefixesByModules.put(Module.culture2lang, "021");
+        this.prefixesByModules.put(Module.entrywindow, "022");
+        this.prefixesByModules.put(Module.parameterdatareader, "023");
+
     }
 }
