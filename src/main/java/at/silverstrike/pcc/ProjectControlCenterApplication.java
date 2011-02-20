@@ -75,6 +75,8 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 		
 		setMainWindow(entryWindow.getWindow());
 		
+		
+		
 		// final MainWindowFactory mainWindowFactory = injector
 		// .getInstance(MainWindowFactory.class);
 		// final MainWindow mainWindow = mainWindowFactory.create();

@@ -35,12 +35,12 @@ import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 
 class DefaultEntryWindow implements EntryWindow, ParameterHandler {
-	private static final long serialVersionUID = 1L;
-	private Window window;
-	private ParameterDataReader parameterDataReader;
-	private CultureToLanguageMapper cultureToLanguageMapper;
+	private static final long serialVersionUID = 1L;	
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DefaultEntryWindow.class);
+	private ParameterDataReader parameterDataReader;
+	private CultureToLanguageMapper cultureToLanguageMapper;
+	private Window window;
 	private Panel authPanel;
 	private Label openIdLabel;
 	private TextField openIdTextField;
@@ -66,8 +66,9 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		final GridLayout layout = new GridLayout(2, 1);
 		
 		layout.setSizeFull();
-		initSignupLabel();
 		initAuthPanel();
+		
+		this.signupLabel = new Label("<H1>a</H1>"/*TM.get("entrywindow.4-signuplabel")*/, Label.CONTENT_XHTML);
 		
 		layout.addComponent(this.signupLabel, 0, 0);
 		layout.addComponent(this.authPanel, 1, 0);
@@ -123,8 +124,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 	}
 
 	private void updateCaptionsSignupPanel() {
-		this.signupLabel.setCaption(TM.get("entrywindow.4-signuplabel"));
-		this.signupLabel.setSizeFull();
+		this.signupLabel.setValue(TM.get("entrywindow.4-signuplabel"));
 	}
 		
 	private void initAuthPanel() {
@@ -143,11 +143,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		gridLayout.addComponent(openIdTextField, 1, 0);
 		gridLayout.addComponent(authenticateButton, 0, 1, 1, 1);
 		
+		this.authPanel.setHeight("500px");
 		this.authPanel.setSizeFull();
-	}
-	
-	private void initSignupLabel() {
-		this.signupLabel = new Label();
-		this.signupLabel.setContentMode(Label.CONTENT_XHTML);
 	}
 }
