@@ -15,18 +15,21 @@ import static at.silverstrike.pcc.impl.entrywindow.ErrorCodes.M_001_HANDLE_PARAM
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.terminal.ParameterHandler;
+import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Button.ClickEvent;
 
 import eu.livotov.tpt.i18n.TM;
 
@@ -35,7 +38,7 @@ import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 
-class DefaultEntryWindow implements EntryWindow, ParameterHandler {
+class DefaultEntryWindow implements EntryWindow, ParameterHandler, HttpServletRequestListener {
 	private static final long serialVersionUID = 1L;	
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DefaultEntryWindow.class);
@@ -47,6 +50,8 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 	private TextField openIdTextField;
 	private Button authenticateButton;
 	private Label signupLabel;
+	private Injector injector;
+	private HttpServletRequest request;
 	
 	@Override
 	public void setInjector(final Injector aInjector) {
@@ -55,6 +60,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 					.getInstance(ParameterDataReader.class);
 			this.cultureToLanguageMapper = aInjector
 					.getInstance(CultureToLanguageMapper.class);
+			this.injector = aInjector;
 		}
 	}
 
@@ -136,7 +142,8 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		authenticateButton = new Button();
 		
 		final AuthenticateButtonListener listener = new AuthenticateButtonListener();
-		
+		listener.setInjector(this.injector);
+		listener.setRequest(this.request);
 		this.authenticateButton.addListener(listener);
 		
 		gridLayout.addComponent(openIdLabel, 0, 0);
@@ -145,5 +152,16 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler {
 		
 		this.authPanel.addComponent(gridLayout);		
 		this.authPanel.setSizeFull();
+	}
+
+	@Override
+	public void onRequestStart(final HttpServletRequest aRequest,
+			final HttpServletResponse aResponse) {
+		this.request = aRequest;
+	}
+
+	@Override
+	public void onRequestEnd(final HttpServletRequest aRequest,
+			final HttpServletResponse aResponse) {
 	}
 }
