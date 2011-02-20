@@ -26,6 +26,12 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
+import at.silverstrike.pcc.api.openid.Deauthenticator;
+import at.silverstrike.pcc.api.openid.DeauthenticatorFactory;
+import at.silverstrike.pcc.api.openid.OpenIdAuthenticationInitiator;
+import at.silverstrike.pcc.api.openid.OpenIdAuthenticationInitiatorFactory;
+import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponder;
+import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponderFactory;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReaderFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
@@ -54,6 +60,9 @@ import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainprocesseditingpanel.DefaultMainProcessEditingPanelFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
+import at.silverstrike.pcc.impl.openid.DefaultDeauthenticatorFactory;
+import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationInitiatorFactory;
+import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationResponderFactory;
 import at.silverstrike.pcc.impl.parameterdatareader.DefaultParameterDataReaderFactory;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import at.silverstrike.pcc.impl.processpanel.DefaultProcessPanelFactory;
@@ -123,7 +132,28 @@ class InjectorModule extends AbstractModule {
 		bind(EntryWindowFactory.class).toInstance(
 				new DefaultEntryWindowFactory());
 		bind(ParameterDataReader.class).toInstance(getParameterDataReader());
-		bind(CultureToLanguageMapper.class).toInstance(getCultureToLanguageMapper());
+		bind(CultureToLanguageMapper.class).toInstance(
+				getCultureToLanguageMapper());
+		bind(OpenIdAuthenticationResponder.class).toInstance(
+				getOpenIdAuthenticationResponder());
+		bind(OpenIdAuthenticationInitiator.class).toInstance(
+				getOpenIdAuthenticationInitiator());
+		bind(Deauthenticator.class).toInstance(getDeauthenticator());
+	}
+
+	private Deauthenticator getDeauthenticator() {
+		final DeauthenticatorFactory factory = new DefaultDeauthenticatorFactory();
+		return factory.create();
+	}
+
+	private OpenIdAuthenticationInitiator getOpenIdAuthenticationInitiator() {
+		final OpenIdAuthenticationInitiatorFactory factory = new DefaultOpenIdAuthenticationInitiatorFactory();
+		return factory.create();
+	}
+
+	private OpenIdAuthenticationResponder getOpenIdAuthenticationResponder() {
+		final OpenIdAuthenticationResponderFactory factory = new DefaultOpenIdAuthenticationResponderFactory();
+		return factory.create();
 	}
 
 	private CultureToLanguageMapper getCultureToLanguageMapper() {
