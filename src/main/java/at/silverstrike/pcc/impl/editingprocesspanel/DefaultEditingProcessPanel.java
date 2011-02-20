@@ -53,37 +53,14 @@ import com.vaadin.ui.Window.Notification;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
-	private static final double HOURS_IN_DAY = 24.0;
-	private static final double HOURS_IN_HOUR = 1.0;
-	private static final double HOURS_IN_MINUTE = 1. / 60.;
-
-	private class SaveButtonRelevantListener implements
-			Property.ValueChangeListener {
-		private static final long serialVersionUID = 1L;
-
-		private final Button button;
-
-		public SaveButtonRelevantListener(final Button aButton) {
-			button = aButton;
-		}
-
-		@Override
-		public void valueChange(final ValueChangeEvent anEvent) {
-			LOGGER.debug("SaveButtonRelevantListener.valueChange: this.button="
-					+ button);
-			if ((button != null) && !button.isEnabled()) {
-				LOGGER.debug("SaveButtonRelevantListener.valueChange, 2");
-
-				button.setEnabled(true);
-			}
-		}
-	}
-
-	private enum SaveValidationResult {
-		EVERYTHING_OK, MAX_EFFORT, MAX_EFFORT_EMPTY, MAX_EFFORT_NEGATIVE, MAX_EFFORT_NOT_NUMERIC, MIN_EFFORT_EMPTY, MIN_EFFORT_LARGER_THAN_MAX_EFFORT, MIN_EFFORT_NEGATIVE, MIN_EFFORT_NOT_NUMERIC, PRIORITY_EMPTY, PRIORITY_NOT_NUMERIC, PRIORITY_TOO_LARGE, PRIORITY_TOO_SMALL
-	}
-
-	private final static String ABBREVIATED_PROCESS_NAME = "ABBREVIATED_PROCESS_NAME";
+	private static final int PRIORITY_ROW = 5;
+	private static final int MAX_EFFORT_ROW = 4;
+	private static final int MIN_EFFORT_ROW = 3;
+	private static final int DEPENDENCY_GRID_Y_POS = 6;
+	private static final int DEPENDENCY_LIST_ROWS = 10;
+	private static final int NAME_TEXT_AREA_COLUMNS = 25;
+	private static final int NAME_TEXT_AREA_ROWS = 5;
+	private static final String ABBREVIATED_PROCESS_NAME = "ABBREVIATED_PROCESS_NAME";
 	private static final String EFFORT_UNIT_DAY = TM
 			.get("editingprocesspanel.21-time-unit");
 	private static final String EFFORT_UNIT_HOUR = TM
@@ -94,7 +71,6 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DefaultEditingProcessPanel.class);
 	private static final int MAX_PROCESS_NAME_LENGTH = 50;
-	private static final double MINUTES_IN_HOUR = 60.0;
 	private static final long serialVersionUID = 1L;
 	private static final String TYPE_MILESTONE = TM
 			.get("editingprocesspanel.10-milestone");
@@ -138,6 +114,38 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 	private static final String VMSG_PRIORITY_TOO_SMALL = TM
 			.get("editingprocesspanel.34-save-validation-error-"
 					+ "PRIORITY_TOO_SMALL");
+
+	private static final double HOURS_IN_DAY = 24.0;
+	private static final double HOURS_IN_HOUR = 1.0;
+	private static final double MINUTES_IN_HOUR = 60.0;
+	private static final double HOURS_IN_MINUTE = 1. / MINUTES_IN_HOUR;
+
+	private class SaveButtonRelevantListener implements
+			Property.ValueChangeListener {
+		private static final long serialVersionUID = 1L;
+
+		private final Button button;
+
+		public SaveButtonRelevantListener(final Button aButton) {
+			button = aButton;
+		}
+
+		@Override
+		public void valueChange(final ValueChangeEvent aEvent) {
+			LOGGER.debug("SaveButtonRelevantListener.valueChange: this.button="
+					+ button);
+			if ((button != null) && !button.isEnabled()) {
+				LOGGER.debug("SaveButtonRelevantListener.valueChange, 2");
+
+				button.setEnabled(true);
+			}
+		}
+	}
+
+	private enum SaveValidationResult {
+		EVERYTHING_OK, MAX_EFFORT, MAX_EFFORT_EMPTY, MAX_EFFORT_NEGATIVE, MAX_EFFORT_NOT_NUMERIC, MIN_EFFORT_EMPTY, MIN_EFFORT_LARGER_THAN_MAX_EFFORT, MIN_EFFORT_NEGATIVE, MIN_EFFORT_NOT_NUMERIC, PRIORITY_EMPTY, PRIORITY_NOT_NUMERIC, PRIORITY_TOO_LARGE, PRIORITY_TOO_SMALL
+	}
+
 	private Button cancelButton;
 	private boolean changesToSaveAvailable;
 	private ComboBox controlSubjectComboBox;
@@ -201,8 +209,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		grid.setWidth("100%");
 
 		processNameTextArea = new TextField("");
-		processNameTextArea.setRows(5);
-		processNameTextArea.setColumns(25);
+		processNameTextArea.setRows(NAME_TEXT_AREA_ROWS);
+		processNameTextArea.setColumns(NAME_TEXT_AREA_COLUMNS);
 		processNameTextArea.setWidth("100%");
 		processNameTextArea.setDebugId(this.debugIdRegistry.getDebugId(
 				MessageCodePrefixRegistry.Module.editingprocesspanel,
@@ -251,12 +259,11 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 	}
 
 	@Override
-	public void setInjector(final Injector anInjector) {
-		if (anInjector != null) {
-			this.persistence = anInjector.getInstance(Persistence.class);
-			this.debugIdRegistry = anInjector
-					.getInstance(DebugIdRegistry.class);
-			this.webGuiBus = anInjector.getInstance(WebGuiBus.class);
+	public void setInjector(final Injector aInjector) {
+		if (aInjector != null) {
+			this.persistence = aInjector.getInstance(Persistence.class);
+			this.debugIdRegistry = aInjector.getInstance(DebugIdRegistry.class);
+			this.webGuiBus = aInjector.getInstance(WebGuiBus.class);
 		}
 	}
 
@@ -273,11 +280,11 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		changeProcessState(ProcessState.DELETED);
 	}
 
-	protected void enableEffortControls(final boolean anEnable) {
-		minEffortTextBox.setEnabled(anEnable);
-		minTimeUnitComboBox.setEnabled(anEnable);
-		maxEffortTextBox.setEnabled(anEnable);
-		maxTimeUnitComboBox.setEnabled(anEnable);
+	protected void enableEffortControls(final boolean aEnable) {
+		minEffortTextBox.setEnabled(aEnable);
+		minTimeUnitComboBox.setEnabled(aEnable);
+		maxEffortTextBox.setEnabled(aEnable);
+		maxTimeUnitComboBox.setEnabled(aEnable);
 	}
 
 	protected void handoffButtonClicked() {
@@ -342,7 +349,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 	}
 
 	private Double getEffortInHours(final TextField aTextField,
-			final ComboBox anUnitComboBox) {
+			final ComboBox aUnitComboBox) {
 		double effortInUnit;
 
 		try {
@@ -351,7 +358,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			effortInUnit = -1.;
 		}
 
-		return convertEffort(effortInUnit, anUnitComboBox, HOURS_IN_MINUTE,
+		return convertEffort(effortInUnit, aUnitComboBox, HOURS_IN_MINUTE,
 				HOURS_IN_HOUR, HOURS_IN_DAY);
 	}
 
@@ -384,7 +391,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(final ClickEvent event) {
+			public void buttonClick(final ClickEvent aEvent) {
 				DefaultEditingProcessPanel.this.startButtonClicked();
 			}
 		});
@@ -396,7 +403,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(final ClickEvent event) {
+			public void buttonClick(final ClickEvent aEvent) {
 				DefaultEditingProcessPanel.this.stopButtonClicked();
 			}
 		});
@@ -409,7 +416,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(final ClickEvent event) {
+			public void buttonClick(final ClickEvent aEvent) {
 				DefaultEditingProcessPanel.this.markAsCompletedButtonClicked();
 
 			}
@@ -423,7 +430,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(final ClickEvent event) {
+			public void buttonClick(final ClickEvent aEvent) {
 				DefaultEditingProcessPanel.this.cancelButtonClicked();
 			}
 		});
@@ -437,7 +444,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(final ClickEvent event) {
+			public void buttonClick(final ClickEvent aEvent) {
 				DefaultEditingProcessPanel.this.reactivateButtonClicked();
 			}
 		});
@@ -451,7 +458,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(final ClickEvent event) {
+			public void buttonClick(final ClickEvent aEvent) {
 				DefaultEditingProcessPanel.this.deleteButtonClicked();
 			}
 		});
@@ -465,7 +472,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(final ClickEvent event) {
+			public void buttonClick(final ClickEvent aEvent) {
 				DefaultEditingProcessPanel.this.saveButtonClicked();
 			}
 		});
@@ -483,9 +490,9 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		final GridLayout dependencyGrid = new GridLayout(2, 2);
 		final ListSelect dependencyList = new ListSelect();
 
-		final Button deleteButton = new Button(
+		final Button deleteDependencyButton = new Button(
 				TM.get("editingprocesspanel.24-delete-dependency-button"));
-		deleteButton.setDebugId(this.debugIdRegistry.getDebugId(
+		deleteDependencyButton.setDebugId(this.debugIdRegistry.getDebugId(
 				MessageCodePrefixRegistry.Module.editingprocesspanel,
 				"16-dependencyDeleteButton"));
 
@@ -502,18 +509,19 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		dependencyList.setDebugId(this.debugIdRegistry.getDebugId(
 				MessageCodePrefixRegistry.Module.editingprocesspanel,
 				"19-dependencyList"));
-		dependencyList.setRows(10);
+		dependencyList.setRows(DEPENDENCY_LIST_ROWS);
 		dependencyGrid.setCaption(TM
 				.get("editingprocesspanel.23-dependencies-caption"));
 		dependencyGrid.setWidth("100%");
 
 		dependencyGrid.addComponent(dependencyList, 0, 0);
-		dependencyGrid.addComponent(deleteButton, 1, 0);
+		dependencyGrid.addComponent(deleteDependencyButton, 1, 0);
 
 		dependencyGrid.addComponent(dependencyComboBox, 0, 1);
 		dependencyGrid.addComponent(addButton, 1, 1);
 
-		aGrid.addComponent(dependencyGrid, 0, 6, 2, 6);
+		aGrid.addComponent(dependencyGrid, 0, DEPENDENCY_GRID_Y_POS, 2,
+				DEPENDENCY_GRID_Y_POS);
 	}
 
 	private void createEffortEstimateControls(final GridLayout aGrid) {
@@ -545,13 +553,13 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 				"23-maxTimeUnitComboBox"));
 		maxTimeUnitComboBox.setImmediate(true);
 
-		aGrid.addComponent(minEffortLabel, 0, 3);
-		aGrid.addComponent(minEffortTextBox, 1, 3);
-		aGrid.addComponent(minTimeUnitComboBox, 2, 3);
+		aGrid.addComponent(minEffortLabel, 0, MIN_EFFORT_ROW);
+		aGrid.addComponent(minEffortTextBox, 1, MIN_EFFORT_ROW);
+		aGrid.addComponent(minTimeUnitComboBox, 2, MIN_EFFORT_ROW);
 
-		aGrid.addComponent(maxEffortLabel, 0, 4);
-		aGrid.addComponent(maxEffortTextBox, 1, 4);
-		aGrid.addComponent(maxTimeUnitComboBox, 2, 4);
+		aGrid.addComponent(maxEffortLabel, 0, MAX_EFFORT_ROW);
+		aGrid.addComponent(maxEffortTextBox, 1, MAX_EFFORT_ROW);
+		aGrid.addComponent(maxTimeUnitComboBox, 2, MAX_EFFORT_ROW);
 
 		final List<String> timeUnits = new LinkedList<String>();
 
@@ -565,7 +573,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		}
 	}
 
-	private void createHandOffControls(final GridLayout grid) {
+	private void createHandOffControls(final GridLayout aGrid) {
 		final Label controlSubjectLabel = new Label(
 				TM.get("editingprocesspanel.7-control-subject"));
 		controlSubjectLabel.setDebugId(this.debugIdRegistry.getDebugId(
@@ -593,14 +601,14 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(final ClickEvent event) {
+			public void buttonClick(final ClickEvent aEvent) {
 				handoffButtonClicked();
 			}
 		});
 
-		grid.addComponent(controlSubjectLabel, 0, 1);
-		grid.addComponent(controlSubjectComboBox, 1, 1);
-		grid.addComponent(handoffButton, 2, 1);
+		aGrid.addComponent(controlSubjectLabel, 0, 1);
+		aGrid.addComponent(controlSubjectComboBox, 1, 1);
+		aGrid.addComponent(handoffButton, 2, 1);
 	}
 
 	private void fillWorkerComboBox() {
@@ -635,19 +643,19 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 				MessageCodePrefixRegistry.Module.editingprocesspanel,
 				"7-priorityTextBox"));
 
-		aGrid.addComponent(priorityLabel, 0, 5);
-		aGrid.addComponent(priorityTextBox, 1, 5);
+		aGrid.addComponent(priorityLabel, 0, PRIORITY_ROW);
+		aGrid.addComponent(priorityTextBox, 1, PRIORITY_ROW);
 	}
 
-	private void createTypeControls(final GridLayout grid) {
+	private void createTypeControls(final GridLayout aGrid) {
 		final Label typeLabel = new Label(TM.get("editingprocesspanel.8-type"));
 		typeComboBox = new ComboBox();
 		typeComboBox.setDebugId(this.debugIdRegistry.getDebugId(
 				MessageCodePrefixRegistry.Module.editingprocesspanel,
 				"8-typeComboBox"));
 
-		grid.addComponent(typeLabel, 0, 2);
-		grid.addComponent(typeComboBox, 1, 2);
+		aGrid.addComponent(typeLabel, 0, 2);
+		aGrid.addComponent(typeComboBox, 1, 2);
 
 		typeComboBox.addItem(TYPE_PROCESS);
 		typeComboBox.addItem(TYPE_MILESTONE);
@@ -656,7 +664,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void valueChange(final ValueChangeEvent event) {
+			public void valueChange(final ValueChangeEvent aEvent) {
 				final ProcessType curProcessType = getProcessType();
 
 				if (ProcessType.MILE_STONE.equals(curProcessType)
@@ -669,41 +677,38 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		});
 	}
 
-	private boolean getCancelButtonState(final ProcessState processState) {
-		if (ProcessState.IS_BEING_ATTAINED.equals(processState)
-				|| ProcessState.SCHEDULED.equals(processState)
-				|| ProcessState.WELL_DEFINED.equals(processState)) {
-			return true;
-		} else {
-			return false;
-		}
+	private boolean getCancelButtonState(final ProcessState aProcessState) {
+		return (ProcessState.IS_BEING_ATTAINED.equals(aProcessState)
+				|| ProcessState.SCHEDULED.equals(aProcessState) || ProcessState.WELL_DEFINED
+				.equals(aProcessState));
 	}
 
-	private double getEffortInMinutes(final double effortInUnit,
-			final ComboBox unitComboBox) {
-		return convertEffort(effortInUnit, unitComboBox, 1.0, MINUTES_IN_HOUR,
-				MINUTES_IN_DAY);
+	private double getEffortInMinutes(final double aEffortInUnit,
+			final ComboBox aUnitComboBox) {
+		return convertEffort(aEffortInUnit, aUnitComboBox, 1.0,
+				MINUTES_IN_HOUR, MINUTES_IN_DAY);
 	}
 
-	private double convertEffort(final double effortInUnit,
-			final ComboBox unitComboBox, final double conversionFactorMinute,
-			final double conversionFactorHour, final double conversionFactorDay) {
+	private double convertEffort(final double aEffortInUnit,
+			final ComboBox aUnitComboBox, final double aConversionFactorMinute,
+			final double aConversionFactorHour,
+			final double aConversionFactorDay) {
 		double conversionFactor = 0.;
-		final String unit = (String) unitComboBox.getValue();
+		final String unit = (String) aUnitComboBox.getValue();
 
 		if (EFFORT_UNIT_MINUTE.equals(unit)) {
-			conversionFactor = conversionFactorMinute;
+			conversionFactor = aConversionFactorMinute;
 		} else if (EFFORT_UNIT_HOUR.equals(unit)) {
-			conversionFactor = conversionFactorHour;
+			conversionFactor = aConversionFactorHour;
 		} else if (EFFORT_UNIT_DAY.equals(unit)) {
-			conversionFactor = conversionFactorDay;
+			conversionFactor = aConversionFactorDay;
 		}
 
-		return effortInUnit * conversionFactor;
+		return aEffortInUnit * conversionFactor;
 	}
 
-	private boolean getMarkAsCompletedState(final ProcessState processState) {
-		return ProcessState.IS_BEING_ATTAINED.equals(processState);
+	private boolean getMarkAsCompletedState(final ProcessState aProcessState) {
+		return ProcessState.IS_BEING_ATTAINED.equals(aProcessState);
 	}
 
 	private ProcessType getProcessType() {
@@ -718,23 +723,16 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		}
 	}
 
-	private boolean getReactivateButtonState(final ProcessState state) {
-		if (ProcessState.ATTAINED.equals(state)
-				|| ProcessState.CANCELLED.equals(state)) {
-			return true;
-		} else {
-			return false;
-		}
+	private boolean getReactivateButtonState(final ProcessState aState) {
+		return (ProcessState.ATTAINED.equals(aState) || ProcessState.CANCELLED
+				.equals(aState));
 	}
 
-	private boolean getStartButtonState(final ProcessState processState) {
-		if (ProcessState.REPORTED.equals(processState)
-				|| ProcessState.SCHEDULED.equals(processState)
-				|| ProcessState.WELL_DEFINED.equals(processState)) {
-			return true;
-		} else {
-			return false;
-		}
+	private boolean getStartButtonState(final ProcessState aState) {
+		return (ProcessState.REPORTED.equals(aState)
+				|| ProcessState.SCHEDULED.equals(aState) || ProcessState.WELL_DEFINED
+				.equals(aState));
+
 	}
 
 	private String getStateCaption(final Object aProcessId) {
@@ -756,8 +754,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 		}
 	}
 
-	private boolean getStopButtonState(final ProcessState processState) {
-		return ProcessState.IS_BEING_ATTAINED.equals(processState);
+	private boolean getStopButtonState(final ProcessState aProcessState) {
+		return ProcessState.IS_BEING_ATTAINED.equals(aProcessState);
 	}
 
 	private Worker getWorker(final ControlProcess aProcess) {
