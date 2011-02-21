@@ -28,24 +28,24 @@ class DefaultWorker extends DefaultResource implements Worker {
         return firstName;
     }
 
-    public void setFirstName(final String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(final String aFirstName) {
+        this.firstName = aFirstName;
     }
 
     public String getMiddleName() {
         return middleName;
     }
 
-    public void setMiddleName(final String middleName) {
-        this.middleName = middleName;
+    public void setMiddleName(final String aMiddleName) {
+        this.middleName = aMiddleName;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(final String surName) {
-        this.surname = surName;
+    public void setSurname(final String aSurName) {
+        this.surname = aSurName;
     }
 
     @Override
