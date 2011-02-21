@@ -13,7 +13,7 @@ package at.silverstrike.pcc.api.model;
 import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
 
 public interface Resource extends UniquelyIdentifiableObject {
-	void setAbbreviation(final String anAbbreviation);
+	void setAbbreviation(final String aAbbreviation);
 	String getAbbreviation();
 
 	void setDailyLimitInHours(final double aDailyLimit);
