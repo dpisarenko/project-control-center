@@ -25,7 +25,7 @@ import at.silverstrike.pcc.api.openid.OpenIdAuthenticationInitiator;
 class DefaultOpenIdAuthenticationInitiator implements
         OpenIdAuthenticationInitiator {
 
-    private final static Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultOpenIdAuthenticationInitiator.class);
 
     private String identity;
@@ -44,7 +44,7 @@ class DefaultOpenIdAuthenticationInitiator implements
 
             httpProcessor.saveService(openidService);
 
-            AuthRequest authRequest = openidService
+            final AuthRequest authRequest = openidService
                     .createOpenIdAuthRequest(httpProcessor.getReturnUrl());
 
             this.application.setLogoutURL(authRequest.getDestinationUrl(true));
