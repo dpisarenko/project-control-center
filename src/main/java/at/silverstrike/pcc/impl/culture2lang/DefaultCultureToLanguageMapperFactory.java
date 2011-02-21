@@ -18,7 +18,7 @@ public class DefaultCultureToLanguageMapperFactory implements
         CultureToLanguageMapperFactory {
 
     @Override
-    public CultureToLanguageMapper create() {
+    public final CultureToLanguageMapper create() {
         return new DefaultCultureToLanguageMapper();
     }
 
