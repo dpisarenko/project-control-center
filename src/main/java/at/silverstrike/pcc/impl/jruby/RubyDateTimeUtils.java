@@ -20,13 +20,17 @@ import java.util.GregorianCalendar;
  */
 public final class RubyDateTimeUtils {
 
-    public static Date getDate(final int anYear, final int aMonth,
+    public static Date getDate(final int aYear, final int aMonth,
             final int aDay,
-            final int anHour, final int aMinute) {
+            final int aHour, final int aMinute) {
 
         final GregorianCalendar calendar =
-                new GregorianCalendar(anYear, aMonth, aDay, anHour, aMinute);
+                new GregorianCalendar(aYear, aMonth, aDay, aHour, aMinute);
 
         return calendar.getTime();
+    }
+
+    private RubyDateTimeUtils() {
+
     }
 }
