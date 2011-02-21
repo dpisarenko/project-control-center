@@ -17,9 +17,11 @@ import java.util.Date;
  * @author Dmitri Pisarenko
  */
 public interface ProcessEndTimeTuple {
-	Long getProcessId();
-	void setProcessId(final Long anId);
-	
-	Date getEndDateTime();
-	void setEndDateTime(final Date aDate);
+    Long getProcessId();
+
+    void setProcessId(final Long aId);
+
+    Date getEndDateTime();
+
+    void setEndDateTime(final Date aDate);
 }
