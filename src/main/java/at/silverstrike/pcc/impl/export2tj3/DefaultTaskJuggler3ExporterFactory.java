@@ -15,14 +15,14 @@ import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3ExporterFactory;
 
 public class DefaultTaskJuggler3ExporterFactory implements
-		TaskJuggler3ExporterFactory {
+        TaskJuggler3ExporterFactory {
 
-	/**
-	 * @see at.silverstrike.pcc.api.conventions.Factory#create()
-	 */
-	@Override
-	public TaskJuggler3Exporter create() {
-		return new DefaultTaskJuggler3Exporter();
-	}
+    /**
+     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     */
+    @Override
+    public final TaskJuggler3Exporter create() {
+        return new DefaultTaskJuggler3Exporter();
+    }
 
 }
