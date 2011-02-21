@@ -51,40 +51,40 @@ class DefaultControlProcess implements ControlProcess {
         return id;
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public void setId(final Long aId) {
+        this.id = aId;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setName(final String aName) {
+        this.name = aName;
     }
 
     public ProcessState getState() {
         return state;
     }
 
-    public void setState(final ProcessState state) {
-        this.state = state;
+    public void setState(final ProcessState aState) {
+        this.state = aState;
     }
 
     public Double getBestCaseEffort() {
         return bestCaseEffort;
     }
 
-    public void setBestCaseEffort(final Double bestCaseEffort) {
-        this.bestCaseEffort = bestCaseEffort;
+    public void setBestCaseEffort(final Double aBestCaseEffort) {
+        this.bestCaseEffort = aBestCaseEffort;
     }
 
     public Double getWorstCaseEffort() {
         return worstCaseEffort;
     }
 
-    public void setWorstCaseEffort(final Double worstCaseEffort) {
-        this.worstCaseEffort = worstCaseEffort;
+    public void setWorstCaseEffort(final Double aWorstCaseEffort) {
+        this.worstCaseEffort = aWorstCaseEffort;
     }
 
     @Override
@@ -96,8 +96,8 @@ class DefaultControlProcess implements ControlProcess {
         return priority;
     }
 
-    public void setPriority(final Integer priority) {
-        this.priority = priority;
+    public void setPriority(final Integer aPriority) {
+        this.priority = aPriority;
     }
 
     public List<ResourceAllocation> getResourceAllocations() {
@@ -105,24 +105,24 @@ class DefaultControlProcess implements ControlProcess {
     }
 
     public void setResourceAllocations(
-            final List<ResourceAllocation> resourceAllocations) {
-        this.resourceAllocations = resourceAllocations;
+            final List<ResourceAllocation> aResourceAllocations) {
+        this.resourceAllocations = aResourceAllocations;
     }
 
     public ProcessType getProcessType() {
         return processType;
     }
 
-    public void setProcessType(final ProcessType processResultType) {
-        this.processType = processResultType;
+    public void setProcessType(final ProcessType aProcessResultType) {
+        this.processType = aProcessResultType;
     }
 
     public ControlProcess getParent() {
         return parent;
     }
 
-    public void setParent(final ControlProcess parent) {
-        this.parent = parent;
+    public void setParent(final ControlProcess aParent) {
+        this.parent = aParent;
     }
 
     @Override
@@ -135,16 +135,17 @@ class DefaultControlProcess implements ControlProcess {
     }
 
     public void setAverageEstimatedEndDateTime(
-            final Date averageEstimatedEndDateTime) {
-        this.averageEstimatedEndDateTime = averageEstimatedEndDateTime;
+            final Date aAverageEstimatedEndDateTime) {
+        this.averageEstimatedEndDateTime = aAverageEstimatedEndDateTime;
     }
 
     public Date getBestEstimatedEndDateTime() {
         return bestEstimatedEndDateTime;
     }
 
-    public void setBestEstimatedEndDateTime(final Date bestEstimatedEndDateTime) {
-        this.bestEstimatedEndDateTime = bestEstimatedEndDateTime;
+    public void
+            setBestEstimatedEndDateTime(final Date aBestEstimatedEndDateTime) {
+        this.bestEstimatedEndDateTime = aBestEstimatedEndDateTime;
     }
 
     public Date getWorstEstimatedEndDateTime() {
@@ -152,16 +153,15 @@ class DefaultControlProcess implements ControlProcess {
     }
 
     public void setWorstEstimatedEndDateTime(
-            final Date worstEstimatedEndDateTime) {
-        this.worstEstimatedEndDateTime = worstEstimatedEndDateTime;
+            final Date aWorstEstimatedEndDateTime) {
+        this.worstEstimatedEndDateTime = aWorstEstimatedEndDateTime;
     }
 
     public Set<ControlProcess> getPredecessors() {
         return predecessors;
     }
 
-    public void setPredecessors(final Set<ControlProcess> predecessors) {
-        this.predecessors = predecessors;
+    public void setPredecessors(final Set<ControlProcess> aPredecessors) {
+        this.predecessors = aPredecessors;
     }
-
 }
