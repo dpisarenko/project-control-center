@@ -18,8 +18,8 @@ import java.util.Set;
 import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
 
 public interface ControlProcess extends UniquelyIdentifiableObject {
-    final int HIGHEST_PRIORITY = 1000;
-    final int LOWEST_PRIORITY = 0;
+    int HIGHEST_PRIORITY = 1000;
+    int LOWEST_PRIORITY = 0;
 
     String getName();
 

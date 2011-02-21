@@ -15,5 +15,5 @@ import com.vaadin.ui.Panel;
 
 public interface AbstractedPanel extends InitializableGuiComponent {
 
-	Panel toPanel();
+    Panel toPanel();
 }
