@@ -66,8 +66,14 @@ class DefaultMainProcessEditingPanel extends Panel implements
         MainProcessEditingPanel, ProcessPanelListener {
     public static final Object PROJECT_PROPERTY_NAME = "name";
 
-    private final static Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultMainProcessEditingPanel.class);
+
+    private static final String XML_DUMP_FILENAME_TEMPLATE =
+            "PCC_DATA_${timestamp}.xml";
+    private static final DateFormat XML_DUMP_TIMESTAMP_DATE_FORMAT =
+            new SimpleDateFormat(
+                    "yyyy_MM_dd_HH_mm_ss");
 
     private static final Object PROJECT_PROPERTY_ID = "id";
     private static final long serialVersionUID = 1L;
@@ -124,8 +130,8 @@ class DefaultMainProcessEditingPanel extends Panel implements
     }
 
     @Override
-    public void setInjector(final Injector anInjector) {
-        injector = anInjector;
+    public void setInjector(final Injector aInjector) {
+        injector = aInjector;
         persistence = injector.getInstance(Persistence.class);
     }
 
@@ -165,8 +171,8 @@ class DefaultMainProcessEditingPanel extends Panel implements
         }
     }
 
-    protected void projectTreeValueChanged(final ValueChangeEvent event) {
-        final Object itemId = event.getProperty().getValue();
+    protected void projectTreeValueChanged(final ValueChangeEvent aEvent) {
+        final Object itemId = aEvent.getProperty().getValue();
 
         final Item item = projectTreeData.getItem(itemId);
 
@@ -193,34 +199,34 @@ class DefaultMainProcessEditingPanel extends Panel implements
         }
     }
 
-    private int addNodes(final HierarchicalContainer container,
-            final List<ControlProcess> processes, final Integer parentId,
-            final Persistence persistence, final int aTreeItemId) {
+    private int addNodes(final HierarchicalContainer aContainer,
+            final List<ControlProcess> aProcesses, final Integer aParentId,
+            final Persistence aPersistence, final int aTreeItemId) {
         int treeItemId = aTreeItemId;
-        if (processes == null) {
+        if (aProcesses == null) {
             return treeItemId;
         }
 
-        for (final ControlProcess process : processes) {
+        for (final ControlProcess process : aProcesses) {
             final int processItemId = treeItemId++;
-            final Item processItem = container.addItem(processItemId);
+            final Item processItem = aContainer.addItem(processItemId);
 
             processItem.getItemProperty(PROJECT_PROPERTY_ID).setValue(
                     process.getId());
             processItem.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                     process.getName());
-            container.setChildrenAllowed(processItemId, true);
-            if (parentId != null) {
-                container.setParent(processItemId, parentId);
+            aContainer.setChildrenAllowed(processItemId, true);
+            if (aParentId != null) {
+                aContainer.setParent(processItemId, aParentId);
             } else {
-                container.setParent(processItemId, TREE_ROOT_ID);
+                aContainer.setParent(processItemId, TREE_ROOT_ID);
             }
 
             final List<ControlProcess> subProcessesWithChildren =
-                    persistence.getSubProcessesWithChildren(process.getId());
+                    aPersistence.getSubProcessesWithChildren(process.getId());
             treeItemId =
-                    addNodes(container, subProcessesWithChildren,
-                            processItemId, persistence, treeItemId);
+                    addNodes(aContainer, subProcessesWithChildren,
+                            processItemId, aPersistence, treeItemId);
         }
 
         return treeItemId;
@@ -306,8 +312,8 @@ class DefaultMainProcessEditingPanel extends Panel implements
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void valueChange(final ValueChangeEvent event) {
-                projectTreeValueChanged(event);
+            public void valueChange(final ValueChangeEvent aEvent) {
+                projectTreeValueChanged(aEvent);
             }
         });
 
@@ -344,7 +350,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void buttonClick(final ClickEvent event) {
+            public void buttonClick(final ClickEvent aEvent) {
                 createSiblingButtonClicked();
             }
         });
@@ -353,7 +359,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void buttonClick(final ClickEvent event) {
+            public void buttonClick(final ClickEvent aEvent) {
                 createChildButtonClicked();
             }
         });
@@ -362,7 +368,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void buttonClick(final ClickEvent event) {
+            public void buttonClick(final ClickEvent aEvent) {
                 deleteProjectButtonClicked();
             }
         });
@@ -371,18 +377,13 @@ class DefaultMainProcessEditingPanel extends Panel implements
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void buttonClick(ClickEvent event) {
+            public void buttonClick(ClickEvent aEvent) {
                 exportButtonClicked();
             }
         });
 
         return layout;
     }
-
-    private final static String XML_DUMP_FILENAME_TEMPLATE =
-            "PCC_DATA_${timestamp}.xml";
-    private DateFormat XML_DUMP_TIMESTAMP_DATE_FORMAT = new SimpleDateFormat(
-            "yyyy_MM_dd_HH_mm_ss");
 
     protected void exportButtonClicked() {
         final UserData userData = this.persistence.getUserData();
