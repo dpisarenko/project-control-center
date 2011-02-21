@@ -22,7 +22,7 @@ public class DefaultBookingsFile2BookingsFactory
         implements BookingsFile2BookingsFactory {
 
     @Override
-    public BookingsFile2Bookings create() {
+    public final BookingsFile2Bookings create() {
         return new DefaultBookingsFile2Bookings();
     }
 }
