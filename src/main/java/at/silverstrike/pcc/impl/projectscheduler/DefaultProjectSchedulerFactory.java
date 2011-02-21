@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 public class DefaultProjectSchedulerFactory implements ProjectSchedulerFactory {
 
 	@Override
-	public ProjectScheduler create() {
+	public final ProjectScheduler create() {
 		return new DefaultProjectScheduler();
 	}
 
