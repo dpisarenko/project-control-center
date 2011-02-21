@@ -27,47 +27,47 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class DatabaseStartStopServletContextListener implements
-		ServletContextListener {
-	private static final String JDBC_CONN_STRING_SHUTDOWN = "jdbc:derby:"
-			+ DefaultPersistence.DB_NAME + ";shutdown=true";
+        ServletContextListener {
+    private static final String JDBC_CONN_STRING_SHUTDOWN = "jdbc:derby:"
+            + DefaultPersistence.DB_NAME + ";shutdown=true";
 
-	private Logger LOGGER = LoggerFactory
-			.getLogger(DatabaseStartStopServletContextListener.class);
+    private Logger LOGGER = LoggerFactory
+            .getLogger(DatabaseStartStopServletContextListener.class);
 
-	/**
-	 * Default constructor.
-	 */
-	public DatabaseStartStopServletContextListener() {
-	}
+    /**
+     * Default constructor.
+     */
+    public DatabaseStartStopServletContextListener() {
+    }
 
-	/**
-	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
-	 */
-	public void contextInitialized(final ServletContextEvent anEvent) {
-	}
+    /**
+     * @see ServletContextListener#contextInitialized(ServletContextEvent)
+     */
+    public void contextInitialized(final ServletContextEvent anEvent) {
+    }
 
-	/**
-	 * @see ServletContextListener#contextDestroyed(ServletContextEvent)
-	 */
-	public void contextDestroyed(final ServletContextEvent anEvent) {
-		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection(JDBC_CONN_STRING_SHUTDOWN);
-		} catch (final SQLException exception) {
-			LOGGER.error("An error occured while trying to shutdown Derby.",
-					exception);
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (final SQLException exception) {
-					LOGGER.error(
-							"An error occured while trying to shutdown Derby.",
-							exception);
-				}
-			}
+    /**
+     * @see ServletContextListener#contextDestroyed(ServletContextEvent)
+     */
+    public void contextDestroyed(final ServletContextEvent anEvent) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(JDBC_CONN_STRING_SHUTDOWN);
+        } catch (final SQLException exception) {
+            LOGGER.error("An error occured while trying to shutdown Derby.",
+                    exception);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (final SQLException exception) {
+                    LOGGER.error(
+                            "An error occured while trying to shutdown Derby.",
+                            exception);
+                }
+            }
 
-		}
-	}
+        }
+    }
 
 }

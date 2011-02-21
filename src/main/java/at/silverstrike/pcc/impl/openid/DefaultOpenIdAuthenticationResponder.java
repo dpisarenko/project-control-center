@@ -13,66 +13,67 @@ import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponder;
 
 class DefaultOpenIdAuthenticationResponder implements
-		OpenIdAuthenticationResponder {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(DefaultOpenIdAuthenticationResponder.class);
+        OpenIdAuthenticationResponder {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultOpenIdAuthenticationResponder.class);
 
-	private boolean validationSuccessful;
-	private HttpServletRequest request;
-	private HttpServletResponse response;
-	private String identity;
-	
-	@Override
-	public void run() throws PccException {
-		final HttpProcessor httpProcessor = new HttpProcessor(this.request);
-		OpenidService openidService;
+    private boolean validationSuccessful;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
+    private String identity;
 
-		if (!httpProcessor.isRepaint()) {
-			try {
-				openidService = httpProcessor.restoreService();
-								
-				if (httpProcessor.isReturned()) {
-					final Map<String, String> parametersMap = httpProcessor
-							.getRequestParamsMap();
-					final AuthSuccess success = openidService.processReturn(
-							parametersMap, httpProcessor.getReturnUrl());
+    @Override
+    public void run() throws PccException {
+        final HttpProcessor httpProcessor = new HttpProcessor(this.request);
+        OpenidService openidService;
 
-					final OpenidModel model = openidService
-							.extractOpenidData(success);
-					httpProcessor.setModel(model);
-					httpProcessor.saveService(openidService);
-					this.response.sendRedirect(httpProcessor.getRootUrl());
-					this.validationSuccessful = true;
-				}
-			} catch (final Exception exception) {
-				this.validationSuccessful = false;
-				this.identity = null;
-				LOGGER.error(ErrorCodes.M_001_AUTH_EXCEPTION, exception);
-				
-				httpProcessor.cleanIdentity();
-			}
-		}
+        if (!httpProcessor.isRepaint()) {
+            try {
+                openidService = httpProcessor.restoreService();
 
-	}
+                if (httpProcessor.isReturned()) {
+                    final Map<String, String> parametersMap =
+                            httpProcessor.getRequestParamsMap();
+                    final AuthSuccess success =
+                            openidService.processReturn(parametersMap,
+                                    httpProcessor.getReturnUrl());
 
-	@Override
-	public boolean isValidationSuccessful() {
-		return this.validationSuccessful;
-	}
+                    final OpenidModel model =
+                            openidService.extractOpenidData(success);
+                    httpProcessor.setModel(model);
+                    httpProcessor.saveService(openidService);
+                    this.response.sendRedirect(httpProcessor.getRootUrl());
+                    this.validationSuccessful = true;
+                }
+            } catch (final Exception exception) {
+                this.validationSuccessful = false;
+                this.identity = null;
+                LOGGER.error(ErrorCodes.M_001_AUTH_EXCEPTION, exception);
 
-	@Override
-	public void setRequest(final HttpServletRequest aRequest) {
-		this.request = aRequest;
-	}
+                httpProcessor.cleanIdentity();
+            }
+        }
 
-	@Override
-	public void setResponse(final HttpServletResponse aResponse) {
-		this.response = aResponse;
-	}
+    }
 
-	@Override
-	public String getIdentity() {
-		return identity;
-	}
+    @Override
+    public boolean isValidationSuccessful() {
+        return this.validationSuccessful;
+    }
+
+    @Override
+    public void setRequest(final HttpServletRequest aRequest) {
+        this.request = aRequest;
+    }
+
+    @Override
+    public void setResponse(final HttpServletResponse aResponse) {
+        this.response = aResponse;
+    }
+
+    @Override
+    public String getIdentity() {
+        return identity;
+    }
 
 }
