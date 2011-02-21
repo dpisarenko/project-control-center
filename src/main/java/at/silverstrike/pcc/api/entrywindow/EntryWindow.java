@@ -11,11 +11,15 @@
 
 package at.silverstrike.pcc.api.entrywindow;
 
+import javax.servlet.http.HttpServletRequest;
+
 import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.conventions.PccWindow;
 
 public interface EntryWindow extends ModuleWithInjectableDependencies,
 		InitializableGuiComponent, PccWindow {
+
+    public abstract void setRequest(final HttpServletRequest aRequest);
 
 }

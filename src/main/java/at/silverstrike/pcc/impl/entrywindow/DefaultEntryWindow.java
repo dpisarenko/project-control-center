@@ -168,4 +168,10 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
     public void onRequestEnd(final HttpServletRequest aRequest,
             final HttpServletResponse aResponse) {
     }
+    
+    @Override
+    public void setRequest(final HttpServletRequest aRequest) {
+        this.request = aRequest;
+    }
+
 }

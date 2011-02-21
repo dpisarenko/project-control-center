@@ -43,7 +43,8 @@ public class ProjectControlCenterApplication extends TPTApplication {
     private transient Persistence persistence;
     private Injector injector;
     private EntryWindow entryWindow;
-
+    private HttpServletRequest request;
+    
     @Override
     public final void close() {
         super.close();
@@ -77,6 +78,7 @@ public class ProjectControlCenterApplication extends TPTApplication {
                     .getInstance(EntryWindowFactory.class);
             entryWindow = entryWindowFactory.create();
 
+            entryWindow.setRequest(this.request);
             entryWindow.setInjector(injector);
             entryWindow.initGui();
 
@@ -103,6 +105,8 @@ public class ProjectControlCenterApplication extends TPTApplication {
         final OpenIdAuthenticationResponder responder = this.injector
                 .getInstance(OpenIdAuthenticationResponder.class);
 
+        this.request = aRequest;
+        
         responder.setRequest(aRequest);
         responder.setResponse(aResponse);
 
