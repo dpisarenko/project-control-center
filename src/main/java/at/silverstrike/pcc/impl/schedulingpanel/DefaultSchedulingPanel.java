@@ -32,12 +32,14 @@ import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.ProgressIndicator;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
@@ -75,7 +77,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 		progressIndicator.setIndeterminate(true);
 		progressIndicator.setEnabled(false);
 
-		final Button startButton = new Button(
+		final NativeButton startButton = new NativeButton(
 				TM.get("schedulingpanel.2-start-button"));
 		startButton.setDebugId(this.debugIdRegistry.getDebugId(
 				MessageCodePrefixRegistry.Module.schedulingpanel,
