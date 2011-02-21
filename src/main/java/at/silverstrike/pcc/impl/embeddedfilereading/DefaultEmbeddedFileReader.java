@@ -28,8 +28,8 @@ import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
  * 
  */
 class DefaultEmbeddedFileReader implements EmbeddedFileReader {
-    private final static Logger LOGGER =
-        LoggerFactory.getLogger(DefaultEmbeddedFileReader.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(DefaultEmbeddedFileReader.class);
 
     @Override
     public String readEmbeddedFile(final String aFileName) throws PccException {
@@ -44,9 +44,11 @@ class DefaultEmbeddedFileReader implements EmbeddedFileReader {
                 /**
                  * If we are here, it means that this code is invoked outside of
                  * the web application, e. g. in a unit test.
-                 */                
-                inputStream = openInputStream(new File(System.getProperty("user.dir") + 
-                        "/src/main/webapp/WEB-INF/classes/" + aFileName));
+                 */
+                inputStream =
+                        openInputStream(new File(System.getProperty("user.dir")
+                                +
+                                "/src/main/webapp/WEB-INF/classes/" + aFileName));
             }
 
             LOGGER.debug("inputStream: " + inputStream);
