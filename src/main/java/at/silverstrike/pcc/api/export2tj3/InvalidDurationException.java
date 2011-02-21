@@ -18,29 +18,29 @@ import at.silverstrike.pcc.api.conventions.PccException;
  * timingresolution. Timingresolution must equal-to-or-greater-than 15 min
  */
 public class InvalidDurationException extends PccException {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long taskNumber;
-	private String taskName;
+    private Long taskNumber;
+    private String taskName;
 
-	public InvalidDurationException(final Long aTaskNumber,
-			final String aTaskName) {
-		super(
-				"Invalid timingresolution. Must be equal-to-or-greater-than 15 min");
+    public InvalidDurationException(final Long aTaskNumber,
+            final String aTaskName) {
+        super(
+                "Invalid timingresolution. Must be equal-to-or-greater-than 15 min");
 
-		this.taskNumber = aTaskNumber;
-		this.taskName = aTaskName;
-	}
+        this.taskNumber = aTaskNumber;
+        this.taskName = aTaskName;
+    }
 
-	public final Long getTaskNumber() {
-		return taskNumber;
-	}
+    public final Long getTaskNumber() {
+        return taskNumber;
+    }
 
-	/**
-	 * 
-	 * @return
-	 */
-	public final String getTaskName() {
-		return taskName;
-	}
+    /**
+     * 
+     * @return
+     */
+    public final String getTaskName() {
+        return taskName;
+    }
 }
