@@ -15,11 +15,11 @@ import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 
 public class DefaultCultureToLanguageMapperFactory implements
-		CultureToLanguageMapperFactory {
+        CultureToLanguageMapperFactory {
 
-	@Override
-	public CultureToLanguageMapper create() {
-		return new DefaultCultureToLanguageMapper();
-	}
+    @Override
+    public CultureToLanguageMapper create() {
+        return new DefaultCultureToLanguageMapper();
+    }
 
 }
