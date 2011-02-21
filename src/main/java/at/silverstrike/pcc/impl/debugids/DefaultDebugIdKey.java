@@ -18,52 +18,54 @@ import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
 import at.silverstrike.pcc.api.debugids.DebugIdKey;
 
 class DefaultDebugIdKey implements DebugIdKey {
-	private Module module;
-	private String key;
+    private static final int HASH_CODE_MULTIPLIER = 3;
+    private Module module;
+    private String key;
 
-	public DefaultDebugIdKey() {
-	}
+    public DefaultDebugIdKey() {
+    }
 
-	@Override
-	public void setModule(final Module aModule) {
-		this.module = aModule;
-	}
+    @Override
+    public void setModule(final Module aModule) {
+        this.module = aModule;
+    }
 
-	@Override
-	public Module getModule() {
-		return this.module;
-	}
+    @Override
+    public Module getModule() {
+        return this.module;
+    }
 
-	@Override
-	public void setKey(final String aKey) {
-		this.key = aKey;
-	}
+    @Override
+    public void setKey(final String aKey) {
+        this.key = aKey;
+    }
 
-	@Override
-	public String getKey() {
-		return this.key;
-	}
+    @Override
+    public String getKey() {
+        return this.key;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (obj == this) {
-			return true;
-		}
-		if (obj.getClass() != getClass()) {
-			return false;
-		}
+    @Override
+    public boolean equals(final Object aObject) {
+        if (aObject == null) {
+            return false;
+        }
+        if (aObject == this) {
+            return true;
+        }
+        if (aObject.getClass() != getClass()) {
+            return false;
+        }
 
-		DefaultDebugIdKey rhs = (DefaultDebugIdKey) obj;
-		return new EqualsBuilder().append(module, rhs.module)
-				.append(key, rhs.key).isEquals();
-	}
+        final DefaultDebugIdKey rhs = (DefaultDebugIdKey) aObject;
+        return new EqualsBuilder().append(module, rhs.module)
+                .append(key, rhs.key).isEquals();
+    }
 
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder(1, 3).append(module).append(key)
-				.toHashCode();
-	}
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(1, HASH_CODE_MULTIPLIER).append(module)
+                .append(key)
+                .toHashCode();
+    }
 }
