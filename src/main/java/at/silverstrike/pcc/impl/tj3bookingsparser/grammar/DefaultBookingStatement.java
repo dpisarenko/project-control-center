@@ -18,9 +18,9 @@ import at.silverstrike.pcc.api.tj3bookingsparser.BookingStatement;
 import at.silverstrike.pcc.api.tj3bookingsparser.IndBooking;
 
 public class DefaultBookingStatement implements BookingStatement {
-    public String resource;
-    public String scenario;
-    public List<IndBooking> indBookings;
+    private String resource;
+    private String scenario;
+    private List<IndBooking> indBookings;
 
     public DefaultBookingStatement() {
         this.indBookings = new LinkedList<IndBooking>();
@@ -34,8 +34,8 @@ public class DefaultBookingStatement implements BookingStatement {
         this.scenario = aScenrio;
     }
 
-    final void addIndBooking(final IndBooking anIndBooking) {
-        this.indBookings.add(anIndBooking);
+    final void addIndBooking(final IndBooking aIndBooking) {
+        this.indBookings.add(aIndBooking);
     }
 
     public final String getResource() {
