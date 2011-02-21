@@ -26,27 +26,27 @@ public class DefaultBookingStatement implements BookingStatement {
         this.indBookings = new LinkedList<IndBooking>();
     }
 
-    void setResource(final String aResource) {
+    final void setResource(final String aResource) {
         this.resource = aResource;
     }
 
-    void setScenario(final String aScenrio) {
+    final void setScenario(final String aScenrio) {
         this.scenario = aScenrio;
     }
 
-    void addIndBooking(final IndBooking anIndBooking) {
+    final void addIndBooking(final IndBooking anIndBooking) {
         this.indBookings.add(anIndBooking);
     }
 
-    public String getResource() {
+    public final String getResource() {
         return resource;
     }
 
-    public String getScenario() {
+    public final String getScenario() {
         return scenario;
     }
 
-    public List<IndBooking> getIndBookings() {
+    public final List<IndBooking> getIndBookings() {
         return indBookings;
     }
 }
