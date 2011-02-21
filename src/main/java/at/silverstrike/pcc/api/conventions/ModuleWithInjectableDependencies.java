@@ -15,5 +15,5 @@ import com.google.inject.Injector;
 
 public interface ModuleWithInjectableDependencies  {
 	@Inject
-	void setInjector(final Injector anInjector);
+	void setInjector(final Injector aInjector);
 }
