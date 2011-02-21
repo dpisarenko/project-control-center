@@ -23,12 +23,13 @@ import at.silverstrike.pcc.api.conventions.SingleActivityModule;
  */
 public interface ProjectScheduler extends ModuleWithInjectableDependencies,
         SingleActivityModule {
-    static final String TJ3_INPUT_FILE = "pccProject.tjp";
-    static final String BOOKINGS_FILE = "pccBookings.tji.tjp";
-    static final String DEADLINE_CSV_FILE = "pccDeadlines.csv";
+    final String TJ3_INPUT_FILE = "pccProject.tjp";
+    final String BOOKINGS_FILE = "pccBookings.tji.tjp";
+    final String DEADLINE_CSV_FILE = "pccDeadlines.csv";
 
     ProjectExportInfo getProjectExportInfo();
-    
+
     void setDirectory(final String aProperty);
+
     void setNow(final Date aDate);
 }
