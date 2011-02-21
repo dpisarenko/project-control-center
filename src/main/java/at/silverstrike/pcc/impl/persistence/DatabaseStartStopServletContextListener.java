@@ -31,7 +31,7 @@ public class DatabaseStartStopServletContextListener implements
     private static final String JDBC_CONN_STRING_SHUTDOWN = "jdbc:derby:"
             + DefaultPersistence.DB_NAME + ";shutdown=true";
 
-    private Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DatabaseStartStopServletContextListener.class);
 
     /**
@@ -43,13 +43,13 @@ public class DatabaseStartStopServletContextListener implements
     /**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
-    public void contextInitialized(final ServletContextEvent anEvent) {
+    public void contextInitialized(final ServletContextEvent aEvent) {
     }
 
     /**
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
-    public void contextDestroyed(final ServletContextEvent anEvent) {
+    public final void contextDestroyed(final ServletContextEvent aEvent) {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(JDBC_CONN_STRING_SHUTDOWN);
