@@ -15,10 +15,8 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusFactory;
 
 public class DefaultWebGuiBusFactory implements WebGuiBusFactory {
-
     @Override
-    public WebGuiBus create() {
+    public final WebGuiBus create() {
         return new DefaultWebGuiBus();
     }
-
 }

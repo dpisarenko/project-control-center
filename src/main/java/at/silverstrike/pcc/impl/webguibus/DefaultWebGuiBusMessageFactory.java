@@ -16,7 +16,7 @@ import at.silverstrike.pcc.api.webguibus.WorkerAddedMessage;
 
 public class DefaultWebGuiBusMessageFactory implements WebGuiBusMessageFactory {
     @Override
-    public WorkerAddedMessage createWorkerAddedMessage() {
+    public final WorkerAddedMessage createWorkerAddedMessage() {
         return new DefaultWorkerAddedMessage();
     }
 }

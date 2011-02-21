@@ -20,9 +20,8 @@ final class ErrorCodes {
 
     public static final String M_001_RUN = PREFIX + "001";
     public static final String M_002_RUN2 = PREFIX + "002";
-    
-    private ErrorCodes()
-    {
-        
+
+    private ErrorCodes() {
+
     }
 }

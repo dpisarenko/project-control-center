@@ -16,9 +16,9 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 
 public class DefaultWorkerPanelFactory implements WorkerPanelFactory {
 
-	@Override
-	public WorkerPanel create() {
-		return new DefaultWorkerPanel();
-	}
+    @Override
+    public final WorkerPanel create() {
+        return new DefaultWorkerPanel();
+    }
 
 }

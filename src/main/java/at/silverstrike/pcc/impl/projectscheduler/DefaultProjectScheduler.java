@@ -151,7 +151,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
                 .getTaskJugglerIIIProjectFileContents();
         FileOutputStream outputStream = null;
         try {
-            File path = new File(aParentDir + "/" + TJ3_INPUT_FILE);
+            final File path = new File(aParentDir + "/" + TJ3_INPUT_FILE);
 
             LOGGER.debug("path: " + path.getAbsolutePath());
 

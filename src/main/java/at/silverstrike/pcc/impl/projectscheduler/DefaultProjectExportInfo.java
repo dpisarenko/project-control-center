@@ -37,40 +37,40 @@ class DefaultProjectExportInfo implements ProjectExportInfo {
         return schedulingHorizonMonths;
     }
 
-    public void setSchedulingHorizonMonths(final int schedulingHorizonMonths) {
-        this.schedulingHorizonMonths = schedulingHorizonMonths;
+    public void setSchedulingHorizonMonths(final int aSchedulingHorizonMonths) {
+        this.schedulingHorizonMonths = aSchedulingHorizonMonths;
     }
 
     public String getProjectName() {
         return projectName;
     }
 
-    public void setProjectName(final String projectName) {
-        this.projectName = projectName;
+    public void setProjectName(final String aProjectName) {
+        this.projectName = aProjectName;
     }
 
     public Date getNow() {
         return now;
     }
 
-    public void setNow(final Date now) {
-        this.now = now;
+    public void setNow(final Date aNow) {
+        this.now = aNow;
     }
 
     public String getCopyright() {
         return copyright;
     }
 
-    public void setCopyright(final String copyright) {
-        this.copyright = copyright;
+    public void setCopyright(final String aCopyright) {
+        this.copyright = aCopyright;
     }
 
     public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(final String currency) {
-        this.currency = currency;
+    public void setCurrency(final String aCurrency) {
+        this.currency = aCurrency;
     }
 
     public List<ControlProcess> getControlProcessesToExport() {
@@ -78,28 +78,29 @@ class DefaultProjectExportInfo implements ProjectExportInfo {
     }
 
     public void setControlProcessesToExport(
-            final List<ControlProcess> controlProcessesToExport) {
-        this.controlProcessesToExport = controlProcessesToExport;
+            final List<ControlProcess> aControlProcessesToExport) {
+        this.controlProcessesToExport = aControlProcessesToExport;
     }
 
     public List<Resource> getResourcesToExport() {
         return resourcesToExport;
     }
 
-    public void setResourcesToExport(final List<Resource> resourcesToExport) {
-        this.resourcesToExport = resourcesToExport;
+    public void setResourcesToExport(final List<Resource> aResourcesToExport) {
+        this.resourcesToExport = aResourcesToExport;
     }
 
     @Override
     public String toString() {
         final ToStringBuilder builder = new ToStringBuilder(this);
-        
+
         builder.append("schedulingHorizonMonths", this.schedulingHorizonMonths);
         builder.append("projectName", this.projectName);
         builder.append("now", this.now);
         builder.append("copyright", this.copyright);
         builder.append("currency", this.currency);
-        builder.append("controlProcessesToExport", this.controlProcessesToExport);
+        builder.append("controlProcessesToExport",
+                this.controlProcessesToExport);
         builder.append("resourcesToExport", this.resourcesToExport);
 
         return builder.toString();

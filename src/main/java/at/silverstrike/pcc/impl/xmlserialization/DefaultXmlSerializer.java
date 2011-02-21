@@ -22,24 +22,24 @@ import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializer;
 
 class DefaultXmlSerializer implements XmlSerializer {
-	private UserData userData;
-	private OutputStream outputStream = null;
+    private UserData userData;
+    private OutputStream outputStream = null;
 
-	public void run() throws PccException {
-		XStream xstream = new XStream(new DomDriver());
-		String xml = xstream.toXML(userData);
-		try {
-			outputStream.write(xml.getBytes());
-		} catch (final IOException exception) {
-			throw new PccException(exception);
-		}
-	}
+    public void run() throws PccException {
+        final XStream xstream = new XStream(new DomDriver());
+        final String xml = xstream.toXML(userData);
+        try {
+            outputStream.write(xml.getBytes());
+        } catch (final IOException exception) {
+            throw new PccException(exception);
+        }
+    }
 
-	public void setUserData(final UserData aUserData) {
-		this.userData = aUserData;
-	}
+    public void setUserData(final UserData aUserData) {
+        this.userData = aUserData;
+    }
 
-	public void setOutputStream(final OutputStream aOutputStream) {
-		this.outputStream = aOutputStream;
-	}
+    public void setOutputStream(final OutputStream aOutputStream) {
+        this.outputStream = aOutputStream;
+    }
 }

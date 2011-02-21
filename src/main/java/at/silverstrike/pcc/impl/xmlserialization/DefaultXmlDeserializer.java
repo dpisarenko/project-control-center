@@ -24,27 +24,27 @@ import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializer;
 
 class DefaultXmlDeserializer implements XmlDeserializer {
-	private InputStream inputStream;
-	private UserData userData;
+    private InputStream inputStream;
+    private UserData userData;
 
-	public void run() throws PccException {
-		XStream xstream = new XStream(new DomDriver());
-		String xml = null;
+    public void run() throws PccException {
+        final XStream xstream = new XStream(new DomDriver());
+        String xml = null;
 
-		try {
-			xml = IOUtils.toString(this.inputStream);
-		} catch (final IOException exception) {
-			throw new PccException(exception);
-		}
+        try {
+            xml = IOUtils.toString(this.inputStream);
+        } catch (final IOException exception) {
+            throw new PccException(exception);
+        }
 
-		userData = (UserData) xstream.fromXML(xml);
-	}
+        userData = (UserData) xstream.fromXML(xml);
+    }
 
-	public void setInputStream(final InputStream aInputStream) {
-		this.inputStream = aInputStream;
-	}
+    public void setInputStream(final InputStream aInputStream) {
+        this.inputStream = aInputStream;
+    }
 
-	public UserData getUserData() {
-		return this.userData;
-	}
+    public UserData getUserData() {
+        return this.userData;
+    }
 }
