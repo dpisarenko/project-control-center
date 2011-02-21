@@ -38,130 +38,133 @@ import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 
-class DefaultEntryWindow implements EntryWindow, ParameterHandler, HttpServletRequestListener {
-	private static final long serialVersionUID = 1L;	
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(DefaultEntryWindow.class);
-	private ParameterDataReader parameterDataReader;
-	private CultureToLanguageMapper cultureToLanguageMapper;
-	private Window window;
-	private Panel authPanel;
-	private Label openIdLabel;
-	private TextField openIdTextField;
-	private Button authenticateButton;
-	private Label signupLabel;
-	private Injector injector;
-	private HttpServletRequest request;
-	
-	@Override
-	public void setInjector(final Injector aInjector) {
-		if (aInjector != null) {
-			this.parameterDataReader = aInjector
-					.getInstance(ParameterDataReader.class);
-			this.cultureToLanguageMapper = aInjector
-					.getInstance(CultureToLanguageMapper.class);
-			this.injector = aInjector;
-		}
-	}
+class DefaultEntryWindow implements EntryWindow, ParameterHandler,
+        HttpServletRequestListener {
+    private static final int OPEN_ID_TEXT_FIELD_COLUMNS = 30;
+    private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultEntryWindow.class);
+    private ParameterDataReader parameterDataReader;
+    private CultureToLanguageMapper cultureToLanguageMapper;
+    private Window window;
+    private Panel authPanel;
+    private Label openIdLabel;
+    private TextField openIdTextField;
+    private Button authenticateButton;
+    private Label signupLabel;
+    private Injector injector;
+    private HttpServletRequest request;
 
-	@Override
-	public void initGui() {
-		window = new Window();
-		window.addParameterHandler(this);
-		window.setSizeFull();
-		
-		final GridLayout layout = new GridLayout(2, 1);
-		
-		layout.setSizeFull();
-		initAuthPanel();
-		
-		this.signupLabel = new Label("", Label.CONTENT_XHTML);
-		
-		layout.addComponent(this.signupLabel, 0, 0);
-		layout.addComponent(this.authPanel, 1, 0);
-		
-		window.addComponent(layout);
-		
-	}
+    @Override
+    public void setInjector(final Injector aInjector) {
+        if (aInjector != null) {
+            this.parameterDataReader = aInjector
+                    .getInstance(ParameterDataReader.class);
+            this.cultureToLanguageMapper = aInjector
+                    .getInstance(CultureToLanguageMapper.class);
+            this.injector = aInjector;
+        }
+    }
 
-	@Override
-	public Window getWindow() {
-		return this.window;
-	}
+    @Override
+    public void initGui() {
+        window = new Window();
+        window.addParameterHandler(this);
+        window.setSizeFull();
 
-	@Override
-	public void handleParameters(final Map<String, String[]> aParameters) {
-		this.parameterDataReader.setParameters(aParameters);
-		try {
-			this.parameterDataReader.run();
-		} catch (final PccException exception) {
-			LOGGER.error(M_001_HANDLE_PARAMETERS_1, exception);
-		}
+        final GridLayout layout = new GridLayout(2, 1);
 
-		final String culture = this.parameterDataReader.getCulture();
+        layout.setSizeFull();
+        initAuthPanel();
 
-		this.cultureToLanguageMapper.setCulture(culture);
-		try {
-			this.cultureToLanguageMapper.run();
-		} catch (final PccException exception) {
-			LOGGER.error(ErrorCodes.M_001_HANDLE_PARAMETERS_2, exception);
-		}
+        this.signupLabel = new Label("", Label.CONTENT_XHTML);
 
-		final String language = this.cultureToLanguageMapper.getLanguage();
+        layout.addComponent(this.signupLabel, 0, 0);
+        layout.addComponent(this.authPanel, 1, 0);
 
-		LOGGER.debug("{}: Culture='{}', language='{}'", new Object[] {
-				ErrorCodes.M_001_HANDLE_PARAMETERS_3, culture, language });
-		TM.getDictionary().setDefaultLanguage(language);
-		
-		updateControls();
-	}
+        window.addComponent(layout);
 
-	private void updateControls() {
-		this.window.setCaption(TM.get("entrywindow.1-title"));
-		this.signupLabel.setValue(TM.get("entrywindow.4-signuplabel"));
-		updateCaptionsAuthPanel();
-	}
+    }
 
-	private void updateCaptionsAuthPanel() {
-		this.openIdLabel.setValue(TM.get("entrywindow.2-openIdLabel"));
-		this.authenticateButton.setCaption(TM.get("entrywindow.3-authenticateButton"));
-		
-		this.openIdLabel.setSizeFull();
-		this.authenticateButton.setSizeFull();
-	}
+    @Override
+    public Window getWindow() {
+        return this.window;
+    }
 
-		
-	private void initAuthPanel() {
-		final GridLayout gridLayout = new GridLayout(2, 2);
-		
-		this.authPanel = new Panel();
-		
-		openIdLabel = new Label();
-		openIdTextField = new TextField();
-		openIdTextField.setColumns(30);
-		authenticateButton = new Button();
-		
-		final AuthenticateButtonListener listener = new AuthenticateButtonListener();
-		listener.setInjector(this.injector);
-		listener.setRequest(this.request);
-		this.authenticateButton.addListener(listener);
-		
-		gridLayout.addComponent(openIdLabel, 0, 0);
-		gridLayout.addComponent(openIdTextField, 1, 0);
-		gridLayout.addComponent(authenticateButton, 0, 1, 1, 1);
-		
-		this.authPanel.addComponent(gridLayout);		
-		this.authPanel.setSizeFull();
-	}
+    @Override
+    public void handleParameters(final Map<String, String[]> aParameters) {
+        this.parameterDataReader.setParameters(aParameters);
+        try {
+            this.parameterDataReader.run();
+        } catch (final PccException exception) {
+            LOGGER.error(M_001_HANDLE_PARAMETERS_1, exception);
+        }
 
-	@Override
-	public void onRequestStart(final HttpServletRequest aRequest,
-			final HttpServletResponse aResponse) {
-		this.request = aRequest;
-	}
+        final String culture = this.parameterDataReader.getCulture();
 
-	@Override
-	public void onRequestEnd(final HttpServletRequest aRequest,
-			final HttpServletResponse aResponse) {
-	}
+        this.cultureToLanguageMapper.setCulture(culture);
+        try {
+            this.cultureToLanguageMapper.run();
+        } catch (final PccException exception) {
+            LOGGER.error(ErrorCodes.M_001_HANDLE_PARAMETERS_2, exception);
+        }
+
+        final String language = this.cultureToLanguageMapper.getLanguage();
+
+        LOGGER.debug("{}: Culture='{}', language='{}'", new Object[] {
+                ErrorCodes.M_001_HANDLE_PARAMETERS_3, culture, language });
+        TM.getDictionary().setDefaultLanguage(language);
+
+        updateControls();
+    }
+
+    private void updateControls() {
+        this.window.setCaption(TM.get("entrywindow.1-title"));
+        this.signupLabel.setValue(TM.get("entrywindow.4-signuplabel"));
+        updateCaptionsAuthPanel();
+    }
+
+    private void updateCaptionsAuthPanel() {
+        this.openIdLabel.setValue(TM.get("entrywindow.2-openIdLabel"));
+        this.authenticateButton.setCaption(TM
+                .get("entrywindow.3-authenticateButton"));
+
+        this.openIdLabel.setSizeFull();
+        this.authenticateButton.setSizeFull();
+    }
+
+    private void initAuthPanel() {
+        final GridLayout gridLayout = new GridLayout(2, 2);
+
+        this.authPanel = new Panel();
+
+        openIdLabel = new Label();
+        openIdTextField = new TextField();
+        openIdTextField.setColumns(OPEN_ID_TEXT_FIELD_COLUMNS);
+        authenticateButton = new Button();
+
+        final AuthenticateButtonListener listener =
+                new AuthenticateButtonListener();
+        listener.setInjector(this.injector);
+        listener.setRequest(this.request);
+        this.authenticateButton.addListener(listener);
+
+        gridLayout.addComponent(openIdLabel, 0, 0);
+        gridLayout.addComponent(openIdTextField, 1, 0);
+        gridLayout.addComponent(authenticateButton, 0, 1, 1, 1);
+
+        this.authPanel.addComponent(gridLayout);
+        this.authPanel.setSizeFull();
+    }
+
+    @Override
+    public void onRequestStart(final HttpServletRequest aRequest,
+            final HttpServletResponse aResponse) {
+        this.request = aRequest;
+    }
+
+    @Override
+    public void onRequestEnd(final HttpServletRequest aRequest,
+            final HttpServletResponse aResponse) {
+    }
 }
