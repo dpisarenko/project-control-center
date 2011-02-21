@@ -16,14 +16,16 @@ import java.util.List;
 
 import at.silverstrike.pcc.api.persistence.Persistence;
 
-
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public interface BookingsFile2Bookings {
-	void setBookingsFile(BookingsFile aBookingsFile);
-	void setPersistence(Persistence aPersistence);
-	void run() throws NumberFormatException, ParseException;
-	List<BookingTuple> getTuples();
+    void setBookingsFile(final BookingsFile aBookingsFile);
+
+    void setPersistence(final Persistence aPersistence);
+
+    void run() throws ParseException;
+
+    List<BookingTuple> getTuples();
 }
