@@ -12,5 +12,6 @@ class ErrorCodes {
             + "002";
     public static final String M_003_CONSUMER_MANAGER = PREFIX
             + "003";
-
+    public static final String M_004_UNSUPPORTED_ENCODING = PREFIX
+            + "004";
 }

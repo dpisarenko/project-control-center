@@ -9,30 +9,40 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpSession;
 
 import org.openid4java.util.ProxyProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class for converting different types to string representation.
  */
 class TextUtils {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(TextUtils.class);
+
+    private TextUtils() {
+    }
 
     /**
      * Creates URLencoded representation of Map object
      * 
-     * @param map
+     * @param aMap
      * @return
      */
-    public static String mapToQueryString(Map<?, ?> map) {
-        StringBuffer buf = new StringBuffer();
+    public static String mapToQueryString(final Map<?, ?> aMap) {
+        final StringBuffer buf = new StringBuffer();
 
         try {
-            for (Entry<?, ?> e : map.entrySet()) {
-                buf.append(URLEncoder.encode(e.getKey().toString(), "UTF-8"))
+            for (final Entry<?, ?> curEntry : aMap.entrySet()) {
+                buf.append(
+                        URLEncoder
+                                .encode(curEntry.getKey().toString(), "UTF-8"))
                         .append("=");
-                buf.append(URLEncoder.encode(e.getValue().toString(), "UTF-8"));
+                buf.append(URLEncoder.encode(curEntry.getValue().toString(),
+                        "UTF-8"));
                 buf.append('&');
             }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (final UnsupportedEncodingException exception) {
+            LOGGER.error(ErrorCodes.M_004_UNSUPPORTED_ENCODING, exception);
         }
         return buf.toString();
 
@@ -41,16 +51,16 @@ class TextUtils {
     /**
      * Creates text representation of Map object
      * 
-     * @param map
+     * @param aMap
      * @return
      */
-    public static String mapToString(Map<?, ?> map) {
-        StringBuffer buf = new StringBuffer();
+    public static String mapToString(final Map<?, ?> aMap) {
+        final StringBuffer buf = new StringBuffer();
 
-        for (Entry<?, ?> e : map.entrySet()) {
+        for (final Entry<?, ?> curEntry : aMap.entrySet()) {
 
-            buf.append(e.getKey()).append("= [");
-            buf.append(" ").append(e.getValue()).append(" ");
+            buf.append(curEntry.getKey()).append("= [");
+            buf.append(" ").append(curEntry.getValue()).append(" ");
 
             buf.append("]\n");
         }
@@ -61,18 +71,18 @@ class TextUtils {
     /**
      * Creates text representation of HttpSession object
      * 
-     * @param session
+     * @param aSession
      * @return
      */
-    public static String sessionToString(HttpSession session) {
-        StringBuffer buf = new StringBuffer();
+    public static String sessionToString(final HttpSession aSession) {
+        final StringBuffer buf = new StringBuffer();
         @SuppressWarnings("rawtypes")
-        Enumeration enu = session.getAttributeNames();
+        final Enumeration enu = aSession.getAttributeNames();
 
         while (enu.hasMoreElements()) {
-            String attr = (String) enu.nextElement();
+            final String attr = (String) enu.nextElement();
             buf.append(attr).append("= [");
-            buf.append(" ").append(session.getAttribute(attr)).append(" ");
+            buf.append(" ").append(aSession.getAttribute(attr)).append(" ");
 
             buf.append("]\n");
         }
@@ -82,16 +92,16 @@ class TextUtils {
     /**
      * Creates test representation of stack trace.
      * 
-     * @param e
+     * @param aException
      * @return
      */
-    public static String makeTrace(Exception e) {
-        StringBuilder builder =
-                new StringBuilder(e.getClass().getCanonicalName());
+    public static String makeTrace(final Exception aException) {
+        final StringBuilder builder =
+                new StringBuilder(aException.getClass().getCanonicalName());
 
-        builder.append(":").append(e.getMessage()).append("\n");
+        builder.append(":").append(aException.getMessage()).append("\n");
 
-        for (StackTraceElement el : e.getStackTrace()) {
+        for (StackTraceElement el : aException.getStackTrace()) {
             builder.append("at ").append(el.getClassName()).append("(")
                     .append(el.getMethodName()).append(":")
                     .append(el.getLineNumber()).append(")\n");
@@ -100,15 +110,17 @@ class TextUtils {
         return builder.toString();
     }
 
-    public static String proxyPropertiesToString(ProxyProperties props) {
-        StringBuilder builder = new StringBuilder();
+    public static String proxyPropertiesToString(
+            final ProxyProperties aProperties) {
+        final StringBuilder builder = new StringBuilder();
 
         builder.append("Proxy properties: [\n").append("Host:")
-                .append(props.getProxyHostName()).
-                append("\nPort:").append(props.getProxyPort()).
-                append("\nUser:").append(props.getUserName()).
-                append("\nPassword:").append(props.getPassword()).
-                append("\nDomain:").append(props.getDomain()).append("\n]");
+                .append(aProperties.getProxyHostName()).
+                append("\nPort:").append(aProperties.getProxyPort()).
+                append("\nUser:").append(aProperties.getUserName()).
+                append("\nPassword:").append(aProperties.getPassword()).
+                append("\nDomain:").append(aProperties.getDomain())
+                .append("\n]");
 
         return builder.toString();
     }
