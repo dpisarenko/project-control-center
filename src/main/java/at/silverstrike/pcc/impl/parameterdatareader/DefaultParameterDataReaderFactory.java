@@ -15,10 +15,10 @@ import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReaderFactory;
 
 public class DefaultParameterDataReaderFactory implements
-		ParameterDataReaderFactory {
+        ParameterDataReaderFactory {
 
-	@Override
-	public ParameterDataReader create() {
-		return new DefaultParameterDataReader();
-	}
+    @Override
+    public final ParameterDataReader create() {
+        return new DefaultParameterDataReader();
+    }
 }
