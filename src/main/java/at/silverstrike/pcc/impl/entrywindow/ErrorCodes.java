@@ -15,8 +15,9 @@ import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
 
 final class ErrorCodes {
-    private final static String PREFIX = MessageCodePrefixRegistry.getInstance().getPrefix(Module.entrywindow);
-    
+    private final static String PREFIX = MessageCodePrefixRegistry
+            .getInstance().getPrefix(Module.entrywindow);
+
     public final static String M_001_HANDLE_PARAMETERS_1 = PREFIX + "001";
     public final static String M_001_HANDLE_PARAMETERS_2 = PREFIX + "002";
     public final static String M_001_HANDLE_PARAMETERS_3 = PREFIX + "003";

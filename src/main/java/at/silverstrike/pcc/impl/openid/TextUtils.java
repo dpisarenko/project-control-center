@@ -26,7 +26,8 @@ class TextUtils {
 
         try {
             for (Entry<?, ?> e : map.entrySet()) {
-                buf.append(URLEncoder.encode(e.getKey().toString(), "UTF-8")).append("=");
+                buf.append(URLEncoder.encode(e.getKey().toString(), "UTF-8"))
+                        .append("=");
                 buf.append(URLEncoder.encode(e.getValue().toString(), "UTF-8"));
                 buf.append('&');
             }
@@ -66,7 +67,7 @@ class TextUtils {
     public static String sessionToString(HttpSession session) {
         StringBuffer buf = new StringBuffer();
         @SuppressWarnings("rawtypes")
-		Enumeration enu = session.getAttributeNames();
+        Enumeration enu = session.getAttributeNames();
 
         while (enu.hasMoreElements()) {
             String attr = (String) enu.nextElement();
@@ -85,23 +86,25 @@ class TextUtils {
      * @return
      */
     public static String makeTrace(Exception e) {
-        StringBuilder builder = new StringBuilder(e.getClass().getCanonicalName());
+        StringBuilder builder =
+                new StringBuilder(e.getClass().getCanonicalName());
 
         builder.append(":").append(e.getMessage()).append("\n");
 
         for (StackTraceElement el : e.getStackTrace()) {
-            builder.append("at ").append(el.getClassName()).append("(").append(el.getMethodName()).append(":")
+            builder.append("at ").append(el.getClassName()).append("(")
+                    .append(el.getMethodName()).append(":")
                     .append(el.getLineNumber()).append(")\n");
         }
 
         return builder.toString();
     }
 
-
     public static String proxyPropertiesToString(ProxyProperties props) {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("Proxy properties: [\n").append("Host:").append(props.getProxyHostName()).
+        builder.append("Proxy properties: [\n").append("Host:")
+                .append(props.getProxyHostName()).
                 append("\nPort:").append(props.getProxyPort()).
                 append("\nUser:").append(props.getUserName()).
                 append("\nPassword:").append(props.getPassword()).

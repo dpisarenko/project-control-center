@@ -55,7 +55,8 @@ import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
-import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.
+    DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainprocesseditingpanel.DefaultMainProcessEditingPanelFactory;
