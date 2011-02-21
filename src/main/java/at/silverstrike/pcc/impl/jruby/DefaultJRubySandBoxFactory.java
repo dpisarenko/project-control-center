@@ -16,17 +16,18 @@ import at.silverstrike.pcc.api.jruby.AbstractRubyImplementationFactory;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
-public class DefaultJRubySandBoxFactory extends AbstractRubyImplementationFactory<JRubySandBox> {
+public class DefaultJRubySandBoxFactory extends
+        AbstractRubyImplementationFactory<JRubySandBox> {
 
-	@Override
-	protected String getInterfacename() {
-		return "jruby";
-	}
+    @Override
+    protected final String getInterfacename() {
+        return "jruby";
+    }
 
-	@Override
-	protected String getModuleName() {
-		return "JRubySandBox";
-	}
+    @Override
+    protected final String getModuleName() {
+        return "JRubySandBox";
+    }
 }
