@@ -13,7 +13,7 @@ package at.silverstrike.pcc.impl.openid;
 
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
-class ErrorCodes {
+final class ErrorCodes {
     private static final String PREFIX = MessageCodePrefixRegistry
             .getInstance().getPrefix(MessageCodePrefixRegistry.Module.openid);
 
