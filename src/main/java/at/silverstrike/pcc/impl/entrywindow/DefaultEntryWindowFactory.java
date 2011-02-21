@@ -16,9 +16,9 @@ import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 
 public class DefaultEntryWindowFactory implements EntryWindowFactory {
 
-	@Override
-	public EntryWindow create() {
-		return new DefaultEntryWindow();
-	}
+    @Override
+    public final EntryWindow create() {
+        return new DefaultEntryWindow();
+    }
 
 }
