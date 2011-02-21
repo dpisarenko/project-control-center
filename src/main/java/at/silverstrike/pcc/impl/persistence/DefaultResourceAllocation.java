@@ -28,16 +28,16 @@ class DefaultResourceAllocation implements ResourceAllocation {
         return resource;
     }
 
-    public void setResource(final Resource resource) {
-        this.resource = resource;
+    public void setResource(final Resource aResource) {
+        this.resource = aResource;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public void setId(final Long aId) {
+        this.id = aId;
     }
 
     @Override
