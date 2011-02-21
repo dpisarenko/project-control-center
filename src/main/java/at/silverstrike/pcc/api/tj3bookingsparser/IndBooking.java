@@ -17,8 +17,8 @@ package at.silverstrike.pcc.api.tj3bookingsparser;
  */
 public interface IndBooking {
 
-	public String getStartTime();
+	String getStartTime();
 
-	public String getDuration();
+	String getDuration();
 
 }
