@@ -25,7 +25,7 @@ public class DefaultTj3BookingsParserFactory implements
 	 * @see at.silverstrike.pcc.api.conventions.Factory#create()
 	 */
 	@Override
-	public Tj3BookingsParser create() {
+	public final Tj3BookingsParser create() {
 		return new DefaultTj3BookingsParser();
 	}
 

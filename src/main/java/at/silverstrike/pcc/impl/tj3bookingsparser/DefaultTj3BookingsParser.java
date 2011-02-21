@@ -37,65 +37,64 @@ import at.silverstrike.pcc.impl.tj3bookingsparser.grammar.BookingsParser;
  * 
  */
 class DefaultTj3BookingsParser implements Tj3BookingsParser {
-    private List<BookingTuple> bookings;
-    private InputStream inputStream;
-    private Injector injector = null;
+	private List<BookingTuple> bookings;
+	private InputStream inputStream;
+	private Injector injector = null;
 
-    public DefaultTj3BookingsParser() {
+	public DefaultTj3BookingsParser() {
 
-    }
+	}
 
-    public List<BookingTuple> getBookings() {
-        return bookings;
-    }
+	public List<BookingTuple> getBookings() {
+		return bookings;
+	}
 
-    public void setInputStream(final InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
+	public void setInputStream(final InputStream aInputStream) {
+		this.inputStream = aInputStream;
+	}
 
-    @Override
-    public void run() throws PccException {
-        try {
-            final BookingsFile bookingsFile = inputStreamToBookingsFile();
-            this.bookings = bookingsFileToBookings(bookingsFile);
-        } catch (final IOException exception) {
-            throw new PccException(exception);
-        } catch (final RecognitionException exception) {
-            throw new PccException(exception);
-        } catch (final NumberFormatException exception) {
-            throw new PccException(exception);
-        } catch (final ParseException exception) {
-            throw new PccException(exception);
-        }
-    }
+	@Override
+	public void run() throws PccException {
+		try {
+			final BookingsFile bookingsFile = inputStreamToBookingsFile();
+			this.bookings = bookingsFileToBookings(bookingsFile);
+		} catch (final IOException exception) {
+			throw new PccException(exception);
+		} catch (final RecognitionException exception) {
+			throw new PccException(exception);
+		} catch (final NumberFormatException exception) {
+			throw new PccException(exception);
+		} catch (final ParseException exception) {
+			throw new PccException(exception);
+		}
+	}
 
-    private List<BookingTuple> bookingsFileToBookings(
-            final BookingsFile aBookingsFile) throws NumberFormatException,
-            ParseException {
-        final BookingsFile2BookingsFactory factory =
-                this.injector.getInstance(BookingsFile2BookingsFactory.class);
-        final BookingsFile2Bookings converter = factory.create();
+	private List<BookingTuple> bookingsFileToBookings(
+			final BookingsFile aBookingsFile) throws ParseException {
+		final BookingsFile2BookingsFactory factory = this.injector
+				.getInstance(BookingsFile2BookingsFactory.class);
+		final BookingsFile2Bookings converter = factory.create();
 
-        converter.setBookingsFile(aBookingsFile);
-        converter.setPersistence(this.injector.getInstance(Persistence.class));
-        converter.run();
+		converter.setBookingsFile(aBookingsFile);
+		converter.setPersistence(this.injector.getInstance(Persistence.class));
+		converter.run();
 
-        return converter.getTuples();
-    }
+		return converter.getTuples();
+	}
 
-    private BookingsFile inputStreamToBookingsFile() throws IOException,
-            RecognitionException {
-        final BookingsLexer lexer =
-                new BookingsLexer(new ANTLRInputStream(this.inputStream));
-        final CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        final BookingsParser parser = new BookingsParser(tokenStream);
-        parser.bookingsFile();
-        final BookingsFile returnValue = parser.getBookingsFile();
-        return returnValue;
-    }
+	private BookingsFile inputStreamToBookingsFile() throws IOException,
+			RecognitionException {
+		final BookingsLexer lexer = new BookingsLexer(new ANTLRInputStream(
+				this.inputStream));
+		final CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+		final BookingsParser parser = new BookingsParser(tokenStream);
+		parser.bookingsFile();
+		final BookingsFile returnValue = parser.getBookingsFile();
+		return returnValue;
+	}
 
-    @Override
-    public void setInjector(final Injector anInjector) {
-        this.injector = anInjector;
-    }
+	@Override
+	public void setInjector(final Injector aInjector) {
+		this.injector = aInjector;
+	}
 }
