@@ -33,105 +33,103 @@ import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
 public class ProjectControlCenterApplication extends TPTApplication {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(ProjectControlCenterApplication.class);
-	private static final String THEME = "pcc";
-	private static final boolean OPENID_DEBUGGED = false;
-	
-	private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ProjectControlCenterApplication.class);
+    private static final String THEME = "pcc";
+    private static final boolean OPENID_DEBUGGED = true;
 
-	private transient Persistence persistence;
-	private Injector injector;
-	private EntryWindow entryWindow;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public final void close() {
-		super.close();
-		closeSession();
-	}
+    private transient Persistence persistence;
+    private Injector injector;
+    private EntryWindow entryWindow;
 
-	protected final void closeSession() {
-		if (this.persistence != null) {
-			this.persistence.closeSession();
-		}
-	}
+    @Override
+    public final void close() {
+        super.close();
+        closeSession();
+    }
 
-	
+    protected final void closeSession() {
+        if (this.persistence != null) {
+            this.persistence.closeSession();
+        }
+    }
 
-	@Override
-	public final void applicationInit() {
-		LOGGER.info("PCC application starts");
+    @Override
+    public final void applicationInit() {
+        LOGGER.info("PCC application starts");
 
-		setTheme(THEME);
-		TM.getDictionary().setDefaultLanguage("en");
+        setTheme(THEME);
+        TM.getDictionary().setDefaultLanguage("en");
 
-		this.setUser("DP");
+        this.setUser("DP");
 
-		final InjectorFactory injectorFactory = new DefaultInjectorFactory();
-		injector = injectorFactory.createInjector();
+        final InjectorFactory injectorFactory = new DefaultInjectorFactory();
+        injector = injectorFactory.createInjector();
 
-		persistence = injector.getInstance(Persistence.class);
+        persistence = injector.getInstance(Persistence.class);
 
-		persistence.openSession();
+        persistence.openSession();
 
-		if (OPENID_DEBUGGED) {
-			final EntryWindowFactory entryWindowFactory = injector
-					.getInstance(EntryWindowFactory.class);
-			entryWindow = entryWindowFactory.create();
+        if (OPENID_DEBUGGED) {
+            final EntryWindowFactory entryWindowFactory = injector
+                    .getInstance(EntryWindowFactory.class);
+            entryWindow = entryWindowFactory.create();
 
-			entryWindow.setInjector(injector);
-			entryWindow.initGui();
+            entryWindow.setInjector(injector);
+            entryWindow.initGui();
 
-			setMainWindow(entryWindow.getWindow());
-		} else {
-			final MainWindowFactory mainWindowFactory = injector
-					.getInstance(MainWindowFactory.class);
-			final MainWindow mainWindow = mainWindowFactory.create();
+            setMainWindow(entryWindow.getWindow());
+        } else {
+            final MainWindowFactory mainWindowFactory = injector
+                    .getInstance(MainWindowFactory.class);
+            final MainWindow mainWindow = mainWindowFactory.create();
 
-			mainWindow.setInjector(injector);
-			mainWindow.initGui();
+            mainWindow.setInjector(injector);
+            mainWindow.initGui();
 
-			setMainWindow(mainWindow.getWindow());
-		}
+            setMainWindow(mainWindow.getWindow());
+        }
 
-	}
+    }
 
-	@Override
-	public void firstApplicationStartup() {
-	}
+    @Override
+    public void firstApplicationStartup() {
+    }
 
-	public final void onRequestStart(final HttpServletRequest aRequest,
-			final HttpServletResponse aResponse) {
-		final OpenIdAuthenticationResponder responder = this.injector
-				.getInstance(OpenIdAuthenticationResponder.class);
+    public final void onRequestStart(final HttpServletRequest aRequest,
+            final HttpServletResponse aResponse) {
+        final OpenIdAuthenticationResponder responder = this.injector
+                .getInstance(OpenIdAuthenticationResponder.class);
 
-		responder.setRequest(aRequest);
-		responder.setResponse(aResponse);
+        responder.setRequest(aRequest);
+        responder.setResponse(aResponse);
 
-		try {
-			responder.run();
-		} catch (final PccException exception) {
-			LOGGER.error("", exception);
-		}
+        try {
+            responder.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+        }
 
-		if (responder.isValidationSuccessful()) {
-			// Go to the main page
-			final MainWindowFactory mainWindowFactory = injector
-					.getInstance(MainWindowFactory.class);
-			final MainWindow mainWindow = mainWindowFactory.create();
+        if (responder.isValidationSuccessful()) {
+            // Go to the main page
+            final MainWindowFactory mainWindowFactory = injector
+                    .getInstance(MainWindowFactory.class);
+            final MainWindow mainWindow = mainWindowFactory.create();
 
-			mainWindow.setInjector(injector);
-			mainWindow.initGui();
+            mainWindow.setInjector(injector);
+            mainWindow.initGui();
 
-			this.setUser(responder.getIdentity());
+            this.setUser(responder.getIdentity());
 
-			setMainWindow(mainWindow.getWindow());
+            setMainWindow(mainWindow.getWindow());
 
-		} else {
-			this.setUser(null);
+        } else {
+            this.setUser(null);
 
-			// Go to the entry page
-			this.setMainWindow(this.entryWindow.getWindow());
-		}
-	}
+            // Go to the entry page
+            this.setMainWindow(this.entryWindow.getWindow());
+        }
+    }
 }

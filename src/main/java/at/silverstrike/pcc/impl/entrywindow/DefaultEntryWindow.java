@@ -147,6 +147,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
                 new AuthenticateButtonListener();
         listener.setInjector(this.injector);
         listener.setRequest(this.request);
+        listener.setOpenIdTextField(this.openIdTextField);
         this.authenticateButton.addListener(listener);
 
         gridLayout.addComponent(openIdLabel, 0, 0);
