@@ -16,17 +16,17 @@ import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanelFa
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public class DefaultMainProcessEditingPanelFactory implements
-		MainProcessEditingPanelFactory {
+        MainProcessEditingPanelFactory {
 
-	/**
-	 * @see at.silverstrike.pcc.api.conventions.Factory#create()
-	 */
-	@Override
-	public MainProcessEditingPanel create() {
-		return new DefaultMainProcessEditingPanel();
-	}
+    /**
+     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     */
+    @Override
+    public final MainProcessEditingPanel create() {
+        return new DefaultMainProcessEditingPanel();
+    }
 
 }
