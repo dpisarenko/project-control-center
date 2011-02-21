@@ -19,10 +19,9 @@ import java.util.List;
  */
 public interface BookingStatement {
 
-	public String getResource();
+	String getResource();
 
-	public String getScenario();
+	String getScenario();
 
-	public List<IndBooking> getIndBookings();
-
+	List<IndBooking> getIndBookings();
 }
