@@ -30,56 +30,52 @@ import com.google.inject.Injector;
  * 
  */
 public abstract class AbstractRubyImplementationFactory<X> implements
-        Factory<X>, ModuleWithInjectableDependencies {
+		Factory<X>, ModuleWithInjectableDependencies {
 
-    private static final String RUBY_CONSTRUCTOR = ".new";
-    private static final String RUBY_EXTENSION = ".rb";
-    private static final String IMPLEMENTATION_PREFIX = "Default";
-    private static final String RUBY_DIRECTORY = "rb/";
-    private static final Logger LOGGER =
-        LoggerFactory.getLogger(AbstractRubyImplementationFactory.class);
-    private Injector injector;
+	private static final String RUBY_CONSTRUCTOR = ".new";
+	private static final String RUBY_EXTENSION = ".rb";
+	private static final String IMPLEMENTATION_PREFIX = "Default";
+	private static final String RUBY_DIRECTORY = "rb/";
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(AbstractRubyImplementationFactory.class);
+	private Injector injector;
 
-    @SuppressWarnings("unchecked")
-    private X createRubyImplementation(final String aModule,
-            final String anInterfacename) {
-        final ScriptEngine jruby =
-                new ScriptEngineManager().getEngineByName("jruby");
-        X retVal = null;
+	@SuppressWarnings("unchecked")
+	private X createRubyImplementation(final String aModule,
+			final String aInterfacename) {
+		final ScriptEngine jruby = new ScriptEngineManager()
+				.getEngineByName("jruby");
+		X retVal = null;
 
-        try {
-            final EmbeddedFileReader reader =
-                    this.injector.getInstance(EmbeddedFileReader.class);
-            jruby
-                    .eval(reader.readEmbeddedFile(RUBY_DIRECTORY
-                            + anInterfacename
-                            + "/" + IMPLEMENTATION_PREFIX + aModule
-                            + RUBY_EXTENSION));
+		try {
+			final EmbeddedFileReader reader = this.injector
+					.getInstance(EmbeddedFileReader.class);
+			jruby.eval(reader.readEmbeddedFile(RUBY_DIRECTORY + aInterfacename
+					+ "/" + IMPLEMENTATION_PREFIX + aModule + RUBY_EXTENSION));
 
-            retVal =
-                    (X) jruby.eval(IMPLEMENTATION_PREFIX + aModule
-                            + RUBY_CONSTRUCTOR);
+			retVal = (X) jruby.eval(IMPLEMENTATION_PREFIX + aModule
+					+ RUBY_CONSTRUCTOR);
 
-            return retVal;
-        } catch (final ScriptException exception) {
-            LOGGER.error("", exception);
-        } catch (final PccException exception) {
-            LOGGER.error("", exception);
-        }
-        return retVal;
-    }
+			return retVal;
+		} catch (final ScriptException exception) {
+			LOGGER.error("", exception);
+		} catch (final PccException exception) {
+			LOGGER.error("", exception);
+		}
+		return retVal;
+	}
 
-    @Inject
-    public void setInjector(final Injector anInjector) {
-        this.injector = anInjector;
-    }
+	@Inject
+	public final void setInjector(final Injector aInjector) {
+		this.injector = aInjector;
+	}
 
-    @Override
-    public X create() {
-        return createRubyImplementation(getModuleName(), getInterfacename());
-    }
+	@Override
+	public final X create() {
+		return createRubyImplementation(getModuleName(), getInterfacename());
+	}
 
-    protected abstract String getInterfacename();
+	protected abstract String getInterfacename();
 
-    protected abstract String getModuleName();
+	protected abstract String getModuleName();
 }
