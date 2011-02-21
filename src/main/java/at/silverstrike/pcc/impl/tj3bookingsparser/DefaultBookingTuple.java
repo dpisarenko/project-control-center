@@ -15,26 +15,31 @@ import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 
 class DefaultBookingTuple implements BookingTuple {
-    private long processId;    
+    private long processId;
     private long resourceId;
     private Booking booking;
-    
+
     public long getProcessId() {
         return processId;
     }
-    public void setProcessId(final long processId) {
-        this.processId = processId;
+
+    public void setProcessId(final long aProcessId) {
+        this.processId = aProcessId;
     }
+
     public long getResourceId() {
         return resourceId;
     }
-    public void setResourceId(final long resourceId) {
-        this.resourceId = resourceId;
+
+    public void setResourceId(final long aResourceId) {
+        this.resourceId = aResourceId;
     }
+
     public Booking getBooking() {
         return booking;
     }
-    public void setBooking(final Booking booking) {
-        this.booking = booking;
+
+    public void setBooking(final Booking aBooking) {
+        this.booking = aBooking;
     }
 }
