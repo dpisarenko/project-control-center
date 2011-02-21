@@ -17,7 +17,7 @@ import at.silverstrike.pcc.api.debugids.DebugIdRegistryFactory;
 public class DefaultDebugIdRegistryFactory implements DebugIdRegistryFactory {
 
     @Override
-    public DebugIdRegistry create() {
+    public final DebugIdRegistry create() {
         return new DefaultDebugIdRegistry();
     }
 }
