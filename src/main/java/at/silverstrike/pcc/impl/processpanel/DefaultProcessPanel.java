@@ -38,6 +38,8 @@ import com.vaadin.ui.Window.Notification;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultProcessPanel extends Panel implements ProcessPanel {
+    private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
+    private static final int PROCESS_NAME_TEXT_FIELD_COLUMNS = 30;
     private static final int MAX_PROCESS_NAME_LENGTH = 50;
     private static final String STRING_3 =
             TM.get("processpanel.3-processNameTextField-prompt");
@@ -112,10 +114,9 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
     }
 
     @Override
-    public void setInjector(final Injector anInjector) {
-
-        if (anInjector != null) {
-            this.persistence = anInjector.getInstance(Persistence.class);
+    public void setInjector(final Injector aInjector) {
+        if (aInjector != null) {
+            this.persistence = aInjector.getInstance(Persistence.class);
         }
     }
 
@@ -136,8 +137,8 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
         final HorizontalLayout addProcessPanel = new HorizontalLayout();
 
         processNameTextField.setInputPrompt(STRING_3);
-        processNameTextField.setColumns(30);
-        processNameTextField.setRows(5);
+        processNameTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
+        processNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
 
         addProcessPanel.addComponent(processNameTextField);
 
@@ -149,7 +150,7 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void buttonClick(final ClickEvent event) {
+            public void buttonClick(final ClickEvent aEvent) {
                 addProcessButtonClick();
             }
         });
@@ -177,7 +178,7 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void valueChange(final ValueChangeEvent event) {
+            public void valueChange(final ValueChangeEvent aEvent) {
                 tableSelectionChanged();
             }
         });
@@ -186,8 +187,8 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
     }
 
     @Override
-    public void setParentProcessId(final Long anId) {
-        this.parentProcessId = anId;
+    public void setParentProcessId(final Long aId) {
+        this.parentProcessId = aId;
 
         if (this.parentProcessId != null) {
             final ControlProcess process =
