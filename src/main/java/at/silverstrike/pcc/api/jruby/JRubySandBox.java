@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.conventions.SingleActivityModule;
  */
 public interface JRubySandBox extends SingleActivityModule {
 	void setStringInput(final String aString);
-	void setIntInput(final int anInteger);
+	void setIntInput(final int aInteger);
 	String getTextOutput();
 	int getIntOutput();
 }
