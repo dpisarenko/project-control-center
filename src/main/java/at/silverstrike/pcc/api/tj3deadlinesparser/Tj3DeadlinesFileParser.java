@@ -36,7 +36,7 @@ public interface Tj3DeadlinesFileParser extends
      * @param Input
      *            stream with CSV deadline file.
      */
-    void setInputFileName(final String anInputFileName);
+    void setInputFileName(final String aInputFileName);
 
     /**
      * Parses the file (given via setInputStream method) and saves the result in
