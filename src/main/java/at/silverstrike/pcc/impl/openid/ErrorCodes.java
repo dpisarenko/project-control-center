@@ -25,7 +25,8 @@ final class ErrorCodes {
             + "003";
     public static final String M_004_UNSUPPORTED_ENCODING = PREFIX
             + "004";
-
+    public static final String M_005_REQUEST_MESSAGE = PREFIX + "005";
+    
     private ErrorCodes() {
 
     }

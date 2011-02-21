@@ -106,13 +106,13 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
         try {
             this.cultureToLanguageMapper.run();
         } catch (final PccException exception) {
-            LOGGER.error(ErrorCodes.M_001_HANDLE_PARAMETERS_2, exception);
+            LOGGER.error(ErrorCodes.M_002_HANDLE_PARAMETERS_2, exception);
         }
 
         final String language = this.cultureToLanguageMapper.getLanguage();
 
         LOGGER.debug("{}: Culture='{}', language='{}'", new Object[] {
-                ErrorCodes.M_001_HANDLE_PARAMETERS_3, culture, language });
+                ErrorCodes.M_003_HANDLE_PARAMETERS_3, culture, language });
         TM.getDictionary().setDefaultLanguage(language);
 
         updateControls();

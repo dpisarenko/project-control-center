@@ -36,6 +36,10 @@ class DefaultOpenIdAuthenticationInitiator implements
     @Override
     public void run() throws PccException {
         final OpenidService openidService = new OpenidService();
+
+        LOGGER.debug("{}: this.request={}", new Object[] {
+                ErrorCodes.M_005_REQUEST_MESSAGE, this.request });
+
         final HttpProcessor httpProcessor = new HttpProcessor(this.request);
 
         try {

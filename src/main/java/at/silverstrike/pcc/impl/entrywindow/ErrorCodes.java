@@ -18,9 +18,9 @@ final class ErrorCodes {
     private static final String PREFIX = MessageCodePrefixRegistry
             .getInstance().getPrefix(Module.entrywindow);
     public static final String M_001_HANDLE_PARAMETERS_1 = PREFIX + "001";
-    public static final String M_001_HANDLE_PARAMETERS_2 = PREFIX + "002";
-    public static final String M_001_HANDLE_PARAMETERS_3 = PREFIX + "003";
-
+    public static final String M_002_HANDLE_PARAMETERS_2 = PREFIX + "002";
+    public static final String M_003_HANDLE_PARAMETERS_3 = PREFIX + "003";
+    
     private ErrorCodes() {
 
     }
