@@ -18,15 +18,17 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanel;
 import at.silverstrike.pcc.api.model.ControlProcess;
 
-public interface ProcessPanel extends ModuleWithInjectableDependencies, AbstractedPanel {
-	void setProcessesToShow(final List<ControlProcess> aProcesses);
-	void setEditingProcessPanel(final EditingProcessPanel aPanel);
-	
-	/**
-	 * Sets the ID of the process, to which a newly created tasks (created in this panel)
-	 * will be assigned as sub-tasks (children).
-	 */
-	void setParentProcessId(final Long anId);
-	
-	void setProcessPanelListener(final ProcessPanelListener aListener);
+public interface ProcessPanel extends ModuleWithInjectableDependencies,
+        AbstractedPanel {
+    void setProcessesToShow(final List<ControlProcess> aProcesses);
+
+    void setEditingProcessPanel(final EditingProcessPanel aPanel);
+
+    /**
+     * Sets the ID of the process, to which a newly created tasks (created in
+     * this panel) will be assigned as sub-tasks (children).
+     */
+    void setParentProcessId(final Long aId);
+
+    void setProcessPanelListener(final ProcessPanelListener aListener);
 }
