@@ -19,41 +19,36 @@ import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 
 class DefaultParameterDataReader implements ParameterDataReader {
-	private static final String DEFAULT_CULTURE = "en";
-	private final static String CULTURE = "culture";
-	
-	private Map<String, String[]> parameters;
-	private String culture = DEFAULT_CULTURE;
-	
-	@Override
-	public void run() throws PccException {
-		if (this.parameters != null)
-		{
-			final String[] values = this.parameters.get(CULTURE);
-			
-			if ((values != null) && (values.length > 0))
-			{
-				final String curCulture = values[0];
-				
-				if (!StringUtils.isBlank(curCulture))
-				{
-					this.culture = curCulture;
-				}
-				else
-				{
-					this.culture = DEFAULT_CULTURE;
-				}
-			}
-		}
-	}
+    private static final String DEFAULT_CULTURE = "en";
+    private static final String CULTURE = "culture";
 
-	@Override
-	public void setParameters(final Map<String, String[]> aParameters) {
-		this.parameters = aParameters;
-	}
+    private Map<String, String[]> parameters;
+    private String culture = DEFAULT_CULTURE;
 
-	@Override
-	public String getCulture() {
-		return this.culture;
-	}
+    @Override
+    public void run() throws PccException {
+        if (this.parameters != null) {
+            final String[] values = this.parameters.get(CULTURE);
+
+            if ((values != null) && (values.length > 0)) {
+                final String curCulture = values[0];
+
+                if (!StringUtils.isBlank(curCulture)) {
+                    this.culture = curCulture;
+                } else {
+                    this.culture = DEFAULT_CULTURE;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void setParameters(final Map<String, String[]> aParameters) {
+        this.parameters = aParameters;
+    }
+
+    @Override
+    public String getCulture() {
+        return this.culture;
+    }
 }
