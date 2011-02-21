@@ -17,7 +17,7 @@ import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 public class DefaultSchedulingPanelFactory implements SchedulingPanelFactory {
 
 	@Override
-	public SchedulingPanel create() {
+	public final SchedulingPanel create() {
 		return new DefaultSchedulingPanel();
 	}
 
