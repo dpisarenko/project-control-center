@@ -61,6 +61,8 @@ class AuthenticateButtonListener implements Button.ClickListener {
         authInitiator.setIdentity(identity);
         authInitiator.setRequest(this.request);
 
+        LOGGER.debug("{}: Request={}", new Object[]{ErrorCodes.M_004_REQUEST_MESSAGE, this.request});
+        
         try {
             authInitiator.run();
 
