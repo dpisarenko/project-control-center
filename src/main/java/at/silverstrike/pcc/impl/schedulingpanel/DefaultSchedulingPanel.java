@@ -18,7 +18,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.persistence.Persistence;
@@ -54,6 +56,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 
 	private TextField loggingTextArea;
 	private transient Persistence persistence;
+	private transient DebugIdRegistry debugIdRegistry;
 
 	public DefaultSchedulingPanel() {
 	}
@@ -74,6 +77,9 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 
 		final Button startButton = new Button(
 				TM.get("schedulingpanel.2-start-button"));
+		startButton.setDebugId(this.debugIdRegistry.getDebugId(
+				MessageCodePrefixRegistry.Module.schedulingpanel,
+				"2-startButton"));
 
 		startButton.addListener(new ClickListener() {
 			private static final long serialVersionUID = 1L;
@@ -104,6 +110,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 
 		if (anInjector != null) {
 			this.persistence = anInjector.getInstance(Persistence.class);
+			this.debugIdRegistry = anInjector.getInstance(DebugIdRegistry.class);
 		}
 	}
 
@@ -148,21 +155,23 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 			appendToLoggingTextArea("2");
 			progressIndicator.setEnabled(false);
 		} catch (final InvalidDurationException exception) {
-        	Window subwindow = new Window(TM.get("schedulingpanel.3-start-validation-error-caption"));
-        	
+			Window subwindow = new Window(
+					TM.get("schedulingpanel.3-start-validation-error-caption"));
+
 			subwindow.setModal(true);
-            Label message = new Label(TM.get("schedulingpanel.4-start-validation-error-description", exception.getTaskNumber(), exception.getTaskName()));
-            subwindow.addComponent(message);
-            
-        	if (subwindow.getParent() != null) {
-                // window is already showing
-                getWindow().showNotification(
-                        "Window is already open");
-            } else {
-                // Open the subwindow by adding it to the parent
-                // window
-                getWindow().addWindow(subwindow);
-            }
+			Label message = new Label(TM.get(
+					"schedulingpanel.4-start-validation-error-description",
+					exception.getTaskNumber(), exception.getTaskName()));
+			subwindow.addComponent(message);
+
+			if (subwindow.getParent() != null) {
+				// window is already showing
+				getWindow().showNotification("Window is already open");
+			} else {
+				// Open the subwindow by adding it to the parent
+				// window
+				getWindow().addWindow(subwindow);
+			}
 			progressIndicator.setEnabled(false);
 		}
 
