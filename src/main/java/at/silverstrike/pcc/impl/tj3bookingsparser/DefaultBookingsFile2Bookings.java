@@ -91,7 +91,7 @@ class DefaultBookingsFile2Bookings implements BookingsFile2Bookings {
         return getDateTimeFormat().parse(dateTimeWithoutTimeZone);
     }
 
-    private final static DateFormat getDateTimeFormat() {
+    private static DateFormat getDateTimeFormat() {
         return new SimpleDateFormat(DATE_TIME_FORMAT);
     }
 
