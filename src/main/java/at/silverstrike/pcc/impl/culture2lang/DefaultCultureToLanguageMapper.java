@@ -17,34 +17,29 @@ import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 
 class DefaultCultureToLanguageMapper implements CultureToLanguageMapper {
-	private static final String RUSSIAN = "ru";
-	private static final String ENGLISH = "en";
-	private String culture;
-	private String language;
-	
-	@Override
-	public void run() throws PccException {
-		if (StringUtils.isBlank(this.culture))
-		{
-			this.language = ENGLISH;
-		}
-		else if (this.culture.toLowerCase().startsWith(RUSSIAN))
-		{
-			this.language = RUSSIAN;
-		}
-		else
-		{
-			this.language = ENGLISH;
-		}
-	}
+    private static final String RUSSIAN = "ru";
+    private static final String ENGLISH = "en";
+    private String culture;
+    private String language;
 
-	@Override
-	public void setCulture(final String aCulture) {
-		this.culture = aCulture;
-	}
+    @Override
+    public void run() throws PccException {
+        if (StringUtils.isBlank(this.culture)) {
+            this.language = ENGLISH;
+        } else if (this.culture.toLowerCase().startsWith(RUSSIAN)) {
+            this.language = RUSSIAN;
+        } else {
+            this.language = ENGLISH;
+        }
+    }
 
-	@Override
-	public String getLanguage() {
-		return this.language;
-	}
+    @Override
+    public void setCulture(final String aCulture) {
+        this.culture = aCulture;
+    }
+
+    @Override
+    public String getLanguage() {
+        return this.language;
+    }
 }
