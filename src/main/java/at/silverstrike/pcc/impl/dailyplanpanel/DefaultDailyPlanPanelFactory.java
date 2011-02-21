@@ -16,16 +16,16 @@ import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public class DefaultDailyPlanPanelFactory implements DailyPlanPanelFactory {
 
-	/**
-	 * @see at.silverstrike.pcc.api.conventions.Factory#create()
-	 */
-	@Override
-	public DailyPlanPanel create() {
-		return new DefaultDailyPlanPanel();
-	}
+    /**
+     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     */
+    @Override
+    public final DailyPlanPanel create() {
+        return new DefaultDailyPlanPanel();
+    }
 
 }
