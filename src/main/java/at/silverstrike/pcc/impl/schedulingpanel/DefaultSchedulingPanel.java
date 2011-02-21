@@ -29,7 +29,6 @@ import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
 
 import com.google.inject.Injector;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeButton;
@@ -39,12 +38,15 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
+	private static final int LOGGING_TEXT_AREA_COLUMNS = 20;
+
+	private static final int LOGGING_TEXT_AREA_ROWS = 20;
+
 	private static final int ONE_MONTH = 1;
 
 	private static final String NEWLINE = System.getProperty("line.separator");
@@ -52,7 +54,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 	private static final long serialVersionUID = 1L;
 
 	private transient Injector injector;
-	private final static Logger LOGGER = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DefaultSchedulingPanel.class);
 	private ProgressIndicator progressIndicator;
 
@@ -87,7 +89,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(final ClickEvent event) {
+			public void buttonClick(final ClickEvent aEvent) {
 				startButtonClicked();
 			}
 		});
@@ -98,8 +100,8 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 		layout.addComponent(progressAndButtonPanel);
 
 		loggingTextArea = new TextField();
-		loggingTextArea.setRows(20);
-		loggingTextArea.setColumns(20);
+		loggingTextArea.setRows(LOGGING_TEXT_AREA_ROWS);
+		loggingTextArea.setColumns(LOGGING_TEXT_AREA_COLUMNS);
 
 		layout.addComponent(loggingTextArea);
 
@@ -107,12 +109,12 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 	}
 
 	@Override
-	public void setInjector(final Injector anInjector) {
-		injector = anInjector;
+	public void setInjector(final Injector aInjector) {
+		injector = aInjector;
 
-		if (anInjector != null) {
-			this.persistence = anInjector.getInstance(Persistence.class);
-			this.debugIdRegistry = anInjector.getInstance(DebugIdRegistry.class);
+		if (aInjector != null) {
+			this.persistence = aInjector.getInstance(Persistence.class);
+			this.debugIdRegistry = aInjector.getInstance(DebugIdRegistry.class);
 		}
 	}
 
@@ -157,11 +159,11 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 			appendToLoggingTextArea("2");
 			progressIndicator.setEnabled(false);
 		} catch (final InvalidDurationException exception) {
-			Window subwindow = new Window(
+			final Window subwindow = new Window(
 					TM.get("schedulingpanel.3-start-validation-error-caption"));
 
 			subwindow.setModal(true);
-			Label message = new Label(TM.get(
+			final Label message = new Label(TM.get(
 					"schedulingpanel.4-start-validation-error-description",
 					exception.getTaskNumber(), exception.getTaskName()));
 			subwindow.addComponent(message);
