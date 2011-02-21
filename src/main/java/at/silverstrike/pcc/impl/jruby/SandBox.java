@@ -19,27 +19,24 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public class SandBox {
-	private Logger LOGGER = LoggerFactory.getLogger(SandBox.class);
-	public void run()
-	{
-		ScriptEngineManager factory = new ScriptEngineManager();
-		ScriptEngine engine = factory.getEngineByName("jruby");
-		try
-		{
-			engine.eval("puts 'Hello, Ruby!'");
-		}
-		catch (final ScriptException exception)
-		{
-			LOGGER.error("", exception);
-		}
-	}
-	public static void main(final String[] anArgs)
-	{
-		final SandBox app = new SandBox();
-		
-		app.run();
-	}
+    private static final Logger LOGGER = LoggerFactory.getLogger(SandBox.class);
+
+    public final void run() {
+        final ScriptEngineManager factory = new ScriptEngineManager();
+        final ScriptEngine engine = factory.getEngineByName("jruby");
+        try {
+            engine.eval("puts 'Hello, Ruby!'");
+        } catch (final ScriptException exception) {
+            LOGGER.error("", exception);
+        }
+    }
+
+    public static void main(final String[] aArgs) {
+        final SandBox app = new SandBox();
+
+        app.run();
+    }
 }
