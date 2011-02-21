@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Class for converting different types to string representation.
  */
-class TextUtils {
+final class TextUtils {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(TextUtils.class);
 
