@@ -16,25 +16,25 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import at.silverstrike.pcc.api.model.DailyLimitResourceAllocation;
 
 class DefaultDailyLimitResourceAllocation extends
-		DefaultResourceAllocation implements DailyLimitResourceAllocation {
-	private double dailyLimit;
-	private Long resourceAllocationId;
-	
-	public double getDailyLimit() {
-		return dailyLimit;
-	}
+        DefaultResourceAllocation implements DailyLimitResourceAllocation {
+    private double dailyLimit;
+    private Long resourceAllocationId;
 
-	public void setDailyLimit(final double dailyLimit) {
-		this.dailyLimit = dailyLimit;
-	}
+    public double getDailyLimit() {
+        return dailyLimit;
+    }
 
-	public Long getResourceAllocationId() {
-		return resourceAllocationId;
-	}
+    public void setDailyLimit(final double aDailyLimit) {
+        this.dailyLimit = aDailyLimit;
+    }
 
-	public void setResourceAllocationId(final Long resourceAllocationId) {
-		this.resourceAllocationId = resourceAllocationId;
-	}
+    public Long getResourceAllocationId() {
+        return resourceAllocationId;
+    }
+
+    public void setResourceAllocationId(final Long aResourceAllocationId) {
+        this.resourceAllocationId = aResourceAllocationId;
+    }
 
     @Override
     public String toString() {
@@ -44,7 +44,7 @@ class DefaultDailyLimitResourceAllocation extends
         builder.append("resource", this.getResource());
         builder.append("dailyLimit", this.dailyLimit);
         builder.append("resourceAllocationId", this.resourceAllocationId);
-        
+
         return builder.toString();
 
     }
