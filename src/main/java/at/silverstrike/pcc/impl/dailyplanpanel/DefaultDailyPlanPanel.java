@@ -48,11 +48,13 @@ import at.silverstrike.pcc.api.persistence.Persistence;
  * 
  */
 class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
+    private static final int SPLIT_POSITION = 40;
+
     private static final String DAY_OF_WEEK_FORMAT = "EEEE";
 
     private static final String DAY_IN_MONTH_FORMAT = "d";
 
-    private final static Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultDailyPlanPanel.class);
 
     private static final int COLUMN_INDEX_SCHEDULE_PROCESS = 3;
@@ -78,7 +80,7 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
     private static final String COLUMN_SCHEDULE_TO = "COLUMN_SCHEDULE_TO";
     private static final String COLUMN_SCHEDULE_PROCESS =
             "COLUMN_SCHEDULE_PROCESS";
-    private final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
     private InlineDateField selectedDayDateField;
 
     private transient Injector injector;
@@ -111,9 +113,9 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void componentEvent(final Event event) {
-                if (event instanceof ValueChangeEvent) {
-                    selectedDayChanged((ValueChangeEvent) event);
+            public void componentEvent(final Event aEvent) {
+                if (aEvent instanceof ValueChangeEvent) {
+                    selectedDayChanged((ValueChangeEvent) aEvent);
                 }
             }
         });
@@ -123,10 +125,10 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         return layout;
     }
 
-    protected void selectedDayChanged(final ValueChangeEvent anEvent) {
-        final Date newDate = (Date) anEvent.getProperty().getValue();
+    protected void selectedDayChanged(final ValueChangeEvent aEvent) {
+        final Date newDate = (Date) aEvent.getProperty().getValue();
 
-        Application app = getApplication();
+        final Application app = getApplication();
         final String resource;
         if (app != null) {
             resource = (String) app.getUser();
@@ -227,7 +229,7 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
      * 
      * MT_CORRECTNESS STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE
      */
-    private final static DateFormat getDayInMonthFormat() {
+    private static final DateFormat getDayInMonthFormat() {
         return new SimpleDateFormat(DAY_IN_MONTH_FORMAT);
     }
 
@@ -239,11 +241,11 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         return getFullDateFormat().format(aNow);
     }
 
-    private final static DateFormat getFullDateFormat() {
+    private static final DateFormat getFullDateFormat() {
         return DateFormat.getDateInstance();
     }
 
-    private final static DateFormat getDayOfWeekFormat() {
+    private static final DateFormat getDayOfWeekFormat() {
         return new SimpleDateFormat(DAY_OF_WEEK_FORMAT);
     }
 
@@ -322,9 +324,9 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         return wrapLayout(todoTable);
     }
 
-    private Component wrapLayout(final Table todoTable) {
-        HorizontalLayout layout = new HorizontalLayout();
-        layout.addComponent(todoTable);
+    private Component wrapLayout(final Table aTodoTable) {
+        final HorizontalLayout layout = new HorizontalLayout();
+        layout.addComponent(aTodoTable);
 
         return layout;
     }
@@ -338,13 +340,13 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
     }
 
     @Override
-    public void setInjector(final Injector anInjector) {
-        this.injector = anInjector;
+    public void setInjector(final Injector aInjector) {
+        this.injector = aInjector;
     }
 
     @Override
     public void initGui() {
-        SplitPanel verticalSplitPanel = new SplitPanel();
+        final SplitPanel verticalSplitPanel = new SplitPanel();
 
         verticalSplitPanel.setHeight("450px");
         verticalSplitPanel.setWidth("100%");
@@ -353,7 +355,7 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         verticalSplitPanel.addComponent(datePanel);
         verticalSplitPanel.addComponent(getToDoAndSchedulePanel());
 
-        verticalSplitPanel.setSplitPosition(40);
+        verticalSplitPanel.setSplitPosition(SPLIT_POSITION);
 
         addComponent(verticalSplitPanel);
 
