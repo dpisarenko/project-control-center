@@ -16,9 +16,9 @@ import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 
 public class DefaultMainWindowFactory implements MainWindowFactory {
 
-	@Override
-	public MainWindow create() {
-		return new DefaultMainWindow();
-	}
+    @Override
+    public final MainWindow create() {
+        return new DefaultMainWindow();
+    }
 
 }
