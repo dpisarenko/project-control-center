@@ -18,77 +18,88 @@ import java.util.Set;
 import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
 
 public interface ControlProcess extends UniquelyIdentifiableObject {
-    static final int HIGHEST_PRIORITY = 1000;
-    static final int LOWEST_PRIORITY = 0;
-    
-	String getName();
-	void setName(final String aName);
-	
-	ProcessState getState();
-	void setState(final ProcessState aState);
-	
-	/**
-	 * Get effort estimate in hours (best case).
-	 */
-	Double getBestCaseEffort();
-	/**
-	 * Set effort estimate in hours (best case).
-	 */
-	void setBestCaseEffort(final Double aEffortInHours);
+    final int HIGHEST_PRIORITY = 1000;
+    final int LOWEST_PRIORITY = 0;
 
-	/**
-	 * Get effort estimate in hours (average case).
-	 */
-	double getAverageCaseEffort();
+    String getName();
 
-	/**
-	 * Get effort estimate in hours (worst case).
-	 */
-	Double getWorstCaseEffort();
-	/**
-	 * Set effort estimate in hours (worst case).
-	 */
-	void setWorstCaseEffort(final Double aEffortInHours);
+    void setName(final String aName);
 
-	void setResourceAllocations(List<ResourceAllocation> aResourceAllocations);
-	List<ResourceAllocation> getResourceAllocations();
-	
-	void setPriority(final Integer aPriority);
-	Integer getPriority();
+    ProcessState getState();
 
-	ControlProcess getParent();
-	void setParent(ControlProcess aParentProcess);
-	
-	void setProcessType(ProcessType aType);
-	ProcessType getProcessType();
-	
-	/**
-	 * Get estimated end time (completion date) of the task for the average
-	 * case scenario (based on average effort estimates of this and other
-	 * tasks).
-	 */
-	Date getAverageEstimatedEndDateTime();
-	void setAverageEstimatedEndDateTime(final Date aDate);
-	
-	/**
-	 * This method is not implemented now (prototype 1).
-	 */
-	Date getBestEstimatedEndDateTime();
-	/**
-	 * This method is not implemented now (prototype 1).
-	 */
-	void setBestEstimatedEndDateTime(final Date aDate);
+    void setState(final ProcessState aState);
 
-	/**
-	 * This method is not implemented now (prototype 1).
-	 */
-	Date getWorstEstimatedEndDateTime();
-	/**
-	 * This method is not implemented now (prototype 1).
-	 */
-	void setWorstEstimatedEndDateTime(final Date aDate);
+    /**
+     * Get effort estimate in hours (best case).
+     */
+    Double getBestCaseEffort();
 
-	void setPredecessors(Set<ControlProcess> aPredecessors);
-	Set<ControlProcess> getPredecessors();
+    /**
+     * Set effort estimate in hours (best case).
+     */
+    void setBestCaseEffort(final Double aEffortInHours);
+
+    /**
+     * Get effort estimate in hours (average case).
+     */
+    double getAverageCaseEffort();
+
+    /**
+     * Get effort estimate in hours (worst case).
+     */
+    Double getWorstCaseEffort();
+
+    /**
+     * Set effort estimate in hours (worst case).
+     */
+    void setWorstCaseEffort(final Double aEffortInHours);
+
+    void setResourceAllocations(List<ResourceAllocation> aResourceAllocations);
+
+    List<ResourceAllocation> getResourceAllocations();
+
+    void setPriority(final Integer aPriority);
+
+    Integer getPriority();
+
+    ControlProcess getParent();
+
+    void setParent(ControlProcess aParentProcess);
+
+    void setProcessType(ProcessType aType);
+
+    ProcessType getProcessType();
+
+    /**
+     * Get estimated end time (completion date) of the task for the average case
+     * scenario (based on average effort estimates of this and other tasks).
+     */
+    Date getAverageEstimatedEndDateTime();
+
+    void setAverageEstimatedEndDateTime(final Date aDate);
+
+    /**
+     * This method is not implemented now (prototype 1).
+     */
+    Date getBestEstimatedEndDateTime();
+
+    /**
+     * This method is not implemented now (prototype 1).
+     */
+    void setBestEstimatedEndDateTime(final Date aDate);
+
+    /**
+     * This method is not implemented now (prototype 1).
+     */
+    Date getWorstEstimatedEndDateTime();
+
+    /**
+     * This method is not implemented now (prototype 1).
+     */
+    void setWorstEstimatedEndDateTime(final Date aDate);
+
+    void setPredecessors(Set<ControlProcess> aPredecessors);
+
+    Set<ControlProcess> getPredecessors();
 
 }
