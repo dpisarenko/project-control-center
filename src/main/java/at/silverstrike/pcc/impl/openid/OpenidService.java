@@ -92,6 +92,7 @@ class OpenidService {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public OpenidModel extractOpenidData(AuthSuccess authSuccess)
 			throws DiscoveryException, MessageException {
 		OpenidModel model = new OpenidModel();
@@ -103,8 +104,7 @@ class OpenidService {
 
 			@SuppressWarnings("rawtypes")
 			List aliases = fetchResp.getAttributeAliases();
-			for (@SuppressWarnings("rawtypes")
-			Iterator iter = aliases.iterator(); iter.hasNext();) {
+			for (Iterator iter = aliases.iterator(); iter.hasNext();) {
 				String alias = (String) iter.next();
 				@SuppressWarnings("rawtypes")
 				List values = fetchResp.getAttributeValues(alias);
