@@ -1,3 +1,14 @@
+/**
+ * This file is part of Project Control Center (PCC).
+ * 
+ * PCC (Project Control Center) project is intellectual property of 
+ * Dmitri Anatol'evich Pisarenko.
+ * 
+ * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * All rights reserved
+ *
+ **/
+
 package at.silverstrike.pcc.impl.entrywindow;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +74,7 @@ class AuthenticateButtonListener implements Button.ClickListener {
         }
     }
 
-    private void showErrorMessage(final TPTApplication aApp, String aMessage) {
+    private void showErrorMessage(final TPTApplication aApp, final String aMessage) {
         final OptionDialog messageBox = new OptionDialog(aApp);
         messageBox.showMessageDialog(TM.get("entrywindow.5-messagebox-title"),
                 aMessage, null);
