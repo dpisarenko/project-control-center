@@ -19,27 +19,30 @@ import at.silverstrike.pcc.api.model.DailyToDoList;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 class DefaultDailyToDoList implements DailyToDoList {
-	private List<ControlProcess> tasksToCompleteToday;
-	private Long id;
-	
-	public DefaultDailyToDoList()
-	{
-		this.tasksToCompleteToday = new LinkedList<ControlProcess>();
-	}
-	
-	public List<ControlProcess> getTasksToCompleteToday() {
-		return tasksToCompleteToday;
-	}
-	public void setTasksToCompleteToday(final List<ControlProcess> tasksToCompleteToday) {
-		this.tasksToCompleteToday = tasksToCompleteToday;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    private List<ControlProcess> tasksToCompleteToday;
+    private Long id;
+
+    public DefaultDailyToDoList() {
+        this.tasksToCompleteToday = new LinkedList<ControlProcess>();
+    }
+
+    public List<ControlProcess> getTasksToCompleteToday() {
+        return tasksToCompleteToday;
+    }
+
+    public void setTasksToCompleteToday(
+            final List<ControlProcess> aTasksToCompleteToday) {
+        this.tasksToCompleteToday = aTasksToCompleteToday;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long aId) {
+        this.id = aId;
+    }
 }
