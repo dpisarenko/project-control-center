@@ -22,7 +22,7 @@ import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
  */
 public interface TaskJuggler3Exporter extends ModuleWithInjectableDependencies,
         SingleActivityModule {
-    void setProjectExportInfo(final ProjectExportInfo anInfo);
+    void setProjectExportInfo(final ProjectExportInfo aInfo);
     ProjectExportInfo getProjectExportInfo();
     
     /**
@@ -30,7 +30,7 @@ public interface TaskJuggler3Exporter extends ModuleWithInjectableDependencies,
      * has finished, the resulting TaskJuggler III file contents can be fetched
      * by calling the method getTaskJugglerIIIProjectFileContents.
      */
-    void run() throws NoProcessesException, NoResourcesException, InvalidDurationException, PccException;
+    void run() throws PccException;
     
     /**
      * Returns the TaskJuggler III project file contents, which is equivalent to

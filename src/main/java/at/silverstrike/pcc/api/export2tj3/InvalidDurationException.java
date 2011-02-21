@@ -35,6 +35,7 @@ public class InvalidDurationException extends PccException {
 	public final Long getTaskNumber() {
 		return taskNumber;
 	}
+
 	/**
 	 * 
 	 * @return
