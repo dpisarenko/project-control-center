@@ -20,56 +20,56 @@ import at.silverstrike.pcc.api.model.Resource;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 class DefaultDailyPlan implements DailyPlan {
-	private Resource resource;
-	
-	private Date date;
-	
-	private DailyToDoList toDoList;
+    private Resource resource;
 
-	private DailySchedule schedule;
-	
-	private Long id;
+    private Date date;
 
-	public Resource getResource() {
-		return resource;
-	}
+    private DailyToDoList toDoList;
 
-	public void setResource(final Resource resource) {
-		this.resource = resource;
-	}
+    private DailySchedule schedule;
 
-	public Date getDate() {
-		return date;
-	}
+    private Long id;
 
-	public void setDate(final Date date) {
-		this.date = date;
-	}
+    public Resource getResource() {
+        return resource;
+    }
 
-	public DailyToDoList getToDoList() {
-		return toDoList;
-	}
+    public void setResource(final Resource aResource) {
+        this.resource = aResource;
+    }
 
-	public void setToDoList(final DailyToDoList toDoList) {
-		this.toDoList = toDoList;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public DailySchedule getSchedule() {
-		return schedule;
-	}
+    public void setDate(final Date aDate) {
+        this.date = aDate;
+    }
 
-	public void setSchedule(final DailySchedule schedule) {
-		this.schedule = schedule;
-	}
+    public DailyToDoList getToDoList() {
+        return toDoList;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setToDoList(final DailyToDoList aToDoList) {
+        this.toDoList = aToDoList;
+    }
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    public DailySchedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(final DailySchedule aSchedule) {
+        this.schedule = aSchedule;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long aId) {
+        this.id = aId;
+    }
 }
