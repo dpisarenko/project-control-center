@@ -15,10 +15,10 @@ import static at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Modu
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {
-    private final static String PREFIX = MessageCodePrefixRegistry
+    private static final String PREFIX = MessageCodePrefixRegistry
             .getInstance().getPrefix(persistence);
 
-    public final static String M_001_OPEN_SESSION = PREFIX + "001";
+    public static final String M_001_OPEN_SESSION = PREFIX + "001";
 
     public static final String M_002_OPEN_SESSION = PREFIX + "002";
 
@@ -45,4 +45,8 @@ final class ErrorCodes {
     public static final String M_012_CREATE_HUMAN_RESOURCE = PREFIX + "012";
 
     public static final String M_013_CREATE_HUMAN_RESOURCE2 = PREFIX + "013";
+
+    private ErrorCodes() {
+
+    }
 }
