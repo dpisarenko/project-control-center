@@ -24,7 +24,7 @@ public class DefaultEmbeddedFileReaderFactory implements
      * @see at.silverstrike.pcc.api.conventions.Factory#create()
      */
     @Override
-    public EmbeddedFileReader create() {
+    public final EmbeddedFileReader create() {
         return new DefaultEmbeddedFileReader();
     }
 
