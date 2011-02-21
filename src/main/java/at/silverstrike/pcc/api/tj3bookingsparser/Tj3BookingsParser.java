@@ -19,17 +19,18 @@ import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.conventions.SingleActivityModule;
 
 /**
- * Instances of this interface parse the bookings file produced by TaskJuggler III.
- * Example of such file can be found at pcc\doc\2010_05_28_prototype1\ref.
+ * Instances of this interface parse the bookings file produced by TaskJuggler
+ * III. Example of such file can be found at pcc\doc\2010_05_28_prototype1\ref.
  * 
  * @author Dmitri Pisarenko
- *
+ * 
  */
-public interface Tj3BookingsParser extends ModuleWithInjectableDependencies, SingleActivityModule {
+public interface Tj3BookingsParser extends ModuleWithInjectableDependencies,
+        SingleActivityModule {
 
-	void setInputStream(InputStream anInputStream);
-	
-	void run() throws PccException;
-	
-	List<BookingTuple> getBookings();
+    void setInputStream(final InputStream aInputStream);
+
+    void run() throws PccException;
+
+    List<BookingTuple> getBookings();
 }
