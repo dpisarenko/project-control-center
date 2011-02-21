@@ -1,3 +1,13 @@
+/**
+ * This file is part of Project Control Center (PCC).
+ * 
+ * PCC (Project Control Center) project is intellectual property of 
+ * Dmitri Anatol'evich Pisarenko.
+ * 
+ * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * All rights reserved
+ *
+ **/
 package at.silverstrike.pcc.impl.openid;
 
 import java.util.Enumeration;
@@ -14,164 +24,177 @@ import org.openid4java.discovery.DiscoveryInformation;
 import org.openid4java.util.ProxyProperties;
 
 final class HttpProcessor {
+	private final HttpServletRequest request;
+	private static final String OPENID_DISCOVERY_KEY = "openid.discovery";
+	private static final String OPENID_MODEL_KEY = "openid.model";
+	private static final String OPENID_CONSUMER_MANAGER_KEY = "openid.consumer-manager";
+	private static final String OPENID_PROXY_PROPERTIES = "openid.proxy-properties";
+	private static final String ROOT_URL = "openid-sample";
+	private static final String REPAINT_MESSAGE = "repaintAll";
 
-    private final HttpServletRequest request;
-    private final static String OPENID_DISCOVERY_KEY = "openid.discovery";
-    private final static String OPENID_MODEL_KEY = "openid.model";
-    private final static String OPENID_CONSUMER_MANAGER_KEY = "openid.consumer-manager";
-    private final static String OPENID_PROXY_PROPERTIES = "openid.proxy-properties";
-    private final static String ROOT_URL = "openid-sample";
-    private final static String REPAINT_MESSAGE = "repaintAll";
+	/**
+	 * 
+	 * @param aRequest
+	 */
+	public HttpProcessor(final HttpServletRequest aRequest) {
+		this.request = aRequest;
+	}
 
-    /**
-     * 
-     * @param request
-     */
-    public HttpProcessor(HttpServletRequest request) {
-        this.request = request;
-    }
+	public void setDiscoveryInfo(final DiscoveryInformation aInfo) {
+		HttpSession session = request.getSession();
+		session.setAttribute(OPENID_DISCOVERY_KEY, aInfo);
+	}
 
-    public void setDiscoveryInfo(DiscoveryInformation info) {
-        HttpSession session = request.getSession();
-        session.setAttribute(OPENID_DISCOVERY_KEY, info);
-    }
+	public DiscoveryInformation getDiscoveryInfo() {
+		HttpSession session = request.getSession();
+		return (DiscoveryInformation) session
+				.getAttribute(OPENID_DISCOVERY_KEY);
+	}
 
-    public DiscoveryInformation getDiscoveryInfo() {
-        HttpSession session = request.getSession();
-        return (DiscoveryInformation) session.getAttribute(OPENID_DISCOVERY_KEY);
-    }
+	public void setModel(final OpenidModel aModel) {
+		HttpSession session = request.getSession();
+		session.setAttribute(OPENID_MODEL_KEY, aModel);
+	}
 
-    public void setModel(OpenidModel model) {
-        HttpSession session = request.getSession();
-        session.setAttribute(OPENID_MODEL_KEY, model);
-    }
+	public OpenidModel getModel() {
+		HttpSession session = request.getSession();
+		return (OpenidModel) session.getAttribute(OPENID_MODEL_KEY);
+	}
 
-    public OpenidModel getModel() {
-        HttpSession session = request.getSession();
-        return (OpenidModel) session.getAttribute(OPENID_MODEL_KEY);
-    }
+	public String getRootUrl() {
+		return request.getScheme() + "://" + request.getServerName() + ":"
+				+ request.getServerPort() + "/" + ROOT_URL;
+	}
 
-    public String getRootUrl() {
-        return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + ROOT_URL;
-    }
+	public String getReturnUrl() {
+		return request.getScheme() + "://" + request.getServerName() + ":"
+				+ request.getServerPort() + "/" + ROOT_URL;
+	}
 
-    public String getReturnUrl() {
-        return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + ROOT_URL;
-    }
+	public boolean isReturned() {
+		final String queryString = this.request.getQueryString();
+		if (queryString != null && !queryString.isEmpty()
+				&& request.getParameter("openid.mode") != null) {
+			return true;
+		}
 
-    public boolean isReturned() {
+		return false;
+	}
 
-        String queryString = this.request.getQueryString();
-        if (queryString != null && !queryString.isEmpty() && request.getParameter("openid.mode") != null) {
-            return true;
-        }
+	public void setConsumerManager(final ConsumerManager aConsumerManager) {
+		request.getSession().setAttribute(OPENID_CONSUMER_MANAGER_KEY,
+				aConsumerManager);
+	}
 
-        return false;
-    }
+	public ConsumerManager getConsumerManager() {
+		return (ConsumerManager) request.getSession().getAttribute(
+				OPENID_CONSUMER_MANAGER_KEY);
+	}
 
-    public void setConsumerManager(ConsumerManager consumerManager) {
-        request.getSession().setAttribute(OPENID_CONSUMER_MANAGER_KEY, consumerManager);
-    }
+	public void cleanIdentity() {
+		request.getSession().invalidate();
+	}
 
-    public ConsumerManager getConsumerManager() {
-        return (ConsumerManager) request.getSession().getAttribute(OPENID_CONSUMER_MANAGER_KEY);
-    }
+	public void setProxySettings(final ProxyProperties aProxyProperties) {
+		ProxyProperties proxyProperties = aProxyProperties;
+		if (proxyProperties == null) {
+			proxyProperties = new ProxyProperties();
+		}
 
-    public void cleanIdentity() {
-        request.getSession().invalidate();
-    }
+		request.getSession().setAttribute(OPENID_PROXY_PROPERTIES,
+				proxyProperties);
+	}
 
-    public void setProxySettings(ProxyProperties proxyProperties) {
-        if (proxyProperties == null) {
-            proxyProperties = new ProxyProperties();
-        }
+	public ProxyProperties getProxySettings() {
+		Object obj = request.getSession().getAttribute(OPENID_PROXY_PROPERTIES);
 
-        request.getSession().setAttribute(OPENID_PROXY_PROPERTIES, proxyProperties);
-    }
+		ProxyProperties proxyProperties = new ProxyProperties();
+		if (obj == null) {
+			final ServletContext context = request.getSession()
+					.getServletContext();
+			@SuppressWarnings("unchecked")
+			final Enumeration<String> enu = context.getInitParameterNames();
 
-    public ProxyProperties getProxySettings() {
-        Object obj = request.getSession().getAttribute(OPENID_PROXY_PROPERTIES);
+			while (enu.hasMoreElements()) {
+				final String name = enu.nextElement();
+				if (name.startsWith("proxy.")) {
+					if ("proxy.host".equals(name)) {
+						proxyProperties.setProxyHostName(context
+								.getInitParameter(name));
+					}
+					if ("proxy.port".equals(name)) {
+						proxyProperties.setProxyPort(Integer.valueOf(context
+								.getInitParameter(name)));
+					}
+					if ("proxy.user".equals(name)) {
+						proxyProperties.setUserName(context
+								.getInitParameter(name));
+					}
+					if ("proxy.password".equals(name)) {
+						proxyProperties.setPassword(context
+								.getInitParameter(name));
+					}
+					if ("proxy.domain".equals(name)) {
+						proxyProperties.setDomain(context
+								.getInitParameter(name));
+					}
+				}
+			}
 
-        ProxyProperties proxyProperties = new ProxyProperties();
-        if (obj == null) {
-            ServletContext context = request.getSession().getServletContext();
-            @SuppressWarnings("unchecked")
-			Enumeration<String> enu = context.getInitParameterNames();
+			setProxySettings(proxyProperties);
+		} else if (obj instanceof ProxyProperties) {
+			proxyProperties = (ProxyProperties) obj;
+		}
 
-            while (enu.hasMoreElements()) {
-                String name = enu.nextElement();
-                if (name.startsWith("proxy.")) {
-                    if ("proxy.host".equals(name)) {
-                        proxyProperties.setProxyHostName(context.getInitParameter(name));
-                    }
-                    if ("proxy.port".equals(name)) {
-                        proxyProperties.setProxyPort(Integer.valueOf(context.getInitParameter(name)));
-                    }
-                    if ("proxy.user".equals(name)) {
-                        proxyProperties.setUserName(context.getInitParameter(name));
-                    }
-                    if ("proxy.password".equals(name)) {
-                        proxyProperties.setPassword(context.getInitParameter(name));
-                    }
-                    if ("proxy.domain".equals(name)) {
-                        proxyProperties.setDomain(context.getInitParameter(name));
-                    }
-                }
-            }
+		return proxyProperties;
+	}
 
-            setProxySettings(proxyProperties);
-        } else if (obj instanceof ProxyProperties) {
-            proxyProperties = (ProxyProperties) obj;
-        }
+	public OpenidService restoreService() {
+		final OpenidService service = new OpenidService(getConsumerManager(),
+				getDiscoveryInfo());
+		final ProxyProperties props = getProxySettings();
 
-        return proxyProperties;
-    }
+		if (props.getProxyHostName() != null) {
+			service.setProxyProperties(props);
+		}
 
-    public OpenidService restoreService() {
-        OpenidService service = new OpenidService(getConsumerManager(), getDiscoveryInfo());
-        ProxyProperties props = getProxySettings();
+		return service;
+	}
 
-        if (props.getProxyHostName() != null) {
-            service.setProxyProperties(props);
-        }
+	public void saveService(OpenidService service) {
+		this.setConsumerManager(service.getConsumerManager());
+		this.setDiscoveryInfo(service.getDiscoveryInformation());
+	}
 
-        return service;
-    }
+	public boolean isRepaint() {
+		if (request.getParameter(REPAINT_MESSAGE) != null) {
+			return true;
+		}
 
-    public void saveService(OpenidService service) {
-        this.setConsumerManager(service.getConsumerManager());
-        this.setDiscoveryInfo(service.getDiscoveryInformation());
-    }
+		return false;
+	}
 
-    public boolean isRepaint() {
-        if (request.getParameter(REPAINT_MESSAGE) != null) {
-            return true;
-        }
+	@SuppressWarnings("unchecked")
+	public Map<String, String> getRequestParamsMap() {
+		final Map<?, ?> map = request.getParameterMap();
 
-        return false;
-    }
+		final Map<String, String> parametersMap = new HashMap<String, String>();
 
-    @SuppressWarnings("unchecked")
-    public Map<String, String> getRequestParamsMap() {
-        Map<?, ?> map = request.getParameterMap();
+		for (final Object obj : map.entrySet()) {
+			final Entry<String, String[]> e = (Entry<String, String[]>) obj;
+			final String key = e.getKey();
+			String value = null;
 
-        Map<String, String> parametersMap = new HashMap<String, String>();
+			final String[] params = (String[]) e.getValue();
 
-        for (Object obj : map.entrySet()) {
-            Entry<String, String[]> e = (Entry<String, String[]>) obj;
-            String key = e.getKey();
-            String value = null;
+			for (String s : params) {
+				value = s;
+				break;
+			}
 
-            String[] params = (String[]) e.getValue();
+			parametersMap.put(key, value);
+		}
 
-            for (String s : params) {
-                value = s;
-                break;
-            }
-
-            parametersMap.put(key, value);
-        }
-
-        return parametersMap;
-    }
+		return parametersMap;
+	}
 }
