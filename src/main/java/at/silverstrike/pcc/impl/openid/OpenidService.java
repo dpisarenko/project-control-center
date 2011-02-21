@@ -22,11 +22,15 @@ import org.openid4java.message.ax.FetchRequest;
 import org.openid4java.message.ax.FetchResponse;
 import org.openid4java.util.HttpClientFactory;
 import org.openid4java.util.ProxyProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class performs OpenId operations.
  */
 class OpenidService {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(OpenidService.class);
 
     private ProxyProperties proxyProperties;
     private ConsumerManager consumerManager;
@@ -35,35 +39,35 @@ class OpenidService {
     public OpenidService() {
     }
 
-    public OpenidService(ConsumerManager consumerManager,
-            DiscoveryInformation discoveryInformation) {
-        this.consumerManager = consumerManager;
-        this.discoveryInformation = discoveryInformation;
+    public OpenidService(final ConsumerManager aConsumerManager,
+            final DiscoveryInformation aDiscoveryInformation) {
+        this.consumerManager = aConsumerManager;
+        this.discoveryInformation = aDiscoveryInformation;
     }
 
     @SuppressWarnings("unchecked")
     public void performDiscoveryOnUserSuppliedIdentifier(
-            final String userSuppliedIdentifier) throws DiscoveryException,
+            final String aUserSuppliedIdentifier) throws DiscoveryException,
             ConsumerException {
 
         consumerManager = getConsumerManager();
 
         // Perform discover on the User-Supplied Identifier
-        List<DiscoveryInformation> discoveries =
-                consumerManager.discover(userSuppliedIdentifier);
+        final List<DiscoveryInformation> discoveries =
+                consumerManager.discover(aUserSuppliedIdentifier);
         // Pass the discoveries to the associate() method...
         this.discoveryInformation = consumerManager.associate(discoveries);
     }
 
-    public AuthRequest createOpenIdAuthRequest(String returnToUrl)
+    public AuthRequest createOpenIdAuthRequest(final String aReturnToUrl)
             throws MessageException, ConsumerException, DiscoveryException {
 
         // Create the AuthRequest object
-        AuthRequest ret =
+        final AuthRequest ret =
                 getConsumerManager().authenticate(discoveryInformation,
-                        returnToUrl);
+                        aReturnToUrl);
 
-        FetchRequest fetch = FetchRequest.createFetchRequest();
+        final FetchRequest fetch = FetchRequest.createFetchRequest();
         fetch.addAttribute("Email", "http://schema.openid.net/contact/email",
                 true);
 
@@ -74,17 +78,17 @@ class OpenidService {
     }
 
     @SuppressWarnings("rawtypes")
-    public AuthSuccess processReturn(Map pageParameters, String returnToUrl)
+    public AuthSuccess processReturn(final Map aPageParameters,
+            final String aReturnToUrl)
             throws MessageException, DiscoveryException, AssociationException,
             ConsumerException {
-
-        ParameterList response = new ParameterList(pageParameters);
-        VerificationResult verificationResult;
-        verificationResult =
-                getConsumerManager().verify(returnToUrl, response,
+        final ParameterList response = new ParameterList(aPageParameters);
+        final VerificationResult verificationResult =
+                getConsumerManager().verify(aReturnToUrl, response,
                         discoveryInformation);
 
-        Identifier verifiedIdentifier = verificationResult.getVerifiedId();
+        final Identifier verifiedIdentifier =
+                verificationResult.getVerifiedId();
 
         if (verifiedIdentifier != null) {
             return (AuthSuccess) verificationResult.getAuthResponse();
@@ -95,22 +99,20 @@ class OpenidService {
     }
 
     @SuppressWarnings("rawtypes")
-    public OpenidModel extractOpenidData(AuthSuccess authSuccess)
+    public OpenidModel extractOpenidData(final AuthSuccess aAuthSuccess)
             throws DiscoveryException, MessageException {
-        OpenidModel model = new OpenidModel();
-        model.setOpenId(authSuccess.getIdentity());
+        final OpenidModel model = new OpenidModel();
+        model.setOpenId(aAuthSuccess.getIdentity());
 
-        if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
+        if (aAuthSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
             FetchResponse fetchResp =
-                    (FetchResponse) authSuccess
+                    (FetchResponse) aAuthSuccess
                             .getExtension(AxMessage.OPENID_NS_AX);
 
-            @SuppressWarnings("rawtypes")
             List aliases = fetchResp.getAttributeAliases();
-            for (Iterator iter = aliases.iterator(); iter.hasNext();) {
-                String alias = (String) iter.next();
-                @SuppressWarnings("rawtypes")
-                List values = fetchResp.getAttributeValues(alias);
+            for (final Iterator iter = aliases.iterator(); iter.hasNext();) {
+                final String alias = (String) iter.next();
+                final List values = fetchResp.getAttributeValues(alias);
 
                 if (!values.isEmpty()) {
                     model.getAttributes().put(alias, (String) values.get(0));
@@ -124,8 +126,8 @@ class OpenidService {
         return proxyProperties;
     }
 
-    public void setProxyProperties(ProxyProperties proxyProperties) {
-        this.proxyProperties = proxyProperties;
+    public void setProxyProperties(final ProxyProperties aProxyProperties) {
+        this.proxyProperties = aProxyProperties;
     }
 
     public ConsumerManager getConsumerManager() {
@@ -144,13 +146,14 @@ class OpenidService {
             }
 
             return consumerManager;
-        } catch (ConsumerException e) {
-            throw new RuntimeException(e);
+        } catch (final ConsumerException exception) {
+            LOGGER.error(ErrorCodes.M_003_CONSUMER_MANAGER, exception);
+            return null;
         }
     }
 
-    public void setConsumerManager(ConsumerManager consumerManager) {
-        this.consumerManager = consumerManager;
+    public void setConsumerManager(final ConsumerManager aConsumerManager) {
+        this.consumerManager = aConsumerManager;
     }
 
     public DiscoveryInformation getDiscoveryInformation() {
@@ -158,7 +161,7 @@ class OpenidService {
     }
 
     public void setDiscoveryInformation(
-            DiscoveryInformation discoveryInformation) {
-        this.discoveryInformation = discoveryInformation;
+            final DiscoveryInformation aDiscoveryInformation) {
+        this.discoveryInformation = aDiscoveryInformation;
     }
 }

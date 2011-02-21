@@ -10,4 +10,7 @@ class ErrorCodes {
 
     public static final String M_002_AUTH_REQUEST_SENDING_FAILURE = PREFIX
             + "002";
+    public static final String M_003_CONSUMER_MANAGER = PREFIX
+            + "003";
+
 }
