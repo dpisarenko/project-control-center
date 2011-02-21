@@ -15,8 +15,8 @@ import at.silverstrike.pcc.api.conventions.PccException;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public interface EmbeddedFileReader {
-	String readEmbeddedFile(String fileName) throws PccException;
+	String readEmbeddedFile(final String aFileName) throws PccException;
 }
