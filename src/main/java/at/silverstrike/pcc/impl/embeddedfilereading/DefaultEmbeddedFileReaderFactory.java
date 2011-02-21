@@ -16,16 +16,16 @@ import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReaderFactory;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public class DefaultEmbeddedFileReaderFactory implements
-		EmbeddedFileReaderFactory {
-	/**
-	 * @see at.silverstrike.pcc.api.conventions.Factory#create()
-	 */
-	@Override
-	public EmbeddedFileReader create() {
-		return new DefaultEmbeddedFileReader();
-	}
+        EmbeddedFileReaderFactory {
+    /**
+     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     */
+    @Override
+    public EmbeddedFileReader create() {
+        return new DefaultEmbeddedFileReader();
+    }
 
 }
