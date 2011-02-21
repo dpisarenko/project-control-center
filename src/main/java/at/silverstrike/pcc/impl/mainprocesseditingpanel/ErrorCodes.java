@@ -11,7 +11,8 @@
 
 package at.silverstrike.pcc.impl.mainprocesseditingpanel;
 
-import static at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module.mainprocesseditingpanel;
+import static at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.
+    Module.mainprocesseditingpanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {
