@@ -15,9 +15,12 @@ import static at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Modu
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {
-    private final static String PREFIX = MessageCodePrefixRegistry
+    private static final String PREFIX = MessageCodePrefixRegistry
             .getInstance().getPrefix(injectorfactory);
 
-    public final static String M_001_VERSION_READER = PREFIX + "001";
+    public static final String M_001_VERSION_READER = PREFIX + "001";
 
+    private ErrorCodes() {
+
+    }
 }
