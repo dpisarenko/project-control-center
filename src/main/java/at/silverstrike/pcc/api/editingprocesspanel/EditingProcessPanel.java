@@ -17,5 +17,5 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
 
 public interface EditingProcessPanel extends ModuleWithInjectableDependencies,
 		AbstractedPanel, WebGuiBusListener {
-	void setData(final Object processId);
+	void setData(final Object aProcessId);
 }
