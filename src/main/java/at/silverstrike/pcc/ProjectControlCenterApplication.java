@@ -36,7 +36,8 @@ public class ProjectControlCenterApplication extends TPTApplication {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ProjectControlCenterApplication.class);
 	private static final String THEME = "pcc";
-
+	private static final boolean OPENID_DEBUGGED = false;
+	
 	private static final long serialVersionUID = 1L;
 
 	private transient Persistence persistence;
@@ -44,21 +45,21 @@ public class ProjectControlCenterApplication extends TPTApplication {
 	private EntryWindow entryWindow;
 
 	@Override
-	public void close() {
+	public final void close() {
 		super.close();
 		closeSession();
 	}
 
-	protected void closeSession() {
+	protected final void closeSession() {
 		if (this.persistence != null) {
 			this.persistence.closeSession();
 		}
 	}
 
-	private static boolean OPENID_DEBUGGED = false;
+	
 
 	@Override
-	public void applicationInit() {
+	public final void applicationInit() {
 		LOGGER.info("PCC application starts");
 
 		setTheme(THEME);
@@ -99,7 +100,7 @@ public class ProjectControlCenterApplication extends TPTApplication {
 	public void firstApplicationStartup() {
 	}
 
-	public void onRequestStart(final HttpServletRequest aRequest,
+	public final void onRequestStart(final HttpServletRequest aRequest,
 			final HttpServletResponse aResponse) {
 		final OpenIdAuthenticationResponder responder = this.injector
 				.getInstance(OpenIdAuthenticationResponder.class);
