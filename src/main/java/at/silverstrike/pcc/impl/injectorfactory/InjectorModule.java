@@ -81,99 +81,105 @@ import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 import com.google.inject.AbstractModule;
 
 class InjectorModule extends AbstractModule {
-	private final Logger LOGGER = LoggerFactory.getLogger(InjectorModule.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(InjectorModule.class);
 
-	@Override
-	protected void configure() {
-		bind(ProcessPanelFactory.class).toInstance(
-				new DefaultProcessPanelFactory());
-		bind(Persistence.class).toInstance(new DefaultPersistence());
-		bind(MainWindowFactory.class)
-				.toInstance(new DefaultMainWindowFactory());
-		bind(EditingProcessPanelFactory.class).toInstance(
-				new DefaultEditingProcessPanelFactory());
-		bind(WorkerPanelFactory.class).toInstance(
-				new DefaultWorkerPanelFactory());
-		bind(SchedulingPanelFactory.class).toInstance(
-				new DefaultSchedulingPanelFactory());
-		bind(DefaultJRubySandBoxFactory.class).toInstance(
-				new DefaultJRubySandBoxFactory());
-		bind(EmbeddedFileReader.class).toInstance(
-				new DefaultEmbeddedFileReaderFactory().create());
-		bind(BookingsFile2BookingsFactory.class).toInstance(
-				new DefaultBookingsFile2BookingsFactory());
-		bind(TaskJuggler3Exporter.class).toInstance(
-				new DefaultTaskJuggler3ExporterFactory().create());
-		bind(Tj3DeadlinesFileParserFactory.class).toInstance(
-				new DefaultTj3DeadlinesFileParserFactory());
-		bind(Tj3BookingsParserFactory.class).toInstance(
-				new DefaultTj3BookingsParserFactory());
-		bind(ProjectScheduler.class).toInstance(
-				new DefaultProjectSchedulerFactory().create());
-		bind(EstimatedCompletionTimesPanelFactory.class).toInstance(
-				new DefaultEstimatedCompletionTimesPanelFactory());
-		bind(DailyPlanPanelFactory.class).toInstance(
-				new DefaultDailyPlanPanelFactory());
-		bind(MainProcessEditingPanelFactory.class).toInstance(
-				new DefaultMainProcessEditingPanelFactory());
-		bind(ProjectSchedulerFactory.class).toInstance(
-				new DefaultProjectSchedulerFactory());
-		bind(DebugIdRegistry.class).toInstance(
-				new DefaultDebugIdRegistryFactory().create());
-		bind(WebGuiBus.class)
-				.toInstance(new DefaultWebGuiBusFactory().create());
-		bind(WebGuiBusMessageFactory.class).toInstance(
-				new DefaultWebGuiBusMessageFactory());
-		bind(PccVersionReader.class).toInstance(getVersionReader());
-		bind(XmlSerializerFactory.class).toInstance(
-				new DefaultXmlSerializerFactory());
-		bind(XmlDeserializerFactory.class).toInstance(
-				new DefaultXmlDeserializerFactory());
-		bind(EntryWindowFactory.class).toInstance(
-				new DefaultEntryWindowFactory());
-		bind(ParameterDataReader.class).toInstance(getParameterDataReader());
-		bind(CultureToLanguageMapper.class).toInstance(
-				getCultureToLanguageMapper());
-		bind(OpenIdAuthenticationResponder.class).toInstance(
-				getOpenIdAuthenticationResponder());
-		bind(OpenIdAuthenticationInitiator.class).toInstance(
-				getOpenIdAuthenticationInitiator());
-		bind(Deauthenticator.class).toInstance(getDeauthenticator());
-	}
+    @Override
+    protected void configure() {
+        bind(ProcessPanelFactory.class).toInstance(
+                new DefaultProcessPanelFactory());
+        bind(Persistence.class).toInstance(new DefaultPersistence());
+        bind(MainWindowFactory.class)
+                .toInstance(new DefaultMainWindowFactory());
+        bind(EditingProcessPanelFactory.class).toInstance(
+                new DefaultEditingProcessPanelFactory());
+        bind(WorkerPanelFactory.class).toInstance(
+                new DefaultWorkerPanelFactory());
+        bind(SchedulingPanelFactory.class).toInstance(
+                new DefaultSchedulingPanelFactory());
+        bind(DefaultJRubySandBoxFactory.class).toInstance(
+                new DefaultJRubySandBoxFactory());
+        bind(EmbeddedFileReader.class).toInstance(
+                new DefaultEmbeddedFileReaderFactory().create());
+        bind(BookingsFile2BookingsFactory.class).toInstance(
+                new DefaultBookingsFile2BookingsFactory());
+        bind(TaskJuggler3Exporter.class).toInstance(
+                new DefaultTaskJuggler3ExporterFactory().create());
+        bind(Tj3DeadlinesFileParserFactory.class).toInstance(
+                new DefaultTj3DeadlinesFileParserFactory());
+        bind(Tj3BookingsParserFactory.class).toInstance(
+                new DefaultTj3BookingsParserFactory());
+        bind(ProjectScheduler.class).toInstance(
+                new DefaultProjectSchedulerFactory().create());
+        bind(EstimatedCompletionTimesPanelFactory.class).toInstance(
+                new DefaultEstimatedCompletionTimesPanelFactory());
+        bind(DailyPlanPanelFactory.class).toInstance(
+                new DefaultDailyPlanPanelFactory());
+        bind(MainProcessEditingPanelFactory.class).toInstance(
+                new DefaultMainProcessEditingPanelFactory());
+        bind(ProjectSchedulerFactory.class).toInstance(
+                new DefaultProjectSchedulerFactory());
+        bind(DebugIdRegistry.class).toInstance(
+                new DefaultDebugIdRegistryFactory().create());
+        bind(WebGuiBus.class)
+                .toInstance(new DefaultWebGuiBusFactory().create());
+        bind(WebGuiBusMessageFactory.class).toInstance(
+                new DefaultWebGuiBusMessageFactory());
+        bind(PccVersionReader.class).toInstance(getVersionReader());
+        bind(XmlSerializerFactory.class).toInstance(
+                new DefaultXmlSerializerFactory());
+        bind(XmlDeserializerFactory.class).toInstance(
+                new DefaultXmlDeserializerFactory());
+        bind(EntryWindowFactory.class).toInstance(
+                new DefaultEntryWindowFactory());
+        bind(ParameterDataReader.class).toInstance(getParameterDataReader());
+        bind(CultureToLanguageMapper.class).toInstance(
+                getCultureToLanguageMapper());
+        bind(OpenIdAuthenticationResponder.class).toInstance(
+                getOpenIdAuthenticationResponder());
+        bind(OpenIdAuthenticationInitiator.class).toInstance(
+                getOpenIdAuthenticationInitiator());
+        bind(Deauthenticator.class).toInstance(getDeauthenticator());
+    }
 
-	private Deauthenticator getDeauthenticator() {
-		final DeauthenticatorFactory factory = new DefaultDeauthenticatorFactory();
-		return factory.create();
-	}
+    private Deauthenticator getDeauthenticator() {
+        final DeauthenticatorFactory factory =
+                new DefaultDeauthenticatorFactory();
+        return factory.create();
+    }
 
-	private OpenIdAuthenticationInitiator getOpenIdAuthenticationInitiator() {
-		final OpenIdAuthenticationInitiatorFactory factory = new DefaultOpenIdAuthenticationInitiatorFactory();
-		return factory.create();
-	}
+    private OpenIdAuthenticationInitiator getOpenIdAuthenticationInitiator() {
+        final OpenIdAuthenticationInitiatorFactory factory =
+                new DefaultOpenIdAuthenticationInitiatorFactory();
+        return factory.create();
+    }
 
-	private OpenIdAuthenticationResponder getOpenIdAuthenticationResponder() {
-		final OpenIdAuthenticationResponderFactory factory = new DefaultOpenIdAuthenticationResponderFactory();
-		return factory.create();
-	}
+    private OpenIdAuthenticationResponder getOpenIdAuthenticationResponder() {
+        final OpenIdAuthenticationResponderFactory factory =
+                new DefaultOpenIdAuthenticationResponderFactory();
+        return factory.create();
+    }
 
-	private CultureToLanguageMapper getCultureToLanguageMapper() {
-		final CultureToLanguageMapperFactory factory = new DefaultCultureToLanguageMapperFactory();
-		return factory.create();
-	}
+    private CultureToLanguageMapper getCultureToLanguageMapper() {
+        final CultureToLanguageMapperFactory factory =
+                new DefaultCultureToLanguageMapperFactory();
+        return factory.create();
+    }
 
-	private ParameterDataReader getParameterDataReader() {
-		final ParameterDataReaderFactory factory = new DefaultParameterDataReaderFactory();
-		return factory.create();
-	}
+    private ParameterDataReader getParameterDataReader() {
+        final ParameterDataReaderFactory factory =
+                new DefaultParameterDataReaderFactory();
+        return factory.create();
+    }
 
-	private PccVersionReader getVersionReader() {
-		final PccVersionReaderFactory factory = new DefaultPccVersionReaderFactory();
-		final PccVersionReader versionReader = factory.create();
-		try {
-			versionReader.run();
-		} catch (final PccException exception) {
-			LOGGER.error(ErrorCodes.M_001_VERSION_READER, exception);
-		}
-		return versionReader;
-	}
+    private PccVersionReader getVersionReader() {
+        final PccVersionReaderFactory factory =
+                new DefaultPccVersionReaderFactory();
+        final PccVersionReader versionReader = factory.create();
+        try {
+            versionReader.run();
+        } catch (final PccException exception) {
+            LOGGER.error(ErrorCodes.M_001_VERSION_READER, exception);
+        }
+        return versionReader;
+    }
 }
