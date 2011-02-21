@@ -28,6 +28,7 @@ import at.silverstrike.pcc.api.tj3bookingsparser.IndBooking;
 import at.silverstrike.pcc.api.tj3bookingsparser.SupplementStatement;
 
 class DefaultBookingsFile2Bookings implements BookingsFile2Bookings {
+    private static final int TIME_ZONE_LENGTH = 6;
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd-HH:mm";
     private List<BookingTuple> tuples;
     private BookingsFile bookingsFile = null;
@@ -83,7 +84,7 @@ class DefaultBookingsFile2Bookings implements BookingsFile2Bookings {
          */
 
         final String dateTimeWithoutTimeZone =
-                aDateTime.substring(0, aDateTime.length() - 6);
+                aDateTime.substring(0, aDateTime.length() - TIME_ZONE_LENGTH);
 
         /**
          * Parse date/time
