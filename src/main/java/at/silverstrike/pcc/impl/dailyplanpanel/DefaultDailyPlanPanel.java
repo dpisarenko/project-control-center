@@ -80,7 +80,8 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
     private static final String COLUMN_SCHEDULE_TO = "COLUMN_SCHEDULE_TO";
     private static final String COLUMN_SCHEDULE_PROCESS =
             "COLUMN_SCHEDULE_PROCESS";
-    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat(
+            "HH:mm");
     private InlineDateField selectedDayDateField;
 
     private transient Injector injector;
@@ -229,7 +230,7 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
      * 
      * MT_CORRECTNESS STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE
      */
-    private static final DateFormat getDayInMonthFormat() {
+    private static DateFormat getDayInMonthFormat() {
         return new SimpleDateFormat(DAY_IN_MONTH_FORMAT);
     }
 
@@ -241,11 +242,11 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         return getFullDateFormat().format(aNow);
     }
 
-    private static final DateFormat getFullDateFormat() {
+    private static DateFormat getFullDateFormat() {
         return DateFormat.getDateInstance();
     }
 
-    private static final DateFormat getDayOfWeekFormat() {
+    private static DateFormat getDayOfWeekFormat() {
         return new SimpleDateFormat(DAY_OF_WEEK_FORMAT);
     }
 
