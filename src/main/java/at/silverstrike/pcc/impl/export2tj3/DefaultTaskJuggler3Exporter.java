@@ -56,15 +56,20 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
     private static final String EFFORT_INFO = "${effortInfo}";
 
-    private static final String EXPORT2TJ3_TEMPLATE_EFFORT = "export2tj3.template.effort";
+    private static final String EXPORT2TJ3_TEMPLATE_EFFORT =
+            "export2tj3.template.effort";
 
-    private static final String EXPORT2TJ3_TEMPLATE_RESOURCEALLOCATION_LIMITS = "export2tj3.template.resourceallocation.limits";
+    private static final String EXPORT2TJ3_TEMPLATE_RESOURCEALLOCATION_LIMITS =
+            "export2tj3.template.resourceallocation.limits";
 
-    private static final String EXPORT2TJ3_TEMPLATE_RESOURCEALLOCATION_NOLIMITS = "export2tj3.template.resourceallocation.nolimits";
+    private static final String EXPORT2TJ3_TEMPLATE_RESOURCEALLOCATION_NOLIMITS =
+            "export2tj3.template.resourceallocation.nolimits";
 
-    private static final String EXPORT2TJ3_TEMPLATE_START = "export2tj3.template.start";
+    private static final String EXPORT2TJ3_TEMPLATE_START =
+            "export2tj3.template.start";
 
-    private static final String EXPORT2TJ3_TEMPLATE_TASK = "export2tj3.template.task";
+    private static final String EXPORT2TJ3_TEMPLATE_TASK =
+            "export2tj3.template.task";
 
     private static final String ID = "${id}";
 
@@ -88,11 +93,13 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
     private static final String PLACEHOLDER_PROJECT_NAME = "${projectName}";
 
-    private static final String PLACEHOLDER_SCHEDULING_HORIZON_MONTHS = "${schedulingHorizonMonths}";
+    private static final String PLACEHOLDER_SCHEDULING_HORIZON_MONTHS =
+            "${schedulingHorizonMonths}";
 
     private static final String PRIORITY = "${priority}";
 
-    private static final String PROJECT_HEADER_TEMPLATE = "export2tj3.template.project";
+    private static final String PROJECT_HEADER_TEMPLATE =
+            "export2tj3.template.project";
 
     private static final String REPORT_TEMPLATE = "export2tj3.template.reports";
 
@@ -100,7 +107,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
     private static final String RESOURCE_ALLOCATIONS = "${resourceAllocations}";
 
-    private static final String RESOURCE_TEMPLATE = "export2tj3.template.resource";
+    private static final String RESOURCE_TEMPLATE =
+            "export2tj3.template.resource";
     private static final String START_DATE_TIME = "${startDateTime}";
 
     private static final Double TIMING_RESOLUTION_IN_HOURS = 0.25;
@@ -134,9 +142,10 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
         LOGGER.debug("this.embeddedFileReader: " + embeddedFileReader);
 
-        final String projectTemplate = embeddedFileReader
-                .readEmbeddedFile(PROJECT_HEADER_TEMPLATE);
-        final String projectHeader = substituteProjectHeaderPlaceholders(projectTemplate);
+        final String projectTemplate =
+                embeddedFileReader.readEmbeddedFile(PROJECT_HEADER_TEMPLATE);
+        final String projectHeader =
+                substituteProjectHeaderPlaceholders(projectTemplate);
 
         builder.append(projectHeader);
 
@@ -145,19 +154,24 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
         // Add task information
 
-        final List<ControlProcess> processes = this.projectExportInfo
-                .getControlProcessesToExport();
+        final List<ControlProcess> processes =
+                this.projectExportInfo.getControlProcessesToExport();
         if (processes != null) {
-            taskTemplate = embeddedFileReader
-                    .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_TASK);
-            effortTemplate = embeddedFileReader
-                    .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_EFFORT);
-            resourceAllocationLimitsTemplate = embeddedFileReader
-                    .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_RESOURCEALLOCATION_LIMITS);
-            resourceAllocationNoLimitsTemplate = embeddedFileReader
-                    .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_RESOURCEALLOCATION_NOLIMITS);
-            startDateTimeTemplate = embeddedFileReader
-                    .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_START);
+            taskTemplate =
+                    embeddedFileReader
+                            .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_TASK);
+            effortTemplate =
+                    embeddedFileReader
+                            .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_EFFORT);
+            resourceAllocationLimitsTemplate =
+                    embeddedFileReader
+                            .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_RESOURCEALLOCATION_LIMITS);
+            resourceAllocationNoLimitsTemplate =
+                    embeddedFileReader
+                            .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_RESOURCEALLOCATION_NOLIMITS);
+            startDateTimeTemplate =
+                    embeddedFileReader
+                            .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_START);
 
             for (final ControlProcess process : processes) {
                 builder.append(getTaskInformation(process, null));
@@ -174,23 +188,24 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             persistence = aInjector.getInstance(Persistence.class);
-            embeddedFileReader = aInjector
-                    .getInstance(EmbeddedFileReader.class);
+            embeddedFileReader =
+                    aInjector.getInstance(EmbeddedFileReader.class);
         }
     }
 
     private void addResourceInformation(final StringBuilder aBuilder)
             throws PccException {
-        final List<Resource> resources = this.projectExportInfo
-                .getResourcesToExport();
+        final List<Resource> resources =
+                this.projectExportInfo.getResourcesToExport();
 
         if (resources != null) {
-            final String resourceDefinitionTemplate = embeddedFileReader
-                    .readEmbeddedFile(RESOURCE_TEMPLATE);
+            final String resourceDefinitionTemplate =
+                    embeddedFileReader.readEmbeddedFile(RESOURCE_TEMPLATE);
 
             for (final Resource resource : resources) {
-                final String resourceDefinition = subsituteResourcePlaceHolders(
-                        resourceDefinitionTemplate, resource);
+                final String resourceDefinition =
+                        subsituteResourcePlaceHolders(
+                                resourceDefinitionTemplate, resource);
 
                 aBuilder.append(resourceDefinition);
             }
@@ -221,7 +236,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         }
     }
 
-    private List<ControlProcess> getChildProcesses(final ControlProcess aProcess) {
+    private List<ControlProcess>
+            getChildProcesses(final ControlProcess aProcess) {
         return persistence.getChildTasks(aProcess);
     }
 
@@ -234,18 +250,20 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
                 final String resourceAllocationInfo;
 
                 if (resourceAllocation instanceof DailyLimitResourceAllocation) {
-                    final DailyLimitResourceAllocation limitAlloc = (DailyLimitResourceAllocation) resourceAllocation;
+                    final DailyLimitResourceAllocation limitAlloc =
+                            (DailyLimitResourceAllocation) resourceAllocation;
 
-                    resourceAllocationInfo = resourceAllocationLimitsTemplate
-                            .replace(
+                    resourceAllocationInfo =
+                            resourceAllocationLimitsTemplate.replace(
                                     RESOURCE,
                                     getResourceIdentifier(limitAlloc
                                             .getResource())).replace(
                                     MAX_HOURS_PER_DAY,
                                     formatDouble(limitAlloc.getDailyLimit()));
                 } else {
-                    resourceAllocationInfo = resourceAllocationNoLimitsTemplate
-                            .replace(RESOURCE,
+                    resourceAllocationInfo =
+                            resourceAllocationNoLimitsTemplate.replace(
+                                    RESOURCE,
                                     getResourceIdentifier(resourceAllocation
                                             .getResource()));
                 }
@@ -307,14 +325,16 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             priority = 0;
         }
 
-        final String taskDefinition = taskTemplate
-                .replace(ID, formatLong(aProcess.getId()))
-                .replace(NAME, shortenName(aProcess.getName()))
-                .replace(START_DATE_TIME, getStartDateTime(aParent))
-                .replace(PRIORITY, formatInt(priority))
-                .replace(RESOURCE_ALLOCATIONS, getEffortAllocations(aProcess))
-                .replace(EFFORT_INFO, getEffortInfo(aProcess))
-                .replace(CHILD_TASKS, childProcessDefinitions);
+        final String taskDefinition =
+                taskTemplate
+                        .replace(ID, formatLong(aProcess.getId()))
+                        .replace(NAME, shortenName(aProcess.getName()))
+                        .replace(START_DATE_TIME, getStartDateTime(aParent))
+                        .replace(PRIORITY, formatInt(priority))
+                        .replace(RESOURCE_ALLOCATIONS,
+                                getEffortAllocations(aProcess))
+                        .replace(EFFORT_INFO, getEffortInfo(aProcess))
+                        .replace(CHILD_TASKS, childProcessDefinitions);
 
         return taskDefinition;
     }
@@ -329,11 +349,12 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
     private String subsituteResourcePlaceHolders(
             final String aResourceDefinitionTemplate, final Resource aResource) {
-        final String resourceDefinition = aResourceDefinitionTemplate
-                .replace(ABBREVIATION, aResource.getAbbreviation())
-                .replace(RESOURCE_ID, aResource.getId().toString())
-                .replace(DAILY_LIMIT_IN_HOURS,
-                        formatDouble(aResource.getDailyLimitInHours()));
+        final String resourceDefinition =
+                aResourceDefinitionTemplate
+                        .replace(ABBREVIATION, aResource.getAbbreviation())
+                        .replace(RESOURCE_ID, aResource.getId().toString())
+                        .replace(DAILY_LIMIT_IN_HOURS,
+                                formatDouble(aResource.getDailyLimitInHours()));
         return resourceDefinition;
     }
 
@@ -343,19 +364,20 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         LOGGER.error("projectTemplate: {}", aProjectTemplate);
         LOGGER.error("this.projectExportInfo: {}", this.projectExportInfo);
 
-        final String projectHeader = aProjectTemplate
-                .replace(PLACEHOLDER_PROJECT_NAME,
-                        this.projectExportInfo.getProjectName())
-                .replace(PLACEHOLDER_COPYRIGHT,
-                        this.projectExportInfo.getCopyright())
-                .replace(PLACEHOLDER_CURRENCY,
-                        this.projectExportInfo.getCurrency())
-                .replace(PLACEHOLDER_NOW,
-                        formatDate(this.projectExportInfo.getNow()))
-                .replace(
-                        PLACEHOLDER_SCHEDULING_HORIZON_MONTHS,
-                        formatInt(this.projectExportInfo
-                                .getSchedulingHorizonMonths()));
+        final String projectHeader =
+                aProjectTemplate
+                        .replace(PLACEHOLDER_PROJECT_NAME,
+                                this.projectExportInfo.getProjectName())
+                        .replace(PLACEHOLDER_COPYRIGHT,
+                                this.projectExportInfo.getCopyright())
+                        .replace(PLACEHOLDER_CURRENCY,
+                                this.projectExportInfo.getCurrency())
+                        .replace(PLACEHOLDER_NOW,
+                                formatDate(this.projectExportInfo.getNow()))
+                        .replace(
+                                PLACEHOLDER_SCHEDULING_HORIZON_MONTHS,
+                                formatInt(this.projectExportInfo
+                                        .getSchedulingHorizonMonths()));
         return projectHeader;
     }
 
@@ -366,10 +388,10 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             throw new NoProjectExportInfoException();
         }
 
-        final List<ControlProcess> processes = this.projectExportInfo
-                .getControlProcessesToExport();
-        final List<Resource> resources = this.projectExportInfo
-                .getResourcesToExport();
+        final List<ControlProcess> processes =
+                this.projectExportInfo.getControlProcessesToExport();
+        final List<Resource> resources =
+                this.projectExportInfo.getResourcesToExport();
 
         if (processes == null) {
             throw new NoProcessesException();
@@ -407,7 +429,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         return projectExportInfo;
     }
 
-    public void setProjectExportInfo(final ProjectExportInfo aProjectExportInfo) {
+    public void
+            setProjectExportInfo(final ProjectExportInfo aProjectExportInfo) {
         this.projectExportInfo = aProjectExportInfo;
     }
 
