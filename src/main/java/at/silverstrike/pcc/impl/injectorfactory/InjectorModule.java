@@ -81,7 +81,8 @@ import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 import com.google.inject.AbstractModule;
 
 class InjectorModule extends AbstractModule {
-    private static final Logger LOGGER = LoggerFactory.getLogger(InjectorModule.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(InjectorModule.class);
 
     @Override
     protected void configure() {
