@@ -70,6 +70,10 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         this.setWidth("500px");
         this.setHeight("100%");
 
+        this.setDebugId(this.debugIdRegistry.getDebugId(
+                MessageCodePrefixRegistry.Module.schedulingpanel,
+                "3-main-panel"));
+
         setCaption(TM.get("schedulingpanel.1-caption"));
 
         final VerticalLayout layout = new VerticalLayout();
@@ -161,6 +165,10 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         } catch (final InvalidDurationException exception) {
             final Window subwindow = new Window(
                     TM.get("schedulingpanel.3-start-validation-error-caption"));
+
+            subwindow.setDebugId(this.debugIdRegistry.getDebugId(
+                    MessageCodePrefixRegistry.Module.schedulingpanel,
+                    "4-invalid-time-error-message"));
 
             subwindow.setModal(true);
             final Label message = new Label(TM.get(
