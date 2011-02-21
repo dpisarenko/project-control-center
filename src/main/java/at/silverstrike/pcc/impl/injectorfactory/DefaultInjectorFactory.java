@@ -16,11 +16,10 @@ import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public class DefaultInjectorFactory implements InjectorFactory{
-	public Injector createInjector()
-	{
-		final Injector injector = Guice.createInjector(new InjectorModule());
-		
-		return injector;
-	}
+public class DefaultInjectorFactory implements InjectorFactory {
+    public final Injector createInjector() {
+        final Injector injector = Guice.createInjector(new InjectorModule());
+
+        return injector;
+    }
 }
