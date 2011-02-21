@@ -75,25 +75,26 @@ class DefaultEstimatedCompletionTimesPanel extends Panel implements
     }
 
     @Override
-    public void setInjector(final Injector anInjector) {
-        this.injector = anInjector;
+    public void setInjector(final Injector aInjector) {
+        this.injector = aInjector;
     }
 
     @Override
     public void initGui() {
-        final Button refreshButton = new Button(TM.get("estimatedcompletiontimespanel.7-refresh"));
-        
+        final Button refreshButton =
+                new Button(TM.get("estimatedcompletiontimespanel.7-refresh"));
+
         refreshButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void buttonClick(final ClickEvent anEvent) {
+            public void buttonClick(final ClickEvent aEvent) {
                 refreshButtonClicked();
             }
         });
-        
+
         addComponent(refreshButton);
-        
+
         createProcessesTable();
 
         addComponent(processesTable);
@@ -150,7 +151,7 @@ class DefaultEstimatedCompletionTimesPanel extends Panel implements
     }
 
     private Object[] getTaskCells(final ControlProcess aTask) {
-        Object[] cells = new Object[COLUMNS_COUNT];
+        final Object[] cells = new Object[COLUMNS_COUNT];
 
         if (aTask.getParent() == null) {
             cells[COLUMN_INDEX_PARENT] = "";
