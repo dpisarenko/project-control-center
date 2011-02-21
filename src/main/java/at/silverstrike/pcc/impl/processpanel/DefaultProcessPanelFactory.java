@@ -16,9 +16,9 @@ import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
 
 public class DefaultProcessPanelFactory implements ProcessPanelFactory {
 
-	@Override
-	public ProcessPanel create() {
-		return new DefaultProcessPanel();
-	}
+    @Override
+    public final ProcessPanel create() {
+        return new DefaultProcessPanel();
+    }
 
 }
