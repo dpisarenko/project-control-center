@@ -24,12 +24,12 @@ public class DefaultTj3DeadlinesFileParserFactory extends
         Tj3DeadlinesFileParserFactory {
 
     @Override
-    protected String getInterfacename() {
+    protected final String getInterfacename() {
         return "tj3deadlinesparser";
     }
 
     @Override
-    protected String getModuleName() {
+    protected final String getModuleName() {
         return "Tj3DeadlinesFileParser";
     }
 }
