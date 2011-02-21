@@ -23,9 +23,9 @@ import at.silverstrike.pcc.api.conventions.SingleActivityModule;
  */
 public interface ProjectScheduler extends ModuleWithInjectableDependencies,
         SingleActivityModule {
-    final String TJ3_INPUT_FILE = "pccProject.tjp";
-    final String BOOKINGS_FILE = "pccBookings.tji.tjp";
-    final String DEADLINE_CSV_FILE = "pccDeadlines.csv";
+    String TJ3_INPUT_FILE = "pccProject.tjp";
+    String BOOKINGS_FILE = "pccBookings.tji.tjp";
+    String DEADLINE_CSV_FILE = "pccDeadlines.csv";
 
     ProjectExportInfo getProjectExportInfo();
 
