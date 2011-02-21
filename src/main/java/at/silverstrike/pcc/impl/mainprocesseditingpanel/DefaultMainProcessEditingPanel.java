@@ -64,6 +64,8 @@ import eu.livotov.tpt.i18n.TM;
  */
 class DefaultMainProcessEditingPanel extends Panel implements
         MainProcessEditingPanel, ProcessPanelListener {
+    private static final int SPLIT_POSITION = 10;
+
     public static final Object PROJECT_PROPERTY_NAME = "name";
 
     private static final Logger LOGGER = LoggerFactory
@@ -121,7 +123,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
         splitPanel1.setHeight("600px");
         splitPanel1.setWidth("100%");
 
-        splitPanel1.setSplitPosition(10);
+        splitPanel1.setSplitPosition(SPLIT_POSITION);
 
         splitPanel1.addComponent(getTreePanel());
         splitPanel1.addComponent(getSplitPanel2());
@@ -250,8 +252,6 @@ class DefaultMainProcessEditingPanel extends Panel implements
                 injector.getInstance(ProcessPanelFactory.class);
         processPanel = processPanelFactory.create();
 
-        final Persistence persistence = injector.getInstance(Persistence.class);
-
         processPanel.setInjector(injector);
         processPanel.setProcessPanelListener(this);
         processPanel.initGui();
@@ -377,7 +377,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void buttonClick(ClickEvent aEvent) {
+            public void buttonClick(final ClickEvent aEvent) {
                 exportButtonClicked();
             }
         });
