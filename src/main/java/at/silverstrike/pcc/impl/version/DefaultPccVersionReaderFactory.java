@@ -17,7 +17,7 @@ import at.silverstrike.pcc.api.version.PccVersionReaderFactory;
 public class DefaultPccVersionReaderFactory implements PccVersionReaderFactory {
 
     @Override
-    public PccVersionReader create() {
+    public final PccVersionReader create() {
         return new DefaultPccVersionReader();
     }
 
