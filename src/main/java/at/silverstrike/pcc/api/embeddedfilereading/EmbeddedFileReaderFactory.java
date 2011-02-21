@@ -14,8 +14,8 @@ import at.silverstrike.pcc.api.conventions.Factory;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
-public interface EmbeddedFileReaderFactory extends Factory<EmbeddedFileReader>{
+public interface EmbeddedFileReaderFactory extends Factory<EmbeddedFileReader> {
 
 }
