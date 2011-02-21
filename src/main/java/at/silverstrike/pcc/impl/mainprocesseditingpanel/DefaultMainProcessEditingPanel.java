@@ -263,11 +263,11 @@ class DefaultMainProcessEditingPanel extends Panel implements
     }
 
     private HierarchicalContainer getProjectTreeData() {
-        final HierarchicalContainer projectTreeData =
+        final HierarchicalContainer returnValue =
                 new HierarchicalContainer();
-        projectTreeData.addContainerProperty(PROJECT_PROPERTY_ID, Long.class,
+        returnValue.addContainerProperty(PROJECT_PROPERTY_ID, Long.class,
                 null);
-        projectTreeData.addContainerProperty(PROJECT_PROPERTY_NAME,
+        returnValue.addContainerProperty(PROJECT_PROPERTY_NAME,
                 String.class, null);
 
         final List<ControlProcess> topLevelProcesses =
@@ -277,14 +277,14 @@ class DefaultMainProcessEditingPanel extends Panel implements
             LOGGER.debug("topLevelProcesses: " + topLevelProcesses.size());
         }
 
-        final Item root = projectTreeData.addItem(TREE_ROOT_ID);
+        final Item root = returnValue.addItem(TREE_ROOT_ID);
         root.getItemProperty(PROJECT_PROPERTY_ID).setValue(null);
         root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                 TM.get("mainprocesseditingpanel.7-root"));
 
-        addNodes(projectTreeData, topLevelProcesses, null, persistence, 1);
+        addNodes(returnValue, topLevelProcesses, null, persistence, 1);
 
-        return projectTreeData;
+        return returnValue;
     }
 
     private Component getSplitPanel2() {
