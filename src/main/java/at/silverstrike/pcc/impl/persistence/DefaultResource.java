@@ -14,31 +14,31 @@ package at.silverstrike.pcc.impl.persistence;
 import at.silverstrike.pcc.api.model.Resource;
 
 class DefaultResource implements Resource {
-	private String abbreviation;
-	private Long id;
-	private double dailyLimitInHours;
+    private String abbreviation;
+    private Long id;
+    private double dailyLimitInHours;
 
-	public String getAbbreviation() {
-		return abbreviation;
-	}
+    public String getAbbreviation() {
+        return abbreviation;
+    }
 
-	public void setAbbreviation(final String abbreviation) {
-		this.abbreviation = abbreviation;
-	}
+    public void setAbbreviation(final String aAbbreviation) {
+        this.abbreviation = aAbbreviation;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    public void setId(final Long aId) {
+        this.id = aId;
+    }
 
-	public double getDailyLimitInHours() {
-		return dailyLimitInHours;
-	}
+    public double getDailyLimitInHours() {
+        return dailyLimitInHours;
+    }
 
-	public void setDailyLimitInHours(final double dailyLimitInHours) {
-		this.dailyLimitInHours = dailyLimitInHours;
-	}
+    public void setDailyLimitInHours(final double aDailyLimitInHours) {
+        this.dailyLimitInHours = aDailyLimitInHours;
+    }
 }
