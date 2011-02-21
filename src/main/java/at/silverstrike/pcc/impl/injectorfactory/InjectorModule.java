@@ -55,8 +55,7 @@ import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
-import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.
-    DefaultEstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainprocesseditingpanel.DefaultMainProcessEditingPanelFactory;
@@ -82,7 +81,7 @@ import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 import com.google.inject.AbstractModule;
 
 class InjectorModule extends AbstractModule {
-    private final Logger LOGGER = LoggerFactory.getLogger(InjectorModule.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(InjectorModule.class);
 
     @Override
     protected void configure() {
