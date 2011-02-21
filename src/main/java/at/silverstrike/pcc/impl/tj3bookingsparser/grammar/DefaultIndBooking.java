@@ -15,23 +15,22 @@ import at.silverstrike.pcc.api.tj3bookingsparser.IndBooking;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public class DefaultIndBooking implements IndBooking {
-	public String startTime;
-	public String duration;
-	
-	public DefaultIndBooking(final String aStartTime, final String aDuration)
-	{
-		this.startTime = aStartTime;
-		this.duration = aDuration;
-	}
+    public String startTime;
+    public String duration;
 
-	public String getStartTime() {
-		return startTime;
-	}
+    public DefaultIndBooking(final String aStartTime, final String aDuration) {
+        this.startTime = aStartTime;
+        this.duration = aDuration;
+    }
 
-	public String getDuration() {
-		return duration;
-	}
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
 }

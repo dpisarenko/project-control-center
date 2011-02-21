@@ -20,24 +20,21 @@ import at.silverstrike.pcc.api.webguibus.WorkerAddedMessage;
 
 class DefaultWebGuiBus implements WebGuiBus {
     private List<WebGuiBusListener> listeners;
-    
-    public DefaultWebGuiBus()
-    {
+
+    public DefaultWebGuiBus() {
         this.listeners = new LinkedList<WebGuiBusListener>();
     }
-    
+
     @Override
     public void addListener(final WebGuiBusListener aListener) {
-        if (!this.listeners.contains(aListener))
-        {
+        if (!this.listeners.contains(aListener)) {
             this.listeners.add(aListener);
         }
     }
 
     @Override
     public void broadcastWorkerAddedMessage(final WorkerAddedMessage aMessage) {
-        for (final WebGuiBusListener listener : this.listeners)
-        {
+        for (final WebGuiBusListener listener : this.listeners) {
             listener.workerAdded(aMessage);
         }
     }
