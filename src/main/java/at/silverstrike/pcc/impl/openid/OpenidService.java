@@ -1,3 +1,14 @@
+/**
+ * This file is part of Project Control Center (PCC).
+ * 
+ * PCC (Project Control Center) project is intellectual property of 
+ * Dmitri Anatol'evich Pisarenko.
+ * 
+ * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * All rights reserved
+ *
+ **/
+
 package at.silverstrike.pcc.impl.openid;
 
 import java.util.Iterator;
@@ -29,6 +40,8 @@ import org.slf4j.LoggerFactory;
  * Class performs OpenId operations.
  */
 class OpenidService {
+    private static final int MAX_AGE = 10000;
+
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OpenidService.class);
 
@@ -105,11 +118,11 @@ class OpenidService {
         model.setOpenId(aAuthSuccess.getIdentity());
 
         if (aAuthSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
-            FetchResponse fetchResp =
+            final FetchResponse fetchResp =
                     (FetchResponse) aAuthSuccess
                             .getExtension(AxMessage.OPENID_NS_AX);
 
-            List aliases = fetchResp.getAttributeAliases();
+            final List aliases = fetchResp.getAttributeAliases();
             for (final Iterator iter = aliases.iterator(); iter.hasNext();) {
                 final String alias = (String) iter.next();
                 final List values = fetchResp.getAttributeValues(alias);
@@ -142,7 +155,7 @@ class OpenidService {
                 consumerManager
                         .setAssociations(new InMemoryConsumerAssociationStore());
                 consumerManager.setNonceVerifier(new InMemoryNonceVerifier(
-                        10000));
+                        MAX_AGE));
             }
 
             return consumerManager;
