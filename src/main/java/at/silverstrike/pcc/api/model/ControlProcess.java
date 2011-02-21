@@ -18,8 +18,8 @@ import java.util.Set;
 import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
 
 public interface ControlProcess extends UniquelyIdentifiableObject {
-    public static final int HIGHEST_PRIORITY = 1000;
-    public static final int LOWEST_PRIORITY = 0;
+    static final int HIGHEST_PRIORITY = 1000;
+    static final int LOWEST_PRIORITY = 0;
     
 	String getName();
 	void setName(final String aName);
@@ -34,7 +34,7 @@ public interface ControlProcess extends UniquelyIdentifiableObject {
 	/**
 	 * Set effort estimate in hours (best case).
 	 */
-	void setBestCaseEffort(final Double anEffortInHours);
+	void setBestCaseEffort(final Double aEffortInHours);
 
 	/**
 	 * Get effort estimate in hours (average case).
@@ -48,7 +48,7 @@ public interface ControlProcess extends UniquelyIdentifiableObject {
 	/**
 	 * Set effort estimate in hours (worst case).
 	 */
-	void setWorstCaseEffort(final Double anEffortInHours);
+	void setWorstCaseEffort(final Double aEffortInHours);
 
 	void setResourceAllocations(List<ResourceAllocation> aResourceAllocations);
 	List<ResourceAllocation> getResourceAllocations();
