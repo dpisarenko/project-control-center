@@ -16,17 +16,17 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public class DefaultEstimatedCompletionTimesPanelFactory implements
-		EstimatedCompletionTimesPanelFactory {
+        EstimatedCompletionTimesPanelFactory {
 
-	/**
-	 * @see at.silverstrike.pcc.api.conventions.Factory#create()
-	 */
-	@Override
-	public EstimatedCompletionTimesPanel create() {
-		return new DefaultEstimatedCompletionTimesPanel();
-	}
+    /**
+     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     */
+    @Override
+    public final EstimatedCompletionTimesPanel create() {
+        return new DefaultEstimatedCompletionTimesPanel();
+    }
 
 }
