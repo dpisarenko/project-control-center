@@ -38,7 +38,7 @@ class DefaultMainWindow implements MainWindow {
     private Window mainWindow;
     private TabSheet tabSheet;
     private DebugIdRegistry debugIdRegistry;
-    
+
     public DefaultMainWindow() {
     }
 
@@ -47,21 +47,23 @@ class DefaultMainWindow implements MainWindow {
         return this.mainWindow;
     }
 
-    
     public void initGui() {
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
-        
-        final PccVersionReader versionReader = this.injector.getInstance(PccVersionReader.class);
-        
-        mainWindow = new Window(TM.get("mainwindow.1-title", versionReader.getVersion()));
+
+        final PccVersionReader versionReader =
+                this.injector.getInstance(PccVersionReader.class);
+
+        mainWindow =
+                new Window(TM.get("mainwindow.1-title",
+                        versionReader.getVersion()));
         mainWindow.setDebugId(this.debugIdRegistry
-        		.getDebugId(MessageCodePrefixRegistry.Module.mainwindow, "1"));
-        
-        
+                .getDebugId(MessageCodePrefixRegistry.Module.mainwindow, "1"));
+
         this.tabSheet = new TabSheet();
         this.tabSheet.setDebugId(this.debugIdRegistry
-        		.getDebugId(MessageCodePrefixRegistry.Module.mainwindow, "2-tab-sheet"));
-        
+                .getDebugId(MessageCodePrefixRegistry.Module.mainwindow,
+                        "2-tab-sheet"));
+
         this.tabSheet.setHeight("500px");
         this.tabSheet.setWidth("1200px");
 
@@ -118,7 +120,7 @@ class DefaultMainWindow implements MainWindow {
 
         panel.setInjector(this.injector);
         panel.initGui();
-        
+
         return panel.toPanel();
     }
 
@@ -129,12 +131,12 @@ class DefaultMainWindow implements MainWindow {
 
         panel.setInjector(this.injector);
         panel.initGui();
-        
+
         return panel.toPanel();
     }
 
     @Override
-    public void setInjector(final Injector anInjector) {
-        this.injector = anInjector;
+    public void setInjector(final Injector aInjector) {
+        this.injector = aInjector;
     }
 }
