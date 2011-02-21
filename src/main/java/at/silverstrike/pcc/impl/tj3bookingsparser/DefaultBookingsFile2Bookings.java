@@ -28,84 +28,85 @@ import at.silverstrike.pcc.api.tj3bookingsparser.IndBooking;
 import at.silverstrike.pcc.api.tj3bookingsparser.SupplementStatement;
 
 class DefaultBookingsFile2Bookings implements BookingsFile2Bookings {
-    
-    
-    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd-HH:mm";
+
+	private static final String DATE_TIME_FORMAT = "yyyy-MM-dd-HH:mm";
 	private List<BookingTuple> tuples;
-    private BookingsFile bookingsFile = null;
-    private Persistence persistence = null;
-    
-    @Override
-    public List<BookingTuple> getTuples() {
-        return this.tuples;
-    }
+	private BookingsFile bookingsFile = null;
+	private Persistence persistence = null;
 
-    @Override
-    public void run() throws NumberFormatException, ParseException {
-        this.tuples = new LinkedList<BookingTuple>();
-        
-        for (final SupplementStatement suppStmt : this.bookingsFile.getSupplementStatements())
-        {
-            final long taskId = taskOrResourceIdStringToLong(suppStmt.getTaskId());
-            
-            for (final BookingStatement bookingStmt : suppStmt.getBookingStatements())
-            {
-                final long resourceId = taskOrResourceIdStringToLong(bookingStmt.getResource());
-                
-                for (final IndBooking indBooking : bookingStmt.getIndBookings())
-                {
-                    final Booking booking = this.persistence.createBooking();
-                    
-                    final Date startTime = parseDateTime(indBooking.getStartTime());
-                    
-                    booking.setStartDateTime(startTime);
-                    booking.setDuration(parseDuration(indBooking.getDuration()));
-                    
-                    final BookingTuple tuple = new DefaultBookingTuple();
-                    
-                    tuple.setProcessId(taskId);
-                    tuple.setResourceId(resourceId);
-                    tuple.setBooking(booking);
-                    
-                    this.tuples.add(tuple);
-                }
-            }
-        }
-    }
+	@Override
+	public List<BookingTuple> getTuples() {
+		return this.tuples;
+	}
 
-    private double parseDuration(final String aDuration) throws NumberFormatException {
-        return Double.parseDouble(aDuration.replace("h", ""));
-    }
+	@Override
+	public void run() throws ParseException {
+		this.tuples = new LinkedList<BookingTuple>();
 
-    private Date parseDateTime(final String aDateTime) throws ParseException {
-        /**
-         * Strip timezone
-         */
-        
-        final String dateTimeWithoutTimeZone = aDateTime.substring(0, aDateTime.length()-6);
-        
-        /**
-         * Parse date/time
-         */
-        return getDateTimeFormat().parse(dateTimeWithoutTimeZone);
-    }
-    
-    private final static DateFormat getDateTimeFormat()
-    {
-    	return new SimpleDateFormat(DATE_TIME_FORMAT);
-    }
-    
-    private long taskOrResourceIdStringToLong(final String anIdAsString) {
-        return Long.parseLong(anIdAsString.substring(1));
-    }
+		for (final SupplementStatement suppStmt : this.bookingsFile
+				.getSupplementStatements()) {
+			final long taskId = taskOrResourceIdStringToLong(suppStmt
+					.getTaskId());
 
-    @Override
-    public void setBookingsFile(final BookingsFile aBookingsFile) {
-        this.bookingsFile = aBookingsFile;
-    }
+			for (final BookingStatement bookingStmt : suppStmt
+					.getBookingStatements()) {
+				final long resourceId = taskOrResourceIdStringToLong(bookingStmt
+						.getResource());
 
-    @Override
-    public void setPersistence(final Persistence aPersistence) {
-        this.persistence = aPersistence;
-    }
+				for (final IndBooking indBooking : bookingStmt.getIndBookings()) {
+					final Booking booking = this.persistence.createBooking();
+
+					final Date startTime = parseDateTime(indBooking
+							.getStartTime());
+
+					booking.setStartDateTime(startTime);
+					booking.setDuration(parseDuration(indBooking.getDuration()));
+
+					final BookingTuple tuple = new DefaultBookingTuple();
+
+					tuple.setProcessId(taskId);
+					tuple.setResourceId(resourceId);
+					tuple.setBooking(booking);
+
+					this.tuples.add(tuple);
+				}
+			}
+		}
+	}
+
+	private double parseDuration(final String aDuration) {
+		return Double.parseDouble(aDuration.replace("h", ""));
+	}
+
+	private Date parseDateTime(final String aDateTime) throws ParseException {
+		/**
+		 * Strip timezone
+		 */
+
+		final String dateTimeWithoutTimeZone = aDateTime.substring(0,
+				aDateTime.length() - 6);
+
+		/**
+		 * Parse date/time
+		 */
+		return getDateTimeFormat().parse(dateTimeWithoutTimeZone);
+	}
+
+	private final static DateFormat getDateTimeFormat() {
+		return new SimpleDateFormat(DATE_TIME_FORMAT);
+	}
+
+	private long taskOrResourceIdStringToLong(final String aIdAsString) {
+		return Long.parseLong(aIdAsString.substring(1));
+	}
+
+	@Override
+	public void setBookingsFile(final BookingsFile aBookingsFile) {
+		this.bookingsFile = aBookingsFile;
+	}
+
+	@Override
+	public void setPersistence(final Persistence aPersistence) {
+		this.persistence = aPersistence;
+	}
 }
