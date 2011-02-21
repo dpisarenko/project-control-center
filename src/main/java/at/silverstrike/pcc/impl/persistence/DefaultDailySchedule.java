@@ -18,22 +18,25 @@ import at.silverstrike.pcc.api.model.DailySchedule;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 class DefaultDailySchedule implements DailySchedule {
-	private List<Booking> bookings;
-	private Long id;
-	
-	public List<Booking> getBookings() {
-		return bookings;
-	}
-	public void setBookings(final List<Booking> aBookings) {
-		this.bookings = aBookings;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    private List<Booking> bookings;
+    private Long id;
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(final List<Booking> aBookings) {
+        this.bookings = aBookings;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long aId) {
+        this.id = aId;
+    }
 }
