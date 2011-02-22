@@ -27,6 +27,19 @@ final class ErrorCodes {
             + "004";
     public static final String M_005_REQUEST_MESSAGE = PREFIX + "005";
     
+    public static final String M_006_DIAGNOSTIC_MESSAGE = PREFIX + "006";
+    public static final String M_007_DIAGNOSTIC_MESSAGE = PREFIX + "007";
+    public static final String M_008_DIAGNOSTIC_MESSAGE = PREFIX + "008";
+    public static final String M_009_DIAGNOSTIC_MESSAGE = PREFIX + "009";
+    public static final String M_010_DIAGNOSTIC_MESSAGE = PREFIX + "010";
+    public static final String M_011_DIAGNOSTIC_MESSAGE = PREFIX + "011";
+    
+    public static final String M_012_DIAGNOSTIC_MESSAGE = PREFIX + "012";
+    public static final String M_013_DIAGNOSTIC_MESSAGE = PREFIX + "013";
+    public static final String M_014_DIAGNOSTIC_MESSAGE = PREFIX + "014";
+    
+    public static final String M_015_QUERY_STRING = PREFIX + "015";
+    
     private ErrorCodes() {
 
     }

@@ -22,8 +22,13 @@ import javax.servlet.http.HttpSession;
 import org.openid4java.consumer.ConsumerManager;
 import org.openid4java.discovery.DiscoveryInformation;
 import org.openid4java.util.ProxyProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class HttpProcessor {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(HttpProcessor.class);
+
     private final HttpServletRequest request;
     private static final String OPENID_DISCOVERY_KEY = "openid.discovery";
     private static final String OPENID_MODEL_KEY = "openid.model";
@@ -75,6 +80,10 @@ final class HttpProcessor {
 
     public boolean isReturned() {
         final String queryString = this.request.getQueryString();
+
+        LOGGER.debug("{}: Query string: {}", new Object[] {
+                ErrorCodes.M_015_QUERY_STRING, queryString });
+
         if (queryString != null && !queryString.isEmpty()
                 && request.getParameter("openid.mode") != null) {
             return true;

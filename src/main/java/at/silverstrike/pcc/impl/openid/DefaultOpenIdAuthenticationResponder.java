@@ -20,8 +20,6 @@ import org.openid4java.message.AuthSuccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eu.livotov.tpt.TPTApplication;
-
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponder;
 
@@ -40,22 +38,43 @@ class DefaultOpenIdAuthenticationResponder implements
         final HttpProcessor httpProcessor = new HttpProcessor(this.request);
         OpenidService openidService;
 
+        LOGGER.debug("{}", new Object[] { ErrorCodes.M_006_DIAGNOSTIC_MESSAGE });
+
         if (!httpProcessor.isRepaint()) {
             try {
+                LOGGER.debug("{}", new Object[] { ErrorCodes.M_007_DIAGNOSTIC_MESSAGE });
+                
                 openidService = httpProcessor.restoreService();
 
+                LOGGER.debug("{}", new Object[] { ErrorCodes.M_008_DIAGNOSTIC_MESSAGE });
+                
                 if (httpProcessor.isReturned()) {
+                    
+                    LOGGER.debug("{}", new Object[] { ErrorCodes.M_009_DIAGNOSTIC_MESSAGE });
+                    
                     final Map<String, String> parametersMap =
                             httpProcessor.getRequestParamsMap();
                     final AuthSuccess success =
                             openidService.processReturn(parametersMap,
                                     httpProcessor.getReturnUrl());
 
+                    LOGGER.debug("{}", new Object[] { ErrorCodes.M_010_DIAGNOSTIC_MESSAGE });
+                    
                     final OpenidModel model =
                             openidService.extractOpenidData(success);
+                    
+                    LOGGER.debug("{}", new Object[] { ErrorCodes.M_011_DIAGNOSTIC_MESSAGE });
+                    
                     httpProcessor.setModel(model);
+                    LOGGER.debug("{}", new Object[] { ErrorCodes.M_012_DIAGNOSTIC_MESSAGE });
                     httpProcessor.saveService(openidService);
-//                    this.response.sendRedirect(httpProcessor.getRootUrl());
+                    
+                    LOGGER.debug("{}", new Object[] { ErrorCodes.M_013_DIAGNOSTIC_MESSAGE });
+                    
+                    this.response.sendRedirect(httpProcessor.getRootUrl());
+                    
+                    LOGGER.debug("{}", new Object[] { ErrorCodes.M_014_DIAGNOSTIC_MESSAGE });
+                    
                     this.validationSuccessful = true;
                 }
             } catch (final Exception exception) {
