@@ -31,7 +31,7 @@ final class HttpProcessor {
             "openid.consumer-manager";
     private static final String OPENID_PROXY_PROPERTIES =
             "openid.proxy-properties";
-    private static final String ROOT_URL = "openid-sample";
+    private static final String ROOT_URL = "pcc";
     private static final String REPAINT_MESSAGE = "repaintAll";
 
     /**
