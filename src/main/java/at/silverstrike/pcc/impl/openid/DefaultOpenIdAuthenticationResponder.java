@@ -20,6 +20,8 @@ import org.openid4java.message.AuthSuccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import eu.livotov.tpt.TPTApplication;
+
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponder;
 
@@ -53,7 +55,7 @@ class DefaultOpenIdAuthenticationResponder implements
                             openidService.extractOpenidData(success);
                     httpProcessor.setModel(model);
                     httpProcessor.saveService(openidService);
-                    this.response.sendRedirect(httpProcessor.getRootUrl());
+//                    this.response.sendRedirect(httpProcessor.getRootUrl());
                     this.validationSuccessful = true;
                 }
             } catch (final Exception exception) {
