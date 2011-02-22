@@ -62,6 +62,8 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
     private transient Persistence persistence;
     private transient DebugIdRegistry debugIdRegistry;
 
+    private String errorMessageDebugId;
+
     public DefaultSchedulingPanel() {
     }
 
@@ -110,6 +112,10 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         layout.addComponent(loggingTextArea);
 
         addComponent(layout);
+
+        errorMessageDebugId = this.debugIdRegistry.getDebugId(
+                MessageCodePrefixRegistry.Module.schedulingpanel,
+                "4-invalid-time-error-message");
     }
 
     @Override
@@ -166,9 +172,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
             final Window subwindow = new Window(
                     TM.get("schedulingpanel.3-start-validation-error-caption"));
 
-            subwindow.setDebugId(this.debugIdRegistry.getDebugId(
-                    MessageCodePrefixRegistry.Module.schedulingpanel,
-                    "4-invalid-time-error-message"));
+            subwindow.setDebugId(errorMessageDebugId);
 
             subwindow.setModal(true);
             final Label message = new Label(TM.get(
