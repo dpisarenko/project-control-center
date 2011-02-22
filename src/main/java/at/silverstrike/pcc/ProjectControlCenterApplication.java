@@ -113,6 +113,11 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     public final void onRequestStart(final HttpServletRequest aRequest,
             final HttpServletResponse aResponse) {
 
+        if (!OPENID_DEBUGGED)
+        {
+            return;
+        }
+        
         this.request = aRequest;
 
         if (this.injector != null) {
