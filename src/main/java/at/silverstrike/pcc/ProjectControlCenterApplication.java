@@ -128,7 +128,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
             try {
                 responder.run();
             } catch (final PccException exception) {
-                LOGGER.error("", exception);
+                LOGGER.error("000.003", exception);
             }
 
             if (responder.isValidationSuccessful()) {
