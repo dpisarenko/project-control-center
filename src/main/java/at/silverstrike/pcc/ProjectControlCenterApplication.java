@@ -113,11 +113,10 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     public final void onRequestStart(final HttpServletRequest aRequest,
             final HttpServletResponse aResponse) {
 
-        if (!OPENID_DEBUGGED)
-        {
+        if (!OPENID_DEBUGGED) {
             return;
         }
-        
+
         this.request = aRequest;
 
         if (this.injector != null) {
@@ -159,9 +158,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     }
 
     @Override
-    public void onRequestEnd(HttpServletRequest request,
-            HttpServletResponse response) {
-        // TODO Auto-generated method stub
-
+    public void onRequestEnd(final HttpServletRequest aRequest,
+            final HttpServletResponse aResponse) {
     }
 }
