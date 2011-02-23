@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  This file is part of Project Control Center (PCC).
-  
-  PCC (Project Control Center) project is intellectual property of 
-  Dmitri Anatol'evich Pisarenko.
-  
-  Copyright 2010 Dmitri Anatol'evich Pisarenko
-  All rights reserved
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<!-- This file is part of Project Control Center (PCC). PCC (Project Control 
+	Center) project is intellectual property of Dmitri Anatol'evich Pisarenko. 
+	Copyright 2010 Dmitri Anatol'evich Pisarenko All rights reserved -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
@@ -19,7 +14,7 @@
 	<scm>
 		<connection>scm:git:ssh://dp118m.beanstalkapp.com/pcc.git</connection>
 		<url>scm:git:ssh://dp118m.beanstalkapp.com/pcc.git</url>
-		<developerConnection>scm:git:[fetch=]git@dp118m.beanstalkapp.com:/pcc.git[push=]beanstalk</developerConnection>	
+		<developerConnection>scm:git:[fetch=]git@dp118m.beanstalkapp.com:/pcc.git[push=]beanstalk</developerConnection>
 	</scm>
 
 
@@ -29,12 +24,12 @@
 
 	<build>
 		<finalName>pcc</finalName>
-	    <resources>
-	      <resource>
-		<directory>src/main/resources</directory>
-		<filtering>true</filtering>
-	      </resource>
-	    </resources>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 
 		<pluginManagement>
 			<plugins>
@@ -46,11 +41,11 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
-		      <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-release-plugin</artifactId>
-			<version>2.0</version>
-		      </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-plugin</artifactId>
@@ -74,33 +69,22 @@
 				<version>2.0</version>
 			</plugin>
 
-			<!--
-				Compile custom GWT components or widget dependencies with the GWT
-				compiler
-			-->
-			<!--
-				<plugin> <groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>1.3-SNAPSHOT</version> <executions> <execution>
-				<configuration>
-				<webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
-				<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
-				<runTarget>pcc</runTarget>
-				<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
-				<noServer>true</noServer> <port>8080</port> <soyc>false</soyc>
-				</configuration> <goals> <goal>resources</goal> <goal>compile</goal>
-				</goals> </execution> </executions> </plugin> <plugin>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-maven-plugin</artifactId>
-				<version>1.0.0</version> <executions> <execution> <configuration>
-				</configuration> <goals> <goal>update-widgetset</goal> </goals>
-				</execution> </executions> </plugin>
-			-->
+			<!-- Compile custom GWT components or widget dependencies with the GWT 
+				compiler -->
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>gwt-maven-plugin</artifactId> 
+				<version>1.3-SNAPSHOT</version> <executions> <execution> <configuration> 
+				<webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory> 
+				<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs> <runTarget>pcc</runTarget> 
+				<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp> 
+				<noServer>true</noServer> <port>8080</port> <soyc>false</soyc> </configuration> 
+				<goals> <goal>resources</goal> <goal>compile</goal> </goals> </execution> 
+				</executions> </plugin> <plugin> <groupId>com.vaadin</groupId> <artifactId>vaadin-maven-plugin</artifactId> 
+				<version>1.0.0</version> <executions> <execution> <configuration> </configuration> 
+				<goals> <goal>update-widgetset</goal> </goals> </execution> </executions> 
+				</plugin> -->
 
-			<!--
-				A simple Jetty test server at http://localhost:8080/pcc can be
-				launched with the Maven goal jetty:run and stopped with jetty:stop
-			-->
+			<!-- A simple Jetty test server at http://localhost:8080/pcc can be launched 
+				with the Maven goal jetty:run and stopped with jetty:stop -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
@@ -108,22 +92,15 @@
 				<configuration>
 					<stopPort>9966</stopPort>
 					<stopKey>pcc</stopKey>
-					<!--
-						Redeploy every x seconds if changes are detected, 0 for no
-						automatic redeployment
-					-->
+					<!-- Redeploy every x seconds if changes are detected, 0 for no automatic 
+						redeployment -->
 					<scanIntervalSeconds>0</scanIntervalSeconds>
 					<!-- make sure Jetty also finds the widgetset -->
 					<webAppConfig>
 						<contextPath>/pcc</contextPath>
 						<baseResource implementation="org.mortbay.resource.ResourceCollection">
-							<!--
-								Workaround for Maven/Jetty issue
-								http://jira.codehaus.org/browse/JETTY-680
-							-->
-							<!--
-								<resources>src/main/webapp,${project.build.directory}/${project.build.finalName}</resources>
-							-->
+							<!-- Workaround for Maven/Jetty issue http://jira.codehaus.org/browse/JETTY-680 -->
+							<!-- <resources>src/main/webapp,${project.build.directory}/${project.build.finalName}</resources> -->
 							<resourcesAsCSV>src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV>
 						</baseResource>
 					</webAppConfig>
@@ -188,15 +165,9 @@
 						<version>1.4</version>
 					</dependency>
 
-					<!--
-						This is also used by gwt-maven-plugin to deduce GWT version
-						number.
-					-->
-					<!--
-						<dependency> <groupId>com.google.gwt</groupId>
-						<artifactId>gwt-user</artifactId> <version>2.0.3</version>
-						<scope>provided</scope> </dependency>
-					-->
+					<!-- This is also used by gwt-maven-plugin to deduce GWT version number. -->
+					<!-- <dependency> <groupId>com.google.gwt</groupId> <artifactId>gwt-user</artifactId> 
+						<version>2.0.3</version> <scope>provided</scope> </dependency> -->
 					<dependency>
 						<groupId>junit</groupId>
 						<artifactId>junit</artifactId>
@@ -348,14 +319,9 @@
 			<version>1.4</version>
 		</dependency>
 
-		<!--
-			This is also used by gwt-maven-plugin to deduce GWT version number.
-		-->
-		<!--
-			<dependency> <groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId> <version>2.0.3</version>
-			<scope>provided</scope> </dependency>
-		-->
+		<!-- This is also used by gwt-maven-plugin to deduce GWT version number. -->
+		<!-- <dependency> <groupId>com.google.gwt</groupId> <artifactId>gwt-user</artifactId> 
+			<version>2.0.3</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -407,11 +373,11 @@
 			<artifactId>xstream-distribution</artifactId>
 			<version>1.3</version>
 		</dependency>
-        <dependency>
-            <groupId>org.openid4java</groupId>
-            <artifactId>openid4java-consumer</artifactId>
-            <version>0.9.5</version>
-        </dependency>
+		<dependency>
+			<groupId>org.openid4java</groupId>
+			<artifactId>openid4java-consumer</artifactId>
+			<version>0.9.5</version>
+		</dependency>
 	</dependencies>
 	<reporting>
 		<plugins>
@@ -426,6 +392,9 @@
 
 				<configuration>
 					<targetJdk>1.6</targetJdk>
+					<excludes>
+						<exclude>**/at/silverstrike/pcc/impl/tj3bookingsparser/grammar/Bookings*er.java</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -435,8 +404,6 @@
 				<configuration>
 					<configLocation>pcc-checkstyle.xml</configLocation>
 					<excludes>**/at/silverstrike/pcc/impl/tj3bookingsparser/grammar/Bookings*er.java</excludes>
-					<!-- **/generated/**/* -->
-					<!-- **/at/silverstrike/pcc/impl/tj3bookingsparser/grammar/Bookings*er.java -->
 				</configuration>
 			</plugin>
 			<plugin>
