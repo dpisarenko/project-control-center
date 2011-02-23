@@ -61,8 +61,9 @@ class AuthenticateButtonListener implements Button.ClickListener {
         authInitiator.setIdentity(identity);
         authInitiator.setRequest(this.request);
 
-        LOGGER.debug("{}: Request={}", new Object[]{ErrorCodes.M_004_REQUEST_MESSAGE, this.request});
-        
+        LOGGER.debug("{}: Request={}", new Object[] {
+                ErrorCodes.M_004_REQUEST_MESSAGE, this.request });
+
         try {
             authInitiator.run();
 
@@ -76,7 +77,8 @@ class AuthenticateButtonListener implements Button.ClickListener {
         }
     }
 
-    private void showErrorMessage(final TPTApplication aApp, final String aMessage) {
+    private void showErrorMessage(final TPTApplication aApp,
+            final String aMessage) {
         final OptionDialog messageBox = new OptionDialog(aApp);
         messageBox.showMessageDialog(TM.get("entrywindow.5-messagebox-title"),
                 aMessage, null);
