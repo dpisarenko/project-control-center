@@ -116,9 +116,6 @@
 						<artifactId>javassist</artifactId>
 						<version>3.8.0.GA</version>
 					</dependency>
-
-
-
 					<dependency>
 						<groupId>com.google.inject</groupId>
 						<artifactId>guice</artifactId>
@@ -164,7 +161,6 @@
 						<artifactId>commons-io</artifactId>
 						<version>1.4</version>
 					</dependency>
-
 					<!-- This is also used by gwt-maven-plugin to deduce GWT version number. -->
 					<!-- <dependency> <groupId>com.google.gwt</groupId> <artifactId>gwt-user</artifactId> 
 						<version>2.0.3</version> <scope>provided</scope> </dependency> -->
@@ -227,7 +223,6 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-
 		<repository>
 			<id>jboss</id>
 			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
@@ -238,7 +233,6 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-
 		<repository>
 			<id>ibiblio</id>
 			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
@@ -249,7 +243,6 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-
 		<repository>
 			<id>xstream</id>
 			<url>http://ftp.cica.es/mirrors/maven2</url>
@@ -279,7 +272,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
-
 			<artifactId>antlr</artifactId>
 			<version>3.2</version>
 		</dependency>
@@ -318,7 +310,6 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.4</version>
 		</dependency>
-
 		<!-- This is also used by gwt-maven-plugin to deduce GWT version number. -->
 		<!-- <dependency> <groupId>com.google.gwt</groupId> <artifactId>gwt-user</artifactId> 
 			<version>2.0.3</version> <scope>provided</scope> </dependency> -->
@@ -360,14 +351,12 @@
 			<version>3.8.0.GA</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
 			<artifactId>selenium-java-client-driver</artifactId>
 			<version>1.0.1</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream-distribution</artifactId>
@@ -389,7 +378,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-
 				<configuration>
 					<targetJdk>1.6</targetJdk>
 					<excludes>
@@ -442,5 +430,4 @@
 			</plugin>
 		</plugins>
 	</reporting>
-
 </project>
