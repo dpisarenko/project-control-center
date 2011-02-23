@@ -18,8 +18,7 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.conventions.PccWindow;
 
 public interface EntryWindow extends ModuleWithInjectableDependencies,
-		InitializableGuiComponent, PccWindow {
+        InitializableGuiComponent, PccWindow {
 
-    public abstract void setRequest(final HttpServletRequest aRequest);
-
+    abstract void setRequest(final HttpServletRequest aRequest);
 }
