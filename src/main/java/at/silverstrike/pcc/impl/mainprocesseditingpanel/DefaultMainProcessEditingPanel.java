@@ -122,6 +122,8 @@ class DefaultMainProcessEditingPanel extends Panel implements
         splitPanel1.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
 
         splitPanel1.setSizeFull();
+        splitPanel1.setHeight("1000px");
+//        splitPanel1.setHeight(Math.max(arg0, arg1))
         
         splitPanel1.setSplitPosition(SPLIT_POSITION);
 
@@ -289,7 +291,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
                 TM.get("mainprocesseditingpanel.7-root"));
 
         addNodes(returnValue, topLevelProcesses, null, persistence, 1);
-
+        
         return returnValue;
     }
 
