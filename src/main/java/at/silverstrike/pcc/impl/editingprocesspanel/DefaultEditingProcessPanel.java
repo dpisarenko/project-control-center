@@ -197,9 +197,11 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     public void initGui() {
         this.webGuiBus.addListener(this);
 
-        this.setWidth("100%");
-        this.setHeight("400px");
+//        this.setWidth("100%");
+//        this.setHeight("400px");
 
+        this.setSizeFull();
+        
         setCaption(TM.get("editingprocesspanel.15-panel-caption"));
         this.setDebugId(this.debugIdRegistry.getDebugId(
                 MessageCodePrefixRegistry.Module.editingprocesspanel, "1"));
@@ -212,7 +214,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         addComponent(buttonPanel);
 
         final GridLayout grid = new GridLayout(3, 7);
-        grid.setWidth("100%");
+//        grid.setWidth("100%");
+        grid.setSizeFull();
 
         processNameTextArea = new TextField("");
         processNameTextArea.setRows(NAME_TEXT_AREA_ROWS);
@@ -232,7 +235,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
 
         createPriorityControls(grid);
 
-        createDependencyControls(grid);
+//        createDependencyControls(grid);
 
         setButtonEnabledness();
 

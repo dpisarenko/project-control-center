@@ -12,8 +12,8 @@ package at.silverstrike.pcc.api.conventions;
 
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public interface InitializableGuiComponent {
-	void initGui();
+    void initGui();
 }

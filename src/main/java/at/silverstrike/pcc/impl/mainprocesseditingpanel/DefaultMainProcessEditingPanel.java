@@ -120,9 +120,11 @@ class DefaultMainProcessEditingPanel extends Panel implements
         final SplitPanel splitPanel1 = new SplitPanel();
 
         splitPanel1.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
-        splitPanel1.setHeight("600px");
-        splitPanel1.setWidth("100%");
+//        splitPanel1.setHeight("600px");
+//        splitPanel1.setWidth("100%");
 
+        splitPanel1.setSizeFull();
+        
         splitPanel1.setSplitPosition(SPLIT_POSITION);
 
         splitPanel1.addComponent(getTreePanel());
@@ -256,7 +258,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
         processPanel.setProcessPanelListener(this);
         processPanel.initGui();
         processPanel.setProcessesToShow(persistence.getAllNotDeletedTasks());
-
+        
         panel.addComponent(processPanel.toPanel());
 
         return panel;
@@ -269,7 +271,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
                 null);
         returnValue.addContainerProperty(PROJECT_PROPERTY_NAME,
                 String.class, null);
-
+        
         final List<ControlProcess> topLevelProcesses =
                 persistence.getSubProcessesWithChildren(null);
 
@@ -290,6 +292,8 @@ class DefaultMainProcessEditingPanel extends Panel implements
     private Component getSplitPanel2() {
         final SplitPanel splitPanel2 = new SplitPanel();
 
+        splitPanel2.setHeight("100%");
+        
         splitPanel2.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
         splitPanel2.addComponent(getProcessListPanel());
         splitPanel2.addComponent(getProcessEditingPanel());
@@ -317,6 +321,9 @@ class DefaultMainProcessEditingPanel extends Panel implements
             }
         });
 
+        projectTree.setHeight("100%");
+        
+        layout.setHeight("100%");
         layout.addComponent(projectTree);
 
         createSiblingButton =

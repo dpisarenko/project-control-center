@@ -64,9 +64,6 @@ class DefaultMainWindow implements MainWindow {
                 .getDebugId(MessageCodePrefixRegistry.Module.mainwindow,
                         "2-tab-sheet"));
 
-//        this.tabSheet.setHeight("500px");
-//        this.tabSheet.setWidth("1200px");
-
         this.tabSheet.setSizeFull();
         
         this.tabSheet.addTab(getMainProcessEditingPanel(), TM

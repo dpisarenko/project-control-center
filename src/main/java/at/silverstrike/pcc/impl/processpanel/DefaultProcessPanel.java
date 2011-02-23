@@ -127,9 +127,11 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
 
     @Override
     public void initGui() {
-        this.setWidth("500px");
-        this.setHeight("400px");
+//        this.setWidth("500px");
+//        this.setHeight("400px");
 
+        this.setSizeFull();
+        
         parentProcessLabel = new Label("");
 
         this.addComponent(parentProcessLabel);
