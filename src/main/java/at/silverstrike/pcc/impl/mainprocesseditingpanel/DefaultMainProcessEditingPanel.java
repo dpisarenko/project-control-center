@@ -120,8 +120,6 @@ class DefaultMainProcessEditingPanel extends Panel implements
         final SplitPanel splitPanel1 = new SplitPanel();
 
         splitPanel1.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
-//        splitPanel1.setHeight("600px");
-//        splitPanel1.setWidth("100%");
 
         splitPanel1.setSizeFull();
         
@@ -292,7 +290,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
     private Component getSplitPanel2() {
         final SplitPanel splitPanel2 = new SplitPanel();
 
-        splitPanel2.setHeight("100%");
+        splitPanel2.setSizeFull();
         
         splitPanel2.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
         splitPanel2.addComponent(getProcessListPanel());
@@ -321,9 +319,10 @@ class DefaultMainProcessEditingPanel extends Panel implements
             }
         });
 
-        projectTree.setHeight("100%");
+        projectTree.setSizeFull();
         
-        layout.setHeight("100%");
+//        layout.setHeight("100%");
+        this.setSizeFull();
         layout.addComponent(projectTree);
 
         createSiblingButton =

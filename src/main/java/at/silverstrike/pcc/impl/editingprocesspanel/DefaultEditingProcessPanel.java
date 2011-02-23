@@ -43,7 +43,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
@@ -56,8 +55,6 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     private static final int PRIORITY_ROW = 5;
     private static final int MAX_EFFORT_ROW = 4;
     private static final int MIN_EFFORT_ROW = 3;
-    private static final int DEPENDENCY_GRID_Y_POS = 6;
-    private static final int DEPENDENCY_LIST_ROWS = 10;
     private static final int NAME_TEXT_AREA_COLUMNS = 25;
     private static final int NAME_TEXT_AREA_ROWS = 5;
     private static final String ABBREVIATED_PROCESS_NAME =
@@ -197,11 +194,8 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     public void initGui() {
         this.webGuiBus.addListener(this);
 
-//        this.setWidth("100%");
-//        this.setHeight("400px");
-
         this.setSizeFull();
-        
+
         setCaption(TM.get("editingprocesspanel.15-panel-caption"));
         this.setDebugId(this.debugIdRegistry.getDebugId(
                 MessageCodePrefixRegistry.Module.editingprocesspanel, "1"));
@@ -214,7 +208,6 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         addComponent(buttonPanel);
 
         final GridLayout grid = new GridLayout(3, 7);
-//        grid.setWidth("100%");
         grid.setSizeFull();
 
         processNameTextArea = new TextField("");
@@ -234,8 +227,6 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         createEffortEstimateControls(grid);
 
         createPriorityControls(grid);
-
-//        createDependencyControls(grid);
 
         setButtonEnabledness();
 
@@ -497,46 +488,6 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         buttonPanel.addComponent(deleteButton, 0, 2);
         buttonPanel.addComponent(saveButton, 1, 2);
         return buttonPanel;
-    }
-
-    private void createDependencyControls(final GridLayout aGrid) {
-        final GridLayout dependencyGrid = new GridLayout(2, 2);
-        final ListSelect dependencyList = new ListSelect();
-
-        final Button deleteDependencyButton =
-                new Button(
-                        TM.get("editingprocesspanel.24-delete-dependency-button"));
-        deleteDependencyButton.setDebugId(this.debugIdRegistry.getDebugId(
-                MessageCodePrefixRegistry.Module.editingprocesspanel,
-                "16-dependencyDeleteButton"));
-
-        final Button addButton =
-                new Button(
-                        TM.get("editingprocesspanel.25-add-dependency-button"));
-        addButton.setDebugId(this.debugIdRegistry.getDebugId(
-                MessageCodePrefixRegistry.Module.editingprocesspanel,
-                "17-dependencyAddButton"));
-        final ComboBox dependencyComboBox = new ComboBox();
-
-        dependencyComboBox.setDebugId(this.debugIdRegistry.getDebugId(
-                MessageCodePrefixRegistry.Module.editingprocesspanel,
-                "18-dependencyComboBox"));
-        dependencyList.setDebugId(this.debugIdRegistry.getDebugId(
-                MessageCodePrefixRegistry.Module.editingprocesspanel,
-                "19-dependencyList"));
-        dependencyList.setRows(DEPENDENCY_LIST_ROWS);
-        dependencyGrid.setCaption(TM
-                .get("editingprocesspanel.23-dependencies-caption"));
-        dependencyGrid.setWidth("100%");
-
-        dependencyGrid.addComponent(dependencyList, 0, 0);
-        dependencyGrid.addComponent(deleteDependencyButton, 1, 0);
-
-        dependencyGrid.addComponent(dependencyComboBox, 0, 1);
-        dependencyGrid.addComponent(addButton, 1, 1);
-
-        aGrid.addComponent(dependencyGrid, 0, DEPENDENCY_GRID_Y_POS, 2,
-                DEPENDENCY_GRID_Y_POS);
     }
 
     private void createEffortEstimateControls(final GridLayout aGrid) {
