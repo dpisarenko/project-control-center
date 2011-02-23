@@ -96,12 +96,13 @@
 						redeployment -->
 					<scanIntervalSeconds>0</scanIntervalSeconds>
 					<!-- make sure Jetty also finds the widgetset -->
+					<classesDirectory>${basedir}/target/generated-classes/cobertura</classesDirectory>
 					<webAppConfig>
 						<contextPath>/pcc</contextPath>
 						<baseResource implementation="org.mortbay.resource.ResourceCollection">
 							<!-- Workaround for Maven/Jetty issue http://jira.codehaus.org/browse/JETTY-680 -->
 							<!-- <resources>src/main/webapp,${project.build.directory}/${project.build.finalName}</resources> -->
-							<resourcesAsCSV>src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV>
+							<resourcesAsCSV>src/main/webapp,${project.build.directory}/generated-classes/cobertura</resourcesAsCSV>
 						</baseResource>
 					</webAppConfig>
 				</configuration>
@@ -200,6 +201,11 @@
 						<groupId>ch.qos.logback</groupId>
 						<artifactId>logback-access</artifactId>
 						<version>0.9.17</version>
+					</dependency>
+					<dependency>
+						<groupId>net.sourceforge.cobertura</groupId>
+						<artifactId>cobertura</artifactId>
+						<version>1.9.4</version>
 					</dependency>
 				</dependencies>
 			</plugin>
