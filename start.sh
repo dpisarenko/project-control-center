@@ -8,5 +8,6 @@
 # Copyright 2010 Dmitri Anatol'evich Pisarenko
 # All rights reserved
 
+mvn cobertura:instrument
 rm pcc.log
 mvn jetty:run 2>&1 | tee pcc.log
