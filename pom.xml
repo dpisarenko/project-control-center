@@ -434,6 +434,9 @@
 				<version>2.6</version>
 				<configuration>
 					<configLocation>pcc-checkstyle.xml</configLocation>
+					<excludes>**/at/silverstrike/pcc/impl/tj3bookingsparser/grammar/Bookings*er.java</excludes>
+					<!-- **/generated/**/* -->
+					<!-- **/at/silverstrike/pcc/impl/tj3bookingsparser/grammar/Bookings*er.java -->
 				</configuration>
 			</plugin>
 			<plugin>
