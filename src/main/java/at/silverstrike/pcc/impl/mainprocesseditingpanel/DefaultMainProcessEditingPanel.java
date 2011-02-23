@@ -241,7 +241,9 @@ class DefaultMainProcessEditingPanel extends Panel implements
         processEditingPanel = factory.create();
         processEditingPanel.setInjector(injector);
         processEditingPanel.initGui();
-        panel.addComponent(processEditingPanel.toPanel());
+        final Panel vaadinPanel = processEditingPanel.toPanel();
+        vaadinPanel.setSizeFull();
+        panel.addComponent(vaadinPanel);
 
         return panel;
     }
@@ -257,7 +259,11 @@ class DefaultMainProcessEditingPanel extends Panel implements
         processPanel.initGui();
         processPanel.setProcessesToShow(persistence.getAllNotDeletedTasks());
         
-        panel.addComponent(processPanel.toPanel());
+        final Panel vaadinPanel = processPanel.toPanel();
+        
+        vaadinPanel.setSizeFull();
+        
+        panel.addComponent(vaadinPanel);
 
         return panel;
     }

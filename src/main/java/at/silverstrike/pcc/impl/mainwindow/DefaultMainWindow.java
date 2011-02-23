@@ -56,6 +56,7 @@ class DefaultMainWindow implements MainWindow {
         mainWindow =
                 new Window(TM.get("mainwindow.1-title",
                         versionReader.getVersion()));
+        mainWindow.setSizeFull();
         mainWindow.setDebugId(this.debugIdRegistry
                 .getDebugId(MessageCodePrefixRegistry.Module.mainwindow, "1"));
 

@@ -136,13 +136,13 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
 
         this.addComponent(parentProcessLabel);
 
-        final HorizontalLayout addProcessPanel = new HorizontalLayout();
+        final HorizontalLayout processPanel = new HorizontalLayout();
 
         processNameTextField.setInputPrompt(STRING_3);
         processNameTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
         processNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
 
-        addProcessPanel.addComponent(processNameTextField);
+        processPanel.addComponent(processNameTextField);
 
         this.addProcessButton.setCaption(" <- ");
 
@@ -157,9 +157,9 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
             }
         });
 
-        addProcessPanel.addComponent(this.addProcessButton);
+        processPanel.addComponent(this.addProcessButton);
 
-        addComponent(addProcessPanel);
+        addComponent(processPanel);
 
         table.addContainerProperty(COLUMN_ID, Long.class, null);
         table.addContainerProperty(COLUMN_NAME, String.class, "");
@@ -169,8 +169,7 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
         table.setColumnHeader(COLUMN_ID, STRING_1);
         table.setColumnHeader(COLUMN_NAME, STRING_2);
 
-        table.setWidth("100%");
-        table.setHeight(null);
+        table.setSizeFull();
 
         table.setSelectable(true);
         table.setMultiSelect(false);
