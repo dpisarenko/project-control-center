@@ -134,6 +134,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
         splitPanel1.addComponent(getSplitPanel2());
 
         setContent(splitPanel1);
+        this.getContent().setSizeFull();
     }
 
     @Override
