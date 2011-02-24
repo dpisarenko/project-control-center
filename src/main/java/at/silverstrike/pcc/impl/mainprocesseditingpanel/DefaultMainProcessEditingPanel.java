@@ -106,6 +106,10 @@ class DefaultMainProcessEditingPanel extends Panel implements
 
     private Button exportButton;
 
+    private VerticalLayout projectTreeLayout;
+
+    private SplitPanel splitPanel2;
+
     public DefaultMainProcessEditingPanel() {
 
     }
@@ -114,6 +118,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
     public void initGui() {
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
+        this.setSizeFull();
         this.setDebugId(this.debugIdRegistry.getDebugId(
                 MessageCodePrefixRegistry.Module.mainprocesseditingpanel, "1"));
 
@@ -122,15 +127,13 @@ class DefaultMainProcessEditingPanel extends Panel implements
         splitPanel1.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
 
         splitPanel1.setSizeFull();
-        splitPanel1.setHeight("1000px");
-//        splitPanel1.setHeight(Math.max(arg0, arg1))
-        
+
         splitPanel1.setSplitPosition(SPLIT_POSITION);
 
         splitPanel1.addComponent(getTreePanel());
         splitPanel1.addComponent(getSplitPanel2());
 
-        addComponent(splitPanel1);
+        setContent(splitPanel1);
     }
 
     @Override
@@ -260,11 +263,11 @@ class DefaultMainProcessEditingPanel extends Panel implements
         processPanel.setProcessPanelListener(this);
         processPanel.initGui();
         processPanel.setProcessesToShow(persistence.getAllNotDeletedTasks());
-        
+
         final Panel vaadinPanel = processPanel.toPanel();
-        
+
         vaadinPanel.setSizeFull();
-        
+
         panel.addComponent(vaadinPanel);
 
         return panel;
@@ -277,7 +280,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
                 null);
         returnValue.addContainerProperty(PROJECT_PROPERTY_NAME,
                 String.class, null);
-        
+
         final List<ControlProcess> topLevelProcesses =
                 persistence.getSubProcessesWithChildren(null);
 
@@ -291,15 +294,15 @@ class DefaultMainProcessEditingPanel extends Panel implements
                 TM.get("mainprocesseditingpanel.7-root"));
 
         addNodes(returnValue, topLevelProcesses, null, persistence, 1);
-        
+
         return returnValue;
     }
 
     private Component getSplitPanel2() {
-        final SplitPanel splitPanel2 = new SplitPanel();
+        splitPanel2 = new SplitPanel();
 
         splitPanel2.setSizeFull();
-        
+
         splitPanel2.setOrientation(SplitPanel.ORIENTATION_HORIZONTAL);
         splitPanel2.addComponent(getProcessListPanel());
         splitPanel2.addComponent(getProcessEditingPanel());
@@ -310,7 +313,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
     }
 
     private Component getTreePanel() {
-        final VerticalLayout layout = new VerticalLayout();
+        projectTreeLayout = new VerticalLayout();
         projectTree =
                 new Tree(
                         TM.get("mainprocesseditingpanel.1-projectTree-caption"));
@@ -328,10 +331,9 @@ class DefaultMainProcessEditingPanel extends Panel implements
         });
 
         projectTree.setSizeFull();
-        
-//        layout.setHeight("100%");
+
         this.setSizeFull();
-        layout.addComponent(projectTree);
+        projectTreeLayout.addComponent(projectTree);
 
         createSiblingButton =
                 new Button(
@@ -355,10 +357,10 @@ class DefaultMainProcessEditingPanel extends Panel implements
         exportButton =
                 new Button(TM.get("mainprocesseditingpanel.8-export-xml"));
 
-        layout.addComponent(createSiblingButton);
-        layout.addComponent(createChildButton);
-        layout.addComponent(deleteProjectButton);
-        layout.addComponent(exportButton);
+        projectTreeLayout.addComponent(createSiblingButton);
+        projectTreeLayout.addComponent(createChildButton);
+        projectTreeLayout.addComponent(deleteProjectButton);
+        projectTreeLayout.addComponent(exportButton);
 
         createSiblingButton.addListener(new ClickListener() {
             private static final long serialVersionUID = 1L;
@@ -396,7 +398,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
             }
         });
 
-        return layout;
+        return projectTreeLayout;
     }
 
     protected void exportButtonClicked() {
