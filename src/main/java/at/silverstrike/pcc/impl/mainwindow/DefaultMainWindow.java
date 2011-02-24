@@ -78,7 +78,6 @@ class DefaultMainWindow implements MainWindow {
         this.tabSheet.addTab(getSchedulingPanelTab(), TM
                 .get("mainwindow.9-scheduling-tab"), null);
 
-//        mainWindow.addComponent(tabSheet);
         mainWindow.setContent(tabSheet);
     }
 
