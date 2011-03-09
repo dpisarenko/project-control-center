@@ -18,6 +18,8 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
+import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
+import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
@@ -77,6 +79,8 @@ class DefaultMainWindow implements MainWindow {
                 .get("mainwindow.8-human-resource-tab"), null);
         this.tabSheet.addTab(getSchedulingPanelTab(), TM
                 .get("mainwindow.9-scheduling-tab"), null);
+        this.tabSheet.addTab(getCentralEditingPanel(), TM
+                .get("mainwindow.13-central-editing-panel"), null);
 
         mainWindow.setContent(tabSheet);
     }
@@ -107,6 +111,16 @@ class DefaultMainWindow implements MainWindow {
         final MainProcessEditingPanelFactory factory =
                 this.injector.getInstance(MainProcessEditingPanelFactory.class);
         final MainProcessEditingPanel panel = factory.create();
+        panel.setInjector(this.injector);
+        panel.initGui();
+
+        return panel.toPanel();
+    }
+    
+    private Component getCentralEditingPanel() {
+        final CentralEditingPanelFactory factory =
+                this.injector.getInstance(CentralEditingPanelFactory.class);
+        final CentralEditingPanel panel = factory.create();
         panel.setInjector(this.injector);
         panel.initGui();
 

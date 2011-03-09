@@ -14,11 +14,13 @@ package at.silverstrike.pcc.impl.injectorfactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanelFactory;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
@@ -49,9 +51,11 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
+import at.silverstrike.pcc.impl.centraleditingpanel.DefaultCentralEditingPanelFactory;
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
+import at.silverstrike.pcc.impl.dependencieseditingwindow.DefaultDependenciesEditingPanelFactory;
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
@@ -141,6 +145,10 @@ class InjectorModule extends AbstractModule {
         bind(OpenIdAuthenticationInitiator.class).toInstance(
                 getOpenIdAuthenticationInitiator());
         bind(Deauthenticator.class).toInstance(getDeauthenticator());
+        bind(CentralEditingPanelFactory.class).toInstance(
+        		new DefaultCentralEditingPanelFactory());
+        bind(DependenciesEditingPanelFactory.class).toInstance(
+        		new DefaultDependenciesEditingPanelFactory());
     }
 
     private Deauthenticator getDeauthenticator() {

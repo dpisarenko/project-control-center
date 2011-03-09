@@ -22,7 +22,7 @@ public final class MessageCodePrefixRegistry {
         injectorfactory, jruby, mainprocesseditingpanel, mainwindow, model,
         persistence, processpanel, projectscheduler, schedulingpanel,
         tj3bookingsparser, tj3deadlinesparser, workerpanel, version,
-        culture2lang, entrywindow, parameterdatareader, openid
+        culture2lang, entrywindow, parameterdatareader, openid, centraleditingpanel
     }
 
     private Map<Module, String> prefixesByModules;
