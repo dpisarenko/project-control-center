@@ -41,6 +41,7 @@ import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
+import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
@@ -59,8 +60,7 @@ import at.silverstrike.pcc.impl.dependencieseditingwindow.DefaultDependenciesEdi
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
-import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.
-    DefaultEstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainprocesseditingpanel.DefaultMainProcessEditingPanelFactory;
@@ -73,6 +73,7 @@ import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import at.silverstrike.pcc.impl.processpanel.DefaultProcessPanelFactory;
 import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
 import at.silverstrike.pcc.impl.schedulingpanel.DefaultSchedulingPanelFactory;
+import at.silverstrike.pcc.impl.testtablecreator.DefaultTestTableCreatorFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultBookingsFile2BookingsFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultTj3BookingsParserFactory;
 import at.silverstrike.pcc.impl.tj3deadlinesparser.DefaultTj3DeadlinesFileParserFactory;
@@ -146,9 +147,15 @@ class InjectorModule extends AbstractModule {
                 getOpenIdAuthenticationInitiator());
         bind(Deauthenticator.class).toInstance(getDeauthenticator());
         bind(CentralEditingPanelFactory.class).toInstance(
-        		new DefaultCentralEditingPanelFactory());
+                new DefaultCentralEditingPanelFactory());
         bind(DependenciesEditingPanelFactory.class).toInstance(
-        		new DefaultDependenciesEditingPanelFactory());
+                new DefaultDependenciesEditingPanelFactory());
+        bind(TestTableCreator.class).toInstance(
+                getTestTableCreator());
+    }
+
+    private TestTableCreator getTestTableCreator() {
+        return new DefaultTestTableCreatorFactory().create();
     }
 
     private Deauthenticator getDeauthenticator() {
