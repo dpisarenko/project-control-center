@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.culture2lang;
 
+import java.util.Locale;
+
 import org.apache.commons.lang.StringUtils;
 
 import at.silverstrike.pcc.api.conventions.PccException;
@@ -26,7 +28,7 @@ class DefaultCultureToLanguageMapper implements CultureToLanguageMapper {
     public void run() throws PccException {
         if (StringUtils.isBlank(this.culture)) {
             this.language = ENGLISH;
-        } else if (this.culture.toLowerCase().startsWith(RUSSIAN)) {
+        } else if (this.culture.toLowerCase(Locale.ROOT).startsWith(RUSSIAN)) {
             this.language = RUSSIAN;
         } else {
             this.language = ENGLISH;
