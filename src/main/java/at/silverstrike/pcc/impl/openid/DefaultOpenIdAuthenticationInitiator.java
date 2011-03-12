@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.openid4java.consumer.ConsumerException;
 import org.openid4java.discovery.DiscoveryException;
 import org.openid4java.message.AuthRequest;
+import org.openid4java.message.MessageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,11 +62,15 @@ class DefaultOpenIdAuthenticationInitiator implements
             LOGGER.error(ErrorCodes.M_002_AUTH_REQUEST_SENDING_FAILURE,
                     exception);
             this.authenticationRequestSentSuccessfully = false;
-        }
-        catch (final DiscoveryException exception) {
+        } catch (final DiscoveryException exception) {
             LOGGER.error(ErrorCodes.M_002_AUTH_REQUEST_SENDING_FAILURE,
                     exception);
             this.authenticationRequestSentSuccessfully = false;
+        } catch (final MessageException exception) {
+            LOGGER.error(ErrorCodes.M_002_AUTH_REQUEST_SENDING_FAILURE,
+                    exception);
+            this.authenticationRequestSentSuccessfully = false;
+
         }
     }
 
