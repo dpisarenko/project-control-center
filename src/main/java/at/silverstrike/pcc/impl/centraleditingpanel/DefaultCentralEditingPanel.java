@@ -43,7 +43,6 @@ import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
-import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
