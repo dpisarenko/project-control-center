@@ -11,7 +11,6 @@
 
 package at.silverstrike.pcc.impl.graphdemopanel;
 
-import com.google.inject.Injector;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Panel;
@@ -32,11 +31,14 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         final VerticalLayout layout = new VerticalLayout();
         final Embedded image =
                 new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
-        
+
         layout.addComponent(image);
         layout.setSizeFull();
-        
+
         this.addComponent(layout);
+    }
+
+    private void createSampleGraph() {
     }
 
 }
