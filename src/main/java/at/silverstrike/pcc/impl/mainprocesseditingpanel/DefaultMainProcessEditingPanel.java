@@ -64,7 +64,8 @@ import eu.livotov.tpt.i18n.TM;
  */
 class DefaultMainProcessEditingPanel extends Panel implements
         MainProcessEditingPanel, ProcessPanelListener {
-    private static final String XML_DUMP_TIMESTAMP_DATE_FORMAT = "yyyy_MM_dd_HH_mm_ss";
+    private static final String XML_DUMP_TIMESTAMP_DATE_FORMAT =
+            "yyyy_MM_dd_HH_mm_ss";
 
     private static final int SPLIT_POSITION = 10;
 
@@ -198,7 +199,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
                 deleteProjectButton.setEnabled(true);
                 createSiblingButton.setEnabled(true);
                 createChildButton.setEnabled(true);
-            } else if (selectedProjectId == null) {
+            } else {
                 deleteProjectButton.setEnabled(false);
                 createSiblingButton.setEnabled(false);
                 createChildButton.setEnabled(false);
@@ -401,11 +402,10 @@ class DefaultMainProcessEditingPanel extends Panel implements
         return projectTreeLayout;
     }
 
-    private DateFormat getXmlDumpTimestampDateFormat()
-    {
+    private DateFormat getXmlDumpTimestampDateFormat() {
         return new SimpleDateFormat(XML_DUMP_TIMESTAMP_DATE_FORMAT);
     }
-    
+
     protected void exportButtonClicked() {
         final UserData userData = this.persistence.getUserData();
         final XmlSerializerFactory serializerFactory =
