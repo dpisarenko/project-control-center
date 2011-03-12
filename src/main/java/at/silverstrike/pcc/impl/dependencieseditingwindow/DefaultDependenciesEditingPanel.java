@@ -37,7 +37,6 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
-import at.silverstrike.pcc.impl.centraleditingpanel.TempTableObjectModel;
 
 class DefaultDependenciesEditingPanel extends Panel implements
         DependenciesEditingPanel, ProcessPanelListener, ClickListener {
@@ -45,11 +44,13 @@ class DefaultDependenciesEditingPanel extends Panel implements
     private static final String NOTIFICATION = "Smth happend";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultDependenciesEditingPanel.class);
-    private static final String[] min = new String[] { "15 min", "30 min",
+    private static final String[] DURATION_STEPS = new String[] { "15 min",
+            "30 min",
             "45 min" };
 
     private transient Injector injector;
     private transient Persistence persistence = null;
+    private Window subwindow;
 
     private static final String[] TEST_COLUMN_NAMES = new String[] { "¹",
             "Project", "Name" };
@@ -65,8 +66,6 @@ class DefaultDependenciesEditingPanel extends Panel implements
             this.injector = aInjector;
         }
     }
-
-    Window subwindow;
 
     @Override
     public void initGui() {
@@ -106,16 +105,13 @@ class DefaultDependenciesEditingPanel extends Panel implements
         final HorizontalLayout tableAndButtonLayout = new HorizontalLayout();
         tableAndButtonLayout.setSpacing(true);
 
-        TestTableCreator creator =
+        final TestTableCreator creator =
                 this.injector.getInstance(TestTableCreator.class);
         creator.setColumnNames(TEST_COLUMN_NAMES);
         creator.setData(TEST_TABLE_DATA);
-        try
-        {
+        try {
             creator.run();
-        }
-        catch (final PccException exception)
-        {
+        } catch (final PccException exception) {
             LOGGER.error(ErrorCodes.M_001_TEST_TABLE_CREATION, exception);
         }
         final Table table = creator.getTable();
@@ -132,9 +128,9 @@ class DefaultDependenciesEditingPanel extends Panel implements
         final HorizontalLayout comboAndButtonLayout = new HorizontalLayout();
         comboAndButtonLayout.setSpacing(true);
 
-        ComboBox from = new ComboBox();
-        for (int i = 0; i < min.length - 1; i++) {
-            from.addItem(min[i]);
+        final ComboBox from = new ComboBox();
+        for (int i = 0; i < DURATION_STEPS.length - 1; i++) {
+            from.addItem(DURATION_STEPS[i]);
         }
         comboAndButtonLayout.addComponent(from);
 
