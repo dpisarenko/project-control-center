@@ -37,18 +37,14 @@ import at.silverstrike.pcc.impl.centraleditingpanel.TempTableObjectModel;
 
 class DefaultDependenciesEditingPanel extends Panel implements
         DependenciesEditingPanel, ProcessPanelListener, ClickListener {
-
     private static final long serialVersionUID = 1L;
     private static final String NOTIFICATION = "Smth happend";
-
-    private transient Persistence persistence = null;
-
-    public static final Object PROJECT_PROPERTY_NAME = "name";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultDependenciesEditingPanel.class);
-
     private static final String[] min = new String[] { "15 min", "30 min",
             "45 min" };
+
+    private transient Persistence persistence = null;
 
     @Override
     public void setInjector(Injector aInjector) {

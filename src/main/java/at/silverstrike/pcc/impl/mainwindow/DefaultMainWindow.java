@@ -68,7 +68,7 @@ class DefaultMainWindow implements MainWindow {
                         "2-tab-sheet"));
 
         this.tabSheet.setSizeFull();
-        
+
         this.tabSheet.addTab(getMainProcessEditingPanel(), TM
                 .get("mainwindow.10-main-process-editing-panel"), null);
         this.tabSheet.addTab(getDailyPlanPanel(), TM
@@ -116,7 +116,7 @@ class DefaultMainWindow implements MainWindow {
 
         return panel.toPanel();
     }
-    
+
     private Component getCentralEditingPanel() {
         final CentralEditingPanelFactory factory =
                 this.injector.getInstance(CentralEditingPanelFactory.class);
