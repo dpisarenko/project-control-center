@@ -13,6 +13,8 @@ package at.silverstrike.pcc.impl.openid;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.openid4java.consumer.ConsumerException;
+import org.openid4java.discovery.DiscoveryException;
 import org.openid4java.message.AuthRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +57,12 @@ class DefaultOpenIdAuthenticationInitiator implements
             this.application.close();
 
             this.authenticationRequestSentSuccessfully = true;
-        } catch (final Exception exception) {
+        } catch (final ConsumerException exception) {
+            LOGGER.error(ErrorCodes.M_002_AUTH_REQUEST_SENDING_FAILURE,
+                    exception);
+            this.authenticationRequestSentSuccessfully = false;
+        }
+        catch (final DiscoveryException exception) {
             LOGGER.error(ErrorCodes.M_002_AUTH_REQUEST_SENDING_FAILURE,
                     exception);
             this.authenticationRequestSentSuccessfully = false;
