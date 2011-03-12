@@ -34,7 +34,6 @@ import eu.livotov.tpt.TPTApplication;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
-import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 
@@ -49,7 +48,6 @@ class DefaultDependenciesEditingPanel extends Panel implements
             "45 min" };
 
     private transient Injector injector;
-    private transient Persistence persistence = null;
     private Window subwindow;
 
     private static final String[] TEST_COLUMN_NAMES = new String[] { "¹",
@@ -62,7 +60,6 @@ class DefaultDependenciesEditingPanel extends Panel implements
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
-            this.persistence = aInjector.getInstance(Persistence.class);
             this.injector = aInjector;
         }
     }

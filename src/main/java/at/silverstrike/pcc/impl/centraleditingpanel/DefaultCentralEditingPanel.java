@@ -58,7 +58,6 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final int WIDTH_SCREEN = 800;
     private static final long serialVersionUID = 1L;
     private static final String NOTIFICATION = "Smth happend";
-    private transient Persistence persistence = null;
     private static final int APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH =
             WIDTH_SCREEN / FOUR_QUARTERS - PADDING;
 
@@ -66,11 +65,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private static final int PROCESS_NAME_TEXT_FIELD_COLUMNS = 30;
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
-
-    private static final String[] FILTER_IMPACT_TYPES = { "Passive filters",
-            "Active filters" };
-    private static final String[] FILTER_TYPES =
-            { "Sums", "Parities", "Numbers" };
+    
     private static final String[] DURATION_STEPS = new String[] { "15 min",
             "30 min",
             "45 min" };
@@ -81,6 +76,7 @@ class DefaultCentralEditingPanel extends Panel implements
                     new String[] { "1.1", "Project 1", "Task 1" },
                     new String[] { "2.1", "Project 4", "Task 5" });
 
+    private transient Persistence persistence;
     private Injector injector;
 
     @Override
