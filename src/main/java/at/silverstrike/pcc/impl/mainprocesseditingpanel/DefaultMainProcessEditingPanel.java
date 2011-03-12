@@ -64,6 +64,8 @@ import eu.livotov.tpt.i18n.TM;
  */
 class DefaultMainProcessEditingPanel extends Panel implements
         MainProcessEditingPanel, ProcessPanelListener {
+    private static final String XML_DUMP_TIMESTAMP_DATE_FORMAT = "yyyy_MM_dd_HH_mm_ss";
+
     private static final int SPLIT_POSITION = 10;
 
     public static final Object PROJECT_PROPERTY_NAME = "name";
@@ -73,9 +75,6 @@ class DefaultMainProcessEditingPanel extends Panel implements
 
     private static final String XML_DUMP_FILENAME_TEMPLATE =
             "PCC_DATA_${timestamp}.xml";
-    private static final DateFormat XML_DUMP_TIMESTAMP_DATE_FORMAT =
-            new SimpleDateFormat(
-                    "yyyy_MM_dd_HH_mm_ss");
 
     private static final Object PROJECT_PROPERTY_ID = "id";
     private static final long serialVersionUID = 1L;
@@ -402,6 +401,11 @@ class DefaultMainProcessEditingPanel extends Panel implements
         return projectTreeLayout;
     }
 
+    private DateFormat getXmlDumpTimestampDateFormat()
+    {
+        return new SimpleDateFormat(XML_DUMP_TIMESTAMP_DATE_FORMAT);
+    }
+    
     protected void exportButtonClicked() {
         final UserData userData = this.persistence.getUserData();
         final XmlSerializerFactory serializerFactory =
@@ -413,7 +417,7 @@ class DefaultMainProcessEditingPanel extends Panel implements
         try {
             final String filename =
                     XML_DUMP_FILENAME_TEMPLATE.replace("${timestamp}",
-                            XML_DUMP_TIMESTAMP_DATE_FORMAT.format(new Date()));
+                            getXmlDumpTimestampDateFormat().format(new Date()));
 
             final File file = new File(filename);
 
