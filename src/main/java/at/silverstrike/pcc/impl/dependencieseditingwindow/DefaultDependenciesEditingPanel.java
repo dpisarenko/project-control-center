@@ -44,12 +44,14 @@ class DefaultDependenciesEditingPanel extends Panel implements
     private static final String[] min = new String[] { "15 min", "30 min",
             "45 min" };
 
+    private transient Injector injector;
     private transient Persistence persistence = null;
 
     @Override
-    public void setInjector(Injector aInjector) {
+    public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             this.persistence = aInjector.getInstance(Persistence.class);
+            this.injector = aInjector;
         }
     }
 
