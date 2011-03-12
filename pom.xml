@@ -269,6 +269,16 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>repo1.maven.org</id>
+			<url>http://repo1.maven.org/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
@@ -373,28 +383,11 @@
 			<artifactId>openid4java-consumer</artifactId>
 			<version>0.9.5</version>
 		</dependency>
-		<!-- JUNG modules (START) -->
 		<dependency>
 			<groupId>net.sf.jung</groupId>
-			<artifactId>jung-api</artifactId>
+			<artifactId>jung2</artifactId>
 			<version>2.0.1</version>
 		</dependency>
-		<dependency>
-			<groupId>net.sf.jung</groupId>
-			<artifactId>jung-graph-impl</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.jung</groupId>
-			<artifactId>jung-algorithms</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.jung</groupId>
-			<artifactId>jung-visualization</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		<!-- JUNG modules (END) -->
 	</dependencies>
 	<reporting>
 		<plugins>

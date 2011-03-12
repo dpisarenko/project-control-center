@@ -39,6 +39,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     }
 
     private void createSampleGraph() {
+        
     }
 
 }
