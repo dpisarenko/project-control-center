@@ -39,16 +39,16 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private static final int DAILY_MAX_ROW_POS = 4;
     private static final int SURNAME_ROW_POS = 3;
     private static final long serialVersionUID = 1L;
-    private Injector injector;
+    private transient Injector injector;
     private String errorMessage;
     private TextField abbreviationTextField;
     private TextField firstNameTextField;
     private TextField middleNameTextField;
     private TextField surnameTextField;
     private TextField dailyMaxTextField;
-    private DebugIdRegistry debugIdRegistry;
-    private WebGuiBus webGuiBus;
-    private WebGuiBusMessageFactory webGuiBusMessageFactory;
+    private transient DebugIdRegistry debugIdRegistry;
+    private transient WebGuiBus webGuiBus;
+    private transient WebGuiBusMessageFactory webGuiBusMessageFactory;
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultWorkerPanel.class);
