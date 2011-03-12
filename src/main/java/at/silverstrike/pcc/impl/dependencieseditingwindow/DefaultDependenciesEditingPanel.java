@@ -32,6 +32,7 @@ import com.vaadin.ui.Window;
 import eu.livotov.tpt.i18n.TM;
 import eu.livotov.tpt.TPTApplication;
 
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
@@ -109,7 +110,14 @@ class DefaultDependenciesEditingPanel extends Panel implements
                 this.injector.getInstance(TestTableCreator.class);
         creator.setColumnNames(TEST_COLUMN_NAMES);
         creator.setData(TEST_TABLE_DATA);
-        creator.run();
+        try
+        {
+            creator.run();
+        }
+        catch (final PccException exception)
+        {
+            LOGGER.error(ErrorCodes.M_001_TEST_TABLE_CREATION, exception);
+        }
         final Table table = creator.getTable();
         tableAndButtonLayout.addComponent(table);
 

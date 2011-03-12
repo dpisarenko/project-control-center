@@ -279,7 +279,7 @@ class DefaultCentralEditingPanel extends Panel implements
         try {
             creator.run();
         } catch (final PccException exception) {
-            LOGGER.error("", exception);
+            LOGGER.error(ErrorCodes.M_001_TEST_TABLE_CREATION, exception);
         }
         final Table table = creator.getTable();
         verticalLayoutRight.addComponent(table);
