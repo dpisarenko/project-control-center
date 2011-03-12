@@ -11,6 +11,9 @@
 
 package at.silverstrike.pcc.impl.dependencieseditingwindow;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +49,13 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
     private transient Injector injector;
     private transient Persistence persistence = null;
+
+    private static final String[] TEST_COLUMN_NAMES = new String[] { "¹",
+            "Project", "Name" };
+    private static final List<String[]> TEST_TABLE_DATA =
+            Arrays.asList(
+                    new String[] { "1.1", "Project 1", "Task 1" },
+                    new String[] { "2.1", "Project 4", "Task 5" });
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -97,6 +107,9 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
         TestTableCreator creator =
                 this.injector.getInstance(TestTableCreator.class);
+        creator.setColumnNames(TEST_COLUMN_NAMES);
+        creator.setData(TEST_TABLE_DATA);
+        creator.run();
         final Table table = creator.getTable();
         tableAndButtonLayout.addComponent(table);
 

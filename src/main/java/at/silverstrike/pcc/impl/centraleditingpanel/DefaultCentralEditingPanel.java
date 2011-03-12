@@ -14,6 +14,9 @@ package at.silverstrike.pcc.impl.centraleditingpanel;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Injector;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.terminal.Sizeable;
@@ -43,11 +46,13 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
+import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
         CentralEditingPanel, ProcessPanelListener, ClickListener {
-
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultCentralEditingPanel.class);
     private static final int HEIGHT_SCREEN = 600;
     private static final int WIDTH_SCREEN = 800;
     private static final long serialVersionUID = 1L;
@@ -273,9 +278,8 @@ class DefaultCentralEditingPanel extends Panel implements
         creator.setData(TEST_TABLE_DATA);
         try {
             creator.run();
-        } catch (PccException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
         }
         final Table table = creator.getTable();
         verticalLayoutRight.addComponent(table);

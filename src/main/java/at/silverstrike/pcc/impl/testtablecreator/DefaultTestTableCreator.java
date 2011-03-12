@@ -17,13 +17,16 @@ class DefaultTestTableCreator implements TestTableCreator {
 
     @Override
     public void run() throws PccException {
+        table = null;
         table = new Table();
 
-        for (String name : names)
+        for (final String name : names) {
             table.addContainerProperty(name, String.class, null);
+        }
 
-        for (String[] row : data)
+        for (final String[] row : data) {
             table.addItem(row, null);
+        }
     }
 
     @Override
