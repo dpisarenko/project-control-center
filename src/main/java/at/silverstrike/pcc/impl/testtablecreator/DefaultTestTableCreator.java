@@ -17,7 +17,6 @@ class DefaultTestTableCreator implements TestTableCreator {
 
     @Override
     public void run() throws PccException {
-        table = null;
         table = new Table();
 
         for (final String name : names) {
