@@ -1,3 +1,14 @@
+/**
+ * This file is part of Project Control Center (PCC).
+ * 
+ * PCC (Project Control Center) project is intellectual property of 
+ * Dmitri Anatol'evich Pisarenko.
+ * 
+ * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * All rights reserved
+ *
+ **/
+
 package at.silverstrike.pcc.impl.testtablecreator;
 
 import java.util.List;
@@ -30,8 +41,10 @@ class DefaultTestTableCreator implements TestTableCreator {
 
     @Override
     public void setData(final List<String[]> aData) {
-        if (aData != null)
+        if (aData != null) {
             data = aData;
+        }
+
     }
 
     @Override
@@ -41,7 +54,8 @@ class DefaultTestTableCreator implements TestTableCreator {
 
     @Override
     public void setColumnNames(final String[] aNames) {
-        if (aNames != null)
+        if (aNames != null) {
             names = aNames;
+        }
     }
 }
