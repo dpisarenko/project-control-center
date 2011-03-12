@@ -48,6 +48,8 @@ import at.silverstrike.pcc.api.persistence.Persistence;
  * 
  */
 class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
+    private static final String TIME_FORMAT = "HH:mm";
+
     private static final int SPLIT_POSITION = 40;
 
     private static final String DAY_OF_WEEK_FORMAT = "EEEE";
@@ -80,8 +82,6 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
     private static final String COLUMN_SCHEDULE_TO = "COLUMN_SCHEDULE_TO";
     private static final String COLUMN_SCHEDULE_PROCESS =
             "COLUMN_SCHEDULE_PROCESS";
-    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat(
-            "HH:mm");
     private InlineDateField selectedDayDateField;
 
     private transient Injector injector;
@@ -205,13 +205,17 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         final Object[] cells = new Object[SCHEDULE_COLUMNS_COUNT];
 
         cells[COLUMN_INDEX_SCHEDULE_ID] = aBooking.getId();
-        cells[COLUMN_INDEX_SCHEDULE_FROM] = TIME_FORMAT.format(aBooking
+        cells[COLUMN_INDEX_SCHEDULE_FROM] = getTimeFormat().format(aBooking
                 .getStartDateTime());
-        cells[COLUMN_INDEX_SCHEDULE_TO] = TIME_FORMAT.format(aBooking
+        cells[COLUMN_INDEX_SCHEDULE_TO] = getTimeFormat().format(aBooking
                 .getEndDateTime());
         cells[COLUMN_INDEX_SCHEDULE_PROCESS] = aBooking.getProcess().getName();
 
         return cells;
+    }
+
+    private SimpleDateFormat getTimeFormat() {
+        return new SimpleDateFormat(TIME_FORMAT);
     }
 
     private String getDayInMonth(final Date aNow) {
