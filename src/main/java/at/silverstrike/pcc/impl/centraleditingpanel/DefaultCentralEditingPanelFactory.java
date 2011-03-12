@@ -19,8 +19,7 @@ import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
  * 
  */
 public class DefaultCentralEditingPanelFactory implements
-		CentralEditingPanelFactory {
-
+        CentralEditingPanelFactory {
     /**
      * @see at.silverstrike.pcc.api.conventions.Factory#create()
      */
