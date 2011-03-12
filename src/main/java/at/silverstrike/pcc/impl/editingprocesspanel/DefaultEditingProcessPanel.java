@@ -814,7 +814,6 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
             changesToSaveAvailable = false;
             saveButton.setEnabled(changesToSaveAvailable);
         } else {
-            final boolean enable = (process != null);
             final List<Button> buttons = new LinkedList<Button>();
 
             buttons.add(handoffButton);
@@ -827,7 +826,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
             buttons.add(stopButton);
 
             for (final Button button : buttons) {
-                button.setEnabled(enable);
+                button.setEnabled(false);
             }
         }
     }
