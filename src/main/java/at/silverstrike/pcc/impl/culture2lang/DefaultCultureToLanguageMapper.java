@@ -19,7 +19,7 @@ import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 class DefaultCultureToLanguageMapper implements CultureToLanguageMapper {
     private static final String RUSSIAN = "ru";
     private static final String ENGLISH = "en";
-    private String culture;
+    private String culture = "";
     private String language;
 
     @Override

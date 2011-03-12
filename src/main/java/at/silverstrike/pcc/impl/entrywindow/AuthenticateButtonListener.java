@@ -32,9 +32,9 @@ import eu.livotov.tpt.i18n.TM;
 class AuthenticateButtonListener implements Button.ClickListener {
     private static final long serialVersionUID = 1L;
 
-    private Injector injector;
+    private transient Injector injector;
     private TextField openIdTextField;
-    private HttpServletRequest request;
+    private transient HttpServletRequest request;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AuthenticateButtonListener.class);
 
