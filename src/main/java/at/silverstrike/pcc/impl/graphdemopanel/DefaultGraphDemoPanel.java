@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.graphdemopanel;
 
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.SparseMultigraph;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Panel;
@@ -39,7 +41,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     }
 
     private void createSampleGraph() {
-        
+        Graph<Integer, String> g = new SparseMultigraph<Integer, String>();
     }
 
 }
