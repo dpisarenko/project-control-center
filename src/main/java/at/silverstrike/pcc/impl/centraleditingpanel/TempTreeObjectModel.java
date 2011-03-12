@@ -13,6 +13,7 @@ package at.silverstrike.pcc.impl.centraleditingpanel;
 import com.vaadin.data.util.HierarchicalContainer;
 
 final class TempTreeObjectModel {
+    private static final int FIRST_ITEM_ID = 100;
     private static final String[] FILTER_IMPACT_TYPE = { "Passive filters",
             "Active filters" };
     private static final String[] FILTER_TYPES =
@@ -39,7 +40,7 @@ final class TempTreeObjectModel {
             itemId++;
         }
 
-        itemId = 100;
+        itemId = FIRST_ITEM_ID;
         for (int i = 0; i < FILTER_TYPES.length; i++) {
             // Add new item
             getFilterHierarchicalContainer.addItem(itemId);
