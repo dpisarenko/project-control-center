@@ -19,11 +19,11 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
  * 
  */
 public class DefaultDependenciesEditingPanelFactory implements
-	DependenciesEditingPanelFactory {
+        DependenciesEditingPanelFactory {
 
-	@Override
-	public final DependenciesEditingPanel create() {
-		return new DefaultDependenciesEditingPanel();
-	}
+    @Override
+    public final DependenciesEditingPanel create() {
+        return new DefaultDependenciesEditingPanel();
+    }
 
 }
