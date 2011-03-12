@@ -26,6 +26,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Window;
 
+import eu.livotov.tpt.i18n.TM;
 import eu.livotov.tpt.TPTApplication;
 
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
@@ -62,13 +63,17 @@ class DefaultDependenciesEditingPanel extends Panel implements
     public void initGui() {
 
         // Create the window...
-        subwindow = new Window(TM.get("dependenciescentraleditingprocesspanel.1-window"));
+        subwindow =
+                new Window(
+                        TM.get("dependenciescentraleditingprocesspanel.1-window"));
         // ...and make it modal
         subwindow.setModal(true);
 
         if (subwindow.getParent() != null) {
             // window is already showing
-            getWindow().showNotification(TM.get("dependenciescentraleditingprocesspanel.2-window-notification"));
+            getWindow()
+                    .showNotification(
+                            TM.get("dependenciescentraleditingprocesspanel.2-window-notification"));
         } else {
             // Open the subwindow by adding it to the parent
             // window
@@ -83,18 +88,23 @@ class DefaultDependenciesEditingPanel extends Panel implements
                 (VerticalLayout) subwindow.getContent();
         verticalLayout.setWidth("400px");
 
-        final Label taskLabel = new Label(TM.get("dependenciescentraleditingprocesspanel.3-label-tasks"));
+        final Label taskLabel =
+                new Label(
+                        TM.get("dependenciescentraleditingprocesspanel.3-label-tasks"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
         verticalLayout.addComponent(taskLabel);
 
         final HorizontalLayout tableAndButtonLayout = new HorizontalLayout();
         tableAndButtonLayout.setSpacing(true);
 
-        TestTableCreator creator = this.injector.getInstance(TestTableCreator.class);
+        TestTableCreator creator =
+                this.injector.getInstance(TestTableCreator.class);
         final Table table = creator.getTable();
         tableAndButtonLayout.addComponent(table);
 
-        final Button deleteButton = new Button(TM.get("dependenciescentraleditingprocesspanel.4-button-delete"));
+        final Button deleteButton =
+                new Button(
+                        TM.get("dependenciescentraleditingprocesspanel.4-button-delete"));
         deleteButton.addListener(this); // react to clicks
         tableAndButtonLayout.addComponent(deleteButton);
 
@@ -109,7 +119,9 @@ class DefaultDependenciesEditingPanel extends Panel implements
         }
         comboAndButtonLayout.addComponent(from);
 
-        final Button addButton = new Button(TM.get("dependenciescentraleditingprocesspanel.5-button-add"));
+        final Button addButton =
+                new Button(
+                        TM.get("dependenciescentraleditingprocesspanel.5-button-add"));
         addButton.addListener(this); // react to clicks
         comboAndButtonLayout.addComponent(addButton);
 
