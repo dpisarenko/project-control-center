@@ -44,16 +44,16 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultEntryWindow.class);
-    private ParameterDataReader parameterDataReader;
-    private CultureToLanguageMapper cultureToLanguageMapper;
+    private transient ParameterDataReader parameterDataReader;
+    private transient CultureToLanguageMapper cultureToLanguageMapper;
     private Window window;
     private Panel authPanel;
     private Label openIdLabel;
     private TextField openIdTextField;
     private Button authenticateButton;
     private Label signupLabel;
-    private Injector injector;
-    private HttpServletRequest request;
+    private transient Injector injector;
+    private transient HttpServletRequest request;
 
     @Override
     public void setInjector(final Injector aInjector) {
