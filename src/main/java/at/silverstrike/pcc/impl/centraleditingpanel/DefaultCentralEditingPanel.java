@@ -98,25 +98,10 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void initGui() {
-        final MenuBar menubar = new MenuBar();
-        menubar.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
+        final MenuBar menubar = createMenuBar();
+
         addComponent(menubar);
-
-        // Save reference to individual items so we can add sub-menu items to
-        // them
-        final MenuBar.MenuItem file =
-                menubar.addItem(
-                        TM.get("centraleditingprocesspanel.1-menu-file"), null);
-        file.addItem(TM.get("centraleditingprocesspanel.2-menu-exportXML"),
-                menuCommand);
-        file.addItem(TM.get("centraleditingprocesspanel.3-menu-importXML"),
-                menuCommand);
-        file.addSeparator();
-        file.addItem(TM.get("centraleditingprocesspanel.4-menu-exit"),
-                menuCommand);
-
-        menubar.addItem(TM.get("centraleditingprocesspanel.5-menu-other"), null);
-
+        
         final GridLayout mainGrid = new GridLayout(2, 1);
 
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
@@ -172,7 +157,7 @@ class DefaultCentralEditingPanel extends Panel implements
         verticalLayoutLeft.addComponent(buttonsPriorityLayout);
 
         final Tree tree = new Tree();
-        VerticalLayout treeLayout = new VerticalLayout();
+        final VerticalLayout treeLayout = new VerticalLayout();
         treeLayout.setWidth("90%");
         treeLayout.setSpacing(true);
         treeLayout.setMargin(true);
@@ -290,6 +275,28 @@ class DefaultCentralEditingPanel extends Panel implements
         this.addComponent(mainGrid);
     }
 
+    private MenuBar createMenuBar() {
+        final MenuBar menubar = new MenuBar();
+        menubar.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
+        
+
+        // Save reference to individual items so we can add sub-menu items to
+        // them
+        final MenuBar.MenuItem file =
+                menubar.addItem(
+                        TM.get("centraleditingprocesspanel.1-menu-file"), null);
+        file.addItem(TM.get("centraleditingprocesspanel.2-menu-exportXML"),
+                menuCommand);
+        file.addItem(TM.get("centraleditingprocesspanel.3-menu-importXML"),
+                menuCommand);
+        file.addSeparator();
+        file.addItem(TM.get("centraleditingprocesspanel.4-menu-exit"),
+                menuCommand);
+
+        menubar.addItem(TM.get("centraleditingprocesspanel.5-menu-other"), null);
+        return menubar;
+    }
+
     protected void dependEditButtonClicked() {
 
         final DependenciesEditingPanelFactory factory =
@@ -303,15 +310,15 @@ class DefaultCentralEditingPanel extends Panel implements
     private Command menuCommand = new Command() {
         private static final long serialVersionUID = 1L;
 
-        public void menuSelected(final MenuItem selectedItem) {
-            getWindow().showNotification("Action " + selectedItem.getText());
+        public void menuSelected(final MenuItem aSelectedItem) {
+            getWindow().showNotification("Action " + aSelectedItem.getText());
         }
     };
 
     /*
      * Shows a notification when a button is clicked.
      */
-    public void buttonClick(ClickEvent event) {
+    public void buttonClick(final ClickEvent aEvent) {
         getWindow().showNotification(NOTIFICATION);
     }
 
