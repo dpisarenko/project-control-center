@@ -46,11 +46,12 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
-import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
         CentralEditingPanel, ProcessPanelListener, ClickListener {
+    private static final int PADDING = 5;
+    private static final int FOUR_QUARTERS = 4;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultCentralEditingPanel.class);
     private static final int HEIGHT_SCREEN = 600;
@@ -59,18 +60,19 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final String NOTIFICATION = "Smth happend";
     private transient Persistence persistence = null;
     private static final int APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH =
-            WIDTH_SCREEN / 4 - 5;
+            WIDTH_SCREEN / FOUR_QUARTERS - PADDING;
 
     public static final Object PROJECT_PROPERTY_NAME = "name";
 
     private static final int PROCESS_NAME_TEXT_FIELD_COLUMNS = 30;
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
 
-    private static final String[] filterImpactTypes = { "Passive filters",
+    private static final String[] FILTER_IMPACT_TYPES = { "Passive filters",
             "Active filters" };
-    private static final String[] filterTypes =
+    private static final String[] FILTER_TYPES =
             { "Sums", "Parities", "Numbers" };
-    private static final String[] min = new String[] { "15 min", "30 min",
+    private static final String[] DURATION_STEPS = new String[] { "15 min",
+            "30 min",
             "45 min" };
     private static final String[] TEST_COLUMN_NAMES = new String[] { "¹",
             "Project", "Name" };
@@ -79,7 +81,6 @@ class DefaultCentralEditingPanel extends Panel implements
                     new String[] { "1.1", "Project 1", "Task 1" },
                     new String[] { "2.1", "Project 4", "Task 5" });
 
-    private MenuBar menubar = new MenuBar();
     private Injector injector;
 
     @Override
@@ -232,8 +233,8 @@ class DefaultCentralEditingPanel extends Panel implements
         effortLayout.addComponent(fromLabel);
 
         final ComboBox from = new ComboBox();
-        for (int i = 0; i < min.length - 1; i++) {
-            from.addItem(min[i]);
+        for (int i = 0; i < DURATION_STEPS.length - 1; i++) {
+            from.addItem(DURATION_STEPS[i]);
         }
         effortLayout.addComponent(from);
 
@@ -243,8 +244,8 @@ class DefaultCentralEditingPanel extends Panel implements
         effortLayout.addComponent(toLabel);
 
         final ComboBox to = new ComboBox();
-        for (int i = 1; i < min.length; i++) {
-            to.addItem(min[i]);
+        for (int i = 1; i < DURATION_STEPS.length; i++) {
+            to.addItem(DURATION_STEPS[i]);
         }
         effortLayout.addComponent(to);
 
@@ -311,7 +312,6 @@ class DefaultCentralEditingPanel extends Panel implements
      * Shows a notification when a button is clicked.
      */
     public void buttonClick(ClickEvent event) {
-        // ������� �������� � ����������� �� ������
         getWindow().showNotification(NOTIFICATION);
     }
 
@@ -321,8 +321,5 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void taskAdded() {
-        // TODO Auto-generated method stub
-
     }
-
 }
