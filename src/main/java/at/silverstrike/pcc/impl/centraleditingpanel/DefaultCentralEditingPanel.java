@@ -117,22 +117,12 @@ class DefaultCentralEditingPanel extends Panel implements
         final GridLayout buttonsNewGrid = new GridLayout(2, 1);
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
 
-        final Button newTaskButton =
-                new Button(
-                        TM.get("centraleditingprocesspanel.6-button-newTask"));
-        newTaskButton.addListener(this); // react to clicks
-        newTaskButton.setWidth(APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH,
-                Sizeable.UNITS_PIXELS);
+        final Button newTaskButton = getNewTaskButton();
         buttonsNewGrid.addComponent(newTaskButton, 0, 0);
         buttonsNewGrid.setComponentAlignment(newTaskButton,
                 Alignment.MIDDLE_LEFT);
 
-        final Button newMeetingButton =
-                new Button(
-                        TM.get("centraleditingprocesspanel.7-button-newMeeting"));
-        newMeetingButton.addListener(this); // react to clicks
-        newMeetingButton.setWidth(APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH,
-                Sizeable.UNITS_PIXELS);
+        final Button newMeetingButton = getNewMeetingButton();
         buttonsNewGrid.addComponent(newMeetingButton, 1, 0);
         buttonsNewGrid.setComponentAlignment(newMeetingButton,
                 Alignment.MIDDLE_RIGHT);
@@ -156,13 +146,9 @@ class DefaultCentralEditingPanel extends Panel implements
 
         verticalLayoutLeft.addComponent(buttonsPriorityLayout);
 
-        final Tree tree = new Tree();
-        final VerticalLayout treeLayout = new VerticalLayout();
-        treeLayout.setWidth("90%");
-        treeLayout.setSpacing(true);
-        treeLayout.setMargin(true);
-        treeLayout.addStyleName("border");
+        final VerticalLayout treeLayout = getTreeLayout();
 
+        final Tree tree = new Tree();
         treeLayout.addComponent(tree);
         verticalLayoutLeft.addComponent(treeLayout);
 
@@ -209,6 +195,32 @@ class DefaultCentralEditingPanel extends Panel implements
         effortLabel.setContentMode(Label.CONTENT_TEXT);
         verticalLayoutRight.addComponent(effortLabel);
 
+        final HorizontalLayout effortLayout = getEffortPanel();
+
+        verticalLayoutRight.addComponent(effortLayout);
+
+        final HorizontalLayout dependLayout = new HorizontalLayout();
+        dependLayout.setSpacing(true);
+
+        final Label dependLabel =
+                new Label(
+                        TM.get("centraleditingprocesspanel.17-label-dependencies"));
+        dependLayout.addComponent(dependLabel);
+
+        final Button dependEditButton = createDependEditButton();
+        dependLayout.addComponent(dependEditButton);
+
+        verticalLayoutRight.addComponent(dependLayout);
+
+        final Table table = createTestTable();
+        verticalLayoutRight.addComponent(table);
+
+        mainGrid.addComponent(verticalLayoutRight, 1, 0);
+
+        this.addComponent(mainGrid);
+    }
+
+    private HorizontalLayout getEffortPanel() {
         final HorizontalLayout effortLayout = new HorizontalLayout();
         effortLayout.setSpacing(true);
 
@@ -233,17 +245,10 @@ class DefaultCentralEditingPanel extends Panel implements
             to.addItem(DURATION_STEPS[i]);
         }
         effortLayout.addComponent(to);
+        return effortLayout;
+    }
 
-        verticalLayoutRight.addComponent(effortLayout);
-
-        final HorizontalLayout dependLayout = new HorizontalLayout();
-        dependLayout.setSpacing(true);
-
-        final Label dependLabel =
-                new Label(
-                        TM.get("centraleditingprocesspanel.17-label-dependencies"));
-        dependLayout.addComponent(dependLabel);
-
+    private Button createDependEditButton() {
         final Button dependEditButton =
                 new Button(TM.get("centraleditingprocesspanel.18-button-edit"));
         dependEditButton.addListener(new ClickListener() {
@@ -254,10 +259,10 @@ class DefaultCentralEditingPanel extends Panel implements
                 dependEditButtonClicked();
             }
         });
-        dependLayout.addComponent(dependEditButton);
+        return dependEditButton;
+    }
 
-        verticalLayoutRight.addComponent(dependLayout);
-
+    private Table createTestTable() {
         final TestTableCreator creator =
                 this.injector.getInstance(TestTableCreator.class);
         creator.setColumnNames(TEST_COLUMN_NAMES);
@@ -268,11 +273,36 @@ class DefaultCentralEditingPanel extends Panel implements
             LOGGER.error(ErrorCodes.M_001_TEST_TABLE_CREATION, exception);
         }
         final Table table = creator.getTable();
-        verticalLayoutRight.addComponent(table);
+        return table;
+    }
 
-        mainGrid.addComponent(verticalLayoutRight, 1, 0);
+    private VerticalLayout getTreeLayout() {
+        final VerticalLayout treeLayout = new VerticalLayout();
+        treeLayout.setWidth("90%");
+        treeLayout.setSpacing(true);
+        treeLayout.setMargin(true);
+        treeLayout.addStyleName("border");
+        return treeLayout;
+    }
 
-        this.addComponent(mainGrid);
+    private Button getNewMeetingButton() {
+        final Button newMeetingButton =
+                new Button(
+                        TM.get("centraleditingprocesspanel.7-button-newMeeting"));
+        newMeetingButton.addListener(this); // react to clicks
+        newMeetingButton.setWidth(APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH,
+                Sizeable.UNITS_PIXELS);
+        return newMeetingButton;
+    }
+
+    private Button getNewTaskButton() {
+        final Button newTaskButton =
+                new Button(
+                        TM.get("centraleditingprocesspanel.6-button-newTask"));
+        newTaskButton.addListener(this); // react to clicks
+        newTaskButton.setWidth(APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH,
+                Sizeable.UNITS_PIXELS);
+        return newTaskButton;
     }
 
     private MenuBar createMenuBar() {

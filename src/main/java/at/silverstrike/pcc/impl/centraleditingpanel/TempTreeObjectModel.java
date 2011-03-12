@@ -10,10 +10,9 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanel;
 
-import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 
-class TempTreeObjectModel {
+final class TempTreeObjectModel {
     private static final String[] FILTER_IMPACT_TYPE = { "Passive filters",
             "Active filters" };
     private static final String[] FILTER_TYPES =
