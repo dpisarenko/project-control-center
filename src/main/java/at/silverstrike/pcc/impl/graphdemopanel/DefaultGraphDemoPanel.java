@@ -12,28 +12,31 @@
 package at.silverstrike.pcc.impl.graphdemopanel;
 
 import com.google.inject.Injector;
+import com.vaadin.terminal.ThemeResource;
+import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
 
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 
-class DefaultGraphDemoPanel implements GraphDemoPanel {
+class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
+    private static final long serialVersionUID = 1L;
 
     @Override
     public Panel toPanel() {
-        // TODO Auto-generated method stub
-        return null;
+        return this;
     }
 
     @Override
     public void initGui() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setInjector(final Injector aInjector) {
-        // TODO Auto-generated method stub
-
+        final VerticalLayout layout = new VerticalLayout();
+        final Embedded image =
+                new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
+        
+        layout.addComponent(image);
+        layout.setSizeFull();
+        
+        this.addComponent(layout);
     }
 
 }

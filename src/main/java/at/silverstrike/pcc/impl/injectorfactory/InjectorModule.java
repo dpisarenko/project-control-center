@@ -26,6 +26,7 @@ import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
+import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanelFactory;
 import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.openid.Deauthenticator;
@@ -60,9 +61,9 @@ import at.silverstrike.pcc.impl.dependencieseditingwindow.DefaultDependenciesEdi
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
-import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.
-    DefaultEstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
+import at.silverstrike.pcc.impl.graphdemopanel.DefaultGraphDemoPanelFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainprocesseditingpanel.DefaultMainProcessEditingPanelFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
@@ -153,6 +154,8 @@ class InjectorModule extends AbstractModule {
                 new DefaultDependenciesEditingPanelFactory());
         bind(TestTableCreator.class).toInstance(
                 getTestTableCreator());
+        bind(GraphDemoPanelFactory.class).toInstance(
+                new DefaultGraphDemoPanelFactory());
     }
 
     private TestTableCreator getTestTableCreator() {
