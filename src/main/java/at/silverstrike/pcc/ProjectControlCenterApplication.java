@@ -43,9 +43,9 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     private static final long serialVersionUID = 1L;
 
     private transient Persistence persistence;
-    private Injector injector;
+    private transient Injector injector;
     private EntryWindow entryWindow;
-    private HttpServletRequest request;
+    private transient HttpServletRequest request;
 
     @Override
     public final void close() {
