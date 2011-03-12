@@ -65,7 +65,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private static final int PROCESS_NAME_TEXT_FIELD_COLUMNS = 30;
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
-    
+
     private static final String[] DURATION_STEPS = new String[] { "15 min",
             "30 min",
             "45 min" };
@@ -76,14 +76,12 @@ class DefaultCentralEditingPanel extends Panel implements
                     new String[] { "1.1", "Project 1", "Task 1" },
                     new String[] { "2.1", "Project 4", "Task 5" });
 
-    private transient Persistence persistence;
     private Injector injector;
 
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
-            this.persistence = aInjector.getInstance(Persistence.class);
         }
     }
 
@@ -97,7 +95,7 @@ class DefaultCentralEditingPanel extends Panel implements
         final MenuBar menubar = createMenuBar();
 
         addComponent(menubar);
-        
+
         final GridLayout mainGrid = new GridLayout(2, 1);
 
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
@@ -304,7 +302,6 @@ class DefaultCentralEditingPanel extends Panel implements
     private MenuBar createMenuBar() {
         final MenuBar menubar = new MenuBar();
         menubar.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
-        
 
         // Save reference to individual items so we can add sub-menu items to
         // them
