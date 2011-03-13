@@ -52,8 +52,9 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     @Override
     public void initGui() {
         final VerticalLayout layout = new VerticalLayout();
-        final Embedded image =
-                new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
+//        final Embedded image =
+//                new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
+        final Embedded image = createSampleGraph();
         layout.addComponent(image);
         layout.setSizeFull();
 
@@ -62,7 +63,9 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         createSampleGraph();
     }
 
-    private void createSampleGraph() {
+    private Embedded createSampleGraph() {
+        Embedded imageComponent = null;
+        
         try {
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
                     .newInstance();
@@ -87,7 +90,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
             ByteArrayOutputStream bout = new ByteArrayOutputStream();
             Writer out = new OutputStreamWriter(bout, "UTF-8");
 
-            Embedded imageComponent = new Embedded("", new JungResource(bout));
+            imageComponent = new Embedded("", new JungResource(bout));
 
             imageComponent.setWidth(350, UNITS_PIXELS);
             imageComponent.setHeight(350, UNITS_PIXELS);
@@ -96,6 +99,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         } catch (Exception exception) {
             LOGGER.error("", exception);
         }
+        return imageComponent;
     }
 
     private VisualizationImageServer<String, String> createServer(
