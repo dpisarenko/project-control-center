@@ -30,8 +30,8 @@ class JungResource implements ApplicationResource {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(JungResource.class);
 
-    private ByteArrayInputStream bytestream = null;
-    private ByteArrayOutputStream originalOutputStream;
+    private transient ByteArrayInputStream bytestream = null;
+    private transient ByteArrayOutputStream originalOutputStream;
 
     public JungResource(final ByteArrayOutputStream aOutputStream) {
         this.originalOutputStream = aOutputStream;
