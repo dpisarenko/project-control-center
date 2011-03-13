@@ -19,8 +19,8 @@ import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 
 class DefaultTestTableCreator implements TestTableCreator {
-    private String[] names;
-    private List<String[]> data;
+    private String[] names = null;
+    private List<String[]> data = null;
     private Table table;
 
     public DefaultTestTableCreator() {
