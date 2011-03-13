@@ -41,8 +41,6 @@ import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.conventions.PccException;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
@@ -76,11 +74,13 @@ class DefaultCentralEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
+    private final CentralEditingPanelController controller = new DefaultCentralEditingPanelController();
 
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
+            this.controller.setInjector(aInjector);
         }
     }
 
@@ -244,14 +244,7 @@ class DefaultCentralEditingPanel extends Panel implements
     private Button createDependEditButton() {
         final Button dependEditButton =
                 new Button(TM.get("centraleditingprocesspanel.18-button-edit"));
-        dependEditButton.addListener(new ClickListener() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void buttonClick(final ClickEvent aEvent) {
-                dependEditButtonClicked();
-            }
-        });
+        dependEditButton.addListener(new DependenciesButtonClickListener(controller));
         return dependEditButton;
     }
 
@@ -317,16 +310,6 @@ class DefaultCentralEditingPanel extends Panel implements
 
         menubar.addItem(TM.get("centraleditingprocesspanel.5-menu-other"), null);
         return menubar;
-    }
-
-    protected void dependEditButtonClicked() {
-
-        final DependenciesEditingPanelFactory factory =
-                this.injector
-                        .getInstance(DependenciesEditingPanelFactory.class);
-        final DependenciesEditingPanel panel = factory.create();
-        panel.setInjector(injector);
-        panel.initGui();
     }
 
     private Command menuCommand = new Command() {
