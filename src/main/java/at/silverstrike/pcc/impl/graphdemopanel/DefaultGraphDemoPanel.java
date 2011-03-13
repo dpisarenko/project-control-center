@@ -52,15 +52,11 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     @Override
     public void initGui() {
         final VerticalLayout layout = new VerticalLayout();
-//        final Embedded image =
-//                new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
         final Embedded image = createSampleGraph();
         layout.addComponent(image);
         layout.setSizeFull();
 
         this.addComponent(layout);
-
-        createSampleGraph();
     }
 
     private Embedded createSampleGraph() {
