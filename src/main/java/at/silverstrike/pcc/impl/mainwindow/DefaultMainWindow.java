@@ -28,8 +28,6 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanelFactory;
-import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanel;
-import at.silverstrike.pcc.api.mainprocesseditingpanel.MainProcessEditingPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
@@ -71,8 +69,8 @@ class DefaultMainWindow implements MainWindow {
 
         this.tabSheet.setSizeFull();
 
-        this.tabSheet.addTab(getMainProcessEditingPanel(), TM
-                .get("mainwindow.10-main-process-editing-panel"), null);
+        this.tabSheet.addTab(getCentralEditingPanel(), TM
+                .get("mainwindow.13-central-editing-panel"), null);
         this.tabSheet.addTab(getDailyPlanPanel(), TM
                 .get("mainwindow.11-daily-plan-panel"), null);
         this.tabSheet.addTab(getEstimatedCompletionDateTimesPanel(), TM
@@ -81,8 +79,6 @@ class DefaultMainWindow implements MainWindow {
                 .get("mainwindow.8-human-resource-tab"), null);
         this.tabSheet.addTab(getSchedulingPanelTab(), TM
                 .get("mainwindow.9-scheduling-tab"), null);
-        this.tabSheet.addTab(getCentralEditingPanel(), TM
-                .get("mainwindow.13-central-editing-panel"), null);
 
         this.tabSheet.addTab(getGraphTestPanel(), TM
                 .get("mainwindow.14-graph-test"), null);
@@ -117,16 +113,6 @@ class DefaultMainWindow implements MainWindow {
 
         panel.setInjector(this.injector);
         panel.attach();
-        panel.initGui();
-
-        return panel.toPanel();
-    }
-
-    private Component getMainProcessEditingPanel() {
-        final MainProcessEditingPanelFactory factory =
-                this.injector.getInstance(MainProcessEditingPanelFactory.class);
-        final MainProcessEditingPanel panel = factory.create();
-        panel.setInjector(this.injector);
         panel.initGui();
 
         return panel.toPanel();
