@@ -31,6 +31,8 @@ import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.VisualizationImageServer;
+import eu.livotov.tpt.TPTApplication;
+
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -87,7 +89,15 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
             ByteArrayOutputStream bout = new ByteArrayOutputStream();
 
-            imageComponent = new Embedded("", new JungResource(bout));
+            Writer out = new OutputStreamWriter(bout, "UTF-8");
+            graphic2d.stream(el, out);
+
+            
+            final JungResource source = new JungResource(bout);
+            
+            TPTApplication.getCurrentApplication().addResource(source);
+            
+            imageComponent = new Embedded("", source);
 
             imageComponent.setWidth(350, UNITS_PIXELS);
             imageComponent.setHeight(350, UNITS_PIXELS);
