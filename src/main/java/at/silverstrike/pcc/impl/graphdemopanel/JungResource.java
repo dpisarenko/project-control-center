@@ -74,17 +74,12 @@ class JungResource implements ApplicationResource {
 
     @Override
     public int getBufferSize() {
-        if (getByteStream() != null) {
-            try {
-                return getByteStream().available();
-            } catch (final IOException exception) {
-                LOGGER.error("", exception);
-                return 0;
-            }
-        } else {
+        try {
+            return getByteStream().available();
+        } catch (final IOException exception) {
+            LOGGER.error("", exception);
             return 0;
         }
-
     }
 
 }
