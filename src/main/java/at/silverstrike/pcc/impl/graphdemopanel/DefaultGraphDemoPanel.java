@@ -125,11 +125,11 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         graph.addVertex(vertex4);
         graph.addVertex(vertex5);
 
-        graph.addEdge("", vertex1, vertex2, EdgeType.DIRECTED);
-        graph.addEdge("", vertex2, vertex3, EdgeType.DIRECTED);
-        graph.addEdge("", vertex3, vertex5, EdgeType.DIRECTED);
-        graph.addEdge("", vertex1, vertex4, EdgeType.DIRECTED);
-        graph.addEdge("", vertex4, vertex5, EdgeType.DIRECTED);
+        graph.addEdge("1", vertex1, vertex2, EdgeType.DIRECTED);
+        graph.addEdge("2", vertex2, vertex3, EdgeType.DIRECTED);
+        graph.addEdge("3", vertex3, vertex5, EdgeType.DIRECTED);
+        graph.addEdge("4", vertex1, vertex4, EdgeType.DIRECTED);
+        graph.addEdge("5", vertex4, vertex5, EdgeType.DIRECTED);
         return graph;
     }
 
