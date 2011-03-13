@@ -38,7 +38,7 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 
 class DefaultMainWindow implements MainWindow {
-    private Injector injector;
+    private Injector injector = null;
     private Window mainWindow;
     private TabSheet tabSheet;
     private DebugIdRegistry debugIdRegistry;
