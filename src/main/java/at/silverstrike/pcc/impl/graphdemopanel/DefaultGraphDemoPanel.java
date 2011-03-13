@@ -27,7 +27,6 @@ import org.w3c.dom.Element;
 
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.EdgeType;
@@ -42,6 +41,8 @@ import com.vaadin.ui.VerticalLayout;
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 
 class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
+    private static final int DEFAULT_HEIGHT_PIXELS = 350;
+    private static final int DEFAULT_WIDTH_PIXELS = 350;
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultGraphDemoPanel.class);
@@ -65,15 +66,14 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         Embedded imageComponent = null;
 
         try {
-            DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
+            final DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
                     .newInstance();
-            DocumentBuilder docBuilder = null;
-            docBuilder = docBuilderFactory.newDocumentBuilder();
-            Document document = docBuilder.newDocument();
-            Element svgelem = document.createElement("svg");
+            final DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+            final Document document = docBuilder.newDocument();
+            final Element svgelem = document.createElement("svg");
             document.appendChild(svgelem);
 
-            SVGGraphics2D graphic2d = new SVGGraphics2D(document);
+            final SVGGraphics2D graphic2d = new SVGGraphics2D(document);
 
             final Graph<String, String> graph = createGraph();
             final VisualizationImageServer<String, String> server =
@@ -81,13 +81,13 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
             server.printAll(graphic2d);
 
-            Element el = graphic2d.getRoot();
+            final Element el = graphic2d.getRoot();
             el.setAttributeNS(null, "viewBox", "0 0 350 350");
             el.setAttributeNS(null, "style", "width:100%;height:100%;");
 
-            ByteArrayOutputStream bout = new ByteArrayOutputStream();
+            final ByteArrayOutputStream bout = new ByteArrayOutputStream();
 
-            Writer out = new OutputStreamWriter(bout, "UTF-8");
+            final Writer out = new OutputStreamWriter(bout, "UTF-8");
             graphic2d.stream(el, out);
 
             final JungResource source = new JungResource(bout);
@@ -96,23 +96,23 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
             imageComponent = new Embedded("", source);
 
-            imageComponent.setWidth(350, UNITS_PIXELS);
-            imageComponent.setHeight(350, UNITS_PIXELS);
+            imageComponent.setWidth(DEFAULT_WIDTH_PIXELS, UNITS_PIXELS);
+            imageComponent.setHeight(DEFAULT_HEIGHT_PIXELS, UNITS_PIXELS);
             imageComponent.setMimeType("image/svg+xml");
             addComponent(imageComponent);
-        } catch (Exception exception) {
+        } catch (final Exception exception) {
             LOGGER.error("", exception);
         }
         return imageComponent;
     }
 
     private VisualizationImageServer<String, String> createServer(
-            Graph<String, String> graph) {
-        Layout<String, String> layout = new FRLayout<String, String>(
-                graph);
+            final Graph<String, String> aGraph) {
+        final Layout<String, String> layout = new FRLayout<String, String>(
+                aGraph);
 
         layout.setSize(new Dimension(300, 300));
-        VisualizationImageServer<String, String> vv =
+        final VisualizationImageServer<String, String> vv =
                 new VisualizationImageServer<String, String>(
                         layout, new Dimension(350, 350));
         vv.getRenderContext().setVertexLabelTransformer(
