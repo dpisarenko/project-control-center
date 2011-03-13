@@ -27,12 +27,10 @@ import org.w3c.dom.Element;
 
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.VisualizationImageServer;
-
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -88,7 +86,6 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
             el.setAttributeNS(null, "style", "width:100%;height:100%;");
 
             ByteArrayOutputStream bout = new ByteArrayOutputStream();
-            Writer out = new OutputStreamWriter(bout, "UTF-8");
 
             imageComponent = new Embedded("", new JungResource(bout));
 
@@ -115,7 +112,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
     private Graph<String, String> createGraph() {
         final Graph<String, String> graph =
-                new SparseMultigraph<String, String>();
+                new DirectedSparseMultigraph<String, String>();
         final String vertex1 = "IE";
         final String vertex2 = "P1";
         final String vertex3 = "P2";
