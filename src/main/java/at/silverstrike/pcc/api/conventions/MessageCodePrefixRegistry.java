@@ -28,7 +28,7 @@ public final class MessageCodePrefixRegistry {
 
     private Map<Module, String> prefixesByModules;
 
-    private volatile static MessageCodePrefixRegistry instance;
+    private static volatile MessageCodePrefixRegistry instance;
 
     public static MessageCodePrefixRegistry getInstance() {
         if (instance == null) {
