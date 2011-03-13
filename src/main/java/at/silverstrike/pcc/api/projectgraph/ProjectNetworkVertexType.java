@@ -9,16 +9,12 @@
  *
  **/
 
-package at.silverstrike.pcc.api.projectnetworklayout;
-
-import at.silverstrike.pcc.api.projectgraph.ProjectNetworkVertex;
-import edu.uci.ics.jung.algorithms.layout.Layout;
+package at.silverstrike.pcc.api.projectgraph;
 
 /**
  * @author DP118M
  * 
  */
-public interface ProjectNetworkLayout extends
-        Layout<ProjectNetworkVertex, String> {
-
+public enum ProjectNetworkVertexType {
+    INITIAL_EVENT, TASK, FINAL_EVENT
 }

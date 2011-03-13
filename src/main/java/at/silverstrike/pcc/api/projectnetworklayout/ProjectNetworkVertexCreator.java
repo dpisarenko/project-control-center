@@ -11,14 +11,18 @@
 
 package at.silverstrike.pcc.api.projectnetworklayout;
 
+import java.util.List;
+
+import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import at.silverstrike.pcc.api.model.ControlProcess;
 import at.silverstrike.pcc.api.projectgraph.ProjectNetworkVertex;
-import edu.uci.ics.jung.algorithms.layout.Layout;
 
 /**
  * @author DP118M
- * 
+ *
  */
-public interface ProjectNetworkLayout extends
-        Layout<ProjectNetworkVertex, String> {
+public interface ProjectNetworkVertexCreator extends SingleActivityModule {
+    void setTasks(final List<ControlProcess> aProcesses);
 
+    List<ProjectNetworkVertex> getVertices();
 }
