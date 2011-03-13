@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanelFactory;
 public class DefaultGraphDemoPanelFactory implements GraphDemoPanelFactory {
 
     @Override
-    public GraphDemoPanel create() {
+    public final GraphDemoPanel create() {
         return new DefaultGraphDemoPanel();
     }
 
