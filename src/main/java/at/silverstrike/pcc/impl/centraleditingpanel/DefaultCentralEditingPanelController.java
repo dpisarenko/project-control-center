@@ -7,7 +7,7 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
 
 class DefaultCentralEditingPanelController implements
         CentralEditingPanelController {
-    private Injector injector;
+    private Injector injector = null;
 
     @Override
     public void dependEditButtonClicked() {
