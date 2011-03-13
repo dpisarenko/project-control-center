@@ -21,7 +21,7 @@ import com.vaadin.ui.Button.ClickListener;
 class DependenciesButtonClickListener implements
             ClickListener {
     private static final long serialVersionUID = 1L;
-    private CentralEditingPanelController controller;
+    private transient CentralEditingPanelController controller;
 
     public DependenciesButtonClickListener(
             final CentralEditingPanelController aController) {
