@@ -26,6 +26,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
@@ -107,7 +108,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
     private VisualizationImageServer<String, String> createServer(
             Graph<String, String> graph) {
-        Layout<String, String> layout = new CircleLayout<String, String>(
+        Layout<String, String> layout = new FRLayout<String, String>(
                 graph);
         layout.setSize(new Dimension(300, 300));
         VisualizationImageServer<String, String> vv =
