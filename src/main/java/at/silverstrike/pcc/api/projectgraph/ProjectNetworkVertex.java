@@ -31,4 +31,7 @@ public interface ProjectNetworkVertex {
     
     void setTaskId(final Long aId);
     Long getTaskId();
+    
+    void setRank(final int aRank);
+    int getRank();
 }
