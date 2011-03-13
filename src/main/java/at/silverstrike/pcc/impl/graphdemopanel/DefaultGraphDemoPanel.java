@@ -14,12 +14,15 @@ package at.silverstrike.pcc.impl.graphdemopanel;
 import java.awt.Dimension;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.batik.svggen.SVGGraphics2D;
+import org.apache.batik.svggen.SVGGraphics2DIOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -66,9 +69,11 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         Embedded imageComponent = null;
 
         try {
-            final DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
-                    .newInstance();
-            final DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+            final DocumentBuilderFactory docBuilderFactory =
+                    DocumentBuilderFactory
+                            .newInstance();
+            final DocumentBuilder docBuilder =
+                    docBuilderFactory.newDocumentBuilder();
             final Document document = docBuilder.newDocument();
             final Element svgelem = document.createElement("svg");
             document.appendChild(svgelem);
@@ -100,8 +105,12 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
             imageComponent.setHeight(DEFAULT_HEIGHT_PIXELS, UNITS_PIXELS);
             imageComponent.setMimeType("image/svg+xml");
             addComponent(imageComponent);
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
+        } catch (final UnsupportedEncodingException exception) {
+            LOGGER.error(ErrorCodes.M_001_UNSUPPORTED_ENCONDING, exception);
+        } catch (final SVGGraphics2DIOException exception) {
+            LOGGER.error(ErrorCodes.M_002_SVG_GRAPHICS_2D_IO, exception);
+        } catch (final ParserConfigurationException exception) {
+            LOGGER.error(ErrorCodes.M_003_PARSER_CONFIGURATION, exception);
         }
         return imageComponent;
     }

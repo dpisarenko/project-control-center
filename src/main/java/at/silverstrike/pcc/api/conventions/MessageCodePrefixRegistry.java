@@ -23,7 +23,7 @@ public final class MessageCodePrefixRegistry {
         persistence, processpanel, projectscheduler, schedulingpanel,
         tj3bookingsparser, tj3deadlinesparser, workerpanel, version,
         culture2lang, entrywindow, parameterdatareader, openid, centraleditingpanel,
-        dependencieseditingwindow
+        dependencieseditingwindow, graphdemopanel
     }
 
     private Map<Module, String> prefixesByModules;
@@ -75,5 +75,6 @@ public final class MessageCodePrefixRegistry {
         this.prefixesByModules.put(Module.openid, "024");        
         this.prefixesByModules.put(Module.centraleditingpanel, "025");
         this.prefixesByModules.put(Module.dependencieseditingwindow, "026");
+        this.prefixesByModules.put(Module.graphdemopanel, "027");
     }
 }
