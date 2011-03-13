@@ -74,7 +74,7 @@ class DefaultCentralEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
-    private final CentralEditingPanelController controller = new DefaultCentralEditingPanelController();
+    private transient final CentralEditingPanelController controller = new DefaultCentralEditingPanelController();
 
     @Override
     public void setInjector(final Injector aInjector) {
