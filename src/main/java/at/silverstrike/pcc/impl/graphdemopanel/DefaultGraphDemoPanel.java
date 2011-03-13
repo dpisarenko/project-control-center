@@ -25,15 +25,14 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
-import edu.uci.ics.jung.algorithms.layout.FRLayout2;
-import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.VisualizationImageServer;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import eu.livotov.tpt.TPTApplication;
 
 import com.vaadin.ui.Embedded;
@@ -64,7 +63,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
     private Embedded createSampleGraph() {
         Embedded imageComponent = null;
-        
+
         try {
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
                     .newInstance();
@@ -91,11 +90,10 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
             Writer out = new OutputStreamWriter(bout, "UTF-8");
             graphic2d.stream(el, out);
 
-            
             final JungResource source = new JungResource(bout);
-            
+
             TPTApplication.getCurrentApplication().addResource(source);
-            
+
             imageComponent = new Embedded("", source);
 
             imageComponent.setWidth(350, UNITS_PIXELS);
@@ -110,12 +108,15 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
     private VisualizationImageServer<String, String> createServer(
             Graph<String, String> graph) {
-        Layout<String, String> layout = new ISOMLayout<String, String>(
+        Layout<String, String> layout = new FRLayout<String, String>(
                 graph);
+
         layout.setSize(new Dimension(300, 300));
         VisualizationImageServer<String, String> vv =
                 new VisualizationImageServer<String, String>(
                         layout, new Dimension(350, 350));
+        vv.getRenderContext().setVertexLabelTransformer(
+                new ToStringLabeller<String>());
         return vv;
     }
 
