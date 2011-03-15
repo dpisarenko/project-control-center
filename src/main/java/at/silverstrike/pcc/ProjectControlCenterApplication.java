@@ -64,7 +64,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
         LOGGER.info("PCC application starts");
 
         setTheme(THEME);
-        TM.getDictionary().setDefaultLanguage("en");
+        TM.getDictionary().setDefaultLanguage("ru");
 
         this.setUser("DP");
 

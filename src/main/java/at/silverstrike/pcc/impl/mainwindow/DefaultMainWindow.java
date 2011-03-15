@@ -13,7 +13,12 @@ package at.silverstrike.pcc.impl.mainwindow;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.MenuBar.Command;
+import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
@@ -40,7 +45,8 @@ class DefaultMainWindow implements MainWindow {
     private Window mainWindow;
     private TabSheet tabSheet;
     private DebugIdRegistry debugIdRegistry;
-
+    private Label indicator;
+    
     public DefaultMainWindow() {
     }
 
@@ -69,6 +75,19 @@ class DefaultMainWindow implements MainWindow {
 
         this.tabSheet.setSizeFull();
 
+        final VerticalLayout mainLayout = new VerticalLayout(); 
+        
+        final MenuBar menubar = createMenuBar();
+        mainLayout.addComponent(menubar);       
+        
+        indicator = getStatus();
+        indicator.setContentMode(Label.CONTENT_XHTML);
+        
+        mainLayout.addComponent(indicator);
+
+        
+        
+        
         this.tabSheet.addTab(getCentralEditingPanel(), TM
                 .get("mainwindow.13-central-editing-panel"), null);
         this.tabSheet.addTab(getDailyPlanPanel(), TM
@@ -83,9 +102,47 @@ class DefaultMainWindow implements MainWindow {
         this.tabSheet.addTab(getGraphTestPanel(), TM
                 .get("mainwindow.14-graph-test"), null);
         
-        mainWindow.setContent(tabSheet);
+        mainLayout.addComponent(this.tabSheet);
+        
+        mainWindow.setContent(mainLayout);
+
     }
 
+    private Label getStatus() {
+        indicator = new Label("<p>Plan completed</p>");
+        return indicator;
+}
+   
+   private MenuBar createMenuBar() {
+       final MenuBar menubar = new MenuBar();
+       menubar.setWidth("100%");
+
+       // Save reference to individual items so we can add sub-menu items to
+       // them
+       final MenuBar.MenuItem file =
+               menubar.addItem(
+                       TM.get("centraleditingprocesspanel.1-menu-file"), null);
+       file.addItem(TM.get("centraleditingprocesspanel.2-menu-exportXML"),
+               menuCommand);
+       file.addItem(TM.get("centraleditingprocesspanel.3-menu-importXML"),
+               menuCommand);
+       file.addSeparator();
+       file.addItem(TM.get("centraleditingprocesspanel.4-menu-exit"),
+               menuCommand);
+
+       menubar.addItem(TM.get("centraleditingprocesspanel.5-menu-other"), null);
+       return menubar;
+   }
+   
+   private Command menuCommand = new Command() {
+       private static final long serialVersionUID = 1L;
+
+       public void menuSelected(final MenuItem aSelectedItem) {
+           getWindow().showNotification("Action " + aSelectedItem.getText());
+       }
+   };
+
+    
     private Component getGraphTestPanel() {
         final GraphDemoPanelFactory factory = 
             this.injector.getInstance(GraphDemoPanelFactory.class);
