@@ -25,9 +25,6 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.MenuBar.Command;
-import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -91,10 +88,6 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void initGui() {
-        final MenuBar menubar = createMenuBar();
-
-        addComponent(menubar);
-
         final GridLayout mainGrid = new GridLayout(2, 1);
 
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
@@ -291,34 +284,6 @@ class DefaultCentralEditingPanel extends Panel implements
         return newTaskButton;
     }
 
-    private MenuBar createMenuBar() {
-        final MenuBar menubar = new MenuBar();
-        menubar.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
-
-        // Save reference to individual items so we can add sub-menu items to
-        // them
-        final MenuBar.MenuItem file =
-                menubar.addItem(
-                        TM.get("centraleditingprocesspanel.1-menu-file"), null);
-        file.addItem(TM.get("centraleditingprocesspanel.2-menu-exportXML"),
-                menuCommand);
-        file.addItem(TM.get("centraleditingprocesspanel.3-menu-importXML"),
-                menuCommand);
-        file.addSeparator();
-        file.addItem(TM.get("centraleditingprocesspanel.4-menu-exit"),
-                menuCommand);
-
-        menubar.addItem(TM.get("centraleditingprocesspanel.5-menu-other"), null);
-        return menubar;
-    }
-
-    private Command menuCommand = new Command() {
-        private static final long serialVersionUID = 1L;
-
-        public void menuSelected(final MenuItem aSelectedItem) {
-            getWindow().showNotification("Action " + aSelectedItem.getText());
-        }
-    };
 
     /*
      * Shows a notification when a button is clicked.

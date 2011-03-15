@@ -121,16 +121,16 @@ class DefaultMainWindow implements MainWindow {
        // them
        final MenuBar.MenuItem file =
                menubar.addItem(
-                       TM.get("centraleditingprocesspanel.1-menu-file"), null);
-       file.addItem(TM.get("centraleditingprocesspanel.2-menu-exportXML"),
+                       TM.get("mainwindow.15-menu-file"), null);
+       file.addItem(TM.get("mainwindow.16-menu-exportXML"),
                menuCommand);
-       file.addItem(TM.get("centraleditingprocesspanel.3-menu-importXML"),
+       file.addItem(TM.get("mainwindow.17-menu-importXML"),
                menuCommand);
        file.addSeparator();
-       file.addItem(TM.get("centraleditingprocesspanel.4-menu-exit"),
+       file.addItem(TM.get("mainwindow.18-menu-exit"),
                menuCommand);
 
-       menubar.addItem(TM.get("centraleditingprocesspanel.5-menu-other"), null);
+       menubar.addItem(TM.get("mainwindow.19-menu-other"), null);
        return menubar;
    }
    
