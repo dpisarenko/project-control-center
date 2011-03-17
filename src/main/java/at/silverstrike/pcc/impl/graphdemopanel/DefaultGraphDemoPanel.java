@@ -58,7 +58,13 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     @Override
     public void initGui() {
         final VerticalLayout layout = new VerticalLayout();
-        final Embedded image = createSampleGraph();
+        
+        final L2RTreeLayoutDemo l2rTree = new L2RTreeLayoutDemo();
+        
+        l2rTree.run();
+        final Embedded image = l2rTree.getImage();
+        
+//        final Embedded image = createSampleGraph();
         layout.addComponent(image);
         layout.setSizeFull();
 

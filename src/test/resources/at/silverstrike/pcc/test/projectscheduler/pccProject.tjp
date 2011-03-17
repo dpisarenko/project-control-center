@@ -32,7 +32,7 @@ copyright "DP"
 # Copyright 2010 Dmitri Anatol'evich Pisarenko
 # All rights reserved
 
-resource R1210 "DP"
+resource R47 "DP"
 {
 	limits { dailymax 8.00h }
 }
@@ -44,7 +44,7 @@ resource R1210 "DP"
 # Copyright 2010 Dmitri Anatol'evich Pisarenko
 # All rights reserved
 
-task T2010 "Some interesting task"
+task T93 "Some interesting task"
 {
 	# This file is part of Project Control Center (PCC).
 # 
@@ -65,7 +65,7 @@ start ${now}
 # Copyright 2010 Dmitri Anatol'evich Pisarenko
 # All rights reserved
 
-allocate R1210
+allocate R47
 
 	# This file is part of Project Control Center (PCC).
 # 
