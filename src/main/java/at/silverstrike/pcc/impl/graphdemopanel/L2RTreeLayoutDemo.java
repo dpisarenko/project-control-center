@@ -106,7 +106,7 @@ class L2RTreeLayoutDemo {
      * the visual component and renderer for the graph
      */
     VisualizationViewer<String, Integer> vv;
-
+    
     String root;
 
     TreeLayout<String, Integer> treeLayout;
@@ -230,13 +230,9 @@ class L2RTreeLayoutDemo {
 
     private VisualizationImageServer<String, Integer> createServer(
             final Forest<String, Integer> aGraph) {
-        final Layout<String, Integer> layout = new FRLayout<String, Integer>(
-                aGraph);
-
-        layout.setSize(new Dimension(300, 300));
         final VisualizationImageServer<String, Integer> vv =
                 new VisualizationImageServer<String, Integer>(
-                        layout, new Dimension(350, 350));
+                        this.treeLayout, new Dimension(350, 350));
         vv.getRenderContext().setVertexLabelTransformer(
                 new ToStringLabeller<String>());
         return vv;
