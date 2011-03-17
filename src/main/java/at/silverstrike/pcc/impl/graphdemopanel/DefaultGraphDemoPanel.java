@@ -45,7 +45,7 @@ import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 
 class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
-    private static final int DEFAULT_WIDTH_PIXELS = 350;
+    private static final int DEFAULT_WIDTH_PIXELS = 600;
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultGraphDemoPanel.class);
@@ -93,7 +93,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
             server.printAll(graphic2d);
 
             final Element el = graphic2d.getRoot();
-            el.setAttributeNS(null, "viewBox", "0 0 350 350");
+            el.setAttributeNS(null, "viewBox", "0 0 600 350");
             el.setAttributeNS(null, "style", "width:100%;height:100%;");
 
             final ByteArrayOutputStream bout = new ByteArrayOutputStream();

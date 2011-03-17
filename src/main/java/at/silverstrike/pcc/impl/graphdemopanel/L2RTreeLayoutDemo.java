@@ -140,7 +140,7 @@ class L2RTreeLayoutDemo {
         graph.addVertex("A0");
         graph.addEdge(edgeFactory.create(), "A0", "A1");
         graph.addEdge(edgeFactory.create(), "A0", "A2");
-        graph.addEdge(edgeFactory.create(), "A0", "A3");
+        graph.addEdge(edgeFactory.create(), "A0", "A3");        
 
         graph.addVertex("B0");
         graph.addEdge(edgeFactory.create(), "B0", "B1");
