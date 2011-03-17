@@ -125,33 +125,33 @@ class L2RTreeLayoutDemo {
      * 
      */
     private void createTree() {
-//        graph.addVertex("V0");
-//        graph.addEdge(edgeFactory.create(), "V0", "V1");
-//        graph.addEdge(edgeFactory.create(), "V0", "V2");
-//        graph.addEdge(edgeFactory.create(), "V1", "V4");
-//        graph.addEdge(edgeFactory.create(), "V2", "V3");
-//        graph.addEdge(edgeFactory.create(), "V2", "V5");
-//        graph.addEdge(edgeFactory.create(), "V4", "V6");
-//        graph.addEdge(edgeFactory.create(), "V4", "V7");
-//        graph.addEdge(edgeFactory.create(), "V3", "V8");
-//        graph.addEdge(edgeFactory.create(), "V6", "V9");
-//        graph.addEdge(edgeFactory.create(), "V4", "V10");
+        graph.addVertex("V0");
+        graph.addEdge(edgeFactory.create(), "V0", "V1");
+        graph.addEdge(edgeFactory.create(), "V0", "V2");
+        graph.addEdge(edgeFactory.create(), "V1", "V4");
+        graph.addEdge(edgeFactory.create(), "V2", "V3");
+        graph.addEdge(edgeFactory.create(), "V2", "V5");
+        graph.addEdge(edgeFactory.create(), "V4", "V6");
+        graph.addEdge(edgeFactory.create(), "V4", "V7");
+        graph.addEdge(edgeFactory.create(), "V3", "V8");
+        graph.addEdge(edgeFactory.create(), "V6", "V9");
+        graph.addEdge(edgeFactory.create(), "V4", "V10");
 
         graph.addVertex("A0");
         graph.addEdge(edgeFactory.create(), "A0", "A1");
         graph.addEdge(edgeFactory.create(), "A0", "A2");
         graph.addEdge(edgeFactory.create(), "A0", "A3");
 
-//        graph.addVertex("B0");
-//        graph.addEdge(edgeFactory.create(), "B0", "B1");
-//        graph.addEdge(edgeFactory.create(), "B0", "B2");
-//        graph.addEdge(edgeFactory.create(), "B1", "B4");
-//        graph.addEdge(edgeFactory.create(), "B2", "B3");
-//        graph.addEdge(edgeFactory.create(), "B2", "B5");
-//        graph.addEdge(edgeFactory.create(), "B4", "B6");
-//        graph.addEdge(edgeFactory.create(), "B4", "B7");
-//        graph.addEdge(edgeFactory.create(), "B3", "B8");
-//        graph.addEdge(edgeFactory.create(), "B6", "B9");
+        graph.addVertex("B0");
+        graph.addEdge(edgeFactory.create(), "B0", "B1");
+        graph.addEdge(edgeFactory.create(), "B0", "B2");
+        graph.addEdge(edgeFactory.create(), "B1", "B4");
+        graph.addEdge(edgeFactory.create(), "B2", "B3");
+        graph.addEdge(edgeFactory.create(), "B2", "B5");
+        graph.addEdge(edgeFactory.create(), "B4", "B6");
+        graph.addEdge(edgeFactory.create(), "B4", "B7");
+        graph.addEdge(edgeFactory.create(), "B3", "B8");
+        graph.addEdge(edgeFactory.create(), "B6", "B9");
     }
 
     void run() {
@@ -232,9 +232,14 @@ class L2RTreeLayoutDemo {
             final Forest<String, Integer> aGraph) {
         final VisualizationImageServer<String, Integer> vv =
                 new VisualizationImageServer<String, Integer>(
-                        this.treeLayout, new Dimension(350, 350));
-        vv.getRenderContext().setVertexLabelTransformer(
-                new ToStringLabeller<String>());
+                        this.treeLayout, new Dimension(600, 600));
+
+        vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line());
+        vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+        // add a listener for ToolTips
+        vv.getRenderContext().setArrowFillPaintTransformer(
+                new ConstantTransformer(Color.lightGray));
+
         return vv;
     }
 
