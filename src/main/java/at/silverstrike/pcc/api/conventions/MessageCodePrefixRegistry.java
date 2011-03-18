@@ -22,8 +22,10 @@ public final class MessageCodePrefixRegistry {
         injectorfactory, jruby, mainprocesseditingpanel, mainwindow, model,
         persistence, processpanel, projectscheduler, schedulingpanel,
         tj3bookingsparser, tj3deadlinesparser, workerpanel, version,
-        culture2lang, entrywindow, parameterdatareader, openid, centraleditingpanel,
-        dependencieseditingwindow, graphdemopanel
+        culture2lang, entrywindow, parameterdatareader, openid,
+        centraleditingpanel,
+        dependencieseditingwindow, graphdemopanel, taskeditingpanel,
+        meetingeditingpanel, milestoneeditingpanel
     }
 
     private Map<Module, String> prefixesByModules;
@@ -72,9 +74,12 @@ public final class MessageCodePrefixRegistry {
         this.prefixesByModules.put(Module.culture2lang, "021");
         this.prefixesByModules.put(Module.entrywindow, "022");
         this.prefixesByModules.put(Module.parameterdatareader, "023");
-        this.prefixesByModules.put(Module.openid, "024");        
+        this.prefixesByModules.put(Module.openid, "024");
         this.prefixesByModules.put(Module.centraleditingpanel, "025");
         this.prefixesByModules.put(Module.dependencieseditingwindow, "026");
         this.prefixesByModules.put(Module.graphdemopanel, "027");
+        this.prefixesByModules.put(Module.taskeditingpanel, "028");
+        this.prefixesByModules.put(Module.meetingeditingpanel, "029");
+        this.prefixesByModules.put(Module.milestoneeditingpanel, "030");
     }
 }

@@ -45,6 +45,7 @@ import eu.livotov.tpt.i18n.TM;
 class DefaultCentralEditingPanel extends Panel implements
         CentralEditingPanel, ProcessPanelListener, ClickListener {
     private static final int PADDING = 5;
+    private static final int ONE_SIXTH_OF_SCREEN_WIDTH = 6;
     private static final int FOUR_QUARTERS = 4;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultCentralEditingPanel.class);
@@ -54,6 +55,8 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final String NOTIFICATION = "Smth happend";
     private static final int APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH =
             WIDTH_SCREEN / FOUR_QUARTERS - PADDING;
+    private static final int WIDTH_OF_NEW_BUTTONS =
+            WIDTH_SCREEN / ONE_SIXTH_OF_SCREEN_WIDTH - PADDING;
 
     public static final Object PROJECT_PROPERTY_NAME = "name";
 
@@ -63,7 +66,7 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final String[] DURATION_STEPS = new String[] { "15 min",
             "30 min",
             "45 min" };
-    private static final String[] TEST_COLUMN_NAMES = new String[] { "¹",
+    private static final String[] TEST_COLUMN_NAMES = new String[] { "№",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
             Arrays.asList(
@@ -71,7 +74,8 @@ class DefaultCentralEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
-    private transient final CentralEditingPanelController controller = new DefaultCentralEditingPanelController();
+    private transient final CentralEditingPanelController controller =
+            new DefaultCentralEditingPanelController();
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -206,6 +210,180 @@ class DefaultCentralEditingPanel extends Panel implements
         this.addComponent(mainGrid);
     }
 
+    private VerticalLayout getTaskLayout() {
+        final VerticalLayout verticalLayoutRight = new VerticalLayout();
+
+        final Label taskLabel =
+                new Label(TM.get("centraleditingprocesspanel.10-label-task"));
+        taskLabel.setContentMode(Label.CONTENT_TEXT);
+        verticalLayoutRight.addComponent(taskLabel);
+
+        final HorizontalLayout buttonsTaskLayout = new HorizontalLayout();
+        buttonsTaskLayout.setSpacing(true);
+
+        final Button saveButton =
+                        new Button(
+                                TM.get("centraleditingprocesspanel.11-button-save"));
+        saveButton.addListener(this); // react to clicks
+        buttonsTaskLayout.addComponent(saveButton);
+
+        final Button doneButton =
+                new Button(TM.get("centraleditingprocesspanel.12-button-done"));
+        doneButton.addListener(this); // react to clicks
+        buttonsTaskLayout.addComponent(doneButton);
+
+        final Button deleteButton =
+                        new Button(
+                                TM.get("centraleditingprocesspanel.13-button-delete"));
+        deleteButton.addListener(this); // react to clicks
+        buttonsTaskLayout.addComponent(deleteButton);
+
+        verticalLayoutRight.addComponent(buttonsTaskLayout);
+
+        final TextField taskNameTextField = new TextField();
+        taskNameTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
+        taskNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
+        verticalLayoutRight.addComponent(taskNameTextField);
+
+        final Label effortLabel =
+                new Label(TM.get("centraleditingprocesspanel.14-label-effort"));
+        effortLabel.setContentMode(Label.CONTENT_TEXT);
+        verticalLayoutRight.addComponent(effortLabel);
+        final HorizontalLayout effortLayout = getEffortPanel();
+
+        verticalLayoutRight.addComponent(effortLayout);
+
+        final HorizontalLayout dependLayout = new HorizontalLayout();
+        dependLayout.setSpacing(true);
+
+        final Label dependLabel =
+                 new Label(
+                         TM.get("centraleditingprocesspanel.17-label-dependencies"));
+        dependLayout.addComponent(dependLabel);
+
+        final Button dependEditButton = createDependEditButton();
+        dependLayout.addComponent(dependEditButton);
+
+        verticalLayoutRight.addComponent(dependLayout);
+
+        final Table table = createTestTable();
+        verticalLayoutRight.addComponent(table);
+        return verticalLayoutRight;
+    }
+
+    private VerticalLayout getMeetingLayout() {
+        final VerticalLayout verticalLayoutRight = new VerticalLayout();
+
+        final Label taskLabel =
+                new Label(TM.get("centraleditingprocesspanel.20-label-meeting"));
+        taskLabel.setContentMode(Label.CONTENT_TEXT);
+        verticalLayoutRight.addComponent(taskLabel);
+
+        final HorizontalLayout buttonsTaskLayout = new HorizontalLayout();
+        buttonsTaskLayout.setSpacing(true);
+
+        final Button saveButton =
+                new Button(TM.get("centraleditingprocesspanel.11-button-save"));
+        saveButton.addListener(this); // react to clicks
+        buttonsTaskLayout.addComponent(saveButton);
+
+        final Button deleteButton =
+                new Button(
+                        TM.get("centraleditingprocesspanel.13-button-delete"));
+        deleteButton.addListener(this); // react to clicks
+        buttonsTaskLayout.addComponent(deleteButton);
+
+        verticalLayoutRight.addComponent(buttonsTaskLayout);
+
+        final TextField taskNameTextField = new TextField();
+        taskNameTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
+        taskNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
+        verticalLayoutRight.addComponent(taskNameTextField);
+
+        final HorizontalLayout placeLayout = getPlacePanel();
+
+        verticalLayoutRight.addComponent(placeLayout);
+
+        final HorizontalLayout dependLayout = new HorizontalLayout();
+        dependLayout.setSpacing(true);
+
+        final Label dependLabel =
+                new Label(
+                        TM.get("centraleditingprocesspanel.17-label-dependencies"));
+        dependLayout.addComponent(dependLabel);
+
+        final Button dependEditButton = createDependEditButton();
+        dependLayout.addComponent(dependEditButton);
+
+        verticalLayoutRight.addComponent(dependLayout);
+
+        final Table table = createTestTable();
+        verticalLayoutRight.addComponent(table);
+        return verticalLayoutRight;
+    }
+
+    private VerticalLayout getMilestoneLayout() {
+        final VerticalLayout verticalLayoutRight = new VerticalLayout();
+
+        final Label taskLabel =
+                new Label(
+                        TM.get("centraleditingprocesspanel.21-label-milestone"));
+        taskLabel.setContentMode(Label.CONTENT_TEXT);
+        verticalLayoutRight.addComponent(taskLabel);
+
+        final HorizontalLayout buttonsTaskLayout = new HorizontalLayout();
+        buttonsTaskLayout.setSpacing(true);
+
+        final Button saveButton =
+                new Button(TM.get("centraleditingprocesspanel.11-button-save"));
+        saveButton.addListener(this); // react to clicks
+        buttonsTaskLayout.addComponent(saveButton);
+
+        final Button doneButton =
+                new Button(TM.get("centraleditingprocesspanel.12-button-done"));
+        doneButton.addListener(this); // react to clicks
+        buttonsTaskLayout.addComponent(doneButton);
+
+        final Button deleteButton =
+                new Button(
+                        TM.get("centraleditingprocesspanel.13-button-delete"));
+        deleteButton.addListener(this); // react to clicks
+        buttonsTaskLayout.addComponent(deleteButton);
+
+        verticalLayoutRight.addComponent(buttonsTaskLayout);
+
+        final TextField taskNameTextField = new TextField();
+        taskNameTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
+        taskNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
+        verticalLayoutRight.addComponent(taskNameTextField);
+
+        final Label effortLabel =
+                new Label(TM.get("centraleditingprocesspanel.14-label-effort"));
+        effortLabel.setContentMode(Label.CONTENT_TEXT);
+        verticalLayoutRight.addComponent(effortLabel);
+
+        final HorizontalLayout effortLayout = getEffortPanel();
+
+        verticalLayoutRight.addComponent(effortLayout);
+
+        final HorizontalLayout dependLayout = new HorizontalLayout();
+        dependLayout.setSpacing(true);
+
+        final Label dependLabel =
+                new Label(
+                        TM.get("centraleditingprocesspanel.17-label-dependencies"));
+        dependLayout.addComponent(dependLabel);
+
+        final Button dependEditButton = createDependEditButton();
+        dependLayout.addComponent(dependEditButton);
+
+        verticalLayoutRight.addComponent(dependLayout);
+
+        final Table table = createTestTable();
+        verticalLayoutRight.addComponent(table);
+        return verticalLayoutRight;
+    }
+
     private HorizontalLayout getEffortPanel() {
         final HorizontalLayout effortLayout = new HorizontalLayout();
         effortLayout.setSpacing(true);
@@ -234,10 +412,38 @@ class DefaultCentralEditingPanel extends Panel implements
         return effortLayout;
     }
 
+    private HorizontalLayout getPlacePanel() {
+        final HorizontalLayout placeLayout = new HorizontalLayout();
+        placeLayout.setSpacing(true);
+
+        final Label placeLabel =
+                new Label(TM.get("centraleditingprocesspanel.22-label-place"));
+        placeLabel.setContentMode(Label.CONTENT_TEXT);
+        placeLayout.addComponent(placeLabel);
+
+        final TextField placeTextField = new TextField();
+        placeTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
+        placeTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
+        placeLayout.addComponent(placeTextField);
+
+        final Label toLabel =
+                new Label(TM.get("centraleditingprocesspanel.16-label-to"));
+        toLabel.setContentMode(Label.CONTENT_TEXT);
+        placeLayout.addComponent(toLabel);
+
+        final ComboBox to = new ComboBox();
+        for (int i = 1; i < DURATION_STEPS.length; i++) {
+            to.addItem(DURATION_STEPS[i]);
+        }
+        placeLayout.addComponent(to);
+        return placeLayout;
+    }
+
     private Button createDependEditButton() {
         final Button dependEditButton =
                 new Button(TM.get("centraleditingprocesspanel.18-button-edit"));
-        dependEditButton.addListener(new DependenciesButtonClickListener(controller));
+        dependEditButton.addListener(new DependenciesButtonClickListener(
+                controller));
         return dependEditButton;
     }
 
@@ -269,7 +475,7 @@ class DefaultCentralEditingPanel extends Panel implements
                 new Button(
                         TM.get("centraleditingprocesspanel.7-button-newMeeting"));
         newMeetingButton.addListener(this); // react to clicks
-        newMeetingButton.setWidth(APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH,
+        newMeetingButton.setWidth(WIDTH_OF_NEW_BUTTONS,
                 Sizeable.UNITS_PIXELS);
         return newMeetingButton;
     }
@@ -279,11 +485,20 @@ class DefaultCentralEditingPanel extends Panel implements
                 new Button(
                         TM.get("centraleditingprocesspanel.6-button-newTask"));
         newTaskButton.addListener(this); // react to clicks
-        newTaskButton.setWidth(APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH,
+        newTaskButton.setWidth(WIDTH_OF_NEW_BUTTONS,
                 Sizeable.UNITS_PIXELS);
         return newTaskButton;
     }
 
+    private Button getNewMilestoneButton() {
+        final Button newMilestoneButton =
+                new Button(
+                        TM.get("centraleditingprocesspanel.19-button-newMilestone"));
+        newMilestoneButton.addListener(this); // react to clicks
+        newMilestoneButton.setWidth(WIDTH_OF_NEW_BUTTONS,
+                Sizeable.UNITS_PIXELS);
+        return newMilestoneButton;
+    }
 
     /*
      * Shows a notification when a button is clicked.
