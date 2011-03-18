@@ -38,25 +38,22 @@ import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
+import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
-import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelController;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
         CentralEditingPanel, ProcessPanelListener, ClickListener {
     private static final int PADDING = 5;
     private static final int ONE_SIXTH_OF_SCREEN_WIDTH = 6;
-    private static final int FOUR_QUARTERS = 4;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultCentralEditingPanel.class);
     private static final int HEIGHT_SCREEN = 600;
     private static final int WIDTH_SCREEN = 800;
     private static final long serialVersionUID = 1L;
     private static final String NOTIFICATION = "Smth happend";
-    private static final int APPROXIMATELY_QUARTER_OF_SCREEN_WIDTH =
-            WIDTH_SCREEN / FOUR_QUARTERS - PADDING;
     private static final int WIDTH_OF_NEW_BUTTONS =
             WIDTH_SCREEN / ONE_SIXTH_OF_SCREEN_WIDTH - PADDING;
 
@@ -76,14 +73,17 @@ class DefaultCentralEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
-    private transient final CentralEditingPanelController controller =
-            new DefaultCentralEditingPanelController();
+    private transient CentralEditingPanelController controller;
 
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
-            this.controller.setInjector(aInjector);
+
+            final CentralEditingPanelControllerFactory factory =
+                    this.injector
+                            .getInstance(CentralEditingPanelControllerFactory.class);
+            controller = factory.create();
         }
     }
 
@@ -199,7 +199,7 @@ class DefaultCentralEditingPanel extends Panel implements
                         TM.get("centraleditingprocesspanel.17-label-dependencies"));
         dependLayout.addComponent(dependLabel);
 
-        final Button dependEditButton = createDependEditButton();
+        final Button dependEditButton = createDependEditButton(this.controller);
         dependLayout.addComponent(dependEditButton);
 
         verticalLayoutRight.addComponent(dependLayout);
@@ -263,7 +263,7 @@ class DefaultCentralEditingPanel extends Panel implements
                          TM.get("centraleditingprocesspanel.17-label-dependencies"));
         dependLayout.addComponent(dependLabel);
 
-        final Button dependEditButton = createDependEditButton();
+        final Button dependEditButton = createDependEditButton(this.controller);
         dependLayout.addComponent(dependEditButton);
 
         verticalLayoutRight.addComponent(dependLayout);
@@ -314,7 +314,7 @@ class DefaultCentralEditingPanel extends Panel implements
                         TM.get("centraleditingprocesspanel.17-label-dependencies"));
         dependLayout.addComponent(dependLabel);
 
-        final Button dependEditButton = createDependEditButton();
+        final Button dependEditButton = createDependEditButton(this.controller);
         dependLayout.addComponent(dependEditButton);
 
         verticalLayoutRight.addComponent(dependLayout);
@@ -376,7 +376,7 @@ class DefaultCentralEditingPanel extends Panel implements
                         TM.get("centraleditingprocesspanel.17-label-dependencies"));
         dependLayout.addComponent(dependLabel);
 
-        final Button dependEditButton = createDependEditButton();
+        final Button dependEditButton = createDependEditButton(this.controller);
         dependLayout.addComponent(dependEditButton);
 
         verticalLayoutRight.addComponent(dependLayout);
@@ -441,11 +441,12 @@ class DefaultCentralEditingPanel extends Panel implements
         return placeLayout;
     }
 
-    private Button createDependEditButton() {
+    private Button createDependEditButton(
+            final CentralEditingPanelController aController) {
         final Button dependEditButton =
                 new Button(TM.get("centraleditingprocesspanel.18-button-edit"));
         dependEditButton.addListener(new DependenciesButtonClickListener(
-                controller));
+                aController));
         return dependEditButton;
     }
 

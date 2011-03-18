@@ -56,6 +56,7 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.centraleditingpanel.DefaultCentralEditingPanelFactory;
+import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
@@ -164,6 +165,7 @@ class InjectorModule extends AbstractModule {
                 new DefaultMeetingEditingPanelFactory());
         bind(MilestoneEditingPanelFactory.class).toInstance(
                 new DefaultMilestoneEditingPanelFactory());
+        bind(CentralEditingPanelControllerFactory.class).toInstance(new DefaultCentralEditingPanelControllerFactory());
     }
 
     private TestTableCreator getTestTableCreator() {
