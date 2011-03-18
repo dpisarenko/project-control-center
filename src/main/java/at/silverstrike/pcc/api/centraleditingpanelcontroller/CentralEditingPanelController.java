@@ -9,11 +9,11 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.centraleditingpanel;
+package at.silverstrike.pcc.api.centraleditingpanelcontroller;
 
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
-interface CentralEditingPanelController extends ModuleWithInjectableDependencies {
+public interface CentralEditingPanelController extends ModuleWithInjectableDependencies {
     void dependEditButtonClicked();
     
 }

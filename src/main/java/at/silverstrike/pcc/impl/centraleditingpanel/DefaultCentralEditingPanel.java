@@ -37,9 +37,11 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
+import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
+import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelController;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements

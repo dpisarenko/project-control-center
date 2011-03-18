@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanel;
 
+import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
+
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
