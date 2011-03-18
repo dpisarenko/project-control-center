@@ -119,6 +119,11 @@ class DefaultCentralEditingPanel extends Panel implements
         buttonsNewGrid.setComponentAlignment(newMeetingButton,
                 Alignment.MIDDLE_RIGHT);
 
+        final Button newMilestoneButton = getNewMilestoneButton();
+        buttonsNewGrid.addComponent(newMilestoneButton, 2, 0);
+        buttonsNewGrid.setComponentAlignment(newMilestoneButton,
+                Alignment.MIDDLE_RIGHT);
+
         verticalLayoutLeft.addComponent(buttonsNewGrid);
 
         final HorizontalLayout buttonsPriorityLayout = new HorizontalLayout();
