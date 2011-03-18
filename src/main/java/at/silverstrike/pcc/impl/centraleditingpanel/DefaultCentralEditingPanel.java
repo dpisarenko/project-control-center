@@ -106,7 +106,7 @@ class DefaultCentralEditingPanel extends Panel implements
                 new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
         verticalLayoutLeft.addComponent(e);
 
-        final GridLayout buttonsNewGrid = new GridLayout(2, 1);
+        final GridLayout buttonsNewGrid = new GridLayout(3, 1);
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
 
         final Button newTaskButton = getNewTaskButton();

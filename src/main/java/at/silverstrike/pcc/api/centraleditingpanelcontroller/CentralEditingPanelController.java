@@ -14,6 +14,6 @@ package at.silverstrike.pcc.api.centraleditingpanelcontroller;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 public interface CentralEditingPanelController extends ModuleWithInjectableDependencies {
-    void dependEditButtonClicked();
-    
+    void increasePriorityButtonClicked();
+    void decreasePriorityButtonClicked();
 }
