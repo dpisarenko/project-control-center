@@ -36,6 +36,7 @@ import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.VisualizationImageServer;
+import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import eu.livotov.tpt.TPTApplication;
 
@@ -160,6 +161,8 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
                                 DEFAULT_HEIGHT_PIXELS));
         vv.getRenderContext().setVertexLabelTransformer(
                 new ToStringLabeller<String>());
+        vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line());
+        
         return vv;
     }
 
