@@ -12,6 +12,8 @@
 package at.silverstrike.pcc.impl.graphdemopanel;
 
 import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -41,6 +43,7 @@ import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 
 class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
@@ -49,6 +52,8 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultGraphDemoPanel.class);
+    private String initialEventVertex;
+    private String finalEventVertex;
 
     @Override
     public Panel toPanel() {
@@ -58,17 +63,24 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     @Override
     public void initGui() {
         final VerticalLayout layout = new VerticalLayout();
-        
-        final L2RTreeLayoutDemo l2rTree = new L2RTreeLayoutDemo();
-        
-        l2rTree.run();
-        final Embedded image = l2rTree.getImage();
-        
-//        final Embedded image = createSampleGraph();
+
+        // final L2RTreeLayoutDemo l2rTree = new L2RTreeLayoutDemo();
+        //
+        // l2rTree.run();
+        // final Embedded image = l2rTree.getImage();
+
+        final Embedded image = createSampleGraph();
         layout.addComponent(image);
         layout.setSizeFull();
 
         this.addComponent(layout);
+
+        JGraphDemo jgraphStuff = new JGraphDemo();
+        try {
+            jgraphStuff.run();
+        } catch (PccException exception) {
+            LOGGER.error("", exception);
+        }
     }
 
     private Embedded createSampleGraph() {
@@ -93,7 +105,13 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
             server.printAll(graphic2d);
 
             final Element el = graphic2d.getRoot();
-            el.setAttributeNS(null, "viewBox", "0 0 600 350");
+            el.setAttributeNS(
+                    null,
+                    "viewBox",
+                    "0 0 ${width} ${height}".replace("${width}",
+                            String.valueOf(DEFAULT_WIDTH_PIXELS))
+                            .replace("${height}",
+                                    String.valueOf(DEFAULT_HEIGHT_PIXELS)));
             el.setAttributeNS(null, "style", "width:100%;height:100%;");
 
             final ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -126,35 +144,50 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         final Layout<String, String> layout = new FRLayout<String, String>(
                 aGraph);
 
-        layout.setSize(new Dimension(300, 300));
+        layout.setSize(new Dimension(DEFAULT_WIDTH_PIXELS,
+                DEFAULT_HEIGHT_PIXELS));
+
+        lockVertex(this.initialEventVertex, new Point(
+                (int) (DEFAULT_WIDTH_PIXELS * 0.05f),
+                (int) ((DEFAULT_HEIGHT_PIXELS - 10.) / 2.)), layout);
+        lockVertex(this.finalEventVertex, new Point(
+                (int) (DEFAULT_WIDTH_PIXELS * 0.95f),
+                (int) ((DEFAULT_HEIGHT_PIXELS - 10.) / 2.)), layout);
+
         final VisualizationImageServer<String, String> vv =
                 new VisualizationImageServer<String, String>(
-                        layout, new Dimension(350, 350));
+                        layout, new Dimension(DEFAULT_WIDTH_PIXELS,
+                                DEFAULT_HEIGHT_PIXELS));
         vv.getRenderContext().setVertexLabelTransformer(
                 new ToStringLabeller<String>());
         return vv;
     }
 
+    private void lockVertex(final String aVertex, final Point2D aLocation,
+            final Layout<String, String> aLayout) {
+        aLayout.setLocation(aVertex, aLocation);
+    }
+
     private Graph<String, String> createGraph() {
         final Graph<String, String> graph =
                 new DirectedSparseMultigraph<String, String>();
-        final String vertex1 = "IE";
+        initialEventVertex = "IE";
         final String vertex2 = "P1";
         final String vertex3 = "P2";
         final String vertex4 = "P3";
-        final String vertex5 = "FE";
+        finalEventVertex = "FE";
 
-        graph.addVertex(vertex1);
+        graph.addVertex(initialEventVertex);
         graph.addVertex(vertex2);
         graph.addVertex(vertex3);
         graph.addVertex(vertex4);
-        graph.addVertex(vertex5);
+        graph.addVertex(finalEventVertex);
 
-        graph.addEdge("1", vertex1, vertex2, EdgeType.DIRECTED);
+        graph.addEdge("1", initialEventVertex, vertex2, EdgeType.DIRECTED);
         graph.addEdge("2", vertex2, vertex3, EdgeType.DIRECTED);
-        graph.addEdge("3", vertex3, vertex5, EdgeType.DIRECTED);
-        graph.addEdge("4", vertex1, vertex4, EdgeType.DIRECTED);
-        graph.addEdge("5", vertex4, vertex5, EdgeType.DIRECTED);
+        graph.addEdge("3", vertex3, finalEventVertex, EdgeType.DIRECTED);
+        graph.addEdge("4", initialEventVertex, vertex4, EdgeType.DIRECTED);
+        graph.addEdge("5", vertex4, finalEventVertex, EdgeType.DIRECTED);
         return graph;
     }
 
