@@ -40,6 +40,7 @@ import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import eu.livotov.tpt.TPTApplication;
 
+import com.vaadin.terminal.gwt.server.AbstractWebApplicationContext;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -53,6 +54,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
             .getLogger(DefaultGraphDemoPanel.class);
     private String initialEventVertex;
     private String finalEventVertex;
+    private RenderingMode renderingMode;
 
     @Override
     public Panel toPanel() {
@@ -61,6 +63,8 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
     @Override
     public void initGui() {
+        setRenderingMode();
+
         final VerticalLayout layout = new VerticalLayout();
 
         final Embedded image = createSampleGraph();
@@ -68,6 +72,19 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         layout.setSizeFull();
 
         this.addComponent(layout);
+    }
+
+    private void setRenderingMode() {
+        renderingMode = RenderingMode.SVG;
+//        final AbstractWebApplicationContext context =
+//                (AbstractWebApplicationContext) getApplication()
+//                        .getContext();
+//        final String browser = context.getBrowser().getBrowserApplication();
+//        if (browser.contains("MSIE")) {
+//            renderingMode = RenderingMode.PNG;
+//        } else {
+//            renderingMode = RenderingMode.SVG;
+//        }
     }
 
     private Embedded createSampleGraph() {
@@ -101,12 +118,30 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
                                     String.valueOf(DEFAULT_HEIGHT_PIXELS)));
             el.setAttributeNS(null, "style", "width:100%;height:100%;");
 
-            final ByteArrayOutputStream bout = new ByteArrayOutputStream();
+            ByteArrayOutputStream bout = null;
+            
+            if (this.renderingMode == RenderingMode.SVG)
+            {
+                bout = new ByteArrayOutputStream();
 
-            final Writer out = new OutputStreamWriter(bout, "UTF-8");
-            graphic2d.stream(el, out);
+                final Writer out = new OutputStreamWriter(bout, "UTF-8");
+                graphic2d.stream(el, out);                
+            }
+            else
+            {
+//                try {
+//                    byte[] bytes = encodeAsPNG(chart
+//                            .createBufferedImage(widht, height));
+//                    bytestream = new ByteArrayInputStream(bytes);
+//                } catch (IOException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                }
+            }
+            
 
-            final JungResource source = new JungResource(bout);
+            final JungResource source =
+                    new JungResource(bout, this.renderingMode);
 
             TPTApplication.getCurrentApplication().addResource(source);
 
@@ -114,7 +149,12 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
             imageComponent.setWidth(DEFAULT_WIDTH_PIXELS, UNITS_PIXELS);
             imageComponent.setHeight(DEFAULT_HEIGHT_PIXELS, UNITS_PIXELS);
-            imageComponent.setMimeType("image/svg+xml");
+            if (this.renderingMode == RenderingMode.SVG) {
+                imageComponent.setMimeType(JungResource.MIME_TYPE_SVG);
+            } else {
+                imageComponent.setMimeType(JungResource.MIME_TYPE_PNG);
+            }
+
             addComponent(imageComponent);
         } catch (final UnsupportedEncodingException exception) {
             LOGGER.error(ErrorCodes.M_001_UNSUPPORTED_ENCONDING, exception);
@@ -126,6 +166,10 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         return imageComponent;
     }
 
+//    public static byte[]  [Search] encodeAsPNG(BufferedImage image) throws IOException {
+//        return EncoderUtil.encode(image, ImageFormat.PNG);
+//         }
+    
     private VisualizationImageServer<String, String> createServer(
             final Graph<String, String> aGraph) {
         final Layout<String, String> layout = new FRLayout<String, String>(
@@ -148,7 +192,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         vv.getRenderContext().setVertexLabelTransformer(
                 new ToStringLabeller<String>());
         vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line());
-        
+
         return vv;
     }
 

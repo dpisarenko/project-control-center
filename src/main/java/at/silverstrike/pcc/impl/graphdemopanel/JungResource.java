@@ -26,6 +26,8 @@ import com.vaadin.terminal.DownloadStream;
 import eu.livotov.tpt.TPTApplication;
 
 class JungResource implements ApplicationResource {
+    public static final String MIME_TYPE_PNG = "image/png";
+    public static final String MIME_TYPE_SVG = "image/svg+xml";
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(JungResource.class);
@@ -33,13 +35,22 @@ class JungResource implements ApplicationResource {
     private transient ByteArrayInputStream bytestream = null;
     private transient ByteArrayOutputStream originalOutputStream;
 
-    public JungResource(final ByteArrayOutputStream aOutputStream) {
+    private RenderingMode mode;
+
+    public JungResource(final ByteArrayOutputStream aOutputStream,
+            final RenderingMode aMode) {
         this.originalOutputStream = aOutputStream;
+        this.mode = aMode;
     }
 
     @Override
     public String getMIMEType() {
-        return "image/svg+xml";
+        if (RenderingMode.SVG == mode) {
+            return MIME_TYPE_SVG;
+        } else {
+            return MIME_TYPE_PNG;
+        }
+
     }
 
     @Override
