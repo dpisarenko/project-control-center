@@ -166,6 +166,7 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     private void lockVertex(final String aVertex, final Point2D aLocation,
             final Layout<String, String> aLayout) {
         aLayout.setLocation(aVertex, aLocation);
+        aLayout.lock(aVertex, true);
     }
 
     private Graph<String, String> createGraph() {
