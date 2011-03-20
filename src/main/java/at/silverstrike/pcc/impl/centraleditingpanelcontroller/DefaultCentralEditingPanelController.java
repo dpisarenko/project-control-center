@@ -22,18 +22,20 @@ class DefaultCentralEditingPanelController implements
     private Injector injector = null;
 
     @Override
-    public void dependEditButtonClicked() {
-        final DependenciesEditingPanelFactory factory =
-                this.injector
-                        .getInstance(DependenciesEditingPanelFactory.class);
-        final DependenciesEditingPanel panel = factory.create();
-        panel.setInjector(injector);
-        panel.initGui();
+    public void setInjector(final Injector aInjector) {
+        this.injector = aInjector;
     }
 
     @Override
-    public void setInjector(final Injector aInjector) {
-        this.injector = aInjector;
+    public void increasePriorityButtonClicked() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void decreasePriorityButtonClicked() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

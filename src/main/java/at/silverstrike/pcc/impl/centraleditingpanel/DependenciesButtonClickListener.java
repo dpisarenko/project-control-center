@@ -32,6 +32,6 @@ class DependenciesButtonClickListener implements
 
     @Override
     public void buttonClick(final ClickEvent aEvent) {
-        this.controller.dependEditButtonClicked();
+        
     }
 }
