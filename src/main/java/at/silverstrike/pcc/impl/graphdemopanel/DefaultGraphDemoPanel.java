@@ -43,8 +43,6 @@ import eu.livotov.tpt.TPTApplication;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
-
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 
 class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
@@ -65,23 +63,11 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     public void initGui() {
         final VerticalLayout layout = new VerticalLayout();
 
-        // final L2RTreeLayoutDemo l2rTree = new L2RTreeLayoutDemo();
-        //
-        // l2rTree.run();
-        // final Embedded image = l2rTree.getImage();
-
         final Embedded image = createSampleGraph();
         layout.addComponent(image);
         layout.setSizeFull();
 
         this.addComponent(layout);
-
-        JGraphDemo jgraphStuff = new JGraphDemo();
-        try {
-            jgraphStuff.run();
-        } catch (PccException exception) {
-            LOGGER.error("", exception);
-        }
     }
 
     private Embedded createSampleGraph() {
