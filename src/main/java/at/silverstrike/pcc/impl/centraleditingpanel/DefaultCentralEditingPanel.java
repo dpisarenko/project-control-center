@@ -39,19 +39,30 @@ import com.vaadin.ui.Button.ClickListener;
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
+import at.silverstrike.pcc.api.conventions.AbstractedPanel;
+import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanel;
+import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanelFactory;
+import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
+import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
+import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
+import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
+import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
         CentralEditingPanel, ProcessPanelListener, ClickListener {
-    private static final int PADDING = 5;
+    private static final String NEW_MILESTONE_BUTTON = "025.002";
+	private static final int PADDING = 5;
     private static final int ONE_SIXTH_OF_SCREEN_WIDTH = 6;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultCentralEditingPanel.class);
     private static final int HEIGHT_SCREEN = 600;
-    private static final int WIDTH_SCREEN = 800;
+    private static final int WIDTH_SCREEN = 1200;
     private static final long serialVersionUID = 1L;
     private static final String NOTIFICATION = "Smth happend";
     private static final int WIDTH_OF_NEW_BUTTONS =
@@ -71,9 +82,13 @@ class DefaultCentralEditingPanel extends Panel implements
             Arrays.asList(
                     new String[] { "1.1", "Project 1", "Task 1" },
                     new String[] { "2.1", "Project 4", "Task 5" });
+    
+    private Panel verticalPanelRight;
 
     private transient Injector injector;
     private transient CentralEditingPanelController controller;
+    
+    private DebugIdRegistry debugIdRegistry;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -94,6 +109,8 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void initGui() {
+    	this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
+    	
         final GridLayout mainGrid = new GridLayout(2, 1);
 
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
@@ -120,6 +137,9 @@ class DefaultCentralEditingPanel extends Panel implements
                 Alignment.MIDDLE_RIGHT);
 
         final Button newMilestoneButton = getNewMilestoneButton();
+        newMilestoneButton.setDebugId(this.debugIdRegistry
+                .getDebugId(MessageCodePrefixRegistry.Module.centraleditingpanel,
+                        "2-button-newMilestone"));
         buttonsNewGrid.addComponent(newMilestoneButton, 2, 0);
         buttonsNewGrid.setComponentAlignment(newMilestoneButton,
                 Alignment.MIDDLE_RIGHT);
@@ -212,11 +232,30 @@ class DefaultCentralEditingPanel extends Panel implements
         final Table table = createTestTable();
         verticalLayoutRight.addComponent(table);
 
-        mainGrid.addComponent(verticalLayoutRight, 1, 0);
+        //final VerticalLayout verticalLayoutRight = getTaskLayout();
+        
+        //final AbstractedPanel panel = getTaskEditingPanel();
+        //final AbstractedPanel panel = getMeetingEditingPanel();
+        //final AbstractedLayout panel = getMilestoneEditingPanel();
+        //final Panel verticalPanelRight = panel.toPanel();
+        controller = getController();
+        //verticalPanelRight = controller.getTaskPanel();
+        verticalPanelRight = controller.getMeetingPanel();
+        //verticalPanelRight = controller.getMilestonePanel();
+              
+        mainGrid.addComponent(verticalPanelRight, 1, 0);
 
         this.addComponent(mainGrid);
     }
 
+	private CentralEditingPanelController getController() {
+		final DefaultCentralEditingPanelControllerFactory factory =
+            this.injector.getInstance(DefaultCentralEditingPanelControllerFactory.class);
+        final CentralEditingPanelController controller = factory.create();
+        controller.setInjector(this.injector);
+        return controller;
+	}
+/*
     private VerticalLayout getTaskLayout() {
         final VerticalLayout verticalLayoutRight = new VerticalLayout();
 
@@ -390,7 +429,31 @@ class DefaultCentralEditingPanel extends Panel implements
         verticalLayoutRight.addComponent(table);
         return verticalLayoutRight;
     }
-
+    
+	private TaskEditingPanel getTaskEditingPanel() {
+		final TaskEditingPanelFactory factory =
+            this.injector.getInstance(TaskEditingPanelFactory.class);
+        final TaskEditingPanel panel = factory.create();
+        panel.setInjector(this.injector);
+		return panel;
+	}
+	
+	private MeetingEditingPanel getMeetingEditingPanel() {
+		final MeetingEditingPanelFactory factory =
+            this.injector.getInstance(MeetingEditingPanelFactory.class);
+        final MeetingEditingPanel panel = factory.create();
+        panel.setInjector(this.injector);
+		return panel;
+	}
+	
+	private MilestoneEditingPanel getMilestoneEditingPanel() {
+		final MilestoneEditingPanelFactory factory =
+            this.injector.getInstance(MilestoneEditingPanelFactory.class);
+        final MilestoneEditingPanel panel = factory.create();
+        panel.setInjector(this.injector);
+		return panel;
+	}
+*/
     private HorizontalLayout getEffortPanel() {
         final HorizontalLayout effortLayout = new HorizontalLayout();
         effortLayout.setSpacing(true);
@@ -417,33 +480,6 @@ class DefaultCentralEditingPanel extends Panel implements
         }
         effortLayout.addComponent(to);
         return effortLayout;
-    }
-
-    private HorizontalLayout getPlacePanel() {
-        final HorizontalLayout placeLayout = new HorizontalLayout();
-        placeLayout.setSpacing(true);
-
-        final Label placeLabel =
-                new Label(TM.get("centraleditingprocesspanel.22-label-place"));
-        placeLabel.setContentMode(Label.CONTENT_TEXT);
-        placeLayout.addComponent(placeLabel);
-
-        final TextField placeTextField = new TextField();
-        placeTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
-        placeTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
-        placeLayout.addComponent(placeTextField);
-
-        final Label toLabel =
-                new Label(TM.get("centraleditingprocesspanel.16-label-to"));
-        toLabel.setContentMode(Label.CONTENT_TEXT);
-        placeLayout.addComponent(toLabel);
-
-        final ComboBox to = new ComboBox();
-        for (int i = 1; i < DURATION_STEPS.length; i++) {
-            to.addItem(DURATION_STEPS[i]);
-        }
-        placeLayout.addComponent(to);
-        return placeLayout;
     }
 
     private Button createDependEditButton(
@@ -512,6 +548,14 @@ class DefaultCentralEditingPanel extends Panel implements
      * Shows a notification when a button is clicked.
      */
     public void buttonClick(final ClickEvent aEvent) {
+    	if (aEvent.getButton().getDebugId().equals(NEW_MILESTONE_BUTTON))
+    			//this.debugIdRegistry
+                //.getDebugId(MessageCodePrefixRegistry.Module.centraleditingpanel,
+                //"2-button-newMilestone")))
+    	{
+    		getWindow().showNotification("lalala ");
+    		//verticalPanelRight = controller.getMilestonePanel();    		    		
+    	}
         getWindow().showNotification(NOTIFICATION);
     }
 

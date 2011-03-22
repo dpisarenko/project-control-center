@@ -12,10 +12,16 @@
 package at.silverstrike.pcc.impl.centraleditingpanelcontroller;
 
 import com.google.inject.Injector;
+import com.vaadin.ui.Panel;
 
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanel;
+import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanelFactory;
+import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
+import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
+import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
+import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
+
 
 class DefaultCentralEditingPanelController implements
         CentralEditingPanelController {
@@ -37,5 +43,32 @@ class DefaultCentralEditingPanelController implements
         // TODO Auto-generated method stub
         
     }
+
+	@Override
+	public Panel getTaskPanel() {
+		final TaskEditingPanelFactory factory =
+            this.injector.getInstance(TaskEditingPanelFactory.class);
+        final TaskEditingPanel panel = factory.create();
+        panel.setInjector(this.injector);
+		return panel.toPanel();
+	}
+
+	@Override
+	public Panel getMeetingPanel() {
+		final MeetingEditingPanelFactory factory =
+            this.injector.getInstance(MeetingEditingPanelFactory.class);
+        final MeetingEditingPanel panel = factory.create();
+        panel.setInjector(this.injector);
+		return panel.toPanel();
+	}
+
+	@Override
+	public Panel getMilestonePanel() {
+		final MilestoneEditingPanelFactory factory =
+            this.injector.getInstance(MilestoneEditingPanelFactory.class);
+        final MilestoneEditingPanel panel = factory.create();
+        panel.setInjector(this.injector);
+		return panel.toPanel();
+	}
 
 }

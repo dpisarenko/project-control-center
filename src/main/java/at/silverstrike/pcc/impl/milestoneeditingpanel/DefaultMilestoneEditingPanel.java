@@ -18,15 +18,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
@@ -45,13 +42,9 @@ class DefaultMilestoneEditingPanel extends Panel implements
 
     public static final Object PROJECT_PROPERTY_NAME = "name";
 
-    private static final int PROCESS_NAME_TEXT_FIELD_COLUMNS = 30;
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
 
-    private static final String[] DURATION_STEPS = new String[] { "15 min",
-            "30 min",
-            "45 min" };
-    private static final String[] TEST_COLUMN_NAMES = new String[] { "ยน",
+    private static final String[] TEST_COLUMN_NAMES = new String[] { "น",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
             Arrays.asList(
@@ -72,11 +65,11 @@ class DefaultMilestoneEditingPanel extends Panel implements
     }
 
 
-    private VerticalLayout getMilestoneLayout() {
-        final VerticalLayout verticalLayoutRight = new VerticalLayout();
+    private Panel getMilestonePanel() {
+        final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
-                new Label(TM.get("centraleditingprocesspanel.10-label-task"));
+                new Label(TM.get("milestoneeditingprocesspanel.1-label-milestone"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
         verticalLayoutRight.addComponent(taskLabel);
 
@@ -84,43 +77,29 @@ class DefaultMilestoneEditingPanel extends Panel implements
         buttonsTaskLayout.setSpacing(true);
 
         final Button saveButton =
-                new Button(TM.get("centraleditingprocesspanel.11-button-save"));
+                new Button(TM.get("milestoneeditingprocesspanel.2-button-save"));
         saveButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(saveButton);
 
-        final Button doneButton =
-                new Button(TM.get("centraleditingprocesspanel.12-button-done"));
-        doneButton.addListener(this); // react to clicks
-        buttonsTaskLayout.addComponent(doneButton);
-
         final Button deleteButton =
                 new Button(
-                        TM.get("centraleditingprocesspanel.13-button-delete"));
+                        TM.get("milestoneeditingprocesspanel.3-button-delete"));
         deleteButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(deleteButton);
 
         verticalLayoutRight.addComponent(buttonsTaskLayout);
 
         final TextField taskNameTextField = new TextField();
-        taskNameTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
+        taskNameTextField.setWidth("100%");
         taskNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
         verticalLayoutRight.addComponent(taskNameTextField);
-
-        final Label effortLabel =
-                new Label(TM.get("centraleditingprocesspanel.14-label-effort"));
-        effortLabel.setContentMode(Label.CONTENT_TEXT);
-        verticalLayoutRight.addComponent(effortLabel);
-
-        final HorizontalLayout effortLayout = getEffortPanel();
-
-        verticalLayoutRight.addComponent(effortLayout);
 
         final HorizontalLayout dependLayout = new HorizontalLayout();
         dependLayout.setSpacing(true);
 
         final Label dependLabel =
                 new Label(
-                        TM.get("centraleditingprocesspanel.17-label-dependencies"));
+                        TM.get("milestoneeditingprocesspanel.4-label-dependencies"));
         dependLayout.addComponent(dependLabel);
 
         final Button dependEditButton = createDependEditButton();
@@ -133,37 +112,9 @@ class DefaultMilestoneEditingPanel extends Panel implements
         return verticalLayoutRight;
     }
 
-    private HorizontalLayout getEffortPanel() {
-        final HorizontalLayout effortLayout = new HorizontalLayout();
-        effortLayout.setSpacing(true);
-
-        final Label fromLabel =
-                new Label(TM.get("centraleditingprocesspanel.15-label-from"));
-        fromLabel.setContentMode(Label.CONTENT_TEXT);
-        effortLayout.addComponent(fromLabel);
-
-        final ComboBox from = new ComboBox();
-        for (int i = 0; i < DURATION_STEPS.length - 1; i++) {
-            from.addItem(DURATION_STEPS[i]);
-        }
-        effortLayout.addComponent(from);
-
-        final Label toLabel =
-                new Label(TM.get("centraleditingprocesspanel.16-label-to"));
-        toLabel.setContentMode(Label.CONTENT_TEXT);
-        effortLayout.addComponent(toLabel);
-
-        final ComboBox to = new ComboBox();
-        for (int i = 1; i < DURATION_STEPS.length; i++) {
-            to.addItem(DURATION_STEPS[i]);
-        }
-        effortLayout.addComponent(to);
-        return effortLayout;
-    }
-
     private Button createDependEditButton() {
         final Button dependEditButton =
-                new Button(TM.get("centraleditingprocesspanel.18-button-edit"));
+                new Button(TM.get("milestoneeditingprocesspanel.5-button-edit"));
         dependEditButton.addListener(new DependenciesButtonClickListener(
                 controller));
         return dependEditButton;
@@ -195,8 +146,8 @@ class DefaultMilestoneEditingPanel extends Panel implements
     }
 
     @Override
-    public Layout toLayout() {
-        return getMilestoneLayout();
+    public Panel toPanel() {
+        return getMilestonePanel();
     }
 
 

@@ -11,9 +11,14 @@
 
 package at.silverstrike.pcc.api.centraleditingpanelcontroller;
 
+import com.vaadin.ui.Panel;
+
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 public interface CentralEditingPanelController extends ModuleWithInjectableDependencies {
     void increasePriorityButtonClicked();
     void decreasePriorityButtonClicked();
+    Panel getTaskPanel();
+    Panel getMeetingPanel();
+    Panel getMilestonePanel();
 }
