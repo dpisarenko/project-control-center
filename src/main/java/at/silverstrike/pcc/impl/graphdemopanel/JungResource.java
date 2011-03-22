@@ -35,22 +35,13 @@ class JungResource implements ApplicationResource {
     private transient ByteArrayInputStream bytestream = null;
     private transient ByteArrayOutputStream originalOutputStream;
 
-    private RenderingMode mode;
-
-    public JungResource(final ByteArrayOutputStream aOutputStream,
-            final RenderingMode aMode) {
+    public JungResource(final ByteArrayOutputStream aOutputStream) {
         this.originalOutputStream = aOutputStream;
-        this.mode = aMode;
     }
 
     @Override
     public String getMIMEType() {
-        if (RenderingMode.SVG == mode) {
-            return MIME_TYPE_SVG;
-        } else {
-            return MIME_TYPE_PNG;
-        }
-
+        return MIME_TYPE_SVG;
     }
 
     @Override
