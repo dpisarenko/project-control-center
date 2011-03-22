@@ -11,14 +11,12 @@
 
 package at.silverstrike.pcc.api.graph2resource;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
-import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraph;
+import at.silverstrike.pcc.api.conventions.Factory;
 
 /**
  * @author DP118M
  *
  */
-public interface Graph2ResourceConverter extends SingleActivityModule {
-    void setGraph(final ProjectNetworkGraph aGraph);
-    JungResource getResource();
+public interface Graph2ResourceConverterFactory extends
+        Factory<Graph2ResourceConverter> {
 }

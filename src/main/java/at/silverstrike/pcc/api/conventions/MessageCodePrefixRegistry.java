@@ -25,7 +25,8 @@ public final class MessageCodePrefixRegistry {
         culture2lang, entrywindow, parameterdatareader, openid,
         centraleditingpanel,
         dependencieseditingwindow, graphdemopanel, taskeditingpanel,
-        meetingeditingpanel, milestoneeditingpanel, projectnetworkgraphpanel
+        meetingeditingpanel, milestoneeditingpanel, projectnetworkgraphpanel,
+        graph2resource
     }
 
     private Map<Module, String> prefixesByModules;
@@ -82,6 +83,6 @@ public final class MessageCodePrefixRegistry {
         this.prefixesByModules.put(Module.meetingeditingpanel, "029");
         this.prefixesByModules.put(Module.milestoneeditingpanel, "030");
         this.prefixesByModules.put(Module.projectnetworkgraphpanel, "031");
-        
+        this.prefixesByModules.put(Module.graph2resource, "032");
     }
 }

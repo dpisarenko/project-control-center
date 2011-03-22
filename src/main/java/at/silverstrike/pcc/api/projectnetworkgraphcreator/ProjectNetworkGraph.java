@@ -11,16 +11,13 @@
 
 package at.silverstrike.pcc.api.projectnetworkgraphcreator;
 
-import java.util.List;
-
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import edu.uci.ics.jung.graph.Graph;
 
 /**
  * @author DP118M
  *
  */
-public interface ProjectNetworkGraphCreator extends SingleActivityModule {
-    void setDependencies(final List<SchedulingObjectDependencyTuple> aDependencies);
-    
-    ProjectNetworkGraph getGraph();
+public interface ProjectNetworkGraph extends Graph<String, String> {
+    String getInitialEventVertex();
+    String getFinalEventVertex();
 }

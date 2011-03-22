@@ -27,6 +27,7 @@ import eu.livotov.tpt.TPTApplication;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
 import at.silverstrike.pcc.api.graph2resource.JungResource;
+import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraph;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
@@ -71,7 +72,7 @@ class DefaultProjectNetworkGraphPanel implements
             return;
         }
 
-        final Graph<String, String> graph =
+        final ProjectNetworkGraph graph =
                 this.projectNetworkGraphCreator.getGraph();
 
         this.graph2ResourceConverter.setGraph(graph);
@@ -91,9 +92,7 @@ class DefaultProjectNetworkGraphPanel implements
         TPTApplication.getCurrentApplication().addResource(newResource);
         this.curResource = newResource;
 
-        
-        
-        // Graph2ResourceConverter
+        this.imageComponent.setSource(this.curResource);
     }
 
     @Override
