@@ -58,12 +58,19 @@ public class TestDefaultProjectNetworkGraphCreator {
 
         /**
          * Create input data
+         * 
+         * The graph looks like this:
+         * 
+         * <pre>
+         * P1 -> P2 
+         * P3
+         * </pre>
+         * 
+         * P1..3 - tasks (processes)
          */
         final List<SchedulingObjectDependencyTuple> tuples =
-                new LinkedList<SchedulingObjectDependencyTuple>();
+                getDependencyTuples();
 
-        
-        
         /**
          * Invoke the method under test
          */
@@ -74,13 +81,41 @@ public class TestDefaultProjectNetworkGraphCreator {
             LOGGER.error("", exception);
             Assert.fail(exception.getMessage());
         }
-        
+
         /**
          * Verify the results
          */
         final ProjectNetworkGraph graph = objectUnderTest.getGraph();
-        
+
         Assert.assertNotNull(graph.getInitialEventVertex());
         Assert.assertNotNull(graph.getFinalEventVertex());
+
+    }
+
+    private List<SchedulingObjectDependencyTuple> getDependencyTuples() {
+        final List<SchedulingObjectDependencyTuple> tuples =
+                new LinkedList<SchedulingObjectDependencyTuple>();
+
+        final SchedulingObjectDependencyTuple tuple1 =
+                new MockSchedulingObjectDependencyTuple();
+        tuple1.setLabel("P1");
+
+        final List<String> p1Dependencies = new LinkedList<String>();
+        p1Dependencies.add("P2");
+
+        final SchedulingObjectDependencyTuple tuple2 =
+                new MockSchedulingObjectDependencyTuple();
+        tuple2.setLabel("P2");
+        tuple2.setDependencies(p1Dependencies);
+
+        final SchedulingObjectDependencyTuple tuple3 =
+                new MockSchedulingObjectDependencyTuple();
+        tuple3.setLabel("P3");
+
+        tuples.add(tuple1);
+        tuples.add(tuple2);
+        tuples.add(tuple3);
+
+        return tuples;
     }
 }
