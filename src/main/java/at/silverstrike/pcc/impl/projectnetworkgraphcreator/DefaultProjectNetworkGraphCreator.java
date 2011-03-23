@@ -23,33 +23,24 @@ import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDepend
  *
  */
 class DefaultProjectNetworkGraphCreator implements ProjectNetworkGraphCreator {
-
-    /* (non-Javadoc)
-     * @see at.silverstrike.pcc.api.conventions.SingleActivityModule#run()
-     */
+    private List<SchedulingObjectDependencyTuple> dependencies;
+    private ProjectNetworkGraph graph;
+    
     @Override
     public void run() throws PccException {
         // TODO Auto-generated method stub
 
     }
 
-    /* (non-Javadoc)
-     * @see at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator#setDependencies(java.util.List)
-     */
     @Override
     public void setDependencies(
-            List<SchedulingObjectDependencyTuple> aDependencies) {
-        // TODO Auto-generated method stub
-
+            final List<SchedulingObjectDependencyTuple> aDependencies) {
+        this.dependencies = aDependencies;
     }
 
-    /* (non-Javadoc)
-     * @see at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator#getGraph()
-     */
     @Override
     public ProjectNetworkGraph getGraph() {
         // TODO Auto-generated method stub
         return null;
     }
-
 }
