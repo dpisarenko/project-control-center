@@ -9,16 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.projectnetworklayout;
+package at.silverstrike.pcc.api.projectnetworkgraphpanel;
 
-import at.silverstrike.pcc.api.projectgraph.ProjectNetworkVertex;
-import edu.uci.ics.jung.algorithms.layout.Layout;
+import at.silverstrike.pcc.api.conventions.Factory;
 
 /**
  * @author DP118M
  * 
  */
-public interface ProjectNetworkLayout extends
-        Layout<ProjectNetworkVertex, String> {
+public interface ProjectNetworkGraphPanelFactory extends
+        Factory<ProjectNetworkGraphPanel> {
 
 }

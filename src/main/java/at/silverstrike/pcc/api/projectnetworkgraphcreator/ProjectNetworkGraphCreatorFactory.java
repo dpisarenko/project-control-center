@@ -9,10 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.projectgraph;
+package at.silverstrike.pcc.api.projectnetworkgraphcreator;
 
-import edu.uci.ics.jung.graph.Graph;
+import at.silverstrike.pcc.api.conventions.Factory;
 
-public interface ProjectNetwork extends Graph<ProjectNetworkVertex, String> {
+/**
+ * @author DP118M
+ * 
+ */
+public interface ProjectNetworkGraphCreatorFactory extends
+        Factory<ProjectNetworkGraphCreator> {
 
 }

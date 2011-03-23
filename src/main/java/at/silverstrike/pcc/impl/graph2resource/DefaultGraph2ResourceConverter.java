@@ -4,12 +4,12 @@
  * PCC (Project Control Center) project is intellectual property of 
  * Dmitri Anatol'evich Pisarenko.
  * 
- * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
  * All rights reserved
  *
  **/
 
-package at.silverstrike.pcc.impl.graphdemopanel;
+package at.silverstrike.pcc.impl.graph2resource;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -32,47 +32,32 @@ import org.w3c.dom.Element;
 
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.VisualizationImageServer;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
-import eu.livotov.tpt.TPTApplication;
+import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
+import at.silverstrike.pcc.api.graph2resource.JungResource;
+import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraph;
 
-import com.vaadin.ui.Embedded;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
-import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
-
-class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
+/**
+ * @author DP118M
+ * 
+ */
+class DefaultGraph2ResourceConverter implements Graph2ResourceConverter {
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
     private static final int DEFAULT_WIDTH_PIXELS = 600;
-    private static final long serialVersionUID = 1L;
+
+    private ProjectNetworkGraph graph;
+    private JungResource resource;
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(DefaultGraphDemoPanel.class);
+            .getLogger(DefaultGraph2ResourceConverter.class);
     private String initialEventVertex;
     private String finalEventVertex;
 
     @Override
-    public Panel toPanel() {
-        return this;
-    }
-
-    @Override
-    public void initGui() {
-        final VerticalLayout layout = new VerticalLayout();
-
-        final Embedded image = createSampleGraph();
-        layout.addComponent(image);
-        layout.setSizeFull();
-
-        this.addComponent(layout);
-    }
-
-    private Embedded createSampleGraph() {
-        Embedded imageComponent = null;
-
+    public void run() throws PccException {
         try {
             final DocumentBuilderFactory docBuilderFactory =
                     DocumentBuilderFactory
@@ -85,10 +70,12 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
             final SVGGraphics2D graphic2d = new SVGGraphics2D(document);
 
-            final Graph<String, String> graph = createGraph();
+            this.initialEventVertex = this.graph.getInitialEventVertex();
+            this.finalEventVertex = this.graph.getFinalEventVertex();
+            
             final VisualizationImageServer<String, String> server =
-                    createServer(graph);
-
+                    createServer(this.graph);
+            
             server.printAll(graphic2d);
 
             final Element el = graphic2d.getRoot();
@@ -104,29 +91,19 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
             final ByteArrayOutputStream bout = new ByteArrayOutputStream();
 
             final Writer out = new OutputStreamWriter(bout, "UTF-8");
-            graphic2d.stream(el, out);                
+            graphic2d.stream(el, out);
 
-            final JungResource source =
-                    new JungResource(bout);
-
-            TPTApplication.getCurrentApplication().addResource(source);
-
-            imageComponent = new Embedded("", source);
-
-            imageComponent.setWidth(DEFAULT_WIDTH_PIXELS, UNITS_PIXELS);
-            imageComponent.setHeight(DEFAULT_HEIGHT_PIXELS, UNITS_PIXELS);
-            imageComponent.setMimeType(JungResource.MIME_TYPE_SVG);
-            addComponent(imageComponent);
+            this.resource = new DefaultJungResource(bout);
         } catch (final UnsupportedEncodingException exception) {
-            LOGGER.error(ErrorCodes.M_001_UNSUPPORTED_ENCONDING, exception);
+            LOGGER.error(ErrorCodes.M_002_UNSUPPORTED_ENCONDING, exception);
         } catch (final SVGGraphics2DIOException exception) {
-            LOGGER.error(ErrorCodes.M_002_SVG_GRAPHICS_2D_IO, exception);
+            LOGGER.error(ErrorCodes.M_003_SVG_GRAPHICS_2D_IO, exception);
         } catch (final ParserConfigurationException exception) {
-            LOGGER.error(ErrorCodes.M_003_PARSER_CONFIGURATION, exception);
+            LOGGER.error(ErrorCodes.M_004_PARSER_CONFIGURATION, exception);
         }
-        return imageComponent;
+
     }
-    
+
     private VisualizationImageServer<String, String> createServer(
             final Graph<String, String> aGraph) {
         final Layout<String, String> layout = new FRLayout<String, String>(
@@ -159,27 +136,13 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         aLayout.lock(aVertex, true);
     }
 
-    private Graph<String, String> createGraph() {
-        final Graph<String, String> graph =
-                new DirectedSparseMultigraph<String, String>();
-        initialEventVertex = "IE";
-        final String vertex2 = "P1";
-        final String vertex3 = "P2";
-        final String vertex4 = "P3";
-        finalEventVertex = "FE";
-
-        graph.addVertex(initialEventVertex);
-        graph.addVertex(vertex2);
-        graph.addVertex(vertex3);
-        graph.addVertex(vertex4);
-        graph.addVertex(finalEventVertex);
-
-        graph.addEdge("1", initialEventVertex, vertex2, EdgeType.DIRECTED);
-        graph.addEdge("2", vertex2, vertex3, EdgeType.DIRECTED);
-        graph.addEdge("3", vertex3, finalEventVertex, EdgeType.DIRECTED);
-        graph.addEdge("4", initialEventVertex, vertex4, EdgeType.DIRECTED);
-        graph.addEdge("5", vertex4, finalEventVertex, EdgeType.DIRECTED);
-        return graph;
+    @Override
+    public void setGraph(final ProjectNetworkGraph aGraph) {
+        this.graph = aGraph;
     }
 
+    @Override
+    public JungResource getResource() {
+        return resource;
+    }
 }

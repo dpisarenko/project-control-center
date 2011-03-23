@@ -9,12 +9,14 @@
  *
  **/
 
-package at.silverstrike.pcc.api.projectgraph;
+package at.silverstrike.pcc.api.graph2resource;
+
+import at.silverstrike.pcc.api.conventions.Factory;
 
 /**
  * @author DP118M
- * 
+ *
  */
-public enum ProjectNetworkVertexType {
-    INITIAL_EVENT, TASK, FINAL_EVENT
+public interface Graph2ResourceConverterFactory extends
+        Factory<Graph2ResourceConverter> {
 }

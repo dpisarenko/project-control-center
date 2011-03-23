@@ -9,15 +9,12 @@
  *
  **/
 
-package at.silverstrike.pcc.api.projectnetworklayout;
-
-import at.silverstrike.pcc.api.conventions.Factory;
+package at.silverstrike.pcc.api.projectnetworkgraphpanelcontroller;
 
 /**
  * @author DP118M
- * 
+ *
  */
-public interface ProjectNetworkLayoutFactory extends
-        Factory<ProjectNetworkLayout> {
+public interface ProjectNetworkGraphPanelController {
 
 }

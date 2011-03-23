@@ -9,20 +9,18 @@
  *
  **/
 
-package at.silverstrike.pcc.api.projectnetworklayout;
+package at.silverstrike.pcc.api.projectnetworkgraphcreator;
 
 import java.util.List;
 
 import at.silverstrike.pcc.api.conventions.SingleActivityModule;
-import at.silverstrike.pcc.api.model.ControlProcess;
-import at.silverstrike.pcc.api.projectgraph.ProjectNetworkVertex;
 
 /**
  * @author DP118M
  *
  */
-public interface ProjectNetworkVertexCreator extends SingleActivityModule {
-    void setTasks(final List<ControlProcess> aProcesses);
-
-    List<ProjectNetworkVertex> getVertices();
+public interface ProjectNetworkGraphCreator extends SingleActivityModule {
+    void setDependencies(final List<SchedulingObjectDependencyTuple> aDependencies);
+    
+    ProjectNetworkGraph getGraph();
 }

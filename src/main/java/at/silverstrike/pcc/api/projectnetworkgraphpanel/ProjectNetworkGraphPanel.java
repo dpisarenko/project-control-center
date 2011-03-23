@@ -9,24 +9,19 @@
  *
  **/
 
-package at.silverstrike.pcc.api.projectgraph;
+package at.silverstrike.pcc.api.projectnetworkgraphpanel;
 
 import java.util.List;
 
+import at.silverstrike.pcc.api.conventions.AbstractedLayout;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.conventions.PccException;
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 
 /**
  * @author DP118M
  * 
  */
-public interface ProjectGraphBuilder extends SingleActivityModule,
+public interface ProjectNetworkGraphPanel extends AbstractedLayout,
         ModuleWithInjectableDependencies {
-    void setSchedulingObjects(final List<ControlProcess> aTasks);
-
-    void run() throws PccException;
-
-    ProjectNetwork getProjectNetwork();
+    void updatePanel(final List<SchedulingObjectDependencyTuple> aDependencies);
 }

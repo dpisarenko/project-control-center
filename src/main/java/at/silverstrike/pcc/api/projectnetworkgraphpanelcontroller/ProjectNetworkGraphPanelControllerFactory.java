@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.api.projectgraph;
+package at.silverstrike.pcc.api.projectnetworkgraphpanelcontroller;
 
 import at.silverstrike.pcc.api.conventions.Factory;
 
@@ -17,7 +17,7 @@ import at.silverstrike.pcc.api.conventions.Factory;
  * @author DP118M
  * 
  */
-public interface ProjectGraphBuilderFactory extends
-        Factory<ProjectGraphBuilder> {
+public interface ProjectNetworkGraphPanelControllerFactory extends
+        Factory<ProjectNetworkGraphPanelController> {
 
 }

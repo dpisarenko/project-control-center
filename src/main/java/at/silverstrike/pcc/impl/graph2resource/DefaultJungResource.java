@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.graphdemopanel;
+package at.silverstrike.pcc.impl.graph2resource;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,22 +20,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.Application;
-import com.vaadin.terminal.ApplicationResource;
 import com.vaadin.terminal.DownloadStream;
 
 import eu.livotov.tpt.TPTApplication;
 
-class JungResource implements ApplicationResource {
-    public static final String MIME_TYPE_PNG = "image/png";
-    public static final String MIME_TYPE_SVG = "image/svg+xml";
+import at.silverstrike.pcc.api.graph2resource.JungResource;
+
+/**
+ * @author DP118M
+ * 
+ */
+public class DefaultJungResource implements JungResource {
     private static final long serialVersionUID = 1L;
+
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(JungResource.class);
+            .getLogger(DefaultJungResource.class);
 
     private transient ByteArrayInputStream bytestream = null;
     private transient ByteArrayOutputStream originalOutputStream;
 
-    public JungResource(final ByteArrayOutputStream aOutputStream) {
+    public DefaultJungResource(final ByteArrayOutputStream aOutputStream) {
         this.originalOutputStream = aOutputStream;
     }
 
@@ -79,7 +83,7 @@ class JungResource implements ApplicationResource {
         try {
             return getByteStream().available();
         } catch (final IOException exception) {
-            LOGGER.error("", exception);
+            LOGGER.error(ErrorCodes.M_001_BUFFER_SIZE_IO_EX, exception);
             return 0;
         }
     }

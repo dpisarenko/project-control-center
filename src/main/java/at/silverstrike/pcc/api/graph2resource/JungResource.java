@@ -9,14 +9,14 @@
  *
  **/
 
-package at.silverstrike.pcc.api.projectgraph;
+package at.silverstrike.pcc.api.graph2resource;
 
-public interface ImaginaryGridLocation {
-    void setX(final int aX);
+import com.vaadin.terminal.ApplicationResource;
 
-    int getX();
-
-    void setY(final int aY);
-
-    int getY();
+/**
+ * @author DP118M
+ * 
+ */
+public interface JungResource extends ApplicationResource {
+    static final String MIME_TYPE_SVG = "image/svg+xml";
 }
