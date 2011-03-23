@@ -23,17 +23,17 @@ import at.silverstrike.pcc.test.mockpersistence.MockObjectFactory;
 import com.google.inject.AbstractModule;
 
 class MockInjectorModule extends AbstractModule {
-	@Override
-	protected void configure() {
-		final MockObjectFactory mockObjectFactory = new MockObjectFactory();
+    @Override
+    protected void configure() {
+        final MockObjectFactory mockObjectFactory = new MockObjectFactory();
 
-		bind(Persistence.class).toInstance(
-				mockObjectFactory.createPersistence());
-		bind(EmbeddedFileReader.class).toInstance(
-				new DefaultEmbeddedFileReaderFactory().create());
-		bind(TaskJuggler3Exporter.class).toInstance(
-				new DefaultTaskJuggler3ExporterFactory().create());
-		bind(XmlDeserializerFactory.class).toInstance(
-				new DefaultXmlDeserializerFactory());
-	}
+        bind(Persistence.class).toInstance(
+                mockObjectFactory.createPersistence());
+        bind(EmbeddedFileReader.class).toInstance(
+                new DefaultEmbeddedFileReaderFactory().create());
+        bind(TaskJuggler3Exporter.class).toInstance(
+                new DefaultTaskJuggler3ExporterFactory().create());
+        bind(XmlDeserializerFactory.class).toInstance(
+                new DefaultXmlDeserializerFactory());
+    }
 }
