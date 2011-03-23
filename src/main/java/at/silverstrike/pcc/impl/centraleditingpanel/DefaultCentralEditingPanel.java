@@ -173,7 +173,7 @@ class DefaultCentralEditingPanel extends Panel implements
         tree.setContainerDataSource(getFilterHierarchicalContainer());
 
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
-
+/*
         final VerticalLayout verticalLayoutRight = new VerticalLayout();
 
         final Label taskLabel =
@@ -231,7 +231,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
         final Table table = createTestTable();
         verticalLayoutRight.addComponent(table);
-
+*/
         //final VerticalLayout verticalLayoutRight = getTaskLayout();
         
         //final AbstractedPanel panel = getTaskEditingPanel();
