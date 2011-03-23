@@ -31,6 +31,8 @@ import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 import com.google.inject.Injector;
 
+import eu.livotov.tpt.i18n.TM;
+
 /**
  * @author DP118M
  * 
@@ -45,6 +47,11 @@ public class TestDefaultProjectNetworkGraphCreator {
 
     @Test
     public void test01() {
+        /**
+         * Init the i18n mechanism
+         */
+        TM.getDictionary().setDefaultLanguage("ru");
+        
         /**
          * Create the injector
          */

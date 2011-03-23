@@ -98,6 +98,10 @@ class DefaultProjectNetworkGraphCreator implements ProjectNetworkGraphCreator {
         /**
          * Add edges to final event vertex
          */
+        for (final String curSource : verticesWithoutOutgoingEdges)
+        {
+            addEdge(curSource, finalEventVertex);
+        }
     }
 
     private void addEdge(final String curSourceVertex, final String curTargetVertex) {
