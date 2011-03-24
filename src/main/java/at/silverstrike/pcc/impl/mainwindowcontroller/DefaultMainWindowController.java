@@ -35,7 +35,7 @@ import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlDeserializerFactory;
 import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 
-public class DefaultMainWindowController implements MainWindowController {
+class DefaultMainWindowController implements MainWindowController {
 
     private Injector injector = null;
 
@@ -43,13 +43,13 @@ public class DefaultMainWindowController implements MainWindowController {
             .getLogger(DefaultMainWindowController.class);
 
     @Override
-    public void setInjector(Injector aInjector) {
+    public final void setInjector(final Injector aInjector) {
         this.injector = aInjector;
 
     }
 
     @Override
-    public void importFromXML() {
+    public final void importFromXML() {
         final XmlDeserializerFactory deserializerFactory;
         deserializerFactory = new DefaultXmlDeserializerFactory();
         final XmlDeserializer deserializer = deserializerFactory.create();
@@ -68,6 +68,7 @@ public class DefaultMainWindowController implements MainWindowController {
         try {
             deserializer.run();
         } catch (final PccException exception) {
+            LOGGER.error("", exception);
         }
 
         final UserData readData = deserializer.getUserData();
@@ -78,7 +79,7 @@ public class DefaultMainWindowController implements MainWindowController {
     }
 
     @Override
-    public void exportToXML() {
+    public final void exportToXML() {
         final UserData writtenData = getSampleData();
         final XmlSerializerFactory serializerFactory =
                 new DefaultXmlSerializerFactory();
@@ -113,9 +114,9 @@ public class DefaultMainWindowController implements MainWindowController {
 
     private UserData getSampleData() {
         final UserData returnValue = new MockUserData();
-        
+
         returnValue.setIdentifier("myIdentifier");
-        
+
         return returnValue;
     }
 }
