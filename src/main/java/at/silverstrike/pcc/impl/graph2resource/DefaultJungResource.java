@@ -50,7 +50,7 @@ class DefaultJungResource implements JungResource {
 
     @Override
     public DownloadStream getStream() {
-        DownloadStream downloadStream = new DownloadStream(
+        final DownloadStream downloadStream = new DownloadStream(
                 getByteStream(), getMIMEType(), getFilename());
         return downloadStream;
 

@@ -25,7 +25,6 @@ import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
-import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
@@ -35,13 +34,11 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
-import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 import at.silverstrike.pcc.api.version.PccVersionReader;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
-import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowController;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
 
@@ -52,7 +49,7 @@ class DefaultMainWindow implements MainWindow {
     private DebugIdRegistry debugIdRegistry;
     private Label indicator;
     private transient DefaultMainWindowController controller;
-    
+
     public DefaultMainWindow() {
     }
 
@@ -81,19 +78,16 @@ class DefaultMainWindow implements MainWindow {
 
         this.tabSheet.setSizeFull();
 
-        final VerticalLayout mainLayout = new VerticalLayout(); 
-        
+        final VerticalLayout mainLayout = new VerticalLayout();
+
         final MenuBar menubar = createMenuBar();
-        mainLayout.addComponent(menubar);       
-        
+        mainLayout.addComponent(menubar);
+
         indicator = getStatus();
         indicator.setContentMode(Label.CONTENT_XHTML);
-        
+
         mainLayout.addComponent(indicator);
 
-        
-        
-        
         this.tabSheet.addTab(getCentralEditingPanel(), TM
                 .get("mainwindow.13-central-editing-panel"), null);
         this.tabSheet.addTab(getDailyPlanPanel(), TM
@@ -107,88 +101,92 @@ class DefaultMainWindow implements MainWindow {
 
         this.tabSheet.addTab(getGraphTestPanel(), TM
                 .get("mainwindow.14-graph-test"), null);
-        
+
         mainLayout.addComponent(this.tabSheet);
-        
+
         mainWindow.setContent(mainLayout);
 
     }
-    
-	private DefaultMainWindowController getController() {
-		final DefaultMainWindowControllerFactory factory =
-            this.injector.getInstance(DefaultMainWindowControllerFactory.class);
-        final DefaultMainWindowController controller = (DefaultMainWindowController) factory.create();
-        controller.setInjector(this.injector);
-        return controller;
-	}
+
+    private DefaultMainWindowController getController() {
+        final DefaultMainWindowControllerFactory factory =
+                this.injector
+                        .getInstance(DefaultMainWindowControllerFactory.class);
+        final DefaultMainWindowController returnValue =
+                (DefaultMainWindowController) factory.create();
+        returnValue.setInjector(this.injector);
+        return returnValue;
+    }
 
     private Label getStatus() {
         indicator = new Label("<p>Plan completed</p>");
         return indicator;
-}
-   
-   private MenuBar createMenuBar() {
-       final MenuBar menubar = new MenuBar();
-       menubar.setWidth("100%");
+    }
 
-       // Save reference to individual items so we can add sub-menu items to
-       // them
-       final MenuBar.MenuItem file =
-               menubar.addItem(
-                       TM.get("mainwindow.15-menu-file"), null);
-       file.addItem(TM.get("mainwindow.16-menu-exportXML"),
-    		   exportToXMLCommand);
-       file.addItem(TM.get("mainwindow.17-menu-importXML"),
-    		   importFromXMLCommand);
-       file.addSeparator();
-       file.addItem(TM.get("mainwindow.18-menu-exit"),
-               menuCommand);
+    private MenuBar createMenuBar() {
+        final MenuBar menubar = new MenuBar();
+        menubar.setWidth("100%");
 
-       menubar.addItem(TM.get("mainwindow.19-menu-other"), null);
-       return menubar;
-   }
-   
+        // Save reference to individual items so we can add sub-menu items to
+        // them
+        final MenuBar.MenuItem file =
+                menubar.addItem(
+                        TM.get("mainwindow.15-menu-file"), null);
+        file.addItem(TM.get("mainwindow.16-menu-exportXML"),
+                exportToXMLCommand);
+        file.addItem(TM.get("mainwindow.17-menu-importXML"),
+                importFromXMLCommand);
+        file.addSeparator();
+        file.addItem(TM.get("mainwindow.18-menu-exit"),
+                menuCommand);
 
-   private Command importFromXMLCommand = new Command() {
+        menubar.addItem(TM.get("mainwindow.19-menu-other"), null);
+        return menubar;
+    }
 
-	private static final long serialVersionUID = 1L;
+    private Command importFromXMLCommand = new Command() {
 
-	public void menuSelected(final MenuItem aSelectedItem) {
-		if (controller == null)
-			controller = getController();
-		controller.importFromXML();
-           //getWindow().showNotification("Action " + aSelectedItem.getText());
-       }
-   };
-   
-   private Command exportToXMLCommand = new Command() {
+        private static final long serialVersionUID = 1L;
 
-		private static final long serialVersionUID = 1L;
+        public void menuSelected(final MenuItem aSelectedItem) {
+            if (controller == null)
+            {
+                controller = getController();
+            }
+            controller.importFromXML();
+        }
+    };
 
-		public void menuSelected(final MenuItem aSelectedItem) {
-			if (controller == null)
-				controller = getController();
-			controller.exportToXML();
-	           //getWindow().showNotification("Action " + aSelectedItem.getText());
-	       }
-	   };
-   
-   private Command menuCommand = new Command() {
-       private static final long serialVersionUID = 1L;
+    private Command exportToXMLCommand = new Command() {
 
-       public void menuSelected(final MenuItem aSelectedItem) {
-           getWindow().showNotification("Action " + aSelectedItem.getText());
-       }
-   };
+        private static final long serialVersionUID = 1L;
 
-    
+        public void menuSelected(final MenuItem aSelectedItem) {
+            if (controller == null)
+            {
+                controller = getController();
+            }
+            controller.exportToXML();
+            // getWindow().showNotification("Action " +
+            // aSelectedItem.getText());
+        }
+    };
+
+    private Command menuCommand = new Command() {
+        private static final long serialVersionUID = 1L;
+
+        public void menuSelected(final MenuItem aSelectedItem) {
+            getWindow().showNotification("Action " + aSelectedItem.getText());
+        }
+    };
+
     private Component getGraphTestPanel() {
-        final GraphDemoPanelFactory factory = 
-            this.injector.getInstance(GraphDemoPanelFactory.class);
+        final GraphDemoPanelFactory factory =
+                this.injector.getInstance(GraphDemoPanelFactory.class);
         final GraphDemoPanel panel = factory.create();
-        
+
         panel.initGui();
-        
+
         return panel.toPanel();
     }
 
