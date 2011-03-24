@@ -5,9 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Injector;
 import com.vaadin.terminal.FileResource;
-import com.vaadin.terminal.StreamResource;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
@@ -25,6 +27,9 @@ import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 public class DefaultMainWindowController implements MainWindowController {
 
     private Injector injector = null;
+
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultMainWindowController.class);
 
     @Override
     public void setInjector(Injector aInjector) {
@@ -81,13 +86,14 @@ public class DefaultMainWindowController implements MainWindowController {
         try {
             fileOutputStream = new FileOutputStream(targetFile);
         } catch (final FileNotFoundException exception) {
+            LOGGER.error("", exception);
         }
         serializer.setOutputStream(fileOutputStream);
         serializer.setUserData(writtenData);
         try {
             serializer.run();
         } catch (final PccException exception) {
-
+            LOGGER.error("", exception);
         }
         // Serialize writtenData to targetFile (end)
 
@@ -100,6 +106,6 @@ public class DefaultMainWindowController implements MainWindowController {
                 new FileResource(targetFile,
                         TPTApplication.getCurrentApplication());
 
-        mainWindow.open(resource);
+        mainWindow.open(resource, "_top");
     }
 }
