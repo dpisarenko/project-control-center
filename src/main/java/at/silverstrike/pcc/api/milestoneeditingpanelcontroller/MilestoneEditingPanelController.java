@@ -9,11 +9,11 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.milestoneeditingpanel;
+package at.silverstrike.pcc.api.milestoneeditingpanelcontroller;
 
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
-interface MilestoneEditingPanelController extends ModuleWithInjectableDependencies {
+public interface MilestoneEditingPanelController extends
+        ModuleWithInjectableDependencies {
     void dependEditButtonClicked();
-    
 }

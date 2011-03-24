@@ -5,3 +5,5 @@ src/test/resources/at/silverstrike/pcc/test/xmlserialization/testSerializationDe
 src/test/resources/at/silverstrike/pcc/test/xmlserialization/testExport.xml
 pcc.log
 pccProject.tjp
+testExport.xml
+src/test/resources/at/silverstrike/pcc/test/projectscheduler/pccBookings.tji.tjp

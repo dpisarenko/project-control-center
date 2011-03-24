@@ -29,8 +29,10 @@ import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
+import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
+import at.silverstrike.pcc.impl.milestoneeditingpanelcontroller.DefaultMilestoneEditingPanelController;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultMilestoneEditingPanel extends Panel implements
@@ -52,7 +54,7 @@ class DefaultMilestoneEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
-    private transient final MilestoneEditingPanelController controller =
+    private transient MilestoneEditingPanelController controller =
             new DefaultMilestoneEditingPanelController();
 
     @Override

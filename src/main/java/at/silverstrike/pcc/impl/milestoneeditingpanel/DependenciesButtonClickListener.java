@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.milestoneeditingpanel;
 
+import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
+
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 

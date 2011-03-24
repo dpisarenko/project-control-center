@@ -9,10 +9,11 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.milestoneeditingpanel;
+package at.silverstrike.pcc.impl.milestoneeditingpanelcontroller;
 
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 
 import com.google.inject.Injector;
 
