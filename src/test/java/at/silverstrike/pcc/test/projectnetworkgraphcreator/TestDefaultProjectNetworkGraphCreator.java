@@ -31,13 +31,13 @@ import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 import com.google.inject.Injector;
 
-import eu.livotov.tpt.i18n.TM;
-
 /**
  * @author DP118M
  * 
  */
 public class TestDefaultProjectNetworkGraphCreator {
+    private static final String FINAL_EVENT_LABEL = "FE";
+    private static final String INITIAL_EVENT_LABEL = "IE";
     private static final String P3 = "P3";
     private static final String P2 = "P2";
     private static final String P1 = "P1";
@@ -80,6 +80,8 @@ public class TestDefaultProjectNetworkGraphCreator {
          * Invoke the method under test
          */
         objectUnderTest.setDependencies(tuples);
+        objectUnderTest.setInitialVertexLabel(INITIAL_EVENT_LABEL);
+        objectUnderTest.setFinalVertexLabel(FINAL_EVENT_LABEL);
         try {
             objectUnderTest.run();
         } catch (final PccException exception) {
@@ -103,6 +105,8 @@ public class TestDefaultProjectNetworkGraphCreator {
 
         Assert.assertNotNull(graph);
 
+        LOGGER.debug("Graph: " + graph);
+        
         final String initialEventVertex = graph.getInitialEventVertex();
         final String finalEventVertex = graph.getFinalEventVertex();
 
@@ -143,13 +147,12 @@ public class TestDefaultProjectNetworkGraphCreator {
                 new MockSchedulingObjectDependencyTuple();
         tuple1.setLabel(P1);
 
-        final List<String> p1Dependencies = new LinkedList<String>();
-        p1Dependencies.add(P2);
-
         final SchedulingObjectDependencyTuple tuple2 =
                 new MockSchedulingObjectDependencyTuple();
         tuple2.setLabel(P2);
-        tuple2.setDependencies(p1Dependencies);
+        final List<String> p2Dependencies = new LinkedList<String>();
+        p2Dependencies.add(P1);
+        tuple2.setDependencies(p2Dependencies);
 
         final SchedulingObjectDependencyTuple tuple3 =
                 new MockSchedulingObjectDependencyTuple();
@@ -159,6 +162,10 @@ public class TestDefaultProjectNetworkGraphCreator {
         tuples.add(tuple2);
         tuples.add(tuple3);
 
+        LOGGER.debug("P1 dependencies: " + tuple1.getDependencies());
+        LOGGER.debug("P2 dependencies: " + tuple2.getDependencies());
+        LOGGER.debug("P3 dependencies: " + tuple3.getDependencies());
+        
         return tuples;
     }
 }

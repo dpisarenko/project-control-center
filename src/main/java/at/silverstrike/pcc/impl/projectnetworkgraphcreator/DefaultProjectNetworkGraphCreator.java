@@ -14,8 +14,6 @@ package at.silverstrike.pcc.impl.projectnetworkgraphcreator;
 import java.util.LinkedList;
 import java.util.List;
 
-import eu.livotov.tpt.i18n.TM;
-
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraph;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator;
@@ -29,6 +27,8 @@ class DefaultProjectNetworkGraphCreator implements ProjectNetworkGraphCreator {
     private List<SchedulingObjectDependencyTuple> dependencies;
     private DefaultProjectNetworkGraph graph;
     private int edgeCounter;
+    private String initialVertexLabel;
+    private String finalVertexLabel;
 
     @Override
     public void run() throws PccException {
@@ -40,10 +40,8 @@ class DefaultProjectNetworkGraphCreator implements ProjectNetworkGraphCreator {
 
         edgeCounter = 1;
 
-        final String initialEventVertex =
-                TM.get("projectnetworkgraphcreator.2-initial-event");
-        final String finalEventVertex =
-                TM.get("projectnetworkgraphcreator.1-final-event");
+        final String initialEventVertex = this.initialVertexLabel;
+        final String finalEventVertex = this.finalVertexLabel;
 
         this.graph.setInitialEventVertex(initialEventVertex);
         this.graph.setFinalEventVertex(finalEventVertex);
@@ -90,21 +88,20 @@ class DefaultProjectNetworkGraphCreator implements ProjectNetworkGraphCreator {
             }
         }
 
-        for (final String curTarget : verticesWithoutIncomingEdges)
-        {
+        for (final String curTarget : verticesWithoutIncomingEdges) {
             addEdge(initialEventVertex, curTarget);
         }
-        
+
         /**
          * Add edges to final event vertex
          */
-        for (final String curSource : verticesWithoutOutgoingEdges)
-        {
+        for (final String curSource : verticesWithoutOutgoingEdges) {
             addEdge(curSource, finalEventVertex);
         }
     }
 
-    private void addEdge(final String curSourceVertex, final String curTargetVertex) {
+    private void addEdge(final String curSourceVertex,
+            final String curTargetVertex) {
         this.graph.addEdge(String.valueOf(edgeCounter),
                 curSourceVertex, curTargetVertex);
 
@@ -126,5 +123,15 @@ class DefaultProjectNetworkGraphCreator implements ProjectNetworkGraphCreator {
     @Override
     public ProjectNetworkGraph getGraph() {
         return graph;
+    }
+
+    @Override
+    public void setInitialVertexLabel(final String aLabel) {
+        this.initialVertexLabel = aLabel;
+    }
+
+    @Override
+    public void setFinalVertexLabel(final String aLabel) {
+        this.finalVertexLabel = aLabel;
     }
 }

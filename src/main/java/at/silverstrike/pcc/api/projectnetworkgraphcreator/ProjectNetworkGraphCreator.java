@@ -20,6 +20,8 @@ import at.silverstrike.pcc.api.conventions.SingleActivityModule;
  *
  */
 public interface ProjectNetworkGraphCreator extends SingleActivityModule {
+    void setInitialVertexLabel(final String aLabel);
+    void setFinalVertexLabel(final String aLabel);
     void setDependencies(final List<SchedulingObjectDependencyTuple> aDependencies);
     
     ProjectNetworkGraph getGraph();
