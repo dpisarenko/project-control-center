@@ -18,5 +18,5 @@ import com.vaadin.terminal.ApplicationResource;
  * 
  */
 public interface JungResource extends ApplicationResource {
-    final String MIME_TYPE_SVG = "image/svg+xml";
+    String MIME_TYPE_SVG = "image/svg+xml";
 }

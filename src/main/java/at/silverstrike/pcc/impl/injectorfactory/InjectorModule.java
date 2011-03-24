@@ -76,9 +76,11 @@ import at.silverstrike.pcc.impl.graphdemopanel.DefaultGraphDemoPanelFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
 import at.silverstrike.pcc.impl.meetingeditingpanel.DefaultMeetingEditingPanelFactory;
-import at.silverstrike.pcc.impl.meetingeditingpanelcontroller.DefaultMeetingEditingPanelControllerFactory;
+import at.silverstrike.pcc.impl.meetingeditingpanelcontroller.
+    DefaultMeetingEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.milestoneeditingpanel.DefaultMilestoneEditingPanelFactory;
-import at.silverstrike.pcc.impl.milestoneeditingpanelcontroller.DefaultMilestoneEditingPanelControllerFactory;
+import at.silverstrike.pcc.impl.milestoneeditingpanelcontroller.
+    DefaultMilestoneEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.openid.DefaultDeauthenticatorFactory;
 import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationInitiatorFactory;
 import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationResponderFactory;

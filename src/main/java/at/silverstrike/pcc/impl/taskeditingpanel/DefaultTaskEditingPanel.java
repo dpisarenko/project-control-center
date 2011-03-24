@@ -57,15 +57,18 @@ class DefaultTaskEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
-    private transient final TaskEditingPanelController controller =
-            new DefaultTaskEditingPanelController();
+    private transient TaskEditingPanelController controller =
+            null;
 
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
+            /**
+             * Please initialize the controller here by getting the 
+             * object from injector.
+             */
             this.controller.setInjector(aInjector);
-            // this.setInjector(aInjector);
         }
     }
 
@@ -259,9 +262,8 @@ class DefaultTaskEditingPanel extends Panel implements
     public void taskAdded() {
     }
 
-
-	@Override
-	public Panel toPanel() {
-		return getTaskPanel();
-	}
+    @Override
+    public Panel toPanel() {
+        return getTaskPanel();
+    }
 }

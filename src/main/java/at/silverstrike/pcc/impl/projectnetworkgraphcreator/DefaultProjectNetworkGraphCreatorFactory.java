@@ -22,7 +22,7 @@ public class DefaultProjectNetworkGraphCreatorFactory implements
         ProjectNetworkGraphCreatorFactory {
 
     @Override
-    public ProjectNetworkGraphCreator create() {
+    public final ProjectNetworkGraphCreator create() {
         return new DefaultProjectNetworkGraphCreator();
     }
 

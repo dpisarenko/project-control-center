@@ -21,7 +21,6 @@ import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.VerticalLayout;
 
-import edu.uci.ics.jung.graph.Graph;
 import eu.livotov.tpt.TPTApplication;
 
 import at.silverstrike.pcc.api.conventions.PccException;
