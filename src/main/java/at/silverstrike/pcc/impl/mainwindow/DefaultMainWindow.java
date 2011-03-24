@@ -149,8 +149,7 @@ class DefaultMainWindow implements MainWindow {
         private static final long serialVersionUID = 1L;
 
         public void menuSelected(final MenuItem aSelectedItem) {
-            if (controller == null)
-            {
+            if (controller == null) {
                 controller = getController();
             }
             controller.importFromXML();
@@ -162,8 +161,7 @@ class DefaultMainWindow implements MainWindow {
         private static final long serialVersionUID = 1L;
 
         public void menuSelected(final MenuItem aSelectedItem) {
-            if (controller == null)
-            {
+            if (controller == null) {
                 controller = getController();
             }
             controller.exportToXML();
