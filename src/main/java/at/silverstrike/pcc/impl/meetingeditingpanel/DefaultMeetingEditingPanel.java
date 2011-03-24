@@ -30,6 +30,7 @@ import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanel;
+import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
@@ -53,15 +54,15 @@ class DefaultMeetingEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
-    private final transient MeetingEditingPanelController controller =
-            new DefaultMeetingEditingPanelController();
+    private transient MeetingEditingPanelController controller;
 
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
-            this.controller.setInjector(aInjector);
-            // this.setInjector(aInjector);
+            this.controller =
+                    this.injector
+                            .getInstance(MeetingEditingPanelController.class);
         }
     }
 
@@ -133,8 +134,6 @@ class DefaultMeetingEditingPanel extends Panel implements
         placeLayout.addComponent(placeLabel);
 
         final TextField placeTextField = new TextField();
-        // placeTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
-        // placeTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
         placeLayout.addComponent(placeTextField);
 
         return placeLayout;
@@ -153,7 +152,6 @@ class DefaultMeetingEditingPanel extends Panel implements
 
         // Set the correct resolution
         startDate.setResolution(InlineDateField.RESOLUTION_MIN);
-
 
         datesLayout.addComponent(startDate);
 

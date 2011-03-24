@@ -30,6 +30,7 @@ import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanelFactory;
+import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 import at.silverstrike.pcc.api.openid.Deauthenticator;
@@ -75,6 +76,7 @@ import at.silverstrike.pcc.impl.graphdemopanel.DefaultGraphDemoPanelFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
 import at.silverstrike.pcc.impl.meetingeditingpanel.DefaultMeetingEditingPanelFactory;
+import at.silverstrike.pcc.impl.meetingeditingpanelcontroller.DefaultMeetingEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.milestoneeditingpanel.DefaultMilestoneEditingPanelFactory;
 import at.silverstrike.pcc.impl.milestoneeditingpanelcontroller.DefaultMilestoneEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.openid.DefaultDeauthenticatorFactory;
@@ -175,6 +177,8 @@ class InjectorModule extends AbstractModule {
                 DefaultCentralEditingPanelControllerFactory());
         bind(MilestoneEditingPanelController.class).toInstance(new 
                 DefaultMilestoneEditingPanelControllerFactory().create());
+        bind(MeetingEditingPanelController.class).toInstance(
+                new DefaultMeetingEditingPanelControllerFactory().create());
     }
 
     private TestTableCreator getTestTableCreator() {

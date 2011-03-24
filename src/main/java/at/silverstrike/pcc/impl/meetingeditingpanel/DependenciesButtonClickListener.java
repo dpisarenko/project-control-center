@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.meetingeditingpanel;
 
+import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
+
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
