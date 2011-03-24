@@ -21,12 +21,10 @@ import com.google.inject.Injector;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
@@ -51,7 +49,7 @@ class DefaultTaskEditingPanel extends Panel implements
     private static final String[] DURATION_STEPS = new String[] { "15 min",
             "30 min",
             "45 min" };
-    private static final String[] TEST_COLUMN_NAMES = new String[] { "ยน",
+    private static final String[] TEST_COLUMN_NAMES = new String[] { "น",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
             Arrays.asList(
@@ -139,8 +137,8 @@ class DefaultTaskEditingPanel extends Panel implements
          */
     }
 
-    private VerticalLayout getTaskLayout() {
-        final VerticalLayout verticalLayoutRight = new VerticalLayout();
+    private Panel getTaskPanel() {
+        final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
                 new Label(TM.get("centraleditingprocesspanel.10-label-task"));
@@ -261,8 +259,9 @@ class DefaultTaskEditingPanel extends Panel implements
     public void taskAdded() {
     }
 
-    @Override
-    public Layout toLayout() {
-        return getTaskLayout();
-    }
+
+	@Override
+	public Panel toPanel() {
+		return getTaskPanel();
+	}
 }

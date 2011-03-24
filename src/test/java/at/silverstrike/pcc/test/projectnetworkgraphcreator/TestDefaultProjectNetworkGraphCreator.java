@@ -48,11 +48,6 @@ public class TestDefaultProjectNetworkGraphCreator {
     @Test
     public void test01() {
         /**
-         * Init the i18n mechanism
-         */
-        TM.getDictionary().setDefaultLanguage("ru");
-        
-        /**
          * Create the injector
          */
         final InjectorFactory injectorFactory = new MockInjectorFactory(

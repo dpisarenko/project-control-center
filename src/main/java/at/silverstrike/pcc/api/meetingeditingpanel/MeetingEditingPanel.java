@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.meetingeditingpanel;
 
-import at.silverstrike.pcc.api.conventions.AbstractedLayout;
+import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 /**
@@ -19,6 +19,6 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
  * 
  */
 public interface MeetingEditingPanel extends ModuleWithInjectableDependencies,
-        AbstractedLayout {
+        AbstractedPanel {
 
 }

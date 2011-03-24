@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.taskeditingpanel;
 
-import at.silverstrike.pcc.api.conventions.AbstractedLayout;
+import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 /**
@@ -19,6 +19,6 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
  * 
  */
 public interface TaskEditingPanel extends ModuleWithInjectableDependencies,
-        AbstractedLayout {
+        AbstractedPanel {
 
 }
