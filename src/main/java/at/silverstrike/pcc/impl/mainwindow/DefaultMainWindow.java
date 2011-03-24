@@ -34,12 +34,12 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
+import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 import at.silverstrike.pcc.api.version.PccVersionReader;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
-import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowController;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
 
 class DefaultMainWindow implements MainWindow {
@@ -48,7 +48,7 @@ class DefaultMainWindow implements MainWindow {
     private TabSheet tabSheet;
     private DebugIdRegistry debugIdRegistry;
     private Label indicator;
-    private transient DefaultMainWindowController controller;
+    private transient MainWindowController controller;
 
     public DefaultMainWindow() {
     }
@@ -108,12 +108,12 @@ class DefaultMainWindow implements MainWindow {
 
     }
 
-    private DefaultMainWindowController getController() {
+    private MainWindowController getController() {
         final DefaultMainWindowControllerFactory factory =
                 this.injector
                         .getInstance(DefaultMainWindowControllerFactory.class);
-        final DefaultMainWindowController returnValue =
-                (DefaultMainWindowController) factory.create();
+        final MainWindowController returnValue =
+                factory.create();
         returnValue.setInjector(this.injector);
         return returnValue;
     }
@@ -167,8 +167,6 @@ class DefaultMainWindow implements MainWindow {
                 controller = getController();
             }
             controller.exportToXML();
-            // getWindow().showNotification("Action " +
-            // aSelectedItem.getText());
         }
     };
 
