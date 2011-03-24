@@ -31,8 +31,9 @@ class FileDownloadResource extends FileResource {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(FileDownloadResource.class);
 
-    public FileDownloadResource(File sourceFile, Application application) {
-        super(sourceFile, application);
+    public FileDownloadResource(final File aSourceFile,
+            final Application aApplication) {
+        super(aSourceFile, aApplication);
     }
 
     public DownloadStream getStream() {
