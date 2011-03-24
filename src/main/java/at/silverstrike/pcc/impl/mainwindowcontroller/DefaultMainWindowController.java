@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,9 @@ import eu.livotov.tpt.TPTApplication;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
+import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializer;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
@@ -68,19 +72,11 @@ public class DefaultMainWindowController implements MainWindowController {
 
     @Override
     public void exportToXML() {
-
-        // Serialize writtenData to targetFile (start)
-        // targetFile should be located somewhere
-        // in test/resources/at/swdev/
-        // test/xmlserialization/testSerializationDeserialization.xml
-        final UserData writtenData = null;
+        final UserData writtenData = getSampleData();
         final XmlSerializerFactory serializerFactory =
                 new DefaultXmlSerializerFactory();
         final XmlSerializer serializer = serializerFactory.create();
-        File targetFile = null;
-        targetFile = new File(
-                "src/test/resources/at/silverstrike/"
-                        + "pcc/test/xmlserialization/testExport.xml");
+        final File targetFile = new File("testExport.xml");
         FileOutputStream fileOutputStream = null;
         // Init fileOutputStream
         try {
@@ -107,5 +103,13 @@ public class DefaultMainWindowController implements MainWindowController {
                         TPTApplication.getCurrentApplication());
 
         mainWindow.open(resource, "_top");
+    }
+
+    private UserData getSampleData() {
+        final UserData returnValue = new MockUserData();
+        
+        returnValue.setIdentifier("myIdentifier");
+        
+        return returnValue;
     }
 }
