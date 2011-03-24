@@ -102,7 +102,7 @@ public class DefaultMainWindowController implements MainWindowController {
                 new FileResource(targetFile,
                         TPTApplication.getCurrentApplication());
 
-        mainWindow.open(resource, "_top");
+        mainWindow.open(resource, "_blank");
     }
 
     private UserData getSampleData() {
