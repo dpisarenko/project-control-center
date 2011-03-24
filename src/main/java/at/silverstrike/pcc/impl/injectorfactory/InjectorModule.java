@@ -57,15 +57,18 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.centraleditingpanel.DefaultCentralEditingPanelFactory;
-import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
+import at.silverstrike.pcc.impl.centraleditingpanelcontroller.
+    DefaultCentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.dependencieseditingwindow.DefaultDependenciesEditingPanelFactory;
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
-import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
+import at.silverstrike.pcc.impl.embeddedfilereading.
+    DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
-import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.
+    DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.graphdemopanel.DefaultGraphDemoPanelFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
@@ -166,7 +169,8 @@ class InjectorModule extends AbstractModule {
                 new DefaultMeetingEditingPanelFactory());
         bind(MilestoneEditingPanelFactory.class).toInstance(
                 new DefaultMilestoneEditingPanelFactory());
-        bind(CentralEditingPanelControllerFactory.class).toInstance(new DefaultCentralEditingPanelControllerFactory());
+        bind(CentralEditingPanelControllerFactory.class).toInstance(new 
+                DefaultCentralEditingPanelControllerFactory());
     }
 
     private TestTableCreator getTestTableCreator() {
