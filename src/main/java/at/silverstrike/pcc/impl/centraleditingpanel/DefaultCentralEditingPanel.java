@@ -10,6 +10,7 @@
  **/
 
 package at.silverstrike.pcc.impl.centraleditingpanel;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -145,7 +146,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
 
-        controller = getController();
+        initController();
         verticalPanelRight = controller.getMeetingPanel();
 
         mainGrid.addComponent(verticalPanelRight, 1, 0);
@@ -153,16 +154,13 @@ class DefaultCentralEditingPanel extends Panel implements
         this.addComponent(mainGrid);
     }
 
-    private CentralEditingPanelController getController() {
+    private void initController() {
         final DefaultCentralEditingPanelControllerFactory factory =
                 this.injector
                         .getInstance(DefaultCentralEditingPanelControllerFactory.class);
-        final CentralEditingPanelController controller = factory.create();
-        controller.setInjector(this.injector);
-        return controller;
+        this.controller = factory.create();
+        this.controller.setInjector(this.injector);
     }
-
-
 
     private VerticalLayout getTreeLayout() {
         final VerticalLayout treeLayout = new VerticalLayout();
@@ -207,8 +205,7 @@ class DefaultCentralEditingPanel extends Panel implements
      * Shows a notification when a button is clicked.
      */
     public void buttonClick(final ClickEvent aEvent) {
-        if (NEW_MILESTONE_BUTTON.equals(aEvent.getButton().getDebugId()))
-        {
+        if (NEW_MILESTONE_BUTTON.equals(aEvent.getButton().getDebugId())) {
             getWindow().showNotification("lalala ");
         }
         getWindow().showNotification(NOTIFICATION);
