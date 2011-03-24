@@ -100,17 +100,17 @@ class DefaultProjectNetworkGraphCreator implements ProjectNetworkGraphCreator {
         }
     }
 
-    private void addEdge(final String curSourceVertex,
-            final String curTargetVertex) {
+    private void addEdge(final String aCurSourceVertex,
+            final String aCurTargetVertex) {
         this.graph.addEdge(String.valueOf(edgeCounter),
-                curSourceVertex, curTargetVertex);
+                aCurSourceVertex, aCurTargetVertex);
 
         edgeCounter++;
     }
 
-    private void addVertexIfNecessary(final String curTargetVertex) {
-        if (!this.graph.containsVertex(curTargetVertex)) {
-            this.graph.addVertex(curTargetVertex);
+    private void addVertexIfNecessary(final String aVertex) {
+        if (!this.graph.containsVertex(aVertex)) {
+            this.graph.addVertex(aVertex);
         }
     }
 

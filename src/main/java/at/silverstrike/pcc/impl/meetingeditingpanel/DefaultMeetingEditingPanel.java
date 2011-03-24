@@ -43,10 +43,9 @@ class DefaultMeetingEditingPanel extends Panel implements
 
     public static final Object PROJECT_PROPERTY_NAME = "name";
 
-
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
 
-    private static final String[] TEST_COLUMN_NAMES = new String[] { "¹",
+    private static final String[] TEST_COLUMN_NAMES = new String[] { "ï¿½",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
             Arrays.asList(
@@ -54,7 +53,7 @@ class DefaultMeetingEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
-    private transient final MeetingEditingPanelController controller =
+    private final transient MeetingEditingPanelController controller =
             new DefaultMeetingEditingPanelController();
 
     @Override
@@ -100,13 +99,12 @@ class DefaultMeetingEditingPanel extends Panel implements
         taskNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
         verticalLayoutRight.addComponent(taskNameTextField);
 
-
         final HorizontalLayout placeLayout = getPlacePanel();
         verticalLayoutRight.addComponent(placeLayout);
-        
+
         final HorizontalLayout datesLayout = getIntervalDatesPanel();
         verticalLayoutRight.addComponent(datesLayout);
-        
+
         final HorizontalLayout dependLayout = new HorizontalLayout();
         dependLayout.setSpacing(true);
 
@@ -135,19 +133,20 @@ class DefaultMeetingEditingPanel extends Panel implements
         placeLayout.addComponent(placeLabel);
 
         final TextField placeTextField = new TextField();
-        //placeTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
-        //placeTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
+        // placeTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
+        // placeTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
         placeLayout.addComponent(placeTextField);
 
         return placeLayout;
     }
-    
+
     private HorizontalLayout getIntervalDatesPanel() {
         final HorizontalLayout datesLayout = new HorizontalLayout();
         datesLayout.setSpacing(true);
 
-                
-        InlineDateField startDate = new InlineDateField(TM.get("meetingeditingprocesspanel.7-label-start"));
+        final InlineDateField startDate =
+                new InlineDateField(
+                        TM.get("meetingeditingprocesspanel.7-label-start"));
 
         // Set the value of the PopupDateField to current date
         startDate.setValue(new java.util.Date());
@@ -155,13 +154,12 @@ class DefaultMeetingEditingPanel extends Panel implements
         // Set the correct resolution
         startDate.setResolution(InlineDateField.RESOLUTION_MIN);
 
-        // Add valuechangelistener
-        //startDate.addListener(this);
-        //startDate.setImmediate(true);
 
         datesLayout.addComponent(startDate);
-        
-        InlineDateField finishDate = new InlineDateField(TM.get("meetingeditingprocesspanel.8-label-finish"));
+
+        final InlineDateField finishDate =
+                new InlineDateField(
+                        TM.get("meetingeditingprocesspanel.8-label-finish"));
 
         // Set the value of the PopupDateField to current date
         finishDate.setValue(new java.util.Date());
@@ -169,12 +167,8 @@ class DefaultMeetingEditingPanel extends Panel implements
         // Set the correct resolution
         finishDate.setResolution(InlineDateField.RESOLUTION_MIN);
 
-        // Add valuechangelistener
-        //startDate.addListener(this);
-        //startDate.setImmediate(true);
-
         datesLayout.addComponent(finishDate);
-        
+
         return datesLayout;
     }
 
