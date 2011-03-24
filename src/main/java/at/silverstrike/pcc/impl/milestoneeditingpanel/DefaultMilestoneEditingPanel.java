@@ -32,7 +32,6 @@ import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
-import at.silverstrike.pcc.impl.milestoneeditingpanelcontroller.DefaultMilestoneEditingPanelController;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultMilestoneEditingPanel extends Panel implements
@@ -54,24 +53,24 @@ class DefaultMilestoneEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
-    private transient MilestoneEditingPanelController controller =
-            new DefaultMilestoneEditingPanelController();
+    private transient MilestoneEditingPanelController controller;
 
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
-            this.controller.setInjector(aInjector);
-            // this.setInjector(aInjector);
+            this.controller =
+                    this.injector
+                            .getInstance(MilestoneEditingPanelController.class);
         }
     }
-
 
     private Panel getMilestonePanel() {
         final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
-                new Label(TM.get("milestoneeditingprocesspanel.1-label-milestone"));
+                new Label(
+                        TM.get("milestoneeditingprocesspanel.1-label-milestone"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
         verticalLayoutRight.addComponent(taskLabel);
 
@@ -152,10 +151,9 @@ class DefaultMilestoneEditingPanel extends Panel implements
         return getMilestonePanel();
     }
 
-
     @Override
     public void initGui() {
         // TODO Auto-generated method stub
-        
+
     }
 }
