@@ -4,7 +4,7 @@
  * PCC (Project Control Center) project is intellectual property of 
  * Dmitri Anatol'evich Pisarenko.
  * 
- * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
  * All rights reserved
  *
  **/
@@ -49,7 +49,7 @@ class DefaultTaskEditingPanel extends Panel implements
     private static final String[] DURATION_STEPS = new String[] { "15 min",
             "30 min",
             "45 min" };
-    private static final String[] TEST_COLUMN_NAMES = new String[] { "¹",
+    private static final String[] TEST_COLUMN_NAMES = new String[] { "ï¿½",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
             Arrays.asList(

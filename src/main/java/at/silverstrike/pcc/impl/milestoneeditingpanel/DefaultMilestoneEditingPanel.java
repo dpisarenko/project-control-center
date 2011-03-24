@@ -4,7 +4,7 @@
  * PCC (Project Control Center) project is intellectual property of 
  * Dmitri Anatol'evich Pisarenko.
  * 
- * Copyright 2010 Dmitri Anatol'evich Pisarenko
+ * Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
  * All rights reserved
  *
  **/
@@ -44,7 +44,7 @@ class DefaultMilestoneEditingPanel extends Panel implements
 
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
 
-    private static final String[] TEST_COLUMN_NAMES = new String[] { "¹",
+    private static final String[] TEST_COLUMN_NAMES = new String[] { "ï¿½",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
             Arrays.asList(

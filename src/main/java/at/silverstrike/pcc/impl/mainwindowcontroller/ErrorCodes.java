@@ -9,10 +9,8 @@
  *
  **/
 
-package at.silverstrike.pcc.api.dependencieseditingwindow;
+package at.silverstrike.pcc.impl.mainwindowcontroller;
 
-import at.silverstrike.pcc.api.conventions.Factory;
-
-public interface DependenciesEditingPanelFactory extends Factory<DependenciesEditingPanel> {
+final class ErrorCodes {
 
 }

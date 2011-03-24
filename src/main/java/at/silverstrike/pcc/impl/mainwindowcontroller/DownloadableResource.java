@@ -11,35 +11,38 @@
 
 package at.silverstrike.pcc.impl.mainwindowcontroller;
 
-import java.io.ByteArrayInputStream;
-import java.net.URL;
-import java.util.Map;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
+import com.vaadin.Application;
 import com.vaadin.terminal.DownloadStream;
-import com.vaadin.terminal.Resource;
+import com.vaadin.terminal.FileResource;
 
 /**
  * @author DP118M
  * 
  */
-class DownloadableResource implements Resource {
+class DownloadableResource extends FileResource {
     private static final long serialVersionUID = 1L;
 
-    public void handleParameters(@SuppressWarnings("rawtypes") Map parameters) {
+    public DownloadableResource(final File aSourceFile,
+            final Application aApplication) {
+        super(aSourceFile, aApplication);
     }
 
-    public DownloadStream handleURI(final URL aContext,
-            final String aRelativeUri) {
-        if (!aRelativeUri.startsWith("exportToXml")) {
+    public DownloadStream getStream() {
+        try {
+            final DownloadStream ds = new DownloadStream(new FileInputStream(
+                    getSourceFile()), getMIMEType(), getFilename());
+            ds.setParameter("Content-Disposition", "attachment; filename="
+                    + getFilename());
+            ds.setCacheTime(getCacheTime());
+            return ds;
+        } catch (final FileNotFoundException e) {
+            // No logging for non-existing files at this level.
             return null;
         }
-
-        return new DownloadStream(
-                new ByteArrayInputStream("<settings></settings>".getBytes()), null, null);
     }
 
-    @Override
-    public String getMIMEType() {
-        return "text/xml";
-    }
 }
