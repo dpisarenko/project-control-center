@@ -22,7 +22,7 @@ public class DefaultGraph2ResourceConverterFactory implements
         Graph2ResourceConverterFactory {
 
     @Override
-    public Graph2ResourceConverter create() {
+    public final Graph2ResourceConverter create() {
         return new DefaultGraph2ResourceConverter();
     }
 
