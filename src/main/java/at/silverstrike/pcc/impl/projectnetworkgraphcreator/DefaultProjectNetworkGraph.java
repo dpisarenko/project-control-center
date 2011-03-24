@@ -28,16 +28,16 @@ class DefaultProjectNetworkGraph extends
         return initialEventVertex;
     }
 
-    public void setInitialEventVertex(String initialEventVertex) {
-        this.initialEventVertex = initialEventVertex;
+    public void setInitialEventVertex(final String aInitialEventVertex) {
+        this.initialEventVertex = aInitialEventVertex;
     }
 
     public String getFinalEventVertex() {
         return finalEventVertex;
     }
 
-    public void setFinalEventVertex(String finalEventVertex) {
-        this.finalEventVertex = finalEventVertex;
+    public void setFinalEventVertex(final String aFinalEventVertex) {
+        this.finalEventVertex = aFinalEventVertex;
     }
 
 }
