@@ -16,15 +16,13 @@ import java.net.URL;
 import java.util.Map;
 
 import com.vaadin.terminal.DownloadStream;
-import com.vaadin.terminal.ParameterHandler;
-import com.vaadin.terminal.URIHandler;
+import com.vaadin.terminal.Resource;
 
 /**
  * @author DP118M
  * 
  */
-class DownloadableResource implements URIHandler,
-        ParameterHandler {
+class DownloadableResource implements Resource {
     private static final long serialVersionUID = 1L;
 
     public void handleParameters(@SuppressWarnings("rawtypes") Map parameters) {
@@ -37,6 +35,11 @@ class DownloadableResource implements URIHandler,
         }
 
         return new DownloadStream(
-                new ByteArrayInputStream("Hello!".getBytes()), null, null);
+                new ByteArrayInputStream("<settings></settings>".getBytes()), null, null);
+    }
+
+    @Override
+    public String getMIMEType() {
+        return "text/xml";
     }
 }

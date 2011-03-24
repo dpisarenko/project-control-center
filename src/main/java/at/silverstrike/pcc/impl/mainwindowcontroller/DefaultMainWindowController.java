@@ -95,9 +95,6 @@ public class DefaultMainWindowController implements MainWindowController {
 
         final DownloadableResource resource = new DownloadableResource();
         
-        mainWindow.addParameterHandler(resource);
-        mainWindow.addURIHandler(resource);
-        
-        
+        mainWindow.open(resource);
     }
 }
