@@ -22,7 +22,7 @@ public class DefaultCentralEditingPanelControllerFactory implements
         CentralEditingPanelControllerFactory {
 
     @Override
-    public CentralEditingPanelController create() {
+    public final CentralEditingPanelController create() {
         return new DefaultCentralEditingPanelController();
     }
 
