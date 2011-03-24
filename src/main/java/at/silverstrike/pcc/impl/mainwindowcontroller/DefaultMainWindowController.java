@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.google.inject.Injector;
+import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 
@@ -88,8 +89,10 @@ public class DefaultMainWindowController implements MainWindowController {
         }
         // Serialize writtenData to targetFile (end)
 
-        TPTApplication.getCurrentApplication().getMainWindow()
+        final Window mainWindow = TPTApplication.getCurrentApplication().getMainWindow();
+        mainWindow
                 .showNotification("222Test for Export222");
 
+        
     }
 }

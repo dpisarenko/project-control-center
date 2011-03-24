@@ -30,7 +30,7 @@ import at.silverstrike.pcc.api.graph2resource.JungResource;
  * @author DP118M
  * 
  */
-public class DefaultJungResource implements JungResource {
+class DefaultJungResource implements JungResource {
     private static final long serialVersionUID = 1L;
 
     private static final Logger LOGGER = LoggerFactory
