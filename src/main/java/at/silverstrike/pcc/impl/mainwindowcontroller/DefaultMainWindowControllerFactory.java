@@ -15,11 +15,11 @@ import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 
 public class DefaultMainWindowControllerFactory implements
-		MainWindowControllerFactory {
+        MainWindowControllerFactory {
 
-	@Override
-	public MainWindowController create() {
-		return new DefaultMainWindowController();
-	}
+    @Override
+    public final MainWindowController create() {
+        return new DefaultMainWindowController();
+    }
 
 }
