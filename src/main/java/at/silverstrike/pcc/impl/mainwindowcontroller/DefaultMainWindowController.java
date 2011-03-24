@@ -93,6 +93,11 @@ public class DefaultMainWindowController implements MainWindowController {
         mainWindow
                 .showNotification("222Test for Export222");
 
+        final DownloadableResource resource = new DownloadableResource();
+        
+        mainWindow.addParameterHandler(resource);
+        mainWindow.addURIHandler(resource);
+        
         
     }
 }
