@@ -22,6 +22,7 @@ import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
+import at.silverstrike.pcc.impl.centraleditingpanel.MockSchedulingObjectDependencyTuple;
 
 class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     private static final int DEFAULT_HEIGHT_PIXELS = 350;

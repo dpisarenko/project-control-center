@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.graphdemopanel;
+package at.silverstrike.pcc.impl.centraleditingpanel;
 
 import java.util.List;
 

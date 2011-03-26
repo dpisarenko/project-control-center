@@ -11,6 +11,9 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanel;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +38,9 @@ import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanel
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
+import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
+import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
+import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import eu.livotov.tpt.i18n.TM;
 
@@ -61,6 +67,13 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private DebugIdRegistry debugIdRegistry;
 
+    private static final String P1 = "P1";
+    private static final String P2 = "P2";
+    private static final String P3 = "P3";
+    private static final int DEFAULT_HEIGHT_PIXELS = 350;
+    private static final int DEFAULT_WIDTH_PIXELS = 600;
+
+    
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
@@ -90,9 +103,37 @@ class DefaultCentralEditingPanel extends Panel implements
         // mainGrid.setSpacing(true);
 
         final VerticalLayout verticalLayoutLeft = new VerticalLayout();
-        final Embedded e =
-                new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
-        verticalLayoutLeft.addComponent(e);
+
+        
+        /**
+         * Graph panel (start)
+         */
+        final ProjectNetworkGraphPanelFactory factory = this.injector.getInstance(ProjectNetworkGraphPanelFactory.class);
+        final ProjectNetworkGraphPanel graphPanel = factory.create();
+        
+        graphPanel.setInjector(injector);
+        graphPanel.initGui();
+  
+        final List<SchedulingObjectDependencyTuple> tuples =
+            getDependencyTuples();
+
+        graphPanel.updatePanel(tuples);
+        
+        
+        final com.vaadin.ui.Layout graphPanelLayout = graphPanel.toLayout();
+        
+        graphPanelLayout.setWidth(DEFAULT_WIDTH_PIXELS, UNITS_PIXELS);
+        graphPanelLayout.setHeight(DEFAULT_HEIGHT_PIXELS, UNITS_PIXELS);
+
+//        final Embedded e =
+//                new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
+//        e.setWidth(350, UNITS_PIXELS);
+//        e.setHeight(171, UNITS_PIXELS);
+        
+        verticalLayoutLeft.addComponent(graphPanelLayout);
+        /**
+         * Graph panel (end)
+         */
 
         final GridLayout buttonsNewGrid = new GridLayout(3, 1);
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
@@ -152,6 +193,37 @@ class DefaultCentralEditingPanel extends Panel implements
         mainGrid.addComponent(verticalPanelRight, 1, 0);
 
         this.addComponent(mainGrid);
+    }
+    
+
+    private List<SchedulingObjectDependencyTuple> getDependencyTuples() {
+        final List<SchedulingObjectDependencyTuple> tuples =
+                new LinkedList<SchedulingObjectDependencyTuple>();
+
+        final SchedulingObjectDependencyTuple tuple1 =
+                new MockSchedulingObjectDependencyTuple();
+        tuple1.setLabel(P1);
+
+        final SchedulingObjectDependencyTuple tuple2 =
+                new MockSchedulingObjectDependencyTuple();
+        tuple2.setLabel(P2);
+        final List<String> p2Dependencies = new LinkedList<String>();
+        p2Dependencies.add(P1);
+        tuple2.setDependencies(p2Dependencies);
+
+        final SchedulingObjectDependencyTuple tuple3 =
+                new MockSchedulingObjectDependencyTuple();
+        tuple3.setLabel(P3);
+
+        tuples.add(tuple1);
+        tuples.add(tuple2);
+        tuples.add(tuple3);
+
+        LOGGER.debug("P1 dependencies: " + tuple1.getDependencies());
+        LOGGER.debug("P2 dependencies: " + tuple2.getDependencies());
+        LOGGER.debug("P3 dependencies: " + tuple3.getDependencies());
+        
+        return tuples;
     }
 
     private void initController() {
