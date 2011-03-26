@@ -181,6 +181,7 @@ class DefaultMainWindow implements MainWindow {
                 this.injector.getInstance(GraphDemoPanelFactory.class);
         final GraphDemoPanel panel = factory.create();
 
+        panel.setInjector(this.injector);
         panel.initGui();
 
         return panel.toPanel();

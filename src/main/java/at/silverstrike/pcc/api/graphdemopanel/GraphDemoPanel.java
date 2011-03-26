@@ -12,7 +12,8 @@
 package at.silverstrike.pcc.api.graphdemopanel;
 
 import at.silverstrike.pcc.api.conventions.AbstractedPanel;
+import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
-public interface GraphDemoPanel extends AbstractedPanel {
+public interface GraphDemoPanel extends AbstractedPanel, ModuleWithInjectableDependencies {
 
 }

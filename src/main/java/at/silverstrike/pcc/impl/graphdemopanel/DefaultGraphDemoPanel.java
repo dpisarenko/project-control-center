@@ -18,6 +18,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -40,10 +42,13 @@ import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import eu.livotov.tpt.TPTApplication;
 
+import com.google.inject.Injector;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
 import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
+import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
+import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
+import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
 
 class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
@@ -51,9 +56,13 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultGraphDemoPanel.class);
+    private static final String P1 = "P1";
+    private static final String P2 = "P2";
+    private static final String P3 = "P3";
     private String initialEventVertex;
     private String finalEventVertex;
-
+    private Injector injector;
+    
     @Override
     public Panel toPanel() {
         return this;
@@ -61,13 +70,53 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
 
     @Override
     public void initGui() {
-        final VerticalLayout layout = new VerticalLayout();
+        final ProjectNetworkGraphPanelFactory factory = this.injector.getInstance(ProjectNetworkGraphPanelFactory.class);
+        final ProjectNetworkGraphPanel graphPanel = factory.create();
+        
+        graphPanel.setInjector(injector);
+        graphPanel.initGui();
+  
+        
+        final List<SchedulingObjectDependencyTuple> tuples =
+            getDependencyTuples();
 
-        final Embedded image = createSampleGraph();
-        layout.addComponent(image);
-        layout.setSizeFull();
+        graphPanel.updatePanel(tuples);
+//        final VerticalLayout layout = new VerticalLayout();
+//
+//        final Embedded image = createSampleGraph();
+//        layout.addComponent(image);
+//        layout.setSizeFull();
+//
+//        this.addComponent(layout);
+    }
+    private List<SchedulingObjectDependencyTuple> getDependencyTuples() {
+        final List<SchedulingObjectDependencyTuple> tuples =
+                new LinkedList<SchedulingObjectDependencyTuple>();
 
-        this.addComponent(layout);
+        final SchedulingObjectDependencyTuple tuple1 =
+                new MockSchedulingObjectDependencyTuple();
+        tuple1.setLabel(P1);
+
+        final SchedulingObjectDependencyTuple tuple2 =
+                new MockSchedulingObjectDependencyTuple();
+        tuple2.setLabel(P2);
+        final List<String> p2Dependencies = new LinkedList<String>();
+        p2Dependencies.add(P1);
+        tuple2.setDependencies(p2Dependencies);
+
+        final SchedulingObjectDependencyTuple tuple3 =
+                new MockSchedulingObjectDependencyTuple();
+        tuple3.setLabel(P3);
+
+        tuples.add(tuple1);
+        tuples.add(tuple2);
+        tuples.add(tuple3);
+
+        LOGGER.debug("P1 dependencies: " + tuple1.getDependencies());
+        LOGGER.debug("P2 dependencies: " + tuple2.getDependencies());
+        LOGGER.debug("P3 dependencies: " + tuple3.getDependencies());
+        
+        return tuples;
     }
 
     private Embedded createSampleGraph() {
@@ -182,4 +231,8 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         return graph;
     }
 
+    @Override
+    public void setInjector(final Injector aInjector) {
+        this.injector = aInjector;
+    }
 }
