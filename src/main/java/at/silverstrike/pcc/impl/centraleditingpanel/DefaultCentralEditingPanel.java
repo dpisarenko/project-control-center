@@ -65,9 +65,6 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private DebugIdRegistry debugIdRegistry;
 
-    private static final String P1 = "P1";
-    private static final String P2 = "P2";
-    private static final String P3 = "P3";
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
     private static final int DEFAULT_WIDTH_PIXELS = 600;
 
