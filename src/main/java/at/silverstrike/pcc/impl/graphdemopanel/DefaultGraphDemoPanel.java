@@ -22,7 +22,6 @@ import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
-import at.silverstrike.pcc.impl.centraleditingpanel.MockSchedulingObjectDependencyTuple;
 
 class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
@@ -65,30 +64,30 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
     private List<SchedulingObjectDependencyTuple> getDependencyTuples() {
         final List<SchedulingObjectDependencyTuple> tuples =
                 new LinkedList<SchedulingObjectDependencyTuple>();
-
-        final SchedulingObjectDependencyTuple tuple1 =
-                new MockSchedulingObjectDependencyTuple();
-        tuple1.setLabel(P1);
-
-        final SchedulingObjectDependencyTuple tuple2 =
-                new MockSchedulingObjectDependencyTuple();
-        tuple2.setLabel(P2);
-        final List<String> p2Dependencies = new LinkedList<String>();
-        p2Dependencies.add(P1);
-        tuple2.setDependencies(p2Dependencies);
-
-        final SchedulingObjectDependencyTuple tuple3 =
-                new MockSchedulingObjectDependencyTuple();
-        tuple3.setLabel(P3);
-
-        tuples.add(tuple1);
-        tuples.add(tuple2);
-        tuples.add(tuple3);
-
-        LOGGER.debug("P1 dependencies: " + tuple1.getDependencies());
-        LOGGER.debug("P2 dependencies: " + tuple2.getDependencies());
-        LOGGER.debug("P3 dependencies: " + tuple3.getDependencies());
-        
+//
+//        final SchedulingObjectDependencyTuple tuple1 =
+//                new MockSchedulingObjectDependencyTuple();
+//        tuple1.setLabel(P1);
+//
+//        final SchedulingObjectDependencyTuple tuple2 =
+//                new MockSchedulingObjectDependencyTuple();
+//        tuple2.setLabel(P2);
+//        final List<String> p2Dependencies = new LinkedList<String>();
+//        p2Dependencies.add(P1);
+//        tuple2.setDependencies(p2Dependencies);
+//
+//        final SchedulingObjectDependencyTuple tuple3 =
+//                new MockSchedulingObjectDependencyTuple();
+//        tuple3.setLabel(P3);
+//
+//        tuples.add(tuple1);
+//        tuples.add(tuple2);
+//        tuples.add(tuple3);
+//
+//        LOGGER.debug("P1 dependencies: " + tuple1.getDependencies());
+//        LOGGER.debug("P2 dependencies: " + tuple2.getDependencies());
+//        LOGGER.debug("P3 dependencies: " + tuple3.getDependencies());
+//        
         return tuples;
     }
     
