@@ -193,29 +193,6 @@ class DefaultCentralEditingPanel extends Panel implements
         final List<SchedulingObjectDependencyTuple> tuples =
                 new LinkedList<SchedulingObjectDependencyTuple>();
 
-        final SchedulingObjectDependencyTuple tuple1 =
-                new MockSchedulingObjectDependencyTuple();
-        tuple1.setLabel(P1);
-
-        final SchedulingObjectDependencyTuple tuple2 =
-                new MockSchedulingObjectDependencyTuple();
-        tuple2.setLabel(P2);
-        final List<String> p2Dependencies = new LinkedList<String>();
-        p2Dependencies.add(P1);
-        tuple2.setDependencies(p2Dependencies);
-
-        final SchedulingObjectDependencyTuple tuple3 =
-                new MockSchedulingObjectDependencyTuple();
-        tuple3.setLabel(P3);
-
-        tuples.add(tuple1);
-        tuples.add(tuple2);
-        tuples.add(tuple3);
-
-        LOGGER.debug("P1 dependencies: " + tuple1.getDependencies());
-        LOGGER.debug("P2 dependencies: " + tuple2.getDependencies());
-        LOGGER.debug("P3 dependencies: " + tuple3.getDependencies());
-
         final String P2_2 = "P2.2";
         final String P2_3 = "P2.3";
         final String P2_4 = "P2.4";
