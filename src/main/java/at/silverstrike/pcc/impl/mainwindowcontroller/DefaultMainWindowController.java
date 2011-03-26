@@ -106,10 +106,16 @@ class DefaultMainWindowController implements MainWindowController {
         mainWindow
                 .showNotification("222Test for Export222");
 
-        final FileResource resource =
-                new FileResource(targetFile,
+        final FileDownloadResource downloadResource =
+                new FileDownloadResource(targetFile,
                         TPTApplication.getCurrentApplication());
-        mainWindow.open(resource, "_blank");
+
+        mainWindow.open(downloadResource);
+        
+//        final FileResource resource =
+//                new FileResource(targetFile,
+//                        TPTApplication.getCurrentApplication());
+//        mainWindow.open(resource, "_blank");
     }
 
     private UserData getSampleData() {
