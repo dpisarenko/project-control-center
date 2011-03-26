@@ -28,7 +28,6 @@ import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
-import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanelFactory;
 import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
@@ -73,7 +72,6 @@ import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.graph2resource.DefaultGraph2ResourceConverterFactory;
-import at.silverstrike.pcc.impl.graphdemopanel.DefaultGraphDemoPanelFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
 import at.silverstrike.pcc.impl.meetingeditingpanel.DefaultMeetingEditingPanelFactory;
@@ -168,8 +166,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultDependenciesEditingPanelFactory());
         bind(TestTableCreator.class).toInstance(
                 getTestTableCreator());
-        bind(GraphDemoPanelFactory.class).toInstance(
-                new DefaultGraphDemoPanelFactory());
         bind(TaskEditingPanelFactory.class).toInstance(
                 new DefaultTaskEditingPanelFactory());
         bind(MeetingEditingPanelFactory.class).toInstance(
