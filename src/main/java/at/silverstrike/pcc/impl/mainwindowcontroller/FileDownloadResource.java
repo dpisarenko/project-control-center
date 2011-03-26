@@ -45,7 +45,7 @@ class FileDownloadResource extends FileResource {
             ds.setCacheTime(getCacheTime());
             return ds;
         } catch (final FileNotFoundException exception) {
-            LOGGER.error("", exception);
+            LOGGER.error(ErrorCodes.M_001_FILE_NOT_FOUND, exception);
             return null;
         }
     }

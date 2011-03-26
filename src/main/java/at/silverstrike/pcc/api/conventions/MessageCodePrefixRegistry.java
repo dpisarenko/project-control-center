@@ -26,7 +26,7 @@ public final class MessageCodePrefixRegistry {
         centraleditingpanel,
         dependencieseditingwindow, graphdemopanel, taskeditingpanel,
         meetingeditingpanel, milestoneeditingpanel, projectnetworkgraphpanel,
-        graph2resource
+        graph2resource, mainwindowcontroller
     }
 
     private Map<Module, String> prefixesByModules;
@@ -84,5 +84,6 @@ public final class MessageCodePrefixRegistry {
         this.prefixesByModules.put(Module.milestoneeditingpanel, "030");
         this.prefixesByModules.put(Module.projectnetworkgraphpanel, "031");
         this.prefixesByModules.put(Module.graph2resource, "032");
+        this.prefixesByModules.put(Module.mainwindowcontroller, "033");
     }
 }

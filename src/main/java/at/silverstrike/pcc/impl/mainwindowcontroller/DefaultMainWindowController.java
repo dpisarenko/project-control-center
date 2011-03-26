@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
-import com.vaadin.terminal.FileResource;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
@@ -36,16 +35,11 @@ import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlDeserializerFactory;
 import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 
 class DefaultMainWindowController implements MainWindowController {
-
-    private Injector injector = null;
-
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultMainWindowController.class);
 
     @Override
     public final void setInjector(final Injector aInjector) {
-        this.injector = aInjector;
-
     }
 
     @Override
@@ -71,7 +65,7 @@ class DefaultMainWindowController implements MainWindowController {
             LOGGER.error("", exception);
         }
 
-        final UserData readData = deserializer.getUserData();
+        // final UserData readData = deserializer.getUserData();
         // Deserialize (end)
         TPTApplication.getCurrentApplication().getMainWindow()
                 .showNotification("111Test for Import111");
@@ -90,14 +84,14 @@ class DefaultMainWindowController implements MainWindowController {
         try {
             fileOutputStream = new FileOutputStream(targetFile);
         } catch (final FileNotFoundException exception) {
-            LOGGER.error("", exception);
+            LOGGER.error(ErrorCodes.M_003_FILE_NOT_FOUND, exception);
         }
         serializer.setOutputStream(fileOutputStream);
         serializer.setUserData(writtenData);
         try {
             serializer.run();
         } catch (final PccException exception) {
-            LOGGER.error("", exception);
+            LOGGER.error(ErrorCodes.M_002_SERIALIZATION_FAULT, exception);
         }
         // Serialize writtenData to targetFile (end)
 
@@ -111,11 +105,6 @@ class DefaultMainWindowController implements MainWindowController {
                         TPTApplication.getCurrentApplication());
 
         mainWindow.open(downloadResource);
-        
-//        final FileResource resource =
-//                new FileResource(targetFile,
-//                        TPTApplication.getCurrentApplication());
-//        mainWindow.open(resource, "_blank");
     }
 
     private UserData getSampleData() {
