@@ -20,8 +20,6 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Injector;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.terminal.Sizeable;
-import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Alignment;
@@ -124,11 +122,6 @@ class DefaultCentralEditingPanel extends Panel implements
         
         graphPanelLayout.setWidth(DEFAULT_WIDTH_PIXELS, UNITS_PIXELS);
         graphPanelLayout.setHeight(DEFAULT_HEIGHT_PIXELS, UNITS_PIXELS);
-
-//        final Embedded e =
-//                new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
-//        e.setWidth(350, UNITS_PIXELS);
-//        e.setHeight(171, UNITS_PIXELS);
         
         verticalLayoutLeft.addComponent(graphPanelLayout);
         /**
@@ -222,8 +215,40 @@ class DefaultCentralEditingPanel extends Panel implements
         LOGGER.debug("P1 dependencies: " + tuple1.getDependencies());
         LOGGER.debug("P2 dependencies: " + tuple2.getDependencies());
         LOGGER.debug("P3 dependencies: " + tuple3.getDependencies());
+
+        final String P2_2 = "P2.2";
+        final String P2_3 = "P2.3";
+        final String P2_4 = "P2.4";
+        final String P2_5 = "P2.5";
+        final String P2_6 = "P2.6";
+        final String P2_7 = "P2.7";
+        final String P2_8 = "P2.8";
+
+        tuples.add(getTuple(P2_2, new String[]{}));
+        tuples.add(getTuple(P2_3, new String[]{P2_2}));
+        tuples.add(getTuple(P2_4, new String[]{P2_2}));
+        tuples.add(getTuple(P2_5, new String[]{P2_2, P2_4}));
+        tuples.add(getTuple(P2_6, new String[]{P2_5}));
+        tuples.add(getTuple(P2_7, new String[]{P2_2, P2_3, P2_6}));
+        tuples.add(getTuple(P2_8, new String[]{P2_6}));
         
         return tuples;
+    }
+
+    private SchedulingObjectDependencyTuple getTuple(final String aLabel,
+            final String[] aDependencies) {
+        final List<String> dependencies = new LinkedList<String>();
+        final MockSchedulingObjectDependencyTuple returnValue = new MockSchedulingObjectDependencyTuple();
+        
+        for (final String curDep : aDependencies)
+        {
+            dependencies.add(curDep);
+        }
+        
+        returnValue.setLabel(aLabel);
+        returnValue.setDependencies(dependencies);
+        
+        return returnValue;
     }
 
     private void initController() {
