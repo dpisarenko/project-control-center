@@ -76,11 +76,12 @@ class DefaultGraphDemoPanel extends Panel implements GraphDemoPanel {
         graphPanel.setInjector(injector);
         graphPanel.initGui();
   
-        
         final List<SchedulingObjectDependencyTuple> tuples =
             getDependencyTuples();
 
         graphPanel.updatePanel(tuples);
+        
+        this.addComponent(graphPanel.toLayout());
 //        final VerticalLayout layout = new VerticalLayout();
 //
 //        final Embedded image = createSampleGraph();
