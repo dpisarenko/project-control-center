@@ -43,6 +43,7 @@ import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReaderFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
+import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
@@ -83,6 +84,7 @@ import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationResponderFacto
 import at.silverstrike.pcc.impl.parameterdatareader.DefaultParameterDataReaderFactory;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import at.silverstrike.pcc.impl.processpanel.DefaultProcessPanelFactory;
+import at.silverstrike.pcc.impl.projectnetworkgraphcreator.DefaultProjectNetworkGraphCreatorFactory;
 import at.silverstrike.pcc.impl.projectnetworkgraphpanel.DefaultProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
 import at.silverstrike.pcc.impl.schedulingpanel.DefaultSchedulingPanelFactory;
@@ -180,6 +182,8 @@ class InjectorModule extends AbstractModule {
                 new DefaultMeetingEditingPanelControllerFactory().create());
         bind(ProjectNetworkGraphPanelFactory.class).toInstance(
                 new DefaultProjectNetworkGraphPanelFactory());
+        bind(ProjectNetworkGraphCreator.class).toInstance(
+                new DefaultProjectNetworkGraphCreatorFactory().create());
     }
 
     private TestTableCreator getTestTableCreator() {
