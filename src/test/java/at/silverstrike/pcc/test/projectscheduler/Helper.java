@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.persistence.Persistence;
@@ -35,9 +35,9 @@ class Helper {
     public void fillProjectInfo01(final ProjectExportInfo anInfo) {
         final MockObjectFactory mockObjectFactory = new MockObjectFactory();
         
-        final List<ControlProcess> processes = new LinkedList<ControlProcess>();
+        final List<Task> processes = new LinkedList<Task>();
         
-        final ControlProcess task = mockObjectFactory.createControlProcess(2010L);
+        final Task task = mockObjectFactory.createControlProcess(2010L);
         
         task.setName("Some interesting task");
         task.setPriority(200);
@@ -81,10 +81,10 @@ class Helper {
     }
     
     public void fillProjectInfo02(final ProjectExportInfo anInfo, final Persistence aPersistence) {
-        final List<ControlProcess> processes = new LinkedList<ControlProcess>();
+        final List<Task> processes = new LinkedList<Task>();
         
         final Long id = aPersistence.createTask("Some interesting task");
-        final ControlProcess task = aPersistence.getTask(id);
+        final Task task = aPersistence.getTask(id);
         
         task.setPriority(200);
         task.setBestCaseEffort(2.5);

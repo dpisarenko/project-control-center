@@ -26,8 +26,8 @@ import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
  *
  */
 public interface Booking extends UniquelyIdentifiableObject {
-	void setProcess(final ControlProcess aProcess);
-	ControlProcess getProcess();
+	void setProcess(final Task aProcess);
+	Task getProcess();
 	
 	void setResource(final Resource aResource);
 	Resource getResource();

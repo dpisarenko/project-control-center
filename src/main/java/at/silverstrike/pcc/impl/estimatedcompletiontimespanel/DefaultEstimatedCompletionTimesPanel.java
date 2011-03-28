@@ -24,7 +24,7 @@ import com.vaadin.ui.Button.ClickListener;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanel;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
 /**
@@ -140,17 +140,17 @@ class DefaultEstimatedCompletionTimesPanel extends Panel implements
     private void fillTable() {
         final Persistence persistence =
                 this.injector.getInstance(Persistence.class);
-        final List<ControlProcess> tasksToShow =
+        final List<Task> tasksToShow =
                 persistence.getUncompletedTasksWithEstimatedEndTime();
 
         this.processesTable.removeAllItems();
 
-        for (ControlProcess task : tasksToShow) {
+        for (Task task : tasksToShow) {
             this.processesTable.addItem(getTaskCells(task), task.getId());
         }
     }
 
-    private Object[] getTaskCells(final ControlProcess aTask) {
+    private Object[] getTaskCells(final Task aTask) {
         final Object[] cells = new Object[COLUMNS_COUNT];
 
         if (aTask.getParent() == null) {

@@ -21,7 +21,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
@@ -56,9 +56,9 @@ class MockPersistence01 extends MockPersistenceAdapter {
     }
 
     @Override
-    public List<ControlProcess> getChildTasks(
-            final ControlProcess aParent) {
-        return new LinkedList<ControlProcess>();
+    public List<Task> getChildTasks(
+            final Task aParent) {
+        return new LinkedList<Task>();
     }
 
     @Override

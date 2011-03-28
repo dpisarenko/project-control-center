@@ -13,7 +13,7 @@ package at.silverstrike.pcc.impl.persistence;
 
 import java.util.Date;
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.impl.util.Utils;
 
@@ -23,16 +23,16 @@ import at.silverstrike.pcc.impl.util.Utils;
  */
 class DefaultBooking implements Booking {
     private Long id;
-    private ControlProcess process;
+    private Task process;
     private Resource resource;
     private Date startDateTime;
     private double duration;
 
-    public ControlProcess getProcess() {
+    public Task getProcess() {
         return process;
     }
 
-    public void setProcess(final ControlProcess aProcess) {
+    public void setProcess(final Task aProcess) {
         this.process = aProcess;
     }
 

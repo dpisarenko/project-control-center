@@ -1,7 +1,7 @@
 package at.silverstrike.pcc.test.model;
 
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyLimitResourceAllocation;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
@@ -17,7 +17,7 @@ public class MockObjectFactory {
 		return new MockUserData();
 	}
 
-	public final ControlProcess createControlProcess() {
+	public final Task createControlProcess() {
 		return new MockControlProcess();
 	}
 	

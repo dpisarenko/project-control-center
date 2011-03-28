@@ -1,24 +1,24 @@
 package at.silverstrike.pcc.test.model;
 
 import java.util.List;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyToDoList;
 
 class MockDailyToDoList implements DailyToDoList {
 	
 	private Long id;
-	private List<ControlProcess> tasksToCompleteToday;
+	private List<Task> tasksToCompleteToday;
 
 	public Long getId() {
 		return this.id;
 	}
 
 	public void setTasksToCompleteToday(
-			final List<ControlProcess> aTasksToCompleteToday) {
+			final List<Task> aTasksToCompleteToday) {
 		this.tasksToCompleteToday = aTasksToCompleteToday;
 	}
 
-	public List<ControlProcess> getTasksToCompleteToday() {
+	public List<Task> getTasksToCompleteToday() {
 		return this.tasksToCompleteToday;
 	}
 

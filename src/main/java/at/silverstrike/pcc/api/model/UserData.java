@@ -16,8 +16,8 @@ public interface UserData {
 	void setIdentifier(final String aIdentifier);
 	String getIdentifier();
 	
-	void setProcesses(List<ControlProcess> aProcesses);
-	List<ControlProcess> getProcesses();
+	void setProcesses(List<Task> aProcesses);
+	List<Task> getProcesses();
 	
 	void setDailyPlans(List<DailyPlan> aDailyPlans);
 	List<DailyPlan> getDailyPlans();

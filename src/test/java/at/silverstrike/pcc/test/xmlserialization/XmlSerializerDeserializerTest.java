@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.DailyToDoList;
@@ -54,18 +54,18 @@ public class XmlSerializerDeserializerTest extends TestCase {
 		// daily plans,
 		// to-do lists and
 		// schedules.
-		final ControlProcess process1 = objectFactory.createControlProcess();
+		final Task process1 = objectFactory.createControlProcess();
 		process1.setName("process1");
 		process1.setAverageEstimatedEndDateTime(new Date());
 		process1.setBestCaseEffort(1.1);
 		process1.setBestEstimatedEndDateTime(new Date());
-		ControlProcess parent = objectFactory.createControlProcess();
+		Task parent = objectFactory.createControlProcess();
 		parent.setAverageEstimatedEndDateTime(new Date());
 		parent.setBestCaseEffort(3.3);
 		parent.setBestEstimatedEndDateTime(new Date());
 		parent.setName("parent");
 		parent.setParent(objectFactory.createControlProcess());
-		parent.setPredecessors(new HashSet<ControlProcess>());
+		parent.setPredecessors(new HashSet<Task>());
 		parent.setPriority(1);
 		parent.setProcessType(ProcessType.GOAL);
 		parent.setResourceAllocations(new ArrayList<ResourceAllocation>());
@@ -73,8 +73,8 @@ public class XmlSerializerDeserializerTest extends TestCase {
 		parent.setWorstCaseEffort(6.7);
 		parent.setWorstEstimatedEndDateTime(new Date());
 		process1.setParent(parent);
-		Set<ControlProcess> predecessors = new HashSet<ControlProcess>();
-		ControlProcess firstPredecessors = objectFactory.createControlProcess();
+		Set<Task> predecessors = new HashSet<Task>();
+		Task firstPredecessors = objectFactory.createControlProcess();
 		firstPredecessors.setAverageEstimatedEndDateTime(new Date());
 		firstPredecessors.setBestCaseEffort(2.2);
 		firstPredecessors.setBestEstimatedEndDateTime(new Date());
@@ -102,7 +102,7 @@ public class XmlSerializerDeserializerTest extends TestCase {
 		process1.setState(ProcessState.ATTAINED);
 		process1.setWorstCaseEffort(7.7);
 		process1.setWorstEstimatedEndDateTime(new Date());
-		writtenData.setProcesses(new ArrayList<ControlProcess>());
+		writtenData.setProcesses(new ArrayList<Task>());
 		writtenData.getProcesses().add(process1);
 		final DailyPlan dailyPlan1 = objectFactory.createDailyPlan();
 		dailyPlan1.setDate(new Date());
@@ -117,7 +117,7 @@ public class XmlSerializerDeserializerTest extends TestCase {
 		dailySchedule.getBookings().add(booking);
 		dailyPlan1.setSchedule(dailySchedule);
 		DailyToDoList dailyToDoList = objectFactory.createDailyToDoList();
-		dailyToDoList.setTasksToCompleteToday(new ArrayList<ControlProcess>());
+		dailyToDoList.setTasksToCompleteToday(new ArrayList<Task>());
 		dailyPlan1.setToDoList(dailyToDoList);
 		writtenData.setDailyPlans(new ArrayList<DailyPlan>());
 		writtenData.getDailyPlans().add(dailyPlan1);
@@ -290,7 +290,7 @@ public class XmlSerializerDeserializerTest extends TestCase {
 			TestProcess(written.getProcess(), read.getProcess());
 	}
 
-	private void TestProcess(ControlProcess written, ControlProcess read) {
+	private void TestProcess(Task written, Task read) {
 		if (written.getName() != null)
 			Assert.assertEquals(written.getName(), read.getName());
 		if (written.getAverageEstimatedEndDateTime() != null)
@@ -312,8 +312,8 @@ public class XmlSerializerDeserializerTest extends TestCase {
 			Assert.assertEquals(writtenPredecesors, readPredecesors);
 			if (writtenPredecesors == readPredecesors) {
 				for (int i = 0; i < writtenPredecesors; i++) {
-					TestProcess((ControlProcess) written.getPredecessors()
-							.toArray()[i], (ControlProcess) read
+					TestProcess((Task) written.getPredecessors()
+							.toArray()[i], (Task) read
 							.getPredecessors().toArray()[i]);
 				}
 			}

@@ -2,14 +2,14 @@ package at.silverstrike.pcc.test.model;
 
 import java.util.List;
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.UserData;
 
 class MockUserData implements UserData {
 
 	private String identifier;
-	private List<ControlProcess> processes;
+	private List<Task> processes;
 	private List<DailyPlan> dailyPlans;
 	private List<Booking> bookings;
 
@@ -19,10 +19,10 @@ class MockUserData implements UserData {
 	public void setIdentifier(final String aIdentifier) {
 		this.identifier = aIdentifier;
 	}
-	public List<ControlProcess> getProcesses() {
+	public List<Task> getProcesses() {
 		return processes;
 	}
-	public void setProcesses(final List<ControlProcess> aProcesses) {
+	public void setProcesses(final List<Task> aProcesses) {
 		this.processes = aProcesses;
 	}
 	public List<DailyPlan> getDailyPlans() {

@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.DailyToDoList;
@@ -191,13 +191,13 @@ public class TestDefaultProjectScheduler {
          * Verify that now the result of getUncompletedTasksWithEstimatedEndTime
          * contains exactly one task.
          */
-        final List<ControlProcess> processes =
+        final List<Task> processes =
                 persistence.getUncompletedTasksWithEstimatedEndTime();
 
         Assert.assertNotNull(processes);
         Assert.assertEquals(1, processes.size());
 
-        final ControlProcess process = processes.get(0);
+        final Task process = processes.get(0);
 
         final Date date201010251130 =
                 RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 11, 30);
@@ -236,7 +236,7 @@ public class TestDefaultProjectScheduler {
         Assert.assertNotNull(booking.getProcess());
         Assert.assertNotNull(booking.getResource());
         
-        final ControlProcess expectedTask = projectInfo.getControlProcessesToExport().get(0);
+        final Task expectedTask = projectInfo.getControlProcessesToExport().get(0);
         
         Assert.assertEquals(expectedTask.getName(), booking.getProcess().getName());
         Assert.assertEquals(projectInfo.getResourcesToExport().get(0).getAbbreviation(), booking.getResource().getAbbreviation());
@@ -253,13 +253,13 @@ public class TestDefaultProjectScheduler {
         
         Assert.assertNotNull(toDoList);
         
-        final List<ControlProcess> tasks = toDoList.getTasksToCompleteToday();
+        final List<Task> tasks = toDoList.getTasksToCompleteToday();
         
         Assert.assertNotNull(tasks);
         
         Assert.assertEquals(1, tasks.size());
         
-        final ControlProcess task = tasks.get(0);
+        final Task task = tasks.get(0);
         
         Assert.assertEquals(expectedTask.getId(), task.getId());
         Assert.assertEquals(expectedTask.getName(), task.getName());        

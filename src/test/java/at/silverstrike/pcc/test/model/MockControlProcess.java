@@ -3,132 +3,146 @@ package at.silverstrike.pcc.test.model;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 
-class MockControlProcess implements ControlProcess {
-	
-	private Long id;
-	private String name;
-	private ProcessState state;
-	private Double bestCaseEffort;
-	private Double averageCaseEffort;
-	private Double worstCaseEffort;
-	private List<ResourceAllocation> resourceAllocations;
-	private Integer priority;
-	private ControlProcess parentProcess;
-	private ProcessType type;
-	private Date averageEstimatedEndDateTime;
-	private Date bestEstimatedEndDateTime;
-	private Date worstEstimatedEndDateTime;
-	private Set<ControlProcess> predecessors;
+class MockControlProcess implements Task {
 
-	public Long getId() {
-		return this.id;
-	}
+    private Long id;
+    private String name;
+    private ProcessState state;
+    private Double bestCaseEffort;
+    private Double averageCaseEffort;
+    private Double worstCaseEffort;
+    private List<ResourceAllocation> resourceAllocations;
+    private Integer priority;
+    private Task parentProcess;
+    private ProcessType type;
+    private Date averageEstimatedEndDateTime;
+    private Date bestEstimatedEndDateTime;
+    private Date worstEstimatedEndDateTime;
+    private Set<SchedulingObject> predecessors;
 
-	public String getName() {
-		return this.name;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public void setName(final String aName) {
-		this.name = aName;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public ProcessState getState() {
-		return this.state;
-	}
+    public void setName(final String aName) {
+        this.name = aName;
+    }
 
-	public void setState(final ProcessState aState) {
-		this.state = aState;
-	}
+    public ProcessState getState() {
+        return this.state;
+    }
 
-	public Double getBestCaseEffort() {
-		return this.bestCaseEffort;
-	}
+    public void setState(final ProcessState aState) {
+        this.state = aState;
+    }
 
-	public void setBestCaseEffort(final Double aEffortInHours) {
-		this.bestCaseEffort = aEffortInHours;
-	}
+    public Double getBestCaseEffort() {
+        return this.bestCaseEffort;
+    }
 
-	public double getAverageCaseEffort() {
-		return this.averageCaseEffort;
-	}
+    public void setBestCaseEffort(final Double aEffortInHours) {
+        this.bestCaseEffort = aEffortInHours;
+    }
 
-	public Double getWorstCaseEffort() {
-		return this.worstCaseEffort;
-	}
+    public double getAverageCaseEffort() {
+        return this.averageCaseEffort;
+    }
 
-	public void setWorstCaseEffort(final Double aEffortInHours) {
-		this.worstCaseEffort = aEffortInHours;
-		
-	}
+    public Double getWorstCaseEffort() {
+        return this.worstCaseEffort;
+    }
 
-	public void setResourceAllocations(
-			final List<ResourceAllocation> aResourceAllocations) {
-		this.resourceAllocations = aResourceAllocations;
-	}
+    public void setWorstCaseEffort(final Double aEffortInHours) {
+        this.worstCaseEffort = aEffortInHours;
 
-	public List<ResourceAllocation> getResourceAllocations() {
-		return this.resourceAllocations;
-	}
+    }
 
-	public void setPriority(final Integer aPriority) {
-		this.priority = aPriority;
-	}
+    public void setResourceAllocations(
+            final List<ResourceAllocation> aResourceAllocations) {
+        this.resourceAllocations = aResourceAllocations;
+    }
 
-	public Integer getPriority() {
-		return this.priority;
-	}
+    public List<ResourceAllocation> getResourceAllocations() {
+        return this.resourceAllocations;
+    }
 
-	public ControlProcess getParent() {
-		return this.parentProcess;
-	}
+    public void setPriority(final Integer aPriority) {
+        this.priority = aPriority;
+    }
 
-	public void setParent(final ControlProcess aParentProcess) {
-		this.parentProcess = aParentProcess;
-	}
+    public Integer getPriority() {
+        return this.priority;
+    }
 
-	public void setProcessType(final ProcessType aType) {
-		this.type = aType;
-	}
+    public Task getParent() {
+        return this.parentProcess;
+    }
 
-	public ProcessType getProcessType() {
-		return this.type;
-	}
+    public void setParent(final Task aParentProcess) {
+        this.parentProcess = aParentProcess;
+    }
 
-	public Date getAverageEstimatedEndDateTime() {
-		return this.averageEstimatedEndDateTime;
-	}
+    public void setProcessType(final ProcessType aType) {
+        this.type = aType;
+    }
 
-	public void setAverageEstimatedEndDateTime(final Date aDate) {
-		this.averageEstimatedEndDateTime = aDate;
-	}
+    public ProcessType getProcessType() {
+        return this.type;
+    }
 
-	public Date getBestEstimatedEndDateTime() {
-		return this.bestEstimatedEndDateTime;
-	}
+    public Date getAverageEstimatedEndDateTime() {
+        return this.averageEstimatedEndDateTime;
+    }
 
-	public void setBestEstimatedEndDateTime(final Date aDate) {
-		this.bestEstimatedEndDateTime = aDate;
-	}
+    public void setAverageEstimatedEndDateTime(final Date aDate) {
+        this.averageEstimatedEndDateTime = aDate;
+    }
 
-	public Date getWorstEstimatedEndDateTime() {
-		return this.worstEstimatedEndDateTime;
-	}
+    public Date getBestEstimatedEndDateTime() {
+        return this.bestEstimatedEndDateTime;
+    }
 
-	public void setWorstEstimatedEndDateTime(final Date aDate) {
-		this.worstEstimatedEndDateTime = aDate;
-	}
+    public void setBestEstimatedEndDateTime(final Date aDate) {
+        this.bestEstimatedEndDateTime = aDate;
+    }
 
-	public void setPredecessors(final Set<ControlProcess> aPredecessors) {
-		this.predecessors = aPredecessors;
-	}
+    public Date getWorstEstimatedEndDateTime() {
+        return this.worstEstimatedEndDateTime;
+    }
 
-	public Set<ControlProcess> getPredecessors() {
-		return this.predecessors;
-	}
+    public void setWorstEstimatedEndDateTime(final Date aDate) {
+        this.worstEstimatedEndDateTime = aDate;
+    }
+
+    public Set<SchedulingObject> getPredecessors() {
+        return predecessors;
+    }
+
+    public void setPredecessors(final Set<SchedulingObject> aPredecessors) {
+        this.predecessors = aPredecessors;
+    }
+
+    @Override
+    public void setLabel(final String aLabel) {
+    }
+
+    @Override
+    public String getLabel() {
+        if (this.id != null) {
+            return this.id.toString();
+        } else {
+            return "";
+        }
+    }
 
 }

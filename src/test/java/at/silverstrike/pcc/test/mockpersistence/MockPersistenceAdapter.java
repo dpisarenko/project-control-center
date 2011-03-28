@@ -20,7 +20,7 @@ import org.hibernate.Session;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
@@ -86,12 +86,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public List<ControlProcess> getAllIntentsAndGoalRegions() {
+    public List<Task> getAllIntentsAndGoalRegions() {
         throw new NotImplementedException();
     }
 
     @Override
-    public List<ControlProcess> getAllNotDeletedTasks() {
+    public List<Task> getAllNotDeletedTasks() {
         throw new NotImplementedException();
     }
 
@@ -101,12 +101,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public List<ControlProcess> getChildTasks(ControlProcess aParent) {
+    public List<Task> getChildTasks(Task aParent) {
         throw new NotImplementedException();
     }
 
     @Override
-    public List<ControlProcess> getChildTasks(Long aProcessId) {
+    public List<Task> getChildTasks(Long aProcessId) {
         throw new NotImplementedException();
     }
 
@@ -126,17 +126,17 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public List<ControlProcess> getSubProcessesWithChildren(Long processId) {
+    public List<Task> getSubProcessesWithChildren(Long processId) {
         throw new NotImplementedException();
     }
 
     @Override
-    public ControlProcess getTask(Object aProcessid) {
+    public Task getTask(Object aProcessid) {
         throw new NotImplementedException();
     }
 
     @Override
-    public List<ControlProcess> getUncompletedTasksWithEstimatedEndTime() {
+    public List<Task> getUncompletedTasksWithEstimatedEndTime() {
         throw new NotImplementedException();
     }
 
@@ -156,7 +156,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public void updateTask(ControlProcess process) {
+    public void updateTask(Task process) {
         throw new NotImplementedException();
     }
 

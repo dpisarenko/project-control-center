@@ -18,7 +18,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
@@ -82,19 +82,19 @@ public class TestDefaultPersistence {
         final Long taskId = persistence.createTask("Bug #57");
         
     	// Verify it's present in the list of not attained tasks
-        final List<ControlProcess> processList1 = persistence.getAllNotDeletedTasks();
+        final List<Task> processList1 = persistence.getAllNotDeletedTasks();
         
         Assert.assertEquals(1, processList1.size());
         
     	// Mark the task as attained
-    	final ControlProcess process = persistence.getTask(taskId);
+    	final Task process = persistence.getTask(taskId);
     	Assert.assertNotNull(process);
         
     	process.setState(ProcessState.ATTAINED);
     	persistence.updateTask(process);
     	
     	// Verify it's not present in the list of not attained tasks
-        final List<ControlProcess> processList2 = persistence.getAllNotDeletedTasks();
+        final List<Task> processList2 = persistence.getAllNotDeletedTasks();
         
         Assert.assertEquals(0, processList2.size());
     	

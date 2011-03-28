@@ -33,7 +33,7 @@ import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.export2tj3.NoProcessesException;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
@@ -333,7 +333,7 @@ public class TestDefaultTaskJuggler3Exporter {
 		Resource resource1 = null;
 		// resource1 = mockObjectFactory.createResource((long) 1);
 
-		ControlProcess task = readData.getProcesses().get(0);
+		Task task = readData.getProcesses().get(0);
 		resource1 = task.getResourceAllocations().get(0).getResource();
 		List<Resource> resourceList = new ArrayList<Resource>();
 		resourceList.add(resource1);

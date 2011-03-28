@@ -28,7 +28,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.test.mockpersistence.MockObjectFactory;
@@ -68,8 +68,8 @@ class Helper {
         return now;
     }
 
-    public List<ControlProcess> getTestRun01Processes() {
-        final List<ControlProcess> processes = new LinkedList<ControlProcess>();
+    public List<Task> getTestRun01Processes() {
+        final List<Task> processes = new LinkedList<Task>();
         
         processes.add(MOCK_OBJECT_FACTORY.createControlProcess(null));
         processes.add(MOCK_OBJECT_FACTORY.createControlProcess(null));
@@ -102,10 +102,10 @@ class Helper {
         return worker;
     }
 
-    public List<ControlProcess> getTestRun03Processes() {
-        final List<ControlProcess> processes = new LinkedList<ControlProcess>();
+    public List<Task> getTestRun03Processes() {
+        final List<Task> processes = new LinkedList<Task>();
         
-        final ControlProcess task = MOCK_OBJECT_FACTORY.createControlProcess(2010L);
+        final Task task = MOCK_OBJECT_FACTORY.createControlProcess(2010L);
         
         task.setName("Some interesting task");
         task.setPriority(200);
@@ -123,10 +123,10 @@ class Helper {
         
         return processes;
     }
-    public List<ControlProcess> getTestDefect59Processes() {
-        final List<ControlProcess> processes = new LinkedList<ControlProcess>();
+    public List<Task> getTestDefect59Processes() {
+        final List<Task> processes = new LinkedList<Task>();
         
-        final ControlProcess task = MOCK_OBJECT_FACTORY.createControlProcess(null);
+        final Task task = MOCK_OBJECT_FACTORY.createControlProcess(null);
         
         task.setName(null);
         task.setPriority(null);

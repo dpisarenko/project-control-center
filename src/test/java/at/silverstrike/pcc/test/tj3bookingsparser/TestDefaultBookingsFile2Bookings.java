@@ -23,7 +23,7 @@ import org.junit.Test;
 
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
@@ -118,7 +118,7 @@ public class TestDefaultBookingsFile2Bookings {
         Assert.assertEquals(RubyDateTimeUtils.getDate(2010, OCTOBER, 25, 9, 0), booking.getStartDateTime());
         Assert.assertEquals(RubyDateTimeUtils.getDate(2010, OCTOBER, 25, 11, 45), booking.getEndDateTime());
         
-        final ControlProcess process = booking.getProcess();
+        final Task process = booking.getProcess();
         
         Assert.assertNull(process);
         

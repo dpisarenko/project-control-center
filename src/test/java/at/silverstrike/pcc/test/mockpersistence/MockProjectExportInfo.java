@@ -14,7 +14,7 @@ package at.silverstrike.pcc.test.mockpersistence;
 import java.util.Date;
 import java.util.List;
 
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
 
@@ -28,7 +28,7 @@ public class MockProjectExportInfo implements ProjectExportInfo {
     private Date now;
     private String copyright;
     private String currency;
-    private List<ControlProcess> controlProcessesToExport;
+    private List<Task> controlProcessesToExport;
     private List<Resource> resourcesToExport;
     
     public int getSchedulingHorizonMonths() {
@@ -61,11 +61,11 @@ public class MockProjectExportInfo implements ProjectExportInfo {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-    public List<ControlProcess> getControlProcessesToExport() {
+    public List<Task> getControlProcessesToExport() {
         return controlProcessesToExport;
     }
     public void setControlProcessesToExport(
-            List<ControlProcess> controlProcessesToExport) {
+            List<Task> controlProcessesToExport) {
         this.controlProcessesToExport = controlProcessesToExport;
     }
     public List<Resource> getResourcesToExport() {

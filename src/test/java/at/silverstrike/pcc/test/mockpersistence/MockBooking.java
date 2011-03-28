@@ -14,13 +14,13 @@ package at.silverstrike.pcc.test.mockpersistence;
 import java.util.Date;
 
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.impl.util.Utils;
 
 public class MockBooking implements Booking {
     private Long id;
-    private ControlProcess process;
+    private Task process;
     private Resource resource;
     private Date startDateTime;
     private double duration;
@@ -33,11 +33,11 @@ public class MockBooking implements Booking {
         this.id = id;
     }
 
-    public ControlProcess getProcess() {
+    public Task getProcess() {
         return process;
     }
 
-    public void setProcess(ControlProcess process) {
+    public void setProcess(Task process) {
         this.process = process;
     }
 
