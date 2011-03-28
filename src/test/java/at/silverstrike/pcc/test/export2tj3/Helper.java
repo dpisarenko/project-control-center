@@ -28,6 +28,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
@@ -68,8 +69,8 @@ class Helper {
         return now;
     }
 
-    public List<Task> getTestRun01Processes() {
-        final List<Task> processes = new LinkedList<Task>();
+    public List<SchedulingObject> getTestRun01Processes() {
+        final List<SchedulingObject> processes = new LinkedList<SchedulingObject>();
         
         processes.add(MOCK_OBJECT_FACTORY.createControlProcess(null));
         processes.add(MOCK_OBJECT_FACTORY.createControlProcess(null));
@@ -102,8 +103,8 @@ class Helper {
         return worker;
     }
 
-    public List<Task> getTestRun03Processes() {
-        final List<Task> processes = new LinkedList<Task>();
+    public List<SchedulingObject> getTestRun03Processes() {
+        final List<SchedulingObject> processes = new LinkedList<SchedulingObject>();
         
         final Task task = MOCK_OBJECT_FACTORY.createControlProcess(2010L);
         
@@ -123,8 +124,8 @@ class Helper {
         
         return processes;
     }
-    public List<Task> getTestDefect59Processes() {
-        final List<Task> processes = new LinkedList<Task>();
+    public List<SchedulingObject> getTestDefect59Processes() {
+        final List<SchedulingObject> processes = new LinkedList<SchedulingObject>();
         
         final Task task = MOCK_OBJECT_FACTORY.createControlProcess(null);
         
