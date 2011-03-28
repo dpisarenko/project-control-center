@@ -14,13 +14,13 @@ package at.silverstrike.pcc.impl.persistence;
 import java.util.List;
 
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.UserData;
 
 class DefaultUserData implements UserData {
     private String identifier;
-    private List<Task> processes;
+    private List<SchedulingObject> processes;
     private List<DailyPlan> dailyPlans;
     private List<Booking> bookings;
 
@@ -32,11 +32,11 @@ class DefaultUserData implements UserData {
         this.identifier = aIdentifier;
     }
 
-    public List<Task> getProcesses() {
+    public List<SchedulingObject> getSchedulingData() {
         return processes;
     }
 
-    public void setProcesses(final List<Task> aProcesses) {
+    public void setSchedulingData(final List<SchedulingObject> aProcesses) {
         this.processes = aProcesses;
     }
 

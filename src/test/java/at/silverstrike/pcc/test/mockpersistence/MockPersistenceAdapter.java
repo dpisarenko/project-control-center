@@ -20,6 +20,7 @@ import org.hibernate.Session;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.ProcessType;
@@ -91,7 +92,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public List<Task> getAllNotDeletedTasks() {
+    public List<SchedulingObject> getAllNotDeletedTasks() {
         throw new NotImplementedException();
     }
 
@@ -126,7 +127,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public List<Task> getSubProcessesWithChildren(Long processId) {
+    public List<SchedulingObject> getSubProcessesWithChildren(Long processId) {
         throw new NotImplementedException();
     }
 
