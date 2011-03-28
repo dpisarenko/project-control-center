@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
 
@@ -30,7 +30,7 @@ class DefaultProjectExportInfo implements ProjectExportInfo {
     private Date now;
     private String copyright;
     private String currency;
-    private List<Task> controlProcessesToExport;
+    private List<SchedulingObject> controlProcessesToExport;
     private List<Resource> resourcesToExport;
 
     public int getSchedulingHorizonMonths() {
@@ -73,12 +73,12 @@ class DefaultProjectExportInfo implements ProjectExportInfo {
         this.currency = aCurrency;
     }
 
-    public List<Task> getSchedulingObjectsToExport() {
+    public List<SchedulingObject> getSchedulingObjectsToExport() {
         return controlProcessesToExport;
     }
 
     public void setSchedulingObjectsToExport(
-            final List<Task> aControlProcessesToExport) {
+            final List<SchedulingObject> aControlProcessesToExport) {
         this.controlProcessesToExport = aControlProcessesToExport;
     }
 

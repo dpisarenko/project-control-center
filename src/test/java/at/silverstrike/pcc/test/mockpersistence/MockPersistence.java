@@ -19,6 +19,7 @@ import org.apache.commons.lang.NotImplementedException;
 import org.hibernate.Session;
 
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.ProcessType;
@@ -104,7 +105,7 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public List<Task> getAllNotDeletedTasks() {
+    public List<SchedulingObject> getAllNotDeletedTasks() {
         throw new NotImplementedException();
     }
 
@@ -139,7 +140,7 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public List<Task> getSubProcessesWithChildren(final Long processId) {
+    public List<SchedulingObject> getSubProcessesWithChildren(final Long processId) {
         throw new NotImplementedException();
     }
 

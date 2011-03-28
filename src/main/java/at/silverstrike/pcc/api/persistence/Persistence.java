@@ -18,6 +18,7 @@ import org.hibernate.Session;
 
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.ProcessType;
@@ -41,7 +42,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     void createSubTask(final String aProcessName, final Long aParentProcessId);
 
-    List<Task> getAllNotDeletedTasks();
+    List<SchedulingObject> getAllNotDeletedTasks();
 
     Task getTask(final Object aProcessid);
 
@@ -103,7 +104,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      * 
      * If processId is null, the top-level processes are returned.
      */
-    List<Task> getSubProcessesWithChildren(final Long aProcessId);
+    List<SchedulingObject> getSubProcessesWithChildren(final Long aProcessId);
 
     /**
      * Creates a new process on the same hierarchy level as the process with

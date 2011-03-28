@@ -28,6 +28,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.DerbyDialect;
 
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
@@ -363,9 +364,9 @@ public class DefaultPersistence implements Persistence {
 
     @SuppressWarnings({ "rawtypes" })
     @Override
-    public final List<Task> getAllNotDeletedTasks() {
-        final List<Task> returnValue =
-                new LinkedList<Task>();
+    public final List<SchedulingObject> getAllNotDeletedTasks() {
+        final List<SchedulingObject> returnValue =
+                new LinkedList<SchedulingObject>();
         final Transaction tx = session.beginTransaction();
 
         try {
@@ -572,9 +573,9 @@ public class DefaultPersistence implements Persistence {
 
     @SuppressWarnings("unchecked")
     @Override
-    public final List<Task> getSubProcessesWithChildren(
+    public final List<SchedulingObject> getSubProcessesWithChildren(
             final Long aProcessId) {
-        List<Task> processes = null;
+        List<SchedulingObject> processes = null;
 
         try {
             final String hql;
@@ -593,7 +594,7 @@ public class DefaultPersistence implements Persistence {
             query.setParameter(STATE_ATTAINED.substring(1),
                     ProcessState.ATTAINED);
 
-            processes = (List<Task>) query.list();
+            processes = (List<SchedulingObject>) query.list();
 
             if ((aProcessId == null)
                     && ((processes == null) || (processes.size() < 1))) {
@@ -1059,12 +1060,12 @@ public class DefaultPersistence implements Persistence {
 
         final Query processesQuery =
                 session.createQuery("from DefaultControlProcess");
-        final List<Task> processes = processesQuery.list();
+        final List<SchedulingObject> processes = processesQuery.list();
 
         userData.setBookings(bookings);
         userData.setDailyPlans(dailyPlans);
         userData.setIdentifier("dp");
-        userData.setProcesses(processes);
+        userData.setSchedulingData(processes);
 
         return userData;
     }
