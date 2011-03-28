@@ -27,6 +27,7 @@ import at.silverstrike.pcc.api.export2tj3.NoProcessesException;
 import at.silverstrike.pcc.api.export2tj3.NoProjectExportInfoException;
 import at.silverstrike.pcc.api.export2tj3.NoResourcesException;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyLimitResourceAllocation;
 import at.silverstrike.pcc.api.model.Resource;
@@ -154,7 +155,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
         // Add task information
 
-        final List<Task> processes =
+        final List<SchedulingObject> processes =
                 this.projectExportInfo.getSchedulingObjectsToExport();
         if (processes != null) {
             taskTemplate =
@@ -173,7 +174,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
                     embeddedFileReader
                             .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_START);
 
-            for (final Task process : processes) {
+            for (final SchedulingObject process : processes) {
                 builder.append(getTaskInformation(process, null));
             }
         }
@@ -236,7 +237,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         }
     }
 
-    private List<Task>
+    private List<SchedulingObject>
             getChildProcesses(final Task aProcess) {
         return persistence.getChildTasks(aProcess);
     }
@@ -303,7 +304,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         }
     }
 
-    private String getTaskInformation(final Task aProcess,
+    private String getTaskInformation(final SchedulingObject aProcess,
             final Task aParent) {
         final StringBuilder stringBuilder = new StringBuilder();
         final List<Task> childProcesses = getChildProcesses(aProcess);
