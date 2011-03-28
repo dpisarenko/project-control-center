@@ -430,10 +430,10 @@ public class DefaultPersistence implements Persistence {
 
     @SuppressWarnings({ "rawtypes" })
     @Override
-    public final List<Task>
-            getChildTasks(final Task aParent) {
-        final List<Task> returnValue =
-                new LinkedList<Task>();
+    public final List<SchedulingObject>
+            getChildTasks(final SchedulingObject aParent) {
+        final List<SchedulingObject> returnValue =
+                new LinkedList<SchedulingObject>();
         final Transaction tx = session.beginTransaction();
 
         try {
@@ -475,13 +475,13 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public final List<Task> getChildTasks(final Long aProcessId) {
+    public final List<SchedulingObject> getChildTasks(final Long aProcessId) {
         final Transaction tx = session.beginTransaction();
         try {
-            Task process = null;
+            SchedulingObject process = null;
             if (aProcessId != null) {
                 process =
-                        (Task) session.get(
+                        (SchedulingObject) session.get(
                                 DefaultTask.class, aProcessId);
             }
 
@@ -491,7 +491,7 @@ public class DefaultPersistence implements Persistence {
         } catch (final Exception exception) {
             LOGGER.error("", exception);
             tx.rollback();
-            return new LinkedList<Task>();
+            return new LinkedList<SchedulingObject>();
         }
     }
 

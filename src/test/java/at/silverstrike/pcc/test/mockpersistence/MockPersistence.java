@@ -115,12 +115,12 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public List<Task> getChildTasks(final Task aParent) {
-        return new LinkedList<Task>();
+    public List<SchedulingObject> getChildTasks(final SchedulingObject aParent) {
+        return new LinkedList<SchedulingObject>();
     }
 
     @Override
-    public List<Task> getChildTasks(final Long aProcessId) {
+    public List<SchedulingObject> getChildTasks(final Long aProcessId) {
         throw new NotImplementedException();
     }
 

@@ -238,7 +238,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
     }
 
     private List<SchedulingObject>
-            getChildProcesses(final Task aProcess) {
+            getChildProcesses(final SchedulingObject aProcess) {
         return persistence.getChildTasks(aProcess);
     }
 
@@ -305,11 +305,12 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
     }
 
     private String getTaskInformation(final SchedulingObject aProcess,
-            final Task aParent) {
+            final SchedulingObject aParent) {
         final StringBuilder stringBuilder = new StringBuilder();
-        final List<Task> childProcesses = getChildProcesses(aProcess);
+        final List<SchedulingObject> childProcesses =
+                getChildProcesses(aProcess);
         if (childProcesses != null) {
-            for (final Task childProcess : childProcesses) {
+            for (final SchedulingObject childProcess : childProcesses) {
                 stringBuilder
                         .append(getTaskInformation(childProcess, aProcess));
             }
@@ -329,12 +330,13 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         final String taskDefinition =
                 taskTemplate
                         .replace(ID, formatLong(aProcess.getId()))
-                        .replace(NAME, shortenName(aProcess.getName()))
-                        .replace(START_DATE_TIME, getStartDateTime(aParent))
+                        .replace(NAME, shortenName(((Task) aProcess).getName()))
+                        .replace(START_DATE_TIME,
+                                getStartDateTime((Task) aParent))
                         .replace(PRIORITY, formatInt(priority))
                         .replace(RESOURCE_ALLOCATIONS,
-                                getEffortAllocations(aProcess))
-                        .replace(EFFORT_INFO, getEffortInfo(aProcess))
+                                getEffortAllocations((Task) aProcess))
+                        .replace(EFFORT_INFO, getEffortInfo((Task) aProcess))
                         .replace(CHILD_TASKS, childProcessDefinitions);
 
         return taskDefinition;
@@ -389,7 +391,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             throw new NoProjectExportInfoException();
         }
 
-        final List<Task> processes =
+        final List<SchedulingObject> processes =
                 this.projectExportInfo.getSchedulingObjectsToExport();
         final List<Resource> resources =
                 this.projectExportInfo.getResourcesToExport();
@@ -410,10 +412,13 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             throw new NoResourcesException();
         }
 
-        for (final Task proc : processes) {
-            checkTimingResolution(proc, proc.getBestCaseEffort());
-            checkTimingResolution(proc, proc.getAverageCaseEffort());
-            checkTimingResolution(proc, proc.getWorstCaseEffort());
+        for (final SchedulingObject proc : processes) {
+            checkTimingResolution((Task) proc,
+                    ((Task) proc).getBestCaseEffort());
+            checkTimingResolution((Task) proc,
+                    ((Task) proc).getAverageCaseEffort());
+            checkTimingResolution((Task) proc,
+                    ((Task) proc).getWorstCaseEffort());
         }
     }
 

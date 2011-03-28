@@ -18,10 +18,22 @@ import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
  *
  */
 public interface SchedulingObject extends UniquelyIdentifiableObject {
+    int HIGHEST_PRIORITY = 1000;
+    int LOWEST_PRIORITY = 0;
+
     /**
      * Label is used for displaying of the scheduling object in the
      * project network graph.
      */
     void setLabel(final String aLabel);
     String getLabel();
+    
+    void setPriority(final Integer aPriority);
+
+    Integer getPriority();
+
+    Task getParent();
+
+    void setParent(Task aParentProcess);
+
 }

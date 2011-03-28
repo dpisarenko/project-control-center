@@ -16,6 +16,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanel;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanel;
@@ -99,12 +100,12 @@ class DefaultProcessPanel extends Panel implements ProcessPanel {
     }
 
     @Override
-    public void setProcessesToShow(final List<Task> aProcesses) {
+    public void setProcessesToShow(final List<SchedulingObject> aProcesses) {
         this.table.removeAllItems();
 
-        for (Task process : aProcesses) {
+        for (final SchedulingObject process : aProcesses) {
             this.table.addItem(new Object[] { process.getId(),
-                    process.getName() }, process.getId());
+                    ((Task)process).getName() }, process.getId());
         }
     }
 

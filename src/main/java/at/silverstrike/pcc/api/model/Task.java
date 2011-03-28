@@ -15,8 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface Task extends SchedulingObjectWithDependencies {
-    int HIGHEST_PRIORITY = 1000;
-    int LOWEST_PRIORITY = 0;
 
     String getName();
 
@@ -55,13 +53,7 @@ public interface Task extends SchedulingObjectWithDependencies {
 
     List<ResourceAllocation> getResourceAllocations();
 
-    void setPriority(final Integer aPriority);
 
-    Integer getPriority();
-
-    Task getParent();
-
-    void setParent(Task aParentProcess);
 
     void setProcessType(ProcessType aType);
 

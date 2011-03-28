@@ -59,7 +59,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     List<Worker> getAllWorkers();
 
-    List<SchedulingObject> getChildTasks(final Task aParent);
+    List<SchedulingObject> getChildTasks(final SchedulingObject aParent);
 
     /**
      * Sets the estimate end time dates of the processes.
@@ -128,7 +128,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      * @param selectedProjectId
      * @return
      */
-    List<Task> getChildTasks(final Long aProcessId);
+    List<SchedulingObject> getChildTasks(final Long aProcessId);
 
     /**
      * Assigns the process with the specifid ID to the specified worker.

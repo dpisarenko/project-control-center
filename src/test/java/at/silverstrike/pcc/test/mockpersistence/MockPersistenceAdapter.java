@@ -102,12 +102,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public List<Task> getChildTasks(Task aParent) {
+    public List<SchedulingObject> getChildTasks(SchedulingObject aParent) {
         throw new NotImplementedException();
     }
 
     @Override
-    public List<Task> getChildTasks(Long aProcessId) {
+    public List<SchedulingObject> getChildTasks(Long aProcessId) {
         throw new NotImplementedException();
     }
 

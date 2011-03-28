@@ -18,6 +18,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.persistence.Persistence;
@@ -82,7 +83,7 @@ public class TestDefaultPersistence {
         final Long taskId = persistence.createTask("Bug #57");
         
     	// Verify it's present in the list of not attained tasks
-        final List<Task> processList1 = persistence.getAllNotDeletedTasks();
+        final List<SchedulingObject> processList1 = persistence.getAllNotDeletedTasks();
         
         Assert.assertEquals(1, processList1.size());
         
@@ -94,7 +95,7 @@ public class TestDefaultPersistence {
     	persistence.updateTask(process);
     	
     	// Verify it's not present in the list of not attained tasks
-        final List<Task> processList2 = persistence.getAllNotDeletedTasks();
+        final List<SchedulingObject> processList2 = persistence.getAllNotDeletedTasks();
         
         Assert.assertEquals(0, processList2.size());
     	

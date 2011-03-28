@@ -16,11 +16,11 @@ import java.util.List;
 import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanel;
-import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 
 public interface ProcessPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel {
-    void setProcessesToShow(final List<Task> aProcesses);
+    void setProcessesToShow(final List<SchedulingObject> aProcesses);
 
     void setEditingProcessPanel(final EditingProcessPanel aPanel);
 
