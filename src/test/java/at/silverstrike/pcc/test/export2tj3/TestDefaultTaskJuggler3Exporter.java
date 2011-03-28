@@ -87,7 +87,7 @@ public class TestDefaultTaskJuggler3Exporter {
 
 		objectUnderTest.setProjectExportInfo(projectExportInfo);
 
-		projectExportInfo.setControlProcessesToExport(this.helper
+		projectExportInfo.setSchedulingObjectsToExport(this.helper
 				.getTestRun01Processes());
 		projectExportInfo.setCopyright("Dmitri Pisarenko");
 		projectExportInfo.setCurrency(EURO);
@@ -132,7 +132,7 @@ public class TestDefaultTaskJuggler3Exporter {
 
 		objectUnderTest.setProjectExportInfo(projectExportInfo);
 
-		projectExportInfo.setControlProcessesToExport(null);
+		projectExportInfo.setSchedulingObjectsToExport(null);
 		projectExportInfo.setCopyright("Dmitri Pisarenko");
 		projectExportInfo.setCurrency(EURO);
 		projectExportInfo.setNow(helper.getDate18October2010());
@@ -183,7 +183,7 @@ public class TestDefaultTaskJuggler3Exporter {
 
 		objectUnderTest.setProjectExportInfo(projectExportInfo);
 
-		projectExportInfo.setControlProcessesToExport(this.helper
+		projectExportInfo.setSchedulingObjectsToExport(this.helper
 				.getTestRun03Processes());
 		projectExportInfo.setCopyright("Dmitri Pisarenko");
 		projectExportInfo.setCurrency(EURO);
@@ -252,7 +252,7 @@ public class TestDefaultTaskJuggler3Exporter {
 
 		objectUnderTest.setProjectExportInfo(projectExportInfo);
 
-		projectExportInfo.setControlProcessesToExport(this.helper
+		projectExportInfo.setSchedulingObjectsToExport(this.helper
 				.getTestDefect59Processes());
 		projectExportInfo.setCopyright("Dmitri Pisarenko");
 		projectExportInfo.setCurrency(EURO);
@@ -333,14 +333,14 @@ public class TestDefaultTaskJuggler3Exporter {
 		Resource resource1 = null;
 		// resource1 = mockObjectFactory.createResource((long) 1);
 
-		Task task = readData.getProcesses().get(0);
+		final Task task = (Task)readData.getSchedulingData().get(0);
 		resource1 = task.getResourceAllocations().get(0).getResource();
 		List<Resource> resourceList = new ArrayList<Resource>();
 		resourceList.add(resource1);
 
 		objectUnderTest.setProjectExportInfo(projectExportInfo);
 
-		projectExportInfo.setControlProcessesToExport(readData.getProcesses());
+		projectExportInfo.setSchedulingObjectsToExport(readData.getSchedulingData());
 		projectExportInfo.setCopyright("Dmitri Pisarenko");
 		projectExportInfo.setCurrency(EURO);
 		projectExportInfo.setNow(helper.getDate18October2010());

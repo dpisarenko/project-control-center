@@ -236,7 +236,7 @@ public class TestDefaultProjectScheduler {
         Assert.assertNotNull(booking.getProcess());
         Assert.assertNotNull(booking.getResource());
         
-        final Task expectedTask = projectInfo.getControlProcessesToExport().get(0);
+        final Task expectedTask = projectInfo.getSchedulingObjectsToExport().get(0);
         
         Assert.assertEquals(expectedTask.getName(), booking.getProcess().getName());
         Assert.assertEquals(projectInfo.getResourcesToExport().get(0).getAbbreviation(), booking.getResource().getAbbreviation());

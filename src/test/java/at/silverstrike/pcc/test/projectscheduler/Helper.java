@@ -57,7 +57,7 @@ class Helper {
         
         resources.add(getWorker1210());
         
-        anInfo.setControlProcessesToExport(processes);
+        anInfo.setSchedulingObjectsToExport(processes);
         anInfo.setResourcesToExport(resources);
         anInfo.setCopyright("DP");
         anInfo.setCurrency("EUR");
@@ -102,7 +102,7 @@ class Helper {
         
         resources.add(resource);
         
-        anInfo.setControlProcessesToExport(processes);
+        anInfo.setSchedulingObjectsToExport(processes);
         anInfo.setResourcesToExport(resources);
         anInfo.setCopyright("DP");
         anInfo.setCurrency("EUR");

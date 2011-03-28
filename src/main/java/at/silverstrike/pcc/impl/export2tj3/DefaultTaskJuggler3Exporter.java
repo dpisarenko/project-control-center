@@ -155,7 +155,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         // Add task information
 
         final List<Task> processes =
-                this.projectExportInfo.getControlProcessesToExport();
+                this.projectExportInfo.getSchedulingObjectsToExport();
         if (processes != null) {
             taskTemplate =
                     embeddedFileReader
@@ -389,7 +389,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         }
 
         final List<Task> processes =
-                this.projectExportInfo.getControlProcessesToExport();
+                this.projectExportInfo.getSchedulingObjectsToExport();
         final List<Resource> resources =
                 this.projectExportInfo.getResourcesToExport();
 

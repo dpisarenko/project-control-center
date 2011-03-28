@@ -73,11 +73,11 @@ class DefaultProjectExportInfo implements ProjectExportInfo {
         this.currency = aCurrency;
     }
 
-    public List<Task> getControlProcessesToExport() {
+    public List<Task> getSchedulingObjectsToExport() {
         return controlProcessesToExport;
     }
 
-    public void setControlProcessesToExport(
+    public void setSchedulingObjectsToExport(
             final List<Task> aControlProcessesToExport) {
         this.controlProcessesToExport = aControlProcessesToExport;
     }
