@@ -106,7 +106,7 @@ public class TestDefaultProjectNetworkGraphCreator {
         Assert.assertNotNull(graph);
 
         LOGGER.debug("Graph: " + graph);
-        
+
         final String initialEventVertex = graph.getInitialEventVertex();
         final String finalEventVertex = graph.getFinalEventVertex();
 
@@ -130,7 +130,7 @@ public class TestDefaultProjectNetworkGraphCreator {
         Assert.assertFalse(edgeExists(graph, P1, finalEventVertex));
         Assert.assertTrue(edgeExists(graph, P2, finalEventVertex));
         Assert.assertTrue(edgeExists(graph, P3, finalEventVertex));
-        
+
         Assert.assertEquals(5, graph.getEdgeCount());
     }
 
@@ -165,7 +165,7 @@ public class TestDefaultProjectNetworkGraphCreator {
         LOGGER.debug("P1 dependencies: " + tuple1.getDependencies());
         LOGGER.debug("P2 dependencies: " + tuple2.getDependencies());
         LOGGER.debug("P3 dependencies: " + tuple3.getDependencies());
-        
+
         return tuples;
     }
 }
