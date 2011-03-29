@@ -148,27 +148,22 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public void openSession() {
-        throw new NotImplementedException();
     }
 
     @Override
     public void updateBookings(final List<BookingTuple> bookingTuples) {
-        throw new NotImplementedException();
     }
 
     @Override
     public void updateTask(Task process) {
-        throw new NotImplementedException();
     }
 
     @Override
     public void updateTaskEndTimes(final List<ProcessEndTimeTuple> endTimeTuples) {
-        throw new NotImplementedException();
     }
 
     @Override
     public void setInjector(final Injector anInjector) {
-        throw new NotImplementedException();
     }
 
     @Override

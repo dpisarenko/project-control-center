@@ -19,7 +19,7 @@ class MockControlProcess implements Task {
     private Double worstCaseEffort;
     private List<ResourceAllocation> resourceAllocations;
     private Integer priority;
-    private Task parentProcess;
+    private SchedulingObject parentProcess;
     private ProcessType type;
     private Date averageEstimatedEndDateTime;
     private Date bestEstimatedEndDateTime;
@@ -84,11 +84,11 @@ class MockControlProcess implements Task {
         return this.priority;
     }
 
-    public Task getParent() {
+    public SchedulingObject getParent() {
         return this.parentProcess;
     }
 
-    public void setParent(final Task aParentProcess) {
+    public void setParent(final SchedulingObject aParentProcess) {
         this.parentProcess = aParentProcess;
     }
 
