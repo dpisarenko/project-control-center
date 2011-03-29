@@ -31,7 +31,8 @@ import at.silverstrike.pcc.test.mockpersistence.MockObjectFactory;
  * 
  */
 class Helper {
-    private MockObjectFactory MOCK_OBJECT_FACTORY = new MockObjectFactory();
+    private static final MockObjectFactory MOCK_OBJECT_FACTORY =
+            new MockObjectFactory();
 
     public void fillProjectInfo01(final ProjectExportInfo anInfo) {
         final MockObjectFactory mockObjectFactory = new MockObjectFactory();

@@ -18,6 +18,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import ch.qos.logback.classic.Logger;
+
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdKey;
 import at.silverstrike.pcc.api.debugids.DebugIdKeyNotFoundException;

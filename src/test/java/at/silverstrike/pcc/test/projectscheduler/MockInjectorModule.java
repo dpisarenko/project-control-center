@@ -29,12 +29,11 @@ import com.google.inject.AbstractModule;
 
 class MockInjectorModule extends AbstractModule {
     private Persistence persistence;
-    
-    public MockInjectorModule(final Persistence aPersistence)
-    {
+
+    public MockInjectorModule(final Persistence aPersistence) {
         this.persistence = aPersistence;
     }
-    
+
     @Override
     protected void configure() {
         bind(ProjectScheduler.class).toInstance(
@@ -47,8 +46,8 @@ class MockInjectorModule extends AbstractModule {
         bind(Tj3DeadlinesFileParserFactory.class)
                 .toInstance(new DefaultTj3DeadlinesFileParserFactory());
         bind(Tj3BookingsParserFactory.class).
-            toInstance(new DefaultTj3BookingsParserFactory());
+                toInstance(new DefaultTj3BookingsParserFactory());
         bind(BookingsFile2BookingsFactory.class).
-            toInstance(new DefaultBookingsFile2BookingsFactory());
+                toInstance(new DefaultBookingsFile2BookingsFactory());
     }
 }

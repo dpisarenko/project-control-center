@@ -35,13 +35,14 @@ import com.google.inject.Injector;
  * @author DP118M
  * 
  */
-public class TestDefaultProjectNetworkGraphCreator {
+public final class TestDefaultProjectNetworkGraphCreator {
+    private static final int EXPECTED_EDGE_COUNT = 5;
     private static final String FINAL_EVENT_LABEL = "FE";
     private static final String INITIAL_EVENT_LABEL = "IE";
     private static final String P3 = "P3";
     private static final String P2 = "P2";
     private static final String P1 = "P1";
-    private final static Logger LOGGER =
+    private static final Logger LOGGER =
             LoggerFactory
                     .getLogger(TestDefaultProjectNetworkGraphCreator.class);
 
@@ -131,7 +132,7 @@ public class TestDefaultProjectNetworkGraphCreator {
         Assert.assertTrue(edgeExists(graph, P2, finalEventVertex));
         Assert.assertTrue(edgeExists(graph, P3, finalEventVertex));
 
-        Assert.assertEquals(5, graph.getEdgeCount());
+        Assert.assertEquals(EXPECTED_EDGE_COUNT, graph.getEdgeCount());
     }
 
     private boolean edgeExists(final ProjectNetworkGraph aGraph,

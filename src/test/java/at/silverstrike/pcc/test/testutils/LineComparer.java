@@ -26,7 +26,7 @@ import difflib.Patch;
  * @author dp118m
  * 
  */
-public class LineComparer {
+public final class LineComparer {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(LineComparer.class);
 

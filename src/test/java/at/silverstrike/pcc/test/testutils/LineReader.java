@@ -24,12 +24,16 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LineReader {
-    private final static Logger LOGGER =
-        LoggerFactory.getLogger(LineReader.class);
+public final class LineReader {
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(LineReader.class);
+
+    private LineReader() {
+
+    }
 
     @SuppressWarnings("unchecked")
-    public static List<String> readTrimmedLines(File anInputFile) {
+    public static List<String> readTrimmedLines(final File anInputFile) {
         List<String> expectedLines = null;
 
         try {
@@ -40,15 +44,14 @@ public class LineReader {
         }
         return expectedLines;
     }
-    private static List<String> trim(final List<String> aLines)
-    {
+
+    private static List<String> trim(final List<String> aLines) {
         final List<String> returnValue = new LinkedList<String>();
-        
-        for (final String curLine : aLines)
-        {
+
+        for (final String curLine : aLines) {
             returnValue.add(StringUtils.trimToEmpty(curLine));
         }
-        
+
         return returnValue;
     }
 }
