@@ -54,7 +54,7 @@ public final class TestDefaultTaskJuggler3Exporter {
 
     private static final int ONE_MONTH = 1;
     private final Helper helper = new Helper();
-    private final static Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(TestDefaultTaskJuggler3Exporter.class);
 
     @Before
