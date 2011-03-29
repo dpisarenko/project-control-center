@@ -20,9 +20,9 @@ import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
 
 /**
  * @author dp118m
- *
+ * 
  */
-public class MockProjectExportInfo implements ProjectExportInfo {
+public final class MockProjectExportInfo implements ProjectExportInfo {
     private int schedulingHorizonMonths;
     private String projectName;
     private Date now;
@@ -30,48 +30,62 @@ public class MockProjectExportInfo implements ProjectExportInfo {
     private String currency;
     private List<SchedulingObject> controlProcessesToExport;
     private List<Resource> resourcesToExport;
-    
+
     public int getSchedulingHorizonMonths() {
         return schedulingHorizonMonths;
     }
-    public void setSchedulingHorizonMonths(int schedulingHorizonMonths) {
-        this.schedulingHorizonMonths = schedulingHorizonMonths;
+
+    public void setSchedulingHorizonMonths(
+            final int aSchedulingHorizonMonths) {
+        this.schedulingHorizonMonths = aSchedulingHorizonMonths;
     }
+
     public String getProjectName() {
         return projectName;
     }
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+
+    public void setProjectName(final String aProjectName) {
+        this.projectName = aProjectName;
     }
+
     public Date getNow() {
         return now;
     }
-    public void setNow(Date now) {
-        this.now = now;
+
+    public void setNow(final Date aNow) {
+        this.now = aNow;
     }
+
     public String getCopyright() {
         return copyright;
     }
-    public void setCopyright(String copyright) {
+
+    public void setCopyright(final String copyright) {
         this.copyright = copyright;
     }
+
     public String getCurrency() {
         return currency;
     }
-    public void setCurrency(String currency) {
+
+    public void setCurrency(final String currency) {
         this.currency = currency;
     }
+
     public List<SchedulingObject> getSchedulingObjectsToExport() {
         return controlProcessesToExport;
     }
+
     public void setSchedulingObjectsToExport(
-            List<SchedulingObject> controlProcessesToExport) {
+            final List<SchedulingObject> controlProcessesToExport) {
         this.controlProcessesToExport = controlProcessesToExport;
     }
+
     public List<Resource> getResourcesToExport() {
         return resourcesToExport;
     }
-    public void setResourcesToExport(List<Resource> resourcesToExport) {
+
+    public void setResourcesToExport(final List<Resource> resourcesToExport) {
         this.resourcesToExport = resourcesToExport;
     }
 
