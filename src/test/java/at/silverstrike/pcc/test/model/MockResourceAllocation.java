@@ -14,7 +14,7 @@ package at.silverstrike.pcc.test.model;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 
-class MockResourceAllocation implements ResourceAllocation {
+final class MockResourceAllocation implements ResourceAllocation {
 
     private Long id;
     private Resource resource;

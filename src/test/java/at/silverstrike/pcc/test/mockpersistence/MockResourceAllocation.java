@@ -14,20 +14,23 @@ package at.silverstrike.pcc.test.mockpersistence;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 
-class MockResourceAllocation implements ResourceAllocation {
+final class MockResourceAllocation implements ResourceAllocation {
     private Resource resource;
     private Long id;
-    
+
     public Resource getResource() {
         return resource;
     }
-    public void setResource(Resource resource) {
+
+    public void setResource(final Resource resource) {
         this.resource = resource;
     }
+
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
+
+    public void setId(final Long id) {
         this.id = id;
     }
 }
