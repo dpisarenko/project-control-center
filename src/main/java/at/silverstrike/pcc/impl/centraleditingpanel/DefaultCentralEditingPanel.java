@@ -40,6 +40,8 @@ import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
         CentralEditingPanel, ProcessPanelListener, ClickListener {
+	private static final String NEW_MEETING_BUTTON = "025.004";
+	private static final String NEW_TASK_BUTTON = "025.003";
     private static final String NEW_MILESTONE_BUTTON = "025.002";
     private static final int PADDING = 5;
     private static final int ONE_SIXTH_OF_SCREEN_WIDTH = 6;
@@ -55,6 +57,7 @@ class DefaultCentralEditingPanel extends Panel implements
     public static final Object PROJECT_PROPERTY_NAME = "name";
 
     private Panel verticalPanelRight;
+    private GridLayout mainGrid;
 
     private transient Injector injector;
     private transient CentralEditingPanelController controller;
@@ -82,7 +85,7 @@ class DefaultCentralEditingPanel extends Panel implements
     public void initGui() {
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
-        final GridLayout mainGrid = new GridLayout(2, 1);
+        mainGrid = new GridLayout(2, 1);
 
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
         mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
@@ -98,11 +101,17 @@ class DefaultCentralEditingPanel extends Panel implements
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
 
         final Button newTaskButton = getNewTaskButton();
+        newTaskButton.setDebugId(this.debugIdRegistry
+                     .getDebugId(MessageCodePrefixRegistry.Module.centraleditingpanel,
+                       "3-button-newTask"));
         buttonsNewGrid.addComponent(newTaskButton, 0, 0);
         buttonsNewGrid.setComponentAlignment(newTaskButton,
                 Alignment.MIDDLE_LEFT);
 
         final Button newMeetingButton = getNewMeetingButton();
+        newMeetingButton.setDebugId(this.debugIdRegistry
+                       .getDebugId(MessageCodePrefixRegistry.Module.centraleditingpanel,
+                             "4-button-newMeeting"));
         buttonsNewGrid.addComponent(newMeetingButton, 1, 0);
         buttonsNewGrid.setComponentAlignment(newMeetingButton,
                 Alignment.MIDDLE_RIGHT);
@@ -147,12 +156,28 @@ class DefaultCentralEditingPanel extends Panel implements
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
 
         initController();
-        verticalPanelRight = controller.getMeetingPanel();
-
-        mainGrid.addComponent(verticalPanelRight, 1, 0);
+        final Panel panel = controller.getTaskPanel();
+        setRightPanel(panel);      
 
         this.addComponent(mainGrid);
     }
+    
+    private void removeRightPanel(){
+    			
+    	mainGrid.removeComponent(verticalPanelRight);  	
+    	}
+    	    
+    private void setRightPanel(Panel panel){
+    		
+       	if (panel != null)
+       		verticalPanelRight = panel;
+       	mainGrid.addComponent(verticalPanelRight, 1, 0);
+        }
+        
+    private void changeRightPanel(Panel panel){
+       	removeRightPanel();
+       	setRightPanel(panel);    	
+        }
 
     private void initController() {
         final DefaultCentralEditingPanelControllerFactory factory =
@@ -205,10 +230,20 @@ class DefaultCentralEditingPanel extends Panel implements
      * Shows a notification when a button is clicked.
      */
     public void buttonClick(final ClickEvent aEvent) {
-        if (NEW_MILESTONE_BUTTON.equals(aEvent.getButton().getDebugId())) {
-            getWindow().showNotification("lalala ");
-        }
-        getWindow().showNotification(NOTIFICATION);
+    	   	String debugId = aEvent.getButton().getDebugId();
+    	   	if (debugId.equals(NEW_TASK_BUTTON))
+    	   	{		
+    	   		changeRightPanel(controller.getTaskPanel());
+    	   	}
+    	   	if (debugId.equals(NEW_MEETING_BUTTON))
+    	   	{		
+    	   		changeRightPanel(controller.getMeetingPanel());
+    	   	}
+
+    	   	if (debugId.equals(NEW_MILESTONE_BUTTON))
+    	   	{		
+    	   		changeRightPanel(controller.getMilestonePanel());
+    	   	}
     }
 
     public static HierarchicalContainer getFilterHierarchicalContainer() {

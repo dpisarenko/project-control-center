@@ -62,10 +62,51 @@ class DefaultMilestoneEditingPanel extends Panel implements
             this.controller =
                     this.injector
                             .getInstance(MilestoneEditingPanelController.class);
+            this.controller.setInjector(this.injector);
         }
     }
 
-    private Panel getMilestonePanel() {
+
+    private Button createDependEditButton() {
+        final Button dependEditButton =
+                new Button(TM.get("milestoneeditingprocesspanel.5-button-edit"));
+        dependEditButton.addListener(new DependenciesButtonClickListener(
+                controller));
+        return dependEditButton;
+    }
+
+    private Table createTestTable() {
+        final TestTableCreator creator =
+                this.injector.getInstance(TestTableCreator.class);
+        creator.setColumnNames(TEST_COLUMN_NAMES);
+        creator.setData(TEST_TABLE_DATA);
+        try {
+            creator.run();
+        } catch (final PccException exception) {
+            LOGGER.error(ErrorCodes.M_001_TEST_TABLE_CREATION, exception);
+        }
+        final Table table = creator.getTable();
+        return table;
+    }
+
+    /*
+     * Shows a notification when a button is clicked.
+     */
+    public void buttonClick(final ClickEvent aEvent) {
+        getWindow().showNotification(NOTIFICATION);
+    }
+
+    @Override
+    public void taskAdded() {
+    }
+
+    @Override
+    public Panel toPanel() {
+        return this;
+    }
+
+    @Override
+    public void initGui() {
         final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
@@ -110,50 +151,7 @@ class DefaultMilestoneEditingPanel extends Panel implements
 
         final Table table = createTestTable();
         verticalLayoutRight.addComponent(table);
-        return verticalLayoutRight;
-    }
-
-    private Button createDependEditButton() {
-        final Button dependEditButton =
-                new Button(TM.get("milestoneeditingprocesspanel.5-button-edit"));
-        dependEditButton.addListener(new DependenciesButtonClickListener(
-                controller));
-        return dependEditButton;
-    }
-
-    private Table createTestTable() {
-        final TestTableCreator creator =
-                this.injector.getInstance(TestTableCreator.class);
-        creator.setColumnNames(TEST_COLUMN_NAMES);
-        creator.setData(TEST_TABLE_DATA);
-        try {
-            creator.run();
-        } catch (final PccException exception) {
-            LOGGER.error(ErrorCodes.M_001_TEST_TABLE_CREATION, exception);
-        }
-        final Table table = creator.getTable();
-        return table;
-    }
-
-    /*
-     * Shows a notification when a button is clicked.
-     */
-    public void buttonClick(final ClickEvent aEvent) {
-        getWindow().showNotification(NOTIFICATION);
-    }
-
-    @Override
-    public void taskAdded() {
-    }
-
-    @Override
-    public Panel toPanel() {
-        return getMilestonePanel();
-    }
-
-    @Override
-    public void initGui() {
-        // TODO Auto-generated method stub
+        this.addComponent(verticalLayoutRight);
 
     }
 }

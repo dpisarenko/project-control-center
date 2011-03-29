@@ -50,6 +50,7 @@ class DefaultCentralEditingPanelController implements
             this.injector.getInstance(TaskEditingPanelFactory.class);
         final TaskEditingPanel panel = factory.create();
         panel.setInjector(this.injector);
+        panel.initGui();
 		return panel.toPanel();
 	}
 
@@ -59,6 +60,7 @@ class DefaultCentralEditingPanelController implements
             this.injector.getInstance(MeetingEditingPanelFactory.class);
         final MeetingEditingPanel panel = factory.create();
         panel.setInjector(this.injector);
+        panel.initGui();
 		return panel.toPanel();
 	}
 
@@ -68,7 +70,26 @@ class DefaultCentralEditingPanelController implements
             this.injector.getInstance(MilestoneEditingPanelFactory.class);
         final MilestoneEditingPanel panel = factory.create();
         panel.setInjector(this.injector);
+        panel.initGui();
 		return panel.toPanel();
 	}
+	    
+	   @Override
+	 public void newTaskButtonClicked() {
+	   	// TODO Auto-generated method stub
+	    	
+	    }
+	    
+	    @Override
+	    public void newMeetingButtonClicked() {
+	        // TODO Auto-generated method stub
+	        
+	    }
+	    
+	    @Override
+	    public void newMilestoneButtonClicked() {
+	        // TODO Auto-generated method stub
+	        
+	    }
 
 }

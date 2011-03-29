@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.taskeditingpanel;
 
+import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
+
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
