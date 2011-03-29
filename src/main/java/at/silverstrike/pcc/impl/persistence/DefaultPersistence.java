@@ -855,7 +855,7 @@ public class DefaultPersistence implements Persistence {
 
         cnf.addResource("persistence/DefaultResource.hbm.xml");
         cnf.addResource("persistence/DefaultResourceAllocation.hbm.xml");
-        cnf.addResource("persistence/DefaultControlProcess.hbm.xml");
+        cnf.addResource("persistence/DefaultTask.hbm.xml");
         cnf.addResource("persistence/DefaultBooking.hbm.xml");
         cnf.addResource("persistence/DefaultDailyPlan.hbm.xml");
         cnf.addResource("persistence/DefaultDailySchedule.hbm.xml");
@@ -1021,7 +1021,7 @@ public class DefaultPersistence implements Persistence {
                     { "DefaultDailyLimitResourceAllocation",
                             "DefaultResourceAllocation", "DefaultBooking",
                             "DefaultDailyPlan", "DefaultDailySchedule",
-                            "DefaultResource", "DefaultControlProcess",
+                            "DefaultResource", "DefaultTask",
                             "DefaultDailyToDoList", "DefaultWorker" };
 
             for (final String entityToDelete : entitiesToDelete) {
