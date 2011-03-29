@@ -1,7 +1,7 @@
 <at.silverstrike.pcc.impl.persistence.DefaultUserData>
   <identifier>dp</identifier>
   <processes>
-    <at.silverstrike.pcc.impl.persistence.DefaultControlProcess>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
       <id>1</id>
       <name>task 2</name>
       <state>REPORTED</state>
@@ -11,9 +11,9 @@
       <processType>GOAL</processType>
       <resourceAllocations class="org.hibernate.collection.PersistentBag">
         <initialized>true</initialized>
-        <owner class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess" reference="../.."/>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
         <cachedSize>-1</cachedSize>
-        <role>at.silverstrike.pcc.impl.persistence.DefaultControlProcess.resourceAllocations</role>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
         <key class="long">1</key>
         <dirty>false</dirty>
         <storedSnapshot class="list">
@@ -33,7 +33,7 @@
           <at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation"/>
         </bag>
       </resourceAllocations>
-    </at.silverstrike.pcc.impl.persistence.DefaultControlProcess>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
   </processes>
   <dailyPlans/>
   <bookings/>
