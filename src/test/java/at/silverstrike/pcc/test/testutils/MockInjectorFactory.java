@@ -17,17 +17,16 @@ import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 
-public class MockInjectorFactory implements InjectorFactory {
+public final class MockInjectorFactory implements InjectorFactory {
     private AbstractModule module;
-    
-    public MockInjectorFactory (final AbstractModule aModule)
-    {
+
+    public MockInjectorFactory(final AbstractModule aModule) {
         this.module = aModule;
     }
-    public Injector createInjector()
-    {
+
+    public Injector createInjector() {
         final Injector injector = Guice.createInjector(this.module);
-        
+
         return injector;
     }
 }
