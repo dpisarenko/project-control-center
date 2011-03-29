@@ -17,7 +17,7 @@ import java.util.List;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile;
 import at.silverstrike.pcc.api.tj3bookingsparser.SupplementStatement;
 
-public class MockBookingsFile implements BookingsFile {
+public final class MockBookingsFile implements BookingsFile {
     private List<SupplementStatement> supplementStatements = new LinkedList<SupplementStatement>();
 
     public List<SupplementStatement> getSupplementStatements() {
