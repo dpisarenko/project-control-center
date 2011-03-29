@@ -20,13 +20,14 @@ import at.silverstrike.pcc.api.version.PccVersionReader;
 import at.silverstrike.pcc.api.version.PccVersionReaderFactory;
 import at.silverstrike.pcc.impl.version.DefaultPccVersionReaderFactory;
 
-public class TestDefaultPccVersionReader {
+public final class TestDefaultPccVersionReader {
 
     @Test
     public void testGetVersion() {
-        final PccVersionReaderFactory factory = new DefaultPccVersionReaderFactory();
+        final PccVersionReaderFactory factory =
+                new DefaultPccVersionReaderFactory();
         final PccVersionReader reader = factory.create();
-        
+
         Assert.assertNotNull(reader.getVersion());
         Assert.assertEquals("?", reader.getVersion());
         try {
