@@ -91,6 +91,7 @@ public class TestDebugIdRegistry {
                     MessageCodePrefixRegistry.Module.mainwindow, "1");
             Assert.fail("No DebugIdUniquenessViolation thrown");
         } catch (final DebugIdUniquenessViolation exception) {
+            ;
         }
 
         /**
@@ -118,6 +119,7 @@ public class TestDebugIdRegistry {
             Assert.fail("No DebugIdUniquenessViolation thrown");
         } catch (final DebugIdKeyNotFoundException exception) {
             // We expect this exception to be thrown
+            ;
         }
 
         try {
