@@ -36,10 +36,10 @@ import at.silverstrike.pcc.api.tj3bookingsparser.SupplementStatement;
 import at.silverstrike.pcc.impl.tj3bookingsparser.grammar.BookingsLexer;
 import at.silverstrike.pcc.impl.tj3bookingsparser.grammar.BookingsParser;
 
-public class TestBookingsParser {
+public final class TestBookingsParser {
     private static final String DIR = "src/test/resources/at/silverstrike/"
             + "pcc/test/tj3bookingsparser/";
-    private final static Logger LOGGER =
+    private static final Logger LOGGER =
             LoggerFactory.getLogger(TestBookingsParser.class);
 
     @Before
