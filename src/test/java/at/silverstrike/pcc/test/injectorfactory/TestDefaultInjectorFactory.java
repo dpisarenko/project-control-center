@@ -25,24 +25,20 @@ import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
 import at.silverstrike.pcc.api.version.PccVersionReader;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
 
-public class TestDefaultInjectorFactory {
+public final class TestDefaultInjectorFactory {
     @Test
-    public void test01()
-    {
+    public void test01() {
         final InjectorFactory injectorFactory = new DefaultInjectorFactory();
         final Injector injector = injectorFactory.createInjector();
-        
+
         Assert.assertNotNull(injector);
-        
-        try
-        {
+
+        try {
             injector.getInstance(DebugIdRegistry.class);
             injector.getInstance(Tj3DeadlinesFileParserFactory.class);
             injector.getInstance(PccVersionReader.class);
             injector.getInstance(EntryWindowFactory.class);
-        }
-        catch (final ConfigurationException exception)
-        {
+        } catch (final ConfigurationException exception) {
             Assert.fail(exception.getMessage());
         }
     }
