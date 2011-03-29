@@ -31,7 +31,7 @@ class MockControlProcess implements Task {
 
     private String name;
 
-    private Task parent;
+    private SchedulingObject parent;
 
     private Set<SchedulingObject> predecessors;
 
@@ -86,7 +86,7 @@ class MockControlProcess implements Task {
         return name;
     }
 
-    public Task getParent() {
+    public SchedulingObject getParent() {
         return parent;
     }
 
@@ -140,7 +140,7 @@ class MockControlProcess implements Task {
         this.name = name;
     }
 
-    public void setParent(final Task parent) {
+    public void setParent(final SchedulingObject parent) {
         this.parent = parent;
     }
 

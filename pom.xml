@@ -424,6 +424,7 @@
 				<configuration>
 					<configLocation>pcc-checkstyle.xml</configLocation>
 					<excludes>**/at/silverstrike/pcc/impl/tj3bookingsparser/grammar/Bookings*er.java</excludes>
+					<includeTestSourceDirectory>true</includeTestSourceDirectory>
 				</configuration>
 			</plugin>
 			<plugin>

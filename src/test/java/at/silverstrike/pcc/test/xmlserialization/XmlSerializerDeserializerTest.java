@@ -310,7 +310,7 @@ public class XmlSerializerDeserializerTest extends TestCase {
         if (written.getId() != null)
             Assert.assertEquals(written.getId(), read.getId());
         if (written.getParent() != null)
-            testProcess(written.getParent(), read.getParent());
+            testProcess((Task)written.getParent(), (Task)read.getParent());
         if (written.getPredecessors() != null) {
             int writtenPredecesors = written.getPredecessors().size();
             int readPredecesors = read.getPredecessors().size();
