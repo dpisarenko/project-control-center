@@ -68,16 +68,16 @@ public class DefaultPersistence implements Persistence {
     private static final String STATE_SCHEDULED = ":stateScheduled";
     private static final String SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE =
             "from "
-                    + "DefaultControlProcess p where (p.parent.id = ${processId}) and (state <> "
+                    + "DefaultTask p where (p.parent.id = ${processId}) and (state <> "
                     + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
                     + ") order by priority desc";
     private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL =
             "from "
-                    + "DefaultControlProcess p where (p.parent is null) and (state <> "
+                    + "DefaultTask p where (p.parent is null) and (state <> "
                     + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
                     + " order by priority desc";
     private static final String UNCOMPLETED_TASKS_WITH_ESTIMATED_END_TIME_HQL =
-            "from " + "DefaultControlProcess where ((state = "
+            "from " + "DefaultTask where ((state = "
                     + STATE_SCHEDULED + ") or (state = " + STATE_BEING_ATTAINED
                     + ")) or "
                     + "((averageEstimatedEndDateTime is not null) or "
@@ -280,7 +280,7 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
         try {
             final String hql =
-                    "from DefaultControlProcess p where p.parent.id = "
+                    "from DefaultTask p where p.parent.id = "
                             + aSelectedProjectId;
 
             final Query query = session.createQuery(hql);
@@ -342,7 +342,7 @@ public class DefaultPersistence implements Persistence {
 
         session.beginTransaction();
         final Query query =
-                session.createQuery("from DefaultControlProcess as p "
+                session.createQuery("from DefaultTask as p "
                         + "where (p.processType = :goalRegion) or "
                         + "(p.processType = :intent)");
 
@@ -371,7 +371,7 @@ public class DefaultPersistence implements Persistence {
 
         try {
             final Query query =
-                    session.createQuery("from DefaultControlProcess where ((state <> "
+                    session.createQuery("from DefaultTask where ((state <> "
                             + STATE_DELETED
                             + ") and (state <> "
                             + STATE_ATTAINED + "))");
@@ -440,7 +440,7 @@ public class DefaultPersistence implements Persistence {
             Query query = null;
             if (aParent != null) {
                 query =
-                        session.createQuery("from DefaultControlProcess p "
+                        session.createQuery("from DefaultTask p "
                                 + "where (p.parent != null) and "
                                 + "(p.parent.id = :parentId) and (state <> "
                                 + STATE_DELETED + ") and (state <> "
@@ -448,7 +448,7 @@ public class DefaultPersistence implements Persistence {
                 query.setParameter("parentId", aParent.getId());
             } else {
                 query =
-                        session.createQuery("from DefaultControlProcess p "
+                        session.createQuery("from DefaultTask p "
                                 + "where (p.parent is null) and (state <> "
                                 + STATE_DELETED + ") and (state <> "
                                 + STATE_ATTAINED + ")");
@@ -952,7 +952,7 @@ public class DefaultPersistence implements Persistence {
     private void updateDailyToDoLists(final Session aSession, final Date aNow,
             final Date aLastPlannedDay) {
         final Query query =
-                aSession.createQuery("from DefaultControlProcess " + "where "
+                aSession.createQuery("from DefaultTask " + "where "
                         + "(averageEstimatedEndDateTime >= :minDate)"
                         + " and (averageEstimatedEndDateTime <= :maxDate)");
 
@@ -1059,7 +1059,7 @@ public class DefaultPersistence implements Persistence {
         final List<DailyPlan> dailyPlans = dailyPlanQuery.list();
 
         final Query processesQuery =
-                session.createQuery("from DefaultControlProcess");
+                session.createQuery("from DefaultTask");
         final List<SchedulingObject> processes = processesQuery.list();
 
         userData.setBookings(bookings);
