@@ -1,3 +1,14 @@
+/**
+ * This file is part of Project Control Center (PCC).
+ * 
+ * PCC (Project Control Center) project is intellectual property of 
+ * Dmitri Anatol'evich Pisarenko.
+ * 
+ * Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
+ * All rights reserved
+ *
+ **/
+
 package at.silverstrike.pcc.test.xmlserialization;
 
 import java.io.File;
@@ -61,7 +72,7 @@ public class XmlSerializerDeserializerTest extends TestCase {
         process1.setAverageEstimatedEndDateTime(new Date());
         process1.setBestCaseEffort(1.1);
         process1.setBestEstimatedEndDateTime(new Date());
-        Task parent = objectFactory.createControlProcess();
+        final Task parent = objectFactory.createControlProcess();
         parent.setAverageEstimatedEndDateTime(new Date());
         parent.setBestCaseEffort(3.3);
         parent.setBestEstimatedEndDateTime(new Date());
@@ -75,8 +86,9 @@ public class XmlSerializerDeserializerTest extends TestCase {
         parent.setWorstCaseEffort(6.7);
         parent.setWorstEstimatedEndDateTime(new Date());
         process1.setParent(parent);
-        Set<SchedulingObject> predecessors = new HashSet<SchedulingObject>();
-        Task firstPredecessors = objectFactory.createControlProcess();
+        final Set<SchedulingObject> predecessors =
+                new HashSet<SchedulingObject>();
+        final Task firstPredecessors = objectFactory.createControlProcess();
         firstPredecessors.setAverageEstimatedEndDateTime(new Date());
         firstPredecessors.setBestCaseEffort(2.2);
         firstPredecessors.setBestEstimatedEndDateTime(new Date());
@@ -84,11 +96,11 @@ public class XmlSerializerDeserializerTest extends TestCase {
         firstPredecessors.setParent(objectFactory.createControlProcess());
         firstPredecessors.setPriority(1);
         firstPredecessors.setProcessType(ProcessType.UNKNOWN);
-        List<ResourceAllocation> resourceAllocations =
+        final List<ResourceAllocation> resourceAllocations =
                 new ArrayList<ResourceAllocation>();
-        ResourceAllocation resourceAllocation = objectFactory
+        final ResourceAllocation resourceAllocation = objectFactory
                 .createResourceAllocation();
-        Resource resource = objectFactory.createResource();
+        final Resource resource = objectFactory.createResource();
         resource.setAbbreviation("Abbreviation");
         resource.setDailyLimitInHours(4.4);
         resourceAllocation.setResource(resource);
@@ -110,23 +122,23 @@ public class XmlSerializerDeserializerTest extends TestCase {
         final DailyPlan dailyPlan1 = objectFactory.createDailyPlan();
         dailyPlan1.setDate(new Date());
         dailyPlan1.setResource(objectFactory.createResource());
-        DailySchedule dailySchedule = objectFactory.createDailySchedule();
+        final DailySchedule dailySchedule = objectFactory.createDailySchedule();
         dailySchedule.setBookings(new ArrayList<Booking>());
-        Booking booking = objectFactory.createBooking();
+        final Booking booking = objectFactory.createBooking();
         booking.setDuration(3.4);
         booking.setProcess(objectFactory.createControlProcess());
         booking.setResource(objectFactory.createResource());
         booking.setStartDateTime(new Date());
         dailySchedule.getBookings().add(booking);
         dailyPlan1.setSchedule(dailySchedule);
-        DailyToDoList dailyToDoList = objectFactory.createDailyToDoList();
+        final DailyToDoList dailyToDoList = objectFactory.createDailyToDoList();
         dailyToDoList.setTasksToCompleteToday(new ArrayList<Task>());
         dailyPlan1.setToDoList(dailyToDoList);
         writtenData.setDailyPlans(new ArrayList<DailyPlan>());
         writtenData.getDailyPlans().add(dailyPlan1);
         writtenData.setIdentifier("1st user data identifier");
         writtenData.setBookings(new ArrayList<Booking>());
-        Booking booking1 = objectFactory.createBooking();
+        final Booking booking1 = objectFactory.createBooking();
         booking1.setDuration(1.6);
         booking1.setProcess(objectFactory.createControlProcess());
         booking1.setResource(objectFactory.createResource());
@@ -184,8 +196,8 @@ public class XmlSerializerDeserializerTest extends TestCase {
         Assert.assertNotNull(readData);
 
         // test processes
-        int writtenProcessesSize = writtenData.getSchedulingData().size();
-        int readProcessesSize = readData.getSchedulingData().size();
+        final int writtenProcessesSize = writtenData.getSchedulingData().size();
+        final int readProcessesSize = readData.getSchedulingData().size();
         Assert.assertEquals(writtenProcessesSize, readProcessesSize);
         if (writtenProcessesSize == readProcessesSize) {
             for (int i = 0; i < writtenProcessesSize; i++) {
@@ -200,49 +212,58 @@ public class XmlSerializerDeserializerTest extends TestCase {
                 readData.getIdentifier());
 
         // test bookings
-        int writtenDataBookingsSize = writtenData.getBookings().size();
-        int readDataBookingsSize = readData.getBookings().size();
+        final int writtenDataBookingsSize = writtenData.getBookings().size();
+        final int readDataBookingsSize = readData.getBookings().size();
         Assert.assertEquals(writtenDataBookingsSize, readDataBookingsSize);
         if (writtenDataBookingsSize == readDataBookingsSize) {
             for (int i = 0; i < writtenDataBookingsSize; i++) {
-                Booking written = writtenData.getBookings().get(i);
-                Booking read = readData.getBookings().get(i);
+                final Booking written = writtenData.getBookings().get(i);
+                final Booking read = readData.getBookings().get(i);
                 TestBooking(written, read);
             }
         }
 
         // test daily plans
-        int writtenDataDailyPlansSize = writtenData.getDailyPlans().size();
-        int readDataDailyPlansSize = readData.getDailyPlans().size();
+        final int writtenDataDailyPlansSize =
+                writtenData.getDailyPlans().size();
+        final int readDataDailyPlansSize = readData.getDailyPlans().size();
         Assert.assertEquals(writtenDataDailyPlansSize, readDataDailyPlansSize);
         if (writtenDataDailyPlansSize == readDataDailyPlansSize) {
             for (int i = 0; i < writtenDataDailyPlansSize; i++) {
-                DailyPlan written = writtenData.getDailyPlans().get(i);
-                DailyPlan read = readData.getDailyPlans().get(i);
+                final DailyPlan written = writtenData.getDailyPlans().get(i);
+                final DailyPlan read = readData.getDailyPlans().get(i);
                 TestDailyPlan(written, read);
             }
         }
     }
 
-    private void TestDailyPlan(DailyPlan written, DailyPlan read) {
-        if (written.getDate() != null)
+    private void TestDailyPlan(final DailyPlan written, final DailyPlan read) {
+        if (written.getDate() != null) {
             Assert.assertEquals(written.getDate(), read.getDate());
-        if (written.getId() != null)
+        }
+        if (written.getId() != null) {
             Assert.assertEquals(written.getId(), read.getId());
-        if (written.getResource() != null)
+        }
+        if (written.getResource() != null) {
             TestResource(written.getResource(), read.getResource());
-        if (written.getSchedule() != null)
+        }
+        if (written.getSchedule() != null) {
             TestSchedule(written.getSchedule(), read.getSchedule());
-        if (written.getToDoList() != null)
+        }
+        if (written.getToDoList() != null) {
             TestDailyToDoList(written.getToDoList(), read.getToDoList());
+        }
     }
 
-    private void TestDailyToDoList(DailyToDoList written, DailyToDoList read) {
-        if (written.getId() != null)
+    private void TestDailyToDoList(final DailyToDoList written,
+            final DailyToDoList read) {
+        if (written.getId() != null) {
             Assert.assertEquals(written.getId(), read.getId());
+        }
         if (written.getTasksToCompleteToday() != null) {
-            int writtenProcesses = written.getTasksToCompleteToday().size();
-            int readProcesses = read.getTasksToCompleteToday().size();
+            final int writtenProcesses =
+                    written.getTasksToCompleteToday().size();
+            final int readProcesses = read.getTasksToCompleteToday().size();
             Assert.assertEquals(writtenProcesses, readProcesses);
             if (writtenProcesses == readProcesses) {
                 for (int i = 0; i < writtenProcesses; i++) {
@@ -253,22 +274,26 @@ public class XmlSerializerDeserializerTest extends TestCase {
         }
     }
 
-    private void TestResource(Resource written, Resource read) {
-        if (written.getAbbreviation() != null)
+    private void TestResource(final Resource written, final Resource read) {
+        if (written.getAbbreviation() != null) {
             Assert.assertEquals(written.getAbbreviation(),
                     read.getAbbreviation());
+        }
         Assert.assertEquals(written.getDailyLimitInHours(),
                 read.getDailyLimitInHours());
-        if (written.getId() != null)
+        if (written.getId() != null) {
             Assert.assertEquals(written.getId(), read.getId());
+        }
     }
 
-    private void TestSchedule(DailySchedule written, DailySchedule read) {
-        if (written.getId() != null)
+    private void TestSchedule(final DailySchedule written,
+            final DailySchedule read) {
+        if (written.getId() != null) {
             Assert.assertEquals(written.getId(), read.getId());
+        }
         if (written.getBookings() != null) {
-            int writtenBooking = written.getBookings().size();
-            int readBooking = read.getBookings().size();
+            final int writtenBooking = written.getBookings().size();
+            final int readBooking = read.getBookings().size();
             Assert.assertEquals(writtenBooking, readBooking);
             if (writtenBooking == readBooking) {
                 for (int i = 0; i < writtenBooking; i++) {
@@ -279,41 +304,53 @@ public class XmlSerializerDeserializerTest extends TestCase {
         }
     }
 
-    private void TestBooking(Booking written, Booking read) {
-        if (written.getDuration() != 0)
+    private void TestBooking(final Booking written, final Booking read) {
+        if (written.getDuration() != 0) {
             Assert.assertEquals(written.getDuration(), read.getDuration());
-        if (written.getEndDateTime() != null)
+        }
+        if (written.getEndDateTime() != null) {
             Assert.assertEquals(written.getEndDateTime(), read.getEndDateTime());
-        if (written.getId() != null)
+        }
+        if (written.getId() != null) {
             Assert.assertEquals(written.getId(), read.getId());
-        if (written.getStartDateTime() != null)
+        }
+        if (written.getStartDateTime() != null) {
             Assert.assertEquals(written.getStartDateTime(),
                     read.getStartDateTime());
-        if (written.getResource() != null)
+        }
+        if (written.getResource() != null) {
             TestResource(written.getResource(), read.getResource());
-        if (written.getProcess() != null)
+        }
+        if (written.getProcess() != null) {
             testProcess(written.getProcess(), read.getProcess());
+        }
     }
 
-    private void testProcess(Task written, Task read) {
-        if (written.getName() != null)
+    private void testProcess(final Task written, final Task read) {
+        if (written.getName() != null) {
             Assert.assertEquals(written.getName(), read.getName());
-        if (written.getAverageEstimatedEndDateTime() != null)
+        }
+        if (written.getAverageEstimatedEndDateTime() != null) {
             Assert.assertEquals(written.getAverageEstimatedEndDateTime(),
                     read.getAverageEstimatedEndDateTime());
-        if (written.getBestCaseEffort() != null)
+        }
+        if (written.getBestCaseEffort() != null) {
             Assert.assertEquals(written.getBestCaseEffort(),
                     read.getBestCaseEffort());
-        if (written.getBestEstimatedEndDateTime() != null)
+        }
+        if (written.getBestEstimatedEndDateTime() != null) {
             Assert.assertEquals(written.getBestEstimatedEndDateTime(),
                     read.getBestEstimatedEndDateTime());
-        if (written.getId() != null)
+        }
+        if (written.getId() != null) {
             Assert.assertEquals(written.getId(), read.getId());
-        if (written.getParent() != null)
-            testProcess((Task)written.getParent(), (Task)read.getParent());
+        }
+        if (written.getParent() != null) {
+            testProcess((Task) written.getParent(), (Task) read.getParent());
+        }
         if (written.getPredecessors() != null) {
-            int writtenPredecesors = written.getPredecessors().size();
-            int readPredecesors = read.getPredecessors().size();
+            final int writtenPredecesors = written.getPredecessors().size();
+            final int readPredecesors = read.getPredecessors().size();
             Assert.assertEquals(writtenPredecesors, readPredecesors);
             if (writtenPredecesors == readPredecesors) {
                 for (int i = 0; i < writtenPredecesors; i++) {
@@ -323,14 +360,18 @@ public class XmlSerializerDeserializerTest extends TestCase {
                 }
             }
         }
-        if (written.getPriority() != null)
+        if (written.getPriority() != null) {
             Assert.assertEquals(written.getPriority(), read.getPriority());
-        if (written.getProcessType() != null)
+        }
+        if (written.getProcessType() != null) {
             Assert.assertEquals(written.getProcessType(), read.getProcessType());
+        }
         if (written.getResourceAllocations() != null) {
-            int writtenResourceAllocation = written.getResourceAllocations()
-                    .size();
-            int readResourceAllocation = read.getResourceAllocations().size();
+            final int writtenResourceAllocation =
+                    written.getResourceAllocations()
+                            .size();
+            final int readResourceAllocation =
+                    read.getResourceAllocations().size();
             Assert.assertEquals(writtenResourceAllocation,
                     readResourceAllocation);
             if (writtenResourceAllocation == readResourceAllocation) {
@@ -340,21 +381,26 @@ public class XmlSerializerDeserializerTest extends TestCase {
                 }
             }
         }
-        if (written.getState() != null)
+        if (written.getState() != null) {
             Assert.assertEquals(written.getState(), read.getState());
-        if (written.getWorstCaseEffort() != null)
+        }
+        if (written.getWorstCaseEffort() != null) {
             Assert.assertEquals(written.getWorstCaseEffort(),
                     read.getWorstCaseEffort());
-        if (written.getWorstEstimatedEndDateTime() != null)
+        }
+        if (written.getWorstEstimatedEndDateTime() != null) {
             Assert.assertEquals(written.getWorstEstimatedEndDateTime(),
                     read.getWorstEstimatedEndDateTime());
+        }
     }
 
-    private void TestResourceAllocation(ResourceAllocation written,
-            ResourceAllocation read) {
-        if (written.getId() != null)
+    private void TestResourceAllocation(final ResourceAllocation written,
+            final ResourceAllocation read) {
+        if (written.getId() != null) {
             Assert.assertEquals(written.getId(), read.getId());
-        if (written.getResource() != null)
+        }
+        if (written.getResource() != null) {
             TestResource(written.getResource(), read.getResource());
+        }
     }
 }
