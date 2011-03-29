@@ -43,7 +43,7 @@ import at.silverstrike.pcc.test.mockpersistence.MockProjectExportInfo;
 import at.silverstrike.pcc.test.testutils.LineReader;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
-public class TestDefaultTaskJuggler3Exporter {
+public final class TestDefaultTaskJuggler3Exporter {
     private static final String EURO = "€";
     private static final File ACTUAL_RESULTS_FILE = new File(
             "src/test/resources/at/silverstrike/pcc/test/export2tj3/"
