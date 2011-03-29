@@ -29,11 +29,12 @@ public interface SchedulingObject extends UniquelyIdentifiableObject {
     String getLabel();
     
     void setPriority(final Integer aPriority);
-
     Integer getPriority();
 
     SchedulingObject getParent();
-
     void setParent(SchedulingObject aParentProcess);
 
+    
+    String getName();
+    void setName(final String aName);
 }

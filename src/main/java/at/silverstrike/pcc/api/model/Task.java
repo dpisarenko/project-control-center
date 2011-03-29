@@ -15,11 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface Task extends SchedulingObjectWithDependencies {
-
-    String getName();
-
-    void setName(final String aName);
-
     ProcessState getState();
 
     void setState(final ProcessState aState);

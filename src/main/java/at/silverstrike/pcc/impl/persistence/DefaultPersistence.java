@@ -209,7 +209,7 @@ public class DefaultPersistence implements Persistence {
     public final void createSiblingProcess(final Long aSiblingProcessId) {
         final Transaction tx = session.beginTransaction();
         try {
-            Task parent = null;
+            SchedulingObject parent = null;
 
             if (aSiblingProcessId != null) {
                 final Task sibling =
