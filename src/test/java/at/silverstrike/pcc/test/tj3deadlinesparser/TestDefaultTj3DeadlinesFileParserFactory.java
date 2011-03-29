@@ -26,8 +26,9 @@ import at.silverstrike.pcc.impl.tj3deadlinesparser.DefaultTj3DeadlinesFileParser
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 public final class TestDefaultTj3DeadlinesFileParserFactory {
-    private final static Logger LOGGER =
-        LoggerFactory.getLogger(TestDefaultTj3DeadlinesFileParserFactory.class);
+    private static final Logger LOGGER =
+            LoggerFactory
+                    .getLogger(TestDefaultTj3DeadlinesFileParserFactory.class);
 
     @Before
     public void setupLogger() {
@@ -40,16 +41,13 @@ public final class TestDefaultTj3DeadlinesFileParserFactory {
                         .createInjector();
         final DefaultTj3DeadlinesFileParserFactory objectUnderTest =
                 new DefaultTj3DeadlinesFileParserFactory();
-        
+
         objectUnderTest.setInjector(injector);
-        
+
         Tj3DeadlinesFileParser parser = null;
-        try
-        {
-            parser = objectUnderTest.create();   
-        }
-        catch (final Exception exception)
-        {
+        try {
+            parser = objectUnderTest.create();
+        } catch (final Exception exception) {
             LOGGER.error("", exception);
             fail(exception.getMessage());
         }

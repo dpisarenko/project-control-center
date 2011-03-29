@@ -35,10 +35,10 @@ import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 import com.google.inject.Injector;
 
-public class TestDefaultTj3BookingsParser {
+public final class TestDefaultTj3BookingsParser {
     private static final String DIR = "src/test/resources/at/silverstrike/"
             + "pcc/test/tj3bookingsparser/";
-    private final static Logger LOGGER =
+    private static final Logger LOGGER =
             LoggerFactory.getLogger(TestDefaultTj3BookingsParser.class);
 
     @Before
