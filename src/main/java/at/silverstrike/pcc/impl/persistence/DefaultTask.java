@@ -33,7 +33,7 @@ class DefaultTask implements Task {
     private Double worstCaseEffort;
     private Integer priority;
     private ProcessType processType;
-    private Task parent;
+    private SchedulingObject parent;
     private List<ResourceAllocation> resourceAllocations;
     private Date averageEstimatedEndDateTime;
     private Date bestEstimatedEndDateTime;
@@ -118,11 +118,11 @@ class DefaultTask implements Task {
         this.processType = aProcessResultType;
     }
 
-    public Task getParent() {
+    public SchedulingObject getParent() {
         return parent;
     }
 
-    public void setParent(final Task aParent) {
+    public void setParent(final SchedulingObject aParent) {
         this.parent = aParent;
     }
 

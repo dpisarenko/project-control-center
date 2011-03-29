@@ -32,8 +32,8 @@ public interface SchedulingObject extends UniquelyIdentifiableObject {
 
     Integer getPriority();
 
-    Task getParent();
+    SchedulingObject getParent();
 
-    void setParent(Task aParentProcess);
+    void setParent(SchedulingObject aParentProcess);
 
 }

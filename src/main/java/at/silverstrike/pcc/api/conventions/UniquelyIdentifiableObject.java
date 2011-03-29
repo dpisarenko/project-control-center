@@ -12,5 +12,5 @@
 package at.silverstrike.pcc.api.conventions;
 
 public interface UniquelyIdentifiableObject {
-	Long getId();
+    Long getId();
 }
