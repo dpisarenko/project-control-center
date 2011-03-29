@@ -13,8 +13,8 @@ package at.silverstrike.pcc.test.tj3bookingsparser;
 
 import at.silverstrike.pcc.api.tj3bookingsparser.IndBooking;
 
-public class MockIndBooking implements IndBooking{
-    
+public final class MockIndBooking implements IndBooking {
+
     private String startTime;
 
     private String duration;
