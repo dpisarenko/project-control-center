@@ -18,7 +18,7 @@ import org.junit.Test;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.SeleneseTestCase;
 
-public class GuiTest1 extends SeleneseTestCase {
+public final class GuiTest1 extends SeleneseTestCase {
     @Before
     public void setUp() throws Exception {
         selenium = new DefaultSelenium("localhost", 4444, "*chrome", "http://localhost:8080/");
