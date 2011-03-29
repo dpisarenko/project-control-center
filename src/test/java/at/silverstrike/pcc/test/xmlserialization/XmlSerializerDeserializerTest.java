@@ -252,11 +252,11 @@ public class XmlSerializerDeserializerTest extends TestCase {
             testSchedule(aWritten.getSchedule(), aRead.getSchedule());
         }
         if (aWritten.getToDoList() != null) {
-            TestDailyToDoList(aWritten.getToDoList(), aRead.getToDoList());
+            testDailyToDoList(aWritten.getToDoList(), aRead.getToDoList());
         }
     }
 
-    private void TestDailyToDoList(final DailyToDoList aWritten,
+    private void testDailyToDoList(final DailyToDoList aWritten,
             final DailyToDoList aRead) {
         if (aWritten.getId() != null) {
             Assert.assertEquals(aWritten.getId(), aRead.getId());
