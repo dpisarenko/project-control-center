@@ -14,7 +14,6 @@ package at.silverstrike.pcc.test.mockpersistence;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.hibernate.Session;
 
 import com.google.inject.Injector;
@@ -33,7 +32,6 @@ import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
 
 public abstract class MockPersistenceAdapter implements Persistence {
-
     @Override
     public void closeSession() {
     }
@@ -52,98 +50,100 @@ public abstract class MockPersistenceAdapter implements Persistence {
             final String firstName,
             final String middleName, final String surname,
             final double aWorkTime) {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public void createProcessParent(final String name, final Long parentItemId,
             final ProcessType aProcessType) {
-        throw new NotImplementedException();
+        
     }
 
     @Override
     public void createSiblingProcess(final Long siblingProcessId) {
-        throw new NotImplementedException();
+        
     }
 
     @Override
-    public void createSubTask(final String aProcessName, final Long aParentProcessId) {
-        throw new NotImplementedException();
+    public void createSubTask(final String aProcessName,
+            final Long aParentProcessId) {
+        
     }
 
     @Override
     public Long createTask(final String processName) {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public void deleteProcess(final Long selectedProjectId) {
-        throw new NotImplementedException();
+        
     }
 
     @Override
     public void generateDailyPlans(final Date aNow) {
-        throw new NotImplementedException();
+        
     }
 
     @Override
     public List<Task> getAllIntentsAndGoalRegions() {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public List<SchedulingObject> getAllNotDeletedTasks() {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public List<Worker> getAllWorkers() {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public List<SchedulingObject> getChildTasks(final SchedulingObject aParent) {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public List<SchedulingObject> getChildTasks(final Long aProcessId) {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public DailyPlan getDailyPlan(final Date newDate, final String resource) {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public Session getSession() {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public PersistenceState getState() {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
-    public List<SchedulingObject> getSubProcessesWithChildren(final Long processId) {
-        throw new NotImplementedException();
+    public List<SchedulingObject> getSubProcessesWithChildren(
+            final Long processId) {
+        return null;
     }
 
     @Override
     public Task getTask(final Object aProcessid) {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public List<Task> getUncompletedTasksWithEstimatedEndTime() {
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override
     public void handoffProcess(final Long processId, final Long workerId) {
-        throw new NotImplementedException();
+        
     }
 
     @Override
@@ -159,7 +159,8 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public void updateTaskEndTimes(final List<ProcessEndTimeTuple> endTimeTuples) {
+    public void
+            updateTaskEndTimes(final List<ProcessEndTimeTuple> endTimeTuples) {
     }
 
     @Override

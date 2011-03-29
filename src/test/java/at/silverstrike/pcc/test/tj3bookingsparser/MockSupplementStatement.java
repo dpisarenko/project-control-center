@@ -17,16 +17,17 @@ import java.util.List;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingStatement;
 import at.silverstrike.pcc.api.tj3bookingsparser.SupplementStatement;
 
-public class MockSupplementStatement implements SupplementStatement{
+public final class MockSupplementStatement implements SupplementStatement {
     private String taskId;
 
-    private List<BookingStatement> bookingStatements = new LinkedList<BookingStatement>();
+    private List<BookingStatement> bookingStatements =
+            new LinkedList<BookingStatement>();
 
     public String getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(final String taskId) {
         this.taskId = taskId;
     }
 
@@ -34,7 +35,8 @@ public class MockSupplementStatement implements SupplementStatement{
         return bookingStatements;
     }
 
-    public void setBookingStatements(List<BookingStatement> bookingStatements) {
+    public void setBookingStatements(
+            final List<BookingStatement> bookingStatements) {
         this.bookingStatements = bookingStatements;
     }
 

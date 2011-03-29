@@ -16,7 +16,7 @@ import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
-public class MockObjectFactory {
+public final class MockObjectFactory {
     public Task createControlProcess(final Long anId)
     {
         final MockControlProcess returnValue = new MockControlProcess();
