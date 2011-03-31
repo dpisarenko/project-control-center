@@ -28,6 +28,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
@@ -51,9 +52,12 @@ class DefaultMilestoneEditingPanel extends Panel implements
             Arrays.asList(
                     new String[] { "1.1", "Project 1", "Task 1" },
                     new String[] { "2.1", "Project 4", "Task 5" });
+    private static final String SAVE_MILESTONE_BUTTON = "030.001";
+    private static final String DELETE_MILESTONE_BUTTON = "030.002";
 
     private transient Injector injector;
     private transient MilestoneEditingPanelController controller;
+    private transient DebugIdRegistry debugIdRegistry;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -63,6 +67,8 @@ class DefaultMilestoneEditingPanel extends Panel implements
                     this.injector
                             .getInstance(MilestoneEditingPanelController.class);
             this.controller.setInjector(this.injector);
+            this.debugIdRegistry =
+                    this.injector.getInstance(DebugIdRegistry.class);
         }
     }
 
@@ -151,10 +157,8 @@ class DefaultMilestoneEditingPanel extends Panel implements
 
         final Table table = createTestTable();
         verticalLayoutRight.addComponent(table);
-        
+
         this.addComponent(verticalLayoutRight);
     }
-
-
 
 }
