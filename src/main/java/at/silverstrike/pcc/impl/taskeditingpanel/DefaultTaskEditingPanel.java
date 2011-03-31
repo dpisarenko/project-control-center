@@ -57,90 +57,22 @@ class DefaultTaskEditingPanel extends Panel implements
                     new String[] { "2.1", "Project 4", "Task 5" });
 
     private transient Injector injector;
-    private transient TaskEditingPanelController controller =
-            null;
+    private transient TaskEditingPanelController controller;
 
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
-            /**
-             * Please initialize the controller here by getting the 
-             * object from injector.
-             */
+            this.controller =
+                    this.injector
+                            .getInstance(TaskEditingPanelController.class);
+
             this.controller.setInjector(aInjector);
         }
     }
 
     @Override
     public void initGui() {
-        /*
-         * final GridLayout mainGrid = new GridLayout(2, 1);
-         * 
-         * mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
-         * mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
-         * 
-         * // mainGrid.setSpacing(true);
-         * 
-         * final VerticalLayout verticalLayoutLeft = new VerticalLayout(); final
-         * Embedded e = new Embedded(null, new
-         * ThemeResource("../pcc/test/graph.gif"));
-         * verticalLayoutLeft.addComponent(e);
-         * 
-         * final GridLayout buttonsNewGrid = new GridLayout(3, 1);
-         * buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
-         * 
-         * final Button newTaskButton = getNewTaskButton();
-         * buttonsNewGrid.addComponent(newTaskButton, 0, 0);
-         * buttonsNewGrid.setComponentAlignment(newTaskButton,
-         * Alignment.MIDDLE_LEFT);
-         * 
-         * final Button newMeetingButton = getNewMeetingButton();
-         * buttonsNewGrid.addComponent(newMeetingButton, 1, 0);
-         * buttonsNewGrid.setComponentAlignment(newMeetingButton,
-         * Alignment.MIDDLE_CENTER);
-         * 
-         * final Button newMilestoneButton = getNewMilestoneButton();
-         * buttonsNewGrid.addComponent(newMilestoneButton, 2, 0);
-         * buttonsNewGrid.setComponentAlignment(newMilestoneButton,
-         * Alignment.MIDDLE_RIGHT);
-         * 
-         * verticalLayoutLeft.addComponent(buttonsNewGrid);
-         * 
-         * final HorizontalLayout buttonsPriorityLayout = new
-         * HorizontalLayout(); buttonsPriorityLayout.setSpacing(true);
-         * 
-         * final Button priorityPlusButton = new Button(
-         * TM.get("centraleditingprocesspanel.8-button-priorityUp"));
-         * priorityPlusButton.addListener(this); // react to clicks
-         * buttonsPriorityLayout.addComponent(priorityPlusButton);
-         * 
-         * final Button priorityMinusButton = new Button(
-         * TM.get("centraleditingprocesspanel.9-button-priorityDown"));
-         * priorityMinusButton.addListener(this); // react to clicks
-         * buttonsPriorityLayout.addComponent(priorityMinusButton);
-         * 
-         * verticalLayoutLeft.addComponent(buttonsPriorityLayout);
-         * 
-         * final VerticalLayout treeLayout = getTreeLayout();
-         * 
-         * final Tree tree = new Tree(); treeLayout.addComponent(tree);
-         * verticalLayoutLeft.addComponent(treeLayout);
-         * 
-         * // Contents from a (prefilled example) hierarchical container:
-         * tree.setContainerDataSource(getFilterHierarchicalContainer());
-         * 
-         * mainGrid.addComponent(verticalLayoutLeft, 0, 0);
-         * 
-         * final VerticalLayout verticalLayoutRight = getTaskLayout();
-         * 
-         * mainGrid.addComponent(verticalLayoutRight, 1, 0);
-         * 
-         * this.addComponent(mainGrid);
-         */
-    }
-
-    private Panel getTaskPanel() {
         final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
@@ -198,7 +130,7 @@ class DefaultTaskEditingPanel extends Panel implements
 
         final Table table = createTestTable();
         verticalLayoutRight.addComponent(table);
-        return verticalLayoutRight;
+        this.addComponent(verticalLayoutRight);
     }
 
     private HorizontalLayout getEffortPanel() {
@@ -264,6 +196,6 @@ class DefaultTaskEditingPanel extends Panel implements
 
     @Override
     public Panel toPanel() {
-        return getTaskPanel();
+        return this;
     }
 }
