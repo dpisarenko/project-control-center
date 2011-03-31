@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.DerbyDialect;
 
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -1068,5 +1070,11 @@ public class DefaultPersistence implements Persistence {
         userData.setSchedulingData(processes);
 
         return userData;
+    }
+
+    @Override
+    public Task createNewTask(final String aUser, final Long aParentTaskId)
+            throws PccException {
+        throw new NotImplementedException();
     }
 }

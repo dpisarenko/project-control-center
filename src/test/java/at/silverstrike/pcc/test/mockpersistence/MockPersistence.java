@@ -18,6 +18,7 @@ import java.util.List;
 import org.apache.commons.lang.NotImplementedException;
 import org.hibernate.Session;
 
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -209,5 +210,9 @@ class MockPersistence implements Persistence {
     public UserData getUserData() {
         throw new NotImplementedException();
     }
-
+    @Override
+    public Task createNewTask(final String aUser, final Long aParentTaskId)
+            throws PccException {
+        throw new NotImplementedException();
+    }
 }
