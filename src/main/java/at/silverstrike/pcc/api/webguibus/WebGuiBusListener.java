@@ -11,8 +11,10 @@
 
 package at.silverstrike.pcc.api.webguibus;
 
+import at.silverstrike.pcc.api.model.Task;
+
 public interface WebGuiBusListener {
 
     void workerAdded(final WorkerAddedMessage aMessage);
-
+    void taskCreated(final Task aNewTask);
 }

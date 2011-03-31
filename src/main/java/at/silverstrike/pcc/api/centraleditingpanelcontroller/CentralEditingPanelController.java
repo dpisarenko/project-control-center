@@ -21,4 +21,7 @@ public interface CentralEditingPanelController extends ModuleWithInjectableDepen
     Panel getTaskPanel();
     Panel getMeetingPanel();
     Panel getMilestonePanel();
+    void newTaskButtonClicked();
+    void newMeetingButtonClicked();
+    void newMilestoneButtonClicked();
 }

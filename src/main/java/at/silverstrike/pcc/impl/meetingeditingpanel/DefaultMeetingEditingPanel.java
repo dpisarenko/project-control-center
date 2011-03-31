@@ -29,6 +29,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanel;
 import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
@@ -53,8 +54,12 @@ class DefaultMeetingEditingPanel extends Panel implements
                     new String[] { "1.1", "Project 1", "Task 1" },
                     new String[] { "2.1", "Project 4", "Task 5" });
 
+    private static final String SAVE_MEETING_BUTTON = "029.001";
+    private static final String DELETE_MEETING_BUTTON = "029.002";
+
     private transient Injector injector;
     private transient MeetingEditingPanelController controller;
+    private transient DebugIdRegistry debugIdRegistry;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -63,6 +68,8 @@ class DefaultMeetingEditingPanel extends Panel implements
             this.controller =
                     this.injector
                             .getInstance(MeetingEditingPanelController.class);
+            this.debugIdRegistry =
+                    this.injector.getInstance(DebugIdRegistry.class);
         }
     }
 

@@ -44,6 +44,8 @@ import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
         CentralEditingPanel, ProcessPanelListener, ClickListener {
+    private static final String NEW_MEETING_BUTTON = "025.004";
+    private static final String NEW_TASK_BUTTON = "025.003";
     private static final String NEW_MILESTONE_BUTTON = "025.002";
     private static final int PADDING = 5;
     private static final int ONE_SIXTH_OF_SCREEN_WIDTH = 6;
@@ -58,6 +60,8 @@ class DefaultCentralEditingPanel extends Panel implements
 
     public static final Object PROJECT_PROPERTY_NAME = "name";
 
+    private GridLayout mainGrid;
+
     private Panel verticalPanelRight;
 
     private transient Injector injector;
@@ -68,7 +72,6 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
     private static final int DEFAULT_WIDTH_PIXELS = 600;
 
-    
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
@@ -90,7 +93,7 @@ class DefaultCentralEditingPanel extends Panel implements
     public void initGui() {
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
-        final GridLayout mainGrid = new GridLayout(2, 1);
+        this.mainGrid = new GridLayout(2, 1);
 
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
         mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
@@ -99,27 +102,27 @@ class DefaultCentralEditingPanel extends Panel implements
 
         final VerticalLayout verticalLayoutLeft = new VerticalLayout();
 
-        
         /**
          * Graph panel (start)
          */
-        final ProjectNetworkGraphPanelFactory factory = this.injector.getInstance(ProjectNetworkGraphPanelFactory.class);
+        final ProjectNetworkGraphPanelFactory factory =
+                this.injector
+                        .getInstance(ProjectNetworkGraphPanelFactory.class);
         final ProjectNetworkGraphPanel graphPanel = factory.create();
-        
+
         graphPanel.setInjector(injector);
         graphPanel.initGui();
-  
+
         final List<SchedulingObjectDependencyTuple> tuples =
-            getDependencyTuples();
+                getDependencyTuples();
 
         graphPanel.updatePanel(tuples);
-        
-        
+
         final com.vaadin.ui.Layout graphPanelLayout = graphPanel.toLayout();
-        
+
         graphPanelLayout.setWidth(DEFAULT_WIDTH_PIXELS, UNITS_PIXELS);
         graphPanelLayout.setHeight(DEFAULT_HEIGHT_PIXELS, UNITS_PIXELS);
-        
+
         verticalLayoutLeft.addComponent(graphPanelLayout);
         /**
          * Graph panel (end)
@@ -129,6 +132,12 @@ class DefaultCentralEditingPanel extends Panel implements
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
 
         final Button newTaskButton = getNewTaskButton();
+
+        newTaskButton.setDebugId(this.debugIdRegistry
+                .getDebugId(
+                        MessageCodePrefixRegistry.Module.centraleditingpanel,
+                        "3-button-newTask"));
+
         buttonsNewGrid.addComponent(newTaskButton, 0, 0);
         buttonsNewGrid.setComponentAlignment(newTaskButton,
                 Alignment.MIDDLE_LEFT);
@@ -184,7 +193,6 @@ class DefaultCentralEditingPanel extends Panel implements
 
         this.addComponent(mainGrid);
     }
-    
 
     private List<SchedulingObjectDependencyTuple> getDependencyTuples() {
         final List<SchedulingObjectDependencyTuple> tuples =
@@ -198,30 +206,30 @@ class DefaultCentralEditingPanel extends Panel implements
         final String P2_7 = "P2.7";
         final String P2_8 = "P2.8";
 
-        tuples.add(getTuple(P2_2, new String[]{}));
-        tuples.add(getTuple(P2_3, new String[]{P2_2}));
-        tuples.add(getTuple(P2_4, new String[]{P2_2}));
-        tuples.add(getTuple(P2_5, new String[]{P2_2, P2_4}));
-        tuples.add(getTuple(P2_6, new String[]{P2_5}));
-        tuples.add(getTuple(P2_7, new String[]{P2_2, P2_3, P2_6}));
-        tuples.add(getTuple(P2_8, new String[]{P2_6}));
-        
+        tuples.add(getTuple(P2_2, new String[] {}));
+        tuples.add(getTuple(P2_3, new String[] { P2_2 }));
+        tuples.add(getTuple(P2_4, new String[] { P2_2 }));
+        tuples.add(getTuple(P2_5, new String[] { P2_2, P2_4 }));
+        tuples.add(getTuple(P2_6, new String[] { P2_5 }));
+        tuples.add(getTuple(P2_7, new String[] { P2_2, P2_3, P2_6 }));
+        tuples.add(getTuple(P2_8, new String[] { P2_6 }));
+
         return tuples;
     }
 
     private SchedulingObjectDependencyTuple getTuple(final String aLabel,
             final String[] aDependencies) {
         final List<String> dependencies = new LinkedList<String>();
-        final MockSchedulingObjectDependencyTuple returnValue = new MockSchedulingObjectDependencyTuple();
-        
-        for (final String curDep : aDependencies)
-        {
+        final MockSchedulingObjectDependencyTuple returnValue =
+                new MockSchedulingObjectDependencyTuple();
+
+        for (final String curDep : aDependencies) {
             dependencies.add(curDep);
         }
-        
+
         returnValue.setLabel(aLabel);
         returnValue.setDependencies(dependencies);
-        
+
         return returnValue;
     }
 
@@ -249,6 +257,10 @@ class DefaultCentralEditingPanel extends Panel implements
         newMeetingButton.addListener(this); // react to clicks
         newMeetingButton.setWidth(WIDTH_OF_NEW_BUTTONS,
                 Sizeable.UNITS_PIXELS);
+        newMeetingButton.setDebugId(this.debugIdRegistry
+                .getDebugId(
+                        MessageCodePrefixRegistry.Module.centraleditingpanel,
+                        "4-button-newMeeting"));
         return newMeetingButton;
     }
 

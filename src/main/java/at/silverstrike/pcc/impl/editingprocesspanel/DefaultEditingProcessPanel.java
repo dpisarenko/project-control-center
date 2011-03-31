@@ -947,4 +947,10 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     public void workerAdded(final WorkerAddedMessage aMessage) {
         fillWorkerComboBox();
     }
+
+    @Override
+    public void taskCreated(Task aNewTask) {
+        // TODO Auto-generated method stub
+        
+    }
 }
