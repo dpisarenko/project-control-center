@@ -22,7 +22,6 @@ import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactor
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 
-
 class DefaultCentralEditingPanelController implements
         CentralEditingPanelController {
     private Injector injector = null;
@@ -35,40 +34,82 @@ class DefaultCentralEditingPanelController implements
     @Override
     public void increasePriorityButtonClicked() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void decreasePriorityButtonClicked() {
         // TODO Auto-generated method stub
-        
+
     }
 
-	@Override
-	public Panel getTaskPanel() {
-		final TaskEditingPanelFactory factory =
-            this.injector.getInstance(TaskEditingPanelFactory.class);
+    @Override
+    public Panel getTaskPanel() {
+        final TaskEditingPanelFactory factory =
+                this.injector.getInstance(TaskEditingPanelFactory.class);
         final TaskEditingPanel panel = factory.create();
         panel.setInjector(this.injector);
-		return panel.toPanel();
-	}
+        panel.initGui();
+        return panel.toPanel();
+    }
 
-	@Override
-	public Panel getMeetingPanel() {
-		final MeetingEditingPanelFactory factory =
-            this.injector.getInstance(MeetingEditingPanelFactory.class);
+    @Override
+    public Panel getMeetingPanel() {
+        final MeetingEditingPanelFactory factory =
+                this.injector.getInstance(MeetingEditingPanelFactory.class);
         final MeetingEditingPanel panel = factory.create();
         panel.setInjector(this.injector);
-		return panel.toPanel();
-	}
+        panel.initGui();
+        return panel.toPanel();
+    }
 
-	@Override
-	public Panel getMilestonePanel() {
-		final MilestoneEditingPanelFactory factory =
-            this.injector.getInstance(MilestoneEditingPanelFactory.class);
+    @Override
+    public Panel getMilestonePanel() {
+        final MilestoneEditingPanelFactory factory =
+                this.injector.getInstance(MilestoneEditingPanelFactory.class);
         final MilestoneEditingPanel panel = factory.create();
         panel.setInjector(this.injector);
-		return panel.toPanel();
-	}
+        panel.initGui();
+        return panel.toPanel();
+    }
+
+    @Override
+    public void newTaskButtonClicked() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void newMeetingButtonClicked() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void newMilestoneButtonClicked() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void createMilestone(String aUserIdentity,
+            Long aProjectIdCurrentlySelectedInTree) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void createTask(final String aUserIdentity,
+            final Long aProjectIdCurrentlySelectedInTree) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void createMeeting(final String aUserIdentity,
+            final Long aProjectIdCurrentlySelectedInTree) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

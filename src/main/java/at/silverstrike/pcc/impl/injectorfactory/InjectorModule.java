@@ -49,6 +49,7 @@ import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
+import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
@@ -89,6 +90,7 @@ import at.silverstrike.pcc.impl.projectnetworkgraphpanel.DefaultProjectNetworkGr
 import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
 import at.silverstrike.pcc.impl.schedulingpanel.DefaultSchedulingPanelFactory;
 import at.silverstrike.pcc.impl.taskeditingpanel.DefaultTaskEditingPanelFactory;
+import at.silverstrike.pcc.impl.taskeditingpanelcontroller.DefaultTaskEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.testtablecreator.DefaultTestTableCreatorFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultBookingsFile2BookingsFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultTj3BookingsParserFactory;
@@ -184,6 +186,9 @@ class InjectorModule extends AbstractModule {
                 new DefaultProjectNetworkGraphCreatorFactory().create());
         bind(Graph2ResourceConverter.class).toInstance(
                 new DefaultGraph2ResourceConverterFactory().create());
+        bind(TaskEditingPanelController.class).toInstance(
+                new DefaultTaskEditingPanelControllerFactory().create());
+
     }
 
     private TestTableCreator getTestTableCreator() {

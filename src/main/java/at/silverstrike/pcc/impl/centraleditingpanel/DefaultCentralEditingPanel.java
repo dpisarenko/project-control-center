@@ -39,7 +39,6 @@ import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
-import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
@@ -54,7 +53,6 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final int HEIGHT_SCREEN = 600;
     private static final int WIDTH_SCREEN = 1200;
     private static final long serialVersionUID = 1L;
-    private static final String NOTIFICATION = "Smth happend";
     private static final int WIDTH_OF_NEW_BUTTONS =
             WIDTH_SCREEN / ONE_SIXTH_OF_SCREEN_WIDTH - PADDING;
 
@@ -132,12 +130,6 @@ class DefaultCentralEditingPanel extends Panel implements
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
 
         final Button newTaskButton = getNewTaskButton();
-
-        newTaskButton.setDebugId(this.debugIdRegistry
-                .getDebugId(
-                        MessageCodePrefixRegistry.Module.centraleditingpanel,
-                        "3-button-newTask"));
-
         buttonsNewGrid.addComponent(newTaskButton, 0, 0);
         buttonsNewGrid.setComponentAlignment(newTaskButton,
                 Alignment.MIDDLE_LEFT);
@@ -187,11 +179,22 @@ class DefaultCentralEditingPanel extends Panel implements
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
 
         initController();
-        verticalPanelRight = controller.getMeetingPanel();
 
-        mainGrid.addComponent(verticalPanelRight, 1, 0);
+        final Panel panel = controller.getTaskPanel();
+        setRightPanel(panel);
 
         this.addComponent(mainGrid);
+    }
+
+    private void removeRightPanel() {
+        mainGrid.removeComponent(verticalPanelRight);
+    }
+
+    private void setRightPanel(final Panel aPanel) {
+        if (aPanel != null) {
+            verticalPanelRight = aPanel;
+        }
+        mainGrid.addComponent(verticalPanelRight, 1, 0);
     }
 
     private List<SchedulingObjectDependencyTuple> getDependencyTuples() {
@@ -234,9 +237,9 @@ class DefaultCentralEditingPanel extends Panel implements
     }
 
     private void initController() {
-        final DefaultCentralEditingPanelControllerFactory factory =
+        final CentralEditingPanelControllerFactory factory =
                 this.injector
-                        .getInstance(DefaultCentralEditingPanelControllerFactory.class);
+                        .getInstance(CentralEditingPanelControllerFactory.class);
         this.controller = factory.create();
         this.controller.setInjector(this.injector);
     }
@@ -271,6 +274,10 @@ class DefaultCentralEditingPanel extends Panel implements
         newTaskButton.addListener(this); // react to clicks
         newTaskButton.setWidth(WIDTH_OF_NEW_BUTTONS,
                 Sizeable.UNITS_PIXELS);
+        newTaskButton.setDebugId(this.debugIdRegistry
+                .getDebugId(
+                        MessageCodePrefixRegistry.Module.centraleditingpanel,
+                        "3-button-newTask"));
         return newTaskButton;
     }
 
@@ -288,10 +295,36 @@ class DefaultCentralEditingPanel extends Panel implements
      * Shows a notification when a button is clicked.
      */
     public void buttonClick(final ClickEvent aEvent) {
-        if (NEW_MILESTONE_BUTTON.equals(aEvent.getButton().getDebugId())) {
-            getWindow().showNotification("lalala ");
+        final String debugId = aEvent.getButton().getDebugId();
+        final String user = getCurrentUserIdentity();
+        final Long parentProjectId = getProjectIdCurrentlySelectedInTree();
+
+        if (NEW_TASK_BUTTON.equals(debugId)) {
+            this.controller.createTask(user,
+                    parentProjectId);
+        } else if (NEW_MEETING_BUTTON.equals(debugId)) {
+            this.controller.createMeeting(user,
+                    parentProjectId);
+        } else if (NEW_MILESTONE_BUTTON.equals(debugId)) {
+            this.controller.createMilestone(user,
+                    parentProjectId);
+        } else {
+            LOGGER.error("Unexpected debug ID: {}", debugId);
         }
-        getWindow().showNotification(NOTIFICATION);
+    }
+
+    /**
+     * @return Identity (primary key) of the user currently logged in.
+     */
+    private String getCurrentUserIdentity() {
+        return "test";
+    }
+
+    /**
+     * @return ID of the project, which is currently selected in the tree.
+     */
+    private Long getProjectIdCurrentlySelectedInTree() {
+        return null;
     }
 
     public static HierarchicalContainer getFilterHierarchicalContainer() {

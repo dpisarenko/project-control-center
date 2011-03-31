@@ -68,6 +68,8 @@ class DefaultMeetingEditingPanel extends Panel implements
             this.controller =
                     this.injector
                             .getInstance(MeetingEditingPanelController.class);
+            this.controller.setInjector(this.injector);
+
             this.debugIdRegistry =
                     this.injector.getInstance(DebugIdRegistry.class);
         }
@@ -75,10 +77,6 @@ class DefaultMeetingEditingPanel extends Panel implements
 
     @Override
     public void initGui() {
-
-    }
-
-    private Panel getMeetingPanel() {
         final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
@@ -128,7 +126,7 @@ class DefaultMeetingEditingPanel extends Panel implements
 
         final Table table = createTestTable();
         verticalLayoutRight.addComponent(table);
-        return verticalLayoutRight;
+        this.addComponent(verticalLayoutRight);
     }
 
     private HorizontalLayout getPlacePanel() {
@@ -212,6 +210,6 @@ class DefaultMeetingEditingPanel extends Panel implements
 
     @Override
     public Panel toPanel() {
-        return getMeetingPanel();
+        return this;
     }
 }

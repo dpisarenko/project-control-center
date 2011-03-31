@@ -15,13 +15,30 @@ import com.vaadin.ui.Panel;
 
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
-public interface CentralEditingPanelController extends ModuleWithInjectableDependencies {
+public interface CentralEditingPanelController extends
+        ModuleWithInjectableDependencies {
     void increasePriorityButtonClicked();
+
     void decreasePriorityButtonClicked();
+
     Panel getTaskPanel();
+
     Panel getMeetingPanel();
+
     Panel getMilestonePanel();
+
     void newTaskButtonClicked();
+
     void newMeetingButtonClicked();
+
     void newMilestoneButtonClicked();
+
+    void createMilestone(final String aUserIdentity,
+            final Long aProjectIdCurrentlySelectedInTree);
+
+    void createTask(final String aUserIdentity,
+            final Long aProjectIdCurrentlySelectedInTree);
+
+    void createMeeting(final String aUserIdentity,
+            final Long aProjectIdCurrentlySelectedInTree);
 }
