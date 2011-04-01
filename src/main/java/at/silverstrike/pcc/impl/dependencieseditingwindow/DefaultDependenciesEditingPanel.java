@@ -69,7 +69,7 @@ class DefaultDependenciesEditingPanel extends Panel implements
         // Create the window...
         subwindow =
                 new Window(
-                        TM.get("dependenciescentraleditingprocesspanel.1-window"));
+                        TM.get("dependencieseditingwindow.1-window"));
         // ...and make it modal
         subwindow.setModal(true);
 
@@ -77,7 +77,7 @@ class DefaultDependenciesEditingPanel extends Panel implements
             // window is already showing
             getWindow()
                     .showNotification(
-                            TM.get("dependenciescentraleditingprocesspanel.2-window-notification"));
+                            TM.get("dependencieseditingwindow.2-window-notification"));
         } else {
             // Open the subwindow by adding it to the parent
             // window
@@ -94,7 +94,7 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
         final Label taskLabel =
                 new Label(
-                        TM.get("dependenciescentraleditingprocesspanel.3-label-tasks"));
+                        TM.get("dependencieseditingwindow.3-label-tasks"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
         verticalLayout.addComponent(taskLabel);
 
@@ -115,7 +115,7 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
         final Button deleteButton =
                 new Button(
-                        TM.get("dependenciescentraleditingprocesspanel.4-button-delete"));
+                        TM.get("dependencieseditingwindow.4-button-delete"));
         deleteButton.addListener(this); // react to clicks
         tableAndButtonLayout.addComponent(deleteButton);
 
@@ -132,7 +132,7 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
         final Button addButton =
                 new Button(
-                        TM.get("dependenciescentraleditingprocesspanel.5-button-add"));
+                        TM.get("dependencieseditingwindow.5-button-add"));
         addButton.addListener(this); // react to clicks
         comboAndButtonLayout.addComponent(addButton);
 

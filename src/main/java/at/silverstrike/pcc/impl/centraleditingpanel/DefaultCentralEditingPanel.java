@@ -166,13 +166,13 @@ class DefaultCentralEditingPanel extends Panel implements
 
         final Button priorityPlusButton =
                 new Button(
-                        TM.get("centraleditingprocesspanel.8-button-priorityUp"));
+                        TM.get("centraleditingpanel.8-button-priorityUp"));
         priorityPlusButton.addListener(this); // react to clicks
         buttonsPriorityLayout.addComponent(priorityPlusButton);
 
         final Button priorityMinusButton =
                 new Button(
-                        TM.get("centraleditingprocesspanel.9-button-priorityDown"));
+                        TM.get("centraleditingpanel.9-button-priorityDown"));
         priorityMinusButton.addListener(this); // react to clicks
         buttonsPriorityLayout.addComponent(priorityMinusButton);
 
@@ -263,7 +263,7 @@ class DefaultCentralEditingPanel extends Panel implements
     private Button getNewMeetingButton() {
         final Button newMeetingButton =
                 new Button(
-                        TM.get("centraleditingprocesspanel.7-button-newMeeting"));
+                        TM.get("centraleditingpanel.7-button-newMeeting"));
         newMeetingButton.addListener(this); // react to clicks
         newMeetingButton.setWidth(WIDTH_OF_NEW_BUTTONS,
                 Sizeable.UNITS_PIXELS);
@@ -277,7 +277,7 @@ class DefaultCentralEditingPanel extends Panel implements
     private Button getNewTaskButton() {
         final Button newTaskButton =
                 new Button(
-                        TM.get("centraleditingprocesspanel.6-button-newTask"));
+                        TM.get("centraleditingpanel.6-button-newTask"));
         newTaskButton.addListener(this); // react to clicks
         newTaskButton.setWidth(WIDTH_OF_NEW_BUTTONS,
                 Sizeable.UNITS_PIXELS);
@@ -291,7 +291,7 @@ class DefaultCentralEditingPanel extends Panel implements
     private Button getNewMilestoneButton() {
         final Button newMilestoneButton =
                 new Button(
-                        TM.get("centraleditingprocesspanel.19-button-newMilestone"));
+                        TM.get("centraleditingpanel.19-button-newMilestone"));
         newMilestoneButton.addListener(this); // react to clicks
         newMilestoneButton.setWidth(WIDTH_OF_NEW_BUTTONS,
                 Sizeable.UNITS_PIXELS);
