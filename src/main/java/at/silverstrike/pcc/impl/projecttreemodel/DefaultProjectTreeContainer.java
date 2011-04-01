@@ -30,7 +30,6 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         ProjectTreeContainer {
     private static final long serialVersionUID = 1L;
     private static final Object PROJECT_PROPERTY_ID = "id";
-    private static final Integer TREE_ROOT_ID = 0;
     public static final Object PROJECT_PROPERTY_NAME = "name";
     private Persistence persistence;
     private Item root;

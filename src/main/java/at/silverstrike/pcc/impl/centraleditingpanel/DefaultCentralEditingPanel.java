@@ -39,6 +39,8 @@ import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
+import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
+import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.gui.dialogs.OptionDialog;
@@ -72,6 +74,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
     private static final int DEFAULT_WIDTH_PIXELS = 600;
+    private ProjectTreeContainer treeModel;
     private Tree tree;
 
     @Override
@@ -83,12 +86,12 @@ class DefaultCentralEditingPanel extends Panel implements
                     this.injector
                             .getInstance(CentralEditingPanelControllerFactory.class);
             controller = factory.create();
-            
+
             /**
-             * We need this to be notified about events by the web
-             * gui bus.
+             * We need this to be notified about events by the web gui bus.
              */
-            final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
+            final WebGuiBus webGuiBus =
+                    this.injector.getInstance(WebGuiBus.class);
             webGuiBus.addListener(this);
         }
     }
@@ -97,11 +100,11 @@ class DefaultCentralEditingPanel extends Panel implements
     public Panel toPanel() {
         return this;
     }
-    
+
     @Override
     public void initGui() {
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
-        
+
         this.mainGrid = new GridLayout(2, 1);
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
         mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
@@ -179,7 +182,13 @@ class DefaultCentralEditingPanel extends Panel implements
 
         final VerticalLayout treeLayout = getTreeLayout();
 
+        final ProjectTreeContainerFactory treeModelFactory =
+                this.injector.getInstance(ProjectTreeContainerFactory.class);
+        this.treeModel = treeModelFactory.create();
+        this.treeModel.updateData();
+
         tree = new Tree();
+        tree.setContainerDataSource(this.treeModel);
         treeLayout.addComponent(tree);
         verticalLayoutLeft.addComponent(treeLayout);
 
@@ -339,30 +348,28 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void taskCreated(final Task aNewTask) {
-        final OptionDialog dialog = new OptionDialog(TPTApplication.getCurrentApplication());
+        final OptionDialog dialog =
+                new OptionDialog(TPTApplication.getCurrentApplication());
         dialog.showConfirmationDialog("PCC", "Task created: " + aNewTask, null);
-        
-        updateProjectNetworkPanel();
+
         updateTree();
     }
 
     private void updateTree() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    private void updateProjectNetworkPanel() {
-        // TODO Auto-generated method stub
-        
+        this.treeModel.updateData();
+        this.tree.expandItemsRecursively(ProjectTreeContainer.TREE_ROOT_ID);
     }
 
     @Override
     public void taskCreationFailure() {
-        final OptionDialog dialog = new OptionDialog(TPTApplication.getCurrentApplication());
-        
-        final String title = TM.get("centraleditingpanel.23-taskCreationFailure-title");
-        final String message = TM.get("centraleditingpanel.24-taskCreationFailure-message");
-        
+        final OptionDialog dialog =
+                new OptionDialog(TPTApplication.getCurrentApplication());
+
+        final String title =
+                TM.get("centraleditingpanel.23-taskCreationFailure-title");
+        final String message =
+                TM.get("centraleditingpanel.24-taskCreationFailure-message");
+
         dialog.showConfirmationDialog(title, message, null);
     }
 }
