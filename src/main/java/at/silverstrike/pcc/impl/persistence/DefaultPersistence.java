@@ -77,7 +77,7 @@ public class DefaultPersistence implements Persistence {
             "from "
                     + "DefaultTask p where (p.parent is null) and (state <> "
                     + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
-                    + " order by priority desc";
+                    + ") order by priority desc";
     private static final String UNCOMPLETED_TASKS_WITH_ESTIMATED_END_TIME_HQL =
             "from " + "DefaultTask where ((state = "
                     + STATE_SCHEDULED + ") or (state = " + STATE_BEING_ATTAINED
