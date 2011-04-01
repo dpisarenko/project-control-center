@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.version;
 
-import static at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module.version;
+import static at.silverstrike.pcc.api.conventions.Module.version;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {

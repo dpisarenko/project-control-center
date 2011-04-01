@@ -11,8 +11,7 @@
 
 package at.silverstrike.pcc.impl.dependencieseditingwindow;
 
-import static at.silverstrike.pcc.api.conventions.
-    MessageCodePrefixRegistry.Module.dependencieseditingwindow;
+import static at.silverstrike.pcc.api.conventions.Module.dependencieseditingwindow;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {

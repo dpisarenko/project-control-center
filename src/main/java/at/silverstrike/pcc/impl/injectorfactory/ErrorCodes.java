@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.injectorfactory;
 
-import static at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module.injectorfactory;
+import static at.silverstrike.pcc.api.conventions.Module.injectorfactory;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {

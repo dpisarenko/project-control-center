@@ -11,8 +11,7 @@
 
 package at.silverstrike.pcc.impl.meetingeditingpanel;
 
-import static at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.
-    Module.meetingeditingpanel;
+import static at.silverstrike.pcc.api.conventions.Module.meetingeditingpanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {
