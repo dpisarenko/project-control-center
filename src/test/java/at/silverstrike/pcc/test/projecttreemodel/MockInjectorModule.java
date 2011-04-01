@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.test.projecttreemodel;
 
+import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
 import at.silverstrike.pcc.impl.projecttreemodel.DefaultProjectTreeContainerFactory;
 
@@ -26,6 +27,7 @@ final class MockInjectorModule extends AbstractModule {
     protected void configure() {
         bind(ProjectTreeContainerFactory.class).toInstance(
                 new DefaultProjectTreeContainerFactory());
+        bind(Persistence.class).toInstance(new MockPersistence());
     }
 
 }
