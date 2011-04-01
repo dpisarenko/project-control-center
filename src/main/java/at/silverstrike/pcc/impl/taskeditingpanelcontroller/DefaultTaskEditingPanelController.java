@@ -13,6 +13,7 @@ package at.silverstrike.pcc.impl.taskeditingpanelcontroller;
 
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 
@@ -46,5 +47,30 @@ class DefaultTaskEditingPanelController implements
        	persistence.createTask("TaskName");
         	
      }
+
+    @Override
+    public void saveTask(Task aTask) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void markTaskAsCompleted(Task aTask) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void deleteTask(Task aTask) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void newTaskCreated() {
+        // TODO Auto-generated method stub
+        
+    }
+
 
 }

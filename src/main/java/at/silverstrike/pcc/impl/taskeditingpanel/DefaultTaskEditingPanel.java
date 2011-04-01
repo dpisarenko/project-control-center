@@ -31,6 +31,7 @@ import com.vaadin.ui.Button.ClickListener;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
@@ -66,6 +67,8 @@ class DefaultTaskEditingPanel extends Panel implements
     private transient TaskEditingPanelController controller;
     private transient DebugIdRegistry debugIdRegistry;
 
+    private Task task;
+    
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
@@ -208,26 +211,16 @@ class DefaultTaskEditingPanel extends Panel implements
      */
     public void buttonClick(final ClickEvent aEvent) {
         String debugId = aEvent.getButton().getDebugId();
-        if (debugId.equals(SAVE_TASK_BUTTON)) {
+        if (SAVE_TASK_BUTTON.equals(debugId)) {
 
             this.controller.saveTask(this.task);
-
-            if (checkTaskField()) {
-                boolean isTaskCreate = controller.saveTask(getTaskFields());
-                if (isTaskCreate) {
-                    // call via webguibus
-                    controller.newTaskCreated();
-                    updateTree();
-                    updateGraph();
-                }
-            }
         }
-        if (debugId.equals(DONE_TASK_BUTTON)) {
-            controller.doneTask();
+        if (DONE_TASK_BUTTON.equals(debugId)) {
+            controller.markTaskAsCompleted(this.task);
         }
 
-        if (debugId.equals(DELETE_TASK_BUTTON)) {
-            controller.deleteTask();
+        if (DELETE_TASK_BUTTON.equals(debugId)) {
+            controller.deleteTask(this.task);
         }
     }
 

@@ -12,13 +12,19 @@
 package at.silverstrike.pcc.api.taskeditingpanelcontroller;
 
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import at.silverstrike.pcc.api.model.Task;
 
 public interface TaskEditingPanelController extends
         ModuleWithInjectableDependencies {
     void dependEditButtonClicked();
+
     void saveButtonClicked();
-	boolean saveTask(Object object);
-	void doneTask();
-	void deleteTask();
-	void newTaskCreated();
+
+    void saveTask(final Task aTask);
+
+    void markTaskAsCompleted(final Task aTask);
+
+    void deleteTask(final Task aTask);
+
+    void newTaskCreated();
 }
