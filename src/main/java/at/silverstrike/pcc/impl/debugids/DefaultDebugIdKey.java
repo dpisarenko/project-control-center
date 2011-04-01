@@ -14,7 +14,7 @@ package at.silverstrike.pcc.impl.debugids;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
+import at.silverstrike.pcc.api.conventions.Module;
 import at.silverstrike.pcc.api.debugids.DebugIdKey;
 
 class DefaultDebugIdKey implements DebugIdKey {

@@ -13,7 +13,7 @@ package at.silverstrike.pcc.api.debugids;
 
 import java.util.List;
 
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
+import at.silverstrike.pcc.api.conventions.Module;
 
 public interface DebugIdRegistry {
 	void setDebugIdsFile(final String aFileName);

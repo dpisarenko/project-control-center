@@ -16,19 +16,6 @@ import java.util.Map;
 public final class MessageCodePrefixRegistry {
     private static final String PREFIX_MESSAGE_NUMBER_SEPARATOR = ".";
 
-    public enum Module {
-        conventions, dailyplanpanel, debugids, editingprocesspanel,
-        embeddedfilereading, estimatedcompletiontimespanel, export2tj3,
-        injectorfactory, jruby, mainprocesseditingpanel, mainwindow, model,
-        persistence, processpanel, projectscheduler, schedulingpanel,
-        tj3bookingsparser, tj3deadlinesparser, workerpanel, version,
-        culture2lang, entrywindow, parameterdatareader, openid,
-        centraleditingpanel,
-        dependencieseditingwindow, graphdemopanel, taskeditingpanel,
-        meetingeditingpanel, milestoneeditingpanel, projectnetworkgraphpanel,
-        graph2resource, mainwindowcontroller, xmlserialization
-    }
-
     private Map<Module, String> prefixesByModules;
 
     private static volatile MessageCodePrefixRegistry instance;
@@ -86,6 +73,19 @@ public final class MessageCodePrefixRegistry {
         this.prefixesByModules.put(Module.graph2resource, "032");
         this.prefixesByModules.put(Module.mainwindowcontroller, "033");
         this.prefixesByModules.put(Module.xmlserialization, "034");
-        
+        this.prefixesByModules.put(Module.centraleditingpanelcontroller, "035");
+        this.prefixesByModules.put(Module.dependencieseditingwindowcontroller,
+                "036");
+        this.prefixesByModules.put(Module.meetingeditingpanelcontroller, "037");
+        this.prefixesByModules.put(Module.milestoneeditingpanelcontroller,
+                "038");
+        this.prefixesByModules.put(Module.projectnetworkgraphcreator, "039");
+        this.prefixesByModules.put(Module.projectnetworkgraphpanelcontroller,
+                "040");
+        this.prefixesByModules.put(Module.projecttreemodel, "041");
+        this.prefixesByModules.put(Module.taskeditingpanelcontroller, "042");
+        this.prefixesByModules.put(Module.testtablecreator, "043");
+        this.prefixesByModules.put(Module.validation, "044");
+        this.prefixesByModules.put(Module.webguibus, "045");
     }
 }

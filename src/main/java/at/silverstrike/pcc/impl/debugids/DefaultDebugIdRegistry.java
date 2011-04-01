@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
+import at.silverstrike.pcc.api.conventions.Module;
 import at.silverstrike.pcc.api.debugids.DebugIdKey;
 import at.silverstrike.pcc.api.debugids.DebugIdKeyNotFoundException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;

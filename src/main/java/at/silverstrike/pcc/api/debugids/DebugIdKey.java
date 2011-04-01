@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.debugids;
 
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
+import at.silverstrike.pcc.api.conventions.Module;
 
 public interface DebugIdKey {
     void setModule(final Module aModule);

@@ -12,7 +12,7 @@
 package at.silverstrike.pcc.impl.entrywindow;
 
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry.Module;
+import at.silverstrike.pcc.api.conventions.Module;
 
 final class ErrorCodes {
     private static final String PREFIX = MessageCodePrefixRegistry

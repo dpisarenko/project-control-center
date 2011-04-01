@@ -25,7 +25,7 @@ import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
+import at.silverstrike.pcc.api.conventions.Module;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
@@ -67,11 +67,11 @@ class DefaultMainWindow implements MainWindow {
                         versionReader.getVersion()));
         mainWindow.setSizeFull();
         mainWindow.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.mainwindow, "1"));
+                .getDebugId(Module.mainwindow, "1"));
 
         this.tabSheet = new TabSheet();
         this.tabSheet.setDebugId(this.debugIdRegistry
-                .getDebugId(MessageCodePrefixRegistry.Module.mainwindow,
+                .getDebugId(Module.mainwindow,
                         "2-tab-sheet"));
 
         this.tabSheet.setSizeFull();
