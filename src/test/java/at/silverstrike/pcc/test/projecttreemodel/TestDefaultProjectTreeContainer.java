@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
+import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 import com.google.inject.Injector;
@@ -53,24 +54,23 @@ public class TestDefaultProjectTreeContainer {
         final InjectorFactory injectorFactory =
                 new MockInjectorFactory(new MockInjectorModule());
         final Injector injector = injectorFactory.createInjector();
+        final ProjectTreeContainerFactory factory =
+                injector.getInstance(ProjectTreeContainerFactory.class);
         final ProjectTreeContainer objectUnderTest =
-                injector.getInstance(ProjectTreeContainer.class);
-        
+                factory.create();
+
         /**
          * Initialize it
          */
         Assert.assertNotNull(objectUnderTest);
         objectUnderTest.setInjector(injector);
-        
+
         /**
          * Invoke method under test
          */
-        try
-        {
+        try {
             objectUnderTest.updateData();
-        }
-        catch (final NullPointerException exception)
-        {
+        } catch (final NullPointerException exception) {
             LOGGER.debug("", exception);
             Assert.fail(exception.getMessage());
         }
