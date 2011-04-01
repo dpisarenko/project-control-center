@@ -16,5 +16,6 @@ package at.silverstrike.pcc.api.validation;
  *
  */
 public interface ValidationResult {
-
+    boolean isValid();
+    
 }

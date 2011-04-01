@@ -206,11 +206,6 @@ class DefaultCentralEditingPanel extends Panel implements
         mainGrid.addComponent(verticalPanelRight, 1, 0);
     }
 
-    private void changeRightPanel(Panel panel) {
-        removeRightPanel();
-        setRightPanel(panel);
-    }
-
     private List<SchedulingObjectDependencyTuple> getDependencyTuples() {
         final List<SchedulingObjectDependencyTuple> tuples =
                 new LinkedList<SchedulingObjectDependencyTuple>();
