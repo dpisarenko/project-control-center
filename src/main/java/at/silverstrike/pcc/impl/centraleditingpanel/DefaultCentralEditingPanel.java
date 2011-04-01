@@ -182,10 +182,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
         final VerticalLayout treeLayout = getTreeLayout();
 
-        final ProjectTreeContainerFactory treeModelFactory =
-                this.injector.getInstance(ProjectTreeContainerFactory.class);
-        this.treeModel = treeModelFactory.create();
-        this.treeModel.updateData();
+        initTreeModel();
 
         tree = new Tree();
         tree.setContainerDataSource(this.treeModel);
@@ -203,6 +200,14 @@ class DefaultCentralEditingPanel extends Panel implements
         setRightPanel(panel);
 
         this.addComponent(mainGrid);
+    }
+
+    private void initTreeModel() {
+        final ProjectTreeContainerFactory treeModelFactory =
+                this.injector.getInstance(ProjectTreeContainerFactory.class);
+        this.treeModel = treeModelFactory.create();
+        this.treeModel.setInjector(this.injector);
+        this.treeModel.updateData();
     }
 
     private void setRightPanel(final Panel aPanel) {
