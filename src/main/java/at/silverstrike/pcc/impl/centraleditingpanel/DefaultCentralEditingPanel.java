@@ -136,11 +136,6 @@ class DefaultCentralEditingPanel extends Panel implements
                 Alignment.MIDDLE_LEFT);
 
         final Button newMeetingButton = getNewMeetingButton();
-        newMeetingButton
-                .setDebugId(this.debugIdRegistry
-                        .getDebugId(
-                                MessageCodePrefixRegistry.Module.centraleditingpanel,
-                                "4-button-newMeeting"));
         buttonsNewGrid.addComponent(newMeetingButton, 1, 0);
         buttonsNewGrid.setComponentAlignment(newMeetingButton,
                 Alignment.MIDDLE_RIGHT);
