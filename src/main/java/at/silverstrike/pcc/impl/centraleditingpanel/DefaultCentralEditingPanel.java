@@ -131,11 +131,6 @@ class DefaultCentralEditingPanel extends Panel implements
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
 
         final Button newTaskButton = getNewTaskButton();
-        newTaskButton
-                .setDebugId(this.debugIdRegistry
-                        .getDebugId(
-                                MessageCodePrefixRegistry.Module.centraleditingpanel,
-                                "3-button-newTask"));
         buttonsNewGrid.addComponent(newTaskButton, 0, 0);
         buttonsNewGrid.setComponentAlignment(newTaskButton,
                 Alignment.MIDDLE_LEFT);
