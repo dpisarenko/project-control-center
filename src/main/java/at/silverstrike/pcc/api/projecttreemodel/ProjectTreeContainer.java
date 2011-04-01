@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.api.projecttreemodel;
 
+import at.silverstrike.pcc.api.conventions.InitializableComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 import com.vaadin.data.Container;
@@ -20,6 +21,7 @@ import com.vaadin.data.Container;
  * 
  */
 public interface ProjectTreeContainer extends Container.Hierarchical,
-        ModuleWithInjectableDependencies {
-    public void updateData();
+        ModuleWithInjectableDependencies, InitializableComponent {
+    void setRootLabel(final String aLabel);
+    void updateData();
 }

@@ -18,7 +18,7 @@ import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
  * @author DP118M
  * 
  */
-final class DefaultProjectTreeContainerFactory implements
+public final class DefaultProjectTreeContainerFactory implements
         ProjectTreeContainerFactory {
     @Override
     public ProjectTreeContainer create() {
