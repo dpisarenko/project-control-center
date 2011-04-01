@@ -13,6 +13,9 @@ package at.silverstrike.pcc.impl.projecttreemodel;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Injector;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
@@ -34,6 +37,8 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     private Persistence persistence;
     private Item root;
     private String rootLabel;
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultProjectTreeContainer.class);
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -55,7 +60,8 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         addNodes(topLevelProcesses, null, persistence, 1);
     }
 
-    private int addNodes(final List<SchedulingObject> aProcesses, final Integer aParentId,
+    private int addNodes(final List<SchedulingObject> aProcesses,
+            final Integer aParentId,
             final Persistence aPersistence, final int aTreeItemId) {
         int treeItemId = aTreeItemId;
 
@@ -68,8 +74,18 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
 
             final Item processItem = this.addItem(processItemId);
 
+            LOGGER.debug("process.getId(): {}", process.getId());
+            
+            LOGGER.debug("processItem: {}", processItem);
+            LOGGER.debug(
+                    "processItem.getItemProperty(PROJECT_PROPERTY_NAME): ",
+                    processItem.getItemProperty(PROJECT_PROPERTY_NAME));
+
+            
             processItem.getItemProperty(PROJECT_PROPERTY_ID).setValue(
                     process.getId());
+
+
             processItem.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                     process.getName());
 
