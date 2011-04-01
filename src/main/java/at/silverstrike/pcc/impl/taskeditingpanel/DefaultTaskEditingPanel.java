@@ -32,14 +32,13 @@ import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.model.Task;
-import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultTaskEditingPanel extends Panel implements
-        TaskEditingPanel, ProcessPanelListener, ClickListener {
+        TaskEditingPanel, ClickListener {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultTaskEditingPanel.class);
     private static final long serialVersionUID = 1L;
@@ -68,16 +67,17 @@ class DefaultTaskEditingPanel extends Panel implements
     private transient DebugIdRegistry debugIdRegistry;
 
     private Task task;
-    
+
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
             this.controller =
-                this.injector
+                    this.injector
                             .getInstance(TaskEditingPanelController.class);
             this.controller.setInjector(aInjector);
-            this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
+            this.debugIdRegistry =
+                    this.injector.getInstance(DebugIdRegistry.class);
         }
     }
 
@@ -222,10 +222,6 @@ class DefaultTaskEditingPanel extends Panel implements
         if (DELETE_TASK_BUTTON.equals(debugId)) {
             controller.deleteTask(this.task);
         }
-    }
-
-    @Override
-    public void taskAdded() {
     }
 
     @Override

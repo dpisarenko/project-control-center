@@ -35,14 +35,13 @@ import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanel
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
-import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
-        CentralEditingPanel, ProcessPanelListener, ClickListener {
+        CentralEditingPanel, ClickListener {
     private static final String NEW_MEETING_BUTTON = "025.004";
     private static final String NEW_TASK_BUTTON = "025.003";
     private static final String NEW_MILESTONE_BUTTON = "025.002";
@@ -195,10 +194,6 @@ class DefaultCentralEditingPanel extends Panel implements
         this.addComponent(mainGrid);
     }
 
-    private void removeRightPanel() {
-        mainGrid.removeComponent(verticalPanelRight);
-    }
-
     private void setRightPanel(final Panel aPanel) {
         if (aPanel != null) {
             verticalPanelRight = aPanel;
@@ -338,9 +333,5 @@ class DefaultCentralEditingPanel extends Panel implements
 
     public static HierarchicalContainer getFilterHierarchicalContainer() {
         return TempTreeObjectModel.getFilterHierarchicalContainer();
-    }
-
-    @Override
-    public void taskAdded() {
     }
 }

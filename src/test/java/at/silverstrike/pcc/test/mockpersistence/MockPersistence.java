@@ -77,7 +77,7 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public void createSubTask(final String aProcessName,
+    public Task createSubTask(final String aProcessName,
             final Long aParentProcessId) {
         throw new NotImplementedException();
 

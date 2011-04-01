@@ -17,4 +17,5 @@ public interface WebGuiBusListener {
 
     void workerAdded(final WorkerAddedMessage aMessage);
     void taskCreated(final Task aNewTask);
+    void taskCreationFailure();
 }

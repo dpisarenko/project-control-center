@@ -32,12 +32,11 @@ import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanel;
 import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
-import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultMeetingEditingPanel extends Panel implements
-                MeetingEditingPanel, ProcessPanelListener, ClickListener {
+                MeetingEditingPanel, ClickListener {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultMeetingEditingPanel.class);
     private static final long serialVersionUID = 1L;
@@ -128,7 +127,6 @@ class DefaultMeetingEditingPanel extends Panel implements
         this.addComponent(verticalLayoutRight);
     }
 
-
     private HorizontalLayout getPlacePanel() {
         final HorizontalLayout placeLayout = new HorizontalLayout();
         placeLayout.setSpacing(true);
@@ -202,10 +200,6 @@ class DefaultMeetingEditingPanel extends Panel implements
      */
     public void buttonClick(final ClickEvent aEvent) {
         getWindow().showNotification(NOTIFICATION);
-    }
-
-    @Override
-    public void taskAdded() {
     }
 
     @Override

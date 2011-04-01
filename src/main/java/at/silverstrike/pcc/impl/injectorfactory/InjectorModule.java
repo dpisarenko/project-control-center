@@ -22,7 +22,6 @@ import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
-import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanelFactory;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
@@ -42,7 +41,6 @@ import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponderFactory;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReaderFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
-import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
@@ -67,7 +65,6 @@ import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFacto
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.dependencieseditingwindow.DefaultDependenciesEditingPanelFactory;
-import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
@@ -84,7 +81,6 @@ import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationInitiatorFacto
 import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationResponderFactory;
 import at.silverstrike.pcc.impl.parameterdatareader.DefaultParameterDataReaderFactory;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
-import at.silverstrike.pcc.impl.processpanel.DefaultProcessPanelFactory;
 import at.silverstrike.pcc.impl.projectnetworkgraphcreator.DefaultProjectNetworkGraphCreatorFactory;
 import at.silverstrike.pcc.impl.projectnetworkgraphpanel.DefaultProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
@@ -110,13 +106,9 @@ class InjectorModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(ProcessPanelFactory.class).toInstance(
-                new DefaultProcessPanelFactory());
         bind(Persistence.class).toInstance(new DefaultPersistence());
         bind(MainWindowFactory.class)
                 .toInstance(new DefaultMainWindowFactory());
-        bind(EditingProcessPanelFactory.class).toInstance(
-                new DefaultEditingProcessPanelFactory());
         bind(WorkerPanelFactory.class).toInstance(
                 new DefaultWorkerPanelFactory());
         bind(SchedulingPanelFactory.class).toInstance(

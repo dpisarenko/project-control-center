@@ -14,21 +14,32 @@ package at.silverstrike.pcc.impl.centraleditingpanelcontroller;
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
+import eu.livotov.tpt.i18n.TM;
+
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanel;
 import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
+import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 
 class DefaultCentralEditingPanelController implements
         CentralEditingPanelController {
     private Injector injector = null;
+    private Persistence persistence;
+    private WebGuiBus webGuiBus;
 
     @Override
     public void setInjector(final Injector aInjector) {
-        this.injector = aInjector;
+        if (aInjector != null) {
+            this.injector = aInjector;
+            this.persistence = this.injector.getInstance(Persistence.class);
+            this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
+        }
     }
 
     @Override
@@ -93,17 +104,24 @@ class DefaultCentralEditingPanelController implements
     }
 
     @Override
-    public void createMilestone(String aUserIdentity,
-            Long aProjectIdCurrentlySelectedInTree) {
-        // TODO Auto-generated method stub
-
+    public void createMilestone(final String aUserIdentity,
+            final Long aProjectIdCurrentlySelectedInTree) {
     }
 
     @Override
     public void createTask(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree) {
-        // TODO Auto-generated method stub
+        final String taskName =
+                TM.get("centraleditingpanelcontroller.1-new-task-name");
+        final Task newTask = this.persistence.createSubTask(
+                taskName,
+                aProjectIdCurrentlySelectedInTree);
 
+        if (newTask != null) {
+            this.webGuiBus.broadcastTaskCreatedMessage(newTask);
+        } else {
+            this.webGuiBus.broadcastTaskCreationFailureMessage();
+        }
     }
 
     @Override

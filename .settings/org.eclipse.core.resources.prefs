@@ -1,4 +1,4 @@
-#Thu Mar 31 19:02:41 CEST 2011
+#Fri Apr 01 11:18:09 CEST 2011
 eclipse.preferences.version=1
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/application.properties=UTF-8
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/dailyplanpanel.properties=UTF-8
@@ -13,11 +13,13 @@ encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/schedulingpanel.proper
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/workerpanel.properties=UTF-8
 encoding//WebContent/WEB-INF/classes/template.tjp=UTF-8
 encoding//src/main/java/at/silverstrike/pcc/impl/milestoneeditingpanel/DefaultMilestoneEditingPanel.java=UTF-8
+encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/centraleditingpanelcontroller.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/editingprocesspanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/entrywindow.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/projectnetworkgraphpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/schedulingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/application.properties=UTF-8
+encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/centraleditingpanelcontroller.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/centraleditingprocesspanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/dailyplanpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/dependenciescentraleditingprocesspanel.properties=UTF-8

@@ -234,9 +234,11 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public final void createSubTask(final String aProcessName,
+    public final Task createSubTask(final String aProcessName,
             final Long aParentProcessId) {
         final Transaction tx = session.beginTransaction();
+        Task returnValue = null;
+        
         try {
             Task parentProcess = null;
             if (aParentProcessId != null) {
@@ -252,10 +254,13 @@ public class DefaultPersistence implements Persistence {
 
             session.save(newProcess);
             tx.commit();
+            
+            returnValue = newProcess;
         } catch (final Exception exception) {
             LOGGER.error("", exception);
             tx.rollback();
         }
+        return returnValue;
     }
 
     @Override

@@ -34,11 +34,10 @@ import eu.livotov.tpt.TPTApplication;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
-import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 
 class DefaultDependenciesEditingPanel extends Panel implements
-        DependenciesEditingPanel, ProcessPanelListener, ClickListener {
+        DependenciesEditingPanel, ClickListener {
     private static final long serialVersionUID = 1L;
     private static final String NOTIFICATION = "Smth happend";
     private static final Logger LOGGER = LoggerFactory
@@ -149,10 +148,5 @@ class DefaultDependenciesEditingPanel extends Panel implements
                 .showNotification(NOTIFICATION);
     }
 
-    @Override
-    public void taskAdded() {
-        // TODO Auto-generated method stub
-
-    }
 
 }

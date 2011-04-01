@@ -31,12 +31,11 @@ import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
-import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultMilestoneEditingPanel extends Panel implements
-            MilestoneEditingPanel, ProcessPanelListener, ClickListener {
+            MilestoneEditingPanel, ClickListener {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultMilestoneEditingPanel.class);
     private static final long serialVersionUID = 1L;
@@ -103,9 +102,6 @@ class DefaultMilestoneEditingPanel extends Panel implements
         getWindow().showNotification(NOTIFICATION);
     }
 
-    @Override
-    public void taskAdded() {
-    }
 
     @Override
     public Panel toPanel() {

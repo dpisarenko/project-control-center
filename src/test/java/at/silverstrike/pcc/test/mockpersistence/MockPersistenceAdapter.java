@@ -67,9 +67,9 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public void createSubTask(final String aProcessName,
+    public Task createSubTask(final String aProcessName,
             final Long aParentProcessId) {
-        
+        return null;
     }
 
     @Override
