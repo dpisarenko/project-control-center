@@ -180,9 +180,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultProjectNetworkGraphCreatorFactory().create());
         bind(Graph2ResourceConverter.class).toInstance(
                 new DefaultGraph2ResourceConverterFactory().create());
-        bind(TaskEditingPanelController.class).toInstance(
-                new DefaultTaskEditingPanelControllerFactory().create());
-
     }
 
     private TestTableCreator getTestTableCreator() {
