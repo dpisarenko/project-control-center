@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
+import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
@@ -58,6 +59,8 @@ public class TestDefaultProjectTreeContainer {
                 injector.getInstance(ProjectTreeContainerFactory.class);
         final ProjectTreeContainer objectUnderTest =
                 factory.create();
+        final MockPersistence persistence =
+                (MockPersistence) injector.getInstance(Persistence.class);
 
         /**
          * Initialize it
@@ -66,7 +69,7 @@ public class TestDefaultProjectTreeContainer {
         objectUnderTest.setInjector(injector);
 
         objectUnderTest.init();
-        
+
         /**
          * Invoke method under test
          */
@@ -76,5 +79,17 @@ public class TestDefaultProjectTreeContainer {
             LOGGER.debug("", exception);
             Assert.fail(exception.getMessage());
         }
+
+        /**
+         * Invoke method under test a second time
+         */
+        persistence.resetReturnSubProcessesFlag();
+        try {
+            objectUnderTest.updateData();
+        } catch (final NullPointerException exception) {
+            LOGGER.debug("", exception);
+            Assert.fail(exception.getMessage());
+        }
+
     }
 }

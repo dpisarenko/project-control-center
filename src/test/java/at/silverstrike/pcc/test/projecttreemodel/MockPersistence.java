@@ -45,6 +45,10 @@ final class MockPersistence implements Persistence {
     private MockObjectFactory mockObjectFactory = new MockObjectFactory();
     private boolean returnSubProcesses = true;
 
+    void resetReturnSubProcessesFlag() {
+        this.returnSubProcesses = true;
+    }
+
     @Override
     public void setInjector(final Injector aInjector) {
         throw new NotImplementedException();

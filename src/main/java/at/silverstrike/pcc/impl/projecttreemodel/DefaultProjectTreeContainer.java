@@ -75,16 +75,17 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
             final Item processItem = this.addItem(processItemId);
 
             LOGGER.debug("process.getId(): {}", process.getId());
-            
+
             LOGGER.debug("processItem: {}", processItem);
             LOGGER.debug(
                     "processItem.getItemProperty(PROJECT_PROPERTY_NAME): ",
                     processItem.getItemProperty(PROJECT_PROPERTY_NAME));
-            LOGGER.debug("processItem.getItemProperty(PROJECT_PROPERTY_ID): {}", processItem.getItemProperty(PROJECT_PROPERTY_ID).toString());
-            
+            LOGGER.debug(
+                    "processItem.getItemProperty(PROJECT_PROPERTY_ID): {}",
+                    processItem.getItemProperty(PROJECT_PROPERTY_ID).toString());
+
             processItem.getItemProperty(PROJECT_PROPERTY_ID).setValue(
                     process.getId());
-
 
             processItem.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                     process.getName());
