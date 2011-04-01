@@ -22,15 +22,14 @@ import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
-public class TestDefaultBookingsFile2BookingsFactory {
+public final class TestDefaultBookingsFile2BookingsFactory {
 
     @Before
     public void setupLogger() {
     }
 
     @Test
-    public void test01()
-    {
+    public void test01() {
         /**
          * Create the injector
          */
@@ -38,7 +37,8 @@ public class TestDefaultBookingsFile2BookingsFactory {
                 new MockInjectorFactory(new MockInjectorModule());
         final Injector injector = injectorFactory.createInjector();
 
-        final BookingsFile2BookingsFactory objectUnderTest = injector.getInstance(BookingsFile2BookingsFactory.class);
+        final BookingsFile2BookingsFactory objectUnderTest =
+                injector.getInstance(BookingsFile2BookingsFactory.class);
         Assert.assertNotNull(objectUnderTest.create());
     }
 }

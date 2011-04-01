@@ -33,7 +33,6 @@ import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
  * 
  */
 public class TestDebugIdRegistry {
-
     private static final String DEBUG_ID_NOT_UNIQUE_TEMPLATE =
             "Debug ID not unique: ${debugId}";
     private static final String DEBUG_ID = "${debugId}";
@@ -92,6 +91,7 @@ public class TestDebugIdRegistry {
                     MessageCodePrefixRegistry.Module.mainwindow, "1");
             Assert.fail("No DebugIdUniquenessViolation thrown");
         } catch (final DebugIdUniquenessViolation exception) {
+            ;
         }
 
         /**
@@ -119,6 +119,7 @@ public class TestDebugIdRegistry {
             Assert.fail("No DebugIdUniquenessViolation thrown");
         } catch (final DebugIdKeyNotFoundException exception) {
             // We expect this exception to be thrown
+            ;
         }
 
         try {
@@ -131,7 +132,7 @@ public class TestDebugIdRegistry {
     }
 
     @Test
-    public void testKeyFetchingViaModulesAndKeys() {
+    public final void testKeyFetchingViaModulesAndKeys() {
         final DebugIdRegistryFactory factory =
                 new DefaultDebugIdRegistryFactory();
         final DebugIdRegistry debugIdRegistry = factory.create();

@@ -45,7 +45,7 @@ import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 import com.google.inject.Injector;
 
-public class TestDefaultProjectScheduler {
+public final class TestDefaultProjectScheduler {
     private static final String DIR = "src/test/resources/at/silverstrike/"
                             + "pcc/test/projectscheduler/";
     private final static Logger LOGGER =

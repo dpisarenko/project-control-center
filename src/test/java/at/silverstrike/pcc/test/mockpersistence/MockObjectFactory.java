@@ -16,33 +16,29 @@ import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
-public class MockObjectFactory {
-    public Task createControlProcess(final Long anId)
-    {
+public final class MockObjectFactory {
+    public Task createControlProcess(final Long anId) {
         final MockControlProcess returnValue = new MockControlProcess();
-        
+
         returnValue.setId(anId);
-        
+
         return returnValue;
     }
-    
-    public Persistence createPersistence()
-    {
+
+    public Persistence createPersistence() {
         return new MockPersistence();
     }
-    
-    public Resource createResource(final Long anId)
-    {
+
+    public Resource createResource(final Long anId) {
         final MockResource returnValue = new MockResource();
-        
+
         returnValue.setId(anId);
-        
+
         return returnValue;
     }
-    
-    public ResourceAllocation createResourceAllocation()
-    {
+
+    public ResourceAllocation createResourceAllocation() {
         return new MockResourceAllocation();
     }
-    
+
 }

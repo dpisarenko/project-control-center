@@ -18,7 +18,8 @@ import org.junit.Test;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.SeleneseTestCase;
 
-public class TestDefect62 extends SeleneseTestCase {
+public final class TestDefect62 extends SeleneseTestCase {
+    private static final int SELENIUM_PORT = 4444;
     private static final String INVALID_EFFORT_ESTIMATE_MESSAGE_BOX =
             "//div[@id='016.004']";
     private static final String START_BUTTON = "016.002";
@@ -26,7 +27,7 @@ public class TestDefect62 extends SeleneseTestCase {
     @Before
     public void setUp() throws Exception {
         selenium =
-                new DefaultSelenium("localhost", 4444, "*chrome",
+                new DefaultSelenium("localhost", SELENIUM_PORT, "*chrome",
                         "http://localhost:8080/pcc");
         selenium.start();
     }

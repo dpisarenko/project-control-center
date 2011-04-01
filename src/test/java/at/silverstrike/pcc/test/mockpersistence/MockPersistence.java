@@ -18,6 +18,7 @@ import java.util.List;
 import org.apache.commons.lang.NotImplementedException;
 import org.hibernate.Session;
 
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -35,7 +36,7 @@ import com.google.inject.Injector;
 
 class MockPersistence implements Persistence {
     public static final long TASK_ID_1 = 1L;
-    
+
     @Override
     public void closeSession() {
         throw new NotImplementedException();
@@ -47,29 +48,30 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public void createChildProcess(final Long parentProcessId) {
+    public void createChildProcess(final Long aParentProcessId) {
         throw new NotImplementedException();
 
     }
 
     @Override
-    public Long createHumanResource(final String abbreviation,
-            final String firstName,
-            final String middleName, final String surname,
+    public Long createHumanResource(final String aAbbreviation,
+            final String aFirstName,
+            final String aMiddleName, final String aSurname,
             final double aWorkHours) {
         throw new NotImplementedException();
 
     }
 
     @Override
-    public void createProcessParent(final String name, final Long parentItemId,
+    public void createProcessParent(final String aName,
+            final Long aParentItemId,
             final ProcessType aProcessType) {
         throw new NotImplementedException();
 
     }
 
     @Override
-    public void createSiblingProcess(final Long siblingProcessId) {
+    public void createSiblingProcess(final Long aSiblingProcessId) {
         throw new NotImplementedException();
 
     }
@@ -82,7 +84,7 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public Long createTask(final String processName) {
+    public Long createTask(final String aProcessName) {
         throw new NotImplementedException();
 
     }
@@ -140,13 +142,14 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public List<SchedulingObject> getSubProcessesWithChildren(final Long processId) {
+    public List<SchedulingObject> getSubProcessesWithChildren(
+            final Long processId) {
         throw new NotImplementedException();
     }
 
     @Override
     public Task getTask(final Object aProcessid) {
-        
+
         throw new NotImplementedException();
     }
 
@@ -186,7 +189,8 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public void updateTaskEndTimes(final List<ProcessEndTimeTuple> endTimeTuples) {
+    public void
+            updateTaskEndTimes(final List<ProcessEndTimeTuple> endTimeTuples) {
         throw new NotImplementedException();
 
     }
@@ -202,9 +206,13 @@ class MockPersistence implements Persistence {
         return null;
     }
 
-	@Override
-	public UserData getUserData() {
-		throw new NotImplementedException();
-	}
-
+    @Override
+    public UserData getUserData() {
+        throw new NotImplementedException();
+    }
+    @Override
+    public Task createNewTask(final String aUser, final Long aParentTaskId)
+            throws PccException {
+        throw new NotImplementedException();
+    }
 }

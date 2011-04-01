@@ -24,15 +24,19 @@ import difflib.Patch;
 
 /**
  * @author dp118m
- *
+ * 
  */
-public class LineComparer {
-    private final static Logger LOGGER =
-        LoggerFactory.getLogger(LineComparer.class);
-    
-    public static void assertLinesEqual(final List<String> anExpectedLines, final List<String> anActualLines)
-    {
-        final Patch patch = DiffUtils.diff(anExpectedLines, anActualLines);
+public final class LineComparer {
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(LineComparer.class);
+
+    private LineComparer() {
+
+    }
+
+    public static void assertLinesEqual(final List<String> aExpectedLines,
+            final List<String> aActualLines) {
+        final Patch patch = DiffUtils.diff(aExpectedLines, aActualLines);
         final List<Delta> deltas = patch.getDeltas();
 
         if (deltas.size() > 0) {
@@ -53,7 +57,7 @@ public class LineComparer {
             }
 
             Assert.fail("Files are different");
-        }        
+        }
     }
 
 }

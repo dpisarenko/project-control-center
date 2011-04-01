@@ -15,7 +15,9 @@ project "MyProject" 2010-10-18 +1m
 
   now 2010-10-18
 
-  currency "ˆ"
+
+ currency "€"
+
 
   timingresolution 15 min
   

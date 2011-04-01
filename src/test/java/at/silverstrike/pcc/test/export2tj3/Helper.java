@@ -36,13 +36,14 @@ import at.silverstrike.pcc.test.mockpersistence.MockObjectFactory;
 
 class Helper {
     private final static Logger LOGGER =
-        LoggerFactory.getLogger(Helper.class);
+            LoggerFactory.getLogger(Helper.class);
 
-    private MockObjectFactory MOCK_OBJECT_FACTORY = new MockObjectFactory();
-    
+    private static final MockObjectFactory MOCK_OBJECT_FACTORY =
+            new MockObjectFactory();
+
     public String readStringFromFile(final File file) {
         String expectedResult = null;
-        
+
         try {
             expectedResult = FileUtils.readFileToString(file);
         } catch (final IOException exception) {
@@ -70,19 +71,20 @@ class Helper {
     }
 
     public List<SchedulingObject> getTestRun01Processes() {
-        final List<SchedulingObject> processes = new LinkedList<SchedulingObject>();
-        
+        final List<SchedulingObject> processes =
+                new LinkedList<SchedulingObject>();
+
         processes.add(MOCK_OBJECT_FACTORY.createControlProcess(null));
         processes.add(MOCK_OBJECT_FACTORY.createControlProcess(null));
-        
+
         return processes;
     }
 
     public List<Resource> getTestRun01Resources() {
         final List<Resource> resources = new LinkedList<Resource>();
-        
+
         resources.add(MOCK_OBJECT_FACTORY.createResource(null));
-        
+
         return resources;
     }
 
@@ -90,63 +92,68 @@ class Helper {
         final List<Resource> resources = new LinkedList<Resource>();
 
         resources.add(getWorker1210());
-        
+
         return resources;
 
     }
 
     private Resource getWorker1210() {
         final Resource worker = MOCK_OBJECT_FACTORY.createResource(1210L);
-        
+
         worker.setAbbreviation("DP");
         worker.setDailyLimitInHours(8);
         return worker;
     }
 
     public List<SchedulingObject> getTestRun03Processes() {
-        final List<SchedulingObject> processes = new LinkedList<SchedulingObject>();
-        
+        final List<SchedulingObject> processes =
+                new LinkedList<SchedulingObject>();
+
         final Task task = MOCK_OBJECT_FACTORY.createControlProcess(2010L);
-        
+
         task.setName("Some interesting task");
         task.setPriority(200);
         task.setBestCaseEffort(2.5);
         task.setWorstCaseEffort(2.5);
-        
-        final ResourceAllocation resourceAllocation = MOCK_OBJECT_FACTORY.createResourceAllocation();
+
+        final ResourceAllocation resourceAllocation =
+                MOCK_OBJECT_FACTORY.createResourceAllocation();
         resourceAllocation.setResource(getWorker1210());
-        
+
         assertNotNull(task.getResourceAllocations());
-        
+
         task.getResourceAllocations().add(resourceAllocation);
-        
+
         processes.add(task);
-        
+
         return processes;
     }
+
     public List<SchedulingObject> getTestDefect59Processes() {
-        final List<SchedulingObject> processes = new LinkedList<SchedulingObject>();
-        
+        final List<SchedulingObject> processes =
+                new LinkedList<SchedulingObject>();
+
         final Task task = MOCK_OBJECT_FACTORY.createControlProcess(null);
-        
+
         task.setName(null);
         task.setPriority(null);
-        
+
         Assert.assertNull(task.getName());
         Assert.assertNull(task.getId());
         Assert.assertNull(task.getPriority());
         Assert.assertNull(task.getBestCaseEffort());
         Assert.assertNull(task.getWorstCaseEffort());
-        
-        final ResourceAllocation resourceAllocation = MOCK_OBJECT_FACTORY.createResourceAllocation();
+
+        final ResourceAllocation resourceAllocation =
+                MOCK_OBJECT_FACTORY.createResourceAllocation();
         resourceAllocation.setResource(getWorker1210());
-        
+
         assertNotNull(task.getResourceAllocations());
-        
+
         task.getResourceAllocations().add(resourceAllocation);
-        
+
         processes.add(task);
-        
+
         return processes;
     }
 

@@ -20,4 +20,7 @@ final class ErrorCodes {
     public static final String M_001_FILE_NOT_FOUND = PREFIX + "001";
     public static final String M_002_SERIALIZATION_FAULT = PREFIX + "002";
     public static final String M_003_FILE_NOT_FOUND = PREFIX + "003";
+
+    private ErrorCodes() {
+    }
 }

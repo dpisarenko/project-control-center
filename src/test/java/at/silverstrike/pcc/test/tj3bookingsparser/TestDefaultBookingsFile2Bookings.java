@@ -36,7 +36,7 @@ import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 import com.google.inject.Injector;
 
-public class TestDefaultBookingsFile2Bookings {
+public final class TestDefaultBookingsFile2Bookings {
     @Before
     public void setupLogger() {
     }

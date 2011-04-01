@@ -17,7 +17,7 @@ import java.util.List;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingStatement;
 import at.silverstrike.pcc.api.tj3bookingsparser.IndBooking;
 
-public class MockBookingStatement implements BookingStatement {
+public final class MockBookingStatement implements BookingStatement {
 
     private String resource;
 
