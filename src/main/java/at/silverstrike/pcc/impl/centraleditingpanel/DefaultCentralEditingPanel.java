@@ -189,9 +189,6 @@ class DefaultCentralEditingPanel extends Panel implements
         treeLayout.addComponent(tree);
         verticalLayoutLeft.addComponent(treeLayout);
 
-        // Contents from a (prefilled example) hierarchical container:
-        tree.setContainerDataSource(getFilterHierarchicalContainer());
-
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
 
         initController();
