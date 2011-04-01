@@ -11,20 +11,29 @@
 
 package at.silverstrike.pcc.test.projecttreemodel;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
+import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
+import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
+
+import com.google.inject.Injector;
+
 /**
  * @author DP118M
- *
+ * 
  */
 public class TestDefaultProjectTreeContainer {
     private final static Logger LOGGER =
-        LoggerFactory.getLogger(TestDefaultProjectTreeContainer.class);
-    
+            LoggerFactory.getLogger(TestDefaultProjectTreeContainer.class);
+
     /**
      * Test case for reproducing this defect:
+     * 
      * <pre>
      * java.lang.NullPointerException
      *      at com.vaadin.data.util.IndexedContainer$IndexedContainerProperty.setValue(IndexedContainer.java:1291)
@@ -38,6 +47,32 @@ public class TestDefaultProjectTreeContainer {
      */
     @Test
     public void testNullPointerExceptionInAddNodes() {
+        /**
+         * Get object under test
+         */
+        final InjectorFactory injectorFactory =
+                new MockInjectorFactory(new MockInjectorModule());
+        final Injector injector = injectorFactory.createInjector();
+        final ProjectTreeContainer objectUnderTest =
+                injector.getInstance(ProjectTreeContainer.class);
         
+        /**
+         * Initialize it
+         */
+        Assert.assertNotNull(objectUnderTest);
+        objectUnderTest.setInjector(injector);
+        
+        /**
+         * Invoke method under test
+         */
+        try
+        {
+            objectUnderTest.updateData();
+        }
+        catch (final NullPointerException exception)
+        {
+            LOGGER.debug("", exception);
+            Assert.fail(exception.getMessage());
+        }
     }
 }
