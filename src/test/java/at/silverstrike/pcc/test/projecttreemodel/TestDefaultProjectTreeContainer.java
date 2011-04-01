@@ -23,7 +23,6 @@ public class TestDefaultProjectTreeContainer {
     private final static Logger LOGGER =
         LoggerFactory.getLogger(TestDefaultProjectTreeContainer.class);
     
-    
     /**
      * Test case for reproducing this defect:
      * <pre>
@@ -39,5 +38,6 @@ public class TestDefaultProjectTreeContainer {
      */
     @Test
     public void testNullPointerExceptionInAddNodes() {
+        
     }
 }
