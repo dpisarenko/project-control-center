@@ -72,6 +72,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
     private static final int DEFAULT_WIDTH_PIXELS = 600;
+    private Tree tree;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -178,7 +179,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
         final VerticalLayout treeLayout = getTreeLayout();
 
-        final Tree tree = new Tree();
+        tree = new Tree();
         treeLayout.addComponent(tree);
         verticalLayoutLeft.addComponent(treeLayout);
 
@@ -338,9 +339,21 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void taskCreated(final Task aNewTask) {
-        // TODO Auto-generated method stub
         final OptionDialog dialog = new OptionDialog(TPTApplication.getCurrentApplication());
         dialog.showConfirmationDialog("PCC", "Task created: " + aNewTask, null);
+        
+        updateProjectNetworkPanel();
+        updateTree();
+    }
+
+    private void updateTree() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    private void updateProjectNetworkPanel() {
+        // TODO Auto-generated method stub
+        
     }
 
     @Override
