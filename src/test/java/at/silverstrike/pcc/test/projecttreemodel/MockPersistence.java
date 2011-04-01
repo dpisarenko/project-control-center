@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.apache.commons.lang.NotImplementedException;
 import org.hibernate.Session;
 
@@ -42,7 +44,7 @@ import at.silverstrike.pcc.test.model.MockObjectFactory;
 final class MockPersistence implements Persistence {
     private MockObjectFactory mockObjectFactory = new MockObjectFactory();
     private boolean returnSubProcesses = true;
-    
+
     @Override
     public void setInjector(final Injector aInjector) {
         throw new NotImplementedException();
@@ -184,10 +186,13 @@ final class MockPersistence implements Persistence {
                 new LinkedList<SchedulingObject>();
 
         if (returnSubProcesses) {
-            final Task task = this.mockObjectFactory.createControlProcess();
-            
+            final Task task =
+                    this.mockObjectFactory.createControlProcess(1230L);
+
             task.setName("Some name");
-            
+
+            Assert.assertNotNull("ID must not be null.", task.getId());
+
             returnValue.add(task);
             this.returnSubProcesses = false;
         }

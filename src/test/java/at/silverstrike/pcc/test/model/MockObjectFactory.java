@@ -28,6 +28,15 @@ public class MockObjectFactory {
         return new MockUserData();
     }
 
+    public final Task createControlProcess(final Long aId) {
+        final MockControlProcess mockControlProcess = new MockControlProcess();
+        
+        mockControlProcess.setId(aId);
+        
+        return mockControlProcess;
+    }
+
+    
     public final Task createControlProcess() {
         return new MockControlProcess();
     }

@@ -80,7 +80,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
             LOGGER.debug(
                     "processItem.getItemProperty(PROJECT_PROPERTY_NAME): ",
                     processItem.getItemProperty(PROJECT_PROPERTY_NAME));
-
+            LOGGER.debug("processItem.getItemProperty(PROJECT_PROPERTY_ID): {}", processItem.getItemProperty(PROJECT_PROPERTY_ID).toString());
             
             processItem.getItemProperty(PROJECT_PROPERTY_ID).setValue(
                     process.getId());

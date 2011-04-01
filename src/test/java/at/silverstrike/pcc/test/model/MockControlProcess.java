@@ -41,6 +41,10 @@ class MockControlProcess implements Task {
         return this.id;
     }
 
+    void setId(final Long aId) {
+        this.id = aId;
+    }
+
     public String getName() {
         return this.name;
     }
