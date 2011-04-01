@@ -55,7 +55,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         final List<SchedulingObject> topLevelProcesses =
                 persistence.getSubProcessesWithChildren(null);
 
-        this.removeAllContainerFilters();
+        this.removeAllItems();
 
         addNodes(topLevelProcesses, null, persistence, 1);
     }
