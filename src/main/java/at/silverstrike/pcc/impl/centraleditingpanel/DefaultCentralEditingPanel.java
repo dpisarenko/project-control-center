@@ -39,6 +39,7 @@ import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
@@ -81,6 +82,13 @@ class DefaultCentralEditingPanel extends Panel implements
                     this.injector
                             .getInstance(CentralEditingPanelControllerFactory.class);
             controller = factory.create();
+            
+            /**
+             * We need this to be notified about events by the web
+             * gui bus.
+             */
+            final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
+            webGuiBus.addListener(this);
         }
     }
 
@@ -88,11 +96,11 @@ class DefaultCentralEditingPanel extends Panel implements
     public Panel toPanel() {
         return this;
     }
-
+    
     @Override
     public void initGui() {
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
-
+        
         this.mainGrid = new GridLayout(2, 1);
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
         mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
