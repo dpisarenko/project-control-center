@@ -71,17 +71,15 @@ class DefaultTaskEditingPanel extends Panel implements
         if (aInjector != null) {
             injector = aInjector;
             this.controller =
-                    this.injector
+                this.injector
                             .getInstance(TaskEditingPanelController.class);
-
             this.controller.setInjector(aInjector);
+            this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
         }
     }
 
     @Override
     public void initGui() {
-        this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
-
         final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
@@ -211,11 +209,9 @@ class DefaultTaskEditingPanel extends Panel implements
     public void buttonClick(final ClickEvent aEvent) {
         String debugId = aEvent.getButton().getDebugId();
         if (debugId.equals(SAVE_TASK_BUTTON)) {
-            
-                
-            
+
             this.controller.saveTask(this.task);
-            
+
             if (checkTaskField()) {
                 boolean isTaskCreate = controller.saveTask(getTaskFields());
                 if (isTaskCreate) {

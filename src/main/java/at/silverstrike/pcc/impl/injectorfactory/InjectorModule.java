@@ -180,6 +180,8 @@ class InjectorModule extends AbstractModule {
                 DefaultMilestoneEditingPanelControllerFactory().create());
         bind(MeetingEditingPanelController.class).toInstance(
                 new DefaultMeetingEditingPanelControllerFactory().create());
+        bind(TaskEditingPanelController.class).toInstance(
+                new DefaultTaskEditingPanelControllerFactory().create());
         bind(ProjectNetworkGraphPanelFactory.class).toInstance(
                 new DefaultProjectNetworkGraphPanelFactory());
         bind(ProjectNetworkGraphCreator.class).toInstance(

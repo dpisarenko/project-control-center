@@ -50,6 +50,7 @@ class DefaultCentralEditingPanelController implements
         final TaskEditingPanel panel = factory.create();
         panel.setInjector(this.injector);
         panel.initGui();
+
         return panel.toPanel();
     }
 
@@ -111,5 +112,4 @@ class DefaultCentralEditingPanelController implements
         // TODO Auto-generated method stub
 
     }
-
 }

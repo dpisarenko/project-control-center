@@ -83,7 +83,8 @@ class DefaultMilestoneEditingPanel extends Panel implements
 
     private Table createTestTable() {
         final TestTableCreator creator =
-                        this.injector.getInstance(TestTableCreator.class);
+
+        this.injector.getInstance(TestTableCreator.class);
         creator.setColumnNames(TEST_COLUMN_NAMES);
         creator.setData(TEST_TABLE_DATA);
         try {
@@ -157,8 +158,6 @@ class DefaultMilestoneEditingPanel extends Panel implements
 
         final Table table = createTestTable();
         verticalLayoutRight.addComponent(table);
-
         this.addComponent(verticalLayoutRight);
     }
-
 }

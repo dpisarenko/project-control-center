@@ -92,7 +92,6 @@ class DefaultCentralEditingPanel extends Panel implements
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
         this.mainGrid = new GridLayout(2, 1);
-
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
         mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
 
@@ -130,11 +129,21 @@ class DefaultCentralEditingPanel extends Panel implements
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
 
         final Button newTaskButton = getNewTaskButton();
+        newTaskButton
+                .setDebugId(this.debugIdRegistry
+                        .getDebugId(
+                                MessageCodePrefixRegistry.Module.centraleditingpanel,
+                                "3-button-newTask"));
         buttonsNewGrid.addComponent(newTaskButton, 0, 0);
         buttonsNewGrid.setComponentAlignment(newTaskButton,
                 Alignment.MIDDLE_LEFT);
 
         final Button newMeetingButton = getNewMeetingButton();
+        newMeetingButton
+                .setDebugId(this.debugIdRegistry
+                        .getDebugId(
+                                MessageCodePrefixRegistry.Module.centraleditingpanel,
+                                "4-button-newMeeting"));
         buttonsNewGrid.addComponent(newMeetingButton, 1, 0);
         buttonsNewGrid.setComponentAlignment(newMeetingButton,
                 Alignment.MIDDLE_RIGHT);
@@ -195,6 +204,11 @@ class DefaultCentralEditingPanel extends Panel implements
             verticalPanelRight = aPanel;
         }
         mainGrid.addComponent(verticalPanelRight, 1, 0);
+    }
+
+    private void changeRightPanel(Panel panel) {
+        removeRightPanel();
+        setRightPanel(panel);
     }
 
     private List<SchedulingObjectDependencyTuple> getDependencyTuples() {

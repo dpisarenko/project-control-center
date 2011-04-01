@@ -69,7 +69,6 @@ class DefaultMeetingEditingPanel extends Panel implements
                     this.injector
                             .getInstance(MeetingEditingPanelController.class);
             this.controller.setInjector(this.injector);
-
             this.debugIdRegistry =
                     this.injector.getInstance(DebugIdRegistry.class);
         }
@@ -128,6 +127,7 @@ class DefaultMeetingEditingPanel extends Panel implements
         verticalLayoutRight.addComponent(table);
         this.addComponent(verticalLayoutRight);
     }
+
 
     private HorizontalLayout getPlacePanel() {
         final HorizontalLayout placeLayout = new HorizontalLayout();

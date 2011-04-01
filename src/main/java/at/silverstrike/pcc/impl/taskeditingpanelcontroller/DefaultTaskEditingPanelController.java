@@ -16,6 +16,7 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 
+
 import com.google.inject.Injector;
 
 class DefaultTaskEditingPanelController implements
@@ -36,38 +37,14 @@ class DefaultTaskEditingPanelController implements
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
     }
-
+    
     @Override
     public void saveButtonClicked() {
-        final Persistence persistence = this.injector
-                .getInstance(Persistence.class);
-
-        persistence.createTask("TaskName");
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void doneTask() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void deleteTask() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void newTaskCreated() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public boolean saveTask(Object object) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+       	final Persistence persistence = this.injector
+           .getInstance(Persistence.class);
+    
+       	persistence.createTask("TaskName");
+        	
+     }
 
 }
