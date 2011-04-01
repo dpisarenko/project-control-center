@@ -185,6 +185,9 @@ final class MockPersistence implements Persistence {
 
         if (returnSubProcesses) {
             final Task task = this.mockObjectFactory.createControlProcess();
+            
+            task.setName("Some name");
+            
             returnValue.add(task);
             this.returnSubProcesses = false;
         }
