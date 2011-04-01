@@ -347,10 +347,6 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void taskCreationFailure() {
-        /**
-         * Этот метод вызывается, если при создании дела произошла ошибка.
-         * Здесь нам надо показать диалог с сообщением об ошибке и всё.
-         */
         final OptionDialog dialog = new OptionDialog(TPTApplication.getCurrentApplication());
         
         final String title = TM.get("centraleditingpanel.23-taskCreationFailure-title");

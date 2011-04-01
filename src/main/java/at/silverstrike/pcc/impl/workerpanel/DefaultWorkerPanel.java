@@ -28,9 +28,6 @@ import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.persistence.Persistence;
-import at.silverstrike.pcc.api.webguibus.WebGuiBus;
-import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
-import at.silverstrike.pcc.api.webguibus.WorkerAddedMessage;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
@@ -47,8 +44,6 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private TextField surnameTextField;
     private TextField dailyMaxTextField;
     private transient DebugIdRegistry debugIdRegistry;
-    private transient WebGuiBus webGuiBus;
-    private transient WebGuiBusMessageFactory webGuiBusMessageFactory;
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultWorkerPanel.class);
@@ -82,9 +77,6 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
             persistence.createHumanResource(abbreviation, firstName,
                     middleName, surname, dailyMaxWorkTimeInHours);
 
-            final WorkerAddedMessage message =
-                    this.webGuiBusMessageFactory.createWorkerAddedMessage();
-            this.webGuiBus.broadcastWorkerAddedMessage(message);
         } else {
             getWindow().showNotification(this.errorMessage, null,
                     Notification.TYPE_ERROR_MESSAGE);
@@ -103,9 +95,6 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
 
         if (aInjector != null) {
             this.debugIdRegistry = aInjector.getInstance(DebugIdRegistry.class);
-            this.webGuiBus = aInjector.getInstance(WebGuiBus.class);
-            this.webGuiBusMessageFactory =
-                    aInjector.getInstance(WebGuiBusMessageFactory.class);
         }
     }
 
