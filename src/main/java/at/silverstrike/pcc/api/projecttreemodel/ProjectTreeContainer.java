@@ -11,12 +11,15 @@
 
 package at.silverstrike.pcc.api.projecttreemodel;
 
+import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+
 import com.vaadin.data.Container;
 
 /**
  * @author DP118M
- *
+ * 
  */
-public interface ProjectTreeContainer extends Container.Hierarchical {
-
+public interface ProjectTreeContainer extends Container.Hierarchical,
+        ModuleWithInjectableDependencies {
+    public void updateData();
 }
