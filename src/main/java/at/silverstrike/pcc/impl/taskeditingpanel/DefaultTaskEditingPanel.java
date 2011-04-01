@@ -28,9 +28,12 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
+import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
+import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
 
@@ -55,9 +58,13 @@ class DefaultTaskEditingPanel extends Panel implements
             Arrays.asList(
                     new String[] { "1.1", "Project 1", "Task 1" },
                     new String[] { "2.1", "Project 4", "Task 5" });
+    private static final String SAVE_TASK_BUTTON = "028.001";
+    private static final String DONE_TASK_BUTTON = "028.002";
+    private static final String DELETE_TASK_BUTTON = "028.003";
 
     private transient Injector injector;
     private transient TaskEditingPanelController controller;
+    private transient DebugIdRegistry debugIdRegistry;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -73,6 +80,8 @@ class DefaultTaskEditingPanel extends Panel implements
 
     @Override
     public void initGui() {
+        this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
+
         final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
@@ -85,17 +94,30 @@ class DefaultTaskEditingPanel extends Panel implements
 
         final Button saveButton =
                 new Button(TM.get("centraleditingprocesspanel.11-button-save"));
+        saveButton.setDebugId(this.debugIdRegistry
+                .getDebugId(
+                        MessageCodePrefixRegistry.Module.taskeditingpanel,
+                        "1-button-save"));
         saveButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(saveButton);
 
         final Button doneButton =
                 new Button(TM.get("centraleditingprocesspanel.12-button-done"));
+        doneButton.setDebugId(this.debugIdRegistry
+                .getDebugId(
+                        MessageCodePrefixRegistry.Module.taskeditingpanel,
+                        "2-button-done"));
         doneButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(doneButton);
 
         final Button deleteButton =
                 new Button(
                         TM.get("centraleditingprocesspanel.13-button-delete"));
+        deleteButton.setDebugId(this.debugIdRegistry
+                .getDebugId(
+                        MessageCodePrefixRegistry.Module.taskeditingpanel,
+                        "3-button-delete"));
+
         deleteButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(deleteButton);
 
@@ -187,7 +209,30 @@ class DefaultTaskEditingPanel extends Panel implements
      * Shows a notification when a button is clicked.
      */
     public void buttonClick(final ClickEvent aEvent) {
-        getWindow().showNotification(NOTIFICATION);
+        String debugId = aEvent.getButton().getDebugId();
+        if (debugId.equals(SAVE_TASK_BUTTON)) {
+            
+                
+            
+            this.controller.saveTask(this.task);
+            
+            if (checkTaskField()) {
+                boolean isTaskCreate = controller.saveTask(getTaskFields());
+                if (isTaskCreate) {
+                    // call via webguibus
+                    controller.newTaskCreated();
+                    updateTree();
+                    updateGraph();
+                }
+            }
+        }
+        if (debugId.equals(DONE_TASK_BUTTON)) {
+            controller.doneTask();
+        }
+
+        if (debugId.equals(DELETE_TASK_BUTTON)) {
+            controller.deleteTask();
+        }
     }
 
     @Override
