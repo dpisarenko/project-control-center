@@ -12,6 +12,7 @@
 package at.silverstrike.pcc.test.projecttreemodel;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.NotImplementedException;
@@ -32,12 +33,16 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.persistence.PersistenceState;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
+import at.silverstrike.pcc.test.model.MockObjectFactory;
 
 /**
  * @author DP118M
  * 
  */
 final class MockPersistence implements Persistence {
+    private MockObjectFactory mockObjectFactory = new MockObjectFactory();
+    private boolean returnSubProcesses = true;
+    
     @Override
     public void setInjector(final Injector aInjector) {
         throw new NotImplementedException();
@@ -175,8 +180,16 @@ final class MockPersistence implements Persistence {
     @Override
     public List<SchedulingObject> getSubProcessesWithChildren(
             final Long aProcessId) {
-        throw new NotImplementedException();
+        final List<SchedulingObject> returnValue =
+                new LinkedList<SchedulingObject>();
 
+        if (returnSubProcesses) {
+            final Task task = this.mockObjectFactory.createControlProcess();
+            returnValue.add(task);
+            this.returnSubProcesses = false;
+        }
+
+        return returnValue;
     }
 
     @Override

@@ -40,7 +40,6 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         if (aInjector != null) {
             this.persistence = aInjector.getInstance(Persistence.class);
         }
-
     }
 
     public DefaultProjectTreeContainer() {
@@ -53,11 +52,10 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
 
         this.removeAllContainerFilters();
 
-        addNodes(this, topLevelProcesses, null, persistence, 1);
+        addNodes(topLevelProcesses, null, persistence, 1);
     }
 
-    private int addNodes(final HierarchicalContainer aContainer,
-            final List<SchedulingObject> aProcesses, final Integer aParentId,
+    private int addNodes(final List<SchedulingObject> aProcesses, final Integer aParentId,
             final Persistence aPersistence, final int aTreeItemId) {
         int treeItemId = aTreeItemId;
 
@@ -68,26 +66,26 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         for (final SchedulingObject process : aProcesses) {
             final int processItemId = treeItemId++;
 
-            final Item processItem = aContainer.addItem(processItemId);
+            final Item processItem = this.addItem(processItemId);
 
             processItem.getItemProperty(PROJECT_PROPERTY_ID).setValue(
                     process.getId());
             processItem.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                     process.getName());
 
-            aContainer.setChildrenAllowed(processItemId, true);
+            this.setChildrenAllowed(processItemId, true);
 
             if (aParentId != null) {
-                aContainer.setParent(processItemId, aParentId);
+                this.setParent(processItemId, aParentId);
             } else {
-                aContainer.setParent(processItemId, TREE_ROOT_ID);
+                this.setParent(processItemId, TREE_ROOT_ID);
             }
 
             final List<SchedulingObject> subProcessesWithChildren =
                     aPersistence.getSubProcessesWithChildren(process.getId());
 
             treeItemId =
-                    addNodes(aContainer, subProcessesWithChildren,
+                    addNodes(subProcessesWithChildren,
                             processItemId, aPersistence, treeItemId);
         }
 
