@@ -17,7 +17,6 @@ import java.util.List;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
-import at.silverstrike.pcc.api.webguibus.WorkerAddedMessage;
 
 class DefaultWebGuiBus implements WebGuiBus {
     private List<WebGuiBusListener> listeners;
@@ -30,13 +29,6 @@ class DefaultWebGuiBus implements WebGuiBus {
     public void addListener(final WebGuiBusListener aListener) {
         if (!this.listeners.contains(aListener)) {
             this.listeners.add(aListener);
-        }
-    }
-
-    @Override
-    public void broadcastWorkerAddedMessage(final WorkerAddedMessage aMessage) {
-        for (final WebGuiBusListener listener : this.listeners) {
-            listener.workerAdded(aMessage);
         }
     }
 

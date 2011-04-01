@@ -35,9 +35,12 @@ import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanel
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
+import eu.livotov.tpt.TPTApplication;
+import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
@@ -333,5 +336,23 @@ class DefaultCentralEditingPanel extends Panel implements
 
     public static HierarchicalContainer getFilterHierarchicalContainer() {
         return TempTreeObjectModel.getFilterHierarchicalContainer();
+    }
+
+    @Override
+    public void taskCreated(final Task aNewTask) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void taskCreationFailure() {
+        /**
+         * Этот метод вызывается, если при создании дела произошла ошибка.
+         * Здесь нам надо показать диалог с сообщением об ошибке и всё.
+         */
+        final OptionDialog dialog = new OptionDialog(TPTApplication.getCurrentApplication());
+        
+        dialog.showConfirmationDialog(TM.get(""), TM.get(""), null);
+        
     }
 }
