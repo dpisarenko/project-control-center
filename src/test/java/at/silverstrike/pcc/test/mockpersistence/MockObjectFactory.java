@@ -11,13 +11,13 @@
 
 package at.silverstrike.pcc.test.mockpersistence;
 
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
 public class MockObjectFactory {
-    public ControlProcess createControlProcess(final Long anId)
+    public Task createControlProcess(final Long anId)
     {
         final MockControlProcess returnValue = new MockControlProcess();
         

@@ -31,8 +31,6 @@ import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanel;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
-import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanel;
-import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
@@ -98,9 +96,6 @@ class DefaultMainWindow implements MainWindow {
                 .get("mainwindow.8-human-resource-tab"), null);
         this.tabSheet.addTab(getSchedulingPanelTab(), TM
                 .get("mainwindow.9-scheduling-tab"), null);
-
-        this.tabSheet.addTab(getGraphTestPanel(), TM
-                .get("mainwindow.14-graph-test"), null);
 
         mainLayout.addComponent(this.tabSheet);
 
@@ -176,15 +171,6 @@ class DefaultMainWindow implements MainWindow {
         }
     };
 
-    private Component getGraphTestPanel() {
-        final GraphDemoPanelFactory factory =
-                this.injector.getInstance(GraphDemoPanelFactory.class);
-        final GraphDemoPanel panel = factory.create();
-
-        panel.initGui();
-
-        return panel.toPanel();
-    }
 
     private Component getEstimatedCompletionDateTimesPanel() {
         final EstimatedCompletionTimesPanelFactory factory =

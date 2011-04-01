@@ -27,7 +27,7 @@ import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
-import at.silverstrike.pcc.api.graphdemopanel.GraphDemoPanelFactory;
+import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanelFactory;
 import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
@@ -43,6 +43,8 @@ import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReaderFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelFactory;
+import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator;
+import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
@@ -60,34 +62,31 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.centraleditingpanel.DefaultCentralEditingPanelFactory;
-import at.silverstrike.pcc.impl.centraleditingpanelcontroller.
-    DefaultCentralEditingPanelControllerFactory;
+import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.dependencieseditingwindow.DefaultDependenciesEditingPanelFactory;
 import at.silverstrike.pcc.impl.editingprocesspanel.DefaultEditingProcessPanelFactory;
-import at.silverstrike.pcc.impl.embeddedfilereading.
-    DefaultEmbeddedFileReaderFactory;
+import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
-import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.
-    DefaultEstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
-import at.silverstrike.pcc.impl.graphdemopanel.DefaultGraphDemoPanelFactory;
+import at.silverstrike.pcc.impl.graph2resource.DefaultGraph2ResourceConverterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
 import at.silverstrike.pcc.impl.meetingeditingpanel.DefaultMeetingEditingPanelFactory;
-import at.silverstrike.pcc.impl.meetingeditingpanelcontroller.
-    DefaultMeetingEditingPanelControllerFactory;
+import at.silverstrike.pcc.impl.meetingeditingpanelcontroller.DefaultMeetingEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.milestoneeditingpanel.DefaultMilestoneEditingPanelFactory;
-import at.silverstrike.pcc.impl.milestoneeditingpanelcontroller.
-    DefaultMilestoneEditingPanelControllerFactory;
+import at.silverstrike.pcc.impl.milestoneeditingpanelcontroller.DefaultMilestoneEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.openid.DefaultDeauthenticatorFactory;
 import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationInitiatorFactory;
 import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationResponderFactory;
 import at.silverstrike.pcc.impl.parameterdatareader.DefaultParameterDataReaderFactory;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import at.silverstrike.pcc.impl.processpanel.DefaultProcessPanelFactory;
+import at.silverstrike.pcc.impl.projectnetworkgraphcreator.DefaultProjectNetworkGraphCreatorFactory;
+import at.silverstrike.pcc.impl.projectnetworkgraphpanel.DefaultProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
 import at.silverstrike.pcc.impl.schedulingpanel.DefaultSchedulingPanelFactory;
 import at.silverstrike.pcc.impl.taskeditingpanel.DefaultTaskEditingPanelFactory;
@@ -169,22 +168,26 @@ class InjectorModule extends AbstractModule {
                 new DefaultDependenciesEditingPanelFactory());
         bind(TestTableCreator.class).toInstance(
                 getTestTableCreator());
-        bind(GraphDemoPanelFactory.class).toInstance(
-                new DefaultGraphDemoPanelFactory());
         bind(TaskEditingPanelFactory.class).toInstance(
                 new DefaultTaskEditingPanelFactory());
         bind(MeetingEditingPanelFactory.class).toInstance(
                 new DefaultMeetingEditingPanelFactory());
         bind(MilestoneEditingPanelFactory.class).toInstance(
                 new DefaultMilestoneEditingPanelFactory());
-        bind(CentralEditingPanelControllerFactory.class).toInstance(new 
+        bind(CentralEditingPanelControllerFactory.class).toInstance(new
                 DefaultCentralEditingPanelControllerFactory());
-        bind(MilestoneEditingPanelController.class).toInstance(new 
+        bind(MilestoneEditingPanelController.class).toInstance(new
                 DefaultMilestoneEditingPanelControllerFactory().create());
         bind(MeetingEditingPanelController.class).toInstance(
                 new DefaultMeetingEditingPanelControllerFactory().create());
         bind(TaskEditingPanelController.class).toInstance(
                 new DefaultTaskEditingPanelControllerFactory().create());
+        bind(ProjectNetworkGraphPanelFactory.class).toInstance(
+                new DefaultProjectNetworkGraphPanelFactory());
+        bind(ProjectNetworkGraphCreator.class).toInstance(
+                new DefaultProjectNetworkGraphCreatorFactory().create());
+        bind(Graph2ResourceConverter.class).toInstance(
+                new DefaultGraph2ResourceConverterFactory().create());
     }
 
     private TestTableCreator getTestTableCreator() {

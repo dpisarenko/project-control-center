@@ -24,7 +24,7 @@
 		<property name="duration" />
 
 		<many-to-one name="process"
-			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess" 
+			class="at.silverstrike.pcc.impl.persistence.DefaultTask" 
 			lazy="false"/>
 		<many-to-one name="resource"
 			class="at.silverstrike.pcc.impl.persistence.DefaultResource" 

@@ -14,7 +14,7 @@ package at.silverstrike.pcc.impl.persistence;
 import java.util.LinkedList;
 import java.util.List;
 
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyToDoList;
 
 /**
@@ -22,19 +22,19 @@ import at.silverstrike.pcc.api.model.DailyToDoList;
  * 
  */
 class DefaultDailyToDoList implements DailyToDoList {
-    private List<ControlProcess> tasksToCompleteToday;
+    private List<Task> tasksToCompleteToday;
     private Long id;
 
     public DefaultDailyToDoList() {
-        this.tasksToCompleteToday = new LinkedList<ControlProcess>();
+        this.tasksToCompleteToday = new LinkedList<Task>();
     }
 
-    public List<ControlProcess> getTasksToCompleteToday() {
+    public List<Task> getTasksToCompleteToday() {
         return tasksToCompleteToday;
     }
 
     public void setTasksToCompleteToday(
-            final List<ControlProcess> aTasksToCompleteToday) {
+            final List<Task> aTasksToCompleteToday) {
         this.tasksToCompleteToday = aTasksToCompleteToday;
     }
 

@@ -140,7 +140,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
                 .getInstance(ProjectSchedulerFactory.class);
         final ProjectScheduler scheduler = factory.create();
 
-        scheduler.getProjectExportInfo().setControlProcessesToExport(
+        scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
                 this.persistence.getAllNotDeletedTasks());
 
         final List<Resource> resources = new LinkedList<Resource>();

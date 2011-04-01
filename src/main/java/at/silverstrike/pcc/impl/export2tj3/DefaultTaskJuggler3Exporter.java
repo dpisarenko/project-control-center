@@ -27,7 +27,8 @@ import at.silverstrike.pcc.api.export2tj3.NoProcessesException;
 import at.silverstrike.pcc.api.export2tj3.NoProjectExportInfoException;
 import at.silverstrike.pcc.api.export2tj3.NoResourcesException;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyLimitResourceAllocation;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
@@ -154,8 +155,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
         // Add task information
 
-        final List<ControlProcess> processes =
-                this.projectExportInfo.getControlProcessesToExport();
+        final List<SchedulingObject> processes =
+                this.projectExportInfo.getSchedulingObjectsToExport();
         if (processes != null) {
             taskTemplate =
                     embeddedFileReader
@@ -173,7 +174,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
                     embeddedFileReader
                             .readEmbeddedFile(EXPORT2TJ3_TEMPLATE_START);
 
-            for (final ControlProcess process : processes) {
+            for (final SchedulingObject process : processes) {
                 builder.append(getTaskInformation(process, null));
             }
         }
@@ -236,12 +237,12 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         }
     }
 
-    private List<ControlProcess>
-            getChildProcesses(final ControlProcess aProcess) {
+    private List<SchedulingObject>
+            getChildProcesses(final SchedulingObject aProcess) {
         return persistence.getChildTasks(aProcess);
     }
 
-    private CharSequence getEffortAllocations(final ControlProcess aProcess) {
+    private CharSequence getEffortAllocations(final Task aProcess) {
         final StringBuilder stringBuilder = new StringBuilder();
 
         if ((aProcess != null) && (aProcess.getResourceAllocations() != null)) {
@@ -274,7 +275,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         return stringBuilder.toString();
     }
 
-    private CharSequence getEffortInfo(final ControlProcess aProcess) {
+    private CharSequence getEffortInfo(final Task aProcess) {
         final Double bestCaseEffort = aProcess.getBestCaseEffort();
         final Double worstCaseEffort = aProcess.getWorstCaseEffort();
 
@@ -295,7 +296,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         return "R" + aResource.getId();
     }
 
-    private CharSequence getStartDateTime(final ControlProcess aParent) {
+    private CharSequence getStartDateTime(final Task aParent) {
         if (aParent == null) {
             return startDateTimeTemplate;
         } else {
@@ -303,12 +304,13 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         }
     }
 
-    private String getTaskInformation(final ControlProcess aProcess,
-            final ControlProcess aParent) {
+    private String getTaskInformation(final SchedulingObject aProcess,
+            final SchedulingObject aParent) {
         final StringBuilder stringBuilder = new StringBuilder();
-        final List<ControlProcess> childProcesses = getChildProcesses(aProcess);
+        final List<SchedulingObject> childProcesses =
+                getChildProcesses(aProcess);
         if (childProcesses != null) {
-            for (final ControlProcess childProcess : childProcesses) {
+            for (final SchedulingObject childProcess : childProcesses) {
                 stringBuilder
                         .append(getTaskInformation(childProcess, aProcess));
             }
@@ -328,12 +330,13 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         final String taskDefinition =
                 taskTemplate
                         .replace(ID, formatLong(aProcess.getId()))
-                        .replace(NAME, shortenName(aProcess.getName()))
-                        .replace(START_DATE_TIME, getStartDateTime(aParent))
+                        .replace(NAME, shortenName(((Task) aProcess).getName()))
+                        .replace(START_DATE_TIME,
+                                getStartDateTime((Task) aParent))
                         .replace(PRIORITY, formatInt(priority))
                         .replace(RESOURCE_ALLOCATIONS,
-                                getEffortAllocations(aProcess))
-                        .replace(EFFORT_INFO, getEffortInfo(aProcess))
+                                getEffortAllocations((Task) aProcess))
+                        .replace(EFFORT_INFO, getEffortInfo((Task) aProcess))
                         .replace(CHILD_TASKS, childProcessDefinitions);
 
         return taskDefinition;
@@ -388,8 +391,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             throw new NoProjectExportInfoException();
         }
 
-        final List<ControlProcess> processes =
-                this.projectExportInfo.getControlProcessesToExport();
+        final List<SchedulingObject> processes =
+                this.projectExportInfo.getSchedulingObjectsToExport();
         final List<Resource> resources =
                 this.projectExportInfo.getResourcesToExport();
 
@@ -409,14 +412,17 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             throw new NoResourcesException();
         }
 
-        for (final ControlProcess proc : processes) {
-            checkTimingResolution(proc, proc.getBestCaseEffort());
-            checkTimingResolution(proc, proc.getAverageCaseEffort());
-            checkTimingResolution(proc, proc.getWorstCaseEffort());
+        for (final SchedulingObject proc : processes) {
+            checkTimingResolution((Task) proc,
+                    ((Task) proc).getBestCaseEffort());
+            checkTimingResolution((Task) proc,
+                    ((Task) proc).getAverageCaseEffort());
+            checkTimingResolution((Task) proc,
+                    ((Task) proc).getWorstCaseEffort());
         }
     }
 
-    private void checkTimingResolution(final ControlProcess aProcess,
+    private void checkTimingResolution(final Task aProcess,
             final Double aBestCaseEffort) throws InvalidDurationException {
         if ((aBestCaseEffort != null)
                 && (aBestCaseEffort < TIMING_RESOLUTION_IN_HOURS)) {

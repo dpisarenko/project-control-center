@@ -30,7 +30,8 @@ import org.slf4j.LoggerFactory;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.DailyToDoList;
@@ -114,7 +115,7 @@ public class TestDefaultProjectScheduler {
         LOGGER.info("");
         LOGGER.info("Starting test case testRun01");
         LOGGER.info("");
-        
+
         /**
          * Create persistence
          */
@@ -191,81 +192,88 @@ public class TestDefaultProjectScheduler {
          * Verify that now the result of getUncompletedTasksWithEstimatedEndTime
          * contains exactly one task.
          */
-        final List<ControlProcess> processes =
+        final List<Task> processes =
                 persistence.getUncompletedTasksWithEstimatedEndTime();
 
         Assert.assertNotNull(processes);
         Assert.assertEquals(1, processes.size());
 
-        final ControlProcess process = processes.get(0);
+        final Task process = processes.get(0);
 
         final Date date201010251130 =
                 RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 11, 30);
 
-        Assert.assertEquals(date201010251130, process.getBestEstimatedEndDateTime());
-        Assert.assertEquals(date201010251130, process.getAverageEstimatedEndDateTime());
-        Assert.assertEquals(date201010251130, process.getWorstEstimatedEndDateTime());
-        
+        Assert.assertEquals(date201010251130,
+                process.getBestEstimatedEndDateTime());
+        Assert.assertEquals(date201010251130,
+                process.getAverageEstimatedEndDateTime());
+        Assert.assertEquals(date201010251130,
+                process.getWorstEstimatedEndDateTime());
+
         /**
          * Verify that daily plan exists
          */
-        final String resource = projectInfo.getResourcesToExport().get(0).getAbbreviation();
-        
+        final String resource =
+                projectInfo.getResourcesToExport().get(0).getAbbreviation();
+
         Assert.assertNotNull(resource);
         Assert.assertFalse(StringUtils.isEmpty(resource));
 
         final Date date201010250000 =
-            RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 0, 0);
+                RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 0, 0);
 
-        final DailyPlan dailyPlan = persistence.getDailyPlan(date201010250000, resource);
-        
+        final DailyPlan dailyPlan =
+                persistence.getDailyPlan(date201010250000, resource);
+
         Assert.assertNotNull(dailyPlan);
-        
+
         final DailySchedule schedule = dailyPlan.getSchedule();
-        
+
         Assert.assertNotNull(schedule);
-        
+
         final List<Booking> bookings = schedule.getBookings();
-        
+
         Assert.assertNotNull(bookings);
         Assert.assertEquals(1, bookings.size());
-        
+
         final Booking booking = bookings.get(0);
-        
+
         Assert.assertEquals(2.5, booking.getDuration(), TestConventions.DELTA);
         Assert.assertNotNull(booking.getProcess());
         Assert.assertNotNull(booking.getResource());
-        
-        final ControlProcess expectedTask = projectInfo.getControlProcessesToExport().get(0);
-        
-        Assert.assertEquals(expectedTask.getName(), booking.getProcess().getName());
-        Assert.assertEquals(projectInfo.getResourcesToExport().get(0).getAbbreviation(), booking.getResource().getAbbreviation());
+
+        final SchedulingObject expectedTask =
+                projectInfo.getSchedulingObjectsToExport().get(0);
+
+        Assert.assertEquals(((Task) expectedTask).getName(), booking
+                .getProcess().getName());
+        Assert.assertEquals(projectInfo.getResourcesToExport().get(0)
+                .getAbbreviation(), booking.getResource().getAbbreviation());
 
         final Date date201010250900 =
-            RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 9, 0);
+                RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 9, 0);
 
-        
         Assert.assertEquals(date201010250900, booking.getStartDateTime());
 
         Assert.assertEquals(date201010251130, booking.getEndDateTime());
-        
+
         final DailyToDoList toDoList = dailyPlan.getToDoList();
-        
+
         Assert.assertNotNull(toDoList);
-        
-        final List<ControlProcess> tasks = toDoList.getTasksToCompleteToday();
-        
+
+        final List<Task> tasks = toDoList.getTasksToCompleteToday();
+
         Assert.assertNotNull(tasks);
-        
+
         Assert.assertEquals(1, tasks.size());
-        
-        final ControlProcess task = tasks.get(0);
-        
+
+        final Task task = tasks.get(0);
+
         Assert.assertEquals(expectedTask.getId(), task.getId());
-        Assert.assertEquals(expectedTask.getName(), task.getName());        
+        Assert.assertEquals(((Task) expectedTask).getName(), task.getName());
     }
-    
+
     @Test
     public void testElementaryScenarioScheduling() {
-    }    
+    }
 }

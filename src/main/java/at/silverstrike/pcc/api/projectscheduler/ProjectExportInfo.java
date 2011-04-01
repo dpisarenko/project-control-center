@@ -13,15 +13,15 @@ package at.silverstrike.pcc.api.projectscheduler;
 import java.util.Date;
 import java.util.List;
 
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Resource;
 
 public interface ProjectExportInfo {
     /**
      * Sets the control processes, which should be exported.
      */
-    void setControlProcessesToExport(final List<ControlProcess> aProcesses);
-    List<ControlProcess> getControlProcessesToExport();
+    void setSchedulingObjectsToExport(final List<SchedulingObject> aProcesses);
+    List<SchedulingObject> getSchedulingObjectsToExport();
     
     /**
      * Sets the resources, which should be exported.

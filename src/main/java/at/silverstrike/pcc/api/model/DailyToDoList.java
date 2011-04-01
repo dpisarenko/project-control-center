@@ -20,6 +20,6 @@ import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
  *
  */
 public interface DailyToDoList extends UniquelyIdentifiableObject {	
-	void setTasksToCompleteToday(final List<ControlProcess> aTasksToCompleteToday);
-	List<ControlProcess> getTasksToCompleteToday();
+	void setTasksToCompleteToday(final List<Task> aTasksToCompleteToday);
+	List<Task> getTasksToCompleteToday();
 }

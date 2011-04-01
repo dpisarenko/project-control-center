@@ -11,14 +11,15 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanel;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.terminal.Sizeable;
-import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Alignment;
@@ -35,6 +36,9 @@ import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanel
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.processpanel.ProcessPanelListener;
+import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
+import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
+import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import eu.livotov.tpt.i18n.TM;
 
@@ -64,6 +68,10 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private DebugIdRegistry debugIdRegistry;
 
+    private static final int DEFAULT_HEIGHT_PIXELS = 350;
+    private static final int DEFAULT_WIDTH_PIXELS = 600;
+
+    
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
@@ -93,9 +101,32 @@ class DefaultCentralEditingPanel extends Panel implements
         // mainGrid.setSpacing(true);
 
         final VerticalLayout verticalLayoutLeft = new VerticalLayout();
-        final Embedded e =
-                new Embedded(null, new ThemeResource("../pcc/test/graph.gif"));
-        verticalLayoutLeft.addComponent(e);
+
+        
+        /**
+         * Graph panel (start)
+         */
+        final ProjectNetworkGraphPanelFactory factory = this.injector.getInstance(ProjectNetworkGraphPanelFactory.class);
+        final ProjectNetworkGraphPanel graphPanel = factory.create();
+        
+        graphPanel.setInjector(injector);
+        graphPanel.initGui();
+  
+        final List<SchedulingObjectDependencyTuple> tuples =
+            getDependencyTuples();
+
+        graphPanel.updatePanel(tuples);
+        
+        
+        final com.vaadin.ui.Layout graphPanelLayout = graphPanel.toLayout();
+        
+        graphPanelLayout.setWidth(DEFAULT_WIDTH_PIXELS, UNITS_PIXELS);
+        graphPanelLayout.setHeight(DEFAULT_HEIGHT_PIXELS, UNITS_PIXELS);
+        
+        verticalLayoutLeft.addComponent(graphPanelLayout);
+        /**
+         * Graph panel (end)
+         */
 
         final GridLayout buttonsNewGrid = new GridLayout(3, 1);
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
@@ -162,6 +193,7 @@ class DefaultCentralEditingPanel extends Panel implements
         this.addComponent(mainGrid);
     }
     
+
     private void removeRightPanel(){
     			
     	mainGrid.removeComponent(verticalPanelRight);  	
@@ -178,6 +210,45 @@ class DefaultCentralEditingPanel extends Panel implements
        	removeRightPanel();
        	setRightPanel(panel);    	
         }
+
+    private List<SchedulingObjectDependencyTuple> getDependencyTuples() {
+        final List<SchedulingObjectDependencyTuple> tuples =
+                new LinkedList<SchedulingObjectDependencyTuple>();
+
+        final String P2_2 = "P2.2";
+        final String P2_3 = "P2.3";
+        final String P2_4 = "P2.4";
+        final String P2_5 = "P2.5";
+        final String P2_6 = "P2.6";
+        final String P2_7 = "P2.7";
+        final String P2_8 = "P2.8";
+
+        tuples.add(getTuple(P2_2, new String[]{}));
+        tuples.add(getTuple(P2_3, new String[]{P2_2}));
+        tuples.add(getTuple(P2_4, new String[]{P2_2}));
+        tuples.add(getTuple(P2_5, new String[]{P2_2, P2_4}));
+        tuples.add(getTuple(P2_6, new String[]{P2_5}));
+        tuples.add(getTuple(P2_7, new String[]{P2_2, P2_3, P2_6}));
+        tuples.add(getTuple(P2_8, new String[]{P2_6}));
+        
+        return tuples;
+    }
+
+    private SchedulingObjectDependencyTuple getTuple(final String aLabel,
+            final String[] aDependencies) {
+        final List<String> dependencies = new LinkedList<String>();
+        final MockSchedulingObjectDependencyTuple returnValue = new MockSchedulingObjectDependencyTuple();
+        
+        for (final String curDep : aDependencies)
+        {
+            dependencies.add(curDep);
+        }
+        
+        returnValue.setLabel(aLabel);
+        returnValue.setDependencies(dependencies);
+        
+        return returnValue;
+    }
 
     private void initController() {
         final DefaultCentralEditingPanelControllerFactory factory =

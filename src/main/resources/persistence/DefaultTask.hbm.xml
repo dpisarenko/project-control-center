@@ -13,7 +13,7 @@
          "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"
+	<class name="at.silverstrike.pcc.impl.persistence.DefaultTask"
 		table="TBL_PROCESS" lazy="false">
 		<id name="id" column="PROCESS_ID" type="java.lang.Long"
 			unsaved-value="-1">
@@ -31,7 +31,7 @@
 		<property name="worstEstimatedEndDateTime" />
 
 		<many-to-one name="parent"
-			class="at.silverstrike.pcc.impl.persistence.DefaultControlProcess"
+			class="at.silverstrike.pcc.impl.persistence.DefaultTask"
 			lazy="false"/>
 		
 		<bag name="resourceAllocations" lazy="false">

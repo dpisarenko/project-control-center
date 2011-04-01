@@ -37,7 +37,7 @@ import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.ProcessState;
@@ -156,14 +156,14 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         this.todoTable.removeAllItems();
 
         if (aDailyPlan != null) {
-            for (ControlProcess task : aDailyPlan.getToDoList()
+            for (Task task : aDailyPlan.getToDoList()
                     .getTasksToCompleteToday()) {
                 this.todoTable.addItem(getTaskCells(task), task.getId());
             }
         }
     }
 
-    private Object[] getTaskCells(final ControlProcess aTask) {
+    private Object[] getTaskCells(final Task aTask) {
         final Object[] cells = new Object[TODO_COLUMNS_COUNT];
 
         cells[COLUMN_INDEX_TODO_IS_ATTAINED] =

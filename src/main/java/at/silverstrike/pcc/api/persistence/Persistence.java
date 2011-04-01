@@ -18,7 +18,8 @@ import org.hibernate.Session;
 
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.Booking;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
@@ -41,16 +42,16 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     void createSubTask(final String aProcessName, final Long aParentProcessId);
 
-    List<ControlProcess> getAllNotDeletedTasks();
+    List<SchedulingObject> getAllNotDeletedTasks();
 
-    ControlProcess getTask(final Object aProcessid);
+    Task getTask(final Object aProcessid);
 
-    void updateTask(final ControlProcess aProcess);
+    void updateTask(final Task aProcess);
 
     void createProcessParent(final String aName, final Long aParentItemId,
             final ProcessType aProcessType);
 
-    List<ControlProcess> getAllIntentsAndGoalRegions();
+    List<Task> getAllIntentsAndGoalRegions();
 
     Long createHumanResource(final String aAbbreviation,
             final String aFirstName, final String aMiddleName,
@@ -58,7 +59,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     List<Worker> getAllWorkers();
 
-    List<ControlProcess> getChildTasks(final ControlProcess aParent);
+    List<SchedulingObject> getChildTasks(final SchedulingObject aParent);
 
     /**
      * Sets the estimate end time dates of the processes.
@@ -88,7 +89,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      * Returns a list of all tasks, which are not completed yet and have an
      * estimated completion date/time.
      */
-    List<ControlProcess> getUncompletedTasksWithEstimatedEndTime();
+    List<Task> getUncompletedTasksWithEstimatedEndTime();
 
     /**
      * Returns daily plan for specified resource on specified day.
@@ -103,7 +104,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      * 
      * If processId is null, the top-level processes are returned.
      */
-    List<ControlProcess> getSubProcessesWithChildren(final Long aProcessId);
+    List<SchedulingObject> getSubProcessesWithChildren(final Long aProcessId);
 
     /**
      * Creates a new process on the same hierarchy level as the process with
@@ -127,7 +128,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      * @param selectedProjectId
      * @return
      */
-    List<ControlProcess> getChildTasks(final Long aProcessId);
+    List<SchedulingObject> getChildTasks(final Long aProcessId);
 
     /**
      * Assigns the process with the specifid ID to the specified worker.

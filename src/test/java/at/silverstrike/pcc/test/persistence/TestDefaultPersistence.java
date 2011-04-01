@@ -18,87 +18,74 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 
 public class TestDefaultPersistence {
     @Test
-    public void test01()
-    {
+    public void test01() {
         final Persistence persistence = new DefaultPersistence();
-        
-        try
-        {
-            persistence.openSession();   
-        }
-        catch (final RuntimeException exception)
-        {
+
+        try {
+            persistence.openSession();
+        } catch (final RuntimeException exception) {
+            Assert.fail(exception.getMessage());
+        } catch (final Exception exception) {
             Assert.fail(exception.getMessage());
         }
-        catch (final Exception exception)
-        {
-            Assert.fail(exception.getMessage());
-        }
-        
-        try
-        {
+
+        try {
             persistence.getDailyPlan(new Date(), "DP");
-        }
-        catch (final RuntimeException exception)
-        {
+        } catch (final RuntimeException exception) {
             Assert.fail(exception.getMessage());
-        }
-        catch (final Exception exception)
-        {
+        } catch (final Exception exception) {
             Assert.fail(exception.getMessage());
         }
 
     }
+
     @Test
-    public void testDefect57()
-    {
-    	// Get object under test (persistence)
+    public void testDefect57() {
+        // Get object under test (persistence)
         final Persistence persistence = new DefaultPersistence();
-        
-        try
-        {
-            persistence.openSession();   
-        }
-        catch (final RuntimeException exception)
-        {
+
+        try {
+            persistence.openSession();
+        } catch (final RuntimeException exception) {
+            Assert.fail(exception.getMessage());
+        } catch (final Exception exception) {
             Assert.fail(exception.getMessage());
         }
-        catch (final Exception exception)
-        {
-            Assert.fail(exception.getMessage());
-        }
-    	
-    	// Clear database
+
+        // Clear database
         persistence.clearDatabase();
-        
-    	// Add one task
+
+        // Add one task
         final Long taskId = persistence.createTask("Bug #57");
-        
-    	// Verify it's present in the list of not attained tasks
-        final List<ControlProcess> processList1 = persistence.getAllNotDeletedTasks();
-        
+
+        // Verify it's present in the list of not attained tasks
+        final List<SchedulingObject> processList1 =
+                persistence.getAllNotDeletedTasks();
+
         Assert.assertEquals(1, processList1.size());
-        
-    	// Mark the task as attained
-    	final ControlProcess process = persistence.getTask(taskId);
-    	Assert.assertNotNull(process);
-        
-    	process.setState(ProcessState.ATTAINED);
-    	persistence.updateTask(process);
-    	
-    	// Verify it's not present in the list of not attained tasks
-        final List<ControlProcess> processList2 = persistence.getAllNotDeletedTasks();
-        
+
+        // Mark the task as attained
+        final Task process = persistence.getTask(taskId);
+        Assert.assertNotNull(process);
+
+        process.setState(ProcessState.ATTAINED);
+        persistence.updateTask(process);
+
+        // Verify it's not present in the list of not attained tasks
+        final List<SchedulingObject> processList2 =
+                persistence.getAllNotDeletedTasks();
+
         Assert.assertEquals(0, processList2.size());
-    	
-        Assert.assertEquals(0, persistence.getChildTasks((Long)null).size());
-        Assert.assertNull(persistence.getSubProcessesWithChildren((Long)null));
-     }
+
+        Assert.assertEquals(0, persistence.getChildTasks((Long) null).size());
+        Assert.assertNull(persistence.getSubProcessesWithChildren((Long) null));
+    }
 }

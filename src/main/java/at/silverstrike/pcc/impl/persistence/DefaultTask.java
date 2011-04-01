@@ -15,16 +15,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 
 /**
  * @author Dmitri Pisarenko
  * 
  */
-class DefaultControlProcess implements ControlProcess {
+class DefaultTask implements Task {
     private Long id;
     private String name;
     private ProcessState state;
@@ -32,15 +33,15 @@ class DefaultControlProcess implements ControlProcess {
     private Double worstCaseEffort;
     private Integer priority;
     private ProcessType processType;
-    private ControlProcess parent;
+    private SchedulingObject parent;
     private List<ResourceAllocation> resourceAllocations;
     private Date averageEstimatedEndDateTime;
     private Date bestEstimatedEndDateTime;
     private Date worstEstimatedEndDateTime;
 
-    private Set<ControlProcess> predecessors;
+    private Set<SchedulingObject> predecessors;
 
-    public DefaultControlProcess() {
+    public DefaultTask() {
         this.id = -1L;
         this.setName("");
         this.state = ProcessState.REPORTED;
@@ -117,11 +118,11 @@ class DefaultControlProcess implements ControlProcess {
         this.processType = aProcessResultType;
     }
 
-    public ControlProcess getParent() {
+    public SchedulingObject getParent() {
         return parent;
     }
 
-    public void setParent(final ControlProcess aParent) {
+    public void setParent(final SchedulingObject aParent) {
         this.parent = aParent;
     }
 
@@ -157,11 +158,24 @@ class DefaultControlProcess implements ControlProcess {
         this.worstEstimatedEndDateTime = aWorstEstimatedEndDateTime;
     }
 
-    public Set<ControlProcess> getPredecessors() {
+    public Set<SchedulingObject> getPredecessors() {
         return predecessors;
     }
 
-    public void setPredecessors(final Set<ControlProcess> aPredecessors) {
+    public void setPredecessors(final Set<SchedulingObject> aPredecessors) {
         this.predecessors = aPredecessors;
+    }
+
+    @Override
+    public void setLabel(final String aLabel) {
+    }
+
+    @Override
+    public String getLabel() {
+        if (this.id != null) {
+            return this.id.toString();
+        } else {
+            return "";
+        }
     }
 }

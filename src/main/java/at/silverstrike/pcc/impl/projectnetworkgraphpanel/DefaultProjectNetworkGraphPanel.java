@@ -22,6 +22,7 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.VerticalLayout;
 
 import eu.livotov.tpt.TPTApplication;
+import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
@@ -64,6 +65,8 @@ class DefaultProjectNetworkGraphPanel implements
             updatePanel(
                     final List<SchedulingObjectDependencyTuple> aDependencies) {
         this.projectNetworkGraphCreator.setDependencies(aDependencies);
+        this.projectNetworkGraphCreator.setInitialVertexLabel(TM.get("projectnetworkgraphpanel.2-initial-event"));
+        this.projectNetworkGraphCreator.setFinalVertexLabel(TM.get("projectnetworkgraphpanel.1-final-event"));
         try {
             this.projectNetworkGraphCreator.run();
         } catch (final PccException exception) {

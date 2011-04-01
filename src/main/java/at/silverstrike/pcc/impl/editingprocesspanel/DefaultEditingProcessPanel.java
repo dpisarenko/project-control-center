@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.editingprocesspanel.EditingProcessPanel;
-import at.silverstrike.pcc.api.model.ControlProcess;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
@@ -166,7 +166,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
     private transient Persistence persistence;
     private TextField priorityTextBox;
 
-    private transient ControlProcess process;
+    private transient Task process;
 
     private TextField processNameTextArea;
 
@@ -725,7 +725,7 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
         return ProcessState.IS_BEING_ATTAINED.equals(aProcessState);
     }
 
-    private Worker getWorker(final ControlProcess aProcess) {
+    private Worker getWorker(final Task aProcess) {
         final List<ResourceAllocation> allocations =
                 aProcess.getResourceAllocations();
         final Worker worker;
@@ -920,11 +920,11 @@ class DefaultEditingProcessPanel extends Panel implements EditingProcessPanel {
             return SaveValidationResult.PRIORITY_NOT_NUMERIC;
         }
 
-        if (priority < ControlProcess.LOWEST_PRIORITY) {
+        if (priority < Task.LOWEST_PRIORITY) {
             return SaveValidationResult.PRIORITY_TOO_SMALL;
         }
 
-        if (priority > ControlProcess.HIGHEST_PRIORITY) {
+        if (priority > Task.HIGHEST_PRIORITY) {
             return SaveValidationResult.PRIORITY_TOO_LARGE;
         }
 

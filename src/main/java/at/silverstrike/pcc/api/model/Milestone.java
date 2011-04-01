@@ -9,10 +9,14 @@
  *
  **/
 
-package at.silverstrike.pcc.api.graphdemopanel;
+package at.silverstrike.pcc.api.model;
 
-import at.silverstrike.pcc.api.conventions.AbstractedPanel;
-
-public interface GraphDemoPanel extends AbstractedPanel {
+/**
+ * @author DP118M
+ *
+ */
+public interface Milestone extends SchedulingObjectWithDependencies {
+    String getName();
+    void setName(final String aName);
 
 }

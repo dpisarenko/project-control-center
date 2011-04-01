@@ -13,18 +13,8 @@ package at.silverstrike.pcc.api.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
-
-public interface ControlProcess extends UniquelyIdentifiableObject {
-    int HIGHEST_PRIORITY = 1000;
-    int LOWEST_PRIORITY = 0;
-
-    String getName();
-
-    void setName(final String aName);
-
+public interface Task extends SchedulingObjectWithDependencies {
     ProcessState getState();
 
     void setState(final ProcessState aState);
@@ -58,13 +48,7 @@ public interface ControlProcess extends UniquelyIdentifiableObject {
 
     List<ResourceAllocation> getResourceAllocations();
 
-    void setPriority(final Integer aPriority);
 
-    Integer getPriority();
-
-    ControlProcess getParent();
-
-    void setParent(ControlProcess aParentProcess);
 
     void setProcessType(ProcessType aType);
 
@@ -97,9 +81,4 @@ public interface ControlProcess extends UniquelyIdentifiableObject {
      * This method is not implemented now (prototype 1).
      */
     void setWorstEstimatedEndDateTime(final Date aDate);
-
-    void setPredecessors(Set<ControlProcess> aPredecessors);
-
-    Set<ControlProcess> getPredecessors();
-
 }
