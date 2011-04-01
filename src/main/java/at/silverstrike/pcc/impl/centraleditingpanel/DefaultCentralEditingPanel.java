@@ -341,7 +341,8 @@ class DefaultCentralEditingPanel extends Panel implements
     @Override
     public void taskCreated(final Task aNewTask) {
         // TODO Auto-generated method stub
-        
+        final OptionDialog dialog = new OptionDialog(TPTApplication.getCurrentApplication());
+        dialog.showConfirmationDialog("PCC", "Task created: " + aNewTask, null);
     }
 
     @Override
@@ -352,7 +353,9 @@ class DefaultCentralEditingPanel extends Panel implements
          */
         final OptionDialog dialog = new OptionDialog(TPTApplication.getCurrentApplication());
         
-        dialog.showConfirmationDialog(TM.get(""), TM.get(""), null);
+        final String title = TM.get("centraleditingpanel.23-taskCreationFailure-title");
+        final String message = TM.get("centraleditingpanel.24-taskCreationFailure-message");
         
+        dialog.showConfirmationDialog(title, message, null);
     }
 }
