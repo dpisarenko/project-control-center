@@ -65,6 +65,8 @@ public class TestDefaultProjectTreeContainer {
         Assert.assertNotNull(objectUnderTest);
         objectUnderTest.setInjector(injector);
 
+        objectUnderTest.init();
+        
         /**
          * Invoke method under test
          */
