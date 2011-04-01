@@ -42,7 +42,6 @@ class DefaultTaskEditingPanel extends Panel implements
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultTaskEditingPanel.class);
     private static final long serialVersionUID = 1L;
-    private static final String NOTIFICATION = "Smth happend";
 
     public static final Object PROJECT_PROPERTY_NAME = "name";
 
@@ -86,7 +85,7 @@ class DefaultTaskEditingPanel extends Panel implements
         final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
-                new Label(TM.get("centraleditingprocesspanel.10-label-task"));
+                new Label(TM.get("taskeditingpanel.10-label-task"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
         verticalLayoutRight.addComponent(taskLabel);
 
@@ -94,7 +93,7 @@ class DefaultTaskEditingPanel extends Panel implements
         buttonsTaskLayout.setSpacing(true);
 
         final Button saveButton =
-                new Button(TM.get("centraleditingprocesspanel.11-button-save"));
+                new Button(TM.get("taskeditingpanel.11-button-save"));
         saveButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
                         MessageCodePrefixRegistry.Module.taskeditingpanel,
@@ -103,7 +102,7 @@ class DefaultTaskEditingPanel extends Panel implements
         buttonsTaskLayout.addComponent(saveButton);
 
         final Button doneButton =
-                new Button(TM.get("centraleditingprocesspanel.12-button-done"));
+                new Button(TM.get("taskeditingpanel.12-button-done"));
         doneButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
                         MessageCodePrefixRegistry.Module.taskeditingpanel,
@@ -113,7 +112,7 @@ class DefaultTaskEditingPanel extends Panel implements
 
         final Button deleteButton =
                 new Button(
-                        TM.get("centraleditingprocesspanel.13-button-delete"));
+                        TM.get("taskeditingpanel.13-button-delete"));
         deleteButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
                         MessageCodePrefixRegistry.Module.taskeditingpanel,
@@ -130,7 +129,7 @@ class DefaultTaskEditingPanel extends Panel implements
         verticalLayoutRight.addComponent(taskNameTextField);
 
         final Label effortLabel =
-                new Label(TM.get("centraleditingprocesspanel.14-label-effort"));
+                new Label(TM.get("taskeditingpanel.14-label-effort"));
         effortLabel.setContentMode(Label.CONTENT_TEXT);
         verticalLayoutRight.addComponent(effortLabel);
 
@@ -143,7 +142,7 @@ class DefaultTaskEditingPanel extends Panel implements
 
         final Label dependLabel =
                 new Label(
-                        TM.get("centraleditingprocesspanel.17-label-dependencies"));
+                        TM.get("taskeditingpanel.17-label-dependencies"));
         dependLayout.addComponent(dependLabel);
 
         final Button dependEditButton = createDependEditButton();
@@ -161,7 +160,7 @@ class DefaultTaskEditingPanel extends Panel implements
         effortLayout.setSpacing(true);
 
         final Label fromLabel =
-                new Label(TM.get("centraleditingprocesspanel.15-label-from"));
+                new Label(TM.get("taskeditingpanel.15-label-from"));
         fromLabel.setContentMode(Label.CONTENT_TEXT);
         effortLayout.addComponent(fromLabel);
 
@@ -172,7 +171,7 @@ class DefaultTaskEditingPanel extends Panel implements
         effortLayout.addComponent(from);
 
         final Label toLabel =
-                new Label(TM.get("centraleditingprocesspanel.16-label-to"));
+                new Label(TM.get("taskeditingpanel.16-label-to"));
         toLabel.setContentMode(Label.CONTENT_TEXT);
         effortLayout.addComponent(toLabel);
 
@@ -186,7 +185,7 @@ class DefaultTaskEditingPanel extends Panel implements
 
     private Button createDependEditButton() {
         final Button dependEditButton =
-                new Button(TM.get("centraleditingprocesspanel.18-button-edit"));
+                new Button(TM.get("taskeditingpanel.18-button-edit"));
         dependEditButton.addListener(new DependenciesButtonClickListener(
                 controller));
         return dependEditButton;
