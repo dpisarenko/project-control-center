@@ -49,7 +49,7 @@ import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
-        CentralEditingPanel, ClickListener {
+        CentralEditingPanel, ClickListener, ProjectTreeSelectionListenerParent {
     private static final String NEW_MEETING_BUTTON = "025.004";
     private static final String NEW_TASK_BUTTON = "025.003";
     private static final String NEW_MILESTONE_BUTTON = "025.002";
@@ -202,30 +202,9 @@ class DefaultCentralEditingPanel extends Panel implements
         tree.setContainerDataSource(this.treeModel);
         aTreeLayout.addComponent(tree);
         aLayout.addComponent(aTreeLayout);
-//        tree.addListener(this);
-        
-        // Property.ValueChangeListener
-        // Если это делать в том же классе, то компилятор не понимает,
-        // какой именно тип listener-а мы имеем в виду при разных
-        // вызовах addListener.
-        // => Пойдём другим путём, сделаем отдельный класс.
+        tree.addListener(new ProjectTreeSelectionListener(this));
     }
 
-    public void valueChange(final ValueChangeEvent event) {
-        if (event.getProperty().getValue() != null) {
-            // If something is selected from the tree, get it's 'name' and
-            // insert it into the textfield
-            editor.setValue(tree.getItem(event.getProperty().getValue())
-                    .getItemProperty(ExampleUtil.hw_PROPERTY_NAME));
-            editor.requestRepaint();
-            editBar.setEnabled(true);
-        } else {
-            editor.setValue("");
-            editBar.setEnabled(false);
-        }
-    }
-
-    
     private void initTreeModel() {
         final ProjectTreeContainerFactory treeModelFactory =
                 this.injector.getInstance(ProjectTreeContainerFactory.class);
@@ -402,4 +381,47 @@ class DefaultCentralEditingPanel extends Panel implements
 
         dialog.showConfirmationDialog(title, message, null);
     }
+
+    @Override
+    public void treeSelectionChanged(final ValueChangeEvent aEvent) {
+        // TODO Auto-generated method stub
+        // Из этого метода нас интересует только та часть,
+        // которая определяет, что же именно было выбрано пользователем
+        //
+        // event.getProperty().getValue() - это, судя по всему, возвращает
+        // идентификатор выбранного пользователем объекта
+
+        if (aEvent == null) {
+            return;
+        }
+
+        final Object selectedValue = aEvent.getProperty().getValue();
+
+        final StringBuilder builder = new StringBuilder();
+
+        builder.append("Selected value is null: ");
+        builder.append(selectedValue == null);
+
+        if (selectedValue != null) {
+            builder.append("Selected value: ");
+            builder.append(selectedValue);
+            builder.append(", type: ");
+            builder.append(selectedValue.getClass().getName());
+        }
+
+        // Осталось показать сообщение в диалоге
+        final OptionDialog dialog =
+                new OptionDialog(TPTApplication.getCurrentApplication());
+
+        dialog.showConfirmationDialog("Test", builder.toString(), null);
+        
+        // Сейчас запустим приложение и проверим нашу гипотезу.
+        // Какая у нас гипотеза?
+        //
+        // Вот эта:
+        // event.getProperty().getValue() - это, судя по всему, возвращает
+        // идентификатор выбранного пользователем объекта
+        
+    }
+
 }

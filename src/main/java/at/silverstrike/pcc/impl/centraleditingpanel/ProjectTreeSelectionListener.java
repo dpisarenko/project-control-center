@@ -30,8 +30,6 @@ final class ProjectTreeSelectionListener implements
     
     @Override
     public void valueChange(final ValueChangeEvent aEvent) {
-        // Здесь на первых порах будем а) менять текущий идентификатор
-        // выбранного объекта и б) показывать сообщение об этом
         this.parent.treeSelectionChanged(aEvent);
     }
 
