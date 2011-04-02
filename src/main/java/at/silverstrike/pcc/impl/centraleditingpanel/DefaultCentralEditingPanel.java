@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.HorizontalLayout;
@@ -109,8 +111,6 @@ class DefaultCentralEditingPanel extends Panel implements
         mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
         mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
 
-        // mainGrid.setSpacing(true);
-
         final VerticalLayout verticalLayoutLeft = new VerticalLayout();
 
         /**
@@ -184,10 +184,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
         initTreeModel();
 
-        tree = new Tree();
-        tree.setContainerDataSource(this.treeModel);
-        treeLayout.addComponent(tree);
-        verticalLayoutLeft.addComponent(treeLayout);
+        initTree(verticalLayoutLeft, treeLayout);
 
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
 
@@ -199,6 +196,36 @@ class DefaultCentralEditingPanel extends Panel implements
         this.addComponent(mainGrid);
     }
 
+    private void initTree(final VerticalLayout aLayout,
+            final VerticalLayout aTreeLayout) {
+        tree = new Tree();
+        tree.setContainerDataSource(this.treeModel);
+        aTreeLayout.addComponent(tree);
+        aLayout.addComponent(aTreeLayout);
+//        tree.addListener(this);
+        
+        // Property.ValueChangeListener
+        // Если это делать в том же классе, то компилятор не понимает,
+        // какой именно тип listener-а мы имеем в виду при разных
+        // вызовах addListener.
+        // => Пойдём другим путём, сделаем отдельный класс.
+    }
+
+    public void valueChange(final ValueChangeEvent event) {
+        if (event.getProperty().getValue() != null) {
+            // If something is selected from the tree, get it's 'name' and
+            // insert it into the textfield
+            editor.setValue(tree.getItem(event.getProperty().getValue())
+                    .getItemProperty(ExampleUtil.hw_PROPERTY_NAME));
+            editor.requestRepaint();
+            editBar.setEnabled(true);
+        } else {
+            editor.setValue("");
+            editBar.setEnabled(false);
+        }
+    }
+
+    
     private void initTreeModel() {
         final ProjectTreeContainerFactory treeModelFactory =
                 this.injector.getInstance(ProjectTreeContainerFactory.class);
