@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
+import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
@@ -61,6 +62,7 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.centraleditingpanel.DefaultCentralEditingPanelFactory;
+import at.silverstrike.pcc.impl.centraleditingpanelbuttonstate.DefaultCentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
@@ -184,6 +186,8 @@ class InjectorModule extends AbstractModule {
                 new DefaultGraph2ResourceConverterFactory().create());
         bind(ProjectTreeContainerFactory.class).toInstance(
                 new DefaultProjectTreeContainerFactory());
+        bind(CentralEditingPanelButtonStateCalculatorFactory.class).toInstance(
+                new DefaultCentralEditingPanelButtonStateCalculatorFactory());
     }
 
     private TestTableCreator getTestTableCreator() {

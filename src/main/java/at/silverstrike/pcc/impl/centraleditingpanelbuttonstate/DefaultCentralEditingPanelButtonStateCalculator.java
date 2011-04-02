@@ -11,8 +11,11 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanelbuttonstate;
 
+import com.google.inject.Injector;
+
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 
 /**
  * @author DP118M
@@ -20,11 +23,33 @@ import at.silverstrike.pcc.api.conventions.PccException;
  */
 class DefaultCentralEditingPanelButtonStateCalculator implements
         CentralEditingPanelButtonStateCalculator {
-
+    private SchedulingObject currentSelection;
+    private Injector injector;
+    
     @Override
     public void run() throws PccException {
         // TODO Auto-generated method stub
-
     }
 
+    @Override
+    public void setCurrentSelection(final SchedulingObject aObject) {
+        this.currentSelection = aObject;
+    }
+
+    @Override
+    public boolean isIncreasePriorityButtonEnabled() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isDecreasePriorityButtonEnabled() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    
+    @Override
+    public void setInjector(final Injector aInjector) {
+        this.injector = aInjector;
+    }
 }
