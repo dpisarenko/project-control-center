@@ -199,6 +199,7 @@ class DefaultCentralEditingPanel extends Panel implements
             final VerticalLayout aTreeLayout) {
         tree = new Tree();
         tree.setContainerDataSource(this.treeModel);
+        tree.setImmediate(true);
         aTreeLayout.addComponent(tree);
         aLayout.addComponent(aTreeLayout);
         tree.addListener(new ProjectTreeSelectionListener(this));
