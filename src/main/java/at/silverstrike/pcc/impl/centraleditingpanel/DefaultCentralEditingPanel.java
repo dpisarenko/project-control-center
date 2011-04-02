@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
-import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.terminal.Sizeable;
@@ -384,13 +383,6 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void treeSelectionChanged(final ValueChangeEvent aEvent) {
-        // TODO Auto-generated method stub
-        // Из этого метода нас интересует только та часть,
-        // которая определяет, что же именно было выбрано пользователем
-        //
-        // event.getProperty().getValue() - это, судя по всему, возвращает
-        // идентификатор выбранного пользователем объекта
-
         if (aEvent == null) {
             return;
         }
@@ -409,19 +401,10 @@ class DefaultCentralEditingPanel extends Panel implements
             builder.append(selectedValue.getClass().getName());
         }
 
-        // Осталось показать сообщение в диалоге
         final OptionDialog dialog =
                 new OptionDialog(TPTApplication.getCurrentApplication());
 
-        dialog.showConfirmationDialog("Test", builder.toString(), null);
-        
-        // Сейчас запустим приложение и проверим нашу гипотезу.
-        // Какая у нас гипотеза?
-        //
-        // Вот эта:
-        // event.getProperty().getValue() - это, судя по всему, возвращает
-        // идентификатор выбранного пользователем объекта
-        
+        dialog.showConfirmationDialog("Test", builder.toString(), null);        
     }
 
 }
