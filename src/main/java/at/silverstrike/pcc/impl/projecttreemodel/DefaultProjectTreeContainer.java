@@ -11,7 +11,9 @@
 
 package at.silverstrike.pcc.impl.projecttreemodel;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     private Persistence persistence;
     private Item root;
     private String rootLabel;
+    private Map<Integer, SchedulingObject> schedulingObjectsByTreeItemIds;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultProjectTreeContainer.class);
 
@@ -56,6 +59,8 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
                 persistence.getSubProcessesWithChildren(null);
 
         this.removeAllItems();
+        this.schedulingObjectsByTreeItemIds =
+                new HashMap<Integer, SchedulingObject>();
 
         addNodes(topLevelProcesses, null, persistence, 1);
     }
@@ -73,6 +78,8 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
             final int processItemId = treeItemId++;
 
             final Item processItem = this.addItem(processItemId);
+
+            this.schedulingObjectsByTreeItemIds.put(processItemId, process);
 
             LOGGER.debug("process.getId(): {}", process.getId());
 
@@ -123,5 +130,10 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     @Override
     public void setRootLabel(final String aLabel) {
         this.rootLabel = aLabel;
+    }
+
+    @Override
+    public SchedulingObject getSchedulingObject(final Integer aTreeItemId) {
+        return this.schedulingObjectsByTreeItemIds.get(aTreeItemId);
     }
 }

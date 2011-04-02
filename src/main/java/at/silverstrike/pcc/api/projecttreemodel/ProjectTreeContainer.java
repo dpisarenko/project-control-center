@@ -13,6 +13,7 @@ package at.silverstrike.pcc.api.projecttreemodel;
 
 import at.silverstrike.pcc.api.conventions.InitializableComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 
 import com.vaadin.data.Container;
 
@@ -25,4 +26,5 @@ public interface ProjectTreeContainer extends Container.Hierarchical,
     Integer TREE_ROOT_ID = 0;
     void setRootLabel(final String aLabel);
     void updateData();
+    SchedulingObject getSchedulingObject(final Integer aTreeItemId);
 }

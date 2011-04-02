@@ -36,6 +36,7 @@ import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanel
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.conventions.Module;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
@@ -382,6 +383,8 @@ class DefaultCentralEditingPanel extends Panel implements
         dialog.showConfirmationDialog(title, message, null);
     }
 
+    private SchedulingObject curSelection;
+
     @Override
     public void treeSelectionChanged(final ValueChangeEvent aEvent) {
         if (aEvent == null) {
@@ -390,22 +393,21 @@ class DefaultCentralEditingPanel extends Panel implements
 
         final Object selectedValue = aEvent.getProperty().getValue();
 
-        final StringBuilder builder = new StringBuilder();
-
-        builder.append("Selected value is null: ");
-        builder.append(selectedValue == null);
-
-        if (selectedValue != null) {
-            builder.append("Selected value: ");
-            builder.append(selectedValue);
-            builder.append(", type: ");
-            builder.append(selectedValue.getClass().getName());
-        }
-
         final OptionDialog dialog =
                 new OptionDialog(TPTApplication.getCurrentApplication());
 
-        dialog.showConfirmationDialog("Test", builder.toString(), null);        
+        if (selectedValue != null) {
+            final Integer treeItemId = (Integer) selectedValue;
+
+            this.curSelection = this.treeModel.getSchedulingObject(treeItemId);
+            dialog.showConfirmationDialog("Test",
+                    "Selected scheduling object: " + this.curSelection, null);
+
+        } else {
+            this.curSelection = null;
+            dialog.showConfirmationDialog("Nothing selected",
+                    "Nothing selected", null);
+        }
     }
 
 }
