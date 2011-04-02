@@ -78,7 +78,8 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final int DEFAULT_WIDTH_PIXELS = 600;
     private ProjectTreeContainer treeModel;
     private Tree tree;
-
+    private SchedulingObject curSelection;
+    
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
@@ -383,7 +384,7 @@ class DefaultCentralEditingPanel extends Panel implements
         dialog.showConfirmationDialog(title, message, null);
     }
 
-    private SchedulingObject curSelection;
+    
 
     @Override
     public void treeSelectionChanged(final ValueChangeEvent aEvent) {
