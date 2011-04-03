@@ -48,6 +48,12 @@ import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
 
+/**
+ * Проверка русских комментариев.
+ * @author DP118M
+ *
+ */
+
 class DefaultCentralEditingPanel extends Panel implements
         CentralEditingPanel, ClickListener, ProjectTreeSelectionListenerParent {
     private static final String NEW_MEETING_BUTTON = "025.004";
