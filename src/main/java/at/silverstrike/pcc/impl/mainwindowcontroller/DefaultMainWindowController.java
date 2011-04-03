@@ -26,8 +26,6 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 
-import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
-import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.conventions.PccException;
@@ -131,20 +129,17 @@ class DefaultMainWindowController implements MainWindowController {
                 this.injector
                         .getInstance(CentralEditingPanelControllerFactory.class);
         final CentralEditingPanelController ctl = ctlFactory.create();
+
+        ctl.setInjector(this.injector);
         
         final Panel centralEditingPanel = (Panel)ctl.initGui();
-
-//        final CentralEditingPanelFactory factory =
-//                this.injector.getInstance(CentralEditingPanelFactory.class);
-//        final CentralEditingPanel panel = factory.create();
-//        panel.setInjector(this.injector);
-//        panel.initGui();
 
         final MainWindowFactory mainWindowFactory = injector
                 .getInstance(MainWindowFactory.class);
         final MainWindow mainWindow = mainWindowFactory.create();
 
         mainWindow.setInjector(injector);
+        mainWindow.setCentralEditingPanel(centralEditingPanel);
         mainWindow.initGui();
 
         aApplication.setMainWindow(mainWindow.getWindow());
