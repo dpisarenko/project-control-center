@@ -35,6 +35,7 @@ class DefaultCentralEditingPanelController implements
     private Injector injector = null;
     private Persistence persistence;
     private WebGuiBus webGuiBus;
+    private CentralEditingPanel panel;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -136,20 +137,18 @@ class DefaultCentralEditingPanelController implements
 
     @Override
     public void taskCreated(final Task aNewTask) {
-        // TODO Auto-generated method stub
-        
+        this.panel.taskCreated(aNewTask);
     }
 
     @Override
     public void taskCreationFailure() {
-        // TODO Auto-generated method stub
-        
+        this.panel.taskCreationFailure();
     }
 
     @Override
     public AbstractComponent initGui() {
         final CentralEditingPanelFactory factory = this.injector.getInstance(CentralEditingPanelFactory.class);
-        final CentralEditingPanel panel = factory.create();
+        panel = factory.create();
         
         panel.setGuiController(this);
         panel.setInjector(this.injector);

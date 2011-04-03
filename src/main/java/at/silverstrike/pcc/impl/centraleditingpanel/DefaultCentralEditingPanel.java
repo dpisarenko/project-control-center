@@ -36,6 +36,7 @@ import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanel
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
@@ -46,8 +47,6 @@ import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
 
 /**
- * Проверка русских комментариев.
- * 
  * @author DP118M
  * 
  */
@@ -338,32 +337,32 @@ class DefaultCentralEditingPanel extends Panel implements
         return TempTreeObjectModel.getFilterHierarchicalContainer();
     }
 
-    // @Override
-    // public void taskCreated(final Task aNewTask) {
-    // final OptionDialog dialog =
-    // new OptionDialog(TPTApplication.getCurrentApplication());
-    // dialog.showConfirmationDialog("PCC", "Task created: " + aNewTask, null);
-    //
-    // updateTree();
-    // }
+    @Override
+    public void taskCreated(final Task aNewTask) {
+        final OptionDialog dialog =
+                new OptionDialog(TPTApplication.getCurrentApplication());
+        dialog.showConfirmationDialog("PCC", "Task created: " + aNewTask, null);
+
+        updateTree();
+    }
 
     private void updateTree() {
         this.treeModel.updateData();
         this.tree.expandItemsRecursively(ProjectTreeContainer.TREE_ROOT_ID);
     }
 
-    // @Override
-    // public void taskCreationFailure() {
-    // final OptionDialog dialog =
-    // new OptionDialog(TPTApplication.getCurrentApplication());
-    //
-    // final String title =
-    // TM.get("centraleditingpanel.23-taskCreationFailure-title");
-    // final String message =
-    // TM.get("centraleditingpanel.24-taskCreationFailure-message");
-    //
-    // dialog.showConfirmationDialog(title, message, null);
-    // }
+    @Override
+    public void taskCreationFailure() {
+        final OptionDialog dialog =
+                new OptionDialog(TPTApplication.getCurrentApplication());
+
+        final String title =
+                TM.get("centraleditingpanel.23-taskCreationFailure-title");
+        final String message =
+                TM.get("centraleditingpanel.24-taskCreationFailure-message");
+
+        dialog.showConfirmationDialog(title, message, null);
+    }
 
     @Override
     public void treeSelectionChanged(final ValueChangeEvent aEvent) {

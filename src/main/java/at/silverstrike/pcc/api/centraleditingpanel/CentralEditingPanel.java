@@ -15,9 +15,14 @@ import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanel
 import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ExternallyControlledGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import at.silverstrike.pcc.api.model.Task;
 
 public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel,
         ExternallyControlledGuiComponent<CentralEditingPanelController> {
+
+    void taskCreated(final Task aNewTask);
+
+    void taskCreationFailure();
 
 }
