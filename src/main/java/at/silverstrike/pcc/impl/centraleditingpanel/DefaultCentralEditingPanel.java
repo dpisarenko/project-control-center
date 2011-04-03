@@ -339,9 +339,9 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void taskCreated(final Task aNewTask) {
-        final OptionDialog dialog =
-                new OptionDialog(TPTApplication.getCurrentApplication());
-        dialog.showConfirmationDialog("PCC", "Task created: " + aNewTask, null);
+//        final OptionDialog dialog =
+//                new OptionDialog(TPTApplication.getCurrentApplication());
+//        dialog.showConfirmationDialog("PCC", "Task created: " + aNewTask, null);
 
         updateTree();
     }

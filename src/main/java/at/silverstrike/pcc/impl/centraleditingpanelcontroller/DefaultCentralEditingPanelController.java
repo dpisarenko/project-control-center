@@ -118,7 +118,7 @@ class DefaultCentralEditingPanelController implements
         final String taskName =
                 TM.get("centraleditingpanelcontroller.1-new-task-name");
         final Task newTask = this.persistence.createSubTask(
-                taskName,
+                taskName + " + ctl",
                 aProjectIdCurrentlySelectedInTree);
 
         if (newTask != null) {
