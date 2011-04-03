@@ -12,10 +12,13 @@
 package at.silverstrike.pcc.impl.centraleditingpanelcontroller;
 
 import com.google.inject.Injector;
+import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Panel;
 
 import eu.livotov.tpt.i18n.TM;
 
+import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
+import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
@@ -141,5 +144,17 @@ class DefaultCentralEditingPanelController implements
     public void taskCreationFailure() {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public AbstractComponent initGui() {
+        final CentralEditingPanelFactory factory = this.injector.getInstance(CentralEditingPanelFactory.class);
+        final CentralEditingPanel panel = factory.create();
+        
+        panel.setGuiController(this);
+        panel.setInjector(this.injector);
+        panel.initGui();
+
+        return panel.toPanel();
     }
 }

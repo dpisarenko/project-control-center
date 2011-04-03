@@ -17,6 +17,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -47,7 +48,8 @@ class DefaultMainWindow implements MainWindow {
     private DebugIdRegistry debugIdRegistry;
     private Label indicator;
     private transient MainWindowController controller;
-
+    private Panel centralEditingPanel;
+    
     public DefaultMainWindow() {
     }
 
@@ -86,7 +88,7 @@ class DefaultMainWindow implements MainWindow {
 
         mainLayout.addComponent(indicator);
 
-        this.tabSheet.addTab(getCentralEditingPanel(), TM
+        this.tabSheet.addTab(centralEditingPanel, TM
                 .get("mainwindow.13-central-editing-panel"), null);
         this.tabSheet.addTab(getDailyPlanPanel(), TM
                 .get("mainwindow.11-daily-plan-panel"), null);
@@ -194,16 +196,6 @@ class DefaultMainWindow implements MainWindow {
         return panel.toPanel();
     }
 
-    private Component getCentralEditingPanel() {
-        final CentralEditingPanelFactory factory =
-                this.injector.getInstance(CentralEditingPanelFactory.class);
-        final CentralEditingPanel panel = factory.create();
-        panel.setInjector(this.injector);
-        panel.initGui();
-
-        return panel.toPanel();
-    }
-
     private Component getSchedulingPanelTab() {
         final SchedulingPanelFactory factory =
                 this.injector.getInstance(SchedulingPanelFactory.class);
@@ -229,5 +221,11 @@ class DefaultMainWindow implements MainWindow {
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
+    }
+
+    
+    @Override
+    public void setCentralEditingPanel(final Panel aPanel) {
+        this.centralEditingPanel = aPanel;
     }
 }

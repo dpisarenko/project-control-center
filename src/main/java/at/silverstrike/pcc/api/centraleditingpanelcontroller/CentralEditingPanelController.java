@@ -13,11 +13,11 @@ package at.silverstrike.pcc.api.centraleditingpanelcontroller;
 
 import com.vaadin.ui.Panel;
 
+import at.silverstrike.pcc.api.conventions.GuiController;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
 
 public interface CentralEditingPanelController extends
-        ModuleWithInjectableDependencies, WebGuiBusListener {
+        ModuleWithInjectableDependencies, GuiController {
     void increasePriorityButtonClicked();
 
     void decreasePriorityButtonClicked();

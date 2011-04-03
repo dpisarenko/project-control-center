@@ -11,11 +11,14 @@
 
 package at.silverstrike.pcc.api.mainwindow;
 
+import com.vaadin.ui.Panel;
+
 import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.conventions.PccWindow;
 
 public interface MainWindow extends ModuleWithInjectableDependencies,
 		InitializableGuiComponent, PccWindow {
-	
+
+    void setCentralEditingPanel(final Panel aPanel);	
 }

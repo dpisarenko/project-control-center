@@ -11,11 +11,13 @@
 
 package at.silverstrike.pcc.api.centraleditingpanel;
 
+import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.conventions.AbstractedPanel;
+import at.silverstrike.pcc.api.conventions.ExternallyControlledGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
 
 public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
-        AbstractedPanel, WebGuiBusListener {
+        AbstractedPanel,
+        ExternallyControlledGuiComponent<CentralEditingPanelController> {
 
 }

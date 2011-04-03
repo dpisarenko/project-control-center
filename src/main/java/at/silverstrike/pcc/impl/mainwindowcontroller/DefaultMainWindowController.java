@@ -21,10 +21,15 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.Application;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 
+import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
+import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
+import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
+import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
@@ -122,6 +127,19 @@ class DefaultMainWindowController implements MainWindowController {
 
     @Override
     public void initGui(final Application aApplication) {
+        final CentralEditingPanelControllerFactory ctlFactory =
+                this.injector
+                        .getInstance(CentralEditingPanelControllerFactory.class);
+        final CentralEditingPanelController ctl = ctlFactory.create();
+        
+        final Panel centralEditingPanel = (Panel)ctl.initGui();
+
+//        final CentralEditingPanelFactory factory =
+//                this.injector.getInstance(CentralEditingPanelFactory.class);
+//        final CentralEditingPanel panel = factory.create();
+//        panel.setInjector(this.injector);
+//        panel.initGui();
+
         final MainWindowFactory mainWindowFactory = injector
                 .getInstance(MainWindowFactory.class);
         final MainWindow mainWindow = mainWindowFactory.create();
