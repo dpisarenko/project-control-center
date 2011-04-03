@@ -19,5 +19,4 @@ import at.silverstrike.pcc.api.conventions.Factory;
  */
 public interface EventEditingPanelControllerFactory extends
         Factory<EventEditingPanelController> {
-
 }

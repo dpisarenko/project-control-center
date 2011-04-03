@@ -23,6 +23,8 @@ import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
+import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
+import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponder;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
@@ -94,14 +96,11 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 
             setMainWindow(entryWindow.getWindow());
         } else {
-            final MainWindowFactory mainWindowFactory = injector
-                    .getInstance(MainWindowFactory.class);
-            final MainWindow mainWindow = mainWindowFactory.create();
-
-            mainWindow.setInjector(injector);
-            mainWindow.initGui();
-
-            setMainWindow(mainWindow.getWindow());
+            final MainWindowControllerFactory mainWindowControllerFactory =
+                injector.getInstance(MainWindowControllerFactory.class);
+            final MainWindowController controller = mainWindowControllerFactory.create();
+            
+            controller.initGui(this);
         }
 
     }

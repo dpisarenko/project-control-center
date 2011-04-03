@@ -206,4 +206,5 @@ class DefaultMeetingEditingPanel extends Panel implements
     public Panel toPanel() {
         return this;
     }
+    
 }

@@ -130,4 +130,16 @@ class DefaultCentralEditingPanelController implements
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public void taskCreated(final Task aNewTask) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void taskCreationFailure() {
+        // TODO Auto-generated method stub
+        
+    }
 }

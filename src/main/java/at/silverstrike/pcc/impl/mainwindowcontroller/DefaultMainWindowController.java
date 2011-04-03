@@ -20,11 +20,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
+import com.vaadin.Application;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.mainwindow.MainWindow;
+import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializer;
@@ -37,9 +40,11 @@ import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 class DefaultMainWindowController implements MainWindowController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultMainWindowController.class);
+    private Injector injector;
 
     @Override
     public final void setInjector(final Injector aInjector) {
+        this.injector = aInjector;
     }
 
     @Override
@@ -113,5 +118,17 @@ class DefaultMainWindowController implements MainWindowController {
         returnValue.setIdentifier("myIdentifier");
 
         return returnValue;
+    }
+
+    @Override
+    public void initGui(final Application aApplication) {
+        final MainWindowFactory mainWindowFactory = injector
+                .getInstance(MainWindowFactory.class);
+        final MainWindow mainWindow = mainWindowFactory.create();
+
+        mainWindow.setInjector(injector);
+        mainWindow.initGui();
+
+        aApplication.setMainWindow(mainWindow.getWindow());
     }
 }
