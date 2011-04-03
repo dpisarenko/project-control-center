@@ -9,15 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.meetingeditingpanel;
+package at.silverstrike.pcc.api.eventeditingpanelcontroller;
 
 import at.silverstrike.pcc.api.conventions.Factory;
 
 /**
  * @author DP118M
- * 
+ *
  */
-public interface MeetingEditingPanelFactory extends
-        Factory<MeetingEditingPanel> {
+public interface EventEditingPanelControllerFactory extends
+        Factory<EventEditingPanelController> {
 
 }

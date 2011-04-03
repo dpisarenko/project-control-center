@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.meetingeditingpanel;
+package at.silverstrike.pcc.impl.eventeditingpanel;
 
 import static at.silverstrike.pcc.api.conventions.FunctionalBlock.meetingeditingpanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;

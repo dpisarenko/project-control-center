@@ -9,16 +9,10 @@
  *
  **/
 
-package at.silverstrike.pcc.api.meetingeditingpanel;
+package at.silverstrike.pcc.api.eventeditingpanelcontroller;
 
-import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
-/**
- * @author DP118M
- * 
- */
-public interface MeetingEditingPanel extends ModuleWithInjectableDependencies,
-        AbstractedPanel {
-
+public interface EventEditingPanelController extends ModuleWithInjectableDependencies {
+    void dependEditButtonClicked();
 }

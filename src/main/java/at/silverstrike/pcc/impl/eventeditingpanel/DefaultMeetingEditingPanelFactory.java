@@ -9,22 +9,22 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.meetingeditingpanel;
+package at.silverstrike.pcc.impl.eventeditingpanel;
 
-import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanel;
-import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanelFactory;
+import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
+import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
 
 /**
  * @author Dmitri Pisarenko
  * 
  */
 public class DefaultMeetingEditingPanelFactory implements
-		MeetingEditingPanelFactory {
+		EventEditingPanelFactory {
     /**
      * @see at.silverstrike.pcc.api.conventions.Factory#create()
      */
     @Override
-    public final MeetingEditingPanel create() {
+    public final EventEditingPanel create() {
         return new DefaultMeetingEditingPanel();
     }
 

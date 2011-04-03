@@ -17,8 +17,8 @@ import com.vaadin.ui.Panel;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
-import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanel;
-import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanelFactory;
+import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
+import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.model.Task;
@@ -67,9 +67,9 @@ class DefaultCentralEditingPanelController implements
 
     @Override
     public Panel getMeetingPanel() {
-        final MeetingEditingPanelFactory factory =
-                this.injector.getInstance(MeetingEditingPanelFactory.class);
-        final MeetingEditingPanel panel = factory.create();
+        final EventEditingPanelFactory factory =
+                this.injector.getInstance(EventEditingPanelFactory.class);
+        final EventEditingPanel panel = factory.create();
         panel.setInjector(this.injector);
         panel.initGui();
         return panel.toPanel();

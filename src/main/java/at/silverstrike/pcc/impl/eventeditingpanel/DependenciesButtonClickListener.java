@@ -9,9 +9,9 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.meetingeditingpanel;
+package at.silverstrike.pcc.impl.eventeditingpanel;
 
-import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
+import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -23,10 +23,10 @@ import com.vaadin.ui.Button.ClickListener;
 class DependenciesButtonClickListener implements
         ClickListener {
     private static final long serialVersionUID = 1L;
-    private transient MeetingEditingPanelController controller;
+    private transient EventEditingPanelController controller;
 
     public DependenciesButtonClickListener(
-            final MeetingEditingPanelController aController) {
+            final EventEditingPanelController aController) {
         this.controller = aController;
     }
 

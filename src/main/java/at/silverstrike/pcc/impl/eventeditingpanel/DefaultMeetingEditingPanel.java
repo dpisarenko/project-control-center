@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.meetingeditingpanel;
+package at.silverstrike.pcc.impl.eventeditingpanel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,13 +30,13 @@ import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
-import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanel;
-import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
+import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
+import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultMeetingEditingPanel extends Panel implements
-                MeetingEditingPanel, ClickListener {
+                EventEditingPanel, ClickListener {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultMeetingEditingPanel.class);
     private static final long serialVersionUID = 1L;
@@ -57,7 +57,7 @@ class DefaultMeetingEditingPanel extends Panel implements
     private static final String DELETE_MEETING_BUTTON = "029.002";
 
     private transient Injector injector;
-    private transient MeetingEditingPanelController controller;
+    private transient EventEditingPanelController controller;
     private transient DebugIdRegistry debugIdRegistry;
 
     @Override
@@ -66,7 +66,7 @@ class DefaultMeetingEditingPanel extends Panel implements
             injector = aInjector;
             this.controller =
                     this.injector
-                            .getInstance(MeetingEditingPanelController.class);
+                            .getInstance(EventEditingPanelController.class);
             this.controller.setInjector(this.injector);
             this.debugIdRegistry =
                     this.injector.getInstance(DebugIdRegistry.class);

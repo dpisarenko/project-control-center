@@ -9,20 +9,20 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.meetingeditingpanelcontroller;
+package at.silverstrike.pcc.impl.eventeditingpanelcontroller;
 
-import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
-import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelControllerFactory;
+import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
+import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelControllerFactory;
 
 /**
  * @author DP118M
  *
  */
 public class DefaultMeetingEditingPanelControllerFactory implements
-        MeetingEditingPanelControllerFactory {
+        EventEditingPanelControllerFactory {
 
     @Override
-    public final MeetingEditingPanelController create() {
+    public final EventEditingPanelController create() {
         return new DefaultMeetingEditingPanelController();
     }
 }

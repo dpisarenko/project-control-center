@@ -9,20 +9,20 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.meetingeditingpanelcontroller;
+package at.silverstrike.pcc.impl.eventeditingpanelcontroller;
 
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
-import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
+import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 
 /**
  * @author DP118M
  * 
  */
 class DefaultMeetingEditingPanelController implements
-        MeetingEditingPanelController {
+        EventEditingPanelController {
     private Injector injector = null;
 
     @Override

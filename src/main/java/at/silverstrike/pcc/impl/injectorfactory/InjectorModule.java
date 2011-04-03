@@ -26,11 +26,11 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
+import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
-import at.silverstrike.pcc.api.meetingeditingpanel.MeetingEditingPanelFactory;
-import at.silverstrike.pcc.api.meetingeditingpanelcontroller.MeetingEditingPanelController;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 import at.silverstrike.pcc.api.openid.Deauthenticator;
@@ -71,12 +71,12 @@ import at.silverstrike.pcc.impl.dependencieseditingwindow.DefaultDependenciesEdi
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.impl.eventeditingpanel.DefaultMeetingEditingPanelFactory;
+import at.silverstrike.pcc.impl.eventeditingpanelcontroller.DefaultMeetingEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.graph2resource.DefaultGraph2ResourceConverterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
-import at.silverstrike.pcc.impl.meetingeditingpanel.DefaultMeetingEditingPanelFactory;
-import at.silverstrike.pcc.impl.meetingeditingpanelcontroller.DefaultMeetingEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.milestoneeditingpanel.DefaultMilestoneEditingPanelFactory;
 import at.silverstrike.pcc.impl.milestoneeditingpanelcontroller.DefaultMilestoneEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.openid.DefaultDeauthenticatorFactory;
@@ -166,7 +166,7 @@ class InjectorModule extends AbstractModule {
                 getTestTableCreator());
         bind(TaskEditingPanelFactory.class).toInstance(
                 new DefaultTaskEditingPanelFactory());
-        bind(MeetingEditingPanelFactory.class).toInstance(
+        bind(EventEditingPanelFactory.class).toInstance(
                 new DefaultMeetingEditingPanelFactory());
         bind(MilestoneEditingPanelFactory.class).toInstance(
                 new DefaultMilestoneEditingPanelFactory());
@@ -174,7 +174,7 @@ class InjectorModule extends AbstractModule {
                 DefaultCentralEditingPanelControllerFactory());
         bind(MilestoneEditingPanelController.class).toInstance(new
                 DefaultMilestoneEditingPanelControllerFactory().create());
-        bind(MeetingEditingPanelController.class).toInstance(
+        bind(EventEditingPanelController.class).toInstance(
                 new DefaultMeetingEditingPanelControllerFactory().create());
         bind(TaskEditingPanelController.class).toInstance(
                 new DefaultTaskEditingPanelControllerFactory().create());
