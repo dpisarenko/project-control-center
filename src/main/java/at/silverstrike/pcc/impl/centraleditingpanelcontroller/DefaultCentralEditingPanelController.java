@@ -147,6 +147,8 @@ class DefaultCentralEditingPanelController implements
 
     @Override
     public AbstractComponent initGui() {
+        this.webGuiBus.addListener(this);
+        
         final CentralEditingPanelFactory factory = this.injector.getInstance(CentralEditingPanelFactory.class);
         panel = factory.create();
         

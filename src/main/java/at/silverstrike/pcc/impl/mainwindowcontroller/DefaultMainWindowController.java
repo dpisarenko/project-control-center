@@ -33,6 +33,7 @@ import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.model.UserData;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializer;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializer;
@@ -125,12 +126,15 @@ class DefaultMainWindowController implements MainWindowController {
 
     @Override
     public void initGui(final Application aApplication) {
+        final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
+        
         final CentralEditingPanelControllerFactory ctlFactory =
                 this.injector
                         .getInstance(CentralEditingPanelControllerFactory.class);
         final CentralEditingPanelController ctl = ctlFactory.create();
 
         ctl.setInjector(this.injector);
+        
         
         final Panel centralEditingPanel = (Panel)ctl.initGui();
 
