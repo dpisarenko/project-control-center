@@ -100,6 +100,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
                 injector.getInstance(MainWindowControllerFactory.class);
             final MainWindowController controller = mainWindowControllerFactory.create();
             
+            controller.setInjector(injector);
             controller.initGui(this);
         }
 
