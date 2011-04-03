@@ -23,6 +23,7 @@ import com.vaadin.data.Container;
  */
 public interface ProjectTreeContainer extends Container.Hierarchical,
         ModuleWithInjectableDependencies, InitializableComponent {
+    public static final Object PROJECT_PROPERTY_NAME = "name";
     Integer TREE_ROOT_ID = 0;
     void setRootLabel(final String aLabel);
     void updateData();

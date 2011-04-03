@@ -66,7 +66,6 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final int WIDTH_OF_NEW_BUTTONS =
             WIDTH_SCREEN / ONE_SIXTH_OF_SCREEN_WIDTH - PADDING;
 
-    public static final Object PROJECT_PROPERTY_NAME = "name";
 
     private GridLayout mainGrid;
 
@@ -190,6 +189,9 @@ class DefaultCentralEditingPanel extends Panel implements
         tree = new Tree();
         tree.setContainerDataSource(this.treeModel);
         tree.setImmediate(true);
+                
+        tree.setItemCaptionPropertyId(ProjectTreeContainer.PROJECT_PROPERTY_NAME);
+        
         aTreeLayout.addComponent(tree);
         aLayout.addComponent(aTreeLayout);
         tree.addListener(new ProjectTreeSelectionListener(this));
