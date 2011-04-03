@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.milestoneeditingpanel;
 
-import static at.silverstrike.pcc.api.conventions.Module.milestoneeditingpanel;
+import static at.silverstrike.pcc.api.conventions.FunctionalBlock.milestoneeditingpanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {

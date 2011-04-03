@@ -14,24 +14,24 @@ package at.silverstrike.pcc.impl.debugids;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.debugids.DebugIdKey;
 
 class DefaultDebugIdKey implements DebugIdKey {
     private static final int HASH_CODE_MULTIPLIER = 3;
-    private Module module;
+    private FunctionalBlock module;
     private String key;
 
     public DefaultDebugIdKey() {
     }
 
     @Override
-    public void setModule(final Module aModule) {
+    public void setModule(final FunctionalBlock aModule) {
         this.module = aModule;
     }
 
     @Override
-    public Module getModule() {
+    public FunctionalBlock getModule() {
         return this.module;
     }
 

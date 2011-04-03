@@ -28,7 +28,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.model.Task;
@@ -96,7 +96,7 @@ class DefaultTaskEditingPanel extends Panel implements
                 new Button(TM.get("taskeditingpanel.11-button-save"));
         saveButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
-                        Module.taskeditingpanel,
+                        FunctionalBlock.taskeditingpanel,
                         "1-button-save"));
         saveButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(saveButton);
@@ -105,7 +105,7 @@ class DefaultTaskEditingPanel extends Panel implements
                 new Button(TM.get("taskeditingpanel.12-button-done"));
         doneButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
-                        Module.taskeditingpanel,
+                        FunctionalBlock.taskeditingpanel,
                         "2-button-done"));
         doneButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(doneButton);
@@ -115,7 +115,7 @@ class DefaultTaskEditingPanel extends Panel implements
                         TM.get("taskeditingpanel.13-button-delete"));
         deleteButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
-                        Module.taskeditingpanel,
+                        FunctionalBlock.taskeditingpanel,
                         "3-button-delete"));
 
         deleteButton.addListener(this); // react to clicks

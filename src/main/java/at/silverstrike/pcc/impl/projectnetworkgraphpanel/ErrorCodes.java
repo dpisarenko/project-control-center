@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.projectnetworkgraphpanel;
 
-import static at.silverstrike.pcc.api.conventions.Module.projectnetworkgraphpanel;
+import static at.silverstrike.pcc.api.conventions.FunctionalBlock.projectnetworkgraphpanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 /**

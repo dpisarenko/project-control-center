@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.debugids;
 
-import static at.silverstrike.pcc.api.conventions.Module.debugids;
+import static at.silverstrike.pcc.api.conventions.FunctionalBlock.debugids;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {

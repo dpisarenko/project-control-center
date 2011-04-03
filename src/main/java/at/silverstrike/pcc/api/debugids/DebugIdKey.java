@@ -11,12 +11,12 @@
 
 package at.silverstrike.pcc.api.debugids;
 
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 
 public interface DebugIdKey {
-    void setModule(final Module aModule);
+    void setModule(final FunctionalBlock aModule);
 
-    Module getModule();
+    FunctionalBlock getModule();
 
     void setKey(final String aKey);
 

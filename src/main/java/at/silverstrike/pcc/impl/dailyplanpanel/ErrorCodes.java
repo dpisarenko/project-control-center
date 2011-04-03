@@ -12,12 +12,12 @@
 package at.silverstrike.pcc.impl.dailyplanpanel;
 
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 
 final class ErrorCodes {
     private static final String PREFIX = MessageCodePrefixRegistry
             .getInstance().getPrefix(
-                    Module.dailyplanpanel);
+                    FunctionalBlock.dailyplanpanel);
 
     public static final String M_001_SELECTED_DAY_CHANGED = PREFIX + "001";
 

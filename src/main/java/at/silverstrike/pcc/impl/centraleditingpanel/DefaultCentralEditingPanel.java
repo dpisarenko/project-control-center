@@ -34,7 +34,7 @@ import com.vaadin.ui.Button.ClickListener;
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -162,7 +162,7 @@ class DefaultCentralEditingPanel extends Panel implements
         final Button newMilestoneButton = getNewMilestoneButton();
         newMilestoneButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
-                        Module.centraleditingpanel,
+                        FunctionalBlock.centraleditingpanel,
                         "2-button-newMilestone"));
         buttonsNewGrid.addComponent(newMilestoneButton, 2, 0);
         buttonsNewGrid.setComponentAlignment(newMilestoneButton,
@@ -294,7 +294,7 @@ class DefaultCentralEditingPanel extends Panel implements
                 Sizeable.UNITS_PIXELS);
         newMeetingButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
-                        Module.centraleditingpanel,
+                        FunctionalBlock.centraleditingpanel,
                         "4-button-newMeeting"));
         return newMeetingButton;
     }
@@ -308,7 +308,7 @@ class DefaultCentralEditingPanel extends Panel implements
                 Sizeable.UNITS_PIXELS);
         newTaskButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
-                        Module.centraleditingpanel,
+                        FunctionalBlock.centraleditingpanel,
                         "3-button-newTask"));
         return newTaskButton;
     }

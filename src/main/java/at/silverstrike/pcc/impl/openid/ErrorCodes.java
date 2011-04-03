@@ -12,11 +12,11 @@
 package at.silverstrike.pcc.impl.openid;
 
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 
 final class ErrorCodes {
     private static final String PREFIX = MessageCodePrefixRegistry
-            .getInstance().getPrefix(Module.openid);
+            .getInstance().getPrefix(FunctionalBlock.openid);
 
     public static final String M_001_AUTH_EXCEPTION = PREFIX + "001";
 

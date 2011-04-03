@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.debugids.DebugIdKey;
 import at.silverstrike.pcc.api.debugids.DebugIdKeyNotFoundException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
@@ -57,7 +57,7 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
 
             if (index != -1) {
                 final DebugIdKey debugIdKey = factory.create();
-                debugIdKey.setModule(Module.valueOf(name.substring(0, index)));
+                debugIdKey.setModule(FunctionalBlock.valueOf(name.substring(0, index)));
                 debugIdKey.setKey(name.substring(index + 1));
 
                 this.debugKeys.add(debugIdKey);
@@ -66,7 +66,7 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
     }
 
     @Override
-    public String getDebugId(final Module aModule, final String aKey) {
+    public String getDebugId(final FunctionalBlock aModule, final String aKey) {
         final DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
         final DebugIdKey debugIdKey = factory.create();
         debugIdKey.setModule(aModule);

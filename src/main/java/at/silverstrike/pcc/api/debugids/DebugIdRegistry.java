@@ -13,12 +13,12 @@ package at.silverstrike.pcc.api.debugids;
 
 import java.util.List;
 
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 
 public interface DebugIdRegistry {
 	void setDebugIdsFile(final String aFileName);
 
-	String getDebugId(final Module aModule, final String aKey);
+	String getDebugId(final FunctionalBlock aModule, final String aKey);
 
 	List<DebugIdKey> getAllKeys();
 

@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanel;
 
-import static at.silverstrike.pcc.api.conventions.Module.centraleditingpanel;
+import static at.silverstrike.pcc.api.conventions.FunctionalBlock.centraleditingpanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {

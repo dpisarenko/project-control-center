@@ -12,7 +12,7 @@
 package at.silverstrike.pcc.impl.graph2resource;
 
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 
 /**
  * @author DP118M
@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.conventions.Module;
 final class ErrorCodes {
     private static final String PREFIX = MessageCodePrefixRegistry
             .getInstance().getPrefix(
-                    Module.graph2resource);
+                    FunctionalBlock.graph2resource);
 
     public static final String M_001_BUFFER_SIZE_IO_EX = PREFIX + "001";
     public static final String M_002_UNSUPPORTED_ENCONDING = PREFIX + "002";

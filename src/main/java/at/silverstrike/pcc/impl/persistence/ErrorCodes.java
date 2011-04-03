@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.persistence;
 
-import static at.silverstrike.pcc.api.conventions.Module.persistence;
+import static at.silverstrike.pcc.api.conventions.FunctionalBlock.persistence;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {

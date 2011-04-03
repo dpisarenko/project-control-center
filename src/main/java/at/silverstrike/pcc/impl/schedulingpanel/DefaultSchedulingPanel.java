@@ -18,7 +18,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import at.silverstrike.pcc.api.conventions.Module;
+import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
@@ -73,7 +73,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         this.setHeight("100%");
 
         this.setDebugId(this.debugIdRegistry.getDebugId(
-                Module.schedulingpanel,
+                FunctionalBlock.schedulingpanel,
                 "3-main-panel"));
 
         setCaption(TM.get("schedulingpanel.1-caption"));
@@ -88,7 +88,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         final NativeButton startButton = new NativeButton(
                 TM.get("schedulingpanel.2-start-button"));
         startButton.setDebugId(this.debugIdRegistry.getDebugId(
-                Module.schedulingpanel,
+                FunctionalBlock.schedulingpanel,
                 "2-startButton"));
 
         startButton.addListener(new ClickListener() {
@@ -114,7 +114,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         addComponent(layout);
 
         errorMessageDebugId = this.debugIdRegistry.getDebugId(
-                Module.schedulingpanel,
+                FunctionalBlock.schedulingpanel,
                 "4-invalid-time-error-message");
     }
 

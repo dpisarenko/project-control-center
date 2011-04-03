@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.taskeditingpanel;
 
-import static at.silverstrike.pcc.api.conventions.Module.taskeditingpanel;
+import static at.silverstrike.pcc.api.conventions.FunctionalBlock.taskeditingpanel;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
 
 final class ErrorCodes {
