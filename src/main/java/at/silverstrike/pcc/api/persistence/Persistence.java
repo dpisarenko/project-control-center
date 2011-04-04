@@ -19,6 +19,7 @@ import org.hibernate.Session;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
@@ -144,13 +145,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     Resource getResource(final Long aResourceId);
 
     UserData getUserData();
-    
-    
-    /**
-     * Tries to create a new task.
-     * @param aUser Identity of the user this task belongs to.
-     * @param aParentTaskId Parent task/project.
-     * @return Created task, if it was created successfully.
-     */
-    Task createNewTask(final String aUser, final Long aParentTaskId) throws PccException;
+
+    Milestone createNewMilestone(final String aUser, final String aName,
+            final Long aParentTaskId) throws PccException;
 }

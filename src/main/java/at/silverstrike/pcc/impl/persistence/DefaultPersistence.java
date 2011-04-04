@@ -30,6 +30,7 @@ import org.hibernate.dialect.DerbyDialect;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
@@ -238,7 +239,7 @@ public class DefaultPersistence implements Persistence {
             final Long aParentProcessId) {
         final Transaction tx = session.beginTransaction();
         Task returnValue = null;
-        
+
         try {
             Task parentProcess = null;
             if (aParentProcessId != null) {
@@ -254,7 +255,7 @@ public class DefaultPersistence implements Persistence {
 
             session.save(newProcess);
             tx.commit();
-            
+
             returnValue = newProcess;
         } catch (final Exception exception) {
             LOGGER.error("", exception);
@@ -1078,8 +1079,34 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public Task createNewTask(final String aUser, final Long aParentTaskId)
-            throws PccException {
-        throw new NotImplementedException();
-    }
+    public Milestone createNewMilestone(final String aUser, final String aName,
+            final Long aParentTaskId) throws PccException {
+        final Transaction tx = session.beginTransaction();
+        Milestone returnValue = null;
+
+        try {
+            Task parentProcess = null;
+            if (aParentTaskId != null) {
+                parentProcess =
+                        (Task) session.get(
+                                DefaultTask.class, aParentTaskId);
+            }
+
+            final Milestone newProcess = new DefaultMilestone();
+
+            newProcess.setParent(parentProcess);
+            newProcess.setName(aName);
+
+            session.save(newProcess);
+            tx.commit();
+
+            returnValue = newProcess;
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+        return returnValue;
+        
+    };
+
 }
