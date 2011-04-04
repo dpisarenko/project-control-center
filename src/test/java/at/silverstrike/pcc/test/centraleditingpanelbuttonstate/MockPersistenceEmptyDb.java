@@ -22,6 +22,7 @@ import com.google.inject.Injector;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.DailyPlan;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
@@ -207,9 +208,11 @@ public class MockPersistenceEmptyDb implements Persistence {
     }
 
     @Override
-    public Task createNewTask(String aUser, Long aParentTaskId)
-            throws PccException {
-        throw new NotImplementedException();
+    public Milestone createNewMilestone(String aUser, String aName,
+            Long aParentTaskId) throws PccException {
+        // TODO Auto-generated method stub
+        return null;
     }
+
 
 }

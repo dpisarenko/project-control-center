@@ -14,13 +14,13 @@ package at.silverstrike.pcc.test.mockpersistence;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.hibernate.Session;
 
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
@@ -182,10 +182,11 @@ public abstract class MockPersistenceAdapter implements Persistence {
     public UserData getUserData() {
         return null;
     }
-    
     @Override
-    public Task createNewTask(final String aUser, final Long aParentTaskId)
-            throws PccException {
-        throw new NotImplementedException();
+    public Milestone createNewMilestone(final String aUser, final String aName,
+            final Long aParentTaskId) throws PccException {
+        // TODO Auto-generated method stub
+        return null;
     }
+    
 }

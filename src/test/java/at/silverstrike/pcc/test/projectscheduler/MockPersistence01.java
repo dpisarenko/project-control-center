@@ -20,7 +20,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.Assert;
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.UserData;
@@ -94,4 +96,5 @@ class MockPersistence01 extends MockPersistenceAdapter {
     public UserData getUserData() {
         return null;
     }
+
 }
