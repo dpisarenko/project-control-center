@@ -25,6 +25,7 @@ public interface ProjectTreeContainer extends Container.Hierarchical,
         ModuleWithInjectableDependencies, InitializableComponent {
     public static final Object PROJECT_PROPERTY_NAME = "name";
     Integer TREE_ROOT_ID = 0;
+    Integer VISIBLE_TREE_ROOT_ID = 1;
     void setRootLabel(final String aLabel);
     void updateData();
     SchedulingObject getSchedulingObject(final Integer aTreeItemId);

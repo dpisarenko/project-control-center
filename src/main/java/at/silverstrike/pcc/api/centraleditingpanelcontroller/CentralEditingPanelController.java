@@ -15,6 +15,7 @@ import com.vaadin.ui.Panel;
 
 import at.silverstrike.pcc.api.conventions.GuiController;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import at.silverstrike.pcc.api.model.Task;
 
 public interface CentralEditingPanelController extends
         ModuleWithInjectableDependencies, GuiController {
@@ -24,7 +25,7 @@ public interface CentralEditingPanelController extends
 
     Panel getTaskPanel();
 
-    Panel getMeetingPanel();
+    Panel getEventPanel();
 
     Panel getMilestonePanel();
 
@@ -37,9 +38,9 @@ public interface CentralEditingPanelController extends
     void createMilestone(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree);
 
-    void createTask(final String aUserIdentity,
+    Task createTask(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree);
 
-    void createMeeting(final String aUserIdentity,
+    void createEvent(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree);
 }
