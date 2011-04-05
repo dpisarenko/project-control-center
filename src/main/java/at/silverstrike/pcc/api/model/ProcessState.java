@@ -11,13 +11,21 @@
 package at.silverstrike.pcc.api.model;
 
 public enum ProcessState {
-	REPORTED,
-	WELL_DEFINED,
-	EFFORT_ESTIMATED,
-	SCHEDULED,
-	IS_BEING_ATTAINED,
-	PAUSED,
-	ATTAINED,
-	CANCELLED,
-	DELETED
+    /* Дело занесено в базу данных, но без трудозатрат */
+    REPORTED,
+    WELL_DEFINED,
+    /* Трудозатраты указаны */
+    EFFORT_ESTIMATED,
+    /* Время достижения дела расчитано */
+    SCHEDULED,
+    /* Достигается */
+    IS_BEING_ATTAINED,
+    /* Достижение цели приостановлено */
+    PAUSED,
+    /* Цель достигнута */
+    ATTAINED,
+    /* Отказ от цели */
+    CANCELLED,
+    /* Дело удалено */
+    DELETED
 }
