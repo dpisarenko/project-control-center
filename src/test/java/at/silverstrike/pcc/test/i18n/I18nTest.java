@@ -83,7 +83,22 @@ final class I18nTest {
     }
 
     private List<KeysAndLanguageTuples> getKeyAndLanguageTuples(
-            List<File> translationDirectories) {
+            final List<File> aTranslationDirectories) {
+        final List<KeysAndLanguageTuples> returnValue = new LinkedList<KeysAndLanguageTuples>();
+        for (final File localeDirectory : aTranslationDirectories)
+        {
+            final File files[] = localeDirectory.listFiles();
+            for (final File translationFile : files)
+            {
+                final Properties keysAndValues = getProperties(translationFile);
+                
+                
+            }
+        }
+        return null;
+    }
+
+    private Properties getProperties(File translationFile) {
         // TODO Auto-generated method stub
         return null;
     }
