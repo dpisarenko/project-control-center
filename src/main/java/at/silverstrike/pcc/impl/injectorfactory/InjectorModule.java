@@ -28,12 +28,14 @@ import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
+import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
+import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.openid.Deauthenticator;
 import at.silverstrike.pcc.api.openid.DeauthenticatorFactory;
 import at.silverstrike.pcc.api.openid.OpenIdAuthenticationInitiator;
@@ -51,6 +53,7 @@ import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
+import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
@@ -190,7 +193,14 @@ class InjectorModule extends AbstractModule {
                 new DefaultProjectTreeContainerFactory());
         bind(CentralEditingPanelButtonStateCalculatorFactory.class).toInstance(
                 new DefaultCentralEditingPanelButtonStateCalculatorFactory());
-        bind(MainWindowControllerFactory.class).toInstance(new DefaultMainWindowControllerFactory());
+        bind(MainWindowControllerFactory.class).toInstance(
+                new DefaultMainWindowControllerFactory());
+        bind(TaskEditingPanelControllerFactory.class).toInstance(
+                new DefaultTaskEditingPanelControllerFactory());
+        bind(EventEditingPanelControllerFactory.class).toInstance(
+                new DefaultEventEditingPanelControllerFactory());
+        bind(MilestoneEditingPanelControllerFactory.class).toInstance(
+                new DefaultMilestoneEditingPanelControllerFactory());
     }
 
     private TestTableCreator getTestTableCreator() {
