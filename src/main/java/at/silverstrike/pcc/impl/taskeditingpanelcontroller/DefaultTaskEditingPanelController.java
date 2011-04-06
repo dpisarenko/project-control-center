@@ -87,7 +87,8 @@ class DefaultTaskEditingPanelController implements
         this.panel = factory.create();
 
         panel.setInjector(this.injector);
-
+        panel.initGui();
+        
         return panel.toPanel();
     }
 
