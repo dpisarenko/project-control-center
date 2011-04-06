@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
@@ -397,10 +396,6 @@ class DefaultCentralEditingPanel extends Panel implements
         
         LOGGER.debug("this.curSelection.getId(): {}", projectId);
         return projectId;
-    }
-
-    public static HierarchicalContainer getFilterHierarchicalContainer() {
-        return TempTreeObjectModel.getFilterHierarchicalContainer();
     }
 
     @Override
