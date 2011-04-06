@@ -42,6 +42,7 @@ import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
+import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
@@ -53,7 +54,7 @@ import eu.livotov.tpt.i18n.TM;
 
 class DefaultCentralEditingPanel extends Panel implements
         CentralEditingPanel, ClickListener, ProjectTreeSelectionListenerParent {
-    private static final String NEW_MEETING_BUTTON = "025.004";
+    private static final String NEW_EVENT_BUTTON = "025.004";
     private static final String NEW_TASK_BUTTON = "025.003";
     private static final String NEW_MILESTONE_BUTTON = "025.002";
     private static final int PADDING = 5;
@@ -70,6 +71,10 @@ class DefaultCentralEditingPanel extends Panel implements
     private GridLayout mainGrid;
 
     private Panel verticalPanelRight;
+    
+    private Panel taskPanel;
+    private Panel eventPanel;
+    private Panel milestonePanel;
 
     private transient Injector injector;
     private transient CentralEditingPanelController controller;
@@ -178,11 +183,24 @@ class DefaultCentralEditingPanel extends Panel implements
         initTree(verticalLayoutLeft, treeLayout);
 
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
-        final Panel panel = controller.getTaskPanel();
-        setRightPanel(panel);
+        taskPanel = controller.getTaskPanel();
+        eventPanel = controller.getEventPanel();
+        milestonePanel = controller.getMilestonePanel();
+        setRightPanel(taskPanel);
 
         this.addComponent(mainGrid);
     }
+    
+    private void removeRightPanel(){
+		
+    	mainGrid.removeComponent(verticalPanelRight);  	
+    	}
+    	    
+       
+    private void changeRightPanel(final Panel aPanel){
+       	removeRightPanel();
+       	setRightPanel(aPanel);    	
+        }
 
     private void initTree(final VerticalLayout aLayout,
             final VerticalLayout aTreeLayout) {
@@ -308,14 +326,18 @@ class DefaultCentralEditingPanel extends Panel implements
         final Long parentProjectId = getProjectIdCurrentlySelectedInTree();
 
         if (NEW_TASK_BUTTON.equals(debugId)) {
-            this.controller.createTask(user,
+            Task newTask = this.controller.createTask(user,
                     parentProjectId);
-        } else if (NEW_MEETING_BUTTON.equals(debugId)) {
-            this.controller.createMeeting(user,
-                    parentProjectId);
+            ((TaskEditingPanel)taskPanel).setTaskName(newTask.getName());
+            this.changeRightPanel(taskPanel);
+        } else if (NEW_EVENT_BUTTON.equals(debugId)) {
+            this.controller.createEvent(user,
+                    parentProjectId);  
+            this.changeRightPanel(eventPanel);
         } else if (NEW_MILESTONE_BUTTON.equals(debugId)) {
             this.controller.createMilestone(user,
                     parentProjectId);
+            this.changeRightPanel(milestonePanel);
         } else {
             LOGGER.error("Unexpected debug ID: {}", debugId);
         }
@@ -332,7 +354,9 @@ class DefaultCentralEditingPanel extends Panel implements
      * @return ID of the project, which is currently selected in the tree.
      */
     private Long getProjectIdCurrentlySelectedInTree() {
-        return null;
+    	Long projectId = this.curSelection.getId();
+    	LOGGER.debug("this.curSelection.getId(): {}", projectId);
+        return projectId;
     }
 
     public static HierarchicalContainer getFilterHierarchicalContainer() {
@@ -382,7 +406,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
             this.curSelection = this.treeModel.getSchedulingObject(treeItemId);
             dialog.showConfirmationDialog("Test",
-                    "Selected scheduling object: " + this.curSelection, null);
+                    "Selected scheduling object: " + this.curSelection.getId(), null);
 
         } else {
             this.curSelection = null;

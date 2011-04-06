@@ -37,6 +37,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     private static final Object PROJECT_PROPERTY_ID = "id";
     private Persistence persistence;
     private Item root;
+    private Item visibleRoot;
     private String rootLabel;
     private Map<Integer, SchedulingObject> schedulingObjectsByTreeItemIds;
     private static final Logger LOGGER = LoggerFactory
@@ -60,8 +61,9 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         this.removeAllItems();
         this.schedulingObjectsByTreeItemIds =
                 new HashMap<Integer, SchedulingObject>();
+        addNodes(null, null, null, VISIBLE_TREE_ROOT_ID);
 
-        addNodes(topLevelProcesses, null, persistence, 1);
+        addNodes(topLevelProcesses, null, persistence, (VISIBLE_TREE_ROOT_ID + 1));
     }
 
     private int addNodes(final List<SchedulingObject> aProcesses,
@@ -101,7 +103,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
             if (aParentId != null) {
                 this.setParent(processItemId, aParentId);
             } else {
-                this.setParent(processItemId, TREE_ROOT_ID);
+                this.setParent(processItemId, VISIBLE_TREE_ROOT_ID);
             }
 
             final List<SchedulingObject> subProcessesWithChildren =
@@ -124,6 +126,8 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         this.root.getItemProperty(PROJECT_PROPERTY_ID).setValue(null);
         this.root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                 this.rootLabel);
+        this.visibleRoot = this.addItem(VISIBLE_TREE_ROOT_ID);
+        setParent(VISIBLE_TREE_ROOT_ID, TREE_ROOT_ID);
     }
 
     @Override

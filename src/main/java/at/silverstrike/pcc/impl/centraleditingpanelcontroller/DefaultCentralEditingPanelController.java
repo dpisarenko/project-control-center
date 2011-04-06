@@ -70,7 +70,7 @@ class DefaultCentralEditingPanelController implements
     }
 
     @Override
-    public Panel getMeetingPanel() {
+    public Panel getEventPanel() {
         final EventEditingPanelFactory factory =
                 this.injector.getInstance(EventEditingPanelFactory.class);
         final EventEditingPanel panel = factory.create();
@@ -113,7 +113,7 @@ class DefaultCentralEditingPanelController implements
     }
 
     @Override
-    public void createTask(final String aUserIdentity,
+    public Task createTask(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree) {
         final String taskName =
                 TM.get("centraleditingpanelcontroller.1-new-task-name");
@@ -126,10 +126,13 @@ class DefaultCentralEditingPanelController implements
         } else {
             this.webGuiBus.broadcastTaskCreationFailureMessage();
         }
+        
+        //this.openTaskEditingPanel(newTask);
+        return newTask;
     }
 
-    @Override
-    public void createMeeting(final String aUserIdentity,
+	@Override
+    public void createEvent(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree) {
         // TODO Auto-generated method stub
 

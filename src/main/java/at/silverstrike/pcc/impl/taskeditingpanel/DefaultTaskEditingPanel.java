@@ -64,6 +64,8 @@ class DefaultTaskEditingPanel extends Panel implements
     private transient Injector injector;
     private transient TaskEditingPanelController controller;
     private transient DebugIdRegistry debugIdRegistry;
+    
+    private TextField taskNameTextField;
 
     private Task task;
 
@@ -123,7 +125,7 @@ class DefaultTaskEditingPanel extends Panel implements
 
         verticalLayoutRight.addComponent(buttonsTaskLayout);
 
-        final TextField taskNameTextField = new TextField();
+        taskNameTextField = new TextField();
         taskNameTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
         taskNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
         verticalLayoutRight.addComponent(taskNameTextField);
@@ -226,5 +228,16 @@ class DefaultTaskEditingPanel extends Panel implements
     @Override
     public Panel toPanel() {
         return this;
+    }
+    
+    public String getTaskName()
+    {
+    	return taskNameTextField.toString();
+    }
+    
+    @Override
+    public void setTaskName(String aTaskNameTextField)
+    {
+    	taskNameTextField.setValue(aTaskNameTextField);
     }
 }
