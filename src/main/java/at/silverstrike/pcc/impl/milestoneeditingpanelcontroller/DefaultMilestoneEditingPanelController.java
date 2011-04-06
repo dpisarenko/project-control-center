@@ -14,8 +14,10 @@ package at.silverstrike.pcc.impl.milestoneeditingpanelcontroller;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
+import at.silverstrike.pcc.api.model.Task;
 
 import com.google.inject.Injector;
+import com.vaadin.ui.Panel;
 
 class DefaultMilestoneEditingPanelController implements
         MilestoneEditingPanelController {
@@ -34,6 +36,24 @@ class DefaultMilestoneEditingPanelController implements
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
+    }
+
+    @Override
+    public Panel initGui() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void taskCreated(Task aNewTask) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void taskCreationFailure() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

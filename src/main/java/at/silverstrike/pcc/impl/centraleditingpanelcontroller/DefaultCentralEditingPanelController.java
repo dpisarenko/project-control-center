@@ -12,7 +12,6 @@
 package at.silverstrike.pcc.impl.centraleditingpanelcontroller;
 
 import com.google.inject.Injector;
-import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Panel;
 
 import eu.livotov.tpt.i18n.TM;
@@ -20,10 +19,6 @@ import eu.livotov.tpt.i18n.TM;
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
-import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
-import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
-import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
-import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
@@ -52,25 +47,6 @@ class DefaultCentralEditingPanelController implements
 
     @Override
     public void decreasePriorityButtonClicked() {
-        // TODO Auto-generated method stub
-
-    }
-
-
-    @Override
-    public void newTaskButtonClicked() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void newMeetingButtonClicked() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void newMilestoneButtonClicked() {
         // TODO Auto-generated method stub
 
     }
@@ -114,7 +90,7 @@ class DefaultCentralEditingPanelController implements
     }
 
     @Override
-    public AbstractComponent initGui() {
+    public Panel initGui() {
         this.webGuiBus.addListener(this);
         
         final CentralEditingPanelFactory factory = this.injector.getInstance(CentralEditingPanelFactory.class);

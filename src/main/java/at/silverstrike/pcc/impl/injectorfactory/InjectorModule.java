@@ -73,7 +73,7 @@ import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFac
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.impl.eventeditingpanel.DefaultMeetingEditingPanelFactory;
-import at.silverstrike.pcc.impl.eventeditingpanelcontroller.DefaultMeetingEditingPanelControllerFactory;
+import at.silverstrike.pcc.impl.eventeditingpanelcontroller.DefaultEventEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.graph2resource.DefaultGraph2ResourceConverterFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
@@ -177,7 +177,7 @@ class InjectorModule extends AbstractModule {
         bind(MilestoneEditingPanelController.class).toInstance(new
                 DefaultMilestoneEditingPanelControllerFactory().create());
         bind(EventEditingPanelController.class).toInstance(
-                new DefaultMeetingEditingPanelControllerFactory().create());
+                new DefaultEventEditingPanelControllerFactory().create());
         bind(TaskEditingPanelController.class).toInstance(
                 new DefaultTaskEditingPanelControllerFactory().create());
         bind(ProjectNetworkGraphPanelFactory.class).toInstance(

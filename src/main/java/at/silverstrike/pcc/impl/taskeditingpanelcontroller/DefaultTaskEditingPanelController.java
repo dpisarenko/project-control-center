@@ -20,7 +20,7 @@ import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 
 import com.google.inject.Injector;
-import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.Panel;
 
 class DefaultTaskEditingPanelController implements
         TaskEditingPanelController {
@@ -81,7 +81,7 @@ class DefaultTaskEditingPanelController implements
     }
 
     @Override
-    public AbstractComponent initGui() {
+    public Panel initGui() {
         final TaskEditingPanelFactory factory =
                 this.injector.getInstance(TaskEditingPanelFactory.class);
         this.panel = factory.create();
