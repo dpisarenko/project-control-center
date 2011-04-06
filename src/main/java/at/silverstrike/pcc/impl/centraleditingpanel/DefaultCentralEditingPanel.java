@@ -388,7 +388,13 @@ class DefaultCentralEditingPanel extends Panel implements
      * @return ID of the project, which is currently selected in the tree.
      */
     private Long getProjectIdCurrentlySelectedInTree() {
-        Long projectId = this.curSelection.getId();
+        Long projectId = null;
+        
+        if (this.curSelection != null)
+        {
+            projectId = this.curSelection.getId();
+        }
+        
         LOGGER.debug("this.curSelection.getId(): {}", projectId);
         return projectId;
     }
