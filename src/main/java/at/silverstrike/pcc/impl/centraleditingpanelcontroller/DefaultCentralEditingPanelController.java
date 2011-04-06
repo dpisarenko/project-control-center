@@ -20,6 +20,7 @@ import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 
@@ -72,10 +73,20 @@ class DefaultCentralEditingPanelController implements
         }
     }
 
-	@Override
+    @Override
     public void createEvent(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree) {
-        // TODO Auto-generated method stub
+        final String eventName =
+                TM.get("centraleditingpanelcontroller.2-new-event-name");
+        final Event newEvent = this.persistence.createSubEvent(
+                eventName + " + ctl",
+                aProjectIdCurrentlySelectedInTree);
+
+        if (newEvent != null) {
+            this.webGuiBus.broadcastEventCreatedMessage(newEvent);
+        } else {
+            this.webGuiBus.broadcastEventCreationFailureMessage();
+        }
 
     }
 
@@ -92,10 +103,11 @@ class DefaultCentralEditingPanelController implements
     @Override
     public Panel initGui() {
         this.webGuiBus.addListener(this);
-        
-        final CentralEditingPanelFactory factory = this.injector.getInstance(CentralEditingPanelFactory.class);
+
+        final CentralEditingPanelFactory factory =
+                this.injector.getInstance(CentralEditingPanelFactory.class);
         panel = factory.create();
-        
+
         panel.setGuiController(this);
         panel.setInjector(this.injector);
         panel.initGui();
@@ -106,5 +118,17 @@ class DefaultCentralEditingPanelController implements
     @Override
     public void taskEdited(final Task aTask) {
         this.panel.updateTaskNodeInTree(aTask);
+    }
+
+    @Override
+    public void eventCreated(Event aNewEvent) {
+        this.panel.eventCreated(aNewEvent);
+
+    }
+
+    @Override
+    public void eventCreationFailure() {
+        this.panel.eventCreationFailure();
+
     }
 }

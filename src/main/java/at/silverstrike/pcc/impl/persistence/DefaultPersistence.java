@@ -29,6 +29,7 @@ import org.hibernate.dialect.DerbyDialect;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -1107,6 +1108,12 @@ public class DefaultPersistence implements Persistence {
         }
         return returnValue;
         
-    };
+    }
+
+	@Override
+	public Event createSubEvent(String aProcessName, Long aParentProcessId) {
+		// TODO Auto-generated method stub
+		return null;
+	};
 
 }

@@ -333,14 +333,14 @@ class DefaultCentralEditingPanel extends Panel implements
     private Button getNewMeetingButton() {
         final Button newMeetingButton =
                 new Button(
-                        TM.get("centraleditingpanel.7-button-newMeeting"));
+                        TM.get("centraleditingpanel.7-button-newEvent"));
         newMeetingButton.addListener(this); // react to clicks
         newMeetingButton.setWidth(WIDTH_OF_NEW_BUTTONS,
                 Sizeable.UNITS_PIXELS);
         newMeetingButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
                         FunctionalBlock.centraleditingpanel,
-                        "4-button-newMeeting"));
+                        "4-button-newEvent"));
         return newMeetingButton;
     }
 
@@ -382,11 +382,11 @@ class DefaultCentralEditingPanel extends Panel implements
         } else if (NEW_EVENT_BUTTON.equals(debugId)) {
             this.controller.createEvent(user,
                     parentProjectId);
-            this.changeRightPanel(eventPanel);
+            // this.changeRightPanel(eventPanel);
         } else if (NEW_MILESTONE_BUTTON.equals(debugId)) {
             this.controller.createMilestone(user,
                     parentProjectId);
-            this.changeRightPanel(milestonePanel);
+            // this.changeRightPanel(milestonePanel);
         } else {
             LOGGER.error("Unexpected debug ID: {}", debugId);
         }
@@ -480,6 +480,27 @@ class DefaultCentralEditingPanel extends Panel implements
     @Override
     public void updateTaskNodeInTree(final Task aTask) {
         this.treeModel.updateNodeLettering(aTask);
+    }
+
+    @Override
+    public void eventCreated(at.silverstrike.pcc.api.model.Event aNewEvent) {
+        this.eventEditingPanelController.setData(aNewEvent);
+        this.changeRightPanel(eventPanel);
+        updateTree();
+    }
+
+    @Override
+    public void eventCreationFailure() {
+        final OptionDialog dialog =
+                new OptionDialog(TPTApplication.getCurrentApplication());
+
+        final String title =
+                TM.get("centraleditingpanel.25-eventCreationFailure-title");
+        final String message =
+                TM.get("centraleditingpanel.26-eventCreationFailure-message");
+
+        dialog.showConfirmationDialog(title, message, null);
+
     }
 
 }

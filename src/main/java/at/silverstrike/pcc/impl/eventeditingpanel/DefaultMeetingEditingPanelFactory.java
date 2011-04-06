@@ -25,7 +25,7 @@ public class DefaultMeetingEditingPanelFactory implements
      */
     @Override
     public final EventEditingPanel create() {
-        return new DefaultMeetingEditingPanel();
+        return new DefaultEventEditingPanel();
     }
 
 }

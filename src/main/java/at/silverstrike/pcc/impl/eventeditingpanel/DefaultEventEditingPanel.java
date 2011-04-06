@@ -35,10 +35,10 @@ import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelCont
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
 
-class DefaultMeetingEditingPanel extends Panel implements
+class DefaultEventEditingPanel extends Panel implements
                 EventEditingPanel, ClickListener {
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(DefaultMeetingEditingPanel.class);
+            .getLogger(DefaultEventEditingPanel.class);
     private static final long serialVersionUID = 1L;
     private static final String NOTIFICATION = "Smth happend";
 
@@ -59,8 +59,15 @@ class DefaultMeetingEditingPanel extends Panel implements
     private transient Injector injector;
     private transient EventEditingPanelController controller;
     private transient DebugIdRegistry debugIdRegistry;
+	private TextField taskNameTextField;
 
-    @Override
+    public TextField getTaskNameTextField() {
+		return taskNameTextField;
+	}
+
+	
+
+	@Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
@@ -78,7 +85,7 @@ class DefaultMeetingEditingPanel extends Panel implements
         final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
-                new Label(TM.get("meetingeditingprocesspanel.1-label-meeting"));
+                new Label(TM.get("eventeditingprocesspanel.1-label-event"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
         verticalLayoutRight.addComponent(taskLabel);
 
@@ -86,19 +93,19 @@ class DefaultMeetingEditingPanel extends Panel implements
         buttonsTaskLayout.setSpacing(true);
 
         final Button saveButton =
-                new Button(TM.get("meetingeditingprocesspanel.2-button-save"));
+                new Button(TM.get("eventeditingprocesspanel.2-button-save"));
         saveButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(saveButton);
 
         final Button deleteButton =
                 new Button(
-                        TM.get("meetingeditingprocesspanel.3-button-delete"));
+                        TM.get("eventeditingprocesspanel.3-button-delete"));
         deleteButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(deleteButton);
 
         verticalLayoutRight.addComponent(buttonsTaskLayout);
 
-        final TextField taskNameTextField = new TextField();
+        taskNameTextField = new TextField();
         taskNameTextField.setWidth("100%");
         taskNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
         verticalLayoutRight.addComponent(taskNameTextField);
@@ -114,7 +121,7 @@ class DefaultMeetingEditingPanel extends Panel implements
 
         final Label dependLabel =
                 new Label(
-                        TM.get("meetingeditingprocesspanel.4-label-dependencies"));
+                        TM.get("eventeditingprocesspanel.4-label-dependencies"));
         dependLayout.addComponent(dependLabel);
 
         final Button dependEditButton = createDependEditButton();
@@ -132,7 +139,7 @@ class DefaultMeetingEditingPanel extends Panel implements
         placeLayout.setSpacing(true);
 
         final Label placeLabel =
-                new Label(TM.get("meetingeditingprocesspanel.6-label-place"));
+                new Label(TM.get("eventeditingprocesspanel.6-label-place"));
         placeLabel.setContentMode(Label.CONTENT_TEXT);
         placeLayout.addComponent(placeLabel);
 
@@ -148,7 +155,7 @@ class DefaultMeetingEditingPanel extends Panel implements
 
         final InlineDateField startDate =
                 new InlineDateField(
-                        TM.get("meetingeditingprocesspanel.7-label-start"));
+                        TM.get("eventeditingprocesspanel.7-label-start"));
 
         // Set the value of the PopupDateField to current date
         startDate.setValue(new java.util.Date());
@@ -160,7 +167,7 @@ class DefaultMeetingEditingPanel extends Panel implements
 
         final InlineDateField finishDate =
                 new InlineDateField(
-                        TM.get("meetingeditingprocesspanel.8-label-finish"));
+                        TM.get("eventeditingprocesspanel.8-label-finish"));
 
         // Set the value of the PopupDateField to current date
         finishDate.setValue(new java.util.Date());
@@ -175,7 +182,7 @@ class DefaultMeetingEditingPanel extends Panel implements
 
     private Button createDependEditButton() {
         final Button dependEditButton =
-                new Button(TM.get("meetingeditingprocesspanel.5-button-edit"));
+                new Button(TM.get("eventeditingprocesspanel.5-button-edit"));
         dependEditButton.addListener(new DependenciesButtonClickListener(
                 controller));
         return dependEditButton;
@@ -206,5 +213,10 @@ class DefaultMeetingEditingPanel extends Panel implements
     public Panel toPanel() {
         return this;
     }
+
+	@Override
+	public void setEventName(final String aEventName) {
+		taskNameTextField.setValue(aEventName);		
+	}
     
 }

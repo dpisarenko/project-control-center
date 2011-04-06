@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.api.webguibus;
 
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface WebGuiBus {
@@ -20,5 +21,18 @@ public interface WebGuiBus {
 
     void broadcastTaskCreationFailureMessage();
 
+    /**
+     * Сообщение рассылается, когда у существующего дела меняются данные.
+     */
     void broadcastTaskEditedMessage(final Task aTask);
+    
+    /**
+     * Сообщение рассылается при успешном создании нового события.
+     */
+    void broadcastEventCreatedMessage(final Event aNewEvent);
+
+    /**
+     * Сообщение рассылается при сбое при попытке создать событие.
+     */
+    void broadcastEventCreationFailureMessage();
 }

@@ -21,4 +21,6 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 public interface EventEditingPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel {
 
+	void setEventName(final String name);
+
 }

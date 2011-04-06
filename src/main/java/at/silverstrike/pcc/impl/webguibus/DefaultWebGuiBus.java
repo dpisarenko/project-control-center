@@ -14,6 +14,7 @@ package at.silverstrike.pcc.impl.webguibus;
 import java.util.LinkedList;
 import java.util.List;
 
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
@@ -50,6 +51,20 @@ class DefaultWebGuiBus implements WebGuiBus {
     public void broadcastTaskEditedMessage(final Task aTask) {
         for (final WebGuiBusListener listener : this.listeners) {
             listener.taskEdited(aTask);
+        }
+    }
+
+    @Override
+    public void broadcastEventCreatedMessage(Event aNewEvent) {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.eventCreated(aNewEvent);
+        }
+    }
+
+    @Override
+    public void broadcastEventCreationFailureMessage() {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.eventCreationFailure();
         }
     }
 }

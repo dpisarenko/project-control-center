@@ -16,7 +16,9 @@ import com.vaadin.ui.Panel;
 
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Task;
 
 /**
@@ -26,6 +28,7 @@ import at.silverstrike.pcc.api.model.Task;
 class DefaultEventEditingPanelController implements
         EventEditingPanelController {
     private Injector injector = null;
+    private EventEditingPanel panel;
 
     @Override
     public void dependEditButtonClicked() {
@@ -51,19 +54,37 @@ class DefaultEventEditingPanelController implements
     @Override
     public void taskCreated(final Task aNewTask) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void taskCreationFailure() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void taskEdited(final Task aTask) {
         // TODO Auto-generated method stub
-        
+
+    }
+
+    @Override
+    public void eventCreated(final Event aNewEvent) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void eventCreationFailure() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void setData(final Event aEvent) {
+        this.panel.setEventName(aEvent.getName());
+
     }
 
 }
