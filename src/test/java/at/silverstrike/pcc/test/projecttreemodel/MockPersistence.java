@@ -25,6 +25,7 @@ import com.google.inject.Injector;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.DailyPlan;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
@@ -254,13 +255,17 @@ final class MockPersistence implements Persistence {
     }
 
     @Override
-    public Milestone createNewMilestone(final String aUser, 
+    public Milestone createNewMilestone(final String aUser,
             final String aName,
             final Long aParentTaskId) throws PccException {
         // TODO Auto-generated method stub
         return null;
     }
 
-
-
+    @Override
+    public Event createSubEvent(final String aProcessName,
+            final Long aParentProcessId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

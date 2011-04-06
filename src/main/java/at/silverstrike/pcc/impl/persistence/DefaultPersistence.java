@@ -869,7 +869,7 @@ public class DefaultPersistence implements Persistence {
         cnf.addResource("persistence/DefaultDailySchedule.hbm.xml");
         cnf.addResource("persistence/DefaultDailyToDoList.hbm.xml");
         cnf.addResource("persistence/DefaultMilestone.hbm.xml");
-        
+
         LOGGER.debug("tryToOpenSession, 3");
 
         sessionFactory = cnf.buildSessionFactory();
@@ -1107,13 +1107,13 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }
         return returnValue;
-        
+
     }
 
-	@Override
-	public Event createSubEvent(String aProcessName, Long aParentProcessId) {
-		// TODO Auto-generated method stub
-		return null;
-	};
-
+    @Override
+    public Event createSubEvent(final String aProcessName,
+            final Long aParentProcessId) {
+        // TODO Auto-generated method stub
+        return null;
+    };
 }

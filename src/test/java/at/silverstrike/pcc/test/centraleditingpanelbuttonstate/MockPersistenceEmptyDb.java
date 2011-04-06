@@ -22,6 +22,7 @@ import com.google.inject.Injector;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.DailyPlan;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
@@ -210,6 +211,12 @@ public class MockPersistenceEmptyDb implements Persistence {
     @Override
     public Milestone createNewMilestone(String aUser, String aName,
             Long aParentTaskId) throws PccException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Event createSubEvent(String aProcessName, Long aParentProcessId) {
         // TODO Auto-generated method stub
         return null;
     }

@@ -20,6 +20,7 @@ import org.hibernate.Session;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -213,8 +214,15 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public Milestone createNewMilestone(String aUser, String aName,
-            Long aParentTaskId) throws PccException {
+    public Milestone createNewMilestone(final String aUser, final String aName,
+            final Long aParentTaskId) throws PccException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Event createSubEvent(final String aProcessName,
+            final Long aParentProcessId) {
         // TODO Auto-generated method stub
         return null;
     }

@@ -20,6 +20,7 @@ import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -58,12 +59,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
     @Override
     public void createProcessParent(final String name, final Long parentItemId,
             final ProcessType aProcessType) {
-        
+
     }
 
     @Override
     public void createSiblingProcess(final Long siblingProcessId) {
-        
+
     }
 
     @Override
@@ -79,12 +80,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public void deleteProcess(final Long selectedProjectId) {
-        
+
     }
 
     @Override
     public void generateDailyPlans(final Date aNow) {
-        
+
     }
 
     @Override
@@ -145,7 +146,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public void handoffProcess(final Long processId, final Long workerId) {
-        
+
     }
 
     @Override
@@ -182,11 +183,18 @@ public abstract class MockPersistenceAdapter implements Persistence {
     public UserData getUserData() {
         return null;
     }
+
     @Override
     public Milestone createNewMilestone(final String aUser, final String aName,
             final Long aParentTaskId) throws PccException {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
+    @Override
+    public Event createSubEvent(String aProcessName, Long aParentProcessId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

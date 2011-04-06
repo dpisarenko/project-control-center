@@ -22,6 +22,7 @@ import java.util.List;
 import junit.framework.Assert;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Resource;
@@ -94,6 +95,12 @@ class MockPersistence01 extends MockPersistenceAdapter {
 
     @Override
     public UserData getUserData() {
+        return null;
+    }
+
+    @Override
+    public Event createSubEvent(String aProcessName, Long aParentProcessId) {
+        // TODO Auto-generated method stub
         return null;
     }
 
