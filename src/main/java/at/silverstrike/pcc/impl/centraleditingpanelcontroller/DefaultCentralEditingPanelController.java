@@ -113,7 +113,7 @@ class DefaultCentralEditingPanelController implements
     }
 
     @Override
-    public Task createTask(final String aUserIdentity,
+    public void createTask(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree) {
         final String taskName =
                 TM.get("centraleditingpanelcontroller.1-new-task-name");
@@ -126,9 +126,6 @@ class DefaultCentralEditingPanelController implements
         } else {
             this.webGuiBus.broadcastTaskCreationFailureMessage();
         }
-        
-        //this.openTaskEditingPanel(newTask);
-        return newTask;
     }
 
 	@Override

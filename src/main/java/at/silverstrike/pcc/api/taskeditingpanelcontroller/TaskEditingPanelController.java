@@ -11,11 +11,12 @@
 
 package at.silverstrike.pcc.api.taskeditingpanelcontroller;
 
+import at.silverstrike.pcc.api.conventions.GuiController;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface TaskEditingPanelController extends
-        ModuleWithInjectableDependencies {
+        ModuleWithInjectableDependencies, GuiController {
     void dependEditButtonClicked();
 
     void saveButtonClicked();
@@ -27,4 +28,10 @@ public interface TaskEditingPanelController extends
     void deleteTask(final Task aTask);
 
     void newTaskCreated();
+    
+    /**
+     * Этот метод вызывается центральной панелью и приводит к тому,
+     * что все поля панели дела заполняются данными переданного объекта.
+     */
+    void setData(final Task aTask);
 }

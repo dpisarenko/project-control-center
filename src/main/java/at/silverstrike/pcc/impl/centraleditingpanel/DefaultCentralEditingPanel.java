@@ -35,6 +35,8 @@ import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
+import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
@@ -42,7 +44,8 @@ import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
-import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
+import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
+import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelControllerFactory;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
@@ -85,7 +88,12 @@ class DefaultCentralEditingPanel extends Panel implements
     private ProjectTreeContainer treeModel;
     private Tree tree;
     private SchedulingObject curSelection;
+    
+    private TaskEditingPanelController taskEditingPanelController;
+    private EventEditingPanelController eventEditingPanelController;
+    private MilestoneEditingPanelController milestoneEditingPanelController;
 
+    
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
@@ -97,7 +105,7 @@ class DefaultCentralEditingPanel extends Panel implements
     public Panel toPanel() {
         return this;
     }
-
+    
     @Override
     public void initGui() {
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
@@ -182,12 +190,22 @@ class DefaultCentralEditingPanel extends Panel implements
         initTree(verticalLayoutLeft, treeLayout);
 
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
-        taskPanel = controller.getTaskPanel();
+        
+        initTaskPanelController();
+        
+        taskPanel = (Panel)this.taskEditingPanelController.initGui();
         eventPanel = controller.getEventPanel();
         milestonePanel = controller.getMilestonePanel();
         setRightPanel(taskPanel);
 
         this.addComponent(mainGrid);
+    }
+    
+    private void initTaskPanelController()
+    {
+        final TaskEditingPanelControllerFactory factory = this.injector.getInstance(TaskEditingPanelControllerFactory.class);
+        this.taskEditingPanelController = factory.create();
+        this.taskEditingPanelController.setInjector(this.injector);
     }
 
     private void removeRightPanel() {
@@ -361,7 +379,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void taskCreated(final Task aNewTask) {
-        ((TaskEditingPanel) taskPanel).setTaskName(aNewTask.getName());
+        this.taskEditingPanelController.setData(aNewTask);
         this.changeRightPanel(taskPanel);
 
         updateTree();
