@@ -67,11 +67,10 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final int WIDTH_OF_NEW_BUTTONS =
             WIDTH_SCREEN / ONE_SIXTH_OF_SCREEN_WIDTH - PADDING;
 
-
     private GridLayout mainGrid;
 
     private Panel verticalPanelRight;
-    
+
     private Panel taskPanel;
     private Panel eventPanel;
     private Panel milestonePanel;
@@ -190,26 +189,25 @@ class DefaultCentralEditingPanel extends Panel implements
 
         this.addComponent(mainGrid);
     }
-    
-    private void removeRightPanel(){
-		
-    	mainGrid.removeComponent(verticalPanelRight);  	
-    	}
-    	    
-       
-    private void changeRightPanel(final Panel aPanel){
-       	removeRightPanel();
-       	setRightPanel(aPanel);    	
-        }
+
+    private void removeRightPanel() {
+
+        mainGrid.removeComponent(verticalPanelRight);
+    }
+
+    private void changeRightPanel(final Panel aPanel) {
+        removeRightPanel();
+        setRightPanel(aPanel);
+    }
 
     private void initTree(final VerticalLayout aLayout,
             final VerticalLayout aTreeLayout) {
         tree = new Tree();
         tree.setContainerDataSource(this.treeModel);
         tree.setImmediate(true);
-                
+
         tree.setItemCaptionPropertyId(ProjectTreeContainer.PROJECT_PROPERTY_NAME);
-        
+
         aTreeLayout.addComponent(tree);
         aLayout.addComponent(aTreeLayout);
         tree.addListener(new ProjectTreeSelectionListener(this));
@@ -326,13 +324,11 @@ class DefaultCentralEditingPanel extends Panel implements
         final Long parentProjectId = getProjectIdCurrentlySelectedInTree();
 
         if (NEW_TASK_BUTTON.equals(debugId)) {
-            Task newTask = this.controller.createTask(user,
+            this.controller.createTask(user,
                     parentProjectId);
-            ((TaskEditingPanel)taskPanel).setTaskName(newTask.getName());
-            this.changeRightPanel(taskPanel);
         } else if (NEW_EVENT_BUTTON.equals(debugId)) {
             this.controller.createEvent(user,
-                    parentProjectId);  
+                    parentProjectId);
             this.changeRightPanel(eventPanel);
         } else if (NEW_MILESTONE_BUTTON.equals(debugId)) {
             this.controller.createMilestone(user,
@@ -354,8 +350,8 @@ class DefaultCentralEditingPanel extends Panel implements
      * @return ID of the project, which is currently selected in the tree.
      */
     private Long getProjectIdCurrentlySelectedInTree() {
-    	Long projectId = this.curSelection.getId();
-    	LOGGER.debug("this.curSelection.getId(): {}", projectId);
+        Long projectId = this.curSelection.getId();
+        LOGGER.debug("this.curSelection.getId(): {}", projectId);
         return projectId;
     }
 
@@ -365,9 +361,8 @@ class DefaultCentralEditingPanel extends Panel implements
 
     @Override
     public void taskCreated(final Task aNewTask) {
-//        final OptionDialog dialog =
-//                new OptionDialog(TPTApplication.getCurrentApplication());
-//        dialog.showConfirmationDialog("PCC", "Task created: " + aNewTask, null);
+        ((TaskEditingPanel) taskPanel).setTaskName(aNewTask.getName());
+        this.changeRightPanel(taskPanel);
 
         updateTree();
     }
@@ -406,7 +401,8 @@ class DefaultCentralEditingPanel extends Panel implements
 
             this.curSelection = this.treeModel.getSchedulingObject(treeItemId);
             dialog.showConfirmationDialog("Test",
-                    "Selected scheduling object: " + this.curSelection.getId(), null);
+                    "Selected scheduling object: " + this.curSelection.getId(),
+                    null);
 
         } else {
             this.curSelection = null;

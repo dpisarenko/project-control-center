@@ -23,5 +23,5 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 public interface TaskEditingPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel {
 
-	void setTaskName(String aTaskNameTextField);
+    void setTaskName(String aTaskNameTextField);
 }
