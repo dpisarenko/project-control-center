@@ -105,7 +105,6 @@ class DefaultCentralEditingPanelController implements
 
     @Override
     public void taskEdited(final Task aTask) {
-        // TODO Auto-generated method stub
-        
+        this.panel.updateTaskNodeInTree(aTask);
     }
 }

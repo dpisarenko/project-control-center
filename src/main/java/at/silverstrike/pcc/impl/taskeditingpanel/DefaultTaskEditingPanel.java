@@ -35,6 +35,8 @@ import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
+import eu.livotov.tpt.TPTApplication;
+import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultTaskEditingPanel extends Panel implements
@@ -211,9 +213,19 @@ class DefaultTaskEditingPanel extends Panel implements
      * Shows a notification when a button is clicked.
      */
     public void buttonClick(final ClickEvent aEvent) {
-        String debugId = aEvent.getButton().getDebugId();
+        final String debugId = aEvent.getButton().getDebugId();
+
         if (SAVE_TASK_BUTTON.equals(debugId)) {
-            this.controller.saveTask(this.task);
+            final OptionDialog dialog =
+                    new OptionDialog(TPTApplication.getCurrentApplication());
+
+            dialog.showConfirmationDialog("Task", "Debug ID: " + debugId
+                    + ", this.task: " + this.task, null);
+
+            if (this.task != null) {
+                this.task.setName((String) this.taskNameTextField.getValue());
+                this.controller.saveTask(this.task);
+            }
         } else if (DONE_TASK_BUTTON.equals(debugId)) {
             controller.markTaskAsCompleted(this.task);
         } else if (DELETE_TASK_BUTTON.equals(debugId)) {
@@ -238,7 +250,12 @@ class DefaultTaskEditingPanel extends Panel implements
     }
 
     @Override
-    public void setTaskName(String aTaskNameTextField) {
-        taskNameTextField.setValue(aTaskNameTextField);
+    public void setData(final Task aTask) {
+        this.task = aTask;
+        if (this.task != null) {
+            taskNameTextField.setValue(this.task.getName());
+        } else {
+            taskNameTextField.setValue("");
+        }
     }
 }

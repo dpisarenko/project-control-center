@@ -39,6 +39,7 @@ import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelCont
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelControllerFactory;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
@@ -113,8 +114,8 @@ class DefaultCentralEditingPanel extends Panel implements
 
         this.mainGrid = new GridLayout(2, 1);
         mainGrid.setSizeFull();
-//        mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
-//        mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
+        // mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
+        // mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
 
         final VerticalLayout verticalLayoutLeft = new VerticalLayout();
 
@@ -190,12 +191,10 @@ class DefaultCentralEditingPanel extends Panel implements
         initTreeModel();
 
         this.treeModel.updateData();
-        
 
-        
         initTree(verticalLayoutLeft, treeLayout);
         updateTree();
-        
+
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
 
         initTaskPanelController();
@@ -253,14 +252,13 @@ class DefaultCentralEditingPanel extends Panel implements
         tree.setItemCaptionPropertyId(ProjectTreeContainer.PROJECT_PROPERTY_NAME);
         tree.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
         tree.expandItemsRecursively(ProjectTreeContainer.TREE_ROOT_ID);
-        
-        
+
         treePanel = new Panel();
         treePanel.setScrollable(true);
         treePanel.addComponent(tree);
         treePanel.setSizeFull();
         treePanel.setHeight("200px");
-        
+
         aTreeLayout.addComponent(treePanel);
         aLayout.addComponent(aTreeLayout);
         tree.addListener(new ProjectTreeSelectionListener(this));
@@ -323,7 +321,7 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private VerticalLayout getTreeLayout() {
         final VerticalLayout treeLayout = new VerticalLayout();
-//        treeLayout.setWidth("90%");
+        // treeLayout.setWidth("90%");
         treeLayout.setSizeFull();
         treeLayout.setSpacing(true);
         treeLayout.setMargin(true);
@@ -406,12 +404,11 @@ class DefaultCentralEditingPanel extends Panel implements
      */
     private Long getProjectIdCurrentlySelectedInTree() {
         Long projectId = null;
-        
-        if (this.curSelection != null)
-        {
+
+        if (this.curSelection != null) {
             projectId = this.curSelection.getId();
         }
-        
+
         LOGGER.debug("this.curSelection.getId(): {}", projectId);
         return projectId;
     }
@@ -454,8 +451,23 @@ class DefaultCentralEditingPanel extends Panel implements
             final Integer treeItemId = (Integer) selectedValue;
 
             this.curSelection = this.treeModel.getSchedulingObject(treeItemId);
+
+            if (this.curSelection instanceof Task) {
+                this.taskEditingPanelController
+                        .setData((Task) this.curSelection);
+                this.changeRightPanel(taskPanel);
+            } else if (this.curSelection instanceof Milestone) {
+                /**
+                 * Здесь надо вставить в правую часть окна панель для рубежей...
+                 */
+            } else if (this.curSelection instanceof at.silverstrike.pcc.api.model.Event) {
+                /**
+                 * ...а здесь - панель для событий.
+                 */
+            }
         } else {
             this.curSelection = null;
+            removeRightPanel();
         }
     }
 

@@ -60,7 +60,7 @@ class DefaultTaskEditingPanelController implements
 
     @Override
     public void setData(final Task aTask) {
-        this.panel.setTaskName(aTask.getName());
+        this.panel.setData(aTask);
     }
 
     @Override

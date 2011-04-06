@@ -13,6 +13,7 @@ package at.silverstrike.pcc.api.taskeditingpanel;
 
 import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import at.silverstrike.pcc.api.model.Task;
 
 /**
  * @author DP118M
@@ -20,6 +21,5 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
  */
 public interface TaskEditingPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel {
-
-    void setTaskName(final String aTaskNameTextField);
+    void setData(final Task aTask);
 }
