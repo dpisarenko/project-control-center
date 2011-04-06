@@ -434,21 +434,12 @@ class DefaultCentralEditingPanel extends Panel implements
 
         final Object selectedValue = aEvent.getProperty().getValue();
 
-        final OptionDialog dialog =
-                new OptionDialog(TPTApplication.getCurrentApplication());
-
         if (selectedValue != null) {
             final Integer treeItemId = (Integer) selectedValue;
 
             this.curSelection = this.treeModel.getSchedulingObject(treeItemId);
-            dialog.showConfirmationDialog("Test",
-                    "Selected scheduling object: " + this.curSelection.getId(),
-                    null);
-
         } else {
             this.curSelection = null;
-            dialog.showConfirmationDialog("Nothing selected",
-                    "Nothing selected", null);
         }
     }
 
