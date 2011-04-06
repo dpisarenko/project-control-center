@@ -66,7 +66,6 @@ class DefaultCentralEditingPanel extends Panel implements
     private static final int ONE_SIXTH_OF_SCREEN_WIDTH = 6;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultCentralEditingPanel.class);
-    private static final int HEIGHT_SCREEN = 600;
     private static final int WIDTH_SCREEN = 1200;
     private static final long serialVersionUID = 1L;
     private static final int WIDTH_OF_NEW_BUTTONS =
