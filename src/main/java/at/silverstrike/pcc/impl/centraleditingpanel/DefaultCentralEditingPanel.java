@@ -36,7 +36,9 @@ import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanel
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
+import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
+import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
@@ -88,12 +90,11 @@ class DefaultCentralEditingPanel extends Panel implements
     private ProjectTreeContainer treeModel;
     private Tree tree;
     private SchedulingObject curSelection;
-    
+
     private TaskEditingPanelController taskEditingPanelController;
     private EventEditingPanelController eventEditingPanelController;
     private MilestoneEditingPanelController milestoneEditingPanelController;
 
-    
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
@@ -105,7 +106,7 @@ class DefaultCentralEditingPanel extends Panel implements
     public Panel toPanel() {
         return this;
     }
-    
+
     @Override
     public void initGui() {
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
@@ -190,32 +191,39 @@ class DefaultCentralEditingPanel extends Panel implements
         initTree(verticalLayoutLeft, treeLayout);
 
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
-        
+
         initTaskPanelController();
         initEventPanelController();
         initMilestonePanelController();
-        
-        taskPanel = (Panel)this.taskEditingPanelController.initGui();
-        eventPanel = (Panel)this.eventEditingPanelController.initGui();
-        milestonePanel = (Panel)this.milestoneEditingPanelController.initGui();
+
+        taskPanel = this.taskEditingPanelController.initGui();
+        eventPanel = this.eventEditingPanelController.initGui();
+        milestonePanel = this.milestoneEditingPanelController.initGui();
         setRightPanel(taskPanel);
 
         this.addComponent(mainGrid);
     }
-    
+
     private void initMilestonePanelController() {
-        // TODO Auto-generated method stub
-        
+        final MilestoneEditingPanelControllerFactory factory =
+                this.injector
+                        .getInstance(MilestoneEditingPanelControllerFactory.class);
+        this.milestoneEditingPanelController = factory.create();
+        this.milestoneEditingPanelController.setInjector(this.injector);
     }
 
     private void initEventPanelController() {
-        // TODO Auto-generated method stub
-        
+        final EventEditingPanelControllerFactory factory =
+                this.injector
+                        .getInstance(EventEditingPanelControllerFactory.class);
+        this.eventEditingPanelController = factory.create();
+        this.eventEditingPanelController.setInjector(this.injector);
     }
 
-    private void initTaskPanelController()
-    {
-        final TaskEditingPanelControllerFactory factory = this.injector.getInstance(TaskEditingPanelControllerFactory.class);
+    private void initTaskPanelController() {
+        final TaskEditingPanelControllerFactory factory =
+                this.injector
+                        .getInstance(TaskEditingPanelControllerFactory.class);
         this.taskEditingPanelController = factory.create();
         this.taskEditingPanelController.setInjector(this.injector);
     }

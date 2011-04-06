@@ -11,8 +11,6 @@
 
 package at.silverstrike.pcc.api.taskeditingpanel;
 
-import com.vaadin.ui.TextField;
-
 import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
@@ -23,5 +21,5 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 public interface TaskEditingPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel {
 
-    void setTaskName(String aTaskNameTextField);
+    void setTaskName(final String aTaskNameTextField);
 }
