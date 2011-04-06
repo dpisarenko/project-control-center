@@ -189,7 +189,8 @@ class DefaultCentralEditingPanel extends Panel implements
         initTreeModel();
 
         initTree(verticalLayoutLeft, treeLayout);
-
+        updateTree();
+        
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
 
         initTaskPanelController();
