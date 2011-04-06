@@ -26,8 +26,6 @@ import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
-import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
-import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 
 class DefaultCentralEditingPanelController implements
@@ -56,17 +54,6 @@ class DefaultCentralEditingPanelController implements
     public void decreasePriorityButtonClicked() {
         // TODO Auto-generated method stub
 
-    }
-
-    @Override
-    public Panel getTaskPanel() {
-        final TaskEditingPanelFactory factory =
-                this.injector.getInstance(TaskEditingPanelFactory.class);
-        final TaskEditingPanel panel = factory.create();
-        panel.setInjector(this.injector);
-        panel.initGui();
-
-        return panel.toPanel();
     }
 
     @Override

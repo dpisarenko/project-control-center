@@ -22,8 +22,6 @@ public interface CentralEditingPanelController extends
 
     void decreasePriorityButtonClicked();
 
-    Panel getTaskPanel();
-
     Panel getEventPanel();
 
     Panel getMilestonePanel();
