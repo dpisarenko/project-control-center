@@ -92,4 +92,13 @@ public class TestDefaultProjectTreeContainer {
         }
 
     }
+    
+    /**
+     * Здесь 
+     */
+    @Test
+    public void testRootVisibility()
+    {
+        
+    }
 }

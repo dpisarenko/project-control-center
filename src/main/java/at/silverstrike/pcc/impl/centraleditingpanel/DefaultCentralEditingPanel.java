@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Injector;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.terminal.Sizeable;
+import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Alignment;
@@ -244,7 +245,8 @@ class DefaultCentralEditingPanel extends Panel implements
         tree.setImmediate(true);
 
         tree.setItemCaptionPropertyId(ProjectTreeContainer.PROJECT_PROPERTY_NAME);
-
+        tree.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
+        
         aTreeLayout.addComponent(tree);
         aLayout.addComponent(aTreeLayout);
         tree.addListener(new ProjectTreeSelectionListener(this));

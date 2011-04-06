@@ -29,7 +29,7 @@ import org.junit.Test;
  * 
  */
 final class I18nTest {
-    @Test
+    // @Test
     public void test01() {
         Properties myFile = new Properties();
         String dirName = "C:\\i18n\\ru\\";
@@ -64,7 +64,7 @@ final class I18nTest {
         }
     }
 
-    @Test
+    // @Test
     public void correctTest() {
         List<File> translationDirectories = getTranslationDirectories();
         List<KeysAndLanguageTuples> klt =
