@@ -56,25 +56,6 @@ class DefaultCentralEditingPanelController implements
 
     }
 
-    @Override
-    public Panel getEventPanel() {
-        final EventEditingPanelFactory factory =
-                this.injector.getInstance(EventEditingPanelFactory.class);
-        final EventEditingPanel panel = factory.create();
-        panel.setInjector(this.injector);
-        panel.initGui();
-        return panel.toPanel();
-    }
-
-    @Override
-    public Panel getMilestonePanel() {
-        final MilestoneEditingPanelFactory factory =
-                this.injector.getInstance(MilestoneEditingPanelFactory.class);
-        final MilestoneEditingPanel panel = factory.create();
-        panel.setInjector(this.injector);
-        panel.initGui();
-        return panel.toPanel();
-    }
 
     @Override
     public void newTaskButtonClicked() {

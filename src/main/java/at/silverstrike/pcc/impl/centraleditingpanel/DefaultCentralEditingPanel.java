@@ -192,15 +192,27 @@ class DefaultCentralEditingPanel extends Panel implements
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
         
         initTaskPanelController();
+        initEventPanelController();
+        initMilestonePanelController();
         
         taskPanel = (Panel)this.taskEditingPanelController.initGui();
-        eventPanel = controller.getEventPanel();
-        milestonePanel = controller.getMilestonePanel();
+        eventPanel = (Panel)this.eventEditingPanelController.initGui();
+        milestonePanel = (Panel)this.milestoneEditingPanelController.initGui();
         setRightPanel(taskPanel);
 
         this.addComponent(mainGrid);
     }
     
+    private void initMilestonePanelController() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    private void initEventPanelController() {
+        // TODO Auto-generated method stub
+        
+    }
+
     private void initTaskPanelController()
     {
         final TaskEditingPanelControllerFactory factory = this.injector.getInstance(TaskEditingPanelControllerFactory.class);

@@ -11,9 +11,12 @@
 
 package at.silverstrike.pcc.api.milestoneeditingpanelcontroller;
 
+import com.vaadin.ui.Panel;
+
+import at.silverstrike.pcc.api.conventions.GuiController;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 public interface MilestoneEditingPanelController extends
-        ModuleWithInjectableDependencies {
+        ModuleWithInjectableDependencies, GuiController<Panel> {
     void dependEditButtonClicked();
 }

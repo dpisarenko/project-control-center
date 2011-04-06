@@ -11,12 +11,14 @@
 
 package at.silverstrike.pcc.api.taskeditingpanelcontroller;
 
+import com.vaadin.ui.Panel;
+
 import at.silverstrike.pcc.api.conventions.GuiController;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface TaskEditingPanelController extends
-        ModuleWithInjectableDependencies, GuiController {
+        ModuleWithInjectableDependencies, GuiController<Panel> {
     void dependEditButtonClicked();
 
     void saveButtonClicked();

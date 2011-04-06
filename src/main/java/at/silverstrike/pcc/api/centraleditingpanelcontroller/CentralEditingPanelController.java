@@ -17,20 +17,10 @@ import at.silverstrike.pcc.api.conventions.GuiController;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 public interface CentralEditingPanelController extends
-        ModuleWithInjectableDependencies, GuiController {
+        ModuleWithInjectableDependencies, GuiController<Panel> {
     void increasePriorityButtonClicked();
 
     void decreasePriorityButtonClicked();
-
-    Panel getEventPanel();
-
-    Panel getMilestonePanel();
-
-    void newTaskButtonClicked();
-
-    void newMeetingButtonClicked();
-
-    void newMilestoneButtonClicked();
 
     void createMilestone(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree);

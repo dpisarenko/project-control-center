@@ -11,8 +11,12 @@
 
 package at.silverstrike.pcc.api.eventeditingpanelcontroller;
 
+import com.vaadin.ui.Panel;
+
+import at.silverstrike.pcc.api.conventions.GuiController;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
-public interface EventEditingPanelController extends ModuleWithInjectableDependencies {
+public interface EventEditingPanelController extends
+        ModuleWithInjectableDependencies, GuiController<Panel> {
     void dependEditButtonClicked();
 }
