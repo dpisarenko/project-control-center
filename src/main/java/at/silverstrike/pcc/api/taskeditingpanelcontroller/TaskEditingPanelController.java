@@ -19,17 +19,11 @@ import at.silverstrike.pcc.api.model.Task;
 
 public interface TaskEditingPanelController extends
         ModuleWithInjectableDependencies, GuiController<Panel> {
-    void dependEditButtonClicked();
-
-    void saveButtonClicked();
-
     void saveTask(final Task aTask);
 
     void markTaskAsCompleted(final Task aTask);
 
     void deleteTask(final Task aTask);
-
-    void newTaskCreated();
     
     /**
      * Этот метод вызывается центральной панелью и приводит к тому,

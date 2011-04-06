@@ -60,11 +60,12 @@ class DefaultTaskEditingPanel extends Panel implements
     private static final String SAVE_TASK_BUTTON = "028.001";
     private static final String DONE_TASK_BUTTON = "028.002";
     private static final String DELETE_TASK_BUTTON = "028.003";
+    private static final String DEPENDENCIES_BUTTON = "028.XYZ";
 
     private transient Injector injector;
     private transient TaskEditingPanelController controller;
     private transient DebugIdRegistry debugIdRegistry;
-    
+
     private TextField taskNameTextField;
 
     private Task task;
@@ -188,8 +189,7 @@ class DefaultTaskEditingPanel extends Panel implements
     private Button createDependEditButton() {
         final Button dependEditButton =
                 new Button(TM.get("taskeditingpanel.18-button-edit"));
-        dependEditButton.addListener(new DependenciesButtonClickListener(
-                controller));
+        dependEditButton.addListener(this);
         return dependEditButton;
     }
 
@@ -213,31 +213,32 @@ class DefaultTaskEditingPanel extends Panel implements
     public void buttonClick(final ClickEvent aEvent) {
         String debugId = aEvent.getButton().getDebugId();
         if (SAVE_TASK_BUTTON.equals(debugId)) {
-
             this.controller.saveTask(this.task);
-        }
-        if (DONE_TASK_BUTTON.equals(debugId)) {
+        } else if (DONE_TASK_BUTTON.equals(debugId)) {
             controller.markTaskAsCompleted(this.task);
-        }
-
-        if (DELETE_TASK_BUTTON.equals(debugId)) {
+        } else if (DELETE_TASK_BUTTON.equals(debugId)) {
             controller.deleteTask(this.task);
+        } else if (DEPENDENCIES_BUTTON.equals(debugId)) {
+            letUserEnterDependencies();
         }
+    }
+
+    private void letUserEnterDependencies() {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public Panel toPanel() {
         return this;
     }
-    
-    public String getTaskName()
-    {
-    	return taskNameTextField.toString();
+
+    public String getTaskName() {
+        return taskNameTextField.toString();
     }
-    
+
     @Override
-    public void setTaskName(String aTaskNameTextField)
-    {
-    	taskNameTextField.setValue(aTaskNameTextField);
+    public void setTaskName(String aTaskNameTextField) {
+        taskNameTextField.setValue(aTaskNameTextField);
     }
 }

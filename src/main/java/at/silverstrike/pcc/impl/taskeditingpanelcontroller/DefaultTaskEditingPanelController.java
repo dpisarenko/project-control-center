@@ -11,10 +11,7 @@
 
 package at.silverstrike.pcc.impl.taskeditingpanelcontroller;
 
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.model.Task;
-import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
@@ -28,27 +25,8 @@ class DefaultTaskEditingPanelController implements
     private TaskEditingPanel panel;
 
     @Override
-    public void dependEditButtonClicked() {
-        final DependenciesEditingPanelFactory factory =
-                this.injector
-                        .getInstance(DependenciesEditingPanelFactory.class);
-        final DependenciesEditingPanel panel = factory.create();
-        panel.setInjector(injector);
-        panel.initGui();
-    }
-
-    @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
-    }
-
-    @Override
-    public void saveButtonClicked() {
-        final Persistence persistence = this.injector
-                .getInstance(Persistence.class);
-
-        persistence.createTask("TaskName");
-
     }
 
     @Override
@@ -65,12 +43,6 @@ class DefaultTaskEditingPanelController implements
 
     @Override
     public void deleteTask(Task aTask) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void newTaskCreated() {
         // TODO Auto-generated method stub
 
     }
