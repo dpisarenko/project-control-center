@@ -94,6 +94,7 @@ class DefaultCentralEditingPanel extends Panel implements
     private TaskEditingPanelController taskEditingPanelController;
     private EventEditingPanelController eventEditingPanelController;
     private MilestoneEditingPanelController milestoneEditingPanelController;
+    private Panel treePanel;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -112,8 +113,9 @@ class DefaultCentralEditingPanel extends Panel implements
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
         this.mainGrid = new GridLayout(2, 1);
-        mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
-        mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
+        mainGrid.setSizeFull();
+//        mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
+//        mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
 
         final VerticalLayout verticalLayoutLeft = new VerticalLayout();
 
@@ -188,6 +190,10 @@ class DefaultCentralEditingPanel extends Panel implements
 
         initTreeModel();
 
+        this.treeModel.updateData();
+        
+
+        
         initTree(verticalLayoutLeft, treeLayout);
         updateTree();
         
@@ -247,8 +253,16 @@ class DefaultCentralEditingPanel extends Panel implements
 
         tree.setItemCaptionPropertyId(ProjectTreeContainer.PROJECT_PROPERTY_NAME);
         tree.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
+        tree.expandItemsRecursively(ProjectTreeContainer.TREE_ROOT_ID);
         
-        aTreeLayout.addComponent(tree);
+        
+        treePanel = new Panel();
+        treePanel.setScrollable(true);
+        treePanel.addComponent(tree);
+        treePanel.setSizeFull();
+        treePanel.setHeight("200px");
+        
+        aTreeLayout.addComponent(treePanel);
         aLayout.addComponent(aTreeLayout);
         tree.addListener(new ProjectTreeSelectionListener(this));
     }
@@ -310,10 +324,12 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private VerticalLayout getTreeLayout() {
         final VerticalLayout treeLayout = new VerticalLayout();
-        treeLayout.setWidth("90%");
+//        treeLayout.setWidth("90%");
+        treeLayout.setSizeFull();
         treeLayout.setSpacing(true);
         treeLayout.setMargin(true);
         treeLayout.addStyleName("border");
+
         return treeLayout;
     }
 
