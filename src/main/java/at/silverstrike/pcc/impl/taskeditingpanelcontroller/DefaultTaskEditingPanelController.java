@@ -40,8 +40,10 @@ class DefaultTaskEditingPanelController implements
 
     @Override
     public void saveTask(final Task aTask) {
-        this.persistence.updateTask(aTask);
-        this.webGuiBus.broadcastTaskEditedMessage(aTask);
+        if (aTask != null) {
+            this.persistence.updateTask(aTask);
+            this.webGuiBus.broadcastTaskEditedMessage(aTask);
+        }
     }
 
     @Override
@@ -85,6 +87,6 @@ class DefaultTaskEditingPanelController implements
     @Override
     public void taskEdited(final Task aTask) {
         // TODO Auto-generated method stub
-        
+
     }
 }
