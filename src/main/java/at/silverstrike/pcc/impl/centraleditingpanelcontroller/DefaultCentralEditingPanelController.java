@@ -102,4 +102,10 @@ class DefaultCentralEditingPanelController implements
 
         return panel.toPanel();
     }
+
+    @Override
+    public void taskEdited(final Task aTask) {
+        // TODO Auto-generated method stub
+        
+    }
 }

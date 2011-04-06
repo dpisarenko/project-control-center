@@ -12,27 +12,36 @@
 package at.silverstrike.pcc.impl.taskeditingpanelcontroller;
 
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
 class DefaultTaskEditingPanelController implements
         TaskEditingPanelController {
-    private Injector injector = null;
+    private transient Injector injector = null;
+    private transient Persistence persistence;
+    private transient WebGuiBus webGuiBus;
     private TaskEditingPanel panel;
 
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
+
+        if (aInjector != null) {
+            this.persistence = this.injector.getInstance(Persistence.class);
+            this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
+        }
     }
 
     @Override
-    public void saveTask(Task aTask) {
-        // TODO Auto-generated method stub
-
+    public void saveTask(final Task aTask) {
+        this.persistence.updateTask(aTask);
+        this.webGuiBus.broadcastTaskEditedMessage(aTask);
     }
 
     @Override
@@ -60,20 +69,22 @@ class DefaultTaskEditingPanelController implements
 
         panel.setInjector(this.injector);
         panel.initGui();
-        
+
         return panel.toPanel();
     }
 
     @Override
     public void taskCreated(final Task aNewTask) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void taskCreationFailure() {
-        // TODO Auto-generated method stub
-
     }
 
+    @Override
+    public void taskEdited(final Task aTask) {
+        // TODO Auto-generated method stub
+        
+    }
 }

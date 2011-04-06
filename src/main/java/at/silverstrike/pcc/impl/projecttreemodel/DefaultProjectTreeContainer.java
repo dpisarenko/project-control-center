@@ -25,6 +25,7 @@ import com.vaadin.data.util.HierarchicalContainer;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
 
@@ -41,6 +42,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     private Item root;
     private String rootLabel;
     private Map<Integer, SchedulingObject> schedulingObjectsByTreeItemIds;
+    private Map<Long, Integer> treeItemIdsBySchedulingObjectsId;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultProjectTreeContainer.class);
 
@@ -59,17 +61,16 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         final List<SchedulingObject> topLevelProcesses =
                 persistence.getSubProcessesWithChildren(null);
 
-        if (this.schedulingObjectsByTreeItemIds != null)
-        {
-            for (final Integer taskNodeId : this.schedulingObjectsByTreeItemIds.keySet())
-            {
+        if (this.schedulingObjectsByTreeItemIds != null) {
+            for (final Integer taskNodeId : this.schedulingObjectsByTreeItemIds
+                    .keySet()) {
                 this.removeItem(taskNodeId);
             }
-            
         }
         this.schedulingObjectsByTreeItemIds =
                 new HashMap<Integer, SchedulingObject>();
-        addNodes(topLevelProcesses, null, persistence, (VISIBLE_TREE_ROOT_ID + 1));
+        this.treeItemIdsBySchedulingObjectsId = new HashMap<Long, Integer>();
+        addNodes(topLevelProcesses, null, persistence, (TREE_ROOT_ID + 1));
     }
 
     private int addNodes(final List<SchedulingObject> aProcesses,
@@ -88,7 +89,13 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
 
             this.schedulingObjectsByTreeItemIds.put(processItemId, process);
 
-            LOGGER.debug("process.getId(): {}", process.getId());
+            final Long schedulingObjectId = process.getId();
+            if (schedulingObjectId != null) {
+                this.treeItemIdsBySchedulingObjectsId.put(schedulingObjectId,
+                        processItemId);
+            }
+
+            LOGGER.debug("process.getId(): {}", schedulingObjectId);
 
             LOGGER.debug("processItem: {}", processItem);
             LOGGER.debug(
@@ -99,7 +106,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
                     processItem.getItemProperty(PROJECT_PROPERTY_ID).toString());
 
             processItem.getItemProperty(PROJECT_PROPERTY_ID).setValue(
-                    process.getId());
+                    schedulingObjectId);
 
             processItem.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                     process.getName());
@@ -113,7 +120,8 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
             }
 
             final List<SchedulingObject> subProcessesWithChildren =
-                    aPersistence.getSubProcessesWithChildren(process.getId());
+                    aPersistence
+                            .getSubProcessesWithChildren(schedulingObjectId);
 
             treeItemId =
                     addNodes(subProcessesWithChildren,
@@ -145,5 +153,18 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     @Override
     public SchedulingObject getSchedulingObject(final Integer aTreeItemId) {
         return this.schedulingObjectsByTreeItemIds.get(aTreeItemId);
+    }
+
+    @Override
+    public void updateNodeLettering(final Task aTask) {
+        if (aTask == null) {
+            return;
+        }
+        final Integer treeItemId =
+                treeItemIdsBySchedulingObjectsId.get(aTask.getId());
+        final Item node = this.getItem(treeItemId);
+
+        node.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
+                aTask.getName());
     }
 }

@@ -16,4 +16,5 @@ import at.silverstrike.pcc.api.model.Task;
 public interface WebGuiBusListener {
     void taskCreated(final Task aNewTask);
     void taskCreationFailure();
+    void taskEdited(final Task aTask);
 }

@@ -19,4 +19,6 @@ public interface WebGuiBus {
     void broadcastTaskCreatedMessage(final Task aNewTask);
 
     void broadcastTaskCreationFailureMessage();
+
+    void broadcastTaskEditedMessage(final Task aTask);
 }

@@ -49,13 +49,19 @@ class DefaultEventEditingPanelController implements
     }
 
     @Override
-    public void taskCreated(Task aNewTask) {
+    public void taskCreated(final Task aNewTask) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
     public void taskCreationFailure() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void taskEdited(final Task aTask) {
         // TODO Auto-generated method stub
         
     }

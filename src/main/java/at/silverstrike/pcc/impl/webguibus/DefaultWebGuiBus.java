@@ -45,4 +45,11 @@ class DefaultWebGuiBus implements WebGuiBus {
             listener.taskCreationFailure();
         }
     }
+
+    @Override
+    public void broadcastTaskEditedMessage(final Task aTask) {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.taskEdited(aTask);
+        }
+    }
 }

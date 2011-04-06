@@ -465,4 +465,9 @@ class DefaultCentralEditingPanel extends Panel implements
         controller = aController;
     }
 
+    @Override
+    public void updateTaskNodeInTree(final Task aTask) {
+        this.treeModel.updateNodeLettering(aTask);
+    }
+
 }

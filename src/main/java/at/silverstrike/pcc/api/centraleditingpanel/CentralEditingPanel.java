@@ -25,4 +25,6 @@ public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
 
     void taskCreationFailure();
 
+    
+    void updateTaskNodeInTree(final Task aTask);
 }
