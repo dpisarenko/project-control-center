@@ -13,6 +13,7 @@ package at.silverstrike.pcc.impl.taskeditingpanelcontroller;
 
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
@@ -103,5 +104,17 @@ class DefaultTaskEditingPanelController implements
         // TODO Auto-generated method stub
 
     }
+
+	@Override
+	public void eventCreated(Event aNewEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventCreationFailure() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

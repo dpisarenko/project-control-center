@@ -11,9 +11,12 @@
 
 package at.silverstrike.pcc.api.webguibus;
 
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface WebGuiBusListener {
     void taskCreated(final Task aNewTask);
     void taskCreationFailure();
+	void eventCreated(final Event aNewEvent);
+	void eventCreationFailure();
 }

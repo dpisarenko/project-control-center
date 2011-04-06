@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.api.webguibus;
 
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface WebGuiBus {
@@ -19,4 +20,8 @@ public interface WebGuiBus {
     void broadcastTaskCreatedMessage(final Task aNewTask);
 
     void broadcastTaskCreationFailureMessage();
+
+	void broadcastEventCreatedMessage(final Event aNewEvent);
+
+	void broadcastEventCreationFailureMessage();
 }

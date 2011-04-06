@@ -236,7 +236,7 @@ class DefaultTaskEditingPanel extends Panel implements
     }
     
     @Override
-    public void setTaskName(String aTaskNameTextField)
+    public void setTaskName(final String aTaskNameTextField)
     {
     	taskNameTextField.setValue(aTaskNameTextField);
     }

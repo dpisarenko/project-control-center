@@ -19,6 +19,7 @@ import org.hibernate.Session;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -148,4 +149,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     Milestone createNewMilestone(final String aUser, final String aName,
             final Long aParentTaskId) throws PccException;
+    
+    Event createSubEvent(final String aProcessName, final Long aParentProcessId);
+
 }
