@@ -22,6 +22,8 @@ import com.google.inject.Injector;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 
+import eu.livotov.tpt.i18n.TM;
+
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
@@ -127,6 +129,9 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         this.root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                 this.rootLabel);
         this.visibleRoot = this.addItem(VISIBLE_TREE_ROOT_ID);
+        this.root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
+                TM.get("projecttreemodel.1-visibleTreeRootCaption"));
+        
         setParent(VISIBLE_TREE_ROOT_ID, TREE_ROOT_ID);
     }
 
