@@ -39,7 +39,6 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     private static final Object PROJECT_PROPERTY_ID = "id";
     private Persistence persistence;
     private Item root;
-    private Item visibleRoot;
     private String rootLabel;
     private Map<Integer, SchedulingObject> schedulingObjectsByTreeItemIds;
     private static final Logger LOGGER = LoggerFactory
@@ -60,7 +59,6 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         final List<SchedulingObject> topLevelProcesses =
                 persistence.getSubProcessesWithChildren(null);
 
-//        this.removeAllItems();
         if (this.schedulingObjectsByTreeItemIds != null)
         {
             for (final Integer taskNodeId : this.schedulingObjectsByTreeItemIds.keySet())
@@ -111,7 +109,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
             if (aParentId != null) {
                 this.setParent(processItemId, aParentId);
             } else {
-                this.setParent(processItemId, VISIBLE_TREE_ROOT_ID);
+                this.setParent(processItemId, TREE_ROOT_ID);
             }
 
             final List<SchedulingObject> subProcessesWithChildren =
@@ -133,17 +131,10 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         this.root = this.addItem(TREE_ROOT_ID);
         this.root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                 this.rootLabel);
-        this.setChildrenAllowed(TREE_ROOT_ID, true);
-        
-        this.visibleRoot = this.addItem(VISIBLE_TREE_ROOT_ID);
-        this.visibleRoot.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
+        this.root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                 TM.get("projecttreemodel.1-visibleTreeRootCaption"));
-        this.setChildrenAllowed(VISIBLE_TREE_ROOT_ID, true);
-        
-        setParent(VISIBLE_TREE_ROOT_ID, TREE_ROOT_ID);
-        
-        
-        
+
+        this.setChildrenAllowed(TREE_ROOT_ID, true);
     }
 
     @Override
