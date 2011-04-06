@@ -22,6 +22,8 @@ import com.google.inject.Injector;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 
+import eu.livotov.tpt.i18n.TM;
+
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
@@ -37,7 +39,6 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     private static final Object PROJECT_PROPERTY_ID = "id";
     private Persistence persistence;
     private Item root;
-    private Item visibleRoot;
     private String rootLabel;
     private Map<Integer, SchedulingObject> schedulingObjectsByTreeItemIds;
     private static final Logger LOGGER = LoggerFactory
@@ -58,11 +59,16 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         final List<SchedulingObject> topLevelProcesses =
                 persistence.getSubProcessesWithChildren(null);
 
-        this.removeAllItems();
+        if (this.schedulingObjectsByTreeItemIds != null)
+        {
+            for (final Integer taskNodeId : this.schedulingObjectsByTreeItemIds.keySet())
+            {
+                this.removeItem(taskNodeId);
+            }
+            
+        }
         this.schedulingObjectsByTreeItemIds =
                 new HashMap<Integer, SchedulingObject>();
-        addNodes(null, null, null, VISIBLE_TREE_ROOT_ID);
-
         addNodes(topLevelProcesses, null, persistence, (VISIBLE_TREE_ROOT_ID + 1));
     }
 
@@ -103,7 +109,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
             if (aParentId != null) {
                 this.setParent(processItemId, aParentId);
             } else {
-                this.setParent(processItemId, VISIBLE_TREE_ROOT_ID);
+                this.setParent(processItemId, TREE_ROOT_ID);
             }
 
             final List<SchedulingObject> subProcessesWithChildren =
@@ -123,11 +129,12 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         this.addContainerProperty(PROJECT_PROPERTY_NAME, String.class, null);
 
         this.root = this.addItem(TREE_ROOT_ID);
-        this.root.getItemProperty(PROJECT_PROPERTY_ID).setValue(null);
         this.root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                 this.rootLabel);
-        this.visibleRoot = this.addItem(VISIBLE_TREE_ROOT_ID);
-        setParent(VISIBLE_TREE_ROOT_ID, TREE_ROOT_ID);
+        this.root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
+                TM.get("projecttreemodel.1-visibleTreeRootCaption"));
+
+        this.setChildrenAllowed(TREE_ROOT_ID, true);
     }
 
     @Override

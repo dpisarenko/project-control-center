@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Injector;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.terminal.Sizeable;
+import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Alignment;
@@ -93,6 +94,7 @@ class DefaultCentralEditingPanel extends Panel implements
     private TaskEditingPanelController taskEditingPanelController;
     private EventEditingPanelController eventEditingPanelController;
     private MilestoneEditingPanelController milestoneEditingPanelController;
+    private Panel treePanel;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -111,8 +113,9 @@ class DefaultCentralEditingPanel extends Panel implements
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
         this.mainGrid = new GridLayout(2, 1);
-        mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
-        mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
+        mainGrid.setSizeFull();
+//        mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
+//        mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
 
         final VerticalLayout verticalLayoutLeft = new VerticalLayout();
 
@@ -187,8 +190,13 @@ class DefaultCentralEditingPanel extends Panel implements
 
         initTreeModel();
 
-        initTree(verticalLayoutLeft, treeLayout);
+        this.treeModel.updateData();
+        
 
+        
+        initTree(verticalLayoutLeft, treeLayout);
+        updateTree();
+        
         mainGrid.addComponent(verticalLayoutLeft, 0, 0);
 
         initTaskPanelController();
@@ -244,8 +252,17 @@ class DefaultCentralEditingPanel extends Panel implements
         tree.setImmediate(true);
 
         tree.setItemCaptionPropertyId(ProjectTreeContainer.PROJECT_PROPERTY_NAME);
-
-        aTreeLayout.addComponent(tree);
+        tree.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
+        tree.expandItemsRecursively(ProjectTreeContainer.TREE_ROOT_ID);
+        
+        
+        treePanel = new Panel();
+        treePanel.setScrollable(true);
+        treePanel.addComponent(tree);
+        treePanel.setSizeFull();
+        treePanel.setHeight("200px");
+        
+        aTreeLayout.addComponent(treePanel);
         aLayout.addComponent(aTreeLayout);
         tree.addListener(new ProjectTreeSelectionListener(this));
     }
@@ -307,10 +324,12 @@ class DefaultCentralEditingPanel extends Panel implements
 
     private VerticalLayout getTreeLayout() {
         final VerticalLayout treeLayout = new VerticalLayout();
-        treeLayout.setWidth("90%");
+//        treeLayout.setWidth("90%");
+        treeLayout.setSizeFull();
         treeLayout.setSpacing(true);
         treeLayout.setMargin(true);
         treeLayout.addStyleName("border");
+
         return treeLayout;
     }
 
@@ -432,21 +451,12 @@ class DefaultCentralEditingPanel extends Panel implements
 
         final Object selectedValue = aEvent.getProperty().getValue();
 
-        final OptionDialog dialog =
-                new OptionDialog(TPTApplication.getCurrentApplication());
-
         if (selectedValue != null) {
             final Integer treeItemId = (Integer) selectedValue;
 
             this.curSelection = this.treeModel.getSchedulingObject(treeItemId);
-            dialog.showConfirmationDialog("Test",
-                    "Selected scheduling object: " + this.curSelection.getId(),
-                    null);
-
         } else {
             this.curSelection = null;
-            dialog.showConfirmationDialog("Nothing selected",
-                    "Nothing selected", null);
         }
     }
 
