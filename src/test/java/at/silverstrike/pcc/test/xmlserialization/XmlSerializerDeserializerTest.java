@@ -93,7 +93,6 @@ public class XmlSerializerDeserializerTest extends TestCase {
         firstPredecessors.setName("firstPredecessors");
         firstPredecessors.setParent(objectFactory.createControlProcess());
         firstPredecessors.setPriority(1);
-        firstPredecessors.setProcessType(ProcessType.UNKNOWN);
         final List<ResourceAllocation> resourceAllocations =
                 new ArrayList<ResourceAllocation>();
         final ResourceAllocation resourceAllocation = objectFactory
