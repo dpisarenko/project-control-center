@@ -24,7 +24,6 @@ import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
-import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -39,7 +38,7 @@ import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
  * @author DP118M
  * 
  */
-public class MockPersistenceEmptyDb implements Persistence {
+final class MockPersistenceEmptyDb implements Persistence {
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -96,8 +95,7 @@ public class MockPersistenceEmptyDb implements Persistence {
     }
 
     @Override
-    public void createProcessParent(String aName, Long aParentItemId,
-            ProcessType aProcessType) {
+    public void createProcessParent(String aName, Long aParentItemId) {
         throw new NotImplementedException();
 
     }
