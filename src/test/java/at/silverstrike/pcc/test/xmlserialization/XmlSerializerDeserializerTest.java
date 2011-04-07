@@ -31,7 +31,6 @@ import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.DailyToDoList;
 import at.silverstrike.pcc.api.model.ProcessState;
-import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.model.UserData;
@@ -80,7 +79,6 @@ public class XmlSerializerDeserializerTest extends TestCase {
         parent.setParent(objectFactory.createControlProcess());
         parent.setPredecessors(new HashSet<SchedulingObject>());
         parent.setPriority(1);
-        parent.setProcessType(ProcessType.GOAL);
         parent.setResourceAllocations(new ArrayList<ResourceAllocation>());
         parent.setState(ProcessState.ATTAINED);
         parent.setWorstCaseEffort(6.7);
@@ -112,7 +110,6 @@ public class XmlSerializerDeserializerTest extends TestCase {
         predecessors.add(firstPredecessors);
         process1.setPredecessors(predecessors);
         process1.setPriority(5);
-        process1.setProcessType(ProcessType.GOAL);
         process1.setResourceAllocations(new ArrayList<ResourceAllocation>());
         process1.setState(ProcessState.ATTAINED);
         process1.setWorstCaseEffort(7.7);
@@ -367,10 +364,7 @@ public class XmlSerializerDeserializerTest extends TestCase {
         if (aWritten.getPriority() != null) {
             Assert.assertEquals(aWritten.getPriority(), aRead.getPriority());
         }
-        if (aWritten.getProcessType() != null) {
-            Assert.assertEquals(aWritten.getProcessType(),
-                    aRead.getProcessType());
-        }
+
         if (aWritten.getResourceAllocations() != null) {
             final int writtenResourceAllocation =
                     aWritten.getResourceAllocations()

@@ -27,7 +27,6 @@ import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
-import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -114,8 +113,7 @@ final class MockPersistence implements Persistence {
 
     @Override
     public void createProcessParent(final String aName,
-            final Long aParentItemId,
-            ProcessType aProcessType) {
+            final Long aParentItemId) {
         throw new NotImplementedException();
 
     }
