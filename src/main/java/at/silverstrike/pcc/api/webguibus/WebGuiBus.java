@@ -12,6 +12,7 @@
 package at.silverstrike.pcc.api.webguibus;
 
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface WebGuiBus {
@@ -35,4 +36,8 @@ public interface WebGuiBus {
      * Сообщение рассылается при сбое при попытке создать событие.
      */
     void broadcastEventCreationFailureMessage();
+
+	void broadcastMilestoneCreatedMessage(final Milestone aMilestone);
+	
+	void broadcastMilestoneCreationFailureMessage();
 }

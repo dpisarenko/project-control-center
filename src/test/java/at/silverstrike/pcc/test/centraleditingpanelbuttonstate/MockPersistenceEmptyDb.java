@@ -208,7 +208,7 @@ final class MockPersistenceEmptyDb implements Persistence {
 
     @Override
     public Milestone createNewMilestone(String aUser, String aName,
-            Long aParentTaskId) throws PccException {
+            Long aParentTaskId) {
         // TODO Auto-generated method stub
         return null;
     }

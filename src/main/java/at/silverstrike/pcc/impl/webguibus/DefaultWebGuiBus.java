@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
@@ -55,7 +56,7 @@ class DefaultWebGuiBus implements WebGuiBus {
     }
 
     @Override
-    public void broadcastEventCreatedMessage(Event aNewEvent) {
+    public void broadcastEventCreatedMessage(final Event aNewEvent) {
         for (final WebGuiBusListener listener : this.listeners) {
             listener.eventCreated(aNewEvent);
         }
@@ -67,4 +68,19 @@ class DefaultWebGuiBus implements WebGuiBus {
             listener.eventCreationFailure();
         }
     }
+
+	@Override
+	public void broadcastMilestoneCreatedMessage(final Milestone aMilestone) {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.milestoneCreated(aMilestone);
+        }
+		
+	}
+
+	@Override
+	public void broadcastMilestoneCreationFailureMessage() {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.milestoneCreationFailure();
+        }		
+	}
 }

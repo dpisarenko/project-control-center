@@ -12,6 +12,7 @@
 package at.silverstrike.pcc.api.webguibus;
 
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface WebGuiBusListener {
@@ -24,4 +25,8 @@ public interface WebGuiBusListener {
     void eventCreated(final Event aNewEvent);
 
     void eventCreationFailure();
+
+	void milestoneCreated(final Milestone aMilestone);
+
+	void milestoneCreationFailure();
 }

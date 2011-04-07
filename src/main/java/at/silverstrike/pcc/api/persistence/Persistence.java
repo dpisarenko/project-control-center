@@ -146,8 +146,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     UserData getUserData();
 
     Milestone createNewMilestone(final String aUser, final String aName,
-            final Long aParentTaskId) throws PccException;
+            final Long aParentTaskId);
     
     Event createSubEvent(final String aProcessName, final Long aParentProcessId);
-
 }

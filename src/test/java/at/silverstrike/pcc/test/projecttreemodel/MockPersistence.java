@@ -255,7 +255,7 @@ final class MockPersistence implements Persistence {
     @Override
     public Milestone createNewMilestone(final String aUser,
             final String aName,
-            final Long aParentTaskId) throws PccException {
+            final Long aParentTaskId) {
         // TODO Auto-generated method stub
         return null;
     }

@@ -27,7 +27,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.DerbyDialect;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
@@ -1070,7 +1069,7 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public Milestone createNewMilestone(final String aUser, final String aName,
-            final Long aParentTaskId) throws PccException {
+            final Long aParentTaskId) {
         final Transaction tx = session.beginTransaction();
         Milestone returnValue = null;
 
