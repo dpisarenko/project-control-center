@@ -17,7 +17,6 @@ import java.util.Set;
 
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
-import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
@@ -36,8 +35,6 @@ class MockControlProcess implements Task {
     private Set<SchedulingObject> predecessors;
 
     private Integer priority;
-
-    private ProcessType processType;
 
     private List<ResourceAllocation> resourceAllocations;
 
@@ -98,10 +95,6 @@ class MockControlProcess implements Task {
         return priority;
     }
 
-    public ProcessType getProcessType() {
-        return processType;
-    }
-
     public List<ResourceAllocation> getResourceAllocations() {
         return resourceAllocations;
     }
@@ -150,10 +143,6 @@ class MockControlProcess implements Task {
 
     public void setPriority(final Integer priority) {
         this.priority = priority;
-    }
-
-    public void setProcessType(final ProcessType processType) {
-        this.processType = processType;
     }
 
     public void setResourceAllocations(
