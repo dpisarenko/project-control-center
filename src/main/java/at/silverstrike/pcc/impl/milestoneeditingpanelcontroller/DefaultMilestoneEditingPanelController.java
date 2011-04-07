@@ -15,6 +15,7 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Task;
 
 import com.google.inject.Injector;
@@ -74,5 +75,23 @@ class DefaultMilestoneEditingPanelController implements
         // TODO Auto-generated method stub
 
     }
+
+	@Override
+	public void milestoneCreated(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void milestoneCreationFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setData(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -151,5 +151,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
             final Long aParentTaskId) throws PccException;
     
     Event createSubEvent(final String aProcessName, final Long aParentProcessId);
+    
+    Milestone createSubMilestone(final String aProcessName, final Long aParentProcessId);
 
 }

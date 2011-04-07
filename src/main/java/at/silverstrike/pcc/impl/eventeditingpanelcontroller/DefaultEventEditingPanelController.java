@@ -19,6 +19,7 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Task;
 
 /**
@@ -86,5 +87,17 @@ class DefaultEventEditingPanelController implements
         this.panel.setEventName(aEvent.getName());
 
     }
+
+	@Override
+	public void milestoneCreated(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void milestoneCreationFailure() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

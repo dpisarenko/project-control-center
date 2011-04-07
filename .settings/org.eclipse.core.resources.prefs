@@ -1,8 +1,7 @@
-<<<<<<< HEAD
-#Wed Apr 06 23:10:33 MSD 2011
-=======
-#Wed Apr 06 11:52:16 CEST 2011
->>>>>>> d6e58aa4a46738f02189801397ed0b8f3b26ae07
+#Thu Apr 07 17:21:40 MSD 2011
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=d6e58aa4a46738f02189801397ed0b8f3b26ae07
 eclipse.preferences.version=1
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/application.properties=UTF-8
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/dailyplanpanel.properties=UTF-8
@@ -16,6 +15,7 @@ encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/processpanel.propertie
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/schedulingpanel.properties=UTF-8
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/workerpanel.properties=UTF-8
 encoding//WebContent/WEB-INF/classes/template.tjp=UTF-8
+encoding//src/main/java/at/silverstrike/pcc/api/webguibus/WebGuiBus.java=UTF-8
 encoding//src/main/java/at/silverstrike/pcc/impl/centraleditingpanel/DefaultCentralEditingPanel.java=UTF-8
 encoding//src/main/java/at/silverstrike/pcc/impl/milestoneeditingpanel/DefaultMilestoneEditingPanel.java=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/centraleditingpanel.properties=UTF-8

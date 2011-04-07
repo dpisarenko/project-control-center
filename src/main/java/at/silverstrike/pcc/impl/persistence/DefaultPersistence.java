@@ -1115,5 +1115,12 @@ public class DefaultPersistence implements Persistence {
             final Long aParentProcessId) {
         // TODO Auto-generated method stub
         return null;
-    };
+    }
+
+	@Override
+	public Milestone createSubMilestone(String aProcessName,
+			Long aParentProcessId) {
+		// TODO Auto-generated method stub
+		return null;
+	};
 }
