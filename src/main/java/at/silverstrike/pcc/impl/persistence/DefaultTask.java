@@ -22,9 +22,9 @@ import at.silverstrike.pcc.api.model.ResourceAllocation;
  * @author Dmitri Pisarenko
  * 
  */
-class DefaultTask extends DefaultSchedulingObjectWithDependencies implements
+class DefaultTask extends DefaultSchedulingObject implements
         Task {
-    Long id;
+    
     private ProcessState state;
     private Double bestCaseEffort;
     private Double worstCaseEffort;
@@ -34,17 +34,8 @@ class DefaultTask extends DefaultSchedulingObjectWithDependencies implements
     private Date worstEstimatedEndDateTime;
 
     public DefaultTask() {
-        this.id = -1L;
-        this.setName("");
+        super();
         this.state = ProcessState.REPORTED;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long aId) {
-        this.id = aId;
     }
 
     public ProcessState getState() {

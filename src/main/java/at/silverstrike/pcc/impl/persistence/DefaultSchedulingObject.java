@@ -20,19 +20,24 @@ import at.silverstrike.pcc.api.model.SchedulingObject;
  * 
  */
 class DefaultSchedulingObject implements SchedulingObject {
-    private String label;
+    private Long id;
+    protected String name;
     private Integer priority;
     private SchedulingObject parent;
-    private Long id;
-    private String name;
     private Set<SchedulingObject> predecessors;
 
-    public String getLabel() {
-        return label;
+    public DefaultSchedulingObject() {
+        this.id = -1L;
+        this.setName("");
+
     }
 
-    public void setLabel(final String aLabel) {
-        this.label = aLabel;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String aName) {
+        this.name = aName;
     }
 
     public Integer getPriority() {
@@ -51,6 +56,24 @@ class DefaultSchedulingObject implements SchedulingObject {
         this.parent = aParent;
     }
 
+    public Set<SchedulingObject> getPredecessors() {
+        return predecessors;
+    }
+
+    public void setPredecessors(final Set<SchedulingObject> aPredecessors) {
+        this.predecessors = aPredecessors;
+    }
+
+    public void setLabel(final String aLabel) {
+    }
+
+    public String getLabel() {
+        if (this.id != null) {
+            return this.id.toString();
+        } else {
+            return "";
+        }
+    }
     public Long getId() {
         return id;
     }
@@ -59,19 +82,4 @@ class DefaultSchedulingObject implements SchedulingObject {
         this.id = aId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String aName) {
-        this.name = aName;
-    }
-
-    public Set<SchedulingObject> getPredecessors() {
-        return predecessors;
-    }
-
-    public void setPredecessors(final Set<SchedulingObject> aPredecessors) {
-        this.predecessors = aPredecessors;
-    }
 }
