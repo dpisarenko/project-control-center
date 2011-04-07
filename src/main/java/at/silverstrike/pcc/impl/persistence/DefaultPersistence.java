@@ -128,13 +128,7 @@ public class DefaultPersistence implements Persistence {
     public final void createChildProcess(final Long aParentProcessId) {
         final Transaction tx = session.beginTransaction();
         try {
-            Task parent = null;
-
-            if (aParentProcessId != null) {
-                parent =
-                        (Task) session.get(
-                                DefaultTask.class, aParentProcessId);
-            }
+            Task parent = getParentTask(aParentProcessId);
 
             final Task newProcess = new DefaultTask();
             newProcess.setParent(parent);
@@ -239,16 +233,9 @@ public class DefaultPersistence implements Persistence {
         Task returnValue = null;
 
         try {
-            Task parentProcess = null;
-            if (aParentProcessId != null) {
-                parentProcess =
-                        (Task) session.get(
-                                DefaultTask.class, aParentProcessId);
-            }
-
             final Task newProcess = new DefaultTask();
 
-            newProcess.setParent(parentProcess);
+            newProcess.setParent(getParentTask(aParentProcessId));
             newProcess.setName(aProcessName);
 
             session.save(newProcess);
@@ -260,6 +247,16 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }
         return returnValue;
+    }
+
+    private Task getParentTask(final Long aParentProcessId) {
+        Task parentProcess = null;
+        if (aParentProcessId != null) {
+            parentProcess =
+                    (Task) session.get(
+                            DefaultTask.class, aParentProcessId);
+        }
+        return parentProcess;
     }
 
     @Override
@@ -1079,34 +1076,42 @@ public class DefaultPersistence implements Persistence {
         Milestone returnValue = null;
 
         try {
-            Task parentProcess = null;
-            if (aParentTaskId != null) {
-                parentProcess =
-                        (Task) session.get(
-                                DefaultTask.class, aParentTaskId);
-            }
+            final Milestone newMilestone = new DefaultMilestone();
 
-            final Milestone newProcess = new DefaultMilestone();
+            newMilestone.setParent(getParentTask(aParentTaskId));
+            newMilestone.setName(aName);
 
-            newProcess.setParent(parentProcess);
-            newProcess.setName(aName);
-
-            session.save(newProcess);
+            session.save(newMilestone);
             tx.commit();
 
-            returnValue = newProcess;
+            returnValue = newMilestone;
         } catch (final Exception exception) {
             LOGGER.error("", exception);
             tx.rollback();
         }
         return returnValue;
-
     }
 
     @Override
-    public Event createSubEvent(final String aProcessName,
+    public Event createSubEvent(final String aEventName,
             final Long aParentProcessId) {
-        // TODO Auto-generated method stub
-        return null;
+        final Transaction tx = session.beginTransaction();
+        Event returnValue = null;
+
+        try {
+            final Event newEvent = new DefaultEvent();
+
+            newEvent.setParent(getParentTask(aParentProcessId));
+            newEvent.setName(aEventName);
+
+            session.save(newEvent);
+            tx.commit();
+
+            returnValue = newEvent;
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+        return returnValue;
     };
 }
