@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Set;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
-import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
@@ -31,7 +30,6 @@ class MockControlProcess implements Task {
     private List<ResourceAllocation> resourceAllocations;
     private Integer priority;
     private SchedulingObject parentProcess;
-    private ProcessType type;
     private Date averageEstimatedEndDateTime;
     private Date bestEstimatedEndDateTime;
     private Date worstEstimatedEndDateTime;
@@ -105,14 +103,6 @@ class MockControlProcess implements Task {
 
     public void setParent(final SchedulingObject aParentProcess) {
         this.parentProcess = aParentProcess;
-    }
-
-    public void setProcessType(final ProcessType aType) {
-        this.type = aType;
-    }
-
-    public ProcessType getProcessType() {
-        return this.type;
     }
 
     public Date getAverageEstimatedEndDateTime() {
