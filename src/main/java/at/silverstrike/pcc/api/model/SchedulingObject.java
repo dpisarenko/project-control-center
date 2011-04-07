@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.api.model;
 
+import java.util.Set;
+
 import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
 
 /**
@@ -27,14 +29,28 @@ public interface SchedulingObject extends UniquelyIdentifiableObject {
      */
     void setLabel(final String aLabel);
     String getLabel();
-    
+
+    /**
+     * Приоритет
+     */
     void setPriority(final Integer aPriority);
     Integer getPriority();
 
+    /**
+     * "Над-цель" этого объекта.
+     */
     SchedulingObject getParent();
-    void setParent(SchedulingObject aParentProcess);
-
+    void setParent(final SchedulingObject aParentProcess);
     
+    /**
+     * Название
+     */
     String getName();
     void setName(final String aName);
+    
+    /**
+     * Предшественники 
+     */
+    void setPredecessors(final Set<SchedulingObject> aPredecessors);
+    Set<SchedulingObject> getPredecessors();
 }
