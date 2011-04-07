@@ -1,13 +1,7 @@
 <?xml version="1.0"?>
-<!--
-  This file is part of Project Control Center (PCC).
-  
-  PCC (Project Control Center) project is intellectual property of 
-  Dmitri Anatol'evich Pisarenko.
-  
-  Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
-  All rights reserved
--->
+<!-- This file is part of Project Control Center (PCC). PCC (Project Control 
+	Center) project is intellectual property of Dmitri Anatol'evich Pisarenko. 
+	Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko All rights reserved -->
 
 <!DOCTYPE hibernate-mapping PUBLIC
          "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
@@ -24,41 +18,41 @@
 		<property name="priority" />
 		<many-to-one name="parent"
 			class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject"
-			lazy="false"/>
-		
-		<set name="predecessors" 
-			lazy="false">
+			lazy="false" />
+
+		<set name="predecessors" lazy="false">
 			<key column="SCHEDULING_OBJECT_ID" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject" />
 		</set>
-		 
-		 
-		 
-		 <joined-subclass
-			name="at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"
-			table="TBL_DAILY_LIMIT_RESOURCE_ALLOCATION"
-			lazy="false">
-			<key column="RESOURCE_ALLOCATION_ID" />
-			<property name="dailyLimit" />
+
+		<joined-subclass name="at.silverstrike.pcc.impl.persistence.DefaultEvent"
+			table="TBL_EVENT" lazy="false">
+			<key column="EVENT_ID" />
+			<property name="place" />
+			<property name="startDateTime" />
+			<property name="endDateTime" />
 		</joined-subclass>
-		 
-		 
-		 
-		 <!-- Атрибуты, специфические для дела (начало) -->
-		 		<property name="state" />
-		<property name="bestCaseEffort" />
-		<property name="worstCaseEffort" />
-		<property name="averageEstimatedEndDateTime" />
-		<property name="bestEstimatedEndDateTime" />
-		<property name="worstEstimatedEndDateTime" />
 
-		<bag name="resourceAllocations" lazy="false">
-			<key column="PROCESS_ID" />
-			<one-to-many
-				class="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation" />
-		</bag>
-
-		 <!-- Атрибуты, специфические для дела (конец) -->
+		<joined-subclass
+			name="at.silverstrike.pcc.impl.persistence.DefaultMilestone" table="TBL_MILESTONE"
+			lazy="false">
+			<key column="MILESTONE_ID" />
+		</joined-subclass>
+		<joined-subclass name="at.silverstrike.pcc.impl.persistence.DefaultTask"
+			table="TBL_TASK" lazy="false">
+			<key column="TASK_ID" />
+			<property name="state" />
+			<property name="bestCaseEffort" />
+			<property name="worstCaseEffort" />
+			<property name="averageEstimatedEndDateTime" />
+			<property name="bestEstimatedEndDateTime" />
+			<property name="worstEstimatedEndDateTime" />
+			<bag name="resourceAllocations" lazy="false">
+				<key column="TASK_ID" />
+				<one-to-many
+					class="at.silverstrike.pcc.impl.persistence.DefaultResourceAllocation" />
+			</bag>
+		</joined-subclass>
 	</class>
 </hibernate-mapping>
