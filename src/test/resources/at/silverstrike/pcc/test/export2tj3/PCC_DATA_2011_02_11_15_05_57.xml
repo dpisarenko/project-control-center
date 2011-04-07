@@ -8,7 +8,6 @@
       <bestCaseEffort>0.016666666666666666</bestCaseEffort>
       <worstCaseEffort>0.016666666666666666</worstCaseEffort>
       <priority>1000</priority>
-      <processType>GOAL</processType>
       <resourceAllocations class="org.hibernate.collection.PersistentBag">
         <initialized>true</initialized>
         <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
