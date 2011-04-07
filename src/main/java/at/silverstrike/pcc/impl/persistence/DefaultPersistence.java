@@ -37,7 +37,6 @@ import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.DailyToDoList;
 import at.silverstrike.pcc.api.model.ProcessState;
-import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.model.UserData;
@@ -184,13 +183,12 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public final void createProcessParent(final String aName,
-            final Long aParentItemId, final ProcessType aProcessType) {
+            final Long aParentItemId) {
         final Transaction tx = session.beginTransaction();
 
         final DefaultTask task = new DefaultTask();
 
         task.setName(aName);
-        task.setProcessType(aProcessType);
 
         try {
             if (aParentItemId != null) {
@@ -350,12 +348,7 @@ public class DefaultPersistence implements Persistence {
 
         session.beginTransaction();
         final Query query =
-                session.createQuery("from DefaultTask as p "
-                        + "where (p.processType = :goalRegion) or "
-                        + "(p.processType = :intent)");
-
-        query.setParameter("goalRegion", ProcessType.GOAL_REGION);
-        query.setParameter("intent", ProcessType.INTENT);
+                session.createQuery("from DefaultTask");
 
         final List result = query.list();
 

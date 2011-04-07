@@ -24,7 +24,6 @@ import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
-import at.silverstrike.pcc.api.model.ProcessType;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
@@ -51,8 +50,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     void updateTask(final Task aProcess);
 
-    void createProcessParent(final String aName, final Long aParentItemId,
-            final ProcessType aProcessType);
+    void createProcessParent(final String aName, final Long aParentItemId);
 
     List<Task> getAllIntentsAndGoalRegions();
 
