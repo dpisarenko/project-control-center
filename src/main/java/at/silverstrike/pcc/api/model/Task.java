@@ -44,15 +44,9 @@ public interface Task extends SchedulingObject {
      */
     void setWorstCaseEffort(final Double aEffortInHours);
 
-    void setResourceAllocations(List<ResourceAllocation> aResourceAllocations);
+    void setResourceAllocations(final List<ResourceAllocation> aResourceAllocations);
 
     List<ResourceAllocation> getResourceAllocations();
-
-
-
-    void setProcessType(ProcessType aType);
-
-    ProcessType getProcessType();
 
     /**
      * Get estimated end time (completion date) of the task for the average case
