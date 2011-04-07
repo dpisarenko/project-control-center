@@ -15,8 +15,5 @@ package at.silverstrike.pcc.api.model;
  * @author DP118M
  *
  */
-public interface Milestone extends SchedulingObjectWithDependencies {
-    String getName();
-    void setName(final String aName);
-
+public interface Milestone extends SchedulingObject {
 }

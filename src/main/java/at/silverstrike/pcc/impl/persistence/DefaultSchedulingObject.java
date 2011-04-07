@@ -11,11 +11,13 @@
 
 package at.silverstrike.pcc.impl.persistence;
 
+import java.util.Set;
+
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
 /**
  * @author DP118M
- *
+ * 
  */
 class DefaultSchedulingObject implements SchedulingObject {
     private String label;
@@ -23,35 +25,53 @@ class DefaultSchedulingObject implements SchedulingObject {
     private SchedulingObject parent;
     private Long id;
     private String name;
-    
+    private Set<SchedulingObject> predecessors;
+
     public String getLabel() {
         return label;
     }
-    public void setLabel(final String label) {
-        this.label = label;
+
+    public void setLabel(final String aLabel) {
+        this.label = aLabel;
     }
+
     public Integer getPriority() {
         return priority;
     }
-    public void setPriority(final Integer priority) {
-        this.priority = priority;
+
+    public void setPriority(final Integer aPriority) {
+        this.priority = aPriority;
     }
+
     public SchedulingObject getParent() {
         return parent;
     }
-    public void setParent(final SchedulingObject parent) {
-        this.parent = parent;
+
+    public void setParent(final SchedulingObject aParent) {
+        this.parent = aParent;
     }
+
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setId(final Long aId) {
+        this.id = aId;
     }
+
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setName(final String aName) {
+        this.name = aName;
+    }
+
+    public Set<SchedulingObject> getPredecessors() {
+        return predecessors;
+    }
+
+    public void setPredecessors(final Set<SchedulingObject> aPredecessors) {
+        this.predecessors = aPredecessors;
     }
 }

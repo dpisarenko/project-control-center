@@ -14,7 +14,7 @@ package at.silverstrike.pcc.api.model;
 import java.util.Date;
 import java.util.List;
 
-public interface Task extends SchedulingObjectWithDependencies {
+public interface Task extends SchedulingObject {
     ProcessState getState();
 
     void setState(final ProcessState aState);
