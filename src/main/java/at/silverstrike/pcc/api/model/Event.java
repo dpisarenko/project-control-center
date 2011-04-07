@@ -18,15 +18,12 @@ import java.util.Date;
  *
  */
 public interface Event extends SchedulingObject {
-    void setName(final String aName);
-    String getName();
-    
     void setPlace(final String aTitle);
     String getPlace();
     
-    void setStartDateTime(final String aDateTime);
+    void setStartDateTime(final Date aDateTime);
     Date getStartDateTime();
     
-    void setEndStartDateTime(final String aDateTime);
+    void setEndDateTime(final Date aDateTime);
     Date getEndDateTime();
 }
