@@ -74,7 +74,7 @@ class DefaultMilestoneEditingPanel extends Panel implements
     private Button createDependEditButton() {
         final Button dependEditButton =
                         new Button(
-                                TM.get("milestoneeditingprocesspanel.5-button-edit"));
+                                TM.get("milestoneeditingpanel.5-button-edit"));
         dependEditButton.addListener(new DependenciesButtonClickListener(
                         controller));
         return dependEditButton;
@@ -114,7 +114,7 @@ class DefaultMilestoneEditingPanel extends Panel implements
 
         final Label taskLabel =
                 new Label(
-                        TM.get("milestoneeditingprocesspanel.1-label-milestone"));
+                        TM.get("milestoneeditingpanel.1-label-milestone"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
         verticalLayoutRight.addComponent(taskLabel);
 
@@ -122,13 +122,13 @@ class DefaultMilestoneEditingPanel extends Panel implements
         buttonsTaskLayout.setSpacing(true);
 
         final Button saveButton =
-                new Button(TM.get("milestoneeditingprocesspanel.2-button-save"));
+                new Button(TM.get("milestoneeditingpanel.2-button-save"));
         saveButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(saveButton);
 
         final Button deleteButton =
                 new Button(
-                        TM.get("milestoneeditingprocesspanel.3-button-delete"));
+                        TM.get("milestoneeditingpanel.3-button-delete"));
         deleteButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(deleteButton);
 
@@ -144,7 +144,7 @@ class DefaultMilestoneEditingPanel extends Panel implements
 
         final Label dependLabel =
                 new Label(
-                        TM.get("milestoneeditingprocesspanel.4-label-dependencies"));
+                        TM.get("milestoneeditingpanel.4-label-dependencies"));
         dependLayout.addComponent(dependLabel);
 
         final Button dependEditButton = createDependEditButton();
