@@ -17,6 +17,7 @@ import com.vaadin.ui.Panel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
+import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
@@ -48,8 +49,11 @@ class DefaultEventEditingPanelController implements
 
     @Override
     public Panel initGui() {
-        // TODO Auto-generated method stub
-        return null;
+        final EventEditingPanelFactory factory = this.injector.getInstance(EventEditingPanelFactory.class);
+        this.panel = factory.create();
+        this.panel.setInjector(this.injector);
+        this.panel.initGui();
+        return this.panel.toPanel();
     }
 
     @Override
@@ -85,19 +89,18 @@ class DefaultEventEditingPanelController implements
     @Override
     public void setData(final Event aEvent) {
         this.panel.setEventName(aEvent.getName());
+    }
+
+    @Override
+    public void milestoneCreated(Milestone aMilestone) {
+        // TODO Auto-generated method stub
 
     }
 
-	@Override
-	public void milestoneCreated(Milestone aMilestone) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void milestoneCreationFailure() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void milestoneCreationFailure() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
 }
