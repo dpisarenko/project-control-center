@@ -43,9 +43,12 @@ public class TestI18n {
         for (final ProblemTuple tuple : pt) {
             LOGGER.debug(tuple.toString());
         }
-        
+
         for (final ProblemTuple tuple : pt) {
-            Assert.assertEquals(0, tuple.getProblematicKeys().size());
+            Assert.assertEquals(
+                    "Problems in translation files for culture '${culture}'"
+                            .replace("${culture}", tuple.getCulture()), 0,
+                    tuple.getProblematicKeys().size());
         }
     }
 
@@ -144,11 +147,12 @@ public class TestI18n {
 
     private String getCulture(final File curDirectory) {
         /**
-         * webapp/VAADIN/themes/pcc/i18n/ru - в curDirectory содержится именно такой текст.
+         * webapp/VAADIN/themes/pcc/i18n/ru - в curDirectory содержится именно
+         * такой текст.
          * 
          * => Нам из него нужно ru
          */
-        
+
         return curDirectory.getName();
     }
 

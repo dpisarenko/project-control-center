@@ -1,4 +1,4 @@
-#Fri Apr 08 16:32:02 CEST 2011
+#Fri Apr 08 16:38:45 CEST 2011
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
 >>>>>>>=d6e58aa4a46738f02189801397ed0b8f3b26ae07
@@ -35,7 +35,6 @@ encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/entrywindow.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/estimatedcompletiontimespanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/eventeditingprocesspanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/goalattainingprocessparentpanel.properties=UTF-8
-encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/mainprocesseditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/mainwindow.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/milestoneeditingprocesspanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/processpanel.properties=UTF-8
