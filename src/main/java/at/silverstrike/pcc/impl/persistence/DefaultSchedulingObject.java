@@ -31,7 +31,7 @@ class DefaultSchedulingObject implements SchedulingObject {
     public DefaultSchedulingObject() {
         this.id = -1L;
         this.setName("");
-
+        this.state = ProcessState.REPORTED;
     }
 
     public String getName() {

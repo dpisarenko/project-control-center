@@ -33,7 +33,6 @@ class DefaultTask extends DefaultSchedulingObject implements
 
     public DefaultTask() {
         super();
-        this.state = ProcessState.REPORTED;
     }
 
     public Double getBestCaseEffort() {

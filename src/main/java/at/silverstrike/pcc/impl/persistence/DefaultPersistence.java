@@ -368,7 +368,7 @@ public class DefaultPersistence implements Persistence {
 
         try {
             final Query query =
-                    session.createQuery("from DefaultTask where ((state <> "
+                    session.createQuery("from DefaultSchedulingObject where ((state <> "
                             + STATE_DELETED
                             + ") and (state <> "
                             + STATE_ATTAINED + "))");
