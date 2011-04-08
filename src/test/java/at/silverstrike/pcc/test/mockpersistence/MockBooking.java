@@ -29,40 +29,40 @@ public final class MockBooking implements Booking {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(final Long aId) {
+        this.id = aId;
     }
 
     public Task getProcess() {
         return process;
     }
 
-    public void setProcess(Task process) {
-        this.process = process;
+    public void setProcess(final Task aProcess) {
+        this.process = aProcess;
     }
 
     public Resource getResource() {
         return resource;
     }
 
-    public void setResource(Resource resource) {
-        this.resource = resource;
+    public void setResource(final Resource aResource) {
+        this.resource = aResource;
     }
 
     public Date getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(Date startDateTime) {
-        this.startDateTime = startDateTime;
+    public void setStartDateTime(final Date aDateTime) {
+        this.startDateTime = aDateTime;
     }
 
     public double getDuration() {
         return duration;
     }
 
-    public void setDuration(double duration) {
-        this.duration = duration;
+    public void setDuration(final double aDuration) {
+        this.duration = aDuration;
     }
 
     @Override
