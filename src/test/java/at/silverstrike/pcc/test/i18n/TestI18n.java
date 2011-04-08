@@ -25,8 +25,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import at.silverstrike.pcc.test.projectnetworkgraphcreator.TestDefaultProjectNetworkGraphCreator;
-
 /**
  * @author DP118M
  * 
@@ -140,9 +138,14 @@ public class TestI18n {
         return returnValue;
     }
 
-    private String getCulture(File curDirectory) {
-        // TODO Auto-generated method stub
-        return null;
+    private String getCulture(final File curDirectory) {
+        /**
+         * webapp/VAADIN/themes/pcc/i18n/ru - в curDirectory содержится именно такой текст.
+         * 
+         * => Нам из него нужно ru
+         */
+        
+        return curDirectory.getName();
     }
 
     private Properties file2properties(final File aFile) {
@@ -160,7 +163,7 @@ public class TestI18n {
         final List<File> returnValue = new LinkedList<File>();
 
         returnValue.add(new File("webapp/VAADIN/themes/pcc/i18n/en"));
-        returnValue.add(new File("webapp/VAADIN/themes/pcc/i18n/en"));
+        returnValue.add(new File("webapp/VAADIN/themes/pcc/i18n/ru"));
 
         for (final File curFile : returnValue) {
             Assert.assertTrue(
