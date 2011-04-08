@@ -14,6 +14,7 @@ package at.silverstrike.pcc.impl.centraleditingpanel;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,7 @@ import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingP
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
@@ -95,6 +97,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private EventEditingPanelController eventEditingPanelController;
     private MilestoneEditingPanelController milestoneEditingPanelController;
     private Panel treePanel;
+    private Long curProjectId;
+    private ProjectNetworkGraphPanel graphPanel;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -122,7 +126,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
          */
         final ProjectNetworkGraphPanelFactory factory = this.injector
                 .getInstance(ProjectNetworkGraphPanelFactory.class);
-        final ProjectNetworkGraphPanel graphPanel = factory.create();
+        graphPanel = factory.create();
 
         graphPanel.setInjector(injector);
         graphPanel.initGui();
@@ -200,6 +204,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         setRightPanel(taskPanel);
 
         this.addComponent(mainGrid);
+
+        this.redrawProjectNetwork();
     }
 
     private void initMilestonePanelController() {
@@ -397,6 +403,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         this.changeRightPanel(taskPanel);
 
         updateTree();
+        this.redrawProjectNetwork();
     }
 
     private void updateTree() {
@@ -423,12 +430,25 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
             return;
         }
 
+        final Long oldParentId = this.curProjectId;
+
         final Object selectedValue = aEvent.getProperty().getValue();
 
         if (selectedValue != null) {
             final Integer treeItemId = (Integer) selectedValue;
 
             this.curSelection = this.treeModel.getSchedulingObject(treeItemId);
+
+            if (this.curSelection != null) {
+                final SchedulingObject newParent =
+                        this.curSelection.getParent();
+
+                if (newParent != null) {
+                    this.curProjectId = newParent.getId();
+                } else {
+                    this.curProjectId = null;
+                }
+            }
 
             if (this.curSelection instanceof Task) {
                 this.taskEditingPanelController
@@ -447,6 +467,23 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
             this.curSelection = null;
             removeRightPanel();
         }
+
+        /**
+         * Надо ли обновлять сетевой график? (начало)
+         */
+        /**
+         * Этот метод (ObjectUtils.equals) правильно обходится с теми случаями,
+         * когда один объект равен null, а другой - нет.
+         * 
+         * В отличии от стандартного метода equals.
+         */
+        if (!ObjectUtils.equals(oldParentId, this.curProjectId)) {
+            this.redrawProjectNetwork();
+        }
+        /**
+         * Надо ли обновлять сетевой график? (конец)
+         */
+
     }
 
     @Override
@@ -466,6 +503,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         this.eventEditingPanelController.setData(aNewEvent);
         this.changeRightPanel(eventPanel);
         updateTree();
+        this.redrawProjectNetwork();
     }
 
     @Override
@@ -487,7 +525,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         this.milestoneEditingPanelController.setData(aMilestone);
         this.changeRightPanel(milestonePanel);
         updateTree();
-
+        this.redrawProjectNetwork();
     }
 
     @Override
@@ -504,41 +542,137 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
     }
 
+    /*start of my changes
+<<<<<<< HEAD
 	@Override
 	public void taskDeleted(Task aTask) {
 		this.taskEditingPanelController.clearPanel();
 		updateTree();
 		
 	}
-
+*/
 	@Override
 	public void taskDeletionFailure() {
 		// TODO Auto-generated method stub
 		
 	}
-
+/*
 	@Override
 	public void eventDeleted(at.silverstrike.pcc.api.model.Event aNewEvent) {
 		// TODO Auto-generated method stub
 		
 	}
-
+*/
 	@Override
 	public void eventDeletionFailure() {
 		// TODO Auto-generated method stub
 		
 	}
-
+/*
 	@Override
 	public void milestoneDeleted(Milestone aMilestone) {
 		// TODO Auto-generated method stub
 		
 	}
-
+*/
 	@Override
 	public void milestoneDeletionFailure() {
 		// TODO Auto-generated method stub
 		
 	}
+
+//end of my changes 
+
+    /**
+     * Вызов этого метода обновляет сетевой график
+     */
+    void redrawProjectNetwork() {
+        /**
+         * Определяем выбранный проект
+         * 
+         * Выбранный проект - родитель объекта, выбранного в дереве
+         * 
+         * Идея: Эта информация уже есть в методе, который вызывается при
+         * изменении выбора в дереве.
+         * 
+         * => Пусть идентификатор проекта будет атрибутом класса.
+         */
+
+        /**
+         * Берём базы данных перечень всех процессов выбранного проекта
+         */
+        final Persistence persistence =
+                this.injector.getInstance(Persistence.class);
+        final List<SchedulingObject> projectSchedulingObjects =
+                persistence.getSubProcessesWithChildren(this.curProjectId);
+
+        /**
+         * Преобразуем каждый расчётный объект в набор данных.
+         */
+        final List<SchedulingObjectDependencyTuple> tuples =
+                new LinkedList<SchedulingObjectDependencyTuple>();
+
+        for (final SchedulingObject curObject : projectSchedulingObjects) {
+            final String vertex = curObject.getLabel();
+            final List<String> dependencies = new LinkedList<String>();
+            /**
+             * В графике будем показывать только зависимости из того же проекта.
+             */
+
+            if (curObject.getPredecessors() != null) {
+                for (final SchedulingObject curDependency : curObject
+                        .getPredecessors()) {
+                    Long dependencyParentId = null;
+
+                    if (curDependency.getParent() != null) {
+                        dependencyParentId = curDependency.getParent().getId();
+                    }
+
+                    if (ObjectUtils.equals(this.curProjectId,
+                            dependencyParentId)) {
+                        dependencies.add(curDependency.getLabel());
+                    }
+                    tuples.add(getTuple(vertex, dependencies));
+                }
+            }
+        }
+
+        /**
+         * Теперь обновляем панель
+         */
+        this.graphPanel.updatePanel(tuples);
+    }
+
+    private SchedulingObjectDependencyTuple getTuple(final String aLabel,
+            final List<String> aDependencies) {
+        final List<String> dependencies = new LinkedList<String>();
+        final MockSchedulingObjectDependencyTuple returnValue =
+                new MockSchedulingObjectDependencyTuple();
+
+        for (final String curDep : aDependencies) {
+            dependencies.add(curDep);
+        }
+
+        returnValue.setLabel(aLabel);
+        returnValue.setDependencies(dependencies);
+
+        return returnValue;
+    }
+
+    @Override
+    public void taskDeleted(final Task aDeletedSchedulingObject) {
+        this.redrawProjectNetwork();
+    }
+
+    @Override
+    public void milestoneDeleted(final Milestone aDeletedSchedulingObject) {
+        this.redrawProjectNetwork();
+    }
+
+    @Override
+    public void eventDeleted(
+            final at.silverstrike.pcc.api.model.Event aDeletedSchedulingObject) {
+        this.redrawProjectNetwork();
+    }
 
 }
