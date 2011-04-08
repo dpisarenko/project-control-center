@@ -22,7 +22,7 @@
 			lazy="false" />
 
 		<set name="predecessors" lazy="false">
-			<key column="SCHEDULING_OBJECT_ID" />
+			<key column="PREDECESSOR" />
 			<one-to-many
 				class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject" />
 		</set>

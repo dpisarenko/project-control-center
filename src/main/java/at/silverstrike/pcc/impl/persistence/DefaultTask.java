@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 import at.silverstrike.pcc.api.model.Task;
-import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 
 /**

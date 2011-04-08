@@ -565,6 +565,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         final List<SchedulingObject> projectSchedulingObjects =
                 persistence.getSubProcessesWithChildren(this.curProjectId);
 
+        LOGGER.debug("projectSchedulingObjects: {}", projectSchedulingObjects);
+
         /**
          * Преобразуем каждый расчётный объект в набор данных.
          */
@@ -579,6 +581,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
              */
 
             if (curObject.getPredecessors() != null) {
+                LOGGER.debug("curObject.getPredecessors(): {}",
+                        curObject.getPredecessors());
                 for (final SchedulingObject curDependency : curObject
                         .getPredecessors()) {
                     Long dependencyParentId = null;
@@ -591,9 +595,14 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
                             dependencyParentId)) {
                         dependencies.add(curDependency.getLabel());
                     }
-                    tuples.add(getTuple(vertex, dependencies));
                 }
             }
+            LOGGER.debug(
+                    "vertex: {}, dependencies: {}",
+                    new Object[] {
+                            vertex, dependencies });
+
+            tuples.add(getTuple(vertex, dependencies));
         }
 
         /**
