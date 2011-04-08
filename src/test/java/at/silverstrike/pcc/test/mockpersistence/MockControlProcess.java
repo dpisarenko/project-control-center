@@ -112,55 +112,55 @@ class MockControlProcess implements Task {
     }
 
     public void setAverageEstimatedEndDateTime(
-            final Date averageEstimatedEndDateTime) {
-        this.averageEstimatedEndDateTime = averageEstimatedEndDateTime;
+            final Date aAverageEstimatedEndDateTime) {
+        this.averageEstimatedEndDateTime = aAverageEstimatedEndDateTime;
     }
 
-    public void setBestCaseEffort(final Double bestCaseEffort) {
-        this.bestCaseEffort = bestCaseEffort;
+    public void setBestCaseEffort(final Double aEffort) {
+        this.bestCaseEffort = aEffort;
     }
 
     public void
-            setBestEstimatedEndDateTime(final Date bestEstimatedEndDateTime) {
-        this.bestEstimatedEndDateTime = bestEstimatedEndDateTime;
+            setBestEstimatedEndDateTime(final Date aDateTime) {
+        this.bestEstimatedEndDateTime = aDateTime;
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public void setId(final Long aId) {
+        this.id = aId;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setName(final String aName) {
+        this.name = aName;
     }
 
-    public void setParent(final SchedulingObject parent) {
-        this.parent = parent;
+    public void setParent(final SchedulingObject aParent) {
+        this.parent = aParent;
     }
 
-    public void setPredecessors(final Set<SchedulingObject> predecessors) {
-        this.predecessors = predecessors;
+    public void setPredecessors(final Set<SchedulingObject> aPredecessors) {
+        this.predecessors = aPredecessors;
     }
 
-    public void setPriority(final Integer priority) {
-        this.priority = priority;
+    public void setPriority(final Integer aPriority) {
+        this.priority = aPriority;
     }
 
     public void setResourceAllocations(
-            final List<ResourceAllocation> resourceAllocations) {
-        this.resourceAllocations = resourceAllocations;
+            final List<ResourceAllocation> aResourceAllocations) {
+        this.resourceAllocations = aResourceAllocations;
     }
 
-    public void setState(final ProcessState state) {
-        this.state = state;
+    public void setState(final ProcessState aState) {
+        this.state = aState;
     }
 
-    public void setWorstCaseEffort(final Double worstCaseEffort) {
-        this.worstCaseEffort = worstCaseEffort;
+    public void setWorstCaseEffort(final Double aEffort) {
+        this.worstCaseEffort = aEffort;
     }
 
     public void setWorstEstimatedEndDateTime(
-            final Date worstEstimatedEndDateTime) {
-        this.worstEstimatedEndDateTime = worstEstimatedEndDateTime;
+            final Date aDateTime) {
+        this.worstEstimatedEndDateTime = aDateTime;
     }
 
     @Override
