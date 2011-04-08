@@ -439,15 +439,15 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
             this.curSelection = this.treeModel.getSchedulingObject(treeItemId);
 
-            if (this.curSelection != null)
-            {
-                final SchedulingObject newParent = this.curSelection.getParent();
+            if (this.curSelection != null) {
+                final SchedulingObject newParent =
+                        this.curSelection.getParent();
 
                 if (newParent != null) {
                     this.curProjectId = newParent.getId();
                 } else {
                     this.curProjectId = null;
-                }                
+                }
             }
 
             if (this.curSelection instanceof Task) {
@@ -578,18 +578,21 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
              * В графике будем показывать только зависимости из того же проекта.
              */
 
-            for (final SchedulingObject curDependency : curObject
-                    .getPredecessors()) {
-                Long dependencyParentId = null;
+            if (curObject.getPredecessors() != null) {
+                for (final SchedulingObject curDependency : curObject
+                        .getPredecessors()) {
+                    Long dependencyParentId = null;
 
-                if (curDependency.getParent() != null) {
-                    dependencyParentId = curDependency.getParent().getId();
-                }
+                    if (curDependency.getParent() != null) {
+                        dependencyParentId = curDependency.getParent().getId();
+                    }
 
-                if (ObjectUtils.equals(this.curProjectId, dependencyParentId)) {
-                    dependencies.add(curDependency.getLabel());
+                    if (ObjectUtils.equals(this.curProjectId,
+                            dependencyParentId)) {
+                        dependencies.add(curDependency.getLabel());
+                    }
+                    tuples.add(getTuple(vertex, dependencies));
                 }
-                tuples.add(getTuple(vertex, dependencies));
             }
         }
 
