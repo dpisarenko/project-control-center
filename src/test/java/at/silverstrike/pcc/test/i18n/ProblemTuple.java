@@ -14,6 +14,8 @@ package at.silverstrike.pcc.test.i18n;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * @author DP118M
  * 
@@ -41,4 +43,13 @@ class ProblemTuple {
     public void setProblematicKeys(final List<String> aProblematicKeys) {
         this.problematicKeys = aProblematicKeys;
     }
+
+    @Override
+    public String toString() {
+        final ToStringBuilder builder = new ToStringBuilder(this);
+
+        return builder.append("culture", this.culture)
+                .append("problematicKeys", this.problematicKeys).toString();
+    }
+
 }
