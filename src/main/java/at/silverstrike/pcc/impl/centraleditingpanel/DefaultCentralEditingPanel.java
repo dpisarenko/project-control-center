@@ -502,4 +502,41 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
 	}
 
+	@Override
+	public void taskDeleted(Task aTask) {
+		this.taskEditingPanelController.clearPanel();
+		updateTree();
+		
+	}
+
+	@Override
+	public void taskDeletionFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventDeleted(at.silverstrike.pcc.api.model.Event aNewEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventDeletionFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void milestoneDeleted(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void milestoneDeletionFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

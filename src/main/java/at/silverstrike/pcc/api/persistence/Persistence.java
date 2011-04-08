@@ -149,4 +149,11 @@ public interface Persistence extends ModuleWithInjectableDependencies {
             final Long aParentTaskId);
     
     Event createSubEvent(final String aProcessName, final Long aParentProcessId);
+
+
+	boolean deleteTask(final Task aTask);
+	
+	boolean deleteEvent(final Event aEvent);
+	
+	boolean deleteMilestone(final Milestone aMilestone);
 }

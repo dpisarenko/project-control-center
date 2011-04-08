@@ -23,95 +23,140 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
-class DefaultTaskEditingPanelController implements
-        TaskEditingPanelController {
-    private transient Injector injector = null;
-    private transient Persistence persistence;
-    private transient WebGuiBus webGuiBus;
-    private TaskEditingPanel panel;
+class DefaultTaskEditingPanelController implements TaskEditingPanelController {
+	private transient Injector injector = null;
+	private transient Persistence persistence;
+	private transient WebGuiBus webGuiBus;
+	private TaskEditingPanel panel;
 
-    @Override
-    public void setInjector(final Injector aInjector) {
-        this.injector = aInjector;
+	@Override
+	public void setInjector(final Injector aInjector) {
+		this.injector = aInjector;
 
-        if (aInjector != null) {
-            this.persistence = this.injector.getInstance(Persistence.class);
-            this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
-        }
-    }
+		if (aInjector != null) {
+			this.persistence = this.injector.getInstance(Persistence.class);
+			this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
+		}
+	}
 
-    @Override
-    public void saveTask(final Task aTask) {
-        if (aTask != null) {
-            this.persistence.updateTask(aTask);
-            this.webGuiBus.broadcastTaskEditedMessage(aTask);
-        }
-    }
+	@Override
+	public void saveTask(final Task aTask) {
+		if (aTask != null) {
+			this.persistence.updateTask(aTask);
+			this.webGuiBus.broadcastTaskEditedMessage(aTask);
+		}
+	}
 
-    @Override
-    public void markTaskAsCompleted(Task aTask) {
-        // TODO Auto-generated method stub
+	@Override
+	public void markTaskAsCompleted(Task aTask) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void deleteTask(Task aTask) {
-        // TODO Auto-generated method stub
+	@Override
+	public void deleteTask(final Task aTask) {
 
-    }
+		if (this.persistence.deleteTask(aTask)) {
+			this.webGuiBus.broadcastTaskDeletedMessage(aTask);			
+		} else {
+			this.webGuiBus.broadcastTaskDeletionFailureMessage();
+		}
+	}
 
-    @Override
-    public void setData(final Task aTask) {
-        this.panel.setData(aTask);
-    }
+	@Override
+	public void setData(final Task aTask) {
+		this.panel.setData(aTask);
+	}
 
-    @Override
-    public Panel initGui() {
-        final TaskEditingPanelFactory factory =
-                this.injector.getInstance(TaskEditingPanelFactory.class);
-        this.panel = factory.create();
+	@Override
+	public Panel initGui() {
+		final TaskEditingPanelFactory factory = this.injector
+				.getInstance(TaskEditingPanelFactory.class);
+		this.panel = factory.create();
 
-        panel.setInjector(this.injector);
-        panel.initGui();
+		panel.setInjector(this.injector);
+		panel.initGui();
 
-        return panel.toPanel();
-    }
+		return panel.toPanel();
+	}
 
-    @Override
-    public void taskCreated(final Task aNewTask) {
+	@Override
+	public void taskCreated(final Task aNewTask) {
 
-    }
+	}
 
-    @Override
-    public void taskCreationFailure() {
-    }
+	@Override
+	public void taskCreationFailure() {
+	}
 
-    @Override
-    public void taskEdited(final Task aTask) {
-        // TODO Auto-generated method stub
+	@Override
+	public void taskEdited(final Task aTask) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void eventCreated(final Event aNewEvent) {
-        // TODO Auto-generated method stub
+	@Override
+	public void eventCreated(final Event aNewEvent) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void eventCreationFailure() {
-        // TODO Auto-generated method stub
+	@Override
+	public void eventCreationFailure() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
 	@Override
 	public void milestoneCreated(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void milestoneCreationFailure() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void taskDeleted(Task aTask) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void milestoneCreationFailure() {
+	public void eventDeleted(Event aNewEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void milestoneDeleted(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void taskDeletedFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventDeletedFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void milestoneDeletedFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearPanel() {
 		// TODO Auto-generated method stub
 		
 	}

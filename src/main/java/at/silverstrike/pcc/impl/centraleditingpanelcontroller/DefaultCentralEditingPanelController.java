@@ -61,7 +61,7 @@ class DefaultCentralEditingPanelController implements
 		final Milestone newMilestone = this.persistence.createNewMilestone(null,
 				milestoneName + " + ctl", aProjectIdCurrentlySelectedInTree);
 
-		if (milestoneName != null) {
+		if (newMilestone != null) {
 			this.webGuiBus.broadcastMilestoneCreatedMessage(newMilestone);
 		} else {
 			this.webGuiBus.broadcastMilestoneCreationFailureMessage();
@@ -150,6 +150,43 @@ class DefaultCentralEditingPanelController implements
 	@Override
 	public void milestoneCreationFailure() {
 		this.panel.milestoneCreationFailure();
+		
+	}
+
+	@Override
+	public void taskDeleted(final Task aTask) {
+		this.panel.taskDeleted(aTask);
+		
+	}
+
+
+	@Override
+	public void taskDeletedFailure() {
+		this.panel.taskDeletionFailure();
+		
+	}
+
+	@Override
+	public void eventDeletedFailure() {
+		this.panel.eventDeletionFailure();
+		
+	}
+
+	@Override
+	public void milestoneDeletedFailure() {
+		this.panel.milestoneDeletionFailure();
+		
+	}
+
+	@Override
+	public void eventDeleted(Event aNewEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void milestoneDeleted(Milestone aMilestone) {
+		// TODO Auto-generated method stub
 		
 	}
 }
