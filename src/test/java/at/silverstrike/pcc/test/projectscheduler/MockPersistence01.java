@@ -20,10 +20,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.Assert;
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
-import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.UserData;
@@ -40,15 +38,15 @@ class MockPersistence01 extends MockPersistenceAdapter {
 
     @Override
     public void updateTaskEndTimes(
-            final List<ProcessEndTimeTuple> anEndTimeTuples) {
+            final List<ProcessEndTimeTuple> aEndTimeTuples) {
         Assert.assertNotNull(
                 "null tuples collection given to persistence.",
-                anEndTimeTuples);
+                aEndTimeTuples);
         Assert.assertEquals(
                 "Wrong numbers of tuples given to persistence.", 1,
-                anEndTimeTuples.size());
+                aEndTimeTuples.size());
 
-        final ProcessEndTimeTuple tuple = anEndTimeTuples.get(0);
+        final ProcessEndTimeTuple tuple = aEndTimeTuples.get(0);
 
         Date date =
                 RubyDateTimeUtils.getDate(2010, Calendar.OCTOBER, 25, 11, 30);
@@ -99,9 +97,7 @@ class MockPersistence01 extends MockPersistenceAdapter {
     }
 
     @Override
-    public Event createSubEvent(String aProcessName, Long aParentProcessId) {
-        // TODO Auto-generated method stub
+    public Event createSubEvent(final String aProcessName, final Long aParentProcessId) {
         return null;
     }
-
 }
