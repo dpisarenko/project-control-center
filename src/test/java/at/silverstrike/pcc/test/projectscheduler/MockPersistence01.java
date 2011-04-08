@@ -22,8 +22,10 @@ import java.util.List;
 import junit.framework.Assert;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
@@ -99,5 +101,23 @@ class MockPersistence01 extends MockPersistenceAdapter {
     @Override
     public Event createSubEvent(final String aProcessName, final Long aParentProcessId) {
         return null;
+    }
+
+    @Override
+    public boolean deleteTask(final Task aTask) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean deleteEvent(final Event aEvent) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean deleteMilestone(final Milestone aMilestone) {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

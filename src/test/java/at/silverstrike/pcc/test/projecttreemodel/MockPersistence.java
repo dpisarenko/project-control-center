@@ -22,7 +22,6 @@ import org.hibernate.Session;
 
 import com.google.inject.Injector;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.Event;
@@ -265,5 +264,23 @@ final class MockPersistence implements Persistence {
             final Long aParentProcessId) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public boolean deleteTask(final Task aTask) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean deleteEvent(final Event aEvent) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean deleteMilestone(final Milestone aMilestone) {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

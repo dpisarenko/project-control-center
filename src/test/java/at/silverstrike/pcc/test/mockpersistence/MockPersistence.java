@@ -224,4 +224,22 @@ class MockPersistence implements Persistence {
         return null;
     }
 
+    @Override
+    public boolean deleteTask(final Task aTask) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean deleteEvent(final Event aEvent) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean deleteMilestone(final Milestone aMilestone) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }
