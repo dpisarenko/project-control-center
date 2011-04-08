@@ -114,8 +114,6 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
         this.mainGrid = new GridLayout(2, 1);
         mainGrid.setSizeFull();
-        // mainGrid.setWidth(WIDTH_SCREEN, Sizeable.UNITS_PIXELS);
-        // mainGrid.setHeight(HEIGHT_SCREEN, Sizeable.UNITS_PIXELS);
 
         final VerticalLayout verticalLayoutLeft = new VerticalLayout();
 
@@ -152,7 +150,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         buttonsNewGrid.setComponentAlignment(newTaskButton,
                 Alignment.MIDDLE_LEFT);
 
-        final Button newMeetingButton = getNewMeetingButton();
+        final Button newMeetingButton = getNewEventButton();
         buttonsNewGrid.addComponent(newMeetingButton, 1, 0);
         buttonsNewGrid.setComponentAlignment(newMeetingButton,
                 Alignment.MIDDLE_RIGHT);
@@ -322,14 +320,14 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         return treeLayout;
     }
 
-    private Button getNewMeetingButton() {
-        final Button newMeetingButton = new Button(
+    private Button getNewEventButton() {
+        final Button newEventButton = new Button(
                 TM.get("centraleditingpanel.7-button-newEvent"));
-        newMeetingButton.addListener(this); // react to clicks
-        newMeetingButton.setWidth(WIDTH_OF_NEW_BUTTONS, Sizeable.UNITS_PIXELS);
-        newMeetingButton.setDebugId(this.debugIdRegistry.getDebugId(
+        newEventButton.addListener(this); // react to clicks
+        newEventButton.setWidth(WIDTH_OF_NEW_BUTTONS, Sizeable.UNITS_PIXELS);
+        newEventButton.setDebugId(this.debugIdRegistry.getDebugId(
                 FunctionalBlock.centraleditingpanel, "4-button-newEvent"));
-        return newMeetingButton;
+        return newEventButton;
     }
 
     private Button getNewTaskButton() {
