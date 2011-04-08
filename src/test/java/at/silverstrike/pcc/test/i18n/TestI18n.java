@@ -12,6 +12,8 @@
 package at.silverstrike.pcc.test.i18n;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -20,12 +22,19 @@ import junit.framework.Assert;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import at.silverstrike.pcc.test.projectnetworkgraphcreator.TestDefaultProjectNetworkGraphCreator;
 
 /**
  * @author DP118M
  * 
  */
 public class TestI18n {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(TestI18n.class);
+
     @Test
     public void testTranslations() {
         final List<File> translationDirectories = getTranslationDirectories();
@@ -136,9 +145,15 @@ public class TestI18n {
         return null;
     }
 
-    private Properties file2properties(File curFile) {
-        // TODO Auto-generated method stub
-        return null;
+    private Properties file2properties(final File aFile) {
+        final Properties properties = new Properties();
+        try {
+            properties.load(new FileInputStream(aFile));
+        } catch (final IOException exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+        return properties;
     }
 
     private List<File> getTranslationDirectories() {
