@@ -134,8 +134,12 @@ public class TestI18n {
                     final String translatedValue =
                             properties.getProperty(curKey);
 
-                    if (!StringUtils.isBlank(translatedValue)) {
+                    if (!StringUtils.isBlank(StringUtils
+                            .trimToEmpty(translatedValue))) {
                         tuple.getNonBlankKeys().add(curKey);
+                        LOGGER.debug("Added key '{}', culture: {}, file: {}",
+                                new Object[] { curKey, tuple.getCulture(),
+                                        curFile });
                     }
                 }
             }

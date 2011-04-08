@@ -18,7 +18,6 @@ import java.util.List;
 import org.apache.commons.lang.NotImplementedException;
 import org.hibernate.Session;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
