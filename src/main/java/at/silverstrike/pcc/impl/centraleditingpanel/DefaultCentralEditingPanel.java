@@ -438,12 +438,16 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
             final Integer treeItemId = (Integer) selectedValue;
 
             this.curSelection = this.treeModel.getSchedulingObject(treeItemId);
-            final SchedulingObject newParent = this.curSelection.getParent();
 
-            if (newParent != null) {
-                this.curProjectId = newParent.getId();
-            } else {
-                this.curProjectId = null;
+            if (this.curSelection != null)
+            {
+                final SchedulingObject newParent = this.curSelection.getParent();
+
+                if (newParent != null) {
+                    this.curProjectId = newParent.getId();
+                } else {
+                    this.curProjectId = null;
+                }                
             }
 
             if (this.curSelection instanceof Task) {
