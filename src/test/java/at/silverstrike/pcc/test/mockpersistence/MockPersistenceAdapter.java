@@ -18,7 +18,6 @@ import org.hibernate.Session;
 
 import com.google.inject.Injector;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
@@ -48,20 +47,20 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public Long createHumanResource(final String abbreviation,
-            final String firstName,
-            final String middleName, final String surname,
+    public Long createHumanResource(final String aAbbreviation,
+            final String aFirstName,
+            final String aMiddleName, final String aSurname,
             final double aWorkTime) {
         return null;
     }
 
     @Override
-    public void createProcessParent(final String name, final Long parentItemId) {
-
+    public void
+            createProcessParent(final String aName, final Long aParentItemId) {
     }
 
     @Override
-    public void createSiblingProcess(final Long siblingProcessId) {
+    public void createSiblingProcess(final Long aSiblingProcessId) {
 
     }
 
@@ -72,12 +71,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public Long createTask(final String processName) {
+    public Long createTask(final String aProcessName) {
         return null;
     }
 
     @Override
-    public void deleteProcess(final Long selectedProjectId) {
+    public void deleteProcess(final Long aSelectedProjectId) {
 
     }
 
@@ -112,7 +111,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public DailyPlan getDailyPlan(final Date newDate, final String resource) {
+    public DailyPlan getDailyPlan(final Date aNewDate, final String aResource) {
         return null;
     }
 
@@ -128,7 +127,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public List<SchedulingObject> getSubProcessesWithChildren(
-            final Long processId) {
+            final Long aProcessId) {
         return null;
     }
 
@@ -143,7 +142,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public void handoffProcess(final Long processId, final Long workerId) {
+    public void handoffProcess(final Long aProcessId, final Long aWorkerId) {
 
     }
 
@@ -152,20 +151,20 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public void updateBookings(final List<BookingTuple> bookingTuples) {
+    public void updateBookings(final List<BookingTuple> aBookingTuples) {
     }
 
     @Override
-    public void updateTask(Task process) {
+    public void updateTask(final Task aProcess) {
     }
 
     @Override
     public void
-            updateTaskEndTimes(final List<ProcessEndTimeTuple> endTimeTuples) {
+            updateTaskEndTimes(final List<ProcessEndTimeTuple> aEndTimeTuples) {
     }
 
     @Override
-    public void setInjector(final Injector anInjector) {
+    public void setInjector(final Injector aInjector) {
     }
 
     @Override
@@ -185,13 +184,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
     @Override
     public Milestone createNewMilestone(final String aUser, final String aName,
             final Long aParentTaskId) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Event createSubEvent(String aProcessName, Long aParentProcessId) {
-        // TODO Auto-generated method stub
+    public Event createSubEvent(final String aProcessName,
+            final Long aParentProcessId) {
         return null;
     }
 

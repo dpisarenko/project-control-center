@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.test.persistence;
 
+import static junit.framework.Assert.assertEquals;
+
 import java.util.Date;
 import java.util.List;
 
@@ -88,5 +90,32 @@ public class TestDefaultPersistence {
         Assert.assertEquals(0, persistence.getChildTasks((Long) null).size());
         Assert.assertNotNull(persistence.getSubProcessesWithChildren((Long) null));
         Assert.assertEquals(0, persistence.getSubProcessesWithChildren((Long) null).size());
+    }
+    
+    @Test
+    public void testEventCreation()
+    {
+        // Get object under test (persistence)
+        final Persistence persistence = new DefaultPersistence();
+
+        try {
+            persistence.openSession();
+        } catch (final RuntimeException exception) {
+            Assert.fail(exception.getMessage());
+        } catch (final Exception exception) {
+            Assert.fail(exception.getMessage());
+        }
+
+        // Clear database
+        persistence.clearDatabase();
+
+        // Количество объектов должно быть нулевым
+        assertEquals(0, persistence.getSubProcessesWithChildren(null).size());
+        
+        // Создаём событие
+        persistence.createSubEvent("test event", null);
+        
+        // Проверяем - создалось ли событие
+        assertEquals(1, persistence.getSubProcessesWithChildren(null).size());
     }
 }

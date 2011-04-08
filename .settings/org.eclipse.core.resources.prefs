@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #Fri Apr 08 14:38:55 MSD 2011
+=======
+#Fri Apr 08 16:59:20 CEST 2011
+>>>>>>> 263c9c2165ccdbbaddf4651bec38bc4cb99c1f2e
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
 >>>>>>>=d6e58aa4a46738f02189801397ed0b8f3b26ae07
@@ -22,8 +26,9 @@ encoding//src/main/java/at/silverstrike/pcc/impl/milestoneeditingpanel/DefaultMi
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/centraleditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/centraleditingpanelcontroller.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/dependencieseditingwindow.properties=UTF-8
-encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/editingprocesspanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/entrywindow.properties=UTF-8
+encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/eventeditingpanel.properties=UTF-8
+encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/milestoneeditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/projectnetworkgraphpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/projecttreemodel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/schedulingpanel.properties=UTF-8
@@ -33,15 +38,11 @@ encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/centraleditingpanel.properti
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/centraleditingpanelcontroller.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/dailyplanpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/dependencieseditingwindow.properties=UTF-8
-encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/editingprocesspanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/entrywindow.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/estimatedcompletiontimespanel.properties=UTF-8
-encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/eventeditingprocesspanel.properties=UTF-8
-encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/goalattainingprocessparentpanel.properties=UTF-8
-encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/mainprocesseditingpanel.properties=UTF-8
+encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/eventeditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/mainwindow.properties=UTF-8
-encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/milestoneeditingprocesspanel.properties=UTF-8
-encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/processpanel.properties=UTF-8
+encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/milestoneeditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/projectnetworkgraphpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/projecttreemodel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/schedulingpanel.properties=UTF-8

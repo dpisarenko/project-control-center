@@ -16,6 +16,7 @@
 		</id>
 		<property name="name" />
 		<property name="priority" />
+		<property name="state" />
 		<many-to-one name="parent"
 			class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject"
 			lazy="false" />
@@ -42,7 +43,6 @@
 		<joined-subclass name="at.silverstrike.pcc.impl.persistence.DefaultTask"
 			table="TBL_TASK" lazy="false">
 			<key column="TASK_ID" />
-			<property name="state" />
 			<property name="bestCaseEffort" />
 			<property name="worstCaseEffort" />
 			<property name="averageEstimatedEndDateTime" />

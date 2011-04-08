@@ -21,102 +21,104 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
 
 class DefaultWebGuiBus implements WebGuiBus {
-    private List<WebGuiBusListener> listeners;
+	private List<WebGuiBusListener> listeners;
 
-    public DefaultWebGuiBus() {
-        this.listeners = new LinkedList<WebGuiBusListener>();
-    }
+	public DefaultWebGuiBus() {
+		this.listeners = new LinkedList<WebGuiBusListener>();
+	}
 
-    @Override
-    public void addListener(final WebGuiBusListener aListener) {
-        if (!this.listeners.contains(aListener)) {
-            this.listeners.add(aListener);
-        }
-    }
+	@Override
+	public void addListener(final WebGuiBusListener aListener) {
+		if (!this.listeners.contains(aListener)) {
+			this.listeners.add(aListener);
+		}
+	}
 
-    @Override
-    public void broadcastTaskCreatedMessage(final Task aNewTask) {
-        for (final WebGuiBusListener listener : this.listeners) {
-            listener.taskCreated(aNewTask);
-        }
-    }
+	@Override
+	public void broadcastTaskCreatedMessage(final Task aNewTask) {
+		for (final WebGuiBusListener listener : this.listeners) {
+			listener.taskCreated(aNewTask);
+		}
+	}
 
-    @Override
-    public void broadcastTaskCreationFailureMessage() {
-        for (final WebGuiBusListener listener : this.listeners) {
-            listener.taskCreationFailure();
-        }
-    }
+	@Override
+	public void broadcastTaskCreationFailureMessage() {
+		for (final WebGuiBusListener listener : this.listeners) {
+			listener.taskCreationFailure();
+		}
+	}
 
-    @Override
-    public void broadcastTaskEditedMessage(final Task aTask) {
-        for (final WebGuiBusListener listener : this.listeners) {
-            listener.taskEdited(aTask);
-        }
-    }
+	@Override
+	public void broadcastTaskEditedMessage(final Task aTask) {
+		for (final WebGuiBusListener listener : this.listeners) {
+			listener.taskEdited(aTask);
+		}
+	}
 
-    @Override
-    public void broadcastEventCreatedMessage(final Event aNewEvent) {
-        for (final WebGuiBusListener listener : this.listeners) {
-            listener.eventCreated(aNewEvent);
-        }
-    }
+	@Override
+	public void broadcastEventCreatedMessage(final Event aNewEvent) {
+		for (final WebGuiBusListener listener : this.listeners) {
+			listener.eventCreated(aNewEvent);
+		}
+	}
 
-    @Override
-    public void broadcastEventCreationFailureMessage() {
-        for (final WebGuiBusListener listener : this.listeners) {
-            listener.eventCreationFailure();
-        }
-    }
+	@Override
+	public void broadcastEventCreationFailureMessage() {
+		for (final WebGuiBusListener listener : this.listeners) {
+			listener.eventCreationFailure();
+		}
+	}
 
 	@Override
 	public void broadcastMilestoneCreatedMessage(final Milestone aMilestone) {
-        for (final WebGuiBusListener listener : this.listeners) {
-            listener.milestoneCreated(aMilestone);
-        }
-		
+		for (final WebGuiBusListener listener : this.listeners) {
+			listener.milestoneCreated(aMilestone);
+		}
+
 	}
 
 	@Override
 	public void broadcastMilestoneCreationFailureMessage() {
-        for (final WebGuiBusListener listener : this.listeners) {
-            listener.milestoneCreationFailure();
-        }		
+		for (final WebGuiBusListener listener : this.listeners) {
+			listener.milestoneCreationFailure();
+
+		}
 	}
 
 	@Override
 	public void broadcastTaskDeletedMessage(Task aTask) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void broadcastTaskDeletionFailureMessage() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void broadcastEventDeletedMessage(Event aEvent) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void broadcastEventDeletionFailureMessage() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void broadcastMilestoneDeletedMessage(Milestone aMilestone) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void broadcastMilestoneDeletionFailureMessage() {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 }
