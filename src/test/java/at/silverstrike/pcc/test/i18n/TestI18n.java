@@ -162,8 +162,8 @@ public class TestI18n {
     private List<File> getTranslationDirectories() {
         final List<File> returnValue = new LinkedList<File>();
 
-        returnValue.add(new File("webapp/VAADIN/themes/pcc/i18n/en"));
-        returnValue.add(new File("webapp/VAADIN/themes/pcc/i18n/ru"));
+        returnValue.add(new File("src/main/webapp/VAADIN/themes/pcc/i18n/en"));
+        returnValue.add(new File("src/main/webapp/VAADIN/themes/pcc/i18n/ru"));
 
         for (final File curFile : returnValue) {
             Assert.assertTrue(
