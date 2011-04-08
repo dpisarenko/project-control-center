@@ -42,6 +42,9 @@ public class TestI18n {
 
         for (final ProblemTuple tuple : pt) {
             LOGGER.debug(tuple.toString());
+        }
+        
+        for (final ProblemTuple tuple : pt) {
             Assert.assertEquals(0, tuple.getProblematicKeys().size());
         }
     }
