@@ -33,7 +33,13 @@ public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
 
     void eventCreationFailure();
 
-	void milestoneCreated(final Milestone aMilestone);
+    void milestoneCreated(final Milestone aMilestone);
 
-	void milestoneCreationFailure();
+    void milestoneCreationFailure();
+
+    void taskDeleted(final Task aDeletedSchedulingObject);
+
+    void milestoneDeleted(final Milestone aDeletedSchedulingObject);
+
+    void eventDeleted(final Event aDeletedSchedulingObject);
 }
