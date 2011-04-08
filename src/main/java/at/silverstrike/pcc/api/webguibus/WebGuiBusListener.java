@@ -29,4 +29,16 @@ public interface WebGuiBusListener {
 	void milestoneCreated(final Milestone aMilestone);
 
 	void milestoneCreationFailure();
+	
+	void taskDeleted(final Task aTask);
+	
+	void eventDeleted(final Event aNewEvent);
+	
+	void milestoneDeleted(final Milestone aMilestone);
+	
+	void taskDeletedFailure();
+	
+	void eventDeletedFailure();
+	
+	void milestoneDeletedFailure();
 }

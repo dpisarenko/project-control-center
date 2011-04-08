@@ -1112,5 +1112,26 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }
         return returnValue;
-    };
+    }
+
+	@Override
+	public boolean deleteTask(Task aTask) {
+		return false;
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean deleteEvent(Event aEvent) {
+		return false;
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean deleteMilestone(Milestone aMilestone) {
+		return false;
+		// TODO Auto-generated method stub
+		
+	};
 }

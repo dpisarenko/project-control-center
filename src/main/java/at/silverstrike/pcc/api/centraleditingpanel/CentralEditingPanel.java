@@ -35,6 +35,21 @@ public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
 
     void milestoneCreated(final Milestone aMilestone);
 
+// start of my changes<<<<<<< HEAD
+	//void milestoneCreationFailure();
+
+	//void taskDeleted(final Task aTask);
+
+	void taskDeletionFailure();
+	
+   // void eventDeleted(final Event aNewEvent);
+
+    void eventDeletionFailure();
+
+	//void milestoneDeleted(final Milestone aMilestone);
+
+	void milestoneDeletionFailure();
+// end of my changes=======
     void milestoneCreationFailure();
 
     void taskDeleted(final Task aDeletedSchedulingObject);
@@ -42,4 +57,5 @@ public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
     void milestoneDeleted(final Milestone aDeletedSchedulingObject);
 
     void eventDeleted(final Event aDeletedSchedulingObject);
+
 }

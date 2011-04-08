@@ -103,4 +103,40 @@ class DefaultEventEditingPanelController implements
 
     }
 
+	@Override
+	public void taskDeleted(Task aTask) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventDeleted(Event aNewEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void milestoneDeleted(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void taskDeletedFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventDeletedFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void milestoneDeletedFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

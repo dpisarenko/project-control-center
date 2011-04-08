@@ -30,4 +30,9 @@ public interface TaskEditingPanelController extends
      * что все поля панели дела заполняются данными переданного объекта.
      */
     void setData(final Task aTask);
+
+    /**
+     * Этот метод удаляет значения полей панели при удалении Task из базы.
+     */
+	void clearPanel();
 }

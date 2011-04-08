@@ -542,6 +542,47 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
     }
 
+    /*start of my changes
+<<<<<<< HEAD
+	@Override
+	public void taskDeleted(Task aTask) {
+		this.taskEditingPanelController.clearPanel();
+		updateTree();
+		
+	}
+*/
+	@Override
+	public void taskDeletionFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+/*
+	@Override
+	public void eventDeleted(at.silverstrike.pcc.api.model.Event aNewEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+*/
+	@Override
+	public void eventDeletionFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+/*
+	@Override
+	public void milestoneDeleted(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+*/
+	@Override
+	public void milestoneDeletionFailure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+//end of my changes 
+
     /**
      * Вызов этого метода обновляет сетевой график
      */
@@ -642,4 +683,5 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
             final at.silverstrike.pcc.api.model.Event aDeletedSchedulingObject) {
         this.redrawProjectNetwork();
     }
+
 }

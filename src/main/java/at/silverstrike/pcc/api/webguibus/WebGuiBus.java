@@ -40,4 +40,16 @@ public interface WebGuiBus {
 	void broadcastMilestoneCreatedMessage(final Milestone aMilestone);
 	
 	void broadcastMilestoneCreationFailureMessage();
+
+	void broadcastTaskDeletedMessage(final Task aTask);
+	
+	void broadcastTaskDeletionFailureMessage();
+	
+	void broadcastEventDeletedMessage(final Event aEvent);
+	
+	void broadcastEventDeletionFailureMessage();
+	
+	void broadcastMilestoneDeletedMessage(final Milestone aMilestone);
+	
+	void broadcastMilestoneDeletionFailureMessage();
 }
