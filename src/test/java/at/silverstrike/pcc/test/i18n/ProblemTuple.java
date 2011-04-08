@@ -11,27 +11,34 @@
 
 package at.silverstrike.pcc.test.i18n;
 
-import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author DP118M
- *
+ * 
  */
 class ProblemTuple {
     private String culture;
-    private List<File> problematicKeys;
-    
+    private List<String> problematicKeys;
+
+    public ProblemTuple() {
+        this.problematicKeys = new LinkedList<String>();
+    }
+
     public String getCulture() {
         return culture;
     }
+
     public void setCulture(final String aCulture) {
         this.culture = aCulture;
     }
-    public List<File> getProblematicKeys() {
+
+    public List<String> getProblematicKeys() {
         return problematicKeys;
     }
-    public void setProblematicKeys(final List<File> aProblematicKeys) {
+
+    public void setProblematicKeys(final List<String> aProblematicKeys) {
         this.problematicKeys = aProblematicKeys;
     }
 }

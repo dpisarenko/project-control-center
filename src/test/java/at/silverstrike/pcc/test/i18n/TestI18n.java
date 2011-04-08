@@ -14,9 +14,11 @@ package at.silverstrike.pcc.test.i18n;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
 import junit.framework.Assert;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 /**
@@ -36,13 +38,105 @@ public class TestI18n {
         }
     }
 
-    private List<ProblemTuple> getProblemTuples(List<KeyAndLanguageTuple> klt) {
+    private List<ProblemTuple> getProblemTuples(
+            final List<KeyAndLanguageTuple> aKlt) {
+        final List<String> allNonBlankKeys = getAllKeys(aKlt);
+        final List<ProblemTuple> returnValue = new LinkedList<ProblemTuple>();
+
+        /**
+         * Делаем для каждого языка ProblemTuple
+         */
+        for (final KeyAndLanguageTuple curKlt : aKlt) {
+            final ProblemTuple problemTuple = new ProblemTuple();
+            problemTuple.setCulture(curKlt.getCulture());
+            returnValue.add(problemTuple);
+        }
+
+        /**
+         * Смотрим, в каких языках нет перевода
+         */
+        for (final String curKey : allNonBlankKeys) {
+            /**
+             * Проверяем каждый язык
+             */
+            for (int i = 0; i < aKlt.size(); i++) {
+                final KeyAndLanguageTuple klt = aKlt.get(i);
+                final ProblemTuple problemTuple = returnValue.get(i);
+
+                if (!klt.getNonBlankKeys().contains(curKey)) {
+                    problemTuple.getProblematicKeys().add(curKey);
+                }
+            }
+        }
+
+        return returnValue;
+    }
+
+    private List<String> getAllKeys(final List<KeyAndLanguageTuple> aKlt) {
+        final List<String> returnValue = new LinkedList<String>();
+
+        for (final KeyAndLanguageTuple curTuple : aKlt) {
+            for (final String nonBlankKey : curTuple.getNonBlankKeys()) {
+                if (!returnValue.contains(nonBlankKey)) {
+                    returnValue.add(nonBlankKey);
+                }
+            }
+        }
+
+        return returnValue;
+    }
+
+    private List<KeyAndLanguageTuple> getKeyAndLanguageTuples(
+            final List<File> aDirectories) {
+        final List<KeyAndLanguageTuple> returnValue =
+                new LinkedList<KeyAndLanguageTuple>();
+        for (final File curDirectory : aDirectories) {
+            final KeyAndLanguageTuple tuple = new KeyAndLanguageTuple();
+
+            /**
+             * Указываем идентификатор языка
+             */
+            tuple.setCulture(getCulture(curDirectory));
+
+            /**
+             * Берём перечень всех файлов в директории
+             */
+            final File[] files = curDirectory.listFiles();
+
+            /**
+             * Изучаем каждый файл
+             */
+            for (final File curFile : files) {
+                /**
+                 * Вычитать все значения
+                 */
+                final Properties properties = file2properties(curFile);
+
+                /**
+                 * Добавляем в список все не-пустые значения
+                 */
+                for (final Object curKeyAsObject : properties.keySet()) {
+                    final String curKey = (String) curKeyAsObject;
+                    final String translatedValue =
+                            properties.getProperty(curKey);
+
+                    if (!StringUtils.isBlank(translatedValue)) {
+                        tuple.getNonBlankKeys().add(curKey);
+                    }
+                }
+            }
+
+            returnValue.add(tuple);
+        }
+        return returnValue;
+    }
+
+    private String getCulture(File curDirectory) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    private List<KeyAndLanguageTuple> getKeyAndLanguageTuples(
-            List<File> translationDirectories) {
+    private Properties file2properties(File curFile) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -63,5 +157,4 @@ public class TestI18n {
 
         return returnValue;
     }
-
 }

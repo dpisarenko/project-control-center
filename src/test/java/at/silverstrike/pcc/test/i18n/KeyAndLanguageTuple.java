@@ -11,25 +11,33 @@
 
 package at.silverstrike.pcc.test.i18n;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author DP118M
- *
+ * 
  */
 class KeyAndLanguageTuple {
     private String culture;
     private List<String> nonBlankKeys;
-    
+
+    public KeyAndLanguageTuple() {
+        this.nonBlankKeys = new LinkedList<String>();
+    }
+
     public String getCulture() {
         return culture;
     }
+
     public void setCulture(String culture) {
         this.culture = culture;
     }
+
     public List<String> getNonBlankKeys() {
         return nonBlankKeys;
     }
+
     public void setNonBlankKeys(List<String> nonBlankKeys) {
         this.nonBlankKeys = nonBlankKeys;
     }
