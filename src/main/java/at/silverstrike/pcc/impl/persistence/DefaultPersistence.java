@@ -1114,19 +1114,22 @@ public class DefaultPersistence implements Persistence {
     }
 
 	@Override
-	public void deleteTask(Task aTask) {
+	public boolean deleteTask(Task aTask) {
+		return false;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteEvent(Event aEvent) {
+	public boolean deleteEvent(Event aEvent) {
+		return false;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteMilestone(Milestone aMilestone) {
+	public boolean deleteMilestone(Milestone aMilestone) {
+		return false;
 		// TODO Auto-generated method stub
 		
 	};

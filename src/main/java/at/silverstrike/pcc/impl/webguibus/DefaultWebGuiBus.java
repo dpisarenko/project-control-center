@@ -83,4 +83,40 @@ class DefaultWebGuiBus implements WebGuiBus {
             listener.milestoneCreationFailure();
         }		
 	}
+
+	@Override
+	public void broadcastTaskDeletedMessage(Task aTask) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void broadcastTaskDeletionFailureMessage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void broadcastEventDeletedMessage(Event aEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void broadcastEventDeletionFailureMessage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void broadcastMilestoneDeletedMessage(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void broadcastMilestoneDeletionFailureMessage() {
+		// TODO Auto-generated method stub
+		
+	}
 }
