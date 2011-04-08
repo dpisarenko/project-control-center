@@ -23,6 +23,11 @@ public interface SchedulingObject extends UniquelyIdentifiableObject {
     int HIGHEST_PRIORITY = 1000;
     int LOWEST_PRIORITY = 0;
 
+    ProcessState getState();
+
+    void setState(final ProcessState aState);
+
+    
     /**
      * Label is used for displaying of the scheduling object in the
      * project network graph.

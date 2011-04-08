@@ -59,15 +59,13 @@ class DefaultEventEditingPanel extends Panel implements
     private transient Injector injector;
     private transient EventEditingPanelController controller;
     private transient DebugIdRegistry debugIdRegistry;
-	private TextField taskNameTextField;
+    private TextField taskNameTextField;
 
     public TextField getTaskNameTextField() {
-		return taskNameTextField;
-	}
+        return taskNameTextField;
+    }
 
-	
-
-	@Override
+    @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             injector = aInjector;
@@ -214,9 +212,9 @@ class DefaultEventEditingPanel extends Panel implements
         return this;
     }
 
-	@Override
-	public void setEventName(final String aEventName) {
-		taskNameTextField.setValue(aEventName);		
-	}
-    
+    @Override
+    public void setEventName(final String aEventName) {
+        taskNameTextField.setValue(aEventName);
+    }
+
 }

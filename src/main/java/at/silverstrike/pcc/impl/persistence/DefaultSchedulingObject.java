@@ -13,6 +13,7 @@ package at.silverstrike.pcc.impl.persistence;
 
 import java.util.Set;
 
+import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
 /**
@@ -25,6 +26,7 @@ class DefaultSchedulingObject implements SchedulingObject {
     private Integer priority;
     private SchedulingObject parent;
     private Set<SchedulingObject> predecessors;
+    protected ProcessState state;
 
     public DefaultSchedulingObject() {
         this.id = -1L;
@@ -82,4 +84,11 @@ class DefaultSchedulingObject implements SchedulingObject {
         this.id = aId;
     }
 
+    public ProcessState getState() {
+        return state;
+    }
+
+    public void setState(final ProcessState aState) {
+        this.state = aState;
+    }
 }

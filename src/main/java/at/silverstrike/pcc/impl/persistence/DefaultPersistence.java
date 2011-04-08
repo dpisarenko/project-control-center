@@ -69,12 +69,12 @@ public class DefaultPersistence implements Persistence {
     private static final String STATE_SCHEDULED = ":stateScheduled";
     private static final String SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE =
             "from "
-                    + "DefaultTask p where (p.parent.id = ${processId}) and (state <> "
+                    + "DefaultSchedulingObject p where (p.parent.id = ${processId}) and (state <> "
                     + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
                     + ") order by priority desc";
     private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL =
             "from "
-                    + "DefaultTask p where (p.parent is null) and (state <> "
+                    + "DefaultSchedulingObject p where (p.parent is null) and (state <> "
                     + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
                     + ") order by priority desc";
     private static final String UNCOMPLETED_TASKS_WITH_ESTIMATED_END_TIME_HQL =
@@ -179,14 +179,14 @@ public class DefaultPersistence implements Persistence {
             final Long aParentItemId) {
         final Transaction tx = session.beginTransaction();
 
-        final DefaultTask task = new DefaultTask();
+        final DefaultSchedulingObject task = new DefaultTask();
 
         task.setName(aName);
 
         try {
             if (aParentItemId != null) {
-                final DefaultTask parentTask =
-                        (DefaultTask) session.get(
+                final DefaultSchedulingObject parentTask =
+                        (DefaultSchedulingObject) session.get(
                                 DefaultTask.class, aParentItemId);
 
                 task.setParent(parentTask);
@@ -262,7 +262,7 @@ public class DefaultPersistence implements Persistence {
     public final Long createTask(final String aProcessName) {
         final Transaction tx = session.beginTransaction();
 
-        final DefaultTask task = new DefaultTask();
+        final DefaultSchedulingObject task = new DefaultTask();
         task.setName(aProcessName);
 
         try {
@@ -381,7 +381,7 @@ public class DefaultPersistence implements Persistence {
 
             for (final Object record : result) {
                 if (record instanceof DefaultTask) {
-                    returnValue.add((DefaultTask) record);
+                    returnValue.add((DefaultSchedulingObject) record);
                 }
             }
             tx.commit();

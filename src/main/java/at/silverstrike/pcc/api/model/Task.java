@@ -15,10 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface Task extends SchedulingObject {
-    ProcessState getState();
-
-    void setState(final ProcessState aState);
-
     /**
      * Get effort estimate in hours (best case).
      */

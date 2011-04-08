@@ -26,130 +26,131 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 
 class DefaultCentralEditingPanelController implements
-		CentralEditingPanelController {
-	private Injector injector = null;
-	private Persistence persistence;
-	private WebGuiBus webGuiBus;
-	private CentralEditingPanel panel;
+        CentralEditingPanelController {
+    private Injector injector = null;
+    private Persistence persistence;
+    private WebGuiBus webGuiBus;
+    private CentralEditingPanel panel;
 
-	@Override
-	public void setInjector(final Injector aInjector) {
-		if (aInjector != null) {
-			this.injector = aInjector;
-			this.persistence = this.injector.getInstance(Persistence.class);
-			this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
-		}
-	}
+    @Override
+    public void setInjector(final Injector aInjector) {
+        if (aInjector != null) {
+            this.injector = aInjector;
+            this.persistence = this.injector.getInstance(Persistence.class);
+            this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
+        }
+    }
 
-	@Override
-	public void increasePriorityButtonClicked() {
-		// TODO Auto-generated method stub
+    @Override
+    public void increasePriorityButtonClicked() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void decreasePriorityButtonClicked() {
-		// TODO Auto-generated method stub
+    @Override
+    public void decreasePriorityButtonClicked() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void createMilestone(final String aUserIdentity,
-			final Long aProjectIdCurrentlySelectedInTree) {
-		final String milestoneName = TM
-				.get("centraleditingpanelcontroller.3-new-milestone-name");
-		final Milestone newMilestone = this.persistence.createNewMilestone(null,
-				milestoneName + " + ctl", aProjectIdCurrentlySelectedInTree);
+    @Override
+    public void createMilestone(final String aUserIdentity,
+            final Long aProjectIdCurrentlySelectedInTree) {
+        final String milestoneName = TM
+                .get("centraleditingpanelcontroller.3-new-milestone-name");
+        final Milestone newMilestone =
+                this.persistence.createNewMilestone(null,
+                        milestoneName + " + ctl",
+                        aProjectIdCurrentlySelectedInTree);
 
-		if (milestoneName != null) {
-			this.webGuiBus.broadcastMilestoneCreatedMessage(newMilestone);
-		} else {
-			this.webGuiBus.broadcastMilestoneCreationFailureMessage();
-		}
-	}
+        if (milestoneName != null) {
+            this.webGuiBus.broadcastMilestoneCreatedMessage(newMilestone);
+        } else {
+            this.webGuiBus.broadcastMilestoneCreationFailureMessage();
+        }
+    }
 
-	@Override
-	public void createTask(final String aUserIdentity,
-			final Long aProjectIdCurrentlySelectedInTree) {
-		final String taskName = TM
-				.get("centraleditingpanelcontroller.1-new-task-name");
-		final Task newTask = this.persistence.createSubTask(
-				taskName + " + ctl", aProjectIdCurrentlySelectedInTree);
+    @Override
+    public void createTask(final String aUserIdentity,
+            final Long aProjectIdCurrentlySelectedInTree) {
+        final String taskName = TM
+                .get("centraleditingpanelcontroller.1-new-task-name");
+        final Task newTask = this.persistence.createSubTask(
+                taskName + " + ctl", aProjectIdCurrentlySelectedInTree);
 
-		if (newTask != null) {
-			this.webGuiBus.broadcastTaskCreatedMessage(newTask);
-		} else {
-			this.webGuiBus.broadcastTaskCreationFailureMessage();
-		}
-	}
+        if (newTask != null) {
+            this.webGuiBus.broadcastTaskCreatedMessage(newTask);
+        } else {
+            this.webGuiBus.broadcastTaskCreationFailureMessage();
+        }
+    }
 
-	@Override
-	public void createEvent(final String aUserIdentity,
-			final Long aProjectIdCurrentlySelectedInTree) {
-		final String eventName = TM
-				.get("centraleditingpanelcontroller.2-new-event-name");
-		final Event newEvent = this.persistence.createSubEvent(eventName
-				+ " + ctl", aProjectIdCurrentlySelectedInTree);
+    @Override
+    public void createEvent(final String aUserIdentity,
+            final Long aProjectIdCurrentlySelectedInTree) {
+        final String eventName = TM
+                .get("centraleditingpanelcontroller.2-new-event-name");
+        final Event newEvent = this.persistence.createSubEvent(eventName
+                + " + ctl", aProjectIdCurrentlySelectedInTree);
 
-		if (newEvent != null) {
-			this.webGuiBus.broadcastEventCreatedMessage(newEvent);
-		} else {
-			this.webGuiBus.broadcastEventCreationFailureMessage();
-		}
+        if (newEvent != null) {
+            this.webGuiBus.broadcastEventCreatedMessage(newEvent);
+        } else {
+            this.webGuiBus.broadcastEventCreationFailureMessage();
+        }
+    }
 
-	}
+    @Override
+    public void taskCreated(final Task aNewTask) {
+        this.panel.taskCreated(aNewTask);
+    }
 
-	@Override
-	public void taskCreated(final Task aNewTask) {
-		this.panel.taskCreated(aNewTask);
-	}
+    @Override
+    public void taskCreationFailure() {
+        this.panel.taskCreationFailure();
+    }
 
-	@Override
-	public void taskCreationFailure() {
-		this.panel.taskCreationFailure();
-	}
+    @Override
+    public Panel initGui() {
+        this.webGuiBus.addListener(this);
 
-	@Override
-	public Panel initGui() {
-		this.webGuiBus.addListener(this);
+        final CentralEditingPanelFactory factory = this.injector
+                .getInstance(CentralEditingPanelFactory.class);
+        panel = factory.create();
 
-		final CentralEditingPanelFactory factory = this.injector
-				.getInstance(CentralEditingPanelFactory.class);
-		panel = factory.create();
+        panel.setGuiController(this);
+        panel.setInjector(this.injector);
+        panel.initGui();
 
-		panel.setGuiController(this);
-		panel.setInjector(this.injector);
-		panel.initGui();
+        return panel.toPanel();
+    }
 
-		return panel.toPanel();
-	}
+    @Override
+    public void taskEdited(final Task aTask) {
+        this.panel.updateTaskNodeInTree(aTask);
+    }
 
-	@Override
-	public void taskEdited(final Task aTask) {
-		this.panel.updateTaskNodeInTree(aTask);
-	}
+    @Override
+    public void eventCreated(Event aNewEvent) {
+        this.panel.eventCreated(aNewEvent);
 
-	@Override
-	public void eventCreated(Event aNewEvent) {
-		this.panel.eventCreated(aNewEvent);
+    }
 
-	}
+    @Override
+    public void eventCreationFailure() {
+        this.panel.eventCreationFailure();
 
-	@Override
-	public void eventCreationFailure() {
-		this.panel.eventCreationFailure();
+    }
 
-	}
+    @Override
+    public void milestoneCreated(Milestone aMilestone) {
+        this.panel.milestoneCreated(aMilestone);
 
-	@Override
-	public void milestoneCreated(Milestone aMilestone) {
-		this.panel.milestoneCreated(aMilestone);
-		
-	}
+    }
 
-	@Override
-	public void milestoneCreationFailure() {
-		this.panel.milestoneCreationFailure();
-		
-	}
+    @Override
+    public void milestoneCreationFailure() {
+        this.panel.milestoneCreationFailure();
+
+    }
 }

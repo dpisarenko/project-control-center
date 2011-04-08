@@ -69,18 +69,18 @@ class DefaultWebGuiBus implements WebGuiBus {
         }
     }
 
-	@Override
-	public void broadcastMilestoneCreatedMessage(final Milestone aMilestone) {
+    @Override
+    public void broadcastMilestoneCreatedMessage(final Milestone aMilestone) {
         for (final WebGuiBusListener listener : this.listeners) {
             listener.milestoneCreated(aMilestone);
         }
-		
-	}
 
-	@Override
-	public void broadcastMilestoneCreationFailureMessage() {
+    }
+
+    @Override
+    public void broadcastMilestoneCreationFailureMessage() {
         for (final WebGuiBusListener listener : this.listeners) {
             listener.milestoneCreationFailure();
-        }		
-	}
+        }
+    }
 }

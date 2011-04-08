@@ -24,8 +24,6 @@ import at.silverstrike.pcc.api.model.ResourceAllocation;
  */
 class DefaultTask extends DefaultSchedulingObject implements
         Task {
-    
-    private ProcessState state;
     private Double bestCaseEffort;
     private Double worstCaseEffort;
     private List<ResourceAllocation> resourceAllocations;
@@ -36,14 +34,6 @@ class DefaultTask extends DefaultSchedulingObject implements
     public DefaultTask() {
         super();
         this.state = ProcessState.REPORTED;
-    }
-
-    public ProcessState getState() {
-        return state;
-    }
-
-    public void setState(final ProcessState aState) {
-        this.state = aState;
     }
 
     public Double getBestCaseEffort() {
