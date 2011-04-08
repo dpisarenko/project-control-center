@@ -1018,7 +1018,8 @@ public class DefaultPersistence implements Persistence {
                     { "DefaultDailyLimitResourceAllocation",
                             "DefaultResourceAllocation", "DefaultBooking",
                             "DefaultDailyPlan", "DefaultDailySchedule",
-                            "DefaultResource", "DefaultTask",
+                            "DefaultResource", "DefaultTask", "DefaultEvent",
+                            "DefaultMilestone", "DefaultSchedulingObject",
                             "DefaultDailyToDoList", "DefaultWorker" };
 
             for (final String entityToDelete : entitiesToDelete) {
