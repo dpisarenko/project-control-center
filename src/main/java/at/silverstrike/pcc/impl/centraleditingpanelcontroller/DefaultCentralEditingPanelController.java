@@ -28,9 +28,9 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 class DefaultCentralEditingPanelController implements
         CentralEditingPanelController {
     private Injector injector = null;
-    private Persistence persistence;
-    private WebGuiBus webGuiBus;
-    private CentralEditingPanel panel;
+    private Persistence persistence = null;
+    private WebGuiBus webGuiBus = null;
+    private CentralEditingPanel panel = null;
 
     @Override
     public void setInjector(final Injector aInjector) {
