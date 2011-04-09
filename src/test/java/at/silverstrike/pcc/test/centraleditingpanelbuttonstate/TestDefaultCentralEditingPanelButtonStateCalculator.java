@@ -35,7 +35,7 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
                     .getLogger(TestDefaultCentralEditingPanelButtonStateCalculator.class);
 
     @Test
-    public void testOnEmptyDatabase() {
+    public final void testOnEmptyDatabase() {
         final CentralEditingPanelButtonStateCalculator objectUnderTest =
                 getObjectUnderTest(new MockPersistenceEmptyDb());
 
@@ -44,7 +44,7 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
     }
     
     @Test
-    public void testOnTopLevelProcesses() {
+    public final void testOnTopLevelProcesses() {
     }
 
     private void executeTest(
