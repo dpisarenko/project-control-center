@@ -33,11 +33,11 @@ public final class LineReader {
     }
 
     @SuppressWarnings("unchecked")
-    public static List<String> readTrimmedLines(final File anInputFile) {
+    public static List<String> readTrimmedLines(final File aInputFile) {
         List<String> expectedLines = null;
 
         try {
-            expectedLines = trim(readLines(anInputFile));
+            expectedLines = trim(readLines(aInputFile));
         } catch (final IOException exception) {
             LOGGER.error("", exception);
             Assert.fail(exception.getMessage());
