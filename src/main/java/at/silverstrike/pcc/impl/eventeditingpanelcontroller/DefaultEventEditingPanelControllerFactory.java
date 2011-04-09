@@ -22,7 +22,7 @@ public final class DefaultEventEditingPanelControllerFactory implements
         EventEditingPanelControllerFactory {
 
     @Override
-    public final EventEditingPanelController create() {
+    public EventEditingPanelController create() {
         return new DefaultEventEditingPanelController();
     }
 }
