@@ -131,11 +131,6 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         graphPanel.setInjector(injector);
         graphPanel.initGui();
 
-        final List<SchedulingObjectDependencyTuple> tuples =
-                getDependencyTuples();
-
-        graphPanel.updatePanel(tuples);
-
         final com.vaadin.ui.Layout graphPanelLayout = graphPanel.toLayout();
 
         graphPanelLayout.setWidth(DEFAULT_WIDTH_PIXELS, UNITS_PIXELS);
@@ -276,48 +271,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         mainGrid.addComponent(verticalPanelRight, 1, 0);
     }
 
-    private List<SchedulingObjectDependencyTuple> getDependencyTuples() {
-        final List<SchedulingObjectDependencyTuple> tuples =
-                new LinkedList<SchedulingObjectDependencyTuple>();
-
-        final String P2_2 = "P2.2";
-        final String P2_3 = "P2.3";
-        final String P2_4 = "P2.4";
-        final String P2_5 = "P2.5";
-        final String P2_6 = "P2.6";
-        final String P2_7 = "P2.7";
-        final String P2_8 = "P2.8";
-
-        tuples.add(getTuple(P2_2, new String[] {}));
-        tuples.add(getTuple(P2_3, new String[] { P2_2 }));
-        tuples.add(getTuple(P2_4, new String[] { P2_2 }));
-        tuples.add(getTuple(P2_5, new String[] { P2_2, P2_4 }));
-        tuples.add(getTuple(P2_6, new String[] { P2_5 }));
-        tuples.add(getTuple(P2_7, new String[] { P2_2, P2_3, P2_6 }));
-        tuples.add(getTuple(P2_8, new String[] { P2_6 }));
-
-        return tuples;
-    }
-
-    private SchedulingObjectDependencyTuple getTuple(final String aLabel,
-            final String[] aDependencies) {
-        final List<String> dependencies = new LinkedList<String>();
-        final MockSchedulingObjectDependencyTuple returnValue =
-                new MockSchedulingObjectDependencyTuple();
-
-        for (final String curDep : aDependencies) {
-            dependencies.add(curDep);
-        }
-
-        returnValue.setLabel(aLabel);
-        returnValue.setDependencies(dependencies);
-
-        return returnValue;
-    }
-
     private VerticalLayout getTreeLayout() {
         final VerticalLayout treeLayout = new VerticalLayout();
-        // treeLayout.setWidth("90%");
         treeLayout.setSizeFull();
         treeLayout.setSpacing(true);
         treeLayout.setMargin(true);
@@ -542,46 +497,23 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
     }
 
-    /*start of my changes
-<<<<<<< HEAD
-	@Override
-	public void taskDeleted(Task aTask) {
-		this.taskEditingPanelController.clearPanel();
-		updateTree();
-		
-	}
-*/
-	@Override
-	public void taskDeletionFailure() {
-		// TODO Auto-generated method stub
-		
-	}
-/*
-	@Override
-	public void eventDeleted(at.silverstrike.pcc.api.model.Event aNewEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-*/
-	@Override
-	public void eventDeletionFailure() {
-		// TODO Auto-generated method stub
-		
-	}
-/*
-	@Override
-	public void milestoneDeleted(Milestone aMilestone) {
-		// TODO Auto-generated method stub
-		
-	}
-*/
-	@Override
-	public void milestoneDeletionFailure() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void taskDeletionFailure() {
+        // TODO Auto-generated method stub
 
-//end of my changes 
+    }
+
+    @Override
+    public void eventDeletionFailure() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void milestoneDeletionFailure() {
+        // TODO Auto-generated method stub
+
+    }
 
     /**
      * Вызов этого метода обновляет сетевой график
@@ -683,5 +615,4 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
             final at.silverstrike.pcc.api.model.Event aDeletedSchedulingObject) {
         this.redrawProjectNetwork();
     }
-
 }
