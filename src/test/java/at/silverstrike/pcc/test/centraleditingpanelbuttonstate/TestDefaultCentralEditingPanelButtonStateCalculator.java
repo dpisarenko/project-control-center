@@ -30,7 +30,7 @@ import com.google.inject.Injector;
  * 
  */
 public class TestDefaultCentralEditingPanelButtonStateCalculator {
-    private final static Logger LOGGER =
+    private static final Logger LOGGER =
             LoggerFactory
                     .getLogger(TestDefaultCentralEditingPanelButtonStateCalculator.class);
 
@@ -67,7 +67,7 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
                 objectUnderTest.isIncreasePriorityButtonEnabled());
     }
 
-    private CentralEditingPanelButtonStateCalculator getObjectUnderTest(MockPersistenceEmptyDb aPersistence) {
+    private CentralEditingPanelButtonStateCalculator getObjectUnderTest(final MockPersistenceEmptyDb aPersistence) {
         final InjectorFactory injectorFactory =
                 new MockInjectorFactory(new MockInjectorModule(aPersistence));
         final Injector injector = injectorFactory.createInjector();
