@@ -25,9 +25,9 @@ import com.vaadin.ui.Panel;
 
 class DefaultTaskEditingPanelController implements TaskEditingPanelController {
     private transient Injector injector = null;
-    private transient Persistence persistence;
-    private transient WebGuiBus webGuiBus;
-    private TaskEditingPanel panel;
+    private transient Persistence persistence = null;
+    private transient WebGuiBus webGuiBus = null;
+    private TaskEditingPanel panel = null;
 
     @Override
     public void setInjector(final Injector aInjector) {
