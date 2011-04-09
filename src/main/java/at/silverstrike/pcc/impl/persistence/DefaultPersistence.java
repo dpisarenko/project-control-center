@@ -127,7 +127,7 @@ public class DefaultPersistence implements Persistence {
     public final void createChildProcess(final Long aParentProcessId) {
         final Transaction tx = session.beginTransaction();
         try {
-            Task parent = getParentTask(aParentProcessId);
+            final Task parent = getParentTask(aParentProcessId);
 
             final Task newProcess = new DefaultTask();
             newProcess.setParent(parent);
@@ -1069,7 +1069,8 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public Milestone createNewMilestone(final String aUser, final String aName,
+    public final Milestone createNewMilestone(final String aUser,
+            final String aName,
             final Long aParentTaskId) {
         final Transaction tx = session.beginTransaction();
         Milestone returnValue = null;
@@ -1092,7 +1093,7 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public Event createSubEvent(final String aEventName,
+    public final Event createSubEvent(final String aEventName,
             final Long aParentProcessId) {
         final Transaction tx = session.beginTransaction();
         Event returnValue = null;
@@ -1114,24 +1115,24 @@ public class DefaultPersistence implements Persistence {
         return returnValue;
     }
 
-	@Override
-	public boolean deleteTask(Task aTask) {
-		return false;
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public boolean deleteTask(final Task aTask) {
+        return false;
+        // TODO Auto-generated method stub
 
-	@Override
-	public boolean deleteEvent(Event aEvent) {
-		return false;
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public boolean deleteMilestone(Milestone aMilestone) {
-		return false;
-		// TODO Auto-generated method stub
-		
-	};
+    @Override
+    public boolean deleteEvent(final Event aEvent) {
+        return false;
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public boolean deleteMilestone(final Milestone aMilestone) {
+        return false;
+        // TODO Auto-generated method stub
+
+    };
 }
