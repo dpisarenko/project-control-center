@@ -85,20 +85,20 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private transient Injector injector;
     private transient CentralEditingPanelController controller;
 
-    private DebugIdRegistry debugIdRegistry;
+    private transient DebugIdRegistry debugIdRegistry;
 
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
     private static final int DEFAULT_WIDTH_PIXELS = 600;
     private ProjectTreeContainer treeModel;
     private Tree tree;
-    private SchedulingObject curSelection;
+    private transient SchedulingObject curSelection;
 
-    private TaskEditingPanelController taskEditingPanelController;
-    private EventEditingPanelController eventEditingPanelController;
-    private MilestoneEditingPanelController milestoneEditingPanelController;
+    private transient TaskEditingPanelController taskEditingPanelController;
+    private transient EventEditingPanelController eventEditingPanelController;
+    private transient MilestoneEditingPanelController milestoneEditingPanelController;
     private Panel treePanel;
     private Long curProjectId;
-    private ProjectNetworkGraphPanel graphPanel;
+    private transient ProjectNetworkGraphPanel graphPanel;
 
     @Override
     public void setInjector(final Injector aInjector) {
