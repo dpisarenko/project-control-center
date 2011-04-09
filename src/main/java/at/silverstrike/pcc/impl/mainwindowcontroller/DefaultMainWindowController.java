@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,15 +92,16 @@ class DefaultMainWindowController implements MainWindowController {
         // Init fileOutputStream
         try {
             fileOutputStream = new FileOutputStream(targetFile);
-        } catch (final FileNotFoundException exception) {
-            LOGGER.error(ErrorCodes.M_003_FILE_NOT_FOUND, exception);
-        }
-        serializer.setOutputStream(fileOutputStream);
-        serializer.setUserData(writtenData);
-        try {
+            serializer.setOutputStream(fileOutputStream);
+            serializer.setUserData(writtenData);
+
             serializer.run();
         } catch (final PccException exception) {
             LOGGER.error(ErrorCodes.M_002_SERIALIZATION_FAULT, exception);
+        } catch (final FileNotFoundException exception) {
+            LOGGER.error(ErrorCodes.M_003_FILE_NOT_FOUND, exception);
+        } finally {
+            IOUtils.closeQuietly(fileOutputStream);
         }
         // Serialize writtenData to targetFile (end)
 
@@ -131,8 +133,7 @@ class DefaultMainWindowController implements MainWindowController {
         final CentralEditingPanelController ctl = ctlFactory.create();
 
         ctl.setInjector(this.injector);
-        
-        
+
         final Panel centralEditingPanel = (Panel) ctl.initGui();
 
         final MainWindowFactory mainWindowFactory = injector
