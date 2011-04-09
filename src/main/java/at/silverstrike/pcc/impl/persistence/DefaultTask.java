@@ -66,7 +66,7 @@ class DefaultTask extends DefaultSchedulingObject implements
 
     @Override
     public String toString() {
-        return this.name;
+        return this.getName();
     }
 
     public Date getAverageEstimatedEndDateTime() {

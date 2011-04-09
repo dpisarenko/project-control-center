@@ -18,7 +18,7 @@ import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel
  * @author DP118M
  * 
  */
-public class DefaultProjectNetworkGraphPanelFactory implements
+public final class DefaultProjectNetworkGraphPanelFactory implements
         ProjectNetworkGraphPanelFactory {
 
     @Override

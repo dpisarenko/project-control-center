@@ -22,11 +22,11 @@ import at.silverstrike.pcc.api.model.SchedulingObject;
  */
 class DefaultSchedulingObject implements SchedulingObject {
     private Long id;
-    protected String name;
+    private String name;
     private Integer priority;
     private SchedulingObject parent;
     private Set<SchedulingObject> predecessors;
-    protected ProcessState state;
+    private ProcessState state;
 
     public DefaultSchedulingObject() {
         this.id = -1L;
