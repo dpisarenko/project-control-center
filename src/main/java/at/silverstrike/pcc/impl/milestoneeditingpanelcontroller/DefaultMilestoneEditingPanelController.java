@@ -65,7 +65,7 @@ class DefaultMilestoneEditingPanelController implements
     }
 
     @Override
-    public void eventCreated(Event aNewEvent) {
+    public void eventCreated(final Event aNewEvent) {
         // TODO Auto-generated method stub
 
     }
@@ -76,58 +76,58 @@ class DefaultMilestoneEditingPanelController implements
 
     }
 
-	@Override
-	public void milestoneCreated(Milestone aMilestone) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void milestoneCreated(final Milestone aMilestone) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void milestoneCreationFailure() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void setData(Milestone aMilestone) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void milestoneCreationFailure() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void taskDeleted(Task aTask) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void eventDeleted(Event aNewEvent) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setData(final Milestone aMilestone) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void milestoneDeleted(Milestone aMilestone) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void taskDeletedFailure() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void taskDeleted(final Task aTask) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void eventDeletedFailure() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void milestoneDeletedFailure() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void eventDeleted(final Event aNewEvent) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void milestoneDeleted(final Milestone aMilestone) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void taskDeletedFailure() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void eventDeletedFailure() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void milestoneDeletedFailure() {
+        // TODO Auto-generated method stub
+
+    }
 
 }
