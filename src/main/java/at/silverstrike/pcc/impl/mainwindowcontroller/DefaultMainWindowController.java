@@ -64,14 +64,15 @@ class DefaultMainWindowController implements MainWindowController {
                     "src/test/resources/at/silverstrike/"
                             + "pcc/test/xmlserialization/testExport.xml");
             fileInputStream = new FileInputStream(targetFile);
-        } catch (final FileNotFoundException exception) {
-            LOGGER.error("", exception);
-        }
-        deserializer.setInputStream(fileInputStream);
-        try {
+
+            deserializer.setInputStream(fileInputStream);
             deserializer.run();
         } catch (final PccException exception) {
             LOGGER.error("", exception);
+        } catch (final FileNotFoundException exception) {
+            LOGGER.error("", exception);
+        } finally {
+            IOUtils.closeQuietly(fileInputStream);
         }
 
         // final UserData readData = deserializer.getUserData();
