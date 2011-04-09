@@ -339,7 +339,7 @@ public final class TestDefaultTaskJuggler3Exporter {
 
         final Task task = (Task) readData.getSchedulingData().get(0);
         resource1 = task.getResourceAllocations().get(0).getResource();
-        List<Resource> resourceList = new ArrayList<Resource>();
+        final List<Resource> resourceList = new ArrayList<Resource>();
         resourceList.add(resource1);
 
         objectUnderTest.setProjectExportInfo(projectExportInfo);
