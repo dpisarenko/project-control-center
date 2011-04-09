@@ -89,7 +89,7 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public void deleteProcess(final Long selectedProjectId) {
+    public void deleteProcess(final Long aSelectedProjectId) {
         throw new NotImplementedException();
 
     }
@@ -126,7 +126,7 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public DailyPlan getDailyPlan(final Date newDate, final String resource) {
+    public DailyPlan getDailyPlan(final Date aNewDate, final String aResource) {
         throw new NotImplementedException();
     }
 
@@ -142,7 +142,7 @@ class MockPersistence implements Persistence {
 
     @Override
     public List<SchedulingObject> getSubProcessesWithChildren(
-            final Long processId) {
+            final Long aProcessId) {
         throw new NotImplementedException();
     }
 
@@ -158,7 +158,7 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public void handoffProcess(final Long processId, final Long workerId) {
+    public void handoffProcess(final Long aProcessId, final Long aWorkerId) {
         throw new NotImplementedException();
 
     }
@@ -170,13 +170,13 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public void setInjector(final Injector anInjector) {
+    public void setInjector(final Injector aInjector) {
         throw new NotImplementedException();
 
     }
 
     @Override
-    public void updateBookings(final List<BookingTuple> bookingTuples) {
+    public void updateBookings(final List<BookingTuple> aBookingTuples) {
         throw new NotImplementedException();
 
     }
@@ -189,7 +189,7 @@ class MockPersistence implements Persistence {
 
     @Override
     public void
-            updateTaskEndTimes(final List<ProcessEndTimeTuple> endTimeTuples) {
+            updateTaskEndTimes(final List<ProcessEndTimeTuple> aEndTimeTuples) {
         throw new NotImplementedException();
 
     }
@@ -200,7 +200,7 @@ class MockPersistence implements Persistence {
     }
 
     @Override
-    public Resource getResource(Long aResourceId) {
+    public Resource getResource(final Long aResourceId) {
         // TODO Auto-generated method stub
         return null;
     }
