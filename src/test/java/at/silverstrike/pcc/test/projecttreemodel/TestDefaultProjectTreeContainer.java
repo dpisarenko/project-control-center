@@ -38,13 +38,19 @@ public class TestDefaultProjectTreeContainer {
      * 
      * <pre>
      * java.lang.NullPointerException
-     *      at com.vaadin.data.util.IndexedContainer$IndexedContainerProperty.setValue(IndexedContainer.java:1291)
-     *      at at.silverstrike.pcc.impl.projecttreemodel.DefaultProjectTreeContainer.addNodes(DefaultProjectTreeContainer.java:73)
-     *      at at.silverstrike.pcc.impl.projecttreemodel.DefaultProjectTreeContainer.updateData(DefaultProjectTreeContainer.java:56)
-     *      at at.silverstrike.pcc.impl.centraleditingpanel.DefaultCentralEditingPanel.initTreeModel(DefaultCentralEditingPanel.java:207)
-     *      at at.silverstrike.pcc.impl.centraleditingpanel.DefaultCentralEditingPanel.initGui(DefaultCentralEditingPanel.java:185)
-     *      at at.silverstrike.pcc.impl.mainwindow.DefaultMainWindow.getCentralEditingPanel(DefaultMainWindow.java:202)
-     *      at at.silverstrike.pcc.impl.mainwindow.DefaultMainWindow.initGui(DefaultMainWindow.java:89)
+     *      at com.vaadin.data.util.IndexedContainer$IndexedContainerProperty.
+     *          setValue(IndexedContainer.java:1291)
+     *      at a.s.p.i.projecttreemodel.DefaultProjectTreeContainer.addNodes
+     *          (DefaultProjectTreeContainer.java:73)
+     *      at a.s.p.i.projecttreemodel.DefaultProjectTreeContainer.updateData
+     *          (DefaultProjectTreeContainer.java:56)
+     *      at a.s.p.i.centraleditingpanel.DefaultCentralEditingPanel.
+     *          initTreeModel(DefaultCentralEditingPanel.java:207)
+     *      at a.s.p.i.centraleditingpanel.DefaultCentralEditingPanel.
+     *          initGui(DefaultCentralEditingPanel.java:185)
+     *      at a.s.p.i.mainwindow.DefaultMainWindow.getCentralEditingPanel
+     *          (DefaultMainWindow.java:202)
+     *      at a.s.p.i.mainwindow.DefaultMainWindow.initGui(DefaultMainWindow.java:89)
      * </pre>
      */
     @Test
@@ -92,13 +98,12 @@ public class TestDefaultProjectTreeContainer {
         }
 
     }
-    
+
     /**
-     * Здесь 
+     * Здесь
      */
     @Test
-    public void testRootVisibility()
-    {
-        
+    public void testRootVisibility() {
+
     }
 }
