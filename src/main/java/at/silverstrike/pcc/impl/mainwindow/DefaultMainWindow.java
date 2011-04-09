@@ -24,8 +24,6 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
-import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
-import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
