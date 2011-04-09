@@ -30,15 +30,15 @@ class KeyAndLanguageTuple {
         return culture;
     }
 
-    public void setCulture(String culture) {
-        this.culture = culture;
+    public void setCulture(final String aCulture) {
+        this.culture = aCulture;
     }
 
     public List<String> getNonBlankKeys() {
         return nonBlankKeys;
     }
 
-    public void setNonBlankKeys(List<String> nonBlankKeys) {
-        this.nonBlankKeys = nonBlankKeys;
+    public void setNonBlankKeys(final List<String> aNonBlankKeys) {
+        this.nonBlankKeys = aNonBlankKeys;
     }
 }
