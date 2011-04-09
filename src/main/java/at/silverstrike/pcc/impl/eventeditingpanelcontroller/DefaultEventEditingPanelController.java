@@ -49,7 +49,8 @@ class DefaultEventEditingPanelController implements
 
     @Override
     public Panel initGui() {
-        final EventEditingPanelFactory factory = this.injector.getInstance(EventEditingPanelFactory.class);
+        final EventEditingPanelFactory factory =
+                this.injector.getInstance(EventEditingPanelFactory.class);
         this.panel = factory.create();
         this.panel.setInjector(this.injector);
         this.panel.initGui();
@@ -92,7 +93,7 @@ class DefaultEventEditingPanelController implements
     }
 
     @Override
-    public void milestoneCreated(Milestone aMilestone) {
+    public void milestoneCreated(final Milestone aMilestone) {
         // TODO Auto-generated method stub
 
     }
@@ -103,40 +104,40 @@ class DefaultEventEditingPanelController implements
 
     }
 
-	@Override
-	public void taskDeleted(Task aTask) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void taskDeleted(final Task aTask) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void eventDeleted(Event aNewEvent) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void milestoneDeleted(Milestone aMilestone) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void eventDeleted(final Event aNewEvent) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void taskDeletedFailure() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void eventDeletedFailure() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void milestoneDeleted(final Milestone aMilestone) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void milestoneDeletedFailure() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
+
+    @Override
+    public void taskDeletedFailure() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void eventDeletedFailure() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void milestoneDeletedFailure() {
+        // TODO Auto-generated method stub
+
+    }
 
 }
