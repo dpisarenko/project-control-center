@@ -12,5 +12,6 @@
 package at.silverstrike.pcc.test.conventions;
 
 public interface TestConventions {
-    final double DELTA = 1.0 / 1000000.0;
+    double ONE_MILLION = 1000000.0;
+    double DELTA = 1.0 / ONE_MILLION;
 }
