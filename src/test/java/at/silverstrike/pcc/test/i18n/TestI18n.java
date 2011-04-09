@@ -34,7 +34,7 @@ public class TestI18n {
             .getLogger(TestI18n.class);
 
     @Test
-    public void testTranslations() {
+    public final void testTranslations() {
         final List<File> translationDirectories = getTranslationDirectories();
         final List<KeyAndLanguageTuple> klt =
                  getKeyAndLanguageTuples(translationDirectories);
