@@ -149,7 +149,7 @@ public class TestI18n {
         return returnValue;
     }
 
-    private String getCulture(final File curDirectory) {
+    private String getCulture(final File aCurDirectory) {
         /**
          * webapp/VAADIN/themes/pcc/i18n/ru - в curDirectory содержится именно
          * такой текст.
@@ -157,7 +157,7 @@ public class TestI18n {
          * => Нам из него нужно ru
          */
 
-        return curDirectory.getName();
+        return aCurDirectory.getName();
     }
 
     private Properties file2properties(final File aFile) {
