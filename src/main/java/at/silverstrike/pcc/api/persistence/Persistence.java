@@ -17,7 +17,6 @@ import java.util.List;
 import org.hibernate.Session;
 
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
@@ -147,13 +146,14 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     Milestone createNewMilestone(final String aUser, final String aName,
             final Long aParentTaskId);
-    
-    Event createSubEvent(final String aProcessName, final Long aParentProcessId);
 
+    Event
+            createSubEvent(final String aProcessName,
+                    final Long aParentProcessId);
 
-	boolean deleteTask(final Task aTask);
-	
-	boolean deleteEvent(final Event aEvent);
-	
-	boolean deleteMilestone(final Milestone aMilestone);
+    boolean deleteTask(final Task aTask);
+
+    boolean deleteEvent(final Event aEvent);
+
+    boolean deleteMilestone(final Milestone aMilestone);
 }
