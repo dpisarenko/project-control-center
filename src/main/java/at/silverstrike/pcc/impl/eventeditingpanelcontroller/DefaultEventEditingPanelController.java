@@ -30,7 +30,7 @@ import at.silverstrike.pcc.api.model.Task;
 class DefaultEventEditingPanelController implements
         EventEditingPanelController {
     private Injector injector = null;
-    private EventEditingPanel panel;
+    private EventEditingPanel panel = null;
 
     @Override
     public void dependEditButtonClicked() {
