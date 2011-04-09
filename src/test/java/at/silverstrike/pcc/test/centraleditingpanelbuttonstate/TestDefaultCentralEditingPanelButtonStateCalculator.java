@@ -48,23 +48,23 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
     }
 
     private void executeTest(
-            final CentralEditingPanelButtonStateCalculator objectUnderTest,
+            final CentralEditingPanelButtonStateCalculator aObjectUnderTest,
             final SchedulingObject aCurrentSelection,
             final boolean aExpectedDecreasePriorityButtonState,
             final boolean aExpectedIncreasePriorityButtonState) {
-        objectUnderTest.setCurrentSelection(aCurrentSelection);
+        aObjectUnderTest.setCurrentSelection(aCurrentSelection);
         try {
-            objectUnderTest.run();
+            aObjectUnderTest.run();
         } catch (final PccException exception) {
             LOGGER.error("", exception);
             Assert.fail(exception.getMessage());
         }
         Assert.assertEquals("Decrease priority button state",
                 aExpectedDecreasePriorityButtonState,
-                objectUnderTest.isDecreasePriorityButtonEnabled());
+                aObjectUnderTest.isDecreasePriorityButtonEnabled());
         Assert.assertEquals("Increase priority button state",
                 aExpectedIncreasePriorityButtonState,
-                objectUnderTest.isIncreasePriorityButtonEnabled());
+                aObjectUnderTest.isIncreasePriorityButtonEnabled());
     }
 
     private CentralEditingPanelButtonStateCalculator getObjectUnderTest(final MockPersistenceEmptyDb aPersistence) {
