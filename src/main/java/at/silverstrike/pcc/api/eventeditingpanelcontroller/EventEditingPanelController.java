@@ -21,5 +21,5 @@ public interface EventEditingPanelController extends
         ModuleWithInjectableDependencies, GuiController<Panel> {
     void dependEditButtonClicked();
 
-	void setData(final Event aNewEvent);
+    void setData(final Event aNewEvent);
 }
