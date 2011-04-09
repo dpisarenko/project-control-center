@@ -38,11 +38,11 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         ProjectTreeContainer {
     private static final long serialVersionUID = 1L;
     private static final Object PROJECT_PROPERTY_ID = "id";
-    private Persistence persistence;
+    private transient Persistence persistence;
     private Item root;
     private String rootLabel;
-    private Map<Integer, SchedulingObject> schedulingObjectsByTreeItemIds;
-    private Map<Long, Integer> treeItemIdsBySchedulingObjectsId;
+    private transient Map<Integer, SchedulingObject> schedulingObjectsByTreeItemIds;
+    private transient Map<Long, Integer> treeItemIdsBySchedulingObjectsId;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultProjectTreeContainer.class);
 
