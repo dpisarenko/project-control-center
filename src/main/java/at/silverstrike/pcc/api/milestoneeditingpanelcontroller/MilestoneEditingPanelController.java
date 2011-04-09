@@ -21,5 +21,5 @@ public interface MilestoneEditingPanelController extends
         ModuleWithInjectableDependencies, GuiController<Panel> {
     void dependEditButtonClicked();
 
-	void setData(final Milestone aMilestone);
+    void setData(final Milestone aMilestone);
 }
