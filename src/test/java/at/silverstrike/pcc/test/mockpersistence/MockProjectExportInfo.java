@@ -60,16 +60,16 @@ public final class MockProjectExportInfo implements ProjectExportInfo {
         return copyright;
     }
 
-    public void setCopyright(final String copyright) {
-        this.copyright = copyright;
+    public void setCopyright(final String aCopyright) {
+        this.copyright = aCopyright;
     }
 
     public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(final String currency) {
-        this.currency = currency;
+    public void setCurrency(final String aCurrency) {
+        this.currency = aCurrency;
     }
 
     public List<SchedulingObject> getSchedulingObjectsToExport() {
@@ -77,16 +77,16 @@ public final class MockProjectExportInfo implements ProjectExportInfo {
     }
 
     public void setSchedulingObjectsToExport(
-            final List<SchedulingObject> controlProcessesToExport) {
-        this.controlProcessesToExport = controlProcessesToExport;
+            final List<SchedulingObject> aSchedulingObjects) {
+        this.controlProcessesToExport = aSchedulingObjects;
     }
 
     public List<Resource> getResourcesToExport() {
         return resourcesToExport;
     }
 
-    public void setResourcesToExport(final List<Resource> resourcesToExport) {
-        this.resourcesToExport = resourcesToExport;
+    public void setResourcesToExport(final List<Resource> aResourcesToExport) {
+        this.resourcesToExport = aResourcesToExport;
     }
 
 }
