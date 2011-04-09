@@ -46,6 +46,10 @@ import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraph;
  * 
  */
 class DefaultGraph2ResourceConverter implements Graph2ResourceConverter {
+    private static final double ASSUMED_NODE_WIDTH = 10.;
+    private static final double ASSUMED_NODE_HEIGHT = 10.;
+    private static final float NINETY_FIVE_PERCENT = 0.95f;
+    private static final float FIVE_PERCENT = 0.05f;
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
     private static final int DEFAULT_WIDTH_PIXELS = 600;
 
@@ -72,10 +76,10 @@ class DefaultGraph2ResourceConverter implements Graph2ResourceConverter {
 
             this.initialEventVertex = this.graph.getInitialEventVertex();
             this.finalEventVertex = this.graph.getFinalEventVertex();
-            
+
             final VisualizationImageServer<String, String> server =
                     createServer(this.graph);
-            
+
             server.printAll(graphic2d);
 
             final Element el = graphic2d.getRoot();
@@ -113,11 +117,13 @@ class DefaultGraph2ResourceConverter implements Graph2ResourceConverter {
                 DEFAULT_HEIGHT_PIXELS));
 
         lockVertex(this.initialEventVertex, new Point(
-                (int) (DEFAULT_WIDTH_PIXELS * 0.05f),
-                (int) ((DEFAULT_HEIGHT_PIXELS - 10.) / 2.)), layout);
+                (int) (DEFAULT_WIDTH_PIXELS * FIVE_PERCENT),
+                (int) ((DEFAULT_HEIGHT_PIXELS - ASSUMED_NODE_WIDTH) / 2.)),
+                layout);
         lockVertex(this.finalEventVertex, new Point(
-                (int) (DEFAULT_WIDTH_PIXELS * 0.95f),
-                (int) ((DEFAULT_HEIGHT_PIXELS - 10.) / 2.)), layout);
+                (int) (DEFAULT_WIDTH_PIXELS * NINETY_FIVE_PERCENT),
+                (int) ((DEFAULT_HEIGHT_PIXELS - ASSUMED_NODE_HEIGHT) / 2.)),
+                layout);
 
         final VisualizationImageServer<String, String> vv =
                 new VisualizationImageServer<String, String>(
