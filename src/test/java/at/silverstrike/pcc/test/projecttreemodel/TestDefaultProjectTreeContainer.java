@@ -30,7 +30,7 @@ import com.google.inject.Injector;
  * 
  */
 public class TestDefaultProjectTreeContainer {
-    private final static Logger LOGGER =
+    private static final Logger LOGGER =
             LoggerFactory.getLogger(TestDefaultProjectTreeContainer.class);
 
     /**
