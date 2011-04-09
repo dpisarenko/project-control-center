@@ -1117,22 +1117,31 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public final boolean deleteTask(final Task aTask) {
-        return false;
-        // TODO Auto-generated method stub
+        return deleteSchedulingObject(aTask);
+    }
 
+    private boolean deleteSchedulingObject(final SchedulingObject aSchedulingObject) {
+        final Transaction tx = session.beginTransaction();
+        boolean success = false;
+
+        try {
+            session.delete(aSchedulingObject);;
+            tx.commit();
+            success = true;
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+        return success;
     }
 
     @Override
     public final boolean deleteEvent(final Event aEvent) {
-        return false;
-        // TODO Auto-generated method stub
-
+        return deleteSchedulingObject(aEvent);
     }
 
     @Override
     public final boolean deleteMilestone(final Milestone aMilestone) {
-        return false;
-        // TODO Auto-generated method stub
-
+        return deleteSchedulingObject(aMilestone);
     };
 }
