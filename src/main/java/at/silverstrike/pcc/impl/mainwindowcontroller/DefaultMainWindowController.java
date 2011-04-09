@@ -126,8 +126,6 @@ class DefaultMainWindowController implements MainWindowController {
 
     @Override
     public void initGui(final Application aApplication) {
-        final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
-        
         final CentralEditingPanelControllerFactory ctlFactory =
                 this.injector
                         .getInstance(CentralEditingPanelControllerFactory.class);
