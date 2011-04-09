@@ -54,7 +54,7 @@ public class TestDefaultProjectTreeContainer {
      * </pre>
      */
     @Test
-    public void testNullPointerExceptionInAddNodes() {
+    public final void testNullPointerExceptionInAddNodes() {
         /**
          * Get object under test
          */
@@ -96,14 +96,6 @@ public class TestDefaultProjectTreeContainer {
             LOGGER.debug("", exception);
             Assert.fail(exception.getMessage());
         }
-
-    }
-
-    /**
-     * Здесь
-     */
-    @Test
-    public void testRootVisibility() {
 
     }
 }
