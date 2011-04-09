@@ -17,10 +17,10 @@ import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
 public final class MockObjectFactory {
-    public Task createControlProcess(final Long anId) {
+    public Task createControlProcess(final Long aId) {
         final MockControlProcess returnValue = new MockControlProcess();
 
-        returnValue.setId(anId);
+        returnValue.setId(aId);
 
         return returnValue;
     }
@@ -29,10 +29,10 @@ public final class MockObjectFactory {
         return new MockPersistence();
     }
 
-    public Resource createResource(final Long anId) {
+    public Resource createResource(final Long aId) {
         final MockResource returnValue = new MockResource();
 
-        returnValue.setId(anId);
+        returnValue.setId(aId);
 
         return returnValue;
     }
