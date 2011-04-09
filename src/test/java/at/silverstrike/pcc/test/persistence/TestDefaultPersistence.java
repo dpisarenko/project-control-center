@@ -28,7 +28,7 @@ import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 
 public class TestDefaultPersistence {
     @Test
-    public void test01() {
+    public final void test01() {
         final Persistence persistence = new DefaultPersistence();
 
         try {
@@ -50,7 +50,7 @@ public class TestDefaultPersistence {
     }
 
     @Test
-    public void testDefect57() {
+    public final void testDefect57() {
         // Get object under test (persistence)
         final Persistence persistence = new DefaultPersistence();
 
@@ -93,7 +93,7 @@ public class TestDefaultPersistence {
     }
     
     @Test
-    public void testEventCreation()
+    public final void testEventCreation()
     {
         // Get object under test (persistence)
         final Persistence persistence = new DefaultPersistence();
