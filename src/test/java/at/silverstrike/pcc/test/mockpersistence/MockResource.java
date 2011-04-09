@@ -30,16 +30,16 @@ class MockResource implements Resource {
         return id;
     }
 
-    public void setAbbreviation(final String abbreviation) {
-        this.abbreviation = abbreviation;
+    public void setAbbreviation(final String aAbbreviation) {
+        this.abbreviation = aAbbreviation;
     }
 
-    public void setDailyLimitInHours(final double dailyLimitInHours) {
-        this.dailyLimitInHours = dailyLimitInHours;
+    public void setDailyLimitInHours(final double aDailyLimitInHours) {
+        this.dailyLimitInHours = aDailyLimitInHours;
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public void setId(final Long aId) {
+        this.id = aId;
     }
 
 }
