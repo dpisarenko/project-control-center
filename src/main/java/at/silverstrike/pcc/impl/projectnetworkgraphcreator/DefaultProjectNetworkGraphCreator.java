@@ -25,7 +25,7 @@ import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDepend
  */
 class DefaultProjectNetworkGraphCreator implements ProjectNetworkGraphCreator {
     private List<SchedulingObjectDependencyTuple> dependencies;
-    private DefaultProjectNetworkGraph graph;
+    private DefaultProjectNetworkGraph graph = null;
     private int edgeCounter;
     private String initialVertexLabel;
     private String finalVertexLabel;
