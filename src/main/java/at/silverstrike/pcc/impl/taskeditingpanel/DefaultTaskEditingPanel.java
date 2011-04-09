@@ -70,7 +70,7 @@ class DefaultTaskEditingPanel extends Panel implements
 
     private TextField taskNameTextField;
 
-    private Task task;
+    private transient Task task;
 
     @Override
     public void setInjector(final Injector aInjector) {
