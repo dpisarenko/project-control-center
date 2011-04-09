@@ -35,17 +35,17 @@ import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.test.mockpersistence.MockObjectFactory;
 
 class Helper {
-    private final static Logger LOGGER =
+    private static final Logger LOGGER =
             LoggerFactory.getLogger(Helper.class);
 
     private static final MockObjectFactory MOCK_OBJECT_FACTORY =
             new MockObjectFactory();
 
-    public String readStringFromFile(final File file) {
+    public String readStringFromFile(final File aFile) {
         String expectedResult = null;
 
         try {
-            expectedResult = FileUtils.readFileToString(file);
+            expectedResult = FileUtils.readFileToString(aFile);
         } catch (final IOException exception) {
             LOGGER.error("", exception);
             fail(exception.getMessage());
@@ -53,10 +53,10 @@ class Helper {
         return expectedResult;
     }
 
-    public void writeStringToFile(final String actualResult, final File file) {
+    public void writeStringToFile(final String aActualResult, final File aFile) {
         try {
-            FileUtils.writeStringToFile(file,
-                    actualResult);
+            FileUtils.writeStringToFile(aFile,
+                    aActualResult);
         } catch (final IOException exception) {
             LOGGER.error("", exception);
             fail(exception.getMessage());
