@@ -33,7 +33,6 @@ import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.model.UserData;
-import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializer;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializer;
@@ -64,8 +63,8 @@ class DefaultMainWindowController implements MainWindowController {
                     "src/test/resources/at/silverstrike/"
                             + "pcc/test/xmlserialization/testExport.xml");
             fileInputStream = new FileInputStream(targetFile);
-        } catch (final FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (final FileNotFoundException exception) {
+            LOGGER.error("", exception);
         }
         deserializer.setInputStream(fileInputStream);
         try {
@@ -134,7 +133,7 @@ class DefaultMainWindowController implements MainWindowController {
         ctl.setInjector(this.injector);
         
         
-        final Panel centralEditingPanel = (Panel)ctl.initGui();
+        final Panel centralEditingPanel = (Panel) ctl.initGui();
 
         final MainWindowFactory mainWindowFactory = injector
                 .getInstance(MainWindowFactory.class);
