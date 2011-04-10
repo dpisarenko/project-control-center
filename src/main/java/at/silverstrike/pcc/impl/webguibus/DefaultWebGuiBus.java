@@ -123,7 +123,7 @@ class DefaultWebGuiBus implements WebGuiBus {
     @Override
     public void broadcastMilestoneDeletionFailureMessage() {
         for (final WebGuiBusListener listener : this.listeners){
-            
+            listener.milestoneDeletionFailure();
         }
     }
 
