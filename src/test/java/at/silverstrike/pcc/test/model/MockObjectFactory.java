@@ -12,6 +12,8 @@
 package at.silverstrike.pcc.test.model;
 
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyLimitResourceAllocation;
 import at.silverstrike.pcc.api.model.DailyPlan;
@@ -72,5 +74,13 @@ public class MockObjectFactory {
 
     public final Worker createWorker() {
         return new MockWorker();
+    }
+    public final Milestone createMilestone()
+    {
+        return new MockMilestone();
+    }
+    public final Event createEvent()
+    {
+        return new MockEvent();
     }
 }
