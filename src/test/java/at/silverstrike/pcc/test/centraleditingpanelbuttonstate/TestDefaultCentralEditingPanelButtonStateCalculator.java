@@ -125,9 +125,9 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
             final SchedulingObject aCurrentSelection,
             final boolean aExpectedDecreasePriorityButtonState,
             final boolean aExpectedIncreasePriorityButtonState,
-            boolean aExpectedNewTaskButtonEnabled,
-            boolean aExpectedNewEventButtonEnabled,
-            boolean aExpectedNewMilestoneButtonEnabled) {
+            final boolean aExpectedNewTaskButtonEnabled,
+            final boolean aExpectedNewEventButtonEnabled,
+            final boolean aExpectedNewMilestoneButtonEnabled) {
         aObjectUnderTest.setCurrentSelection(aCurrentSelection);
         try {
             aObjectUnderTest.run();
@@ -141,6 +141,16 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
         Assert.assertEquals("Increase priority button state",
                 aExpectedIncreasePriorityButtonState,
                 aObjectUnderTest.isIncreasePriorityButtonEnabled());
+        Assert.assertEquals("New task button state",
+                aExpectedNewTaskButtonEnabled,
+                aObjectUnderTest.isNewTaskButtonEnabled());
+        Assert.assertEquals("New milestone button state",
+                aExpectedNewMilestoneButtonEnabled,
+                aObjectUnderTest.isNewMilestoneButtonEnabled());
+        Assert.assertEquals("New event button state",
+                aExpectedNewEventButtonEnabled,
+                aObjectUnderTest.isNewEventButtonEnabled());
+
     }
 
     private CentralEditingPanelButtonStateCalculator getObjectUnderTest(

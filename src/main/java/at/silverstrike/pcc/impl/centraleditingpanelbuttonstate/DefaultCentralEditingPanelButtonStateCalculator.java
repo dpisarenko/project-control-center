@@ -13,11 +13,14 @@ package at.silverstrike.pcc.impl.centraleditingpanelbuttonstate;
 
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
 import at.silverstrike.pcc.api.conventions.PccException;
+import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.Task;
 
 /**
  * @author DP118M
- *
+ * 
  */
 class DefaultCentralEditingPanelButtonStateCalculator implements
         CentralEditingPanelButtonStateCalculator {
@@ -28,10 +31,28 @@ class DefaultCentralEditingPanelButtonStateCalculator implements
     private boolean newEventButtonEnabled;
     private boolean newMilestoneButtonEnabled;
 
-    
     @Override
     public void run() throws PccException {
-        // TODO Auto-generated method stub
+        if (this.currentSelection == null) {
+            this.increasePriorityButtonEnabled = false;
+            this.decreasePriorityButtonEnabled = false;
+            this.newTaskButtonEnabled = true;
+            this.newEventButtonEnabled = true;
+            this.newMilestoneButtonEnabled = true;
+        } else if (this.currentSelection instanceof Task) {
+            this.increasePriorityButtonEnabled = true;
+            this.decreasePriorityButtonEnabled = true;
+            this.newTaskButtonEnabled = true;
+            this.newEventButtonEnabled = true;
+            this.newMilestoneButtonEnabled = true;
+        } else if ((this.currentSelection instanceof Milestone)
+                || (this.currentSelection instanceof Event)) {
+            this.increasePriorityButtonEnabled = true;
+            this.decreasePriorityButtonEnabled = true;
+            this.newTaskButtonEnabled = false;
+            this.newEventButtonEnabled = false;
+            this.newMilestoneButtonEnabled = false;
+        }
     }
 
     @Override
@@ -48,7 +69,7 @@ class DefaultCentralEditingPanelButtonStateCalculator implements
     public boolean isDecreasePriorityButtonEnabled() {
         return this.decreasePriorityButtonEnabled;
     }
-    
+
     public boolean isNewTaskButtonEnabled() {
         return newTaskButtonEnabled;
     }
