@@ -56,6 +56,7 @@ class DefaultProjectNetworkGraphPanel implements
 
         imageComponent.setSizeFull();
         imageComponent.setMimeType(JungResource.MIME_TYPE_SVG);
+        imageComponent.setImmediate(true);
 
         this.layout.addComponent(imageComponent);
     }
