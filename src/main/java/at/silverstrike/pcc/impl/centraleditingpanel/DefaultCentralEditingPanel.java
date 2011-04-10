@@ -322,10 +322,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
             this.controller.createTask(user, parentProjectId);
         } else if (NEW_EVENT_BUTTON.equals(debugId)) {
             this.controller.createEvent(user, parentProjectId);
-            // this.changeRightPanel(eventPanel);
         } else if (NEW_MILESTONE_BUTTON.equals(debugId)) {
             this.controller.createMilestone(user, parentProjectId);
-            // this.changeRightPanel(milestonePanel);
         } else {
             LOGGER.error("Unexpected debug ID: {}", debugId);
         }
@@ -413,10 +411,14 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
                 /**
                  * Здесь надо вставить в правую часть окна панель для рубежей...
                  */
+                this.milestoneEditingPanelController
+                        .setData((Milestone) this.curSelection);
+                this.changeRightPanel(milestonePanel);
+
             } else if (this.curSelection instanceof at.silverstrike.pcc.api.model.Event) {
-                /**
-                 * ...а здесь - панель для событий.
-                 */
+                this.eventEditingPanelController
+                        .setData((at.silverstrike.pcc.api.model.Event) this.curSelection);
+                this.changeRightPanel(eventPanel);
             }
         } else {
             this.curSelection = null;
