@@ -36,9 +36,9 @@ public interface WebGuiBusListener {
 	
 	void milestoneDeleted(final Milestone aMilestone);
 	
-	void taskDeletedFailure();
+	void taskDeletionFailure();
 	
-	void eventDeletedFailure();
+	void eventDeletionFailure();
 	
-	void milestoneDeletedFailure();
+	void milestoneDeletionFailure();
 }

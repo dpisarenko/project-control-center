@@ -17,6 +17,7 @@ import at.silverstrike.pcc.api.conventions.ExternallyControlledGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
@@ -35,27 +36,13 @@ public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
 
     void milestoneCreated(final Milestone aMilestone);
 
-// start of my changes<<<<<<< HEAD
-	//void milestoneCreationFailure();
-
-	//void taskDeleted(final Task aTask);
-
-	void taskDeletionFailure();
-	
-   // void eventDeleted(final Event aNewEvent);
+    void taskDeletionFailure();
 
     void eventDeletionFailure();
 
-	//void milestoneDeleted(final Milestone aMilestone);
+    void milestoneDeletionFailure();
 
-	void milestoneDeletionFailure();
-// end of my changes=======
     void milestoneCreationFailure();
 
-    void taskDeleted(final Task aDeletedSchedulingObject);
-
-    void milestoneDeleted(final Milestone aDeletedSchedulingObject);
-
-    void eventDeleted(final Event aDeletedSchedulingObject);
-
+    void schedulingObjectDeleted(final SchedulingObject aSchedulingObject);
 }

@@ -601,18 +601,9 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     }
 
     @Override
-    public void taskDeleted(final Task aDeletedSchedulingObject) {
+    public void
+            schedulingObjectDeleted(final SchedulingObject aSchedulingObject) {
         this.redrawProjectNetwork();
-    }
-
-    @Override
-    public void milestoneDeleted(final Milestone aDeletedSchedulingObject) {
-        this.redrawProjectNetwork();
-    }
-
-    @Override
-    public void eventDeleted(
-            final at.silverstrike.pcc.api.model.Event aDeletedSchedulingObject) {
-        this.redrawProjectNetwork();
+        this.updateTree();
     }
 }

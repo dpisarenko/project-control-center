@@ -131,6 +131,7 @@ class DefaultTaskEditingPanel extends Panel implements
         taskNameTextField = new TextField();
         taskNameTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
         taskNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
+        taskNameTextField.setImmediate(true);
         verticalLayoutRight.addComponent(taskNameTextField);
 
         final Label effortLabel =
@@ -214,6 +215,10 @@ class DefaultTaskEditingPanel extends Panel implements
      */
     public void buttonClick(final ClickEvent aEvent) {
         final String debugId = aEvent.getButton().getDebugId();
+
+        LOGGER.debug(
+                "at.silverstrike.pcc.impl.taskeditingpanel.DefaultTaskEditingPanel.buttonClick(ClickEvent), debugId: {}",
+                debugId);
 
         if (SAVE_TASK_BUTTON.equals(debugId)) {
             final OptionDialog dialog =

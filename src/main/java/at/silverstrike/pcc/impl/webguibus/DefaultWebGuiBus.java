@@ -87,38 +87,44 @@ class DefaultWebGuiBus implements WebGuiBus {
 
     @Override
     public void broadcastTaskDeletedMessage(final Task aTask) {
-        // TODO Auto-generated method stub
-
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.taskDeleted(aTask);
+        }
     }
 
     @Override
     public void broadcastTaskDeletionFailureMessage() {
-        // TODO Auto-generated method stub
-
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.taskDeletionFailure();
+        }
     }
 
     @Override
     public void broadcastEventDeletedMessage(final Event aEvent) {
-        // TODO Auto-generated method stub
-
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.eventDeleted(aEvent);
+        }
     }
 
     @Override
     public void broadcastEventDeletionFailureMessage() {
-        // TODO Auto-generated method stub
-
+        for (final WebGuiBusListener listener : this.listeners){
+            listener.eventDeletionFailure();
+        }
     }
 
     @Override
     public void broadcastMilestoneDeletedMessage(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
-
+        for (final WebGuiBusListener listener : this.listeners){
+            listener.milestoneDeletionFailure();
+        }
     }
 
     @Override
     public void broadcastMilestoneDeletionFailureMessage() {
-        // TODO Auto-generated method stub
-
+        for (final WebGuiBusListener listener : this.listeners){
+            
+        }
     }
 
 }

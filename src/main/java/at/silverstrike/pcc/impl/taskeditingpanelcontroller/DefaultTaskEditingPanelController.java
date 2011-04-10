@@ -55,7 +55,6 @@ class DefaultTaskEditingPanelController implements TaskEditingPanelController {
 
     @Override
     public void deleteTask(final Task aTask) {
-
         if (this.persistence.deleteTask(aTask)) {
             this.webGuiBus.broadcastTaskDeletedMessage(aTask);
         } else {
@@ -138,19 +137,19 @@ class DefaultTaskEditingPanelController implements TaskEditingPanelController {
     }
 
     @Override
-    public void taskDeletedFailure() {
+    public void taskDeletionFailure() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void eventDeletedFailure() {
+    public void eventDeletionFailure() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void milestoneDeletedFailure() {
+    public void milestoneDeletionFailure() {
         // TODO Auto-generated method stub
 
     }

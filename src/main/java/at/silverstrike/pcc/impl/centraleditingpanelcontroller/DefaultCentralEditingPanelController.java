@@ -11,6 +11,9 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanelcontroller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
@@ -31,6 +34,8 @@ class DefaultCentralEditingPanelController implements
     private Persistence persistence = null;
     private WebGuiBus webGuiBus = null;
     private CentralEditingPanel panel = null;
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultCentralEditingPanelController.class);
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -156,38 +161,37 @@ class DefaultCentralEditingPanelController implements
 
     @Override
     public void taskDeleted(final Task aTask) {
-        this.panel.taskDeleted(aTask);
-
+        LOGGER.debug("Task deleted: " + aTask);
+        this.panel.schedulingObjectDeleted(aTask);
     }
 
     @Override
-    public void taskDeletedFailure() {
+    public void taskDeletionFailure() {
+        LOGGER.debug("Task deletion failure");
         this.panel.taskDeletionFailure();
 
     }
 
     @Override
-    public void eventDeletedFailure() {
+    public void eventDeletionFailure() {
         this.panel.eventDeletionFailure();
 
     }
 
     @Override
-    public void milestoneDeletedFailure() {
+    public void milestoneDeletionFailure() {
         this.panel.milestoneDeletionFailure();
 
     }
 
     @Override
     public void eventDeleted(final Event aNewEvent) {
-        // TODO Auto-generated method stub
-
+        this.panel.schedulingObjectDeleted(aNewEvent);
     }
 
     @Override
     public void milestoneDeleted(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
-
+        this.panel.schedulingObjectDeleted(aMilestone);
     }
 
 }

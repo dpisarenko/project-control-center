@@ -1123,9 +1123,10 @@ public class DefaultPersistence implements Persistence {
     private boolean deleteSchedulingObject(final SchedulingObject aSchedulingObject) {
         final Transaction tx = session.beginTransaction();
         boolean success = false;
-
+        LOGGER.debug("Deleting scheduling object: {}", aSchedulingObject);
         try {
-            session.delete(aSchedulingObject);;
+            aSchedulingObject.setState(ProcessState.DELETED);
+            session.update(aSchedulingObject);
             tx.commit();
             success = true;
         } catch (final Exception exception) {
