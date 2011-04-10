@@ -33,22 +33,19 @@ class DefaultCentralEditingPanelButtonStateCalculator implements
 
     @Override
     public void run() throws PccException {
+        this.increasePriorityButtonEnabled = false;
+        this.decreasePriorityButtonEnabled = false;        
+        
         if (this.currentSelection == null) {
-            this.increasePriorityButtonEnabled = false;
-            this.decreasePriorityButtonEnabled = false;
             this.newTaskButtonEnabled = true;
             this.newEventButtonEnabled = true;
             this.newMilestoneButtonEnabled = true;
         } else if (this.currentSelection instanceof Task) {
-            this.increasePriorityButtonEnabled = true;
-            this.decreasePriorityButtonEnabled = true;
             this.newTaskButtonEnabled = true;
             this.newEventButtonEnabled = true;
             this.newMilestoneButtonEnabled = true;
         } else if ((this.currentSelection instanceof Milestone)
                 || (this.currentSelection instanceof Event)) {
-            this.increasePriorityButtonEnabled = true;
-            this.decreasePriorityButtonEnabled = true;
             this.newTaskButtonEnabled = false;
             this.newEventButtonEnabled = false;
             this.newMilestoneButtonEnabled = false;
