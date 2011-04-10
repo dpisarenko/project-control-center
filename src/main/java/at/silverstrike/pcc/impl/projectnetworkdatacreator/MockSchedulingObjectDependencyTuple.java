@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.centraleditingpanel;
+package at.silverstrike.pcc.impl.projectnetworkdatacreator;
 
 import java.util.List;
 

@@ -47,6 +47,8 @@ import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.projectnetworkdatacreator.ProjectNetworkDataCreator;
+import at.silverstrike.pcc.api.projectnetworkdatacreator.ProjectNetworkDataCreatorFactory;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
@@ -103,6 +105,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private Long curProjectId;
     private transient ProjectNetworkGraphPanel graphPanel;
     private transient CentralEditingPanelButtonStateCalculator buttonStateCalculator;
+    private transient ProjectNetworkDataCreator projectNetworkDataCreator;
     private Button newTaskButton;
     private Button newEventButton;
     private Button newMilestoneButton;
@@ -124,6 +127,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     @Override
     public void initGui() {
         initButtonStateCalculator();
+        initProjectNetworkDataCreator();
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
         this.mainGrid = new GridLayout(2, 1);
@@ -213,12 +217,19 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         this.redrawProjectNetwork();
     }
 
+    private void initProjectNetworkDataCreator() {
+        final ProjectNetworkDataCreatorFactory factory =
+                this.injector
+                        .getInstance(ProjectNetworkDataCreatorFactory.class);
+        this.projectNetworkDataCreator = factory.create();
+    }
+
     private void initButtonStateCalculator() {
         final CentralEditingPanelButtonStateCalculatorFactory bscFactory =
                 this.injector
                         .getInstance(CentralEditingPanelButtonStateCalculatorFactory.class);
         this.buttonStateCalculator =
-            bscFactory.create();
+                bscFactory.create();
     }
 
     private void initMilestonePanelController() {
@@ -562,85 +573,13 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
      * Вызов этого метода обновляет сетевой график
      */
     void redrawProjectNetwork() {
-        /**
-         * Определяем выбранный проект
-         * 
-         * Выбранный проект - родитель объекта, выбранного в дереве
-         * 
-         * Идея: Эта информация уже есть в методе, который вызывается при
-         * изменении выбора в дереве.
-         * 
-         * => Пусть идентификатор проекта будет атрибутом класса.
-         */
-
-        /**
-         * Берём базы данных перечень всех процессов выбранного проекта
-         */
-        final Persistence persistence =
-                this.injector.getInstance(Persistence.class);
-        final List<SchedulingObject> projectSchedulingObjects =
-                persistence.getSubProcessesWithChildren(this.curProjectId);
-
-        LOGGER.debug("projectSchedulingObjects: {}", projectSchedulingObjects);
-
-        /**
-         * Преобразуем каждый расчётный объект в набор данных.
-         */
-        final List<SchedulingObjectDependencyTuple> tuples =
-                new LinkedList<SchedulingObjectDependencyTuple>();
-
-        for (final SchedulingObject curObject : projectSchedulingObjects) {
-            final String vertex = curObject.getLabel();
-            final List<String> dependencies = new LinkedList<String>();
-            /**
-             * В графике будем показывать только зависимости из того же проекта.
-             */
-
-            if (curObject.getPredecessors() != null) {
-                LOGGER.debug("curObject.getPredecessors(): {}",
-                        curObject.getPredecessors());
-                for (final SchedulingObject curDependency : curObject
-                        .getPredecessors()) {
-                    Long dependencyParentId = null;
-
-                    if (curDependency.getParent() != null) {
-                        dependencyParentId = curDependency.getParent().getId();
-                    }
-
-                    if (ObjectUtils.equals(this.curProjectId,
-                            dependencyParentId)) {
-                        dependencies.add(curDependency.getLabel());
-                    }
-                }
-            }
-            LOGGER.debug(
-                    "vertex: {}, dependencies: {}",
-                    new Object[] {
-                            vertex, dependencies });
-
-            tuples.add(getTuple(vertex, dependencies));
+        this.projectNetworkDataCreator.setCurrentProjectId(this.curProjectId);
+        try {
+            this.projectNetworkDataCreator.run();
+            this.graphPanel.updatePanel(this.projectNetworkDataCreator.getDependencyTuples());
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
         }
-
-        /**
-         * Теперь обновляем панель
-         */
-        this.graphPanel.updatePanel(tuples);
-    }
-
-    private SchedulingObjectDependencyTuple getTuple(final String aLabel,
-            final List<String> aDependencies) {
-        final List<String> dependencies = new LinkedList<String>();
-        final MockSchedulingObjectDependencyTuple returnValue =
-                new MockSchedulingObjectDependencyTuple();
-
-        for (final String curDep : aDependencies) {
-            dependencies.add(curDep);
-        }
-
-        returnValue.setLabel(aLabel);
-        returnValue.setDependencies(dependencies);
-
-        return returnValue;
     }
 
     @Override
