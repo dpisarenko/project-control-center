@@ -11,7 +11,9 @@
 
 package at.silverstrike.pcc.test.centraleditingpanelbuttonstate;
 
+import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.impl.centraleditingpanelbuttonstate.DefaultCentralEditingPanelButtonStateCalculatorFactory;
 
 import com.google.inject.AbstractModule;
 
@@ -29,5 +31,7 @@ class MockInjectorModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(Persistence.class).toInstance(this.persistence);
+        bind(CentralEditingPanelButtonStateCalculatorFactory.class).toInstance(
+                new DefaultCentralEditingPanelButtonStateCalculatorFactory());
     }
 }

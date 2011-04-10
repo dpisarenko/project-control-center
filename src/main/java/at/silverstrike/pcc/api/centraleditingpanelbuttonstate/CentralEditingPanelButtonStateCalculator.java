@@ -11,7 +11,6 @@
 
 package at.silverstrike.pcc.api.centraleditingpanelbuttonstate;
 
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.conventions.SingleActivityModule;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
@@ -20,8 +19,11 @@ import at.silverstrike.pcc.api.model.SchedulingObject;
  * 
  */
 public interface CentralEditingPanelButtonStateCalculator extends
-        SingleActivityModule, ModuleWithInjectableDependencies {
+        SingleActivityModule {
     void setCurrentSelection(final SchedulingObject aObject);
     boolean isIncreasePriorityButtonEnabled();
     boolean isDecreasePriorityButtonEnabled();
+    boolean isNewTaskButtonEnabled();
+    boolean isNewEventButtonEnabled();
+    boolean isNewMilestoneButtonEnabled();
 }

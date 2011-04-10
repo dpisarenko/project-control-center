@@ -13,6 +13,7 @@ package at.silverstrike.pcc.test.centraleditingpanelbuttonstate;
 
 import junit.framework.Assert;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,15 +36,28 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
                     .getLogger(TestDefaultCentralEditingPanelButtonStateCalculator.class);
 
     @Test
+    public final void testOnEmptySelection() {
+        final CentralEditingPanelButtonStateCalculator objectUnderTest =
+                getObjectUnderTest(new MockPersistenceEmptyDb());
+
+        boolean expectedDecreasePriorityButtonState = false;
+        boolean expectedIncreasePriorityButtonState = false;
+
+        executeTest(objectUnderTest, null, expectedDecreasePriorityButtonState,
+                expectedIncreasePriorityButtonState);
+    }
+
+    @Test
+    @Ignore
     public final void testOnEmptyDatabase() {
         final CentralEditingPanelButtonStateCalculator objectUnderTest =
                 getObjectUnderTest(new MockPersistenceEmptyDb());
 
         executeTest(objectUnderTest, null, true, true);
-
     }
-    
+
     @Test
+    @Ignore
     public final void testOnTopLevelProcesses() {
     }
 
@@ -67,7 +81,8 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
                 aObjectUnderTest.isIncreasePriorityButtonEnabled());
     }
 
-    private CentralEditingPanelButtonStateCalculator getObjectUnderTest(final MockPersistenceEmptyDb aPersistence) {
+    private CentralEditingPanelButtonStateCalculator getObjectUnderTest(
+            final MockPersistenceEmptyDb aPersistence) {
         final InjectorFactory injectorFactory =
                 new MockInjectorFactory(new MockInjectorModule(aPersistence));
         final Injector injector = injectorFactory.createInjector();

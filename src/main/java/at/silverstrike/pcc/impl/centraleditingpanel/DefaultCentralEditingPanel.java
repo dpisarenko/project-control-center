@@ -33,8 +33,11 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
+import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
+import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
+import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelControllerFactory;
@@ -99,6 +102,12 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private Panel treePanel;
     private Long curProjectId;
     private transient ProjectNetworkGraphPanel graphPanel;
+    private transient CentralEditingPanelButtonStateCalculator buttonStateCalculator;
+    private Button newTaskButton;
+    private Button newEventButton;
+    private Button newMilestoneButton;
+    private Button increasePriorityButton;
+    private Button decreasePriorityButton;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -114,6 +123,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
     @Override
     public void initGui() {
+        initButtonStateCalculator();
         this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
 
         this.mainGrid = new GridLayout(2, 1);
@@ -144,17 +154,17 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         final GridLayout buttonsNewGrid = new GridLayout(3, 1);
         buttonsNewGrid.setWidth(WIDTH_SCREEN / 2, Sizeable.UNITS_PIXELS);
 
-        final Button newTaskButton = getNewTaskButton();
+        newTaskButton = getNewTaskButton();
         buttonsNewGrid.addComponent(newTaskButton, 0, 0);
         buttonsNewGrid.setComponentAlignment(newTaskButton,
                 Alignment.MIDDLE_LEFT);
 
-        final Button newMeetingButton = getNewEventButton();
-        buttonsNewGrid.addComponent(newMeetingButton, 1, 0);
-        buttonsNewGrid.setComponentAlignment(newMeetingButton,
+        newEventButton = getNewEventButton();
+        buttonsNewGrid.addComponent(newEventButton, 1, 0);
+        buttonsNewGrid.setComponentAlignment(newEventButton,
                 Alignment.MIDDLE_RIGHT);
 
-        final Button newMilestoneButton = getNewMilestoneButton();
+        newMilestoneButton = getNewMilestoneButton();
         newMilestoneButton.setDebugId(this.debugIdRegistry.getDebugId(
                 FunctionalBlock.centraleditingpanel, "2-button-newMilestone"));
         buttonsNewGrid.addComponent(newMilestoneButton, 2, 0);
@@ -166,15 +176,15 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         final HorizontalLayout buttonsPriorityLayout = new HorizontalLayout();
         buttonsPriorityLayout.setSpacing(true);
 
-        final Button priorityPlusButton = new Button(
+        increasePriorityButton = new Button(
                 TM.get("centraleditingpanel.8-button-priorityUp"));
-        priorityPlusButton.addListener(this); // react to clicks
-        buttonsPriorityLayout.addComponent(priorityPlusButton);
+        increasePriorityButton.addListener(this); // react to clicks
+        buttonsPriorityLayout.addComponent(increasePriorityButton);
 
-        final Button priorityMinusButton = new Button(
+        decreasePriorityButton = new Button(
                 TM.get("centraleditingpanel.9-button-priorityDown"));
-        priorityMinusButton.addListener(this); // react to clicks
-        buttonsPriorityLayout.addComponent(priorityMinusButton);
+        decreasePriorityButton.addListener(this); // react to clicks
+        buttonsPriorityLayout.addComponent(decreasePriorityButton);
 
         verticalLayoutLeft.addComponent(buttonsPriorityLayout);
 
@@ -201,6 +211,14 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         this.addComponent(mainGrid);
 
         this.redrawProjectNetwork();
+    }
+
+    private void initButtonStateCalculator() {
+        final CentralEditingPanelButtonStateCalculatorFactory bscFactory =
+                this.injector
+                        .getInstance(CentralEditingPanelButtonStateCalculatorFactory.class);
+        this.buttonStateCalculator =
+            bscFactory.create();
     }
 
     private void initMilestonePanelController() {
@@ -441,6 +459,29 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
          * Надо ли обновлять сетевой график? (конец)
          */
 
+        /**
+         * Обновляем статус кнопок
+         */
+        updateButtonState();
+    }
+
+    private void updateButtonState() {
+        this.buttonStateCalculator.setCurrentSelection(this.curSelection);
+        try {
+            this.buttonStateCalculator.run();
+            this.newTaskButton.setEnabled(this.buttonStateCalculator
+                    .isNewTaskButtonEnabled());
+            this.newEventButton.setEnabled(this.buttonStateCalculator
+                    .isNewEventButtonEnabled());
+            this.newMilestoneButton.setEnabled(this.buttonStateCalculator
+                    .isNewMilestoneButtonEnabled());
+            this.increasePriorityButton.setEnabled(this.buttonStateCalculator
+                    .isIncreasePriorityButtonEnabled());
+            this.decreasePriorityButton.setEnabled(this.buttonStateCalculator
+                    .isDecreasePriorityButtonEnabled());
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+        }
     }
 
     @Override

@@ -11,8 +11,6 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanelbuttonstate;
 
-import com.google.inject.Injector;
-
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.SchedulingObject;
@@ -24,7 +22,12 @@ import at.silverstrike.pcc.api.model.SchedulingObject;
 class DefaultCentralEditingPanelButtonStateCalculator implements
         CentralEditingPanelButtonStateCalculator {
     private SchedulingObject currentSelection;
-    private Injector injector;
+    private boolean increasePriorityButtonEnabled;
+    private boolean decreasePriorityButtonEnabled;
+    private boolean newTaskButtonEnabled;
+    private boolean newEventButtonEnabled;
+    private boolean newMilestoneButtonEnabled;
+
     
     @Override
     public void run() throws PccException {
@@ -38,18 +41,23 @@ class DefaultCentralEditingPanelButtonStateCalculator implements
 
     @Override
     public boolean isIncreasePriorityButtonEnabled() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.increasePriorityButtonEnabled;
     }
 
     @Override
     public boolean isDecreasePriorityButtonEnabled() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.decreasePriorityButtonEnabled;
     }
     
-    @Override
-    public void setInjector(final Injector aInjector) {
-        this.injector = aInjector;
+    public boolean isNewTaskButtonEnabled() {
+        return newTaskButtonEnabled;
+    }
+
+    public boolean isNewEventButtonEnabled() {
+        return newEventButtonEnabled;
+    }
+
+    public boolean isNewMilestoneButtonEnabled() {
+        return newMilestoneButtonEnabled;
     }
 }
