@@ -19,7 +19,10 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
@@ -27,6 +30,10 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 
 public class TestDefaultPersistence {
+    private static final Logger LOGGER =
+        LoggerFactory
+                .getLogger(TestDefaultPersistence.class);
+
     @Test
     public final void test01() {
         final Persistence persistence = new DefaultPersistence();
@@ -117,5 +124,95 @@ public class TestDefaultPersistence {
         
         // Проверяем - создалось ли событие
         assertEquals(1, persistence.getSubProcessesWithChildren(null).size());
+    }
+    
+    /**
+     * Эта проверочная программа проверяет наличие следующей ошибки при попытке 
+     * удалить событие.
+     * <pre>
+     * Caused by: java.sql.SQLIntegrityConstraintViolationException: DELETE on table 'T
+     * BL_SCHEDULING_OBJECT' caused a violation of foreign key constraint 'FK1F4FD5E95B
+     * 8C45B3' for key (38).  The statement has been rolled back.
+     *         at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unkn
+     * own Source) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source
+     * ) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.jdbc.TransactionResourceImpl.wrapInSQLException
+     * (Unknown Source) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.jdbc.TransactionResourceImpl.handleException(Un
+     * known Source) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.jdbc.EmbedConnection.handleException(Unknown So
+     * urce) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.jdbc.ConnectionChild.handleException(Unknown So
+     * urce) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.jdbc.EmbedStatement.executeStatement(Unknown So
+     * urce) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.jdbc.EmbedPreparedStatement.executeStatement(Un
+     * known Source) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.jdbc.EmbedPreparedStatement.executeUpdate(Unkno
+     * wn Source) ~[derby-10.6.2.1.jar:na]
+     *         at org.hibernate.jdbc.NonBatchingBatcher.addToBatch(NonBatchingBatcher.j
+     * ava:46) ~[hibernate-core-3.6.0.Final.jar:3.6.0.Final]
+     *         at org.hibernate.persister.entity.AbstractEntityPersister.delete(Abstrac
+     * tEntityPersister.java:2689) ~[hibernate-core-3.6.0.Final.jar:3.6.0.Final]
+     *         ... 45 common frames omitted
+     * Caused by: org.apache.derby.impl.jdbc.EmbedSQLException: DELETE on table 'TBL_SC
+     * HEDULING_OBJECT' caused a violation of foreign key constraint 'FK1F4FD5E95B8C45B
+     * 3' for key (38).  The statement has been rolled back.
+     *         at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknow
+     * n Source) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransport
+     * AcrossDRDA(Unknown Source) ~[derby-10.6.2.1.jar:na]
+     *         ... 56 common frames omitted
+     * Caused by: org.apache.derby.iapi.error.StandardException: DELETE on table 'TBL_S
+     * CHEDULING_OBJECT' caused a violation of foreign key constraint 'FK1F4FD5E95B8C45
+     * B3' for key (38).  The statement has been rolled back.
+     *         at org.apache.derby.iapi.error.StandardException.newException(Unknown So
+     * urce) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.sql.execute.ReferencedKeyRIChecker.doCheck(Unkn
+     * own Source) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.sql.execute.RISetChecker.doPKCheck(Unknown Sour
+     * ce) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.sql.execute.DeleteResultSet.runFkChecker(Unknow
+     * n Source) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.sql.execute.DeleteResultSet.open(Unknown Source
+     * ) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.sql.GenericPreparedStatement.executeStmt(Unknow
+     * n Source) ~[derby-10.6.2.1.jar:na]
+     *         at org.apache.derby.impl.sql.GenericPreparedStatement.execute(Unknown So
+     * urce) ~[derby-10.6.2.1.jar:na]
+     *         ... 50 common frames omitted
+     * </pre>
+     */
+    @Test
+    public void testEventDeletion()
+    {
+        // Get object under test (persistence)
+        final Persistence persistence = new DefaultPersistence();
+
+        try {
+            persistence.openSession();
+        } catch (final RuntimeException exception) {
+            Assert.fail(exception.getMessage());
+        } catch (final Exception exception) {
+            Assert.fail(exception.getMessage());
+        }
+
+        // Clear database
+        persistence.clearDatabase();
+        
+        // Создаём событие
+        final Event event = persistence.createSubEvent("test event", null);
+        
+        // Удаляем и смотрим - вылетает ли исключение
+        try
+        {
+            persistence.deleteEvent(event);
+        }
+        catch (final Exception exception)
+        {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
     }
 }
