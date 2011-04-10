@@ -217,6 +217,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
                 this.injector
                         .getInstance(ProjectNetworkDataCreatorFactory.class);
         this.projectNetworkDataCreator = factory.create();
+        this.projectNetworkDataCreator.setInjector(this.injector);
     }
 
     private void initButtonStateCalculator() {
