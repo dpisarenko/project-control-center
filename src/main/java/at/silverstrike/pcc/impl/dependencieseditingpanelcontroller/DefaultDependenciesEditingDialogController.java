@@ -35,26 +35,30 @@ final class DefaultDependenciesEditingDialogController implements
     private SchedulingObject schedulingObject;
     private Injector injector;
     private Window parentWindow;
-    
+
     @Override
     public void run() throws PccException {
+        if (this.schedulingObject != null) {
+            return;
+        }
+        
         this.dialogResult = ModalDialogResult.UNDEFINED;
         final DependenciesEditingDialogFactory factory =
                 this.injector
                         .getInstance(DependenciesEditingDialogFactory.class);
 
         final DependenciesEditingDialog dialog = factory.create();
-        
+
         dialog.setExistingDependencies(this.schedulingObject.getPredecessors());
         dialog.setAvailableDependencies(getAvailableDependencies());
         dialog.setParentWindow(this.parentWindow);
+        dialog.setInjector(this.injector);
 
         this.parentWindow.addWindow(dialog.toWindow());
-        
+
         this.dialogResult = dialog.getDialogResult();
-        
-        if (ModalDialogResult.CLOSED_WITH_OK.equals(this.dialogResult))
-        {
+
+        if (ModalDialogResult.CLOSED_WITH_OK.equals(this.dialogResult)) {
             this.newDependencies = dialog.getSelectedDependencies();
         }
     }
@@ -63,8 +67,6 @@ final class DefaultDependenciesEditingDialogController implements
         // TODO Auto-generated method stub
         return null;
     }
-
-
 
     @Override
     public void setSchedulingObject(final SchedulingObject aObject) {
