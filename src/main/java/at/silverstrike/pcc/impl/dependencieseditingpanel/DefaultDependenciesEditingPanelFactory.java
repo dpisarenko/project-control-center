@@ -9,10 +9,10 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.dependencieseditingwindow;
+package at.silverstrike.pcc.impl.dependencieseditingpanel;
 
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanel;
+import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanelFactory;
 
 /**
  * @author Dmitri Pisarenko

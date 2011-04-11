@@ -22,7 +22,7 @@ import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
@@ -72,7 +72,7 @@ import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEdit
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
-import at.silverstrike.pcc.impl.dependencieseditingwindow.DefaultDependenciesEditingPanelFactory;
+import at.silverstrike.pcc.impl.dependencieseditingpanel.DefaultDependenciesEditingPanelFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;

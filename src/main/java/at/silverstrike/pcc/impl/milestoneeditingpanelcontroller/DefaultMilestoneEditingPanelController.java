@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.impl.milestoneeditingpanelcontroller;
 
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanel;
+import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;

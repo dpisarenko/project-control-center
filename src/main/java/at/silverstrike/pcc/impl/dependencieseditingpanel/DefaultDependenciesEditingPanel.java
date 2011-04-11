@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.dependencieseditingwindow;
+package at.silverstrike.pcc.impl.dependencieseditingpanel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +33,7 @@ import eu.livotov.tpt.i18n.TM;
 import eu.livotov.tpt.TPTApplication;
 
 import at.silverstrike.pcc.api.conventions.PccException;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
+import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 
 class DefaultDependenciesEditingPanel extends Panel implements
