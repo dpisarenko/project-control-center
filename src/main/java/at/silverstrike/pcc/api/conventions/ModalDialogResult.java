@@ -9,15 +9,12 @@
  *
  **/
 
-package at.silverstrike.pcc.api.dependencieseditingwindowcontroller;
-
-import at.silverstrike.pcc.api.conventions.Factory;
+package at.silverstrike.pcc.api.conventions;
 
 /**
  * @author DP118M
  * 
  */
-public interface DependenciesEditingWindowControllerFactory extends
-        Factory<DependenciesEditingWindowController> {
-
+public enum ModalDialogResult {
+    CLOSED_WITH_OK, CLOSED_WITH_CANCEL, UNDEFINED
 }

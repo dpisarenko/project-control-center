@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.api.dependencieseditingwindow;
+package at.silverstrike.pcc.api.dependencieseditingdialogcontroller;
 
 import at.silverstrike.pcc.api.conventions.Factory;
 
@@ -17,7 +17,7 @@ import at.silverstrike.pcc.api.conventions.Factory;
  * @author DP118M
  * 
  */
-public interface DependenciesEditingWindowFactory extends
-        Factory<DependenciesEditingWindow> {
+public interface DependenciesEditingDialogControllerFactory extends
+        Factory<DependenciesEditingDialogController> {
 
 }
