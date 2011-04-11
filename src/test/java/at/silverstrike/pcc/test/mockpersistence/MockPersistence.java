@@ -242,4 +242,16 @@ class MockPersistence implements Persistence {
         return false;
     }
 
+    @Override
+    public void updateMilestone(final Milestone aMilestone) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void updateEvent(final Event aEvent) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

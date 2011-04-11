@@ -11,8 +11,6 @@
 
 package at.silverstrike.pcc.api.conventions;
 
-import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
-
 import com.vaadin.ui.AbstractComponent;
 
 /**
