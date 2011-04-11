@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.dependencieseditingdialogcontroller;
 
-import java.util.List;
+import java.util.Set;
 
 import com.vaadin.ui.Window;
 
@@ -40,5 +40,5 @@ public interface DependenciesEditingDialogController extends
      * Возвращает перечень зависимостей (предшественников) расчётного объекта
      * после того, как пользователь его отредактировал.
      */
-    List<SchedulingObject> getNewDependencies();
+    Set<SchedulingObject> getNewDependencies();
 }

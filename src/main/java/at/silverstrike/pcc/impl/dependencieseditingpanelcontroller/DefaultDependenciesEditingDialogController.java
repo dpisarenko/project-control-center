@@ -12,6 +12,7 @@
 package at.silverstrike.pcc.impl.dependencieseditingpanelcontroller;
 
 import java.util.List;
+import java.util.Set;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Window;
@@ -29,7 +30,7 @@ import at.silverstrike.pcc.api.model.SchedulingObject;
  */
 final class DefaultDependenciesEditingDialogController implements
         DependenciesEditingDialogController {
-    private List<SchedulingObject> newDependencies;
+    private Set<SchedulingObject> newDependencies;
     private ModalDialogResult dialogResult;
     private SchedulingObject schedulingObject;
     private Injector injector;
@@ -76,7 +77,7 @@ final class DefaultDependenciesEditingDialogController implements
     }
 
     @Override
-    public List<SchedulingObject> getNewDependencies() {
+    public Set<SchedulingObject> getNewDependencies() {
         return this.newDependencies;
     }
 

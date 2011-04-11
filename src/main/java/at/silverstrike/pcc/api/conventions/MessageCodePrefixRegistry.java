@@ -101,5 +101,7 @@ public final class MessageCodePrefixRegistry {
         this.prefixesByModules.put(FunctionalBlock.webguibus, "045");
         this.prefixesByModules.put(
                 FunctionalBlock.centraleditingpanelbuttonstate, "046");
+        this.prefixesByModules.put(FunctionalBlock.dependencieseditingdialog,
+                "047");
     }
 }

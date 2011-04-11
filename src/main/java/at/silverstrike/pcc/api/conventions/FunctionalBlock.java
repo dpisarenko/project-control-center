@@ -26,5 +26,6 @@ public enum FunctionalBlock {
     eventeditingpanelcontroller, milestoneeditingpanelcontroller,
     projectnetworkgraphcreator, projectnetworkgraphpanelcontroller,
     projecttreemodel, webguibus, validation, testtablecreator,
-    taskeditingpanelcontroller, centraleditingpanelbuttonstate
+    taskeditingpanelcontroller, centraleditingpanelbuttonstate,
+    dependencieseditingdialog
 }

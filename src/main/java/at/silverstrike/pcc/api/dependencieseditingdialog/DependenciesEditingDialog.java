@@ -19,6 +19,7 @@ import com.vaadin.ui.Window;
 import at.silverstrike.pcc.api.conventions.AbstractedWindow;
 import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModalDialogResult;
+import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
 /**
@@ -26,7 +27,7 @@ import at.silverstrike.pcc.api.model.SchedulingObject;
  * 
  */
 public interface DependenciesEditingDialog extends InitializableGuiComponent,
-        AbstractedWindow {
+        AbstractedWindow, ModuleWithInjectableDependencies {
 
     void setExistingDependencies(final Set<SchedulingObject> predecessors);
 
@@ -37,5 +38,5 @@ public interface DependenciesEditingDialog extends InitializableGuiComponent,
 
     ModalDialogResult getDialogResult();
 
-    List<SchedulingObject> getSelectedDependencies();
+    Set<SchedulingObject> getSelectedDependencies();
 }

@@ -29,6 +29,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
+import at.silverstrike.pcc.api.conventions.ModalDialogResult;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
@@ -247,14 +248,20 @@ class DefaultTaskEditingPanel extends Panel implements
                 this.injector
                         .getInstance(DependenciesEditingDialogControllerFactory.class);
         final DependenciesEditingDialogController controller = factory.create();
-        
+
         controller.setInjector(this.injector);
-        controller.setParentWindow(TPTApplication.getCurrentApplication().getMainWindow());
+        controller.setParentWindow(TPTApplication.getCurrentApplication()
+                .getMainWindow());
         controller.setSchedulingObject(this.task);
         try {
             controller.run();
         } catch (final PccException exception) {
             LOGGER.error("", exception);
+        }
+
+        if (ModalDialogResult.CLOSED_WITH_OK.equals(controller
+                .getDialogResult())) {
+            this.task.setPredecessors(controller.getNewDependencies());
         }
     }
 

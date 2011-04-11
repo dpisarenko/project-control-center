@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#Fri Apr 08 14:38:55 MSD 2011
-=======
-#Fri Apr 08 16:59:20 CEST 2011
->>>>>>> 263c9c2165ccdbbaddf4651bec38bc4cb99c1f2e
+#Mon Apr 11 23:12:34 CEST 2011
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
 >>>>>>>=d6e58aa4a46738f02189801397ed0b8f3b26ae07
@@ -37,6 +33,7 @@ encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/application.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/centraleditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/centraleditingpanelcontroller.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/dailyplanpanel.properties=UTF-8
+encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/dependencieseditingdialog.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/dependencieseditingwindow.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/entrywindow.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/estimatedcompletiontimespanel.properties=UTF-8
