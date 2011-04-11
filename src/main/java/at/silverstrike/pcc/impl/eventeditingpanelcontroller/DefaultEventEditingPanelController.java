@@ -22,12 +22,13 @@ import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelCont
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
 /**
  * @author DP118M
  * 
  */
-class DefaultEventEditingPanelController implements
+class DefaultEventEditingPanelController extends WebGuiBusListenerAdapter implements
         EventEditingPanelController {
     private Injector injector = null;
     private EventEditingPanel panel = null;

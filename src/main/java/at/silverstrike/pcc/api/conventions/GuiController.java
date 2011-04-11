@@ -19,7 +19,6 @@ import com.vaadin.ui.AbstractComponent;
  * @author DP118M
  * 
  */
-public interface GuiController<C extends AbstractComponent> extends
-        WebGuiBusListener {
+public interface GuiController<C extends AbstractComponent> {
     C initGui();
 }

@@ -17,11 +17,12 @@ import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingP
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
-class DefaultMilestoneEditingPanelController implements
+class DefaultMilestoneEditingPanelController extends WebGuiBusListenerAdapter implements
         MilestoneEditingPanelController {
     private Injector injector = null;
 
@@ -46,18 +47,7 @@ class DefaultMilestoneEditingPanelController implements
         return null;
     }
 
-    @Override
-    public void taskCreated(final Task aNewTask) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void taskCreationFailure() {
-        // TODO Auto-generated method stub
-
-    }
-
+ 
     @Override
     public void taskEdited(final Task aTask) {
         // TODO Auto-generated method stub

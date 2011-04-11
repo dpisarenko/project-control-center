@@ -19,11 +19,12 @@ import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
+import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
-class DefaultTaskEditingPanelController implements TaskEditingPanelController {
+class DefaultTaskEditingPanelController extends WebGuiBusListenerAdapter implements TaskEditingPanelController {
     private transient Injector injector = null;
     private transient Persistence persistence = null;
     private transient WebGuiBus webGuiBus = null;
