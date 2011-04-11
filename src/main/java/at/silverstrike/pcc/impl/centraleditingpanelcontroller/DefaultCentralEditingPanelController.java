@@ -197,13 +197,13 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter impl
 
 	@Override
 	public void milestoneEdited(Milestone aMilestone) {
-		// TODO Auto-generated method stub
+		//this.panel.updateTaskNodeInTree(aMilestone);
 		
 	}
 
 	@Override
 	public void eventEdited(Event aEvent) {
-		// TODO Auto-generated method stub
+		//this.panel.updateTaskNodeInTree(aEvent);
 		
 	}
 
