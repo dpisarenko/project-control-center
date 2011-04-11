@@ -54,6 +54,8 @@ final class DefaultDependenciesEditingDialogController implements
         dialog.setParentWindow(this.parentWindow);
         dialog.setInjector(this.injector);
 
+        dialog.initGui();
+        
         this.parentWindow.addWindow(dialog.toWindow());
 
         this.dialogResult = dialog.getDialogResult();
