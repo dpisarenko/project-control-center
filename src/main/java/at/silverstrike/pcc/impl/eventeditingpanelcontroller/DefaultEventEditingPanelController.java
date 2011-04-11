@@ -14,8 +14,8 @@ package at.silverstrike.pcc.impl.eventeditingpanelcontroller;
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
-import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanel;
+import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;

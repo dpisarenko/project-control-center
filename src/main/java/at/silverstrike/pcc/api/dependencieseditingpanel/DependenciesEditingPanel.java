@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.api.dependencieseditingwindow;
+package at.silverstrike.pcc.api.dependencieseditingpanel;
 
 import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;

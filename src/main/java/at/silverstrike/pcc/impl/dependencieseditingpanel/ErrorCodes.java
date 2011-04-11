@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.dependencieseditingwindow;
+package at.silverstrike.pcc.impl.dependencieseditingpanel;
 
 import static at.silverstrike.pcc.api.conventions.FunctionalBlock.dependencieseditingwindow;
 import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
