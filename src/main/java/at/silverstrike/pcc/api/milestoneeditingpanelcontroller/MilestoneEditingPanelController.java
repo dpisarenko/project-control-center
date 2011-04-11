@@ -22,4 +22,8 @@ public interface MilestoneEditingPanelController extends
     void dependEditButtonClicked();
 
     void setData(final Milestone aMilestone);
+    
+	void deleteMilestone(final Milestone aMilestone);
+
+	void saveMilestone(final Milestone aMilestone);
 }

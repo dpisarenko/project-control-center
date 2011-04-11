@@ -22,4 +22,8 @@ public interface EventEditingPanelController extends
     void dependEditButtonClicked();
 
     void setData(final Event aNewEvent);
+
+	void deleteEvent(final at.silverstrike.pcc.api.model.Event aEvent);
+
+	void saveEvent(final at.silverstrike.pcc.api.model.Event aEvent);
 }

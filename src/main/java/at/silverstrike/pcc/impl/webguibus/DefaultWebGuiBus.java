@@ -116,7 +116,7 @@ class DefaultWebGuiBus implements WebGuiBus {
     @Override
     public void broadcastMilestoneDeletedMessage(final Milestone aMilestone) {
         for (final WebGuiBusListener listener : this.listeners){
-            listener.milestoneDeletionFailure();
+            listener.milestoneDeleted(aMilestone);
         }
     }
 

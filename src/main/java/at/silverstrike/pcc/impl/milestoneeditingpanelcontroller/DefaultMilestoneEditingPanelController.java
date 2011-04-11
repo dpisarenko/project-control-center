@@ -13,10 +13,12 @@ package at.silverstrike.pcc.impl.milestoneeditingpanelcontroller;
 
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
+import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
-import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
-import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
 import com.google.inject.Injector;
@@ -25,6 +27,9 @@ import com.vaadin.ui.Panel;
 class DefaultMilestoneEditingPanelController extends WebGuiBusListenerAdapter implements
         MilestoneEditingPanelController {
     private Injector injector = null;
+    private transient Persistence persistence = null;
+    private transient WebGuiBus webGuiBus = null;
+    private MilestoneEditingPanel panel = null;
 
     @Override
     public void dependEditButtonClicked() {
@@ -39,85 +44,42 @@ class DefaultMilestoneEditingPanelController extends WebGuiBusListenerAdapter im
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
+        if (aInjector != null) {
+            this.persistence = this.injector.getInstance(Persistence.class);
+            this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
+        }
     }
 
     @Override
     public Panel initGui() {
-        // TODO Auto-generated method stub
-        return null;
+        final MilestoneEditingPanelFactory factory =
+            this.injector.getInstance(MilestoneEditingPanelFactory.class);
+    this.panel = factory.create();
+    this.panel.setInjector(this.injector);
+    this.panel.initGui();
+    return this.panel.toPanel();
     }
 
- 
-    @Override
-    public void taskEdited(final Task aTask) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void eventCreated(final Event aNewEvent) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void eventCreationFailure() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void milestoneCreated(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void milestoneCreationFailure() {
-        // TODO Auto-generated method stub
-
-    }
 
     @Override
     public void setData(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
+    	this.panel.setMilestone(aMilestone);
 
     }
 
-    @Override
-    public void taskDeleted(final Task aTask) {
-        // TODO Auto-generated method stub
+	@Override
+	public void deleteMilestone(Milestone aMilestone) {
+        if (this.persistence.deleteMilestone(aMilestone)) {
+            this.webGuiBus.broadcastMilestoneDeletedMessage(aMilestone);
+        } else {
+            this.webGuiBus.broadcastMilestoneDeletionFailureMessage();
+        }			
+	}
 
-    }
-
-    @Override
-    public void eventDeleted(final Event aNewEvent) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void milestoneDeleted(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void taskDeletionFailure() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void eventDeletionFailure() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void milestoneDeletionFailure() {
-        // TODO Auto-generated method stub
-
-    }
+	@Override
+	public void saveMilestone(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

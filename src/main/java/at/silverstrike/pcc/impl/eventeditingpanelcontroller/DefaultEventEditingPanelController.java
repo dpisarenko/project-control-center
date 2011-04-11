@@ -20,8 +20,8 @@ import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.model.Event;
-import at.silverstrike.pcc.api.model.Milestone;
-import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
 /**
@@ -31,6 +31,8 @@ import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 class DefaultEventEditingPanelController extends WebGuiBusListenerAdapter implements
         EventEditingPanelController {
     private Injector injector = null;
+    private transient Persistence persistence = null;
+    private transient WebGuiBus webGuiBus = null;
     private EventEditingPanel panel = null;
 
     @Override
@@ -46,6 +48,10 @@ class DefaultEventEditingPanelController extends WebGuiBusListenerAdapter implem
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
+        if (aInjector != null) {
+            this.persistence = this.injector.getInstance(Persistence.class);
+            this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
+        }
     }
 
     @Override
@@ -56,24 +62,6 @@ class DefaultEventEditingPanelController extends WebGuiBusListenerAdapter implem
         this.panel.setInjector(this.injector);
         this.panel.initGui();
         return this.panel.toPanel();
-    }
-
-    @Override
-    public void taskCreated(final Task aNewTask) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void taskCreationFailure() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void taskEdited(final Task aTask) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -90,55 +78,23 @@ class DefaultEventEditingPanelController extends WebGuiBusListenerAdapter implem
 
     @Override
     public void setData(final Event aEvent) {
-        this.panel.setEventName(aEvent.getName());
+        this.panel.setEvent(aEvent);
     }
 
-    @Override
-    public void milestoneCreated(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
 
-    }
+	@Override
+	public void deleteEvent(Event aEvent) {
+        if (this.persistence.deleteEvent(aEvent)) {
+            this.webGuiBus.broadcastEventDeletedMessage(aEvent);
+        } else {
+            this.webGuiBus.broadcastEventDeletionFailureMessage();
+        }		
+	}
 
-    @Override
-    public void milestoneCreationFailure() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void taskDeleted(final Task aTask) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void eventDeleted(final Event aNewEvent) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void milestoneDeleted(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void taskDeletionFailure() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void eventDeletionFailure() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void milestoneDeletionFailure() {
-        // TODO Auto-generated method stub
-
-    }
+	@Override
+	public void saveEvent(Event aEvent) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
