@@ -65,7 +65,7 @@ class DefaultTaskEditingPanel extends Panel implements
     private static final String SAVE_TASK_BUTTON = "028.001";
     private static final String DONE_TASK_BUTTON = "028.002";
     private static final String DELETE_TASK_BUTTON = "028.003";
-    private static final String DEPENDENCIES_BUTTON = "028.XYZ";
+    private static final String DEPENDENCIES_BUTTON = "028.004";
 
     private transient Injector injector;
     private transient TaskEditingPanelController controller;
@@ -195,7 +195,11 @@ class DefaultTaskEditingPanel extends Panel implements
     private Button createDependEditButton() {
         final Button dependEditButton =
                 new Button(TM.get("taskeditingpanel.18-button-edit"));
+        dependEditButton.setDebugId(this.debugIdRegistry.getDebugId(
+                FunctionalBlock.taskeditingpanel,
+                "taskeditingpanel.4-button-dependencies"));
         dependEditButton.addListener(this);
+
         return dependEditButton;
     }
 
