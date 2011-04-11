@@ -22,6 +22,8 @@ import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialogFactory;
+import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
@@ -72,7 +74,9 @@ import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEdit
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
+import at.silverstrike.pcc.impl.dependencieseditingdialog.DefaultDependenciesEditingDialogFactory;
 import at.silverstrike.pcc.impl.dependencieseditingpanel.DefaultDependenciesEditingPanelFactory;
+import at.silverstrike.pcc.impl.dependencieseditingpanelcontroller.DefaultDependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
@@ -205,6 +209,10 @@ class InjectorModule extends AbstractModule {
                 new DefaultMilestoneEditingPanelControllerFactory());
         bind(ProjectNetworkDataCreatorFactory.class).toInstance(
                 new DefaultProjectNetworkDataCreatorFactory());
+        bind(DependenciesEditingDialogControllerFactory.class).toInstance(
+                new DefaultDependenciesEditingDialogControllerFactory());
+        bind(DependenciesEditingDialogFactory.class).toInstance(
+                new DefaultDependenciesEditingDialogFactory());
     }
 
     private TestTableCreator getTestTableCreator() {
