@@ -38,7 +38,7 @@ final class DefaultDependenciesEditingDialogController implements
 
     @Override
     public void run() throws PccException {
-        if (this.schedulingObject != null) {
+        if (this.schedulingObject == null) {
             return;
         }
         
