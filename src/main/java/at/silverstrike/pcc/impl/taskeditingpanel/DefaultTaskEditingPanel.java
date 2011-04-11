@@ -52,9 +52,9 @@ class DefaultTaskEditingPanel extends Panel implements
     private static final int PROCESS_NAME_TEXT_FIELD_COLUMNS = 30;
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
 
-    private static final String[] DURATION_STEPS = new String[] { "15 min",
-            "30 min",
-            "45 min" };
+    private static final Double[] DURATION_STEPS = new Double[] { 15.0,
+            30.0,
+            45.0 };
     private static final String[] TEST_COLUMN_NAMES = new String[] { "�",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
@@ -71,9 +71,11 @@ class DefaultTaskEditingPanel extends Panel implements
     private transient DebugIdRegistry debugIdRegistry;
 
     private TextField taskNameTextField;
-
+    private ComboBox from;
+	private ComboBox to;
+	
     private transient Task task;
-
+	
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
@@ -172,7 +174,7 @@ class DefaultTaskEditingPanel extends Panel implements
         fromLabel.setContentMode(Label.CONTENT_TEXT);
         effortLayout.addComponent(fromLabel);
 
-        final ComboBox from = new ComboBox();
+        from = new ComboBox();
         for (int i = 0; i < DURATION_STEPS.length - 1; i++) {
             from.addItem(DURATION_STEPS[i]);
         }
@@ -183,7 +185,7 @@ class DefaultTaskEditingPanel extends Panel implements
         toLabel.setContentMode(Label.CONTENT_TEXT);
         effortLayout.addComponent(toLabel);
 
-        final ComboBox to = new ComboBox();
+        to = new ComboBox();
         for (int i = 1; i < DURATION_STEPS.length; i++) {
             to.addItem(DURATION_STEPS[i]);
         }
@@ -231,6 +233,11 @@ class DefaultTaskEditingPanel extends Panel implements
 
             if (this.task != null) {
                 this.task.setName((String) this.taskNameTextField.getValue());
+                
+                //implement convert to double
+                this.task.setWorstCaseEffort((Double) this.from.getValue());
+                this.task.setBestCaseEffort((Double) this.to.getValue());
+                
                 this.controller.saveTask(this.task);
             }
         } else if (DONE_TASK_BUTTON.equals(debugId)) {
