@@ -156,4 +156,8 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     boolean deleteEvent(final Event aEvent);
 
     boolean deleteMilestone(final Milestone aMilestone);
+
+	void updateMilestone(final Milestone aMilestone);
+
+	void updateEvent(final Event aEvent);
 }

@@ -195,4 +195,16 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter impl
         this.panel.schedulingObjectDeleted(aMilestone);
     }
 
+	@Override
+	public void milestoneEdited(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventEdited(Event aEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

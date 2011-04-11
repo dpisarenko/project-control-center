@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.taskeditingpanelcontroller;
 
+import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
@@ -93,6 +95,18 @@ class DefaultTaskEditingPanelController extends WebGuiBusListenerAdapter
 	public void clearPanel() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void milestoneEdited(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventEdited(Event aEvent) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

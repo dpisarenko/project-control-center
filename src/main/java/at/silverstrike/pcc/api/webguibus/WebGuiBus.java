@@ -52,4 +52,8 @@ public interface WebGuiBus {
 	void broadcastMilestoneDeletedMessage(final Milestone aMilestone);
 	
 	void broadcastMilestoneDeletionFailureMessage();
+
+	void broadcastMilestoneEditedMessage(final Milestone aMilestone);
+
+	void broadcastEventEditedMessage(final Event aEvent);
 }

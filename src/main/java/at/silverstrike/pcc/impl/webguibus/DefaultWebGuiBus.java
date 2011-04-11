@@ -127,4 +127,20 @@ class DefaultWebGuiBus implements WebGuiBus {
         }
     }
 
+	@Override
+	public void broadcastMilestoneEditedMessage(Milestone aMilestone) {
+		 for (final WebGuiBusListener listener : this.listeners) {
+	            listener.milestoneEdited(aMilestone);
+	        }
+		
+	}
+
+	@Override
+	public void broadcastEventEditedMessage(Event aEvent) {
+		 for (final WebGuiBusListener listener : this.listeners) {
+	            listener.eventEdited(aEvent);
+	        }
+		
+	}
+
 }

@@ -41,4 +41,8 @@ public interface WebGuiBusListener {
 	void eventDeletionFailure();
 	
 	void milestoneDeletionFailure();
+
+	void milestoneEdited(final Milestone aMilestone);
+
+	void eventEdited(final Event aEvent);
 }

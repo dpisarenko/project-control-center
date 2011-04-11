@@ -20,6 +20,7 @@ import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
@@ -93,6 +94,21 @@ class DefaultEventEditingPanelController extends WebGuiBusListenerAdapter implem
 
 	@Override
 	public void saveEvent(Event aEvent) {
+		if (aEvent != null) {
+			this.persistence.updateEvent(aEvent);
+			this.webGuiBus.broadcastEventEditedMessage(aEvent);
+		}
+		
+	}
+
+	@Override
+	public void milestoneEdited(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventEdited(Event aEvent) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -16,6 +16,7 @@ import at.silverstrike.pcc.api.dependencieseditingwindow.DependenciesEditingPane
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
+import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
@@ -78,6 +79,21 @@ class DefaultMilestoneEditingPanelController extends WebGuiBusListenerAdapter im
 
 	@Override
 	public void saveMilestone(Milestone aMilestone) {
+		if (aMilestone != null) {
+			this.persistence.updateMilestone(aMilestone);
+			this.webGuiBus.broadcastMilestoneEditedMessage(aMilestone);
+		}
+		
+	}
+
+	@Override
+	public void milestoneEdited(Milestone aMilestone) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eventEdited(Event aEvent) {
 		// TODO Auto-generated method stub
 		
 	}

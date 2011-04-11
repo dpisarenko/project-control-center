@@ -1144,5 +1144,19 @@ public class DefaultPersistence implements Persistence {
     @Override
     public final boolean deleteMilestone(final Milestone aMilestone) {
         return deleteSchedulingObject(aMilestone);
-    };
+    }
+
+	@Override
+	public void updateMilestone(Milestone aMilestone) {
+		//rewrite this
+		updateTask((Task) aMilestone);
+		
+	}
+
+	@Override
+	public void updateEvent(Event aEvent) {
+		//rewrite this
+		updateTask((Task) aEvent);
+		
+	};
 }
