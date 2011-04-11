@@ -197,7 +197,7 @@ class DefaultTaskEditingPanel extends Panel implements
                 new Button(TM.get("taskeditingpanel.18-button-edit"));
         dependEditButton.setDebugId(this.debugIdRegistry.getDebugId(
                 FunctionalBlock.taskeditingpanel,
-                "taskeditingpanel.4-button-dependencies"));
+                "4-button-dependencies"));
         dependEditButton.addListener(this);
 
         return dependEditButton;
