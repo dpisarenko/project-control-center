@@ -86,7 +86,7 @@ final class DefaultDependenciesEditingDialog implements
                         this);
         okButton.setDebugId(this.debugIdRegistry.getDebugId(
                 FunctionalBlock.dependencieseditingdialog,
-                "dependencieseditingdialog.1-ok-button"));
+                "1-ok-button"));
         this.dialog.getContent().addComponent(okButton);
     }
 
