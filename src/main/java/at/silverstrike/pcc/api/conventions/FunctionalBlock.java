@@ -20,10 +20,10 @@ public enum FunctionalBlock {
     culture2lang, entrywindow, parameterdatareader, openid,
     centraleditingpanel,
     dependencieseditingwindow, graphdemopanel, taskeditingpanel,
-    meetingeditingpanel, milestoneeditingpanel, projectnetworkgraphpanel,
+    eventeditingpanel, milestoneeditingpanel, projectnetworkgraphpanel,
     graph2resource, mainwindowcontroller, xmlserialization,
     centraleditingpanelcontroller, dependencieseditingwindowcontroller,
-    meetingeditingpanelcontroller, milestoneeditingpanelcontroller,
+    eventeditingpanelcontroller, milestoneeditingpanelcontroller,
     projectnetworkgraphcreator, projectnetworkgraphpanelcontroller,
     projecttreemodel, webguibus, validation, testtablecreator,
     taskeditingpanelcontroller, centraleditingpanelbuttonstate

@@ -13,6 +13,7 @@ package at.silverstrike.pcc.api.milestoneeditingpanel;
 
 import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import at.silverstrike.pcc.api.model.Milestone;
 
 /**
  * @author DP118M
@@ -20,5 +21,7 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
  */
 public interface MilestoneEditingPanel extends
         ModuleWithInjectableDependencies, AbstractedPanel {
+
+	void setMilestone(final Milestone aMilestone);
 
 }

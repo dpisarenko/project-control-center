@@ -70,7 +70,7 @@ public final class MessageCodePrefixRegistry {
                 "026");
         this.prefixesByModules.put(FunctionalBlock.graphdemopanel, "027");
         this.prefixesByModules.put(FunctionalBlock.taskeditingpanel, "028");
-        this.prefixesByModules.put(FunctionalBlock.meetingeditingpanel, "029");
+        this.prefixesByModules.put(FunctionalBlock.eventeditingpanel, "029");
         this.prefixesByModules
                 .put(FunctionalBlock.milestoneeditingpanel, "030");
         this.prefixesByModules.put(FunctionalBlock.projectnetworkgraphpanel,
@@ -84,7 +84,7 @@ public final class MessageCodePrefixRegistry {
                 FunctionalBlock.dependencieseditingwindowcontroller,
                 "036");
         this.prefixesByModules.put(
-                FunctionalBlock.meetingeditingpanelcontroller, "037");
+                FunctionalBlock.eventeditingpanelcontroller, "037");
         this.prefixesByModules.put(
                 FunctionalBlock.milestoneeditingpanelcontroller,
                 "038");

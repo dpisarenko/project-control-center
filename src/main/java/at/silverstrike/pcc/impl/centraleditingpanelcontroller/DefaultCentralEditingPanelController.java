@@ -27,8 +27,9 @@ import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
+import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
-class DefaultCentralEditingPanelController implements
+class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter implements
         CentralEditingPanelController {
     private Injector injector = null;
     private Persistence persistence = null;

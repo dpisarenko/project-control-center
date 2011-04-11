@@ -13,6 +13,7 @@ package at.silverstrike.pcc.api.eventeditingpanel;
 
 import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import at.silverstrike.pcc.api.model.Event;
 
 /**
  * @author DP118M
@@ -21,6 +22,6 @@ import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 public interface EventEditingPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel {
 
-    void setEventName(final String aName);
+    void setEvent(final Event aEvent);
 
 }

@@ -31,6 +31,8 @@ import com.vaadin.ui.Button.ClickListener;
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
+import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
@@ -241,8 +243,19 @@ class DefaultTaskEditingPanel extends Panel implements
     }
 
     private void letUserEnterDependencies() {
-        // TODO Auto-generated method stub
-
+        final DependenciesEditingDialogControllerFactory factory =
+                this.injector
+                        .getInstance(DependenciesEditingDialogControllerFactory.class);
+        final DependenciesEditingDialogController controller = factory.create();
+        
+        controller.setInjector(this.injector);
+        controller.setParentWindow(TPTApplication.getCurrentApplication().getMainWindow());
+        controller.setSchedulingObject(this.task);
+        try {
+            controller.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+        }
     }
 
     @Override
