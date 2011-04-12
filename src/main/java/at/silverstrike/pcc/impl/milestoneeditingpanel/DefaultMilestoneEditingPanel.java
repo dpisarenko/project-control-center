@@ -56,7 +56,7 @@ class DefaultMilestoneEditingPanel extends Panel implements
 	private static final String SAVE_MILESTONE_BUTTON = "030.001";
 	private static final String DELETE_MILESTONE_BUTTON = "030.002";
 	private static final String DEPENDENCIES_BUTTON = "030.XYZ";
-	private transient Milestone milestone = null;
+	private transient Milestone milestone;
 
 	private transient Injector injector;
 	private transient MilestoneEditingPanelController controller;

@@ -1147,16 +1147,28 @@ public class DefaultPersistence implements Persistence {
     }
 
 	@Override
-	public void updateMilestone(Milestone aMilestone) {
-		//rewrite this
-		updateTask((Task) aMilestone);
-		
+	public void updateMilestone(Milestone aProcess) {
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            session.update(aProcess);
+            tx.commit();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }		
 	}
 
 	@Override
-	public void updateEvent(Event aEvent) {
-		//rewrite this
-		updateTask((Task) aEvent);
-		
-	};
+	public void updateEvent(Event aProcess) {
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            session.update(aProcess);
+            tx.commit();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }	
+	}
 }

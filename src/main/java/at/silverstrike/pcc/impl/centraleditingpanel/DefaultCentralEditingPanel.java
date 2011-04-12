@@ -584,4 +584,16 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         this.redrawProjectNetwork();
         this.updateTree();
     }
+
+	@Override
+	public void updateMilestoneNodeInTree(Milestone aMilestone) {
+		this.treeModel.updateNodeLettering(aMilestone);
+		
+	}
+
+	@Override
+	public void updateEventNodeInTree(at.silverstrike.pcc.api.model.Event aEvent) {
+		this.treeModel.updateNodeLettering(aEvent);
+		
+	}
 }

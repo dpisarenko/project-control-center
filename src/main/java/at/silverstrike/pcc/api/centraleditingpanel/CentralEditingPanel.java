@@ -45,4 +45,8 @@ public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
     void milestoneCreationFailure();
 
     void schedulingObjectDeleted(final SchedulingObject aSchedulingObject);
+
+	void updateMilestoneNodeInTree(final Milestone aMilestone);
+
+	void updateEventNodeInTree(final Event aEvent);
 }

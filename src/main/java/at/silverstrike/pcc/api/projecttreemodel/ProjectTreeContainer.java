@@ -31,4 +31,5 @@ public interface ProjectTreeContainer extends Container.Hierarchical,
     void updateData();
     SchedulingObject getSchedulingObject(final Integer aTreeItemId);
     void updateNodeLettering(final Task aTask);
+	void updateNodeLettering(final SchedulingObject aShedulingObject);
 }

@@ -57,7 +57,7 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 	private static final String SAVE_EVENT_BUTTON = "029.001";
 	private static final String DELETE_EVENT_BUTTON = "029.002";
 	private static final String DEPENDENCIES_BUTTON = "029.XYZ";
-	private transient at.silverstrike.pcc.api.model.Event event = null;
+	private transient at.silverstrike.pcc.api.model.Event event;
 
 	private transient Injector injector;
 	private transient EventEditingPanelController controller;

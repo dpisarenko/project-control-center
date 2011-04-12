@@ -167,4 +167,19 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         node.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                 aTask.getName());
     }
+
+
+	@Override
+	public void updateNodeLettering(SchedulingObject aShedulingObject) {
+        if (aShedulingObject == null) {
+            return;
+        }
+        final Integer treeItemId =
+                treeItemIdsBySchedulingObjectsId.get(aShedulingObject.getId());
+        final Item node = this.getItem(treeItemId);
+
+        node.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
+        		aShedulingObject.getName());
+		
+	}
 }

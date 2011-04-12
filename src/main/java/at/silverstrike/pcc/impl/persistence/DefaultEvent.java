@@ -42,4 +42,8 @@ class DefaultEvent extends DefaultSchedulingObject implements Event {
     public void setEndDateTime(final Date aEndDateTime) {
         this.endDateTime = aEndDateTime;
     }
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

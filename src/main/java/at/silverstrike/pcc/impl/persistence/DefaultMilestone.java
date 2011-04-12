@@ -18,5 +18,9 @@ import at.silverstrike.pcc.api.model.Milestone;
  * 
  */
 class DefaultMilestone extends DefaultSchedulingObject implements Milestone {
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 
 }
