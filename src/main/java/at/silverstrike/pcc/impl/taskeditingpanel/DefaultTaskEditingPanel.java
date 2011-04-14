@@ -12,6 +12,7 @@
 package at.silverstrike.pcc.impl.taskeditingpanel;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -53,9 +54,20 @@ class DefaultTaskEditingPanel extends Panel implements
     private static final int PROCESS_NAME_TEXT_FIELD_COLUMNS = 30;
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
 
-    private static final Double[] DURATION_STEPS = new Double[] { 15.0,
-            30.0,
-            45.0 };
+    private static final Double[] DURATION_STEPS = new Double[] { 
+    	0.17,
+        0.25,
+        0.5,
+        0.75,
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        8.0,
+        16.0,
+        24.0,
+        40.0};
     private static final String[] TEST_COLUMN_NAMES = new String[] { "�",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
@@ -76,6 +88,8 @@ class DefaultTaskEditingPanel extends Panel implements
 	private ComboBox to;
 	
     private transient Task task;
+	private String[] effortList;
+	private HashMap<String, Double> hm;
 	
     @Override
     public void setInjector(final Injector aInjector) {
@@ -175,9 +189,11 @@ class DefaultTaskEditingPanel extends Panel implements
         fromLabel.setContentMode(Label.CONTENT_TEXT);
         effortLayout.addComponent(fromLabel);
 
+        effortList = (TM.get("taskeditingpanel.19-combobox-effort")).split(",");
+        
         from = new ComboBox();
-        for (int i = 0; i < DURATION_STEPS.length - 1; i++) {
-            from.addItem(DURATION_STEPS[i]);
+        for (int i = 0; i < effortList.length; i++) {
+            from.addItem(effortList[i]);
         }
         effortLayout.addComponent(from);
 
@@ -187,8 +203,8 @@ class DefaultTaskEditingPanel extends Panel implements
         effortLayout.addComponent(toLabel);
 
         to = new ComboBox();
-        for (int i = 1; i < DURATION_STEPS.length; i++) {
-            to.addItem(DURATION_STEPS[i]);
+        for (int i = 0; i < effortList.length; i++) {
+            to.addItem(effortList[i]);
         }
         effortLayout.addComponent(to);
         return effortLayout;
@@ -239,9 +255,21 @@ class DefaultTaskEditingPanel extends Panel implements
             if (this.task != null) {
                 this.task.setName((String) this.taskNameTextField.getValue());
                 
+                
                 //implement convert to double
-                this.task.setWorstCaseEffort((Double) this.from.getValue());
-                this.task.setBestCaseEffort((Double) this.to.getValue());
+                hm = new HashMap<String, Double>();
+                for (int i = 0; i < effortList.length; i++) {
+                    hm.put(effortList[i], DURATION_STEPS[i]);
+                } 
+                
+                String fromEffort = (String) this.from.getValue();
+                Double fromDouble = (Double) hm.get(fromEffort);
+                
+                String toEffort = (String) this.to.getValue();
+                Double toDouble = (Double) hm.get(toEffort);
+                
+                this.task.setWorstCaseEffort(fromDouble);
+                this.task.setBestCaseEffort(toDouble);
                 
                 this.controller.saveTask(this.task);
             }
