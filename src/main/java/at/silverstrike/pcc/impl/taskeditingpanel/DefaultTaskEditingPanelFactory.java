@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 public class DefaultTaskEditingPanelFactory implements
         TaskEditingPanelFactory {
     /**
-     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     * @see ru.altruix.commons.api.conventions.Factory#create()
      */
     @Override
     public final TaskEditingPanel create() {

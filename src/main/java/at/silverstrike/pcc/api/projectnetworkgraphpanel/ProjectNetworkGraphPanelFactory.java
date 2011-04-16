@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.projectnetworkgraphpanel;
 
-import at.silverstrike.pcc.api.conventions.Factory;
+import ru.altruix.commons.api.conventions.Factory;
 
 /**
  * @author DP118M

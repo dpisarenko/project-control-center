@@ -9,11 +9,13 @@
  *
  **/
 
-package at.silverstrike.pcc.api.mainwindowcontroller;
+package ru.altruix.commons.api.vaadin;
 
-import ru.altruix.commons.api.conventions.Factory;
+import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 
-public interface MainWindowControllerFactory extends
-            Factory<MainWindowController> {
+import com.vaadin.ui.Panel;
 
+public interface AbstractedPanel extends InitializableGuiComponent {
+
+    Panel toPanel();
 }

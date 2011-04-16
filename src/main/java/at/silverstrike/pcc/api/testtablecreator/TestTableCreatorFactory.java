@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.testtablecreator;
 
-import at.silverstrike.pcc.api.conventions.Factory;
+import ru.altruix.commons.api.conventions.Factory;
 
 public interface TestTableCreatorFactory extends Factory<TestTableCreator> {
 

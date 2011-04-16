@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 public class DefaultDailyPlanPanelFactory implements DailyPlanPanelFactory {
 
     /**
-     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     * @see ru.altruix.commons.api.conventions.Factory#create()
      */
     @Override
     public final DailyPlanPanel create() {

@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.export2tj3;
 
-import at.silverstrike.pcc.api.conventions.Factory;
+import ru.altruix.commons.api.conventions.Factory;
 
 /**
  * @author Dmitri Pisarenko

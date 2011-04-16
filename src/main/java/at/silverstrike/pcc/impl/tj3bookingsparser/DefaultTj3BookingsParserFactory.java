@@ -22,7 +22,7 @@ public class DefaultTj3BookingsParserFactory implements
 		Tj3BookingsParserFactory {
 
 	/**
-	 * @see at.silverstrike.pcc.api.conventions.Factory#create()
+	 * @see ru.altruix.commons.api.conventions.Factory#create()
 	 */
 	@Override
 	public final Tj3BookingsParser create() {

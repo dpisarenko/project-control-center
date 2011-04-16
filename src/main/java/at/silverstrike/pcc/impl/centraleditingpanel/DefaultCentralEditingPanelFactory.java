@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 public class DefaultCentralEditingPanelFactory implements
         CentralEditingPanelFactory {
     /**
-     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     * @see ru.altruix.commons.api.conventions.Factory#create()
      */
     @Override
     public final CentralEditingPanel create() {

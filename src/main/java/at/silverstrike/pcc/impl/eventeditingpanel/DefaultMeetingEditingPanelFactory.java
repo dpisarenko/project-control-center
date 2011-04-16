@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanelFactory;
 public class DefaultMeetingEditingPanelFactory implements
 		EventEditingPanelFactory {
     /**
-     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     * @see ru.altruix.commons.api.conventions.Factory#create()
      */
     @Override
     public final EventEditingPanel create() {

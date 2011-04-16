@@ -22,7 +22,7 @@ public class DefaultEstimatedCompletionTimesPanelFactory implements
         EstimatedCompletionTimesPanelFactory {
 
     /**
-     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     * @see ru.altruix.commons.api.conventions.Factory#create()
      */
     @Override
     public final EstimatedCompletionTimesPanel create() {

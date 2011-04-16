@@ -9,11 +9,14 @@
  *
  **/
 
-package at.silverstrike.pcc.api.conventions;
+package ru.altruix.commons.api.commons;
 
-import com.vaadin.ui.Panel;
-
-public interface AbstractedPanel extends InitializableGuiComponent {
-
-    Panel toPanel();
+/**
+ * @author DP118M
+ * 
+ */
+public enum CommonsFunctionalBlock {
+    conventions,
+    commons,
+    fbprefixes;
 }

@@ -10,7 +10,7 @@
  **/
 package at.silverstrike.pcc.api.jruby;
 
-import at.silverstrike.pcc.api.conventions.Factory;
+import ru.altruix.commons.api.conventions.Factory;
 
 
 /**

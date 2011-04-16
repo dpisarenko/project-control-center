@@ -10,7 +10,7 @@
  **/
 package at.silverstrike.pcc.api.estimatedcompletiontimespanel;
 
-import at.silverstrike.pcc.api.conventions.Factory;
+import ru.altruix.commons.api.conventions.Factory;
 
 /**
  * @author Dmitri Pisarenko

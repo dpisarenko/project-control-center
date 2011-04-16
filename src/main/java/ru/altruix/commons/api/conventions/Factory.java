@@ -9,14 +9,8 @@
  *
  **/
 
-package at.silverstrike.pcc.api.conventions;
+package ru.altruix.commons.api.conventions;
 
-import com.vaadin.ui.Window;
-
-/**
- * @author DP118M
- *
- */
-public interface AbstractedWindow {
-    Window toWindow();
+public interface Factory<C> {
+	C create();
 }

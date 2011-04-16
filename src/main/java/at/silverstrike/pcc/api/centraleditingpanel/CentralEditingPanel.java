@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.api.centraleditingpanel;
 
+import ru.altruix.commons.api.vaadin.AbstractedPanel;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
-import at.silverstrike.pcc.api.conventions.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ExternallyControlledGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.Event;

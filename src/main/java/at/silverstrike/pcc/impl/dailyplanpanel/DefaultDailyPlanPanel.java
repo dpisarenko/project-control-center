@@ -337,7 +337,7 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
     }
 
     /**
-     * @see at.silverstrike.pcc.api.conventions.AbstractedPanel#toPanel()
+     * @see ru.altruix.commons.api.vaadin.AbstractedPanel#toPanel()
      */
     @Override
     public Panel toPanel() {

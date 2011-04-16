@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReaderFactory;
 public class DefaultEmbeddedFileReaderFactory implements
         EmbeddedFileReaderFactory {
     /**
-     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     * @see ru.altruix.commons.api.conventions.Factory#create()
      */
     @Override
     public final EmbeddedFileReader create() {

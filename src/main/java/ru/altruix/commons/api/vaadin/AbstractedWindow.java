@@ -9,14 +9,14 @@
  *
  **/
 
-package at.silverstrike.pcc.api.conventions;
+package ru.altruix.commons.api.vaadin;
 
-import com.vaadin.ui.Layout;
+import com.vaadin.ui.Window;
 
 /**
  * @author DP118M
  *
  */
-public interface AbstractedLayout extends InitializableGuiComponent {
-    Layout toLayout();
+public interface AbstractedWindow {
+    Window toWindow();
 }

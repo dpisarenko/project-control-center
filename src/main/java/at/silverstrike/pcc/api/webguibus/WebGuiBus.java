@@ -26,7 +26,7 @@ public interface WebGuiBus {
      * Сообщение рассылается, когда у существующего дела меняются данные.
      */
     void broadcastTaskEditedMessage(final Task aTask);
-    
+
     /**
      * Сообщение рассылается при успешном создании нового события.
      */
@@ -37,23 +37,23 @@ public interface WebGuiBus {
      */
     void broadcastEventCreationFailureMessage();
 
-	void broadcastMilestoneCreatedMessage(final Milestone aMilestone);
-	
-	void broadcastMilestoneCreationFailureMessage();
+    void broadcastMilestoneCreatedMessage(final Milestone aMilestone);
 
-	void broadcastTaskDeletedMessage(final Task aTask);
-	
-	void broadcastTaskDeletionFailureMessage();
-	
-	void broadcastEventDeletedMessage(final Event aEvent);
-	
-	void broadcastEventDeletionFailureMessage();
-	
-	void broadcastMilestoneDeletedMessage(final Milestone aMilestone);
-	
-	void broadcastMilestoneDeletionFailureMessage();
+    void broadcastMilestoneCreationFailureMessage();
 
-	void broadcastMilestoneEditedMessage(final Milestone aMilestone);
+    void broadcastTaskDeletedMessage(final Task aTask);
 
-	void broadcastEventEditedMessage(final Event aEvent);
+    void broadcastTaskDeletionFailureMessage();
+
+    void broadcastEventDeletedMessage(final Event aEvent);
+
+    void broadcastEventDeletionFailureMessage();
+
+    void broadcastMilestoneDeletedMessage(final Milestone aMilestone);
+
+    void broadcastMilestoneDeletionFailureMessage();
+
+    void broadcastMilestoneEditedMessage(final Milestone aMilestone);
+
+    void broadcastEventEditedMessage(final Event aEvent);
 }

@@ -14,9 +14,10 @@ package at.silverstrike.pcc.api.dependencieseditingdialog;
 import java.util.List;
 import java.util.Set;
 
+import ru.altruix.commons.api.vaadin.AbstractedWindow;
+
 import com.vaadin.ui.Window;
 
-import at.silverstrike.pcc.api.conventions.AbstractedWindow;
 import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 import at.silverstrike.pcc.api.conventions.ModalDialogResult;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;

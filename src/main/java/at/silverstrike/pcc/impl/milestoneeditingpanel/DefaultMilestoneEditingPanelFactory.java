@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactor
 public class DefaultMilestoneEditingPanelFactory implements
         MilestoneEditingPanelFactory {
     /**
-     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     * @see ru.altruix.commons.api.conventions.Factory#create()
      */
     @Override
     public final MilestoneEditingPanel create() {

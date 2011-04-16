@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.milestoneeditingpanel;
 
-import at.silverstrike.pcc.api.conventions.AbstractedPanel;
+import ru.altruix.commons.api.vaadin.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.Milestone;
 

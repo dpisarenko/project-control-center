@@ -10,7 +10,7 @@
  **/
 package at.silverstrike.pcc.api.tj3bookingsparser;
 
-import at.silverstrike.pcc.api.conventions.Factory;
+import ru.altruix.commons.api.conventions.Factory;
 
 /**
  * @author Dmitri Pisarenko

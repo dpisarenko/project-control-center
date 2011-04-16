@@ -18,7 +18,7 @@ public class DefaultTaskJuggler3ExporterFactory implements
         TaskJuggler3ExporterFactory {
 
     /**
-     * @see at.silverstrike.pcc.api.conventions.Factory#create()
+     * @see ru.altruix.commons.api.conventions.Factory#create()
      */
     @Override
     public final TaskJuggler3Exporter create() {

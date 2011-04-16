@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.tj3bookingsparser;
 
-import at.silverstrike.pcc.api.conventions.Factory;
+import ru.altruix.commons.api.conventions.Factory;
 
 public interface Tj3BookingsParserFactory extends Factory<Tj3BookingsParser> {
 
