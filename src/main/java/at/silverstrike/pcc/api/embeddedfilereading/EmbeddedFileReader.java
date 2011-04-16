@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.embeddedfilereading;
 
-import at.silverstrike.pcc.api.conventions.PccException;
+import ru.altruix.commons.api.di.PccException;
 
 /**
  * @author Dmitri Pisarenko

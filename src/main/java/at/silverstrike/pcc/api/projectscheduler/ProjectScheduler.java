@@ -13,8 +13,9 @@ package at.silverstrike.pcc.api.projectscheduler;
 
 import java.util.Date;
 
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+
 
 /**
  * Represents a module for scheduling the project in TaskJuggler III.

@@ -9,12 +9,12 @@
  *
  **/
 
-package at.silverstrike.pcc.api.conventions;
+package ru.altruix.commons.api.conventions;
 
 /**
  * @author DP118M
- * 
+ *
  */
-public enum ModalDialogResult {
-    CLOSED_WITH_OK, CLOSED_WITH_CANCEL, UNDEFINED
+public interface InitializableComponent {
+    void init();
 }

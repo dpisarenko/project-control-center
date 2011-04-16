@@ -14,10 +14,11 @@ package at.silverstrike.pcc.impl.xmlserialization;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import ru.altruix.commons.api.di.PccException;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializer;
 

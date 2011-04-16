@@ -14,6 +14,8 @@ package at.silverstrike.pcc.impl.dependencieseditingdialog;
 import java.util.List;
 import java.util.Set;
 
+import ru.altruix.commons.api.gui.ModalDialogResult;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -24,7 +26,6 @@ import com.vaadin.ui.Window;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.conventions.ModalDialogResult;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialog;
 import at.silverstrike.pcc.api.model.SchedulingObject;

@@ -11,9 +11,10 @@
 
 package at.silverstrike.pcc.api.mainwindowcontroller;
 
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+
 import com.vaadin.Application;
 
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 public interface MainWindowController extends ModuleWithInjectableDependencies {
     void importFromXML();

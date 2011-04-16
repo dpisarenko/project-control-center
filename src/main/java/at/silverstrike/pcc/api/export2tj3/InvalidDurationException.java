@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.export2tj3;
 
-import at.silverstrike.pcc.api.conventions.PccException;
+import ru.altruix.commons.api.di.PccException;
 
 /**
  * This exception is thrown, if TaskJugglerExporter is invoked with invalid

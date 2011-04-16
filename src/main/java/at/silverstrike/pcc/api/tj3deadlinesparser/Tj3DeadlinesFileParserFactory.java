@@ -12,7 +12,7 @@
 package at.silverstrike.pcc.api.tj3deadlinesparser;
 
 import ru.altruix.commons.api.conventions.Factory;
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 
 public interface Tj3DeadlinesFileParserFactory extends
 	Factory<Tj3DeadlinesFileParser>, ModuleWithInjectableDependencies {

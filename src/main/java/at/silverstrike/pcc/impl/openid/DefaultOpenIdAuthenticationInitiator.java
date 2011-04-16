@@ -20,9 +20,10 @@ import org.openid4java.message.MessageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.PccException;
+
 import com.vaadin.Application;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.openid.OpenIdAuthenticationInitiator;
 
 class DefaultOpenIdAuthenticationInitiator implements

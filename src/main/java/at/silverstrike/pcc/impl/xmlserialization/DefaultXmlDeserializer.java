@@ -16,10 +16,11 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
+import ru.altruix.commons.api.di.PccException;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializer;
 

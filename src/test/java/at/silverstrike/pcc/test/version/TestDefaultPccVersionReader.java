@@ -15,7 +15,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import at.silverstrike.pcc.api.conventions.PccException;
+import ru.altruix.commons.api.di.PccException;
+
 import at.silverstrike.pcc.api.version.PccVersionReader;
 import at.silverstrike.pcc.api.version.PccVersionReaderFactory;
 import at.silverstrike.pcc.impl.version.DefaultPccVersionReaderFactory;

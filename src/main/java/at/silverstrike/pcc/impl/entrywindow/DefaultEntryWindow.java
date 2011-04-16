@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.PccException;
+
 import com.google.inject.Injector;
 import com.vaadin.terminal.ParameterHandler;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
@@ -33,7 +35,6 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
@@ -87,7 +88,7 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
     }
 
     @Override
-    public Window getWindow() {
+    public Window toWindow() {
         return this.window;
     }
 

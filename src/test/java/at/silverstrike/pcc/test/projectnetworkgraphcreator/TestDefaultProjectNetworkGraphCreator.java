@@ -22,7 +22,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import at.silverstrike.pcc.api.conventions.PccException;
+import ru.altruix.commons.api.di.PccException;
+
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraph;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator;

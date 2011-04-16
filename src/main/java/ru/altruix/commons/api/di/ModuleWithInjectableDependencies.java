@@ -8,13 +8,12 @@
  * All rights reserved
  *
  **/
+package ru.altruix.commons.api.di;
 
-package at.silverstrike.pcc.api.conventions;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
-/**
- * @author DP118M
- * 
- */
-public interface ExternallyControlledGuiComponent<C extends GuiController> {
-    void setGuiController(final C aController);
+public interface ModuleWithInjectableDependencies {
+    @Inject
+    void setInjector(final Injector aInjector);
 }

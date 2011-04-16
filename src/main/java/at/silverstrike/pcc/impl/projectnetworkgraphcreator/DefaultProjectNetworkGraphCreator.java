@@ -14,7 +14,8 @@ package at.silverstrike.pcc.impl.projectnetworkgraphcreator;
 import java.util.LinkedList;
 import java.util.List;
 
-import at.silverstrike.pcc.api.conventions.PccException;
+import ru.altruix.commons.api.di.PccException;
+
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraph;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;

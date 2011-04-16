@@ -13,7 +13,8 @@ package at.silverstrike.pcc.api.parameterdatareader;
 
 import java.util.Map;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
+
 
 public interface ParameterDataReader extends SingleActivityModule {
 	void setParameters(final Map<String, String[]> aParameters);

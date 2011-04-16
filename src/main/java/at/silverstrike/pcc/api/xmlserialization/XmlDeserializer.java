@@ -13,7 +13,8 @@ package at.silverstrike.pcc.api.xmlserialization;
 
 import java.io.InputStream;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
+
 import at.silverstrike.pcc.api.model.UserData;
 
 /**

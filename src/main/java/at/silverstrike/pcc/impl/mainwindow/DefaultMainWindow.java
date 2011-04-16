@@ -52,7 +52,7 @@ class DefaultMainWindow implements MainWindow {
     }
 
     @Override
-    public Window getWindow() {
+    public Window toWindow() {
         return this.mainWindow;
     }
 
@@ -167,7 +167,7 @@ class DefaultMainWindow implements MainWindow {
         private static final long serialVersionUID = 1L;
 
         public void menuSelected(final MenuItem aSelectedItem) {
-            getWindow().showNotification("Action " + aSelectedItem.getText());
+            toWindow().showNotification("Action " + aSelectedItem.getText());
         }
     };
 

@@ -17,6 +17,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.PccException;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
@@ -32,7 +34,6 @@ import com.vaadin.ui.Window;
 import eu.livotov.tpt.i18n.TM;
 import eu.livotov.tpt.TPTApplication;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 

@@ -15,7 +15,8 @@ import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
-import at.silverstrike.pcc.api.conventions.PccException;
+import ru.altruix.commons.api.di.PccException;
+
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 
 class DefaultCultureToLanguageMapper implements CultureToLanguageMapper {

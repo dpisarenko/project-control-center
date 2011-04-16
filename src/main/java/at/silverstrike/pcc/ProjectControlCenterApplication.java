@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import at.silverstrike.pcc.api.conventions.PccException;
+import ru.altruix.commons.api.di.PccException;
+
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
@@ -94,7 +95,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
             entryWindow.setInjector(injector);
             entryWindow.initGui();
 
-            setMainWindow(entryWindow.getWindow());
+            setMainWindow(entryWindow.toWindow());
         } else {
             final MainWindowControllerFactory mainWindowControllerFactory =
                 injector.getInstance(MainWindowControllerFactory.class);
@@ -146,13 +147,13 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 
                 this.setUser(responder.getIdentity());
 
-                setMainWindow(mainWindow.getWindow());
+                setMainWindow(mainWindow.toWindow());
 
             } else {
                 this.setUser(null);
 
                 // Go to the entry page
-                this.setMainWindow(this.entryWindow.getWindow());
+                this.setMainWindow(this.entryWindow.toWindow());
             }
         }
     }

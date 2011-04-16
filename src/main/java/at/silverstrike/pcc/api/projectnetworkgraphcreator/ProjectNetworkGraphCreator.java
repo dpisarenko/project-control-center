@@ -13,7 +13,8 @@ package at.silverstrike.pcc.api.projectnetworkgraphcreator;
 
 import java.util.List;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
+
 
 /**
  * @author DP118M

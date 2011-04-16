@@ -13,9 +13,10 @@ package at.silverstrike.pcc.api.openid;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ru.altruix.commons.api.conventions.SingleActivityModule;
+
 import com.vaadin.Application;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
 
 public interface OpenIdAuthenticationInitiator extends SingleActivityModule {
     void setIdentity(final String aIdentity);

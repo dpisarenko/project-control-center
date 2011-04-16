@@ -13,7 +13,8 @@ package at.silverstrike.pcc.api.testtablecreator;
 
 import java.util.List;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
+
 
 import com.vaadin.ui.Table;
 

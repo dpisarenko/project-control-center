@@ -11,10 +11,10 @@
 
 package at.silverstrike.pcc.api.centraleditingpanel;
 
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.gui.ExternallyControlledGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedPanel;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
-import at.silverstrike.pcc.api.conventions.ExternallyControlledGuiComponent;
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;

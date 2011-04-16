@@ -10,7 +10,7 @@
  **/
 package at.silverstrike.pcc.api.jruby;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
 
 /**
  * Interface for testing whether we can implement Java interfaces in

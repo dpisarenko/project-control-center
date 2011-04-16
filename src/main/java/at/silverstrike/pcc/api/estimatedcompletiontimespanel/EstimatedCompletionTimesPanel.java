@@ -11,9 +11,9 @@
 
 package at.silverstrike.pcc.api.estimatedcompletiontimespanel;
 
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.vaadin.AbstractedPanel;
 import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 /**
  * @author Dmitri Pisarenko

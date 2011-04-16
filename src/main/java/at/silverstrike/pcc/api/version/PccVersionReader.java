@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.version;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
 
 public interface PccVersionReader extends SingleActivityModule {
     String getVersion();

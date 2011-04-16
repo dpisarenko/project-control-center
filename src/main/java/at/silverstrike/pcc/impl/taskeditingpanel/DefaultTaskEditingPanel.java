@@ -18,6 +18,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.PccException;
+import ru.altruix.commons.api.gui.ModalDialogResult;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
@@ -30,8 +33,6 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.conventions.ModalDialogResult;
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;

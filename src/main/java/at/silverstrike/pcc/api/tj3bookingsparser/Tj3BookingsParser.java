@@ -14,9 +14,10 @@ package at.silverstrike.pcc.api.tj3bookingsparser;
 import java.io.InputStream;
 import java.util.List;
 
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.conventions.PccException;
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.di.PccException;
+
 
 /**
  * Instances of this interface parse the bookings file produced by TaskJuggler

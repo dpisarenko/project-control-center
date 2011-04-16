@@ -9,12 +9,13 @@
  *
  **/
 
-package at.silverstrike.pcc.api.conventions;
+package ru.altruix.commons.api.gui;
+
 
 /**
  * @author DP118M
- *
+ * 
  */
-public interface InitializableComponent {
-    void init();
+public interface ExternallyControlledGuiComponent<C extends GuiController> {
+    void setGuiController(final C aController);
 }

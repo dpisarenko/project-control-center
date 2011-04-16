@@ -13,11 +13,12 @@ package at.silverstrike.pcc.api.dependencieseditingdialogcontroller;
 
 import java.util.Set;
 
+import ru.altruix.commons.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.gui.ModalDialogResult;
+
 import com.vaadin.ui.Window;
 
-import at.silverstrike.pcc.api.conventions.ModalDialogResult;
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
 /**

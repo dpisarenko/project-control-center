@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.api.projecttreemodel;
 
-import at.silverstrike.pcc.api.conventions.InitializableComponent;
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.conventions.InitializableComponent;
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 

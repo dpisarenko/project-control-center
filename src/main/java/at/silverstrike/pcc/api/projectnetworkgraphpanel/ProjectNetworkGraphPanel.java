@@ -13,9 +13,9 @@ package at.silverstrike.pcc.api.projectnetworkgraphpanel;
 
 import java.util.List;
 
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.vaadin.AbstractedLayout;
 
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.SchedulingObjectDependencyTuple;
 
 /**

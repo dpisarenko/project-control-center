@@ -16,7 +16,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;

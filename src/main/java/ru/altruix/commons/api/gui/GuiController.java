@@ -9,10 +9,14 @@
  *
  **/
 
-package at.silverstrike.pcc.api.conventions;
+package ru.altruix.commons.api.gui;
 
-import com.vaadin.ui.Window;
+import com.vaadin.ui.AbstractComponent;
 
-public interface PccWindow {
-	Window getWindow();
+/**
+ * @author DP118M
+ * 
+ */
+public interface GuiController<C extends AbstractComponent> {
+    C initGui();
 }

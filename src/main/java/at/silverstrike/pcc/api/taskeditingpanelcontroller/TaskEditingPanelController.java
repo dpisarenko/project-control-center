@@ -11,10 +11,11 @@
 
 package at.silverstrike.pcc.api.taskeditingpanelcontroller;
 
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.gui.GuiController;
+
 import com.vaadin.ui.Panel;
 
-import at.silverstrike.pcc.api.conventions.GuiController;
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface TaskEditingPanelController extends

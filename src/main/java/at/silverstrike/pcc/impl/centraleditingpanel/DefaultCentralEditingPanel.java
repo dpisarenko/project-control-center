@@ -15,6 +15,8 @@ import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.PccException;
+
 import com.google.inject.Injector;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.terminal.Sizeable;
@@ -34,7 +36,6 @@ import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPane
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelControllerFactory;

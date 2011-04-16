@@ -14,11 +14,12 @@ package at.silverstrike.pcc.impl.dependencieseditingpanelcontroller;
 import java.util.List;
 import java.util.Set;
 
+import ru.altruix.commons.api.di.PccException;
+import ru.altruix.commons.api.gui.ModalDialogResult;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.Window;
 
-import at.silverstrike.pcc.api.conventions.ModalDialogResult;
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialog;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialogFactory;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;

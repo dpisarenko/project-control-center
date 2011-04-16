@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.openid;
 
-import at.silverstrike.pcc.api.conventions.PccException;
+import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.openid.Deauthenticator;
 
 class DefaultDeauthenticator implements Deauthenticator {

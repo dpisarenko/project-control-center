@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.graph2resource;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraph;
 
 /**

@@ -20,6 +20,8 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.PccException;
+
 import com.google.inject.Injector;
 import com.vaadin.Application;
 import com.vaadin.ui.Panel;
@@ -29,7 +31,6 @@ import eu.livotov.tpt.TPTApplication;
 
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
@@ -145,6 +146,6 @@ class DefaultMainWindowController implements MainWindowController {
         mainWindow.setCentralEditingPanel(centralEditingPanel);
         mainWindow.initGui();
 
-        aApplication.setMainWindow(mainWindow.getWindow());
+        aApplication.setMainWindow(mainWindow.toWindow());
     }
 }

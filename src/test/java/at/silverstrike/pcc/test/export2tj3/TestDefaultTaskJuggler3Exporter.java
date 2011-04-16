@@ -26,9 +26,10 @@ import org.slf4j.LoggerFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import ru.altruix.commons.api.di.PccException;
+
 import com.google.inject.Injector;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.export2tj3.NoProcessesException;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;

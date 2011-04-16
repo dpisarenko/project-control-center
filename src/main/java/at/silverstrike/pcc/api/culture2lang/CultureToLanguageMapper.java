@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.culture2lang;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
 
 public interface CultureToLanguageMapper extends SingleActivityModule {
 	void setCulture(final String aCulture);

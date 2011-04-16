@@ -13,9 +13,10 @@ package at.silverstrike.pcc.impl.testtablecreator;
 
 import java.util.List;
 
+import ru.altruix.commons.api.di.PccException;
+
 import com.vaadin.ui.Table;
 
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 
 class DefaultTestTableCreator implements TestTableCreator {

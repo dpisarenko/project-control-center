@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.openid;
 
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
 
 public interface Deauthenticator extends SingleActivityModule {
 

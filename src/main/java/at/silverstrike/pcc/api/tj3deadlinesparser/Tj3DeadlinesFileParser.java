@@ -13,9 +13,10 @@ package at.silverstrike.pcc.api.tj3deadlinesparser;
 
 import java.util.List;
 
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.conventions.PccException;
-import at.silverstrike.pcc.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.di.PccException;
+
 
 /**
  * Interface of an object for reading and parsing CSV files with process end

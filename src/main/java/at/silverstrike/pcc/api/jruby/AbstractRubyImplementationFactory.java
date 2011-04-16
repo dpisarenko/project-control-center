@@ -18,9 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.conventions.Factory;
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.di.PccException;
 
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.conventions.PccException;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 
 import com.google.inject.Inject;

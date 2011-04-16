@@ -9,14 +9,12 @@
  *
  **/
 
-package at.silverstrike.pcc.api.conventions;
-
-import com.vaadin.ui.AbstractComponent;
+package ru.altruix.commons.api.gui;
 
 /**
  * @author DP118M
  * 
  */
-public interface GuiController<C extends AbstractComponent> {
-    C initGui();
+public enum ModalDialogResult {
+    CLOSED_WITH_OK, CLOSED_WITH_CANCEL, UNDEFINED
 }

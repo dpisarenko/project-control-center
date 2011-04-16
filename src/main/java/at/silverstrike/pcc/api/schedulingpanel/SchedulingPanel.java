@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.api.schedulingpanel;
 
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.vaadin.AbstractedPanel;
-import at.silverstrike.pcc.api.conventions.ModuleWithInjectableDependencies;
 
 public interface SchedulingPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel {
