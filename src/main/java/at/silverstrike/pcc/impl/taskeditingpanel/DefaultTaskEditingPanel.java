@@ -274,7 +274,8 @@ class DefaultTaskEditingPanel extends Panel implements
 
                     this.controller.saveTask(this.task);
                 } else {
-                    dialog.showErrorMessage("Task", "From > To", true);
+                    dialog.showErrorMessage("Task",
+                            TM.get("taskeditingpanel.20-combobox-effort"), true);
                 }
             }
         } else if (DONE_TASK_BUTTON.equals(debugId)) {
