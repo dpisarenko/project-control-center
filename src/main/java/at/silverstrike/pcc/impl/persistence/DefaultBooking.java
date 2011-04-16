@@ -12,10 +12,11 @@
 package at.silverstrike.pcc.impl.persistence;
 
 import java.util.Date;
+
+import ru.altruix.commons.impl.util.Utils;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
-import at.silverstrike.pcc.impl.util.Utils;
 
 /**
  * @author Dmitri Pisarenko
