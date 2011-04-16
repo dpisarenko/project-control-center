@@ -55,20 +55,20 @@ class DefaultTaskEditingPanel extends Panel implements
     private static final int PROCESS_NAME_TEXT_FIELD_COLUMNS = 30;
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
 
-    private static final Double[] DURATION_STEPS = new Double[] { 
-    	0.17,
-        0.25,
-        0.5,
-        0.75,
-        1.0,
-        2.0,
-        3.0,
-        4.0,
-        5.0,
-        8.0,
-        16.0,
-        24.0,
-        40.0};
+    private static final Double[] DURATION_STEPS = new Double[] {
+            0.17,
+            0.25,
+            0.5,
+            0.75,
+            1.0,
+            2.0,
+            3.0,
+            4.0,
+            5.0,
+            8.0,
+            16.0,
+            24.0,
+            40.0 };
     private static final String[] TEST_COLUMN_NAMES = new String[] { "�",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
@@ -86,12 +86,11 @@ class DefaultTaskEditingPanel extends Panel implements
 
     private TextField taskNameTextField;
     private ComboBox from;
-	private ComboBox to;
-	
+    private ComboBox to;
     private transient Task task;
-	private String[] effortList;
-	private HashMap<String, Double> hm;
-	
+    private String[] effortList;
+    private HashMap<String, Double> hm;
+
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
@@ -191,7 +190,7 @@ class DefaultTaskEditingPanel extends Panel implements
         effortLayout.addComponent(fromLabel);
 
         effortList = (TM.get("taskeditingpanel.19-combobox-effort")).split(",");
-        
+
         from = new ComboBox();
         for (int i = 0; i < effortList.length; i++) {
             from.addItem(effortList[i]);
@@ -255,24 +254,28 @@ class DefaultTaskEditingPanel extends Panel implements
 
             if (this.task != null) {
                 this.task.setName((String) this.taskNameTextField.getValue());
-                
-                
-                //implement convert to double
+
+                // implement convert to double
                 hm = new HashMap<String, Double>();
                 for (int i = 0; i < effortList.length; i++) {
                     hm.put(effortList[i], DURATION_STEPS[i]);
-                } 
-                
+                }
+
                 String fromEffort = (String) this.from.getValue();
                 Double fromDouble = (Double) hm.get(fromEffort);
-                
+
                 String toEffort = (String) this.to.getValue();
                 Double toDouble = (Double) hm.get(toEffort);
-                
-                this.task.setWorstCaseEffort(fromDouble);
-                this.task.setBestCaseEffort(toDouble);
-                
-                this.controller.saveTask(this.task);
+
+                if (fromDouble <= toDouble) {
+
+                    this.task.setWorstCaseEffort(fromDouble);
+                    this.task.setBestCaseEffort(toDouble);
+
+                    this.controller.saveTask(this.task);
+                } else {
+                    dialog.showErrorMessage("Task", "From > To", true);
+                }
             }
         } else if (DONE_TASK_BUTTON.equals(debugId)) {
             controller.markTaskAsCompleted(this.task);
