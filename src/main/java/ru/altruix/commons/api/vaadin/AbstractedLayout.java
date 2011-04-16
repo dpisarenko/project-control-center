@@ -11,7 +11,7 @@
 
 package ru.altruix.commons.api.vaadin;
 
-import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
+import ru.altruix.commons.api.gui.InitializableGuiComponent;
 
 import com.vaadin.ui.Layout;
 

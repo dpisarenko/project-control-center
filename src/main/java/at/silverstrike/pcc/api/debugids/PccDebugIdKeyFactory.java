@@ -9,13 +9,12 @@
  *
  **/
 
-package ru.altruix.commons.api.vaadin;
+package at.silverstrike.pcc.api.debugids;
 
-import ru.altruix.commons.api.gui.InitializableGuiComponent;
+import ru.altruix.commons.api.debugids.DebugIdKeyFactory;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 
-import com.vaadin.ui.Panel;
+public interface PccDebugIdKeyFactory extends
+        DebugIdKeyFactory<FunctionalBlock, PccDebugIdKey> {
 
-public interface AbstractedPanel extends InitializableGuiComponent {
-
-    Panel toPanel();
 }

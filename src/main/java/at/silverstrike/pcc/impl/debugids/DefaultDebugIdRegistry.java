@@ -21,20 +21,21 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.debugids.DebugIdKey;
-import at.silverstrike.pcc.api.debugids.DebugIdKeyNotFoundException;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
-import at.silverstrike.pcc.api.debugids.DebugIdUniquenessViolation;
+import ru.altruix.commons.api.debugids.DebugIdKeyNotFoundException;
+import ru.altruix.commons.api.debugids.DebugIdUniquenessViolation;
 
-class DefaultDebugIdRegistry implements DebugIdRegistry {
+import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+
+class DefaultDebugIdRegistry implements PccDebugIdRegistry {
     private static final String DEBUGIDS_FILE = "debugids/debugids.properties";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultDebugIdRegistry.class);
     private Set<String> alreadyFetchedKeys = new HashSet<String>();
     private Properties properties = new Properties();
-    private List<DebugIdKey> debugKeys = new ArrayList<DebugIdKey>();
+    private List<PccDebugIdKey> debugKeys = new ArrayList<PccDebugIdKey>();
 
     public DefaultDebugIdRegistry() {
         loadData(DEBUGIDS_FILE);
@@ -52,11 +53,11 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
         for (final Enumeration<?> names = this.properties.propertyNames(); names
                 .hasMoreElements();) {
             final String name = (String) names.nextElement();
-            final int index = name.indexOf(MessageCodePrefixRegistry
+            final int index = name.indexOf(PccMessageCodePrefixRegistry
                     .getMessageNumberSeparator());
 
             if (index != -1) {
-                final DebugIdKey debugIdKey = factory.create();
+                final PccDebugIdKey debugIdKey = factory.create();
                 debugIdKey.setModule(FunctionalBlock.valueOf(name.substring(0, index)));
                 debugIdKey.setKey(name.substring(index + 1));
 
@@ -68,7 +69,7 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
     @Override
     public String getDebugId(final FunctionalBlock aModule, final String aKey) {
         final DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
-        final DebugIdKey debugIdKey = factory.create();
+        final PccDebugIdKey debugIdKey = factory.create();
         debugIdKey.setModule(aModule);
         debugIdKey.setKey(aKey);
 
@@ -81,14 +82,14 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
     }
 
     @Override
-    public List<DebugIdKey> getAllKeys() {
+    public List<PccDebugIdKey> getAllKeys() {
         return debugKeys;
     }
 
     @Override
-    public String getDebugId(final DebugIdKey aDebugIdKey) {
+    public String getDebugId(final PccDebugIdKey aDebugIdKey) {
         final String aModuleWithKey = aDebugIdKey.getModule().toString()
-                + MessageCodePrefixRegistry.getMessageNumberSeparator()
+                + PccMessageCodePrefixRegistry.getMessageNumberSeparator()
                 + aDebugIdKey.getKey();
 
         if (!this.debugKeys.contains(aDebugIdKey)) {
@@ -100,7 +101,7 @@ class DefaultDebugIdRegistry implements DebugIdRegistry {
 
         this.alreadyFetchedKeys.add(aModuleWithKey);
 
-        return (MessageCodePrefixRegistry.getInstance().getPrefix(
+        return (PccMessageCodePrefixRegistry.getInstance().getPrefix(
                 aDebugIdKey.getModule()) + this.properties
                 .getProperty(aModuleWithKey));
     }

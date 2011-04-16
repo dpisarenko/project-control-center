@@ -11,11 +11,11 @@
 
 package at.silverstrike.pcc.impl.version;
 
-import static at.silverstrike.pcc.api.conventions.FunctionalBlock.version;
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
+import static at.silverstrike.pcc.api.pcc.FunctionalBlock.version;
+import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
 
 final class ErrorCodes {
-    private static final String PREFIX = MessageCodePrefixRegistry
+    private static final String PREFIX = PccMessageCodePrefixRegistry
             .getInstance().getPrefix(version);
 
     public static final String M_001_RUN = PREFIX + "001";

@@ -11,11 +11,11 @@
 
 package at.silverstrike.pcc.impl.injectorfactory;
 
-import static at.silverstrike.pcc.api.conventions.FunctionalBlock.injectorfactory;
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
+import static at.silverstrike.pcc.api.pcc.FunctionalBlock.injectorfactory;
+import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
 
 final class ErrorCodes {
-    private static final String PREFIX = MessageCodePrefixRegistry
+    private static final String PREFIX = PccMessageCodePrefixRegistry
             .getInstance().getPrefix(injectorfactory);
 
     public static final String M_001_VERSION_READER = PREFIX + "001";

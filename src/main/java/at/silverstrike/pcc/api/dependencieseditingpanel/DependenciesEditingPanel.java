@@ -12,7 +12,7 @@
 package at.silverstrike.pcc.api.dependencieseditingpanel;
 
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
-import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
+import ru.altruix.commons.api.gui.InitializableGuiComponent;
 
 public interface DependenciesEditingPanel extends ModuleWithInjectableDependencies,
 	InitializableGuiComponent {

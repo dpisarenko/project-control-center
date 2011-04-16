@@ -9,12 +9,12 @@
  *
  **/
 
-package at.silverstrike.pcc.api.debugids;
+package ru.altruix.commons.api.debugids;
 
-public class DebugIdKeyNotFoundException extends RuntimeException {
+public class DebugIdUniquenessViolation extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public DebugIdKeyNotFoundException(final String aKey) {
-        super("Debug ID key not found: " + aKey);
+    public DebugIdUniquenessViolation(final String aKey) {
+        super("DebugIdUniquenessViolation: " + aKey);
     }
 }

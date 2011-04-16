@@ -11,13 +11,13 @@
 
 package at.silverstrike.pcc.impl.debugids;
 
-import at.silverstrike.pcc.api.debugids.DebugIdKey;
-import at.silverstrike.pcc.api.debugids.DebugIdKeyFactory;
+import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
+import at.silverstrike.pcc.api.debugids.PccDebugIdKeyFactory;
 
-class DefaultDebugIdKeyFactory implements DebugIdKeyFactory {
+class DefaultDebugIdKeyFactory implements PccDebugIdKeyFactory {
 
     @Override
-    public DebugIdKey create() {
+    public PccDebugIdKey create() {
         return new DefaultDebugIdKey();
     }
 }

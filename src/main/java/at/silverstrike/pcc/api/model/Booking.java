@@ -13,7 +13,8 @@ package at.silverstrike.pcc.api.model;
 
 import java.util.Date;
 
-import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
+import ru.altruix.commons.api.conventions.UniquelyIdentifiableObject;
+
 
 /**
  * Instances of this class represent times, when a certain resource is required

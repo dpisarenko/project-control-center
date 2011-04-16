@@ -25,10 +25,10 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialog;
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 
 /**
  * @author DP118M
@@ -45,7 +45,7 @@ final class DefaultDependenciesEditingDialog implements
     private Window dialog;
     private Injector injector;
     private static final String OK_BUTTON = "047.001";
-    private transient DebugIdRegistry debugIdRegistry;
+    private transient PccDebugIdRegistry debugIdRegistry;
 
     public ModalDialogResult getDialogResult() {
         return dialogResult;
@@ -72,7 +72,7 @@ final class DefaultDependenciesEditingDialog implements
 
     @Override
     public void initGui() {
-        this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
+        this.debugIdRegistry = this.injector.getInstance(PccDebugIdRegistry.class);
 
         this.dialogResult = ModalDialogResult.UNDEFINED;
 

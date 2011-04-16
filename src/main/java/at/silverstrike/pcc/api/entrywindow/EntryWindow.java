@@ -14,10 +14,9 @@ package at.silverstrike.pcc.api.entrywindow;
 import javax.servlet.http.HttpServletRequest;
 
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.gui.InitializableGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedWindow;
-import ru.altruix.commons.api.vaadin.PccWindow;
 
-import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 
 public interface EntryWindow extends ModuleWithInjectableDependencies,
         InitializableGuiComponent, AbstractedWindow {

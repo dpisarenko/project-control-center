@@ -14,10 +14,10 @@ package at.silverstrike.pcc.impl.debugids;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.debugids.DebugIdKey;
+import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 
-class DefaultDebugIdKey implements DebugIdKey {
+class DefaultDebugIdKey implements PccDebugIdKey {
     private static final int HASH_CODE_MULTIPLIER = 3;
     private FunctionalBlock module;
     private String key;

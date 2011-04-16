@@ -32,11 +32,11 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
@@ -82,7 +82,7 @@ class DefaultTaskEditingPanel extends Panel implements
 
     private transient Injector injector;
     private transient TaskEditingPanelController controller;
-    private transient DebugIdRegistry debugIdRegistry;
+    private transient PccDebugIdRegistry debugIdRegistry;
 
     private TextField taskNameTextField;
     private ComboBox from;
@@ -101,7 +101,7 @@ class DefaultTaskEditingPanel extends Panel implements
                             .getInstance(TaskEditingPanelController.class);
             this.controller.setInjector(aInjector);
             this.debugIdRegistry =
-                    this.injector.getInstance(DebugIdRegistry.class);
+                    this.injector.getInstance(PccDebugIdRegistry.class);
         }
     }
 

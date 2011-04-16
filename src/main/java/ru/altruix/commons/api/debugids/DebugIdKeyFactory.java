@@ -9,10 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.debugids;
+package ru.altruix.commons.api.debugids;
 
 import ru.altruix.commons.api.conventions.Factory;
 
-public interface DebugIdRegistryFactory extends Factory<DebugIdRegistry> {
-    
+/**
+ * @author DP118M
+ * 
+ */
+public interface DebugIdKeyFactory<F extends Enum<F>, C extends DebugIdKey<F>>
+        extends Factory<C> {
+
 }

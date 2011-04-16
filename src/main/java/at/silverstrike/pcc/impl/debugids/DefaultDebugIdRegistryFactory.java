@@ -11,13 +11,13 @@
 
 package at.silverstrike.pcc.impl.debugids;
 
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistryFactory;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistryFactory;
 
-public class DefaultDebugIdRegistryFactory implements DebugIdRegistryFactory {
+public class DefaultDebugIdRegistryFactory implements PccDebugIdRegistryFactory {
 
     @Override
-    public final DebugIdRegistry create() {
+    public final PccDebugIdRegistry create() {
         return new DefaultDebugIdRegistry();
     }
 }

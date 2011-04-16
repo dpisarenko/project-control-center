@@ -20,10 +20,10 @@ import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
@@ -61,7 +61,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 
     private TextField loggingTextArea;
     private transient Persistence persistence;
-    private transient DebugIdRegistry debugIdRegistry;
+    private transient PccDebugIdRegistry debugIdRegistry;
 
     private String errorMessageDebugId;
 
@@ -125,7 +125,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
 
         if (aInjector != null) {
             this.persistence = aInjector.getInstance(Persistence.class);
-            this.debugIdRegistry = aInjector.getInstance(DebugIdRegistry.class);
+            this.debugIdRegistry = aInjector.getInstance(PccDebugIdRegistry.class);
         }
     }
 

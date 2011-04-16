@@ -9,13 +9,19 @@
  *
  **/
 
-package ru.altruix.commons.api.vaadin;
+package ru.altruix.commons.api.debugids;
 
-import ru.altruix.commons.api.gui.InitializableGuiComponent;
+/**
+ * @author DP118M
+ *
+ */
+public interface DebugIdKey<C extends Enum<C>> {
+    void setModule(final C aModule);
 
-import com.vaadin.ui.Panel;
+    C getModule();
 
-public interface AbstractedPanel extends InitializableGuiComponent {
+    void setKey(final String aKey);
 
-    Panel toPanel();
+    String getKey();
+
 }

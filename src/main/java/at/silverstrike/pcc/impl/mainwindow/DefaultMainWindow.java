@@ -24,14 +24,14 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanel;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 import at.silverstrike.pcc.api.version.PccVersionReader;
@@ -43,7 +43,7 @@ class DefaultMainWindow implements MainWindow {
     private Injector injector = null;
     private Window mainWindow;
     private TabSheet tabSheet;
-    private DebugIdRegistry debugIdRegistry;
+    private PccDebugIdRegistry debugIdRegistry;
     private Label indicator;
     private transient MainWindowController controller;
     private Panel centralEditingPanel;
@@ -57,7 +57,7 @@ class DefaultMainWindow implements MainWindow {
     }
 
     public void initGui() {
-        this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
+        this.debugIdRegistry = this.injector.getInstance(PccDebugIdRegistry.class);
 
         final PccVersionReader versionReader =
                 this.injector.getInstance(PccVersionReader.class);

@@ -18,12 +18,13 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.debugids.DebugIdKey;
-import at.silverstrike.pcc.api.debugids.DebugIdKeyNotFoundException;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistryFactory;
-import at.silverstrike.pcc.api.debugids.DebugIdUniquenessViolation;
+import ru.altruix.commons.api.debugids.DebugIdKeyNotFoundException;
+import ru.altruix.commons.api.debugids.DebugIdUniquenessViolation;
+
+import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistryFactory;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 
 /**
@@ -39,17 +40,17 @@ public class TestDebugIdRegistry {
 
     @Test
     public final void testUniqueness01() {
-        final DebugIdRegistryFactory factory =
+        final PccDebugIdRegistryFactory factory =
                 new DefaultDebugIdRegistryFactory();
-        final DebugIdRegistry objectUnderTest = factory.create();
+        final PccDebugIdRegistry objectUnderTest = factory.create();
 
         /**
          * Verify that all debug IDs are unique
          */
-        final List<DebugIdKey> keys = objectUnderTest.getAllKeys();
+        final List<PccDebugIdKey> keys = objectUnderTest.getAllKeys();
         final List<Object> debugIds = new LinkedList<Object>();
 
-        for (final DebugIdKey debugIdKey : keys) {
+        for (final PccDebugIdKey debugIdKey : keys) {
             Assert.assertNotNull(debugIdKey);
             Assert.assertNotNull(debugIdKey.getModule());
             Assert.assertNotNull(debugIdKey.getKey());
@@ -68,9 +69,9 @@ public class TestDebugIdRegistry {
 
     @Test
     public final void testUniqueness02() {
-        final DebugIdRegistryFactory factory =
+        final PccDebugIdRegistryFactory factory =
                 new DefaultDebugIdRegistryFactory();
-        final DebugIdRegistry objectUnderTest = factory.create();
+        final PccDebugIdRegistry objectUnderTest = factory.create();
 
         /**
          * First time we fetch a certain debug ID, no exception should be thrown
@@ -108,9 +109,9 @@ public class TestDebugIdRegistry {
 
     @Test
     public final void testUnknownKeys() {
-        final DebugIdRegistryFactory factory =
+        final PccDebugIdRegistryFactory factory =
                 new DefaultDebugIdRegistryFactory();
-        final DebugIdRegistry objectUnderTest = factory.create();
+        final PccDebugIdRegistry objectUnderTest = factory.create();
 
         try {
             objectUnderTest.getDebugId(
@@ -133,9 +134,9 @@ public class TestDebugIdRegistry {
 
     @Test
     public final void testKeyFetchingViaModulesAndKeys() {
-        final DebugIdRegistryFactory factory =
+        final PccDebugIdRegistryFactory factory =
                 new DefaultDebugIdRegistryFactory();
-        final DebugIdRegistry debugIdRegistry = factory.create();
+        final PccDebugIdRegistry debugIdRegistry = factory.create();
 
         Assert.assertEquals("011.001", debugIdRegistry
                 .getDebugId(FunctionalBlock.mainwindow, "1"));

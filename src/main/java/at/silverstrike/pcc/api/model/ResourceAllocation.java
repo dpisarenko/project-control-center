@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.model;
 
-import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
+import ru.altruix.commons.api.conventions.UniquelyIdentifiableObject;
 
 public interface ResourceAllocation extends UniquelyIdentifiableObject {
 	void setResource(Resource aResource);

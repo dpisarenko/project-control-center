@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.Set;
 
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.gui.InitializableGuiComponent;
 import ru.altruix.commons.api.gui.ModalDialogResult;
 import ru.altruix.commons.api.vaadin.AbstractedWindow;
 
 import com.vaadin.ui.Window;
 
-import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
 /**

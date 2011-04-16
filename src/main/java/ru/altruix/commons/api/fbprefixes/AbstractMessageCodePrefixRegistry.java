@@ -14,7 +14,7 @@ package ru.altruix.commons.api.fbprefixes;
 import java.util.HashMap;
 import java.util.Map;
 
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 
 /**
  * @author DP118M
@@ -35,7 +35,7 @@ public abstract class AbstractMessageCodePrefixRegistry<C extends Enum<C>> {
                 + PREFIX_MESSAGE_NUMBER_SEPARATOR;
     }
 
-    private AbstractMessageCodePrefixRegistry() {
+    protected AbstractMessageCodePrefixRegistry() {
         this.prefixesByModules = new HashMap<C, String>();
         fillPrefixesByModules(this.prefixesByModules);
     }

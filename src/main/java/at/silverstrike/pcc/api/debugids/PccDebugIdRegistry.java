@@ -11,14 +11,9 @@
 
 package at.silverstrike.pcc.api.debugids;
 
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
+import ru.altruix.commons.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 
-public interface DebugIdKey {
-    void setModule(final FunctionalBlock aModule);
-
-    FunctionalBlock getModule();
-
-    void setKey(final String aKey);
-
-    String getKey();
+public interface PccDebugIdRegistry extends
+        DebugIdRegistry<FunctionalBlock, PccDebugIdKey> {
 }

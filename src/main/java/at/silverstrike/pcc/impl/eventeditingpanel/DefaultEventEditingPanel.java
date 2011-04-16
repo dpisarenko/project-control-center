@@ -30,10 +30,10 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.gui.dialogs.OptionDialog;
@@ -62,7 +62,7 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 
 	private transient Injector injector;
 	private transient EventEditingPanelController controller;
-	private transient DebugIdRegistry debugIdRegistry;
+	private transient PccDebugIdRegistry debugIdRegistry;
 	private TextField eventNameTextField;
 
 	public TextField getTaskNameTextField() {
@@ -77,7 +77,7 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 					.getInstance(EventEditingPanelController.class);
 			this.controller.setInjector(this.injector);
 			this.debugIdRegistry = this.injector
-					.getInstance(DebugIdRegistry.class);
+					.getInstance(PccDebugIdRegistry.class);
 		}
 	}
 

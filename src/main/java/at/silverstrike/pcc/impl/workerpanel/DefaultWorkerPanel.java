@@ -26,10 +26,10 @@ import com.vaadin.ui.Window.Notification;
 
 import eu.livotov.tpt.i18n.TM;
 
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
 
 class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private static final int BUTTON_PANEL_ROW = 5;
@@ -43,7 +43,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
     private TextField middleNameTextField;
     private TextField surnameTextField;
     private TextField dailyMaxTextField;
-    private transient DebugIdRegistry debugIdRegistry;
+    private transient PccDebugIdRegistry debugIdRegistry;
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultWorkerPanel.class);
@@ -94,7 +94,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
         this.injector = aInjector;
 
         if (aInjector != null) {
-            this.debugIdRegistry = aInjector.getInstance(DebugIdRegistry.class);
+            this.debugIdRegistry = aInjector.getInstance(PccDebugIdRegistry.class);
         }
     }
 

@@ -35,8 +35,7 @@ import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
-import at.silverstrike.pcc.api.conventions.FunctionalBlock;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
@@ -44,6 +43,7 @@ import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingP
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 import at.silverstrike.pcc.api.projectnetworkdatacreator.ProjectNetworkDataCreator;
 import at.silverstrike.pcc.api.projectnetworkdatacreator.ProjectNetworkDataCreatorFactory;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
@@ -86,7 +86,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private transient Injector injector;
     private transient CentralEditingPanelController controller;
 
-    private transient DebugIdRegistry debugIdRegistry;
+    private transient PccDebugIdRegistry debugIdRegistry;
 
     private static final int DEFAULT_HEIGHT_PIXELS = 350;
     private static final int DEFAULT_WIDTH_PIXELS = 600;
@@ -124,7 +124,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     public void initGui() {
         initButtonStateCalculator();
         initProjectNetworkDataCreator();
-        this.debugIdRegistry = this.injector.getInstance(DebugIdRegistry.class);
+        this.debugIdRegistry = this.injector.getInstance(PccDebugIdRegistry.class);
 
         this.mainGrid = new GridLayout(2, 1);
         mainGrid.setSizeFull();

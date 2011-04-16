@@ -13,7 +13,8 @@ package at.silverstrike.pcc.api.model;
 
 import java.util.Set;
 
-import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
+import ru.altruix.commons.api.conventions.UniquelyIdentifiableObject;
+
 
 /**
  * @author DP118M

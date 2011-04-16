@@ -11,15 +11,15 @@
 
 package at.silverstrike.pcc.impl.projectnetworkgraphpanel;
 
-import static at.silverstrike.pcc.api.conventions.FunctionalBlock.projectnetworkgraphpanel;
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
+import static at.silverstrike.pcc.api.pcc.FunctionalBlock.projectnetworkgraphpanel;
+import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
 
 /**
  * @author DP118M
  * 
  */
 final class ErrorCodes {
-    private static final String PREFIX = MessageCodePrefixRegistry
+    private static final String PREFIX = PccMessageCodePrefixRegistry
             .getInstance().getPrefix(projectnetworkgraphpanel);
 
     public static final String M_001_UPDATE_PANEL = PREFIX + "001";

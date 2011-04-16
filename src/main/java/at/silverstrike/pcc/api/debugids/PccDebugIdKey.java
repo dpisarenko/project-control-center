@@ -11,10 +11,8 @@
 
 package at.silverstrike.pcc.api.debugids;
 
-public class DebugIdUniquenessViolation extends RuntimeException {
-	private static final long serialVersionUID = 1L;
+import ru.altruix.commons.api.debugids.DebugIdKey;
+import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 
-	public DebugIdUniquenessViolation(final String aKey) {
-		super("DebugIdUniquenessViolation: " + aKey);
-	}
+public interface PccDebugIdKey extends DebugIdKey<FunctionalBlock> {
 }

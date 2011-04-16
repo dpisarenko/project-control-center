@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.api.conventions;
+package at.silverstrike.pcc.api.pcc;
 
 public enum FunctionalBlock {
     conventions, dailyplanpanel, debugids, editingprocesspanel,

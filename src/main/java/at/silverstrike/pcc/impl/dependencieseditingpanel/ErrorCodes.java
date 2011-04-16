@@ -11,11 +11,11 @@
 
 package at.silverstrike.pcc.impl.dependencieseditingpanel;
 
-import static at.silverstrike.pcc.api.conventions.FunctionalBlock.dependencieseditingwindow;
-import at.silverstrike.pcc.api.conventions.MessageCodePrefixRegistry;
+import static at.silverstrike.pcc.api.pcc.FunctionalBlock.dependencieseditingwindow;
+import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
 
 final class ErrorCodes {
-    private static final String PREFIX = MessageCodePrefixRegistry
+    private static final String PREFIX = PccMessageCodePrefixRegistry
             .getInstance().getPrefix(dependencieseditingwindow);
 
     public static final String M_001_TEST_TABLE_CREATION = PREFIX + "001";

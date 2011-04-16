@@ -10,7 +10,7 @@
  **/
 package at.silverstrike.pcc.api.model;
 
-import at.silverstrike.pcc.api.conventions.UniquelyIdentifiableObject;
+import ru.altruix.commons.api.conventions.UniquelyIdentifiableObject;
 
 public interface Resource extends UniquelyIdentifiableObject {
 	void setAbbreviation(final String aAbbreviation);

@@ -12,11 +12,11 @@
 package at.silverstrike.pcc.api.mainwindow;
 
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.gui.InitializableGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedWindow;
 
 import com.vaadin.ui.Panel;
 
-import at.silverstrike.pcc.api.conventions.InitializableGuiComponent;
 
 public interface MainWindow extends ModuleWithInjectableDependencies,
 		InitializableGuiComponent, AbstractedWindow {

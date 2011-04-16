@@ -13,6 +13,6 @@ package at.silverstrike.pcc.api.debugids;
 
 import ru.altruix.commons.api.conventions.Factory;
 
-public interface DebugIdKeyFactory extends Factory<DebugIdKey> {
-
+public interface PccDebugIdRegistryFactory extends Factory<PccDebugIdRegistry> {
+    
 }

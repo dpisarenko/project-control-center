@@ -8,14 +8,12 @@
  * All rights reserved
  *
  **/
+package ru.altruix.commons.api.gui;
 
-package ru.altruix.commons.api.vaadin;
-
-import ru.altruix.commons.api.gui.InitializableGuiComponent;
-
-import com.vaadin.ui.Panel;
-
-public interface AbstractedPanel extends InitializableGuiComponent {
-
-    Panel toPanel();
+/**
+ * @author Dmitri Pisarenko
+ * 
+ */
+public interface InitializableGuiComponent {
+    void initGui();
 }

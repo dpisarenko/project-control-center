@@ -22,7 +22,7 @@ import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanel
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
-import at.silverstrike.pcc.api.debugids.DebugIdRegistry;
+import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialogFactory;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanelFactory;
@@ -149,7 +149,7 @@ class InjectorModule extends AbstractModule {
                 new DefaultDailyPlanPanelFactory());
         bind(ProjectSchedulerFactory.class).toInstance(
                 new DefaultProjectSchedulerFactory());
-        bind(DebugIdRegistry.class).toInstance(
+        bind(PccDebugIdRegistry.class).toInstance(
                 new DefaultDebugIdRegistryFactory().create());
         bind(WebGuiBus.class)
                 .toInstance(new DefaultWebGuiBusFactory().create());

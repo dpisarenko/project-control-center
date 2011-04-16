@@ -9,13 +9,8 @@
  *
  **/
 
-package ru.altruix.commons.api.vaadin;
+package ru.altruix.commons.api.conventions;
 
-import ru.altruix.commons.api.gui.InitializableGuiComponent;
-
-import com.vaadin.ui.Panel;
-
-public interface AbstractedPanel extends InitializableGuiComponent {
-
-    Panel toPanel();
+public interface UniquelyIdentifiableObject {
+    Long getId();
 }
