@@ -24,7 +24,7 @@ import ru.altruix.commons.api.debugids.DebugIdUniquenessViolation;
 import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistryFactory;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
 
 /**
@@ -78,7 +78,7 @@ public class TestDebugIdRegistry {
          */
         try {
             objectUnderTest.getDebugId(
-                    FunctionalBlock.mainwindow, "1");
+                    PccFunctionalBlock.mainwindow, "1");
         } catch (final DebugIdUniquenessViolation exception) {
             Assert.fail(exception.getMessage());
         }
@@ -89,7 +89,7 @@ public class TestDebugIdRegistry {
          */
         try {
             objectUnderTest.getDebugId(
-                    FunctionalBlock.mainwindow, "1");
+                    PccFunctionalBlock.mainwindow, "1");
             Assert.fail("No DebugIdUniquenessViolation thrown");
         } catch (final DebugIdUniquenessViolation exception) {
             ;
@@ -100,7 +100,7 @@ public class TestDebugIdRegistry {
          */
         try {
             objectUnderTest.getDebugId(
-                    FunctionalBlock.mainprocesseditingpanel,
+                    PccFunctionalBlock.mainprocesseditingpanel,
                     "3");
         } catch (final DebugIdUniquenessViolation exception) {
             Assert.fail(exception.getMessage());
@@ -115,7 +115,7 @@ public class TestDebugIdRegistry {
 
         try {
             objectUnderTest.getDebugId(
-                    FunctionalBlock.debugids,
+                    PccFunctionalBlock.debugids,
                     "An impossible key");
             Assert.fail("No DebugIdUniquenessViolation thrown");
         } catch (final DebugIdKeyNotFoundException exception) {
@@ -125,7 +125,7 @@ public class TestDebugIdRegistry {
 
         try {
             objectUnderTest.getDebugId(
-                    FunctionalBlock.mainprocesseditingpanel,
+                    PccFunctionalBlock.mainprocesseditingpanel,
                     "3");
         } catch (final DebugIdKeyNotFoundException exception) {
             Assert.fail(exception.getMessage());
@@ -139,148 +139,148 @@ public class TestDebugIdRegistry {
         final PccDebugIdRegistry debugIdRegistry = factory.create();
 
         Assert.assertEquals("011.001", debugIdRegistry
-                .getDebugId(FunctionalBlock.mainwindow, "1"));
+                .getDebugId(PccFunctionalBlock.mainwindow, "1"));
         Assert.assertEquals("011.002", debugIdRegistry
-                .getDebugId(FunctionalBlock.mainwindow,
+                .getDebugId(PccFunctionalBlock.mainwindow,
                         "2-tab-sheet"));
         Assert.assertEquals(
                 "010.001",
                 debugIdRegistry
                         .getDebugId(
-                                FunctionalBlock.mainprocesseditingpanel,
+                                PccFunctionalBlock.mainprocesseditingpanel,
                                 "1"));
         Assert.assertEquals(
                 "010.002",
                 debugIdRegistry
                         .getDebugId(
-                                FunctionalBlock.mainprocesseditingpanel,
+                                PccFunctionalBlock.mainprocesseditingpanel,
                                 "2"));
         Assert.assertEquals(
                 "010.003",
                 debugIdRegistry
                         .getDebugId(
-                                FunctionalBlock.mainprocesseditingpanel,
+                                PccFunctionalBlock.mainprocesseditingpanel,
                                 "3"));
         Assert.assertEquals("004.001", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "1"));
         Assert.assertEquals("004.002", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "2-buttonPanel"));
         Assert.assertEquals("004.003", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "3-processNameTextArea"));
         Assert.assertEquals("004.004", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "4-controlSubjectLabel"));
         Assert.assertEquals("004.005", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "5-controlSubjectComboBox"));
         Assert.assertEquals("004.006", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "6-handoffButton"));
         Assert.assertEquals("004.007", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "7-priorityTextBox"));
         Assert.assertEquals("004.008", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "8-typeComboBox"));
         Assert.assertEquals("004.009", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "9-startButton"));
         Assert.assertEquals("004.010", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "10-stopButton"));
         Assert.assertEquals("004.011", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "11-markAsCompleted"));
         Assert.assertEquals("004.012", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "12-cancelButton"));
         Assert.assertEquals("004.013", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "13-reactivateButton"));
         Assert.assertEquals("004.014", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "14-deleteButton"));
         Assert.assertEquals("004.015", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "15-saveButton"));
         Assert.assertEquals("004.016", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "16-dependencyDeleteButton"));
         Assert.assertEquals("004.017", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "17-dependencyAddButton"));
         Assert.assertEquals("004.018", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "18-dependencyComboBox"));
         Assert.assertEquals("004.019", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "19-dependencyList"));
         Assert.assertEquals("004.020", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "20-minEffortTextBox"));
         Assert.assertEquals("004.021", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "21-minTimeUnitComboBox"));
         Assert.assertEquals("004.022", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "22-maxEffortTextBox"));
         Assert.assertEquals("004.023", debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.editingprocesspanel,
+                        PccFunctionalBlock.editingprocesspanel,
                         "23-maxTimeUnitComboBox"));
         Assert.assertEquals("019.001", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel, "1"));
+                .getDebugId(PccFunctionalBlock.workerpanel, "1"));
         Assert.assertEquals("019.002", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "2-grid"));
         Assert.assertEquals("019.003", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "3-abbreviationTextField"));
         Assert.assertEquals("019.004", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "4-firstNameTextField"));
         Assert.assertEquals("019.005", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "5-middleNameTextField"));
         Assert.assertEquals("019.006", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "6-surnameTextField"));
         Assert.assertEquals("019.007", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "7-dailyMaxTextField"));
         Assert.assertEquals("019.008", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "8-buttonPanel"));
         Assert.assertEquals("019.009", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "9-okButton"));
         Assert.assertEquals("019.010", debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "10-cancelButton"));
     }
 }

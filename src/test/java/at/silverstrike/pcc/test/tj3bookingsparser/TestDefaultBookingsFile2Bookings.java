@@ -21,7 +21,8 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
+import ru.altruix.commons.api.di.InjectorFactory;
+
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;

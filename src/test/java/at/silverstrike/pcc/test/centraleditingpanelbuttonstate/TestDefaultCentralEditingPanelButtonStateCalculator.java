@@ -17,11 +17,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.InjectorFactory;
 import ru.altruix.commons.api.di.PccException;
 
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
-import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.test.model.MockObjectFactory;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;

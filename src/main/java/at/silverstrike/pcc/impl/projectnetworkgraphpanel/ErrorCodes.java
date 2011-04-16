@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.impl.projectnetworkgraphpanel;
 
-import static at.silverstrike.pcc.api.pcc.FunctionalBlock.projectnetworkgraphpanel;
-import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
+import static at.silverstrike.pcc.api.pcc.PccFunctionalBlock.projectnetworkgraphpanel;
+import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
 
 /**
  * @author DP118M

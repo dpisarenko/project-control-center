@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.impl.debugids;
 
-import static at.silverstrike.pcc.api.pcc.FunctionalBlock.debugids;
-import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
+import static at.silverstrike.pcc.api.pcc.PccFunctionalBlock.debugids;
+import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
 
 final class ErrorCodes {
     private static final String PREFIX = PccMessageCodePrefixRegistry

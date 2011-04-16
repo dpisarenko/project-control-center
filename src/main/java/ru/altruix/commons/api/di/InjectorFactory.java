@@ -9,11 +9,10 @@
  *
  **/
 
-package at.silverstrike.pcc.api.debugids;
+package ru.altruix.commons.api.di;
 
-import ru.altruix.commons.api.debugids.DebugIdRegistry;
-import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
+import com.google.inject.Injector;
 
-public interface PccDebugIdRegistry extends
-        DebugIdRegistry<PccFunctionalBlock, PccDebugIdKey> {
+public interface InjectorFactory {
+    Injector createInjector();
 }

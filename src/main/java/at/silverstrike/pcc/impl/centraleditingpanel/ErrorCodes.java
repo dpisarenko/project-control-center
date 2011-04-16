@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanel;
 
-import static at.silverstrike.pcc.api.pcc.FunctionalBlock.centraleditingpanel;
-import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
+import static at.silverstrike.pcc.api.pcc.PccFunctionalBlock.centraleditingpanel;
+import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
 
 final class ErrorCodes {
     private static final String PREFIX = PccMessageCodePrefixRegistry

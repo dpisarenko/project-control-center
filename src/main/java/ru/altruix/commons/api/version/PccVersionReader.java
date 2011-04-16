@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.api.version;
+package ru.altruix.commons.api.version;
 
 import ru.altruix.commons.api.conventions.SingleActivityModule;
 

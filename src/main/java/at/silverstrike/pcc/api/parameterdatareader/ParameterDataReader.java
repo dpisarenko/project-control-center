@@ -15,9 +15,8 @@ import java.util.Map;
 
 import ru.altruix.commons.api.conventions.SingleActivityModule;
 
-
 public interface ParameterDataReader extends SingleActivityModule {
-	void setParameters(final Map<String, String[]> aParameters);
-	
-	String getCulture();
+    void setParameters(final Map<String, String[]> aParameters);
+
+    String getCulture();
 }

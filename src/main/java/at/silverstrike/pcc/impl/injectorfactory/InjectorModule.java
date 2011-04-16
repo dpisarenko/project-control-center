@@ -15,6 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
+import ru.altruix.commons.api.version.PccVersionReader;
+import ru.altruix.commons.api.version.PccVersionReaderFactory;
+import ru.altruix.commons.impl.version.DefaultPccVersionReaderFactory;
 
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
@@ -62,8 +65,6 @@ import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
-import at.silverstrike.pcc.api.version.PccVersionReader;
-import at.silverstrike.pcc.api.version.PccVersionReaderFactory;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
@@ -107,7 +108,6 @@ import at.silverstrike.pcc.impl.testtablecreator.DefaultTestTableCreatorFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultBookingsFile2BookingsFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultTj3BookingsParserFactory;
 import at.silverstrike.pcc.impl.tj3deadlinesparser.DefaultTj3DeadlinesFileParserFactory;
-import at.silverstrike.pcc.impl.version.DefaultPccVersionReaderFactory;
 import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusFactory;
 import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusMessageFactory;
 import at.silverstrike.pcc.impl.workerpanel.DefaultWorkerPanelFactory;

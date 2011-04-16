@@ -15,23 +15,23 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 
 class DefaultDebugIdKey implements PccDebugIdKey {
     private static final int HASH_CODE_MULTIPLIER = 3;
-    private FunctionalBlock module;
+    private PccFunctionalBlock module;
     private String key;
 
     public DefaultDebugIdKey() {
     }
 
     @Override
-    public void setModule(final FunctionalBlock aModule) {
+    public void setModule(final PccFunctionalBlock aModule) {
         this.module = aModule;
     }
 
     @Override
-    public FunctionalBlock getModule() {
+    public PccFunctionalBlock getModule() {
         return this.module;
     }
 

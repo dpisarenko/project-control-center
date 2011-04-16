@@ -12,9 +12,9 @@
 package at.silverstrike.pcc.api.debugids;
 
 import ru.altruix.commons.api.debugids.DebugIdKeyFactory;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 
 public interface PccDebugIdKeyFactory extends
-        DebugIdKeyFactory<FunctionalBlock, PccDebugIdKey> {
+        DebugIdKeyFactory<PccFunctionalBlock, PccDebugIdKey> {
 
 }

@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.impl.graph2resource;
 
-import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
 
 /**
  * @author DP118M
@@ -21,7 +21,7 @@ import at.silverstrike.pcc.api.pcc.FunctionalBlock;
 final class ErrorCodes {
     private static final String PREFIX = PccMessageCodePrefixRegistry
             .getInstance().getPrefix(
-                    FunctionalBlock.graph2resource);
+                    PccFunctionalBlock.graph2resource);
 
     public static final String M_001_BUFFER_SIZE_IO_EX = PREFIX + "001";
     public static final String M_002_UNSUPPORTED_ENCONDING = PREFIX + "002";

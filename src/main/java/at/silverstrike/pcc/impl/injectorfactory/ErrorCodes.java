@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.impl.injectorfactory;
 
-import static at.silverstrike.pcc.api.pcc.FunctionalBlock.injectorfactory;
-import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
+import static at.silverstrike.pcc.api.pcc.PccFunctionalBlock.injectorfactory;
+import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
 
 final class ErrorCodes {
     private static final String PREFIX = PccMessageCodePrefixRegistry

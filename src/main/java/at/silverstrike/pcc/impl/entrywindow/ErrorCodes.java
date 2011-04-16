@@ -11,12 +11,12 @@
 
 package at.silverstrike.pcc.impl.entrywindow;
 
-import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
 
 final class ErrorCodes {
     private static final String PREFIX = PccMessageCodePrefixRegistry
-            .getInstance().getPrefix(FunctionalBlock.entrywindow);
+            .getInstance().getPrefix(PccFunctionalBlock.entrywindow);
     public static final String M_001_HANDLE_PARAMETERS_1 = PREFIX + "001";
     public static final String M_002_HANDLE_PARAMETERS_2 = PREFIX + "002";
     public static final String M_003_HANDLE_PARAMETERS_3 = PREFIX + "003";

@@ -23,7 +23,7 @@ import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.model.Resource;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
@@ -74,7 +74,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         this.setHeight("100%");
 
         this.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.schedulingpanel,
+                PccFunctionalBlock.schedulingpanel,
                 "3-main-panel"));
 
         setCaption(TM.get("schedulingpanel.1-caption"));
@@ -89,7 +89,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         final NativeButton startButton = new NativeButton(
                 TM.get("schedulingpanel.2-start-button"));
         startButton.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.schedulingpanel,
+                PccFunctionalBlock.schedulingpanel,
                 "2-startButton"));
 
         startButton.addListener(new ClickListener() {
@@ -115,7 +115,7 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
         addComponent(layout);
 
         errorMessageDebugId = this.debugIdRegistry.getDebugId(
-                FunctionalBlock.schedulingpanel,
+                PccFunctionalBlock.schedulingpanel,
                 "4-invalid-time-error-message");
     }
 

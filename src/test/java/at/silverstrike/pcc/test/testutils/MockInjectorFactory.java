@@ -11,11 +11,12 @@
 
 package at.silverstrike.pcc.test.testutils;
 
+import ru.altruix.commons.api.di.InjectorFactory;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 
 public final class MockInjectorFactory implements InjectorFactory {
     private AbstractModule module;

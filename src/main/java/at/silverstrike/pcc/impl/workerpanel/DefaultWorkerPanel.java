@@ -27,7 +27,7 @@ import com.vaadin.ui.Window.Notification;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 
@@ -106,19 +106,19 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
     @Override
     public void initGui() {
         this.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.workerpanel, "1"));
+                PccFunctionalBlock.workerpanel, "1"));
 
         final GridLayout grid = new GridLayout(2, 6);
 
         grid.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.workerpanel, "2-grid"));
+                PccFunctionalBlock.workerpanel, "2-grid"));
         grid.setWidth("400px");
 
         final Label abbreviationLabel =
                 new Label(TM.get("workerpanel.1-abbreviation"));
         abbreviationTextField = new TextField();
         abbreviationTextField.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.workerpanel,
+                PccFunctionalBlock.workerpanel,
                 "3-abbreviationTextField"));
 
         grid.addComponent(abbreviationLabel, 0, 0);
@@ -128,7 +128,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
                 new Label(TM.get("workerpanel.2-first-name"));
         firstNameTextField = new TextField();
         firstNameTextField.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.workerpanel,
+                PccFunctionalBlock.workerpanel,
                 "4-firstNameTextField"));
         grid.addComponent(firstNameLabel, 0, 1);
         grid.addComponent(firstNameTextField, 1, 1);
@@ -137,7 +137,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
                 new Label(TM.get("workerpanel.3-middle-name"));
         middleNameTextField = new TextField();
         middleNameTextField.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.workerpanel,
+                PccFunctionalBlock.workerpanel,
                 "5-middleNameTextField"));
         grid.addComponent(middleNameLabel, 0, 2);
         grid.addComponent(middleNameTextField, 1, 2);
@@ -145,7 +145,7 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
         final Label surnameLabel = new Label(TM.get("workerpanel.4-surname"));
         surnameTextField = new TextField();
         surnameTextField.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.workerpanel,
+                PccFunctionalBlock.workerpanel,
                 "6-surnameTextField"));
         grid.addComponent(surnameLabel, 0, SURNAME_ROW_POS);
         grid.addComponent(surnameTextField, 1, SURNAME_ROW_POS);
@@ -154,22 +154,22 @@ class DefaultWorkerPanel extends Panel implements WorkerPanel {
                 new Label(TM.get("workerpanel.5-daily-max"));
         dailyMaxTextField = new TextField();
         dailyMaxTextField.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.workerpanel,
+                PccFunctionalBlock.workerpanel,
                 "7-dailyMaxTextField"));
         grid.addComponent(dailyMaxLabel, 0, DAILY_MAX_ROW_POS);
         grid.addComponent(dailyMaxTextField, 1, DAILY_MAX_ROW_POS);
 
         final HorizontalLayout buttonPanel = new HorizontalLayout();
         buttonPanel.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.workerpanel, "8-buttonPanel"));
+                PccFunctionalBlock.workerpanel, "8-buttonPanel"));
 
         final Button okButton = new Button(TM.get("application.1-ok"));
         okButton.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.workerpanel, "9-okButton"));
+                PccFunctionalBlock.workerpanel, "9-okButton"));
 
         final Button cancelButton = new Button(TM.get("application.2-cancel"));
         cancelButton.setDebugId(this.debugIdRegistry
-                .getDebugId(FunctionalBlock.workerpanel,
+                .getDebugId(PccFunctionalBlock.workerpanel,
                         "10-cancelButton"));
 
         okButton.addListener(new ClickListener() {

@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.api.pcc;
 
-public enum FunctionalBlock {
+public enum PccFunctionalBlock {
     conventions, dailyplanpanel, debugids, editingprocesspanel,
     embeddedfilereading, estimatedcompletiontimespanel, export2tj3,
     injectorfactory, jruby, mainprocesseditingpanel, mainwindow, model,

@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.injectorfactory;
 
-import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
+import ru.altruix.commons.api.di.InjectorFactory;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

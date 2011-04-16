@@ -16,10 +16,10 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import ru.altruix.commons.api.di.PccException;
+import ru.altruix.commons.api.version.PccVersionReader;
+import ru.altruix.commons.api.version.PccVersionReaderFactory;
+import ru.altruix.commons.impl.version.DefaultPccVersionReaderFactory;
 
-import at.silverstrike.pcc.api.version.PccVersionReader;
-import at.silverstrike.pcc.api.version.PccVersionReaderFactory;
-import at.silverstrike.pcc.impl.version.DefaultPccVersionReaderFactory;
 
 public final class TestDefaultPccVersionReader {
 

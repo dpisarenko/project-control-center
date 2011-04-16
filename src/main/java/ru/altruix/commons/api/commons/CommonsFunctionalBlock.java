@@ -18,5 +18,10 @@ package ru.altruix.commons.api.commons;
 public enum CommonsFunctionalBlock {
     conventions,
     commons,
-    fbprefixes;
+    debugids,
+    di,
+    fbprefixes,
+    gui,
+    vaadin,
+    version
 }

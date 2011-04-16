@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.mainwindow;
 
+import ru.altruix.commons.api.version.PccVersionReader;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
@@ -31,10 +33,9 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
-import at.silverstrike.pcc.api.version.PccVersionReader;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
@@ -67,11 +68,11 @@ class DefaultMainWindow implements MainWindow {
                         versionReader.getVersion()));
         mainWindow.setSizeFull();
         mainWindow.setDebugId(this.debugIdRegistry
-                .getDebugId(FunctionalBlock.mainwindow, "1"));
+                .getDebugId(PccFunctionalBlock.mainwindow, "1"));
 
         this.tabSheet = new TabSheet();
         this.tabSheet.setDebugId(this.debugIdRegistry
-                .getDebugId(FunctionalBlock.mainwindow,
+                .getDebugId(PccFunctionalBlock.mainwindow,
                         "2-tab-sheet"));
 
         this.tabSheet.setSizeFull();

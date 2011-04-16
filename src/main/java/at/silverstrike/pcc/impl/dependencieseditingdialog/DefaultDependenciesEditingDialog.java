@@ -28,7 +28,7 @@ import eu.livotov.tpt.i18n.TM;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialog;
 import at.silverstrike.pcc.api.model.SchedulingObject;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 
 /**
  * @author DP118M

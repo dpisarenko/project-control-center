@@ -9,10 +9,10 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.version;
+package ru.altruix.commons.impl.version;
 
-import at.silverstrike.pcc.api.version.PccVersionReader;
-import at.silverstrike.pcc.api.version.PccVersionReaderFactory;
+import ru.altruix.commons.api.version.PccVersionReader;
+import ru.altruix.commons.api.version.PccVersionReaderFactory;
 
 public class DefaultPccVersionReaderFactory implements PccVersionReaderFactory {
 

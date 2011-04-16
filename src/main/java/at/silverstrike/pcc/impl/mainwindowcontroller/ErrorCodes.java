@@ -11,13 +11,13 @@
 
 package at.silverstrike.pcc.impl.mainwindowcontroller;
 
-import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
 
 final class ErrorCodes {
     private static final String PREFIX = PccMessageCodePrefixRegistry
             .getInstance().getPrefix(
-                    FunctionalBlock.mainwindowcontroller);
+                    PccFunctionalBlock.mainwindowcontroller);
     public static final String M_001_FILE_NOT_FOUND = PREFIX + "001";
     public static final String M_002_SERIALIZATION_FAULT = PREFIX + "002";
     public static final String M_003_FILE_NOT_FOUND = PREFIX + "003";

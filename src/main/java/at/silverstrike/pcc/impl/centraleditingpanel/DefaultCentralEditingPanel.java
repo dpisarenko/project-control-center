@@ -43,7 +43,7 @@ import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingP
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.projectnetworkdatacreator.ProjectNetworkDataCreator;
 import at.silverstrike.pcc.api.projectnetworkdatacreator.ProjectNetworkDataCreatorFactory;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel;
@@ -166,7 +166,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
         newMilestoneButton = getNewMilestoneButton();
         newMilestoneButton.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.centraleditingpanel, "2-button-newMilestone"));
+                PccFunctionalBlock.centraleditingpanel, "2-button-newMilestone"));
         buttonsNewGrid.addComponent(newMilestoneButton, 2, 0);
         buttonsNewGrid.setComponentAlignment(newMilestoneButton,
                 Alignment.MIDDLE_RIGHT);
@@ -313,7 +313,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         newEventButton.addListener(this); // react to clicks
         newEventButton.setWidth(WIDTH_OF_NEW_BUTTONS, Sizeable.UNITS_PIXELS);
         newEventButton.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.centraleditingpanel, "4-button-newEvent"));
+                PccFunctionalBlock.centraleditingpanel, "4-button-newEvent"));
         return newEventButton;
     }
 
@@ -323,7 +323,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         newTaskButton.addListener(this); // react to clicks
         newTaskButton.setWidth(WIDTH_OF_NEW_BUTTONS, Sizeable.UNITS_PIXELS);
         newTaskButton.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.centraleditingpanel, "3-button-newTask"));
+                PccFunctionalBlock.centraleditingpanel, "3-button-newTask"));
         return newTaskButton;
     }
 

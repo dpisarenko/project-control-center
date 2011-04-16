@@ -17,7 +17,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
+import ru.altruix.commons.api.di.InjectorFactory;
+
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;

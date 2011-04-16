@@ -36,7 +36,7 @@ import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.model.Task;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
@@ -121,7 +121,7 @@ class DefaultTaskEditingPanel extends Panel implements
                 new Button(TM.get("taskeditingpanel.11-button-save"));
         saveButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.taskeditingpanel,
+                        PccFunctionalBlock.taskeditingpanel,
                         "1-button-save"));
         saveButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(saveButton);
@@ -130,7 +130,7 @@ class DefaultTaskEditingPanel extends Panel implements
                 new Button(TM.get("taskeditingpanel.12-button-done"));
         doneButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.taskeditingpanel,
+                        PccFunctionalBlock.taskeditingpanel,
                         "2-button-done"));
         doneButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(doneButton);
@@ -140,7 +140,7 @@ class DefaultTaskEditingPanel extends Panel implements
                         TM.get("taskeditingpanel.13-button-delete"));
         deleteButton.setDebugId(this.debugIdRegistry
                 .getDebugId(
-                        FunctionalBlock.taskeditingpanel,
+                        PccFunctionalBlock.taskeditingpanel,
                         "3-button-delete"));
 
         deleteButton.addListener(this); // react to clicks
@@ -215,7 +215,7 @@ class DefaultTaskEditingPanel extends Panel implements
         final Button dependEditButton =
                 new Button(TM.get("taskeditingpanel.18-button-edit"));
         dependEditButton.setDebugId(this.debugIdRegistry.getDebugId(
-                FunctionalBlock.taskeditingpanel,
+                PccFunctionalBlock.taskeditingpanel,
                 "4-button-dependencies"));
         dependEditButton.addListener(this);
 

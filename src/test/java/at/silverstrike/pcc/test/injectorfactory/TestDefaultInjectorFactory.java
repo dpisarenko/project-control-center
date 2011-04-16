@@ -15,14 +15,15 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import ru.altruix.commons.api.di.InjectorFactory;
+import ru.altruix.commons.api.version.PccVersionReader;
+
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
-import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
-import at.silverstrike.pcc.api.version.PccVersionReader;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
 
 public final class TestDefaultInjectorFactory {

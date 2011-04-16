@@ -9,14 +9,14 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.version;
+package ru.altruix.commons.impl.version;
 
-import static at.silverstrike.pcc.api.pcc.FunctionalBlock.version;
-import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
+import ru.altruix.commons.api.commons.CommonsFunctionalBlock;
+import ru.altruix.commons.api.commons.CommonsMessageCodePrefixRegistry;
 
 final class ErrorCodes {
-    private static final String PREFIX = PccMessageCodePrefixRegistry
-            .getInstance().getPrefix(version);
+    private static final String PREFIX = CommonsMessageCodePrefixRegistry
+            .getInstance().getPrefix(CommonsFunctionalBlock.version);
 
     public static final String M_001_RUN = PREFIX + "001";
     public static final String M_002_RUN2 = PREFIX + "002";

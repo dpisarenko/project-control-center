@@ -24,10 +24,10 @@ import org.slf4j.LoggerFactory;
 import ru.altruix.commons.api.debugids.DebugIdKeyNotFoundException;
 import ru.altruix.commons.api.debugids.DebugIdUniquenessViolation;
 
-import at.silverstrike.pcc.api.conventions.PccMessageCodePrefixRegistry;
 import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
 
 class DefaultDebugIdRegistry implements PccDebugIdRegistry {
     private static final String DEBUGIDS_FILE = "debugids/debugids.properties";
@@ -58,7 +58,7 @@ class DefaultDebugIdRegistry implements PccDebugIdRegistry {
 
             if (index != -1) {
                 final PccDebugIdKey debugIdKey = factory.create();
-                debugIdKey.setModule(FunctionalBlock.valueOf(name.substring(0, index)));
+                debugIdKey.setModule(PccFunctionalBlock.valueOf(name.substring(0, index)));
                 debugIdKey.setKey(name.substring(index + 1));
 
                 this.debugKeys.add(debugIdKey);
@@ -67,7 +67,7 @@ class DefaultDebugIdRegistry implements PccDebugIdRegistry {
     }
 
     @Override
-    public String getDebugId(final FunctionalBlock aModule, final String aKey) {
+    public String getDebugId(final PccFunctionalBlock aModule, final String aKey) {
         final DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
         final PccDebugIdKey debugIdKey = factory.create();
         debugIdKey.setModule(aModule);

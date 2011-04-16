@@ -33,7 +33,7 @@ import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanel;
 import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingPanelController;
 import at.silverstrike.pcc.api.model.Milestone;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.gui.dialogs.OptionDialog;
@@ -147,14 +147,14 @@ class DefaultMilestoneEditingPanel extends Panel implements
 		final Button saveButton = new Button(
 				TM.get("milestoneeditingpanel.2-button-save"));
 		saveButton.setDebugId(this.debugIdRegistry.getDebugId(
-				FunctionalBlock.milestoneeditingpanel, "1-button-save"));
+				PccFunctionalBlock.milestoneeditingpanel, "1-button-save"));
 		saveButton.addListener(this); // react to clicks
 		buttonsTaskLayout.addComponent(saveButton);
 
 		final Button deleteButton = new Button(
 				TM.get("milestoneeditingpanel.3-button-delete"));
 		deleteButton.setDebugId(this.debugIdRegistry.getDebugId(
-				FunctionalBlock.milestoneeditingpanel, "2-button-delete"));
+				PccFunctionalBlock.milestoneeditingpanel, "2-button-delete"));
 		deleteButton.addListener(this); // react to clicks
 		buttonsTaskLayout.addComponent(deleteButton);
 

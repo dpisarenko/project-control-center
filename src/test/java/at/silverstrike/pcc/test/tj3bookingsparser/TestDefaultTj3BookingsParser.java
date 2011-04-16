@@ -27,9 +27,9 @@ import org.slf4j.LoggerFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import ru.altruix.commons.api.di.InjectorFactory;
 import ru.altruix.commons.api.di.PccException;
 
-import at.silverstrike.pcc.api.injectorfactory.InjectorFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParser;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;

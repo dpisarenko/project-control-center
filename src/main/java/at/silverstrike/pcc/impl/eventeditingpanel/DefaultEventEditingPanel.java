@@ -33,7 +33,7 @@ import com.vaadin.ui.Button.ClickListener;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
-import at.silverstrike.pcc.api.pcc.FunctionalBlock;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.gui.dialogs.OptionDialog;
@@ -96,14 +96,14 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 		final Button saveButton = new Button(
 				TM.get("eventeditingpanel.2-button-save"));
 		saveButton.setDebugId(this.debugIdRegistry.getDebugId(
-				FunctionalBlock.eventeditingpanel, "1-button-save"));
+				PccFunctionalBlock.eventeditingpanel, "1-button-save"));
 		saveButton.addListener(this); // react to clicks
 		buttonsTaskLayout.addComponent(saveButton);
 
 		final Button deleteButton = new Button(
 				TM.get("eventeditingpanel.3-button-delete"));
 		deleteButton.setDebugId(this.debugIdRegistry.getDebugId(
-				FunctionalBlock.eventeditingpanel, "2-button-delete"));
+				PccFunctionalBlock.eventeditingpanel, "2-button-delete"));
 		deleteButton.addListener(this); // react to clicks
 		buttonsTaskLayout.addComponent(deleteButton);
 
