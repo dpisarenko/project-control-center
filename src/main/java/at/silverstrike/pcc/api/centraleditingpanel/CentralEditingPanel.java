@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.api.centraleditingpanel;
 
+import com.vaadin.ui.Panel;
+
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.ExternallyControlledGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedPanel;
@@ -22,7 +24,7 @@ import at.silverstrike.pcc.api.model.Task;
 
 public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel,
-        ExternallyControlledGuiComponent<CentralEditingPanelController> {
+        ExternallyControlledGuiComponent<CentralEditingPanelController, Panel> {
 
     void taskCreated(final Task aNewTask);
 

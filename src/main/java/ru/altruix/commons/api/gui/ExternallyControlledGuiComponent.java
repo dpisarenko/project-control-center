@@ -11,11 +11,12 @@
 
 package ru.altruix.commons.api.gui;
 
+import com.vaadin.ui.AbstractComponent;
 
 /**
  * @author DP118M
  * 
  */
-public interface ExternallyControlledGuiComponent<C extends GuiController> {
+public interface ExternallyControlledGuiComponent<C extends GuiController<K>, K extends AbstractComponent> {
     void setGuiController(final C aController);
 }
