@@ -14,10 +14,10 @@ package at.silverstrike.pcc.impl.debugids;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistryFactory;
 
-public class DefaultDebugIdRegistryFactory implements PccDebugIdRegistryFactory {
+public class DefaultPccDebugIdRegistryFactory implements PccDebugIdRegistryFactory {
 
     @Override
     public final PccDebugIdRegistry create() {
-        return new DefaultDebugIdRegistry();
+        return new DefaultPccDebugIdRegistry();
     }
 }

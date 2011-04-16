@@ -9,36 +9,38 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.debugids;
+package ru.altruix.commons.api.debugids;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ru.altruix.commons.api.debugids.DebugIdKeyNotFoundException;
-import ru.altruix.commons.api.debugids.DebugIdUniquenessViolation;
+import ru.altruix.commons.api.fbprefixes.AbstractMessageCodePrefixRegistry;
 
-import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
-import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
-import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
-import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
-
-class DefaultDebugIdRegistry implements PccDebugIdRegistry {
+/**
+ * @author DP118M
+ * 
+ */
+public abstract class AbstractDebugIdRegistry<F extends Enum<F>, C extends DebugIdKey<F>, R extends AbstractMessageCodePrefixRegistry<F>> {
     private static final String DEBUGIDS_FILE = "debugids/debugids.properties";
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(DefaultDebugIdRegistry.class);
+            .getLogger(AbstractDebugIdRegistry.class);
+    protected DebugIdKeyFactory<F, C> debugIdKeyFactory;
     private Set<String> alreadyFetchedKeys = new HashSet<String>();
     private Properties properties = new Properties();
-    private List<PccDebugIdKey> debugKeys = new ArrayList<PccDebugIdKey>();
+    private List<C> debugKeys = new ArrayList<C>();
+    private R messageCodePrefixRegistry;
 
-    public DefaultDebugIdRegistry() {
+    protected AbstractDebugIdRegistry(final R aPrefixRegistry) {
+        this.debugIdKeyFactory = getDebugIdKeyFactory();
         loadData(DEBUGIDS_FILE);
+        this.messageCodePrefixRegistry = aPrefixRegistry;
     }
 
     private void loadData(final String aFileName) {
@@ -49,16 +51,14 @@ class DefaultDebugIdRegistry implements PccDebugIdRegistry {
             LOGGER.error(ErrorCodes.M_001_LOAD_DATA, exception);
         }
 
-        final DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
         for (final Enumeration<?> names = this.properties.propertyNames(); names
                 .hasMoreElements();) {
             final String name = (String) names.nextElement();
-            final int index = name.indexOf(PccMessageCodePrefixRegistry
+            final int index = name.indexOf(R
                     .getMessageNumberSeparator());
-
             if (index != -1) {
-                final PccDebugIdKey debugIdKey = factory.create();
-                debugIdKey.setModule(PccFunctionalBlock.valueOf(name.substring(0, index)));
+                final C debugIdKey = debugIdKeyFactory.create();
+                debugIdKey.setModule(stringToEnum(name.substring(0, index)));
                 debugIdKey.setKey(name.substring(index + 1));
 
                 this.debugKeys.add(debugIdKey);
@@ -66,31 +66,23 @@ class DefaultDebugIdRegistry implements PccDebugIdRegistry {
         }
     }
 
-    @Override
-    public String getDebugId(final PccFunctionalBlock aModule, final String aKey) {
-        final DefaultDebugIdKeyFactory factory = new DefaultDebugIdKeyFactory();
-        final PccDebugIdKey debugIdKey = factory.create();
+    public String getDebugId(final F aModule, final String aKey) {
+        final C debugIdKey = debugIdKeyFactory.create();
         debugIdKey.setModule(aModule);
         debugIdKey.setKey(aKey);
 
         return this.getDebugId(debugIdKey);
     }
 
-    @Override
     public void setDebugIdsFile(final String aFileName) {
         loadData(aFileName);
     }
 
-    @Override
-    public List<PccDebugIdKey> getAllKeys() {
-        return debugKeys;
-    }
-
-    @Override
-    public String getDebugId(final PccDebugIdKey aDebugIdKey) {
-        final String aModuleWithKey = aDebugIdKey.getModule().toString()
-                + PccMessageCodePrefixRegistry.getMessageNumberSeparator()
-                + aDebugIdKey.getKey();
+    public String getDebugId(final C aDebugIdKey) {
+        final String aModuleWithKey =
+                aDebugIdKey.getModule().toString()
+                        + AbstractMessageCodePrefixRegistry.getMessageNumberSeparator()
+                        + aDebugIdKey.getKey();
 
         if (!this.debugKeys.contains(aDebugIdKey)) {
             throw new DebugIdKeyNotFoundException(aModuleWithKey);
@@ -101,9 +93,12 @@ class DefaultDebugIdRegistry implements PccDebugIdRegistry {
 
         this.alreadyFetchedKeys.add(aModuleWithKey);
 
-        return (PccMessageCodePrefixRegistry.getInstance().getPrefix(
+        return (this.messageCodePrefixRegistry.getPrefix(
                 aDebugIdKey.getModule()) + this.properties
                 .getProperty(aModuleWithKey));
     }
 
+    protected abstract F stringToEnum(final String aString);
+
+    protected abstract DebugIdKeyFactory<F, C> getDebugIdKeyFactory();
 }

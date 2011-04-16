@@ -75,7 +75,7 @@ import at.silverstrike.pcc.impl.centraleditingpanelbuttonstate.DefaultCentralEdi
 import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
-import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
+import at.silverstrike.pcc.impl.debugids.DefaultPccDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.dependencieseditingdialog.DefaultDependenciesEditingDialogFactory;
 import at.silverstrike.pcc.impl.dependencieseditingpanel.DefaultDependenciesEditingPanelFactory;
 import at.silverstrike.pcc.impl.dependencieseditingpanelcontroller.DefaultDependenciesEditingDialogControllerFactory;
@@ -150,7 +150,7 @@ class InjectorModule extends AbstractModule {
         bind(ProjectSchedulerFactory.class).toInstance(
                 new DefaultProjectSchedulerFactory());
         bind(PccDebugIdRegistry.class).toInstance(
-                new DefaultDebugIdRegistryFactory().create());
+                new DefaultPccDebugIdRegistryFactory().create());
         bind(WebGuiBus.class)
                 .toInstance(new DefaultWebGuiBusFactory().create());
         bind(WebGuiBusMessageFactory.class).toInstance(

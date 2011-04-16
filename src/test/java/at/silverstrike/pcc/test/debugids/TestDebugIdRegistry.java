@@ -25,7 +25,7 @@ import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistryFactory;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
-import at.silverstrike.pcc.impl.debugids.DefaultDebugIdRegistryFactory;
+import at.silverstrike.pcc.impl.debugids.DefaultPccDebugIdRegistryFactory;
 
 /**
  * Verifies the uniqueness of debug IDs
@@ -41,7 +41,7 @@ public class TestDebugIdRegistry {
     @Test
     public final void testUniqueness01() {
         final PccDebugIdRegistryFactory factory =
-                new DefaultDebugIdRegistryFactory();
+                new DefaultPccDebugIdRegistryFactory();
         final PccDebugIdRegistry objectUnderTest = factory.create();
 
         /**
@@ -70,7 +70,7 @@ public class TestDebugIdRegistry {
     @Test
     public final void testUniqueness02() {
         final PccDebugIdRegistryFactory factory =
-                new DefaultDebugIdRegistryFactory();
+                new DefaultPccDebugIdRegistryFactory();
         final PccDebugIdRegistry objectUnderTest = factory.create();
 
         /**
@@ -110,7 +110,7 @@ public class TestDebugIdRegistry {
     @Test
     public final void testUnknownKeys() {
         final PccDebugIdRegistryFactory factory =
-                new DefaultDebugIdRegistryFactory();
+                new DefaultPccDebugIdRegistryFactory();
         final PccDebugIdRegistry objectUnderTest = factory.create();
 
         try {
@@ -135,7 +135,7 @@ public class TestDebugIdRegistry {
     @Test
     public final void testKeyFetchingViaModulesAndKeys() {
         final PccDebugIdRegistryFactory factory =
-                new DefaultDebugIdRegistryFactory();
+                new DefaultPccDebugIdRegistryFactory();
         final PccDebugIdRegistry debugIdRegistry = factory.create();
 
         Assert.assertEquals("011.001", debugIdRegistry

@@ -9,14 +9,18 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.debugids;
+package ru.altruix.commons.api.debugids;
 
-import static at.silverstrike.pcc.api.pcc.PccFunctionalBlock.debugids;
-import at.silverstrike.pcc.api.pcc.PccMessageCodePrefixRegistry;
+import ru.altruix.commons.api.commons.CommonsFunctionalBlock;
+import ru.altruix.commons.api.commons.CommonsMessageCodePrefixRegistry;
 
+/**
+ * @author DP118M
+ * 
+ */
 final class ErrorCodes {
-    private static final String PREFIX = PccMessageCodePrefixRegistry
-            .getInstance().getPrefix(debugids);
+    private static final String PREFIX = CommonsMessageCodePrefixRegistry
+            .getInstance().getPrefix(CommonsFunctionalBlock.debugids);
 
     public static final String M_001_LOAD_DATA = PREFIX + "001";
 

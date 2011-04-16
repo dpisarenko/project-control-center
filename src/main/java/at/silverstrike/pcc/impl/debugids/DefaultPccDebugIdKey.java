@@ -11,13 +11,12 @@
 
 package at.silverstrike.pcc.impl.debugids;
 
+import ru.altruix.commons.api.debugids.AbstractDebugIdKey;
 import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
-import at.silverstrike.pcc.api.debugids.PccDebugIdKeyFactory;
+import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 
-class DefaultDebugIdKeyFactory implements PccDebugIdKeyFactory {
 
-    @Override
-    public PccDebugIdKey create() {
-        return new DefaultDebugIdKey();
+class DefaultPccDebugIdKey extends AbstractDebugIdKey<PccFunctionalBlock> implements PccDebugIdKey {
+    public DefaultPccDebugIdKey() {
     }
 }

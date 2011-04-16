@@ -9,42 +9,37 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.debugids;
+package ru.altruix.commons.api.debugids;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import at.silverstrike.pcc.api.debugids.PccDebugIdKey;
-import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
-
-class DefaultDebugIdKey implements PccDebugIdKey {
+/**
+ * @author DP118M
+ * 
+ */
+public abstract class AbstractDebugIdKey<C extends Enum<C>> {
     private static final int HASH_CODE_MULTIPLIER = 3;
-    private PccFunctionalBlock module;
+    private C module;
     private String key;
 
-    public DefaultDebugIdKey() {
-    }
-
-    @Override
-    public void setModule(final PccFunctionalBlock aModule) {
+    public void setModule(final C aModule) {
         this.module = aModule;
     }
 
-    @Override
-    public PccFunctionalBlock getModule() {
+    public C getModule() {
         return this.module;
     }
 
-    @Override
     public void setKey(final String aKey) {
         this.key = aKey;
     }
 
-    @Override
     public String getKey() {
         return this.key;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public boolean equals(final Object aObject) {
         if (aObject == null) {
@@ -57,7 +52,7 @@ class DefaultDebugIdKey implements PccDebugIdKey {
             return false;
         }
 
-        final DefaultDebugIdKey rhs = (DefaultDebugIdKey) aObject;
+        final AbstractDebugIdKey rhs = (AbstractDebugIdKey) aObject;
         return new EqualsBuilder().append(module, rhs.module)
                 .append(key, rhs.key).isEquals();
     }
