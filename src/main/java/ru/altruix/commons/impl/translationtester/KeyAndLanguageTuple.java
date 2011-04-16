@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.test.i18n;
+package ru.altruix.commons.impl.translationtester;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -9,25 +9,28 @@
  *
  **/
 
-package at.silverstrike.pcc.test.i18n;
+package ru.altruix.commons.impl.translationtester;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import ru.altruix.commons.api.translationtester.ProblemTuple;
+
 /**
  * @author DP118M
  * 
  */
-class ProblemTuple {
+class DefaultProblemTuple implements ProblemTuple {
     private String culture;
     private List<String> problematicKeys;
 
-    public ProblemTuple() {
+    public DefaultProblemTuple() {
         this.problematicKeys = new LinkedList<String>();
     }
 
+    @Override
     public String getCulture() {
         return culture;
     }
@@ -36,6 +39,7 @@ class ProblemTuple {
         this.culture = aCulture;
     }
 
+    @Override
     public List<String> getProblematicKeys() {
         return problematicKeys;
     }
