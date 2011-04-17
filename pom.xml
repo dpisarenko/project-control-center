@@ -270,6 +270,10 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+		  <id>altruix-repository</id>
+		  <url>ftp://silverstrike.at/altruix-repository/</url>
+		</repository>		
 	</repositories>
 	<dependencies>
 		<dependency>
@@ -400,6 +404,12 @@
 		   <artifactId>batik</artifactId>
 		   <version>1.1.1</version>
 		</dependency>
+		<dependency>
+		   <groupId>ru.altruix</groupId>
+		   <artifactId>commons</artifactId>
+		   <version>1.0</version>
+		</dependency>
+
 	</dependencies>
 	<reporting>
 		<plugins>
