@@ -268,16 +268,17 @@ class DefaultTaskEditingPanel extends Panel implements
                 String toEffort = (String) this.to.getValue();
                 Double toDouble = (Double) hm.get(toEffort);
 
-                if (fromDouble <= toDouble) {
-
+                if ((fromDouble != null) && (toDouble != null) && (fromDouble > toDouble) )
+                {
+                    dialog.showErrorMessage("Task",
+                            TM.get("taskeditingpanel.20-combobox-effort"), true);                    
+                }
+                else
+                {
                     this.task.setWorstCaseEffort(fromDouble);
                     this.task.setBestCaseEffort(toDouble);
-
-                    this.controller.saveTask(this.task);
-                } else {
-                    dialog.showErrorMessage("Task",
-                            TM.get("taskeditingpanel.20-combobox-effort"), true);
                 }
+                this.controller.saveTask(this.task);                
             }
         } else if (DONE_TASK_BUTTON.equals(debugId)) {
             controller.markTaskAsCompleted(this.task);
