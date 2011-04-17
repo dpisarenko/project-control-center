@@ -207,6 +207,13 @@ class DefaultTaskEditingPanel extends Panel implements
             to.addItem(effortList[i]);
         }
         effortLayout.addComponent(to);
+
+        // implement convert to double
+        hm = new HashMap<String, Double>();
+        for (int i = 0; i < effortList.length; i++) {
+            hm.put(effortList[i], DURATION_STEPS[i]);
+        }
+
         return effortLayout;
     }
 
@@ -254,12 +261,6 @@ class DefaultTaskEditingPanel extends Panel implements
 
             if (this.task != null) {
                 this.task.setName((String) this.taskNameTextField.getValue());
-
-                // implement convert to double
-                hm = new HashMap<String, Double>();
-                for (int i = 0; i < effortList.length; i++) {
-                    hm.put(effortList[i], DURATION_STEPS[i]);
-                }
 
                 String fromEffort = (String) this.from.getValue();
                 Double fromDouble = (Double) hm.get(fromEffort);
@@ -323,8 +324,31 @@ class DefaultTaskEditingPanel extends Panel implements
         this.task = aTask;
         if (this.task != null) {
             taskNameTextField.setValue(this.task.getName());
+            Double fromDbl = this.task.getWorstCaseEffort();
+            Double toDbl = this.task.getBestCaseEffort();
+
+            LOGGER.debug("HashMap is:" + hm);
+            LOGGER.debug("fromEffort is:" + fromDbl);
+            LOGGER.debug("fromHM is:" + hm.get(fromDbl));
+            if ((fromDbl != null) && (toDbl != null)) {
+
+                from.setValue(getKeyByValue(fromDbl));
+                to.setValue(getKeyByValue(toDbl));
+            } else {
+                from.setValue(null);
+                to.setValue(null);
+            }
         } else {
             taskNameTextField.setValue("");
         }
+    }
+
+    private String getKeyByValue(Double value) {
+        for (String key : hm.keySet()) {
+            if (hm.get(key).equals(value)) {
+                return key;
+            }
+        }
+        return null;
     }
 }
