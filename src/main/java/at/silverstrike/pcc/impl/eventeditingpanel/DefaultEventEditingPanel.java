@@ -12,6 +12,7 @@
 package at.silverstrike.pcc.impl.eventeditingpanel;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
@@ -44,7 +46,7 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DefaultEventEditingPanel.class);
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final Object PROJECT_PROPERTY_NAME = "name";
 
 	private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
@@ -64,6 +66,9 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 	private transient EventEditingPanelController controller;
 	private transient PccDebugIdRegistry debugIdRegistry;
 	private TextField eventNameTextField;
+	private PopupDateField startDate;
+	private PopupDateField finishDate;
+	private TextField placeTextField;
 
 	public TextField getTaskNameTextField() {
 		return eventNameTextField;
@@ -146,7 +151,7 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 		placeLabel.setContentMode(Label.CONTENT_TEXT);
 		placeLayout.addComponent(placeLabel);
 
-		final TextField placeTextField = new TextField();
+		placeTextField = new TextField();
 		placeLayout.addComponent(placeTextField);
 
 		return placeLayout;
@@ -156,7 +161,7 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 		final HorizontalLayout datesLayout = new HorizontalLayout();
 		datesLayout.setSpacing(true);
 
-		final InlineDateField startDate = new InlineDateField(
+		startDate = new PopupDateField(
 				TM.get("eventeditingpanel.7-label-start"));
 
 		// Set the value of the PopupDateField to current date
@@ -164,17 +169,18 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 
 		// Set the correct resolution
 		startDate.setResolution(InlineDateField.RESOLUTION_MIN);
+		startDate.setImmediate(true);
 
 		datesLayout.addComponent(startDate);
 
-		final InlineDateField finishDate = new InlineDateField(
+		finishDate = new PopupDateField(
 				TM.get("eventeditingpanel.8-label-finish"));
 
 		// Set the value of the PopupDateField to current date
 		finishDate.setValue(new java.util.Date());
 
 		// Set the correct resolution
-		finishDate.setResolution(InlineDateField.RESOLUTION_MIN);
+		finishDate.setResolution(PopupDateField.RESOLUTION_MIN);
 
 		datesLayout.addComponent(finishDate);
 
@@ -207,28 +213,36 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 	 * Shows a notification when a button is clicked.
 	 */
 	public void buttonClick(final ClickEvent aEvent) {
-        final String debugId = aEvent.getButton().getDebugId();
+		final String debugId = aEvent.getButton().getDebugId();
 
-        LOGGER.debug(
-                "at.silverstrike.pcc.impl.eventeditingpanel.DefaultEventEditingPanel.buttonClick(ClickEvent), debugId: {}",
-                debugId);
+		LOGGER.debug(
+				"at.silverstrike.pcc.impl.eventeditingpanel.DefaultEventEditingPanel.buttonClick(ClickEvent), debugId: {}",
+				debugId);
 
-        if (SAVE_EVENT_BUTTON.equals(debugId)) {
-            final OptionDialog dialog =
-                    new OptionDialog(TPTApplication.getCurrentApplication());
+		if (SAVE_EVENT_BUTTON.equals(debugId)) {
+			final OptionDialog dialog = new OptionDialog(
+					TPTApplication.getCurrentApplication());
 
-            dialog.showConfirmationDialog("Event", "Debug ID: " + debugId
-                    + ", this.event: " + this.event, null);
+			dialog.showConfirmationDialog("Event", "Debug ID: " + debugId
+					+ ", this.event: " + this.event, null);
 
-            if (this.event != null) {
-                this.event.setName((String) this.eventNameTextField.getValue());
-                this.controller.saveEvent(this.event);
-            }
-        } else if (DELETE_EVENT_BUTTON.equals(debugId)) {
-            controller.deleteEvent(this.event);
-        } else if (DEPENDENCIES_BUTTON.equals(debugId)) {
-            //letUserEnterDependencies();
-        }
+			if (this.event != null) {
+				setThisEventObject();
+				this.controller.saveEvent(this.event);
+			}
+		} else if (DELETE_EVENT_BUTTON.equals(debugId)) {
+			controller.deleteEvent(this.event);
+		} else if (DEPENDENCIES_BUTTON.equals(debugId)) {
+			// letUserEnterDependencies();
+		}
+	}
+
+	private void setThisEventObject() {
+		this.event.setName((String) this.eventNameTextField.getValue());
+		this.event.setPlace((String) this.placeTextField.getValue());
+		LOGGER.debug("Event Start Date Time is:" + this.startDate.getValue());
+		this.event.setStartDateTime((Date) this.startDate.getValue());
+		this.event.setEndDateTime((Date) this.finishDate.getValue());
 	}
 
 	@Override
@@ -236,16 +250,30 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 		return this;
 	}
 
-
 	@Override
 	public void setEvent(at.silverstrike.pcc.api.model.Event aEvent) {
-        this.event = aEvent;
-        if (this.event != null) {
-            eventNameTextField.setValue(this.event.getName());
-        } else {
-            eventNameTextField.setValue("");
-        }
-	
+		this.event = aEvent;
+		if (this.event != null) {
+			this.eventNameTextField.setValue(this.event.getName());
+			String place = this.event.getPlace();
+			if (place != null) {
+				this.placeTextField.setValue(place);
+			} else {
+				this.placeTextField.setValue("");
+			}
+			this.startDate.setValue(this.event.getStartDateTime());
+			this.finishDate.setValue(this.event.getEndDateTime());
+		} else {
+			clearIntervalDatesPanel();
+		}
+
+	}
+
+	private void clearIntervalDatesPanel() {
+		this.eventNameTextField.setValue(null);
+		this.placeTextField.setValue("");
+		this.startDate.setValue(new Date());
+		this.finishDate.setValue(new Date());
 	}
 
 }
