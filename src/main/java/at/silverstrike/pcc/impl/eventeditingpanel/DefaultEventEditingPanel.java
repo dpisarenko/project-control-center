@@ -104,14 +104,14 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
                 TM.get("eventeditingpanel.2-button-save"));
         saveButton.setDebugId(this.debugIdRegistry.getDebugId(
                 PccFunctionalBlock.eventeditingpanel, "1-button-save"));
-        saveButton.addListener((ClickListener)this); // react to clicks
+        saveButton.addListener((ClickListener) this); // react to clicks
         buttonsTaskLayout.addComponent(saveButton);
 
         final Button deleteButton = new Button(
                 TM.get("eventeditingpanel.3-button-delete"));
         deleteButton.setDebugId(this.debugIdRegistry.getDebugId(
                 PccFunctionalBlock.eventeditingpanel, "2-button-delete"));
-        deleteButton.addListener((ClickListener)this); // react to clicks
+        deleteButton.addListener((ClickListener) this); // react to clicks
         buttonsTaskLayout.addComponent(deleteButton);
 
         verticalLayoutRight.addComponent(buttonsTaskLayout);
@@ -177,7 +177,11 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 
             @Override
             public void valueChange(final ValueChangeEvent aEvent) {
-                startDate.setValue(aEvent.getProperty().getValue());
+                LOGGER.debug("startDate.valueChange: aEvent"
+                        + aEvent.getProperty() + ", value: "
+                        + aEvent.getProperty().getValue()
+                        + ", startDate.getValue(): " + startDate.getValue());
+
             }
         });
 
@@ -285,11 +289,4 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
         this.startDate.setValue(new Date());
         this.finishDate.setValue(new Date());
     }
-
-//    @Override
-//    public void valueChange(final ValueChangeEvent aEvent) {
-//        // TODO Auto-generated method stub
-//        aEvent.getProperty().
-//    }
-
 }
