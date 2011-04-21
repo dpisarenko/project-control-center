@@ -172,18 +172,6 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
         // Set the correct resolution
         startDate.setResolution(InlineDateField.RESOLUTION_MIN);
         startDate.setImmediate(true);
-//        startDate.addListener(new ValueChangeListener() {
-//            private static final long serialVersionUID = 1L;
-//
-//            @Override
-//            public void valueChange(final ValueChangeEvent aEvent) {
-//                LOGGER.debug("startDate.valueChange: aEvent"
-//                        + aEvent.getProperty() + ", value: "
-//                        + aEvent.getProperty().getValue()
-//                        + ", startDate.getValue(): " + startDate.getValue());
-//
-//            }
-//        });
 
         datesLayout.addComponent(startDate);
 
@@ -234,11 +222,11 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
                 debugId);
 
         if (SAVE_EVENT_BUTTON.equals(debugId)) {
-            final OptionDialog dialog = new OptionDialog(
-                    TPTApplication.getCurrentApplication());
-
-            dialog.showConfirmationDialog("Event", "Debug ID: " + debugId
-                    + ", this.event: " + this.event, null);
+//            final OptionDialog dialog = new OptionDialog(
+//                    TPTApplication.getCurrentApplication());
+//
+//            dialog.showConfirmationDialog("Event", "Debug ID: " + debugId
+//                    + ", this.event: " + this.event, null);
 
             if (this.event != null) {
                 setThisEventObject();
