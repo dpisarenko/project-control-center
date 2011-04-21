@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanelbuttonstate;
 
+import java.util.List;
+
 import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
 import at.silverstrike.pcc.api.model.Event;
@@ -59,6 +61,9 @@ class DefaultCentralEditingPanelButtonStateCalculator implements
 
     @Override
     public boolean isIncreasePriorityButtonEnabled() {
+    	//Long parentID = this.currentSelection.getParent().getId();
+
+    		
         return this.increasePriorityButtonEnabled;
     }
 

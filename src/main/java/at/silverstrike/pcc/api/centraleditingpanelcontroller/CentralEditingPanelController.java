@@ -19,9 +19,9 @@ import com.vaadin.ui.Panel;
 
 public interface CentralEditingPanelController extends
         ModuleWithInjectableDependencies, GuiController<Panel> {
-    void increasePriorityButtonClicked();
+    void increasePriorityButtonClicked(final Long parentProjectId);
 
-    void decreasePriorityButtonClicked();
+    void decreasePriorityButtonClicked(final Long parentProjectId);
 
     void createMilestone(final String aUserIdentity,
             final Long aProjectIdCurrentlySelectedInTree);

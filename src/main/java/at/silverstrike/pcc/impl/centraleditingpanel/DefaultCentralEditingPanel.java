@@ -66,6 +66,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private static final String NEW_EVENT_BUTTON = "025.004";
     private static final String NEW_TASK_BUTTON = "025.003";
     private static final String NEW_MILESTONE_BUTTON = "025.002";
+    private static final String PRIORITY_UP_BUTTON = "025.005";
+    private static final String PRIORITY_DOWN_BUTTON = "025.006";
     private static final int PADDING = 5;
     private static final int ONE_SIXTH_OF_SCREEN_WIDTH = 6;
     private static final Logger LOGGER = LoggerFactory
@@ -165,8 +167,6 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
                 Alignment.MIDDLE_RIGHT);
 
         newMilestoneButton = getNewMilestoneButton();
-        newMilestoneButton.setDebugId(this.debugIdRegistry.getDebugId(
-                PccFunctionalBlock.centraleditingpanel, "2-button-newMilestone"));
         buttonsNewGrid.addComponent(newMilestoneButton, 2, 0);
         buttonsNewGrid.setComponentAlignment(newMilestoneButton,
                 Alignment.MIDDLE_RIGHT);
@@ -176,14 +176,10 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         final HorizontalLayout buttonsPriorityLayout = new HorizontalLayout();
         buttonsPriorityLayout.setSpacing(true);
 
-        increasePriorityButton = new Button(
-                TM.get("centraleditingpanel.8-button-priorityUp"));
-        increasePriorityButton.addListener(this); // react to clicks
+        increasePriorityButton = getPriorityUpButton();
         buttonsPriorityLayout.addComponent(increasePriorityButton);
 
-        decreasePriorityButton = new Button(
-                TM.get("centraleditingpanel.9-button-priorityDown"));
-        decreasePriorityButton.addListener(this); // react to clicks
+        decreasePriorityButton = getPriorityDownButton();
         buttonsPriorityLayout.addComponent(decreasePriorityButton);
 
         verticalLayoutLeft.addComponent(buttonsPriorityLayout);
@@ -212,6 +208,24 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
         this.redrawProjectNetwork();
     }
+
+	private Button getPriorityDownButton() {
+		decreasePriorityButton = new Button(
+                TM.get("centraleditingpanel.9-button-priorityDown"));
+        decreasePriorityButton.addListener(this); // react to clicks
+        decreasePriorityButton.setDebugId(this.debugIdRegistry.getDebugId(
+                PccFunctionalBlock.centraleditingpanel, "6-button-priorityDown"));
+        return decreasePriorityButton;
+	}
+
+	private Button getPriorityUpButton() {
+		increasePriorityButton = new Button(
+                TM.get("centraleditingpanel.8-button-priorityUp"));
+        increasePriorityButton.addListener(this); // react to clicks
+        increasePriorityButton.setDebugId(this.debugIdRegistry.getDebugId(
+                PccFunctionalBlock.centraleditingpanel, "5-button-priorityUp"));
+        return increasePriorityButton;
+	}
 
     private void initProjectNetworkDataCreator() {
         final ProjectNetworkDataCreatorFactory factory =
@@ -330,6 +344,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private Button getNewMilestoneButton() {
         final Button newMilestoneButton = new Button(
                 TM.get("centraleditingpanel.19-button-newMilestone"));
+        newMilestoneButton.setDebugId(this.debugIdRegistry.getDebugId(
+                PccFunctionalBlock.centraleditingpanel, "2-button-newMilestone"));
         newMilestoneButton.addListener(this); // react to clicks
         newMilestoneButton
                 .setWidth(WIDTH_OF_NEW_BUTTONS, Sizeable.UNITS_PIXELS);
@@ -350,6 +366,10 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
             this.controller.createEvent(user, parentProjectId);
         } else if (NEW_MILESTONE_BUTTON.equals(debugId)) {
             this.controller.createMilestone(user, parentProjectId);
+        } else if (PRIORITY_UP_BUTTON.equals(debugId)) {
+            this.controller.increasePriorityButtonClicked(parentProjectId);
+        } else if (PRIORITY_DOWN_BUTTON.equals(debugId)) {
+            this.controller.decreasePriorityButtonClicked(parentProjectId);
         } else {
             LOGGER.error("Unexpected debug ID: {}", debugId);
         }

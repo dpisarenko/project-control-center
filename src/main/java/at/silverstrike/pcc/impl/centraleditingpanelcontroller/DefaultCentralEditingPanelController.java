@@ -47,17 +47,6 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter impl
         }
     }
 
-    @Override
-    public void increasePriorityButtonClicked() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void decreasePriorityButtonClicked() {
-        // TODO Auto-generated method stub
-
-    }
 
     @Override
     public void createMilestone(final String aUserIdentity,
@@ -204,6 +193,29 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter impl
 	@Override
 	public void eventEdited(Event aEvent) {
 		this.panel.updateEventNodeInTree(aEvent);
+		
+	}
+
+
+	@Override
+	public void increasePriorityButtonClicked(Long parentProjectId) {
+		this.persistence.increasePriority(parentProjectId);
+        if (parentProjectId != null) {
+            this.webGuiBus.broadcastIncreasePriorityMessage(parentProjectId);
+        } else {
+            this.webGuiBus.broadcastIncreasePriorityFailureMessage();
+        }
+	}
+
+
+	@Override
+	public void decreasePriorityButtonClicked(Long parentProjectId) {
+		this.persistence.decreasePriority(parentProjectId);
+        if (parentProjectId != null) {
+            this.webGuiBus.broadcastDecreasePriorityMessage(parentProjectId);
+        } else {
+            this.webGuiBus.broadcastDecreasePriorityFailureMessage();
+        }
 		
 	}
 

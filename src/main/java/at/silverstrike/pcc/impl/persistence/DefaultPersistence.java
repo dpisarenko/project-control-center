@@ -1171,4 +1171,16 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }	
 	}
+
+	@Override
+	public void increasePriority(Long parentProjectId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void decreasePriority(Long parentProjectId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

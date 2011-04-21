@@ -56,4 +56,12 @@ public interface WebGuiBus {
     void broadcastMilestoneEditedMessage(final Milestone aMilestone);
 
     void broadcastEventEditedMessage(final Event aEvent);
+
+	void broadcastIncreasePriorityMessage(final Long parentProjectId);
+
+	void broadcastIncreasePriorityFailureMessage();
+
+	void broadcastDecreasePriorityMessage(final Long parentProjectId);
+
+	void broadcastDecreasePriorityFailureMessage();
 }

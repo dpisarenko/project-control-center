@@ -143,4 +143,32 @@ class DefaultWebGuiBus implements WebGuiBus {
 		
 	}
 
+	@Override
+	public void broadcastIncreasePriorityMessage(Long parentProjectId) {
+		 for (final WebGuiBusListener listener : this.listeners) {
+	            //listener.IncreasePriority(parentProjectId);
+	        }
+		
+	}
+
+	@Override
+	public void broadcastIncreasePriorityFailureMessage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void broadcastDecreasePriorityMessage(Long parentProjectId) {
+		 for (final WebGuiBusListener listener : this.listeners) {
+	            //listener.milestoneEdited(parentProjectId);
+	        }
+		
+	}
+
+	@Override
+	public void broadcastDecreasePriorityFailureMessage() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
