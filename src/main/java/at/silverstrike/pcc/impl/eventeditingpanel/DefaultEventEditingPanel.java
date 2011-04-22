@@ -21,8 +21,6 @@ import org.slf4j.LoggerFactory;
 import ru.altruix.commons.api.di.PccException;
 
 import com.google.inject.Injector;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.Label;
@@ -39,8 +37,6 @@ import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
-import eu.livotov.tpt.TPTApplication;
-import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
@@ -172,18 +168,6 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
         // Set the correct resolution
         startDate.setResolution(InlineDateField.RESOLUTION_MIN);
         startDate.setImmediate(true);
-        startDate.addListener(new ValueChangeListener() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void valueChange(final ValueChangeEvent aEvent) {
-                LOGGER.debug("startDate.valueChange: aEvent"
-                        + aEvent.getProperty() + ", value: "
-                        + aEvent.getProperty().getValue()
-                        + ", startDate.getValue(): " + startDate.getValue());
-
-            }
-        });
 
         datesLayout.addComponent(startDate);
 
@@ -234,12 +218,6 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
                 debugId);
 
         if (SAVE_EVENT_BUTTON.equals(debugId)) {
-            final OptionDialog dialog = new OptionDialog(
-                    TPTApplication.getCurrentApplication());
-
-            dialog.showConfirmationDialog("Event", "Debug ID: " + debugId
-                    + ", this.event: " + this.event, null);
-
             if (this.event != null) {
                 setThisEventObject();
                 this.controller.saveEvent(this.event);
