@@ -158,7 +158,13 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     boolean deleteMilestone(final Milestone aMilestone);
 
-	void updateMilestone(final Milestone aMilestone);
+    void updateMilestone(final Milestone aMilestone);
 
-	void updateEvent(final Event aEvent);
+    void updateEvent(final Event aEvent);
+
+    /**
+     * Возвращает перечень объектов, которые могут быть предшественниками aObject.
+     */
+    List<SchedulingObject> getPotentialDependencies(
+            final SchedulingObject aObject);
 }

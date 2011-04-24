@@ -79,8 +79,8 @@ final class DefaultDependenciesEditingDialog implements
 
         this.dialog = new Window(TM.get("dependencieseditingdialog.1-title"));
         this.dialog.setModal(true);
-        this.dialog.setWidth("200px");
-        this.dialog.setHeight("200px");
+        this.dialog.setWidth("500px");
+        this.dialog.setHeight("400px");
 
         final Label message =
                 new Label(TM.get("dependencieseditingdialog.4-top-lettering"));
