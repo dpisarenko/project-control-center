@@ -20,6 +20,7 @@ import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Window;
 
@@ -83,15 +84,22 @@ final class DefaultDependenciesEditingDialog implements
         final Label message = new Label("This is a modal subwindow.");
         this.dialog.getContent().addComponent(message);
 
+        final HorizontalLayout buttonPanel = new HorizontalLayout();
+        
         final Button okButton =
                 new Button(TM.get("dependencieseditingdialog.2-ok-button"),
                         this);
         okButton.setDebugId(OK_BUTTON);
-        this.dialog.getContent().addComponent(okButton);
+        buttonPanel.addComponent(okButton);
         
         final Button cancelButton = new Button(TM.get("dependencieseditingdialog.3-cancel-button"), this);
         cancelButton.setDebugId(CANCEL_BUTTON);
-        this.dialog.getContent().addComponent(cancelButton);
+        buttonPanel.addComponent(cancelButton);
+        
+        buttonPanel.addComponent(okButton);
+        buttonPanel.addComponent(cancelButton);
+        
+        this.dialog.getContent().addComponent(buttonPanel);
     }
 
     @Override
