@@ -295,4 +295,16 @@ final class MockPersistence implements Persistence {
         // TODO Auto-generated method stub
         
     }
+
+    @Override
+    public void increasePriority(Long parentProjectId) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void decreasePriority(Long parentProjectId) {
+        // TODO Auto-generated method stub
+        
+    }
 }

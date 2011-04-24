@@ -254,4 +254,16 @@ final class MockPersistenceEmptyDb implements Persistence {
         
     }
 
+    @Override
+    public void increasePriority(Long parentProjectId) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void decreasePriority(Long parentProjectId) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
