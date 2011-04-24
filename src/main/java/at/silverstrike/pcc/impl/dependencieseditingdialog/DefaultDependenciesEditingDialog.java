@@ -28,7 +28,6 @@ import eu.livotov.tpt.i18n.TM;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialog;
 import at.silverstrike.pcc.api.model.SchedulingObject;
-import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 
 /**
  * @author DP118M
@@ -37,6 +36,9 @@ import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 final class DefaultDependenciesEditingDialog implements
         DependenciesEditingDialog, ClickListener {
     private static final long serialVersionUID = 1L;
+    private static final String OK_BUTTON = "047.001";
+    private static final String CANCEL_BUTTON = "047.002";
+
     private Set<SchedulingObject> existingDependencies;
     private List<SchedulingObject> availableDependencies;
     private Window parentWindow;
@@ -44,7 +46,6 @@ final class DefaultDependenciesEditingDialog implements
     private Set<SchedulingObject> selectedDependencies;
     private Window dialog;
     private Injector injector;
-    private static final String OK_BUTTON = "047.001";
     private transient PccDebugIdRegistry debugIdRegistry;
 
     public ModalDialogResult getDialogResult() {
@@ -87,6 +88,10 @@ final class DefaultDependenciesEditingDialog implements
                         this);
         okButton.setDebugId(OK_BUTTON);
         this.dialog.getContent().addComponent(okButton);
+        
+        final Button cancelButton = new Button(TM.get("dependencieseditingdialog.3-cancel-button"), this);
+        cancelButton.setDebugId(CANCEL_BUTTON);
+        this.dialog.getContent().addComponent(cancelButton);
     }
 
     @Override
