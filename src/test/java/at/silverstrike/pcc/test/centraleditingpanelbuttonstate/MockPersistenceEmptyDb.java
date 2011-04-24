@@ -254,4 +254,11 @@ final class MockPersistenceEmptyDb implements Persistence {
         
     }
 
+    @Override
+    public List<SchedulingObject> getPotentialDependencies(
+            SchedulingObject aObject) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
