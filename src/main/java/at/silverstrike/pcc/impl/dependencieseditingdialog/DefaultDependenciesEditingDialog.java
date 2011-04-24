@@ -83,6 +83,14 @@ final class DefaultDependenciesEditingDialog implements
                 new Label(TM.get("dependencieseditingdialog.4-top-lettering"));
         this.dialog.getContent().addComponent(message);
 
+        final HorizontalLayout addDependencyPanel = getAddDependencyPanel();
+        this.dialog.getContent().addComponent(addDependencyPanel);
+
+        final HorizontalLayout buttonPanel = getButtonPanel();
+        this.dialog.getContent().addComponent(buttonPanel);
+    }
+
+    private HorizontalLayout getAddDependencyPanel() {
         final HorizontalLayout addDependencyPanel = new HorizontalLayout();
         final ComboBox newDependencyComboBox = new ComboBox();
         final Button addDependencyButton =
@@ -92,12 +100,7 @@ final class DefaultDependenciesEditingDialog implements
 
         addDependencyPanel.addComponent(newDependencyComboBox);
         addDependencyPanel.addComponent(addDependencyButton);
-
-        this.dialog.getContent().addComponent(addDependencyPanel);
-
-        final HorizontalLayout buttonPanel = getButtonPanel();
-
-        this.dialog.getContent().addComponent(buttonPanel);
+        return addDependencyPanel;
     }
 
     private HorizontalLayout getButtonPanel() {
