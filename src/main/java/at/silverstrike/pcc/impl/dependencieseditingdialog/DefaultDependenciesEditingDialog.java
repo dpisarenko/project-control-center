@@ -20,13 +20,13 @@ import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
-import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialog;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
@@ -39,6 +39,7 @@ final class DefaultDependenciesEditingDialog implements
     private static final long serialVersionUID = 1L;
     private static final String OK_BUTTON = "047.001";
     private static final String CANCEL_BUTTON = "047.002";
+    private static final String ADD_DEPENDENCY_BUTTON = "047.003";
 
     private Set<SchedulingObject> existingDependencies;
     private List<SchedulingObject> availableDependencies;
@@ -47,7 +48,6 @@ final class DefaultDependenciesEditingDialog implements
     private Set<SchedulingObject> selectedDependencies;
     private Window dialog;
     private Injector injector;
-    private transient PccDebugIdRegistry debugIdRegistry;
 
     public ModalDialogResult getDialogResult() {
         return dialogResult;
@@ -74,32 +74,50 @@ final class DefaultDependenciesEditingDialog implements
 
     @Override
     public void initGui() {
-        this.debugIdRegistry = this.injector.getInstance(PccDebugIdRegistry.class);
-
         this.dialogResult = ModalDialogResult.UNDEFINED;
 
         this.dialog = new Window(TM.get("dependencieseditingdialog.1-title"));
         this.dialog.setModal(true);
 
-        final Label message = new Label("This is a modal subwindow.");
+        final Label message =
+                new Label(TM.get("dependencieseditingdialog.4-top-lettering"));
         this.dialog.getContent().addComponent(message);
 
+        final HorizontalLayout addDependencyPanel = new HorizontalLayout();
+        final ComboBox newDependencyComboBox = new ComboBox();
+        final Button addDependencyButton =
+                new Button(
+                        TM.get("dependencieseditingdialog.5-addDependencyButton"));
+        addDependencyButton.setDebugId(ADD_DEPENDENCY_BUTTON);
+
+        addDependencyPanel.addComponent(newDependencyComboBox);
+        addDependencyPanel.addComponent(addDependencyButton);
+
+        this.dialog.getContent().addComponent(addDependencyPanel);
+
+        final HorizontalLayout buttonPanel = getButtonPanel();
+
+        this.dialog.getContent().addComponent(buttonPanel);
+    }
+
+    private HorizontalLayout getButtonPanel() {
         final HorizontalLayout buttonPanel = new HorizontalLayout();
-        
+
         final Button okButton =
                 new Button(TM.get("dependencieseditingdialog.2-ok-button"),
                         this);
         okButton.setDebugId(OK_BUTTON);
         buttonPanel.addComponent(okButton);
-        
-        final Button cancelButton = new Button(TM.get("dependencieseditingdialog.3-cancel-button"), this);
+
+        final Button cancelButton =
+                new Button(TM.get("dependencieseditingdialog.3-cancel-button"),
+                        this);
         cancelButton.setDebugId(CANCEL_BUTTON);
         buttonPanel.addComponent(cancelButton);
-        
+
         buttonPanel.addComponent(okButton);
         buttonPanel.addComponent(cancelButton);
-        
-        this.dialog.getContent().addComponent(buttonPanel);
+        return buttonPanel;
     }
 
     @Override
@@ -114,6 +132,11 @@ final class DefaultDependenciesEditingDialog implements
         if (OK_BUTTON.equals(debugId)) {
             this.dialogResult = ModalDialogResult.CLOSED_WITH_OK;
             closeDialog();
+        } else if (CANCEL_BUTTON.equals(debugId)) {
+            this.dialogResult = ModalDialogResult.CLOSED_WITH_CANCEL;
+            closeDialog();
+        } else if (ADD_DEPENDENCY_BUTTON.equals(debugId)) {
+
         }
     }
 
