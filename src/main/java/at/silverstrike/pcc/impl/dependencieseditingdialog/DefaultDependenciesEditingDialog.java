@@ -49,7 +49,6 @@ final class DefaultDependenciesEditingDialog implements
     private ModalDialogResult dialogResult;
     private Set<SchedulingObject> selectedDependencies;
     private Window dialog;
-    private Injector injector;
 
     public ModalDialogResult getDialogResult() {
         return dialogResult;
@@ -80,36 +79,69 @@ final class DefaultDependenciesEditingDialog implements
 
         this.dialog = new Window(TM.get("dependencieseditingdialog.1-title"));
         this.dialog.setModal(true);
+        this.dialog.setWidth("200px");
+        this.dialog.setHeight("200px");
 
         final Label message =
                 new Label(TM.get("dependencieseditingdialog.4-top-lettering"));
         this.dialog.getContent().addComponent(message);
 
+        final HorizontalLayout tableLayout = getTableLayout();
+
+        this.dialog.getContent().addComponent(tableLayout);
+
+        final HorizontalLayout addDependencyPanel = getAddDependencyPanel();
+        this.dialog.getContent().addComponent(addDependencyPanel);
+
+        final HorizontalLayout buttonPanel = getButtonPanel();
+        this.dialog.getContent().addComponent(buttonPanel);
+    }
+
+    private HorizontalLayout getTableLayout() {
         final HorizontalLayout tableLayout = new HorizontalLayout();
         final Table dependenciesTable = new Table();
 
         dependenciesTable.setWidth("80%");
         dependenciesTable.setHeight("170px");
 
-        
-        dependenciesTable.addContainerProperty(TM.get("dependencieseditingdialog.7-table-no"), Long.class, null);
-        dependenciesTable.addContainerProperty(TM.get("dependencieseditingdialog.8-table-project"), String.class, null);
-        dependenciesTable.addContainerProperty(TM.get("dependencieseditingdialog.9-table-name"), String.class, null);
-        
+        dependenciesTable.addContainerProperty(
+                TM.get("dependencieseditingdialog.7-table-no"), Long.class,
+                null);
+        dependenciesTable.addContainerProperty(
+                TM.get("dependencieseditingdialog.8-table-project"),
+                String.class, null);
+        dependenciesTable.addContainerProperty(
+                TM.get("dependencieseditingdialog.9-table-name"), String.class,
+                null);
+
+        addDependencyData(dependenciesTable);
+
         final Button deleteButton =
                 new Button(TM.get("dependencieseditingdialog.6-deleteButton"));
         deleteButton.setDebugId(DELETE_BUTTON);
 
         tableLayout.addComponent(dependenciesTable);
         tableLayout.addComponent(deleteButton);
-        
-        this.dialog.getContent().addComponent(tableLayout);
-        
-        final HorizontalLayout addDependencyPanel = getAddDependencyPanel();
-        this.dialog.getContent().addComponent(addDependencyPanel);
+        return tableLayout;
+    }
 
-        final HorizontalLayout buttonPanel = getButtonPanel();
-        this.dialog.getContent().addComponent(buttonPanel);
+    private void addDependencyData(final Table aTable) {
+        int curItemId = 1;
+        for (final SchedulingObject curExistingDependency : this.existingDependencies) {
+            final String projectName;
+
+            if (curExistingDependency.getParent() != null) {
+                projectName = curExistingDependency.getParent().getName();
+            } else {
+                projectName = "";
+            }
+
+            aTable.addItem(
+                    new Object[] { curExistingDependency.getId(), projectName,
+                            curExistingDependency.getName() }, curItemId);
+
+            curItemId++;
+        }
     }
 
     private HorizontalLayout getAddDependencyPanel() {
@@ -173,6 +205,5 @@ final class DefaultDependenciesEditingDialog implements
 
     @Override
     public void setInjector(final Injector aInjector) {
-        this.injector = aInjector;
     }
 }
