@@ -1187,7 +1187,7 @@ public class DefaultPersistence implements Persistence {
                     session.createQuery(POTENTIAL_PREDECESSORS_HQL.replace(
                             "${id}", Long.toString(aObject.getId())));
 
-            query.setParameter(STATE_BEING_ATTAINED.substring(1),
+            query.setParameter(STATE_DELETED.substring(1),
                     ProcessState.DELETED);
             
             processes = (List<SchedulingObject>) query.list();
