@@ -14,6 +14,8 @@ package at.silverstrike.pcc.impl.dependencieseditingdialog;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+
 import ru.altruix.commons.api.gui.ModalDialogResult;
 
 import com.google.inject.Injector;
@@ -152,8 +154,14 @@ final class DefaultDependenciesEditingDialog implements
                         TM.get("dependencieseditingdialog.5-addDependencyButton"));
         addDependencyButton.setDebugId(ADD_DEPENDENCY_BUTTON);
 
+        for (final SchedulingObject curAvailableDependency : this.availableDependencies) {
+            newDependencyComboBox.addItem(StringUtils.abbreviate(
+                    curAvailableDependency.getName(), 50));
+        }
+
         addDependencyPanel.addComponent(newDependencyComboBox);
         addDependencyPanel.addComponent(addDependencyButton);
+
         return addDependencyPanel;
     }
 

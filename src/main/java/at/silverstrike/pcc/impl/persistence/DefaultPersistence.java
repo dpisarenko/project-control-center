@@ -1195,6 +1195,5 @@ public class DefaultPersistence implements Persistence {
             LOGGER.error("", exception);
         }
         return processes;
-
     }
 }
