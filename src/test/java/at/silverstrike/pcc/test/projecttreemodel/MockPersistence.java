@@ -295,4 +295,11 @@ final class MockPersistence implements Persistence {
         // TODO Auto-generated method stub
         
     }
+
+    @Override
+    public List<SchedulingObject> getPotentialDependencies(
+            final SchedulingObject aObject) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
