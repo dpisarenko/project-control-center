@@ -102,6 +102,9 @@ final class DefaultDependenciesEditingDialog implements
                 new Button(TM.get("dependencieseditingdialog.6-deleteButton"));
         deleteButton.setDebugId(DELETE_BUTTON);
 
+        tableLayout.addComponent(dependenciesTable);
+        tableLayout.addComponent(deleteButton);
+        
         final HorizontalLayout addDependencyPanel = getAddDependencyPanel();
         this.dialog.getContent().addComponent(addDependencyPanel);
 
