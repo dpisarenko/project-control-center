@@ -96,14 +96,14 @@ final class DefaultDependenciesEditingDialog implements
         dependenciesTable.addContainerProperty(TM.get("dependencieseditingdialog.8-table-project"), String.class, null);
         dependenciesTable.addContainerProperty(TM.get("dependencieseditingdialog.9-table-name"), String.class, null);
         
-        
-        
         final Button deleteButton =
                 new Button(TM.get("dependencieseditingdialog.6-deleteButton"));
         deleteButton.setDebugId(DELETE_BUTTON);
 
         tableLayout.addComponent(dependenciesTable);
         tableLayout.addComponent(deleteButton);
+        
+        this.dialog.getContent().addComponent(tableLayout);
         
         final HorizontalLayout addDependencyPanel = getAddDependencyPanel();
         this.dialog.getContent().addComponent(addDependencyPanel);
