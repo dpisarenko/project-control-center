@@ -221,5 +221,11 @@ public abstract class MockPersistenceAdapter implements Persistence {
         // TODO Auto-generated method stub
         
     }
+    @Override
+    public List<SchedulingObject> getPotentialDependencies(
+            SchedulingObject aObject) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
