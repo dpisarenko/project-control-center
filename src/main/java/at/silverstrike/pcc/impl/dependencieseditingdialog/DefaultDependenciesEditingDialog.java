@@ -23,6 +23,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
@@ -40,6 +41,7 @@ final class DefaultDependenciesEditingDialog implements
     private static final String OK_BUTTON = "047.001";
     private static final String CANCEL_BUTTON = "047.002";
     private static final String ADD_DEPENDENCY_BUTTON = "047.003";
+    private static final String DELETE_BUTTON = "047.004";
 
     private Set<SchedulingObject> existingDependencies;
     private List<SchedulingObject> availableDependencies;
@@ -82,6 +84,23 @@ final class DefaultDependenciesEditingDialog implements
         final Label message =
                 new Label(TM.get("dependencieseditingdialog.4-top-lettering"));
         this.dialog.getContent().addComponent(message);
+
+        final HorizontalLayout tableLayout = new HorizontalLayout();
+        final Table dependenciesTable = new Table();
+
+        dependenciesTable.setWidth("80%");
+        dependenciesTable.setHeight("170px");
+
+        
+        dependenciesTable.addContainerProperty(TM.get("dependencieseditingdialog.7-table-no"), Long.class, null);
+        dependenciesTable.addContainerProperty(TM.get("dependencieseditingdialog.8-table-project"), String.class, null);
+        dependenciesTable.addContainerProperty(TM.get("dependencieseditingdialog.9-table-name"), String.class, null);
+        
+        
+        
+        final Button deleteButton =
+                new Button(TM.get("dependencieseditingdialog.6-deleteButton"));
+        deleteButton.setDebugId(DELETE_BUTTON);
 
         final HorizontalLayout addDependencyPanel = getAddDependencyPanel();
         this.dialog.getContent().addComponent(addDependencyPanel);
@@ -139,6 +158,8 @@ final class DefaultDependenciesEditingDialog implements
             this.dialogResult = ModalDialogResult.CLOSED_WITH_CANCEL;
             closeDialog();
         } else if (ADD_DEPENDENCY_BUTTON.equals(debugId)) {
+
+        } else if (DELETE_BUTTON.equals(debugId)) {
 
         }
     }
