@@ -13,6 +13,7 @@ package at.silverstrike.pcc.test.tj3bookingsparser;
 
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParser;
@@ -42,6 +43,22 @@ class MockInjectorModule extends AbstractModule {
             @Override
             public Booking createBooking() {
                 return new MockBooking();
+            }
+
+            @Override
+            public boolean isHighestPriorityObjectInProject(
+                    SchedulingObject aProject,
+                    SchedulingObject aSchedulingObject) {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public boolean isLowestPriorityObjectInProject(
+                    SchedulingObject aProject,
+                    SchedulingObject aSchedulingObject) {
+                // TODO Auto-generated method stub
+                return false;
             }
 
 

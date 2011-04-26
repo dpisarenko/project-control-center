@@ -304,4 +304,18 @@ final class MockPersistence implements Persistence {
         return null;
 
     }
+
+    @Override
+    public boolean isHighestPriorityObjectInProject(SchedulingObject aProject,
+            SchedulingObject aSchedulingObject) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isLowestPriorityObjectInProject(SchedulingObject aProject,
+            SchedulingObject aSchedulingObject) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
