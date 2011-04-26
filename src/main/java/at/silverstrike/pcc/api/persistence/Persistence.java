@@ -174,5 +174,9 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      */
     List<SchedulingObject> getPotentialDependencies(
             final SchedulingObject aObject);
+    
+    boolean isHighestPriorityObjectInProject(final SchedulingObject aProject, final SchedulingObject aSchedulingObject);
+    
+    boolean isLowestPriorityObjectInProject(final SchedulingObject aProject, final SchedulingObject aSchedulingObject);
 
 }
