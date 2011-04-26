@@ -142,6 +142,48 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
                 expectedNewEventButtonEnabled,
                 expectedNewMilestoneButtonEnabled);
     }
+    
+    @Test
+    public final void testOnMediumPriorityTask() {
+        final CentralEditingPanelButtonStateCalculator objectUnderTest =
+                getObjectUnderTest(new MockPersistenceMediumPriorityTask());
+
+        boolean expectedDecreasePriorityButtonState = true;
+        boolean expectedIncreasePriorityButtonState = true;
+        boolean expectedNewTaskButtonEnabled = true;
+        boolean expectedNewEventButtonEnabled = true;
+        boolean expectedNewMilestoneButtonEnabled = true;
+        final SchedulingObject selectedSchedulingObject =
+                MOCK_OBJECT_FACTORY.createTask();
+
+        executeTest(objectUnderTest, selectedSchedulingObject,
+                expectedDecreasePriorityButtonState,
+                expectedIncreasePriorityButtonState,
+                expectedNewTaskButtonEnabled,
+                expectedNewEventButtonEnabled,
+                expectedNewMilestoneButtonEnabled);
+    }
+    
+    @Test
+    public final void testOnLowestPriorityTask() {
+        final CentralEditingPanelButtonStateCalculator objectUnderTest =
+                getObjectUnderTest(new MockPersistenceLowestPriorityTask());
+
+        boolean expectedDecreasePriorityButtonState = false;
+        boolean expectedIncreasePriorityButtonState = true;
+        boolean expectedNewTaskButtonEnabled = true;
+        boolean expectedNewEventButtonEnabled = true;
+        boolean expectedNewMilestoneButtonEnabled = true;
+        final SchedulingObject selectedSchedulingObject =
+                MOCK_OBJECT_FACTORY.createTask();
+
+        executeTest(objectUnderTest, selectedSchedulingObject,
+                expectedDecreasePriorityButtonState,
+                expectedIncreasePriorityButtonState,
+                expectedNewTaskButtonEnabled,
+                expectedNewEventButtonEnabled,
+                expectedNewMilestoneButtonEnabled);
+    }
 
     private void executeTest(
             final CentralEditingPanelButtonStateCalculator aObjectUnderTest,
