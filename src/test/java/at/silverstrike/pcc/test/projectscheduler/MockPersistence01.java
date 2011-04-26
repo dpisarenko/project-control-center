@@ -133,15 +133,5 @@ class MockPersistence01 extends MockPersistenceAdapter {
         
     }
 
-    @Override
-    public void increasePriority(Long parentProjectId) {
-        // TODO Auto-generated method stub
-        
-    }
 
-    @Override
-    public void decreasePriority(Long parentProjectId) {
-        // TODO Auto-generated method stub
-        
-    }
 }

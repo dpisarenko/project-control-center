@@ -199,7 +199,7 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter impl
 
 	@Override
 	public void increasePriorityButtonClicked(Long parentProjectId) {
-		this.persistence.increasePriority(parentProjectId);
+		//this.persistence.increasePriority(parentProjectId);
         if (parentProjectId != null) {
             this.webGuiBus.broadcastIncreasePriorityMessage(parentProjectId);
         } else {
@@ -210,7 +210,7 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter impl
 
 	@Override
 	public void decreasePriorityButtonClicked(Long parentProjectId) {
-		this.persistence.decreasePriority(parentProjectId);
+		//this.persistence.decreasePriority(parentProjectId);
         if (parentProjectId != null) {
             this.webGuiBus.broadcastDecreasePriorityMessage(parentProjectId);
         } else {

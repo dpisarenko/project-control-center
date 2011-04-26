@@ -245,25 +245,21 @@ class MockPersistence implements Persistence {
     @Override
     public void updateMilestone(final Milestone aMilestone) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void updateEvent(final Event aEvent) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
-    public void increasePriority(Long parentProjectId) {
+    public List<SchedulingObject> getPotentialDependencies(
+            final SchedulingObject aObject) {
         // TODO Auto-generated method stub
-        
-    }
+        return null;
 
-    @Override
-    public void decreasePriority(Long parentProjectId) {
-        // TODO Auto-generated method stub
-        
     }
 
 }

@@ -1,4 +1,4 @@
-#Mon Apr 11 23:12:34 CEST 2011
+#Tue Apr 26 12:30:23 MSD 2011
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
 >>>>>>>=d6e58aa4a46738f02189801397ed0b8f3b26ae07
@@ -15,6 +15,7 @@ encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/processpanel.propertie
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/schedulingpanel.properties=UTF-8
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/workerpanel.properties=UTF-8
 encoding//WebContent/WEB-INF/classes/template.tjp=UTF-8
+encoding//src/main/java/at/silverstrike/pcc/api/persistence/Persistence.java=UTF-8
 encoding//src/main/java/at/silverstrike/pcc/api/taskeditingpanelcontroller/TaskEditingPanelController.java=UTF-8
 encoding//src/main/java/at/silverstrike/pcc/api/webguibus/WebGuiBus.java=UTF-8
 encoding//src/main/java/at/silverstrike/pcc/impl/centraleditingpanel/DefaultCentralEditingPanel.java=UTF-8

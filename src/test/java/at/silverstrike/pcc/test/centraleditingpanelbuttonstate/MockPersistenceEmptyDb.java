@@ -255,15 +255,10 @@ final class MockPersistenceEmptyDb implements Persistence {
     }
 
     @Override
-    public void increasePriority(Long parentProjectId) {
+    public List<SchedulingObject> getPotentialDependencies(
+            SchedulingObject aObject) {
         // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void decreasePriority(Long parentProjectId) {
-        // TODO Auto-generated method stub
-        
+        return null;
     }
 
 }

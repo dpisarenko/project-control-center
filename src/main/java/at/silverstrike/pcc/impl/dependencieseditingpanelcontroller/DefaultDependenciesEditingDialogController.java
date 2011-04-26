@@ -24,6 +24,7 @@ import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDial
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialogFactory;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.persistence.Persistence;
 
 /**
  * @author DP118M
@@ -67,8 +68,9 @@ final class DefaultDependenciesEditingDialogController implements
     }
 
     private List<SchedulingObject> getAvailableDependencies() {
-        // TODO Auto-generated method stub
-        return null;
+        final Persistence persistence = this.injector.getInstance(Persistence.class);
+        
+        return persistence.getPotentialDependencies(this.schedulingObject);
     }
 
     @Override

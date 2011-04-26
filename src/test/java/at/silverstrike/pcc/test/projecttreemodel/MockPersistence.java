@@ -297,14 +297,11 @@ final class MockPersistence implements Persistence {
     }
 
     @Override
-    public void increasePriority(Long parentProjectId) {
-        // TODO Auto-generated method stub
-        
-    }
 
-    @Override
-    public void decreasePriority(Long parentProjectId) {
+    public List<SchedulingObject> getPotentialDependencies(
+            final SchedulingObject aObject) {
         // TODO Auto-generated method stub
-        
+        return null;
+
     }
 }

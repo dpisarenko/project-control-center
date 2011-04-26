@@ -84,6 +84,9 @@ public class DefaultPersistence implements Persistence {
                     + "((averageEstimatedEndDateTime is not null) or "
                     + "(bestEstimatedEndDateTime is not null) or "
                     + "(worstEstimatedEndDateTime is not null))";
+    private static final String POTENTIAL_PREDECESSORS_HQL =
+            "from DefaultSchedulingObject where (state <> "
+                    + STATE_DELETED + ") and (id <> ${id})";
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultPersistence.class);
@@ -1120,7 +1123,8 @@ public class DefaultPersistence implements Persistence {
         return deleteSchedulingObject(aTask);
     }
 
-    private boolean deleteSchedulingObject(final SchedulingObject aSchedulingObject) {
+    private boolean deleteSchedulingObject(
+            final SchedulingObject aSchedulingObject) {
         final Transaction tx = session.beginTransaction();
         boolean success = false;
         LOGGER.debug("Deleting scheduling object: {}", aSchedulingObject);
@@ -1146,8 +1150,8 @@ public class DefaultPersistence implements Persistence {
         return deleteSchedulingObject(aMilestone);
     }
 
-	@Override
-	public void updateMilestone(Milestone aProcess) {
+    @Override
+    public void updateMilestone(Milestone aProcess) {
         final Transaction tx = session.beginTransaction();
 
         try {
@@ -1156,11 +1160,11 @@ public class DefaultPersistence implements Persistence {
         } catch (final Exception exception) {
             LOGGER.error("", exception);
             tx.rollback();
-        }		
-	}
+        }
+    }
 
-	@Override
-	public void updateEvent(Event aProcess) {
+    @Override
+    public void updateEvent(Event aProcess) {
         final Transaction tx = session.beginTransaction();
 
         try {
@@ -1171,16 +1175,27 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }	
 	}
+      
 
-	@Override
-	public void increasePriority(Long parentProjectId) {
-		// TODO Auto-generated method stub
-		
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<SchedulingObject> getPotentialDependencies(
+            final SchedulingObject aObject) {
+        List<SchedulingObject> processes = new LinkedList<SchedulingObject>();
 
-	@Override
-	public void decreasePriority(Long parentProjectId) {
-		// TODO Auto-generated method stub
-		
-	}
+        try {
+            final Query query =
+                    session.createQuery(POTENTIAL_PREDECESSORS_HQL.replace(
+                            "${id}", Long.toString(aObject.getId())));
+
+            query.setParameter(STATE_DELETED.substring(1),
+                    ProcessState.DELETED);
+            
+            processes = (List<SchedulingObject>) query.list();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+        }
+        return processes;
+    }
+
 }
