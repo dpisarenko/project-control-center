@@ -23,6 +23,7 @@ import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.test.model.MockObjectFactory;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 import com.google.inject.Injector;
@@ -120,6 +121,27 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
                 expectedNewEventButtonEnabled,
                 expectedNewMilestoneButtonEnabled);
     }
+    
+    @Test
+    public final void testOnHighestPriorityTask() {
+        final CentralEditingPanelButtonStateCalculator objectUnderTest =
+                getObjectUnderTest(new MockPersistenceHighestLevelTask());
+
+        boolean expectedDecreasePriorityButtonState = true;
+        boolean expectedIncreasePriorityButtonState = false;
+        boolean expectedNewTaskButtonEnabled = true;
+        boolean expectedNewEventButtonEnabled = true;
+        boolean expectedNewMilestoneButtonEnabled = true;
+        final SchedulingObject selectedSchedulingObject =
+                MOCK_OBJECT_FACTORY.createTask();
+
+        executeTest(objectUnderTest, selectedSchedulingObject,
+                expectedDecreasePriorityButtonState,
+                expectedIncreasePriorityButtonState,
+                expectedNewTaskButtonEnabled,
+                expectedNewEventButtonEnabled,
+                expectedNewMilestoneButtonEnabled);
+    }
 
     private void executeTest(
             final CentralEditingPanelButtonStateCalculator aObjectUnderTest,
@@ -155,7 +177,7 @@ public class TestDefaultCentralEditingPanelButtonStateCalculator {
     }
 
     private CentralEditingPanelButtonStateCalculator getObjectUnderTest(
-            final MockPersistenceEmptyDb aPersistence) {
+            final Persistence aPersistence) {
         final InjectorFactory injectorFactory =
                 new MockInjectorFactory(new MockInjectorModule(aPersistence));
         final Injector injector = injectorFactory.createInjector();

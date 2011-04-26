@@ -83,4 +83,8 @@ public class MockObjectFactory {
     {
         return new MockEvent();
     }
+    public final Task createTask()
+    {
+        return new MockTask();
+    }
 }
