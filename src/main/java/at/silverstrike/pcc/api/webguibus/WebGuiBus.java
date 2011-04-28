@@ -13,6 +13,7 @@ package at.silverstrike.pcc.api.webguibus;
 
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 
 public interface WebGuiBus {
@@ -68,4 +69,6 @@ public interface WebGuiBus {
     void broadcastTaskCompletedMessage(final Task aTask);
 
     void broadcastTaskCompletedFailureMessage();
+    
+    void broadcastTaskDependenciesChangedMessage(final SchedulingObject aObject);
 }

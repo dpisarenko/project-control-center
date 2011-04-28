@@ -37,6 +37,7 @@ import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesE
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
+import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
@@ -83,7 +84,8 @@ class DefaultTaskEditingPanel extends Panel implements
     private transient Injector injector;
     private transient TaskEditingPanelController controller;
     private transient PccDebugIdRegistry debugIdRegistry;
-
+    private transient Persistence persistence;
+    
     private TextField taskNameTextField;
     private ComboBox from;
     private ComboBox to;
@@ -308,6 +310,8 @@ class DefaultTaskEditingPanel extends Panel implements
         if (ModalDialogResult.CLOSED_WITH_OK.equals(controller
                 .getDialogResult())) {
             this.task.setPredecessors(controller.getNewDependencies());
+            this.persistence.updateTask(this.task);
+            
         }
     }
 
@@ -344,8 +348,8 @@ class DefaultTaskEditingPanel extends Panel implements
         }
     }
 
-    private String getKeyByValue(Double value) {
-        for (String key : hm.keySet()) {
+    private String getKeyByValue(final Double value) {
+        for (final String key : hm.keySet()) {
             if (hm.get(key).equals(value)) {
                 return key;
             }

@@ -16,6 +16,7 @@ import java.util.List;
 
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
@@ -183,7 +184,13 @@ class DefaultWebGuiBus implements WebGuiBus {
         for (final WebGuiBusListener listener : this.listeners) {
             listener.taskComletedFailure();
         }
-
     }
 
+    @Override
+    public void
+            broadcastTaskDependenciesChangedMessage(final SchedulingObject aObject) {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.taskDependenciesChanged(aObject);
+        }
+    }
 }

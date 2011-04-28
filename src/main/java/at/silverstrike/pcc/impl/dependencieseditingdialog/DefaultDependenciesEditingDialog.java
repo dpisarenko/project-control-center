@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.impl.dependencieseditingdialog;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -77,14 +78,14 @@ final class DefaultDependenciesEditingDialog implements
         this.existingDependencies = existingDependencies;
     }
 
-    public void setParentWindow(Window parentWindow) {
-        this.parentWindow = parentWindow;
+    public void setParentWindow(final Window aParentWindow) {
+        this.parentWindow = aParentWindow;
     }
 
     public void
             setAvailableDependencies(
-                    List<SchedulingObject> availableDependencies) {
-        this.availableDependencies = availableDependencies;
+                    final List<SchedulingObject> aAvailableDependencies) {
+        this.availableDependencies = aAvailableDependencies;
     }
 
     @Override
@@ -153,19 +154,19 @@ final class DefaultDependenciesEditingDialog implements
     }
 
     private void addDependencyItem(final Table aTable,
-            final SchedulingObject curExistingDependency) {
+            final SchedulingObject aCurExistingDependency) {
         final String projectName;
 
-        if (curExistingDependency.getParent() != null) {
-            projectName = curExistingDependency.getParent().getName();
+        if (aCurExistingDependency.getParent() != null) {
+            projectName = aCurExistingDependency.getParent().getName();
         } else {
             projectName = "";
         }
 
         aTable.addItem(
-                new Object[] { curExistingDependency.getId(), projectName,
-                        curExistingDependency.getName() },
-                curExistingDependency);
+                new Object[] { aCurExistingDependency.getId(), projectName,
+                        aCurExistingDependency.getName() },
+                aCurExistingDependency);
     }
 
     private HorizontalLayout getAddDependencyPanel() {
@@ -242,14 +243,23 @@ final class DefaultDependenciesEditingDialog implements
             addDependencyItem(this.dependenciesTable, selectedObject);
             newDependencyComboBox.removeItem(selectedObject);
         } else if (DELETE_BUTTON.equals(debugId)) {
-            final SchedulingObject selectedObject = (SchedulingObject)this.dependenciesTable.getValue();
-            
+            final SchedulingObject selectedObject =
+                    (SchedulingObject) this.dependenciesTable.getValue();
+
             this.dependenciesTable.removeItem(selectedObject);
             newDependencyComboBox.addItem(selectedObject);
         }
     }
 
     private void closeDialog() {
+        this.selectedDependencies = new HashSet<SchedulingObject>();
+
+        for (final Object curItemId : this.dependenciesTable.getItemIds()) {
+            final SchedulingObject curObject = (SchedulingObject) curItemId;
+            
+            this.selectedDependencies.add(curObject);
+        }
+
         this.parentWindow.removeWindow(this.dialog);
     }
 

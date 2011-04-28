@@ -2,13 +2,14 @@ package at.silverstrike.pcc.impl.webguibus;
 
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
 
 public abstract class WebGuiBusListenerAdapter implements WebGuiBusListener {
 
     @Override
-    public void taskCreated(Task aNewTask) {
+    public void taskCreated(final Task aNewTask) {
         // TODO Auto-generated method stub
 
     }
@@ -20,13 +21,13 @@ public abstract class WebGuiBusListenerAdapter implements WebGuiBusListener {
     }
 
     @Override
-    public void taskEdited(Task aTask) {
+    public void taskEdited(final Task aTask) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void eventCreated(Event aNewEvent) {
+    public void eventCreated(final Event aNewEvent) {
         // TODO Auto-generated method stub
 
     }
@@ -38,7 +39,7 @@ public abstract class WebGuiBusListenerAdapter implements WebGuiBusListener {
     }
 
     @Override
-    public void milestoneCreated(Milestone aMilestone) {
+    public void milestoneCreated(final Milestone aMilestone) {
         // TODO Auto-generated method stub
 
     }
@@ -50,19 +51,19 @@ public abstract class WebGuiBusListenerAdapter implements WebGuiBusListener {
     }
 
     @Override
-    public void taskDeleted(Task aTask) {
+    public void taskDeleted(final Task aTask) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void eventDeleted(Event aNewEvent) {
+    public void eventDeleted(final Event aNewEvent) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void milestoneDeleted(Milestone aMilestone) {
+    public void milestoneDeleted(final Milestone aMilestone) {
         // TODO Auto-generated method stub
 
     }
@@ -86,13 +87,13 @@ public abstract class WebGuiBusListenerAdapter implements WebGuiBusListener {
     }
 
     @Override
-    public void eventEdited(Event aEvent) {
+    public void eventEdited(final Event aEvent) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void taskCompleted(Task aTask) {
+    public void taskCompleted(final Task aTask) {
         // TODO Auto-generated method stub
 
     }
@@ -103,4 +104,8 @@ public abstract class WebGuiBusListenerAdapter implements WebGuiBusListener {
 
     }
 
+    @Override
+    public void taskDependenciesChanged(final SchedulingObject aObject) {
+
+    }
 }
