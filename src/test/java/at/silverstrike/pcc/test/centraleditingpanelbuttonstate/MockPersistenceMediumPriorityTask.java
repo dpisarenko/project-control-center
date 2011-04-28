@@ -405,4 +405,10 @@ public class MockPersistenceMediumPriorityTask implements Persistence {
 
     }
 
+    @Override
+    public boolean markTaskAsCompleted(Task aTask) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }
