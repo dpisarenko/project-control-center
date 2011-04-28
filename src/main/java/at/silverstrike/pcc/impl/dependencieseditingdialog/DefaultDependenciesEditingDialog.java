@@ -169,7 +169,8 @@ final class DefaultDependenciesEditingDialog implements
         addDependencyButton = new Button(
                 TM.get("dependencieseditingdialog.5-addDependencyButton"));
         addDependencyButton.setDebugId(ADD_DEPENDENCY_BUTTON);
-
+        addDependencyButton.addListener((ClickListener)this);
+        
         newDependencyComboBox.addContainerProperty("caption", String.class,
                 null);
         newDependencyComboBox.setItemCaptionPropertyId("caption");
