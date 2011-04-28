@@ -60,6 +60,7 @@ final class DefaultDependenciesEditingDialogController implements
         dialog.setAvailableDependencies(getAvailableDependencies());
         dialog.setParentWindow(this.parentWindow);
         dialog.setInjector(this.injector);
+        dialog.setSchedulingObject(this.schedulingObject);
 
         dialog.initGui();
         
