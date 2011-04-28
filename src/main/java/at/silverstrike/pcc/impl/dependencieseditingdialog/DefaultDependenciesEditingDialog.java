@@ -15,10 +15,15 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.gui.ModalDialogResult;
 
 import com.google.inject.Injector;
+import com.vaadin.data.Item;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -38,7 +43,7 @@ import at.silverstrike.pcc.api.model.SchedulingObject;
  * 
  */
 final class DefaultDependenciesEditingDialog implements
-        DependenciesEditingDialog, ClickListener {
+        DependenciesEditingDialog, ClickListener, ValueChangeListener {
     private static final long serialVersionUID = 1L;
     private static final String OK_BUTTON = "047.001";
     private static final String CANCEL_BUTTON = "047.002";
@@ -51,6 +56,11 @@ final class DefaultDependenciesEditingDialog implements
     private ModalDialogResult dialogResult;
     private Set<SchedulingObject> selectedDependencies;
     private Window dialog;
+    private int lastItemId;
+    private Table dependenciesTable;
+
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultDependenciesEditingDialog.class);
 
     public ModalDialogResult getDialogResult() {
         return dialogResult;
@@ -101,7 +111,7 @@ final class DefaultDependenciesEditingDialog implements
 
     private HorizontalLayout getTableLayout() {
         final HorizontalLayout tableLayout = new HorizontalLayout();
-        final Table dependenciesTable = new Table();
+        dependenciesTable = new Table();
 
         dependenciesTable.setWidth("80%");
         dependenciesTable.setHeight("170px");
@@ -128,22 +138,27 @@ final class DefaultDependenciesEditingDialog implements
     }
 
     private void addDependencyData(final Table aTable) {
-        int curItemId = 1;
+        lastItemId = 1;
         for (final SchedulingObject curExistingDependency : this.existingDependencies) {
-            final String projectName;
-
-            if (curExistingDependency.getParent() != null) {
-                projectName = curExistingDependency.getParent().getName();
-            } else {
-                projectName = "";
-            }
-
-            aTable.addItem(
-                    new Object[] { curExistingDependency.getId(), projectName,
-                            curExistingDependency.getName() }, curItemId);
-
-            curItemId++;
+            addDependencyItem(aTable, curExistingDependency);
         }
+    }
+
+    private void addDependencyItem(final Table aTable,
+            final SchedulingObject curExistingDependency) {
+        final String projectName;
+
+        if (curExistingDependency.getParent() != null) {
+            projectName = curExistingDependency.getParent().getName();
+        } else {
+            projectName = "";
+        }
+
+        aTable.addItem(
+                new Object[] { curExistingDependency.getId(), projectName,
+                        curExistingDependency.getName() }, lastItemId);
+
+        lastItemId++;
     }
 
     private HorizontalLayout getAddDependencyPanel() {
@@ -155,9 +170,12 @@ final class DefaultDependenciesEditingDialog implements
         addDependencyButton.setDebugId(ADD_DEPENDENCY_BUTTON);
 
         for (final SchedulingObject curAvailableDependency : this.availableDependencies) {
-            newDependencyComboBox.addItem(StringUtils.abbreviate(
-                    curAvailableDependency.getName(), 50));
+            final Item item =
+                    newDependencyComboBox.addItem(StringUtils.abbreviate(
+                            curAvailableDependency.getName(), 50));
         }
+
+        newDependencyComboBox.addListener((ValueChangeListener) this);
 
         addDependencyPanel.addComponent(newDependencyComboBox);
         addDependencyPanel.addComponent(addDependencyButton);
@@ -202,6 +220,10 @@ final class DefaultDependenciesEditingDialog implements
             closeDialog();
         } else if (ADD_DEPENDENCY_BUTTON.equals(debugId)) {
 
+            // addDependencyItem(this.dependenciesTable, curExistingDependency);
+
+            // remove from "available dep." combo box
+
         } else if (DELETE_BUTTON.equals(debugId)) {
 
         }
@@ -213,5 +235,13 @@ final class DefaultDependenciesEditingDialog implements
 
     @Override
     public void setInjector(final Injector aInjector) {
+    }
+
+    @Override
+    public void valueChange(final ValueChangeEvent aEvent) {
+        LOGGER.debug("Value change event, value: {}, type: {}", new Object[] {
+                aEvent.getProperty().getValue(),
+                aEvent.getProperty().getValue().getClass() });
+
     }
 }
