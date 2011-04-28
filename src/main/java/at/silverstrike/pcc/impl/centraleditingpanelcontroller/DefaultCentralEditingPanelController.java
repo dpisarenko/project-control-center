@@ -29,7 +29,8 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
-class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter implements
+class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
+        implements
         CentralEditingPanelController {
     private Injector injector = null;
     private Persistence persistence = null;
@@ -46,7 +47,6 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter impl
             this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
         }
     }
-
 
     @Override
     public void createMilestone(final String aUserIdentity,
@@ -184,39 +184,36 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter impl
         this.panel.schedulingObjectDeleted(aMilestone);
     }
 
-	@Override
-	public void milestoneEdited(Milestone aMilestone) {
-		this.panel.updateMilestoneNodeInTree(aMilestone);
-		
-	}
+    @Override
+    public void milestoneEdited(Milestone aMilestone) {
+        this.panel.updateMilestoneNodeInTree(aMilestone);
 
-	@Override
-	public void eventEdited(Event aEvent) {
-		this.panel.updateEventNodeInTree(aEvent);
-		
-	}
+    }
 
+    @Override
+    public void eventEdited(Event aEvent) {
+        this.panel.updateEventNodeInTree(aEvent);
 
-	@Override
-	public void increasePriorityButtonClicked(Long parentProjectId) {
-		//this.persistence.increasePriority(parentProjectId);
+    }
+
+    @Override
+    public void increasePriorityButtonClicked(Long parentProjectId) {
+        // this.persistence.increasePriority(parentProjectId);
         if (parentProjectId != null) {
             this.webGuiBus.broadcastIncreasePriorityMessage(parentProjectId);
         } else {
             this.webGuiBus.broadcastIncreasePriorityFailureMessage();
         }
-	}
+    }
 
-
-	@Override
-	public void decreasePriorityButtonClicked(Long parentProjectId) {
-		//this.persistence.decreasePriority(parentProjectId);
+    @Override
+    public void decreasePriorityButtonClicked(Long parentProjectId) {
+        // this.persistence.decreasePriority(parentProjectId);
         if (parentProjectId != null) {
             this.webGuiBus.broadcastDecreasePriorityMessage(parentProjectId);
         } else {
             this.webGuiBus.broadcastDecreasePriorityFailureMessage();
         }
-		
-	}
 
+    }
 }

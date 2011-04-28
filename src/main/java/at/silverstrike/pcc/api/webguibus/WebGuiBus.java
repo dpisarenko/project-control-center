@@ -57,11 +57,15 @@ public interface WebGuiBus {
 
     void broadcastEventEditedMessage(final Event aEvent);
 
-	void broadcastIncreasePriorityMessage(final Long parentProjectId);
+    void broadcastIncreasePriorityMessage(final Long parentProjectId);
 
-	void broadcastIncreasePriorityFailureMessage();
+    void broadcastIncreasePriorityFailureMessage();
 
-	void broadcastDecreasePriorityMessage(final Long parentProjectId);
+    void broadcastDecreasePriorityMessage(final Long parentProjectId);
 
-	void broadcastDecreasePriorityFailureMessage();
+    void broadcastDecreasePriorityFailureMessage();
+
+    void broadcastTaskCompletedMessage(final Task aTask);
+
+    void broadcastTaskCompletedFailureMessage();
 }

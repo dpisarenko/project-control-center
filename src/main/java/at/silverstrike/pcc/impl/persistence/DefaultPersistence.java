@@ -1212,4 +1212,10 @@ public class DefaultPersistence implements Persistence {
         return false;
     }
 
+    @Override
+    public boolean markTaskAsCompleted(Task aTask) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

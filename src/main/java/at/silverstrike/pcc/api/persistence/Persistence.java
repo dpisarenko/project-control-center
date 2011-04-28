@@ -179,4 +179,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     
     boolean isLowestPriorityObjectInProject(final SchedulingObject aProject, final SchedulingObject aSchedulingObject);
 
+    boolean markTaskAsCompleted(final Task aTask);
+
 }
