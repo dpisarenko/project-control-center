@@ -126,7 +126,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     public void initGui() {
         initButtonStateCalculator();
         initProjectNetworkDataCreator();
-        this.debugIdRegistry = this.injector.getInstance(PccDebugIdRegistry.class);
+        this.debugIdRegistry =
+                this.injector.getInstance(PccDebugIdRegistry.class);
 
         this.mainGrid = new GridLayout(2, 1);
         mainGrid.setSizeFull();
@@ -209,23 +210,25 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         this.redrawProjectNetwork();
     }
 
-	private Button getPriorityDownButton() {
-		decreasePriorityButton = new Button(
+    private Button getPriorityDownButton() {
+        decreasePriorityButton = new Button(
                 TM.get("centraleditingpanel.9-button-priorityDown"));
         decreasePriorityButton.addListener(this); // react to clicks
-        decreasePriorityButton.setDebugId(this.debugIdRegistry.getDebugId(
-                PccFunctionalBlock.centraleditingpanel, "6-button-priorityDown"));
+        decreasePriorityButton.setDebugId(this.debugIdRegistry
+                .getDebugId(
+                        PccFunctionalBlock.centraleditingpanel,
+                        "6-button-priorityDown"));
         return decreasePriorityButton;
-	}
+    }
 
-	private Button getPriorityUpButton() {
-		increasePriorityButton = new Button(
+    private Button getPriorityUpButton() {
+        increasePriorityButton = new Button(
                 TM.get("centraleditingpanel.8-button-priorityUp"));
         increasePriorityButton.addListener(this); // react to clicks
         increasePriorityButton.setDebugId(this.debugIdRegistry.getDebugId(
                 PccFunctionalBlock.centraleditingpanel, "5-button-priorityUp"));
         return increasePriorityButton;
-	}
+    }
 
     private void initProjectNetworkDataCreator() {
         final ProjectNetworkDataCreatorFactory factory =
@@ -344,8 +347,10 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private Button getNewMilestoneButton() {
         final Button newMilestoneButton = new Button(
                 TM.get("centraleditingpanel.19-button-newMilestone"));
-        newMilestoneButton.setDebugId(this.debugIdRegistry.getDebugId(
-                PccFunctionalBlock.centraleditingpanel, "2-button-newMilestone"));
+        newMilestoneButton.setDebugId(this.debugIdRegistry
+                .getDebugId(
+                        PccFunctionalBlock.centraleditingpanel,
+                        "2-button-newMilestone"));
         newMilestoneButton.addListener(this); // react to clicks
         newMilestoneButton
                 .setWidth(WIDTH_OF_NEW_BUTTONS, Sizeable.UNITS_PIXELS);
@@ -593,7 +598,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         this.projectNetworkDataCreator.setCurrentProjectId(this.curProjectId);
         try {
             this.projectNetworkDataCreator.run();
-            this.graphPanel.updatePanel(this.projectNetworkDataCreator.getDependencyTuples());
+            this.graphPanel.updatePanel(this.projectNetworkDataCreator
+                    .getDependencyTuples());
         } catch (final PccException exception) {
             LOGGER.error("", exception);
         }
@@ -606,15 +612,19 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         this.updateTree();
     }
 
-	@Override
-	public void updateMilestoneNodeInTree(Milestone aMilestone) {
-		this.treeModel.updateNodeLettering(aMilestone);
-		
-	}
+    @Override
+    public void updateMilestoneNodeInTree(final Milestone aMilestone) {
+        this.treeModel.updateNodeLettering(aMilestone);
+    }
 
-	@Override
-	public void updateEventNodeInTree(at.silverstrike.pcc.api.model.Event aEvent) {
-		this.treeModel.updateNodeLettering(aEvent);
-		
-	}
+    @Override
+    public void
+            updateEventNodeInTree(final at.silverstrike.pcc.api.model.Event aEvent) {
+        this.treeModel.updateNodeLettering(aEvent);
+    }
+
+    @Override
+    public void taskDependenciesChanged(final SchedulingObject aObject) {
+        this.redrawProjectNetwork();        
+    }
 }

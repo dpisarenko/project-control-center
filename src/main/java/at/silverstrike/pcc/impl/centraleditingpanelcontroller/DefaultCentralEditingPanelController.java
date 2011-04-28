@@ -23,6 +23,7 @@ import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
 import at.silverstrike.pcc.api.model.Milestone;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.persistence.Persistence;
@@ -185,20 +186,19 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
     }
 
     @Override
-    public void milestoneEdited(Milestone aMilestone) {
+    public void milestoneEdited(final Milestone aMilestone) {
         this.panel.updateMilestoneNodeInTree(aMilestone);
 
     }
 
     @Override
-    public void eventEdited(Event aEvent) {
+    public void eventEdited(final Event aEvent) {
         this.panel.updateEventNodeInTree(aEvent);
 
     }
 
     @Override
-    public void increasePriorityButtonClicked(Long parentProjectId) {
-        // this.persistence.increasePriority(parentProjectId);
+    public void increasePriorityButtonClicked(final Long parentProjectId) {
         if (parentProjectId != null) {
             this.webGuiBus.broadcastIncreasePriorityMessage(parentProjectId);
         } else {
@@ -207,13 +207,17 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
     }
 
     @Override
-    public void decreasePriorityButtonClicked(Long parentProjectId) {
-        // this.persistence.decreasePriority(parentProjectId);
+    public void decreasePriorityButtonClicked(final Long parentProjectId) {
         if (parentProjectId != null) {
             this.webGuiBus.broadcastDecreasePriorityMessage(parentProjectId);
         } else {
             this.webGuiBus.broadcastDecreasePriorityFailureMessage();
         }
-
     }
+
+    @Override
+    public void taskDependenciesChanged(final SchedulingObject aObject) {
+        this.panel.taskDependenciesChanged(aObject);
+    }
+    
 }
