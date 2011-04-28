@@ -54,6 +54,11 @@ final class DefaultProjectNetworkDataCreator implements
          */
         this.dependencyTuples = new LinkedList<SchedulingObjectDependencyTuple>();
 
+        if (projectSchedulingObjects == null)
+        {
+            return;
+        }
+        
         for (final SchedulingObject curObject : projectSchedulingObjects) {
             final String vertex = curObject.getLabel();
             final List<String> dependencies = new LinkedList<String>();
