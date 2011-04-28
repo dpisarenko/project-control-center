@@ -117,7 +117,6 @@ final class DefaultDependenciesEditingDialog implements
 
         dependenciesTable.setWidth("80%");
         dependenciesTable.setHeight("170px");
-
         dependenciesTable.addContainerProperty(
                 TM.get("dependencieseditingdialog.7-table-no"), Long.class,
                 null);
@@ -128,12 +127,17 @@ final class DefaultDependenciesEditingDialog implements
                 TM.get("dependencieseditingdialog.9-table-name"), String.class,
                 null);
         dependenciesTable.addListener(new TableListener(this));
+        dependenciesTable.setSelectable(true);
+        dependenciesTable.setMultiSelect(false);
+        dependenciesTable.setImmediate(true);
 
+        
         addDependencyData(dependenciesTable);
 
         deleteButton =
                 new Button(TM.get("dependencieseditingdialog.6-deleteButton"));
         deleteButton.setDebugId(DELETE_BUTTON);
+        deleteButton.setEnabled(false);
 
         tableLayout.addComponent(dependenciesTable);
         tableLayout.addComponent(deleteButton);
@@ -141,6 +145,10 @@ final class DefaultDependenciesEditingDialog implements
     }
 
     private void addDependencyData(final Table aTable) {
+        if (this.existingDependencies == null)
+        {
+            return;
+        }
         for (final SchedulingObject curExistingDependency : this.existingDependencies) {
             addDependencyItem(aTable, curExistingDependency);
         }
