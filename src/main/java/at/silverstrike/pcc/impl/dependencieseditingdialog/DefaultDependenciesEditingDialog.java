@@ -56,13 +56,13 @@ final class DefaultDependenciesEditingDialog implements
     private ModalDialogResult dialogResult;
     private Set<SchedulingObject> selectedDependencies;
     private Window dialog;
-    private int lastItemId;
     private Table dependenciesTable;
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultDependenciesEditingDialog.class);
     private ComboBox newDependencyComboBox;
     private Button addDependencyButton;
+    private Button deleteButton;
 
     public ModalDialogResult getDialogResult() {
         return dialogResult;
@@ -127,10 +127,11 @@ final class DefaultDependenciesEditingDialog implements
         dependenciesTable.addContainerProperty(
                 TM.get("dependencieseditingdialog.9-table-name"), String.class,
                 null);
+        dependenciesTable.addListener(new TableListener(this));
 
         addDependencyData(dependenciesTable);
 
-        final Button deleteButton =
+        deleteButton =
                 new Button(TM.get("dependencieseditingdialog.6-deleteButton"));
         deleteButton.setDebugId(DELETE_BUTTON);
 
@@ -140,7 +141,6 @@ final class DefaultDependenciesEditingDialog implements
     }
 
     private void addDependencyData(final Table aTable) {
-        lastItemId = 1;
         for (final SchedulingObject curExistingDependency : this.existingDependencies) {
             addDependencyItem(aTable, curExistingDependency);
         }
@@ -158,9 +158,8 @@ final class DefaultDependenciesEditingDialog implements
 
         aTable.addItem(
                 new Object[] { curExistingDependency.getId(), projectName,
-                        curExistingDependency.getName() }, lastItemId);
-
-        lastItemId++;
+                        curExistingDependency.getName() },
+                curExistingDependency);
     }
 
     private HorizontalLayout getAddDependencyPanel() {
@@ -169,8 +168,8 @@ final class DefaultDependenciesEditingDialog implements
         addDependencyButton = new Button(
                 TM.get("dependencieseditingdialog.5-addDependencyButton"));
         addDependencyButton.setDebugId(ADD_DEPENDENCY_BUTTON);
-        addDependencyButton.addListener((ClickListener)this);
-        
+        addDependencyButton.addListener((ClickListener) this);
+
         newDependencyComboBox.addContainerProperty("caption", String.class,
                 null);
         newDependencyComboBox.setItemCaptionPropertyId("caption");
@@ -223,7 +222,7 @@ final class DefaultDependenciesEditingDialog implements
     public void buttonClick(final ClickEvent aEvent) {
         final String debugId = aEvent.getButton().getDebugId();
         LOGGER.debug("buttonClick, debugId: {}", debugId);
-        
+
         if (OK_BUTTON.equals(debugId)) {
             this.dialogResult = ModalDialogResult.CLOSED_WITH_OK;
             closeDialog();
@@ -253,5 +252,9 @@ final class DefaultDependenciesEditingDialog implements
     public void valueChange(final ValueChangeEvent aEvent) {
         this.addDependencyButton.setEnabled(this.newDependencyComboBox
                 .getValue() != null);
+    }
+
+    void tableSelectionChanged() {
+        this.deleteButton.setEnabled(this.dependenciesTable.getValue() != null);
     }
 }

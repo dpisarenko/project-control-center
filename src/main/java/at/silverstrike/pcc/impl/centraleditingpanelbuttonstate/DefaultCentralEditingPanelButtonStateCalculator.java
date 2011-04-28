@@ -11,8 +11,6 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanelbuttonstate;
 
-import java.util.List;
-
 import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
 import at.silverstrike.pcc.api.model.Event;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project name="PCC">
 	<skin>
 		<groupId>org.apache.maven.skins</groupId>
@@ -12,7 +12,7 @@
 	-->
 		</links>
 		<menu name="PCC">
-			<item name="Introduction" href="index.html" />
+			<item name="Introduction - Введение" href="index.html" />
 		</menu>
 
 		<menu ref="reports" />

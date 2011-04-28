@@ -33,7 +33,6 @@ import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
  * @author DP118M
  * 
  */
-@SuppressWarnings("unchecked")
 class DefaultProjectTreeContainer extends HierarchicalContainer implements
         ProjectTreeContainer {
     private static final long serialVersionUID = 1L;
@@ -168,9 +167,8 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
                 aTask.getName());
     }
 
-
-	@Override
-	public void updateNodeLettering(SchedulingObject aShedulingObject) {
+    @Override
+    public void updateNodeLettering(SchedulingObject aShedulingObject) {
         if (aShedulingObject == null) {
             return;
         }
@@ -179,7 +177,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         final Item node = this.getItem(treeItemId);
 
         node.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
-        		aShedulingObject.getName());
-		
-	}
+                aShedulingObject.getName());
+
+    }
 }
