@@ -255,12 +255,6 @@ class DefaultTaskEditingPanel extends Panel implements
                 debugId);
 
         if (SAVE_TASK_BUTTON.equals(debugId)) {
-            final OptionDialog dialog =
-                    new OptionDialog(TPTApplication.getCurrentApplication());
-
-            dialog.showConfirmationDialog("Task", "Debug ID: " + debugId
-                    + ", this.task: " + this.task, null);
-
             if (this.task != null) {
                 this.task.setName((String) this.taskNameTextField.getValue());
 
@@ -272,6 +266,9 @@ class DefaultTaskEditingPanel extends Panel implements
 
                 if ((fromDouble != null) && (toDouble != null) && (fromDouble > toDouble) )
                 {
+                    final OptionDialog dialog =
+                        new OptionDialog(TPTApplication.getCurrentApplication());
+
                     dialog.showErrorMessage("Task",
                             TM.get("taskeditingpanel.20-combobox-effort"), true);                    
                 }
@@ -307,11 +304,13 @@ class DefaultTaskEditingPanel extends Panel implements
             LOGGER.error("", exception);
         }
 
+        LOGGER.debug("Dialog result: {}", controller
+                .getDialogResult());
+        
         if (ModalDialogResult.CLOSED_WITH_OK.equals(controller
                 .getDialogResult())) {
             this.task.setPredecessors(controller.getNewDependencies());
             this.persistence.updateTask(this.task);
-            
         }
     }
 
