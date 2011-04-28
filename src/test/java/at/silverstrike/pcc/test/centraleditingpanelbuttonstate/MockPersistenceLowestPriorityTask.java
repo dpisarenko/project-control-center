@@ -42,7 +42,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see ru.altruix.commons.api.di.ModuleWithInjectableDependencies#setInjector(com.google.inject.Injector)
      */
     @Override
-    public void setInjector(Injector arg0) {
+    public void setInjector(final Injector aInjector) {
         // TODO Auto-generated method stub
 
     }
@@ -78,7 +78,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#createTask(java.lang.String)
      */
     @Override
-    public Long createTask(String aProcessName) {
+    public Long createTask(final String aProcessName) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -87,7 +87,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#createSubTask(java.lang.String, java.lang.Long)
      */
     @Override
-    public Task createSubTask(String aProcessName, Long aParentProcessId) {
+    public Task createSubTask(final String aProcessName, final Long aParentProcessId) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -105,7 +105,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#getTask(java.lang.Object)
      */
     @Override
-    public Task getTask(Object aProcessid) {
+    public Task getTask(final Object aProcessid) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -114,7 +114,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#updateTask(at.silverstrike.pcc.api.model.Task)
      */
     @Override
-    public void updateTask(Task aProcess) {
+    public void updateTask(final Task aProcess) {
         // TODO Auto-generated method stub
 
     }
@@ -123,7 +123,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#createProcessParent(java.lang.String, java.lang.Long)
      */
     @Override
-    public void createProcessParent(String aName, Long aParentItemId) {
+    public void createProcessParent(final String aName, final Long aParentItemId) {
         // TODO Auto-generated method stub
 
     }
@@ -142,9 +142,9 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      */
     @Override
     public Long
-            createHumanResource(String aAbbreviation, String aFirstName,
-                    String aMiddleName, String aSurname,
-                    double aDailyMaxWorkTimeInHours) {
+            createHumanResource(final String aAbbreviation, final String aFirstName,
+                    final String aMiddleName, final String aSurname,
+                    final double aDailyMaxWorkTimeInHours) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -162,7 +162,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#getChildTasks(at.silverstrike.pcc.api.model.SchedulingObject)
      */
     @Override
-    public List<SchedulingObject> getChildTasks(SchedulingObject aParent) {
+    public List<SchedulingObject> getChildTasks(final SchedulingObject aParent) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -171,7 +171,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#updateTaskEndTimes(java.util.List)
      */
     @Override
-    public void updateTaskEndTimes(List<ProcessEndTimeTuple> aEndTimeTuples) {
+    public void updateTaskEndTimes(final List<ProcessEndTimeTuple> aEndTimeTuples) {
         // TODO Auto-generated method stub
 
     }
@@ -180,7 +180,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#generateDailyPlans(java.util.Date)
      */
     @Override
-    public void generateDailyPlans(Date aNow) {
+    public void generateDailyPlans(final Date aNow) {
         // TODO Auto-generated method stub
 
     }
@@ -207,7 +207,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#getDailyPlan(java.util.Date, java.lang.String)
      */
     @Override
-    public DailyPlan getDailyPlan(Date aNewDate, String aResource) {
+    public DailyPlan getDailyPlan(final Date aNewDate, final String aResource) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -216,7 +216,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#getSubProcessesWithChildren(java.lang.Long)
      */
     @Override
-    public List<SchedulingObject> getSubProcessesWithChildren(Long aProcessId) {
+    public List<SchedulingObject> getSubProcessesWithChildren(final Long aProcessId) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -225,7 +225,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#createSiblingProcess(java.lang.Long)
      */
     @Override
-    public void createSiblingProcess(Long aSiblingProcessId) {
+    public void createSiblingProcess(final Long aSiblingProcessId) {
         // TODO Auto-generated method stub
 
     }
@@ -234,7 +234,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#createChildProcess(java.lang.Long)
      */
     @Override
-    public void createChildProcess(Long aParentProcessId) {
+    public void createChildProcess(final Long aParentProcessId) {
         // TODO Auto-generated method stub
 
     }
@@ -243,7 +243,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#deleteProcess(java.lang.Long)
      */
     @Override
-    public void deleteProcess(Long aSelectedProjectId) {
+    public void deleteProcess(final Long aSelectedProjectId) {
         // TODO Auto-generated method stub
 
     }
@@ -252,7 +252,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#getChildTasks(java.lang.Long)
      */
     @Override
-    public List<SchedulingObject> getChildTasks(Long aProcessId) {
+    public List<SchedulingObject> getChildTasks(final Long aProcessId) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -261,7 +261,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#handoffProcess(java.lang.Long, java.lang.Long)
      */
     @Override
-    public void handoffProcess(Long aProcessId, Long aWorkerId) {
+    public void handoffProcess(final Long aProcessId, final Long aWorkerId) {
         // TODO Auto-generated method stub
 
     }
@@ -297,8 +297,8 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#createNewMilestone(java.lang.String, java.lang.String, java.lang.Long)
      */
     @Override
-    public Milestone createNewMilestone(String aUser, String aName,
-            Long aParentTaskId) {
+    public Milestone createNewMilestone(final String aUser, final String aName,
+            final Long aParentTaskId) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -307,7 +307,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#createSubEvent(java.lang.String, java.lang.Long)
      */
     @Override
-    public Event createSubEvent(String aProcessName, Long aParentProcessId) {
+    public Event createSubEvent(final String aProcessName, final Long aParentProcessId) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -316,7 +316,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#deleteTask(at.silverstrike.pcc.api.model.Task)
      */
     @Override
-    public boolean deleteTask(Task aTask) {
+    public boolean deleteTask(final Task aTask) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -325,7 +325,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#deleteEvent(at.silverstrike.pcc.api.model.Event)
      */
     @Override
-    public boolean deleteEvent(Event aEvent) {
+    public boolean deleteEvent(final Event aEvent) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -334,7 +334,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#deleteMilestone(at.silverstrike.pcc.api.model.Milestone)
      */
     @Override
-    public boolean deleteMilestone(Milestone aMilestone) {
+    public boolean deleteMilestone(final Milestone aMilestone) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -344,7 +344,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      */
     @Override
     public List<SchedulingObject> getPotentialDependencies(
-            SchedulingObject aObject) {
+            final SchedulingObject aObject) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -353,8 +353,8 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#isHighestPriorityObjectInProject(at.silverstrike.pcc.api.model.SchedulingObject, at.silverstrike.pcc.api.model.SchedulingObject)
      */
     @Override
-    public boolean isHighestPriorityObjectInProject(SchedulingObject arg0,
-            SchedulingObject arg1) {
+    public boolean isHighestPriorityObjectInProject(final SchedulingObject aArg1,
+            final SchedulingObject aArg2) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -363,8 +363,8 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#isLowestPriorityObjectInProject(at.silverstrike.pcc.api.model.SchedulingObject, at.silverstrike.pcc.api.model.SchedulingObject)
      */
     @Override
-    public boolean isLowestPriorityObjectInProject(SchedulingObject arg0,
-            SchedulingObject arg1) {
+    public boolean isLowestPriorityObjectInProject(final SchedulingObject aArg1,
+            final SchedulingObject aArg2) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -382,7 +382,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#updateBookings(java.util.List)
      */
     @Override
-    public void updateBookings(List<BookingTuple> aBookingTuples) {
+    public void updateBookings(final List<BookingTuple> aBookingTuples) {
         // TODO Auto-generated method stub
 
     }
@@ -391,7 +391,7 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#updateMilestone(at.silverstrike.pcc.api.model.Milestone)
      */
     @Override
-    public void updateMilestone(Milestone aMilestone) {
+    public void updateMilestone(final Milestone aMilestone) {
         // TODO Auto-generated method stub
 
     }
@@ -400,9 +400,15 @@ public class MockPersistenceLowestPriorityTask implements Persistence {
      * @see at.silverstrike.pcc.api.persistence.Persistence#updateEvent(at.silverstrike.pcc.api.model.Event)
      */
     @Override
-    public void updateEvent(Event aEvent) {
+    public void updateEvent(final Event aEvent) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public boolean markTaskAsCompleted(final Task aTask) {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }
