@@ -108,67 +108,82 @@ class DefaultWebGuiBus implements WebGuiBus {
 
     @Override
     public void broadcastEventDeletionFailureMessage() {
-        for (final WebGuiBusListener listener : this.listeners){
+        for (final WebGuiBusListener listener : this.listeners) {
             listener.eventDeletionFailure();
         }
     }
 
     @Override
     public void broadcastMilestoneDeletedMessage(final Milestone aMilestone) {
-        for (final WebGuiBusListener listener : this.listeners){
+        for (final WebGuiBusListener listener : this.listeners) {
             listener.milestoneDeleted(aMilestone);
         }
     }
 
     @Override
     public void broadcastMilestoneDeletionFailureMessage() {
-        for (final WebGuiBusListener listener : this.listeners){
+        for (final WebGuiBusListener listener : this.listeners) {
             listener.milestoneDeletionFailure();
         }
     }
 
-	@Override
-	public void broadcastMilestoneEditedMessage(Milestone aMilestone) {
-		 for (final WebGuiBusListener listener : this.listeners) {
-	            listener.milestoneEdited(aMilestone);
-	        }
-		
-	}
+    @Override
+    public void broadcastMilestoneEditedMessage(Milestone aMilestone) {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.milestoneEdited(aMilestone);
+        }
 
-	@Override
-	public void broadcastEventEditedMessage(Event aEvent) {
-		 for (final WebGuiBusListener listener : this.listeners) {
-	            listener.eventEdited(aEvent);
-	        }
-		
-	}
+    }
 
-	@Override
-	public void broadcastIncreasePriorityMessage(Long parentProjectId) {
-		 for (final WebGuiBusListener listener : this.listeners) {
-	            //listener.IncreasePriority(parentProjectId);
-	        }
-		
-	}
+    @Override
+    public void broadcastEventEditedMessage(Event aEvent) {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.eventEdited(aEvent);
+        }
 
-	@Override
-	public void broadcastIncreasePriorityFailureMessage() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void broadcastDecreasePriorityMessage(Long parentProjectId) {
-		 for (final WebGuiBusListener listener : this.listeners) {
-	            //listener.milestoneEdited(parentProjectId);
-	        }
-		
-	}
+    @Override
+    public void broadcastIncreasePriorityMessage(Long parentProjectId) {
+        for (final WebGuiBusListener listener : this.listeners) {
+            // listener.IncreasePriority(parentProjectId);
+        }
 
-	@Override
-	public void broadcastDecreasePriorityFailureMessage() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
+
+    @Override
+    public void broadcastIncreasePriorityFailureMessage() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void broadcastDecreasePriorityMessage(Long parentProjectId) {
+        for (final WebGuiBusListener listener : this.listeners) {
+            // listener.milestoneEdited(parentProjectId);
+        }
+
+    }
+
+    @Override
+    public void broadcastDecreasePriorityFailureMessage() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void broadcastTaskCompletedMessage(Task aTask) {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.taskCompleted(aTask);
+        }
+    }
+
+    @Override
+    public void broadcastTaskCompletedFailureMessage() {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.taskComletedFailure();
+        }
+
+    }
 
 }
