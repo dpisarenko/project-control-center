@@ -61,6 +61,8 @@ final class DefaultDependenciesEditingDialog implements
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultDependenciesEditingDialog.class);
+    private ComboBox newDependencyComboBox;
+    private Button addDependencyButton;
 
     public ModalDialogResult getDialogResult() {
         return dialogResult;
@@ -163,18 +165,26 @@ final class DefaultDependenciesEditingDialog implements
 
     private HorizontalLayout getAddDependencyPanel() {
         final HorizontalLayout addDependencyPanel = new HorizontalLayout();
-        final ComboBox newDependencyComboBox = new ComboBox();
-        final Button addDependencyButton =
-                new Button(
-                        TM.get("dependencieseditingdialog.5-addDependencyButton"));
+        newDependencyComboBox = new ComboBox();
+        addDependencyButton = new Button(
+                TM.get("dependencieseditingdialog.5-addDependencyButton"));
         addDependencyButton.setDebugId(ADD_DEPENDENCY_BUTTON);
+
+        newDependencyComboBox.addContainerProperty("caption", String.class,
+                null);
+        newDependencyComboBox.setItemCaptionPropertyId("caption");
 
         for (final SchedulingObject curAvailableDependency : this.availableDependencies) {
             final Item item =
-                    newDependencyComboBox.addItem(StringUtils.abbreviate(
-                            curAvailableDependency.getName(), 50));
-        }
+                    newDependencyComboBox.addItem(curAvailableDependency);
 
+            item.getItemProperty("caption").setValue(StringUtils.abbreviate(
+                    curAvailableDependency.getName(), 50));
+        }
+        newDependencyComboBox.setNullSelectionAllowed(false);
+        newDependencyComboBox.setNewItemsAllowed(false);
+        newDependencyComboBox.setImmediate(true);
+        newDependencyComboBox.setMultiSelect(false);
         newDependencyComboBox.addListener((ValueChangeListener) this);
 
         addDependencyPanel.addComponent(newDependencyComboBox);
@@ -211,7 +221,8 @@ final class DefaultDependenciesEditingDialog implements
     @Override
     public void buttonClick(final ClickEvent aEvent) {
         final String debugId = aEvent.getButton().getDebugId();
-
+        LOGGER.debug("buttonClick, debugId: {}", debugId);
+        
         if (OK_BUTTON.equals(debugId)) {
             this.dialogResult = ModalDialogResult.CLOSED_WITH_OK;
             closeDialog();
@@ -219,11 +230,11 @@ final class DefaultDependenciesEditingDialog implements
             this.dialogResult = ModalDialogResult.CLOSED_WITH_CANCEL;
             closeDialog();
         } else if (ADD_DEPENDENCY_BUTTON.equals(debugId)) {
+            final SchedulingObject selectedObject =
+                    (SchedulingObject) newDependencyComboBox.getValue();
 
-            // addDependencyItem(this.dependenciesTable, curExistingDependency);
-
-            // remove from "available dep." combo box
-
+            addDependencyItem(this.dependenciesTable, selectedObject);
+            newDependencyComboBox.removeItem(selectedObject);
         } else if (DELETE_BUTTON.equals(debugId)) {
 
         }
@@ -239,9 +250,7 @@ final class DefaultDependenciesEditingDialog implements
 
     @Override
     public void valueChange(final ValueChangeEvent aEvent) {
-        LOGGER.debug("Value change event, value: {}, type: {}", new Object[] {
-                aEvent.getProperty().getValue(),
-                aEvent.getProperty().getValue().getClass() });
-
+        this.addDependencyButton.setEnabled(this.newDependencyComboBox
+                .getValue() != null);
     }
 }
