@@ -131,7 +131,6 @@ final class DefaultDependenciesEditingDialog implements
         dependenciesTable.setMultiSelect(false);
         dependenciesTable.setImmediate(true);
 
-        
         addDependencyData(dependenciesTable);
 
         deleteButton =
@@ -145,8 +144,7 @@ final class DefaultDependenciesEditingDialog implements
     }
 
     private void addDependencyData(final Table aTable) {
-        if (this.existingDependencies == null)
-        {
+        if (this.existingDependencies == null) {
             return;
         }
         for (final SchedulingObject curExistingDependency : this.existingDependencies) {
@@ -244,7 +242,10 @@ final class DefaultDependenciesEditingDialog implements
             addDependencyItem(this.dependenciesTable, selectedObject);
             newDependencyComboBox.removeItem(selectedObject);
         } else if (DELETE_BUTTON.equals(debugId)) {
-
+            final SchedulingObject selectedObject = (SchedulingObject)this.dependenciesTable.getValue();
+            
+            this.dependenciesTable.removeItem(selectedObject);
+            newDependencyComboBox.addItem(selectedObject);
         }
     }
 
