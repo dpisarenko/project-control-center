@@ -318,4 +318,10 @@ final class MockPersistence implements Persistence {
         // TODO Auto-generated method stub
         return false;
     }
+
+    @Override
+    public boolean markTaskAsCompleted(Task aTask) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
