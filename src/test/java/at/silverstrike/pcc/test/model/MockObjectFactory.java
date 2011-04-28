@@ -32,13 +32,12 @@ public class MockObjectFactory {
 
     public final Task createControlProcess(final Long aId) {
         final MockControlProcess mockControlProcess = new MockControlProcess();
-        
+
         mockControlProcess.setId(aId);
-        
+
         return mockControlProcess;
     }
 
-    
     public final Task createControlProcess() {
         return new MockControlProcess();
     }
@@ -75,16 +74,16 @@ public class MockObjectFactory {
     public final Worker createWorker() {
         return new MockWorker();
     }
-    public final Milestone createMilestone()
-    {
+
+    public final Milestone createMilestone() {
         return new MockMilestone();
     }
-    public final Event createEvent()
-    {
+
+    public final Event createEvent() {
         return new MockEvent();
     }
-    public final Task createTask()
-    {
-        return new MockTask();
+
+    public final Task createTask() {
+        return new MockControlProcess();
     }
 }
