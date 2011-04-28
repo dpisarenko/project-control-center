@@ -1009,7 +1009,6 @@ public class DefaultPersistence implements Persistence {
                             new Object[] { resource.getAbbreviation(), day });
                 }
             }
-
         }
     }
 
@@ -1173,9 +1172,8 @@ public class DefaultPersistence implements Persistence {
         } catch (final Exception exception) {
             LOGGER.error("", exception);
             tx.rollback();
-        }	
-	}
-      
+        }
+    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -1190,7 +1188,7 @@ public class DefaultPersistence implements Persistence {
 
             query.setParameter(STATE_DELETED.substring(1),
                     ProcessState.DELETED);
-            
+
             processes = (List<SchedulingObject>) query.list();
         } catch (final Exception exception) {
             LOGGER.error("", exception);
@@ -1218,4 +1216,17 @@ public class DefaultPersistence implements Persistence {
         return false;
     }
 
+    @Override
+    public void
+            updateSchedulingObject(final SchedulingObject aSchedulingObject) {
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            session.update(aSchedulingObject);
+            tx.commit();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+    }
 }

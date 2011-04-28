@@ -34,7 +34,7 @@ import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
 
 import com.google.inject.Injector;
 
-class MockPersistence implements Persistence {
+class MockPersistence extends MockPersistenceAdapter implements Persistence {
     public static final long TASK_ID_1 = 1L;
 
     @Override

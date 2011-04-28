@@ -181,4 +181,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     boolean markTaskAsCompleted(final Task aTask);
 
+    void updateSchedulingObject(final SchedulingObject schedulingObject);
+
 }

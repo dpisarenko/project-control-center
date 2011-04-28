@@ -309,8 +309,6 @@ class DefaultTaskEditingPanel extends Panel implements
         
         if (ModalDialogResult.CLOSED_WITH_OK.equals(controller
                 .getDialogResult())) {
-            this.task.setPredecessors(controller.getNewDependencies());
-            this.persistence.updateTask(this.task);
         }
     }
 

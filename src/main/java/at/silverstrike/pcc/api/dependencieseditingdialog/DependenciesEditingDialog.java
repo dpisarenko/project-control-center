@@ -29,7 +29,6 @@ import at.silverstrike.pcc.api.model.SchedulingObject;
  */
 public interface DependenciesEditingDialog extends InitializableGuiComponent,
         AbstractedWindow, ModuleWithInjectableDependencies {
-
     void setExistingDependencies(final Set<SchedulingObject> predecessors);
 
     void setAvailableDependencies(
@@ -37,6 +36,8 @@ public interface DependenciesEditingDialog extends InitializableGuiComponent,
 
     void setParentWindow(final Window aWindow);
 
+    void setSchedulingObject(final SchedulingObject aObject);
+    
     ModalDialogResult getDialogResult();
 
     Set<SchedulingObject> getSelectedDependencies();

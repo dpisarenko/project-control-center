@@ -31,12 +31,13 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.persistence.PersistenceState;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
+import at.silverstrike.pcc.test.mockpersistence.MockPersistenceAdapter;
 
 /**
  * @author DP118M
  *
  */
-public class MockPersistenceLowestPriorityTask implements Persistence {
+public class MockPersistenceLowestPriorityTask extends MockPersistenceAdapter implements Persistence {
 
     /* (non-Javadoc)
      * @see ru.altruix.commons.api.di.ModuleWithInjectableDependencies#setInjector(com.google.inject.Injector)

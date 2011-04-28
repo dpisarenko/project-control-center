@@ -192,6 +192,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
             final Long aParentProcessId) {
         return null;
     }
+
     @Override
     public boolean deleteTask(final Task aTask) {
         // TODO Auto-generated method stub
@@ -213,20 +214,22 @@ public abstract class MockPersistenceAdapter implements Persistence {
     @Override
     public void updateMilestone(final Milestone aMilestone) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void updateEvent(final Event aEvent) {
         // TODO Auto-generated method stub
-        
+
     }
+
     @Override
     public List<SchedulingObject> getPotentialDependencies(
             SchedulingObject aObject) {
         // TODO Auto-generated method stub
         return null;
     }
+
     @Override
     public boolean isHighestPriorityObjectInProject(SchedulingObject aProject,
             SchedulingObject aSchedulingObject) {
@@ -246,5 +249,8 @@ public abstract class MockPersistenceAdapter implements Persistence {
         // TODO Auto-generated method stub
         return false;
     }
-
+    @Override
+    public void
+            updateSchedulingObject(final SchedulingObject aSchedulingObject) {
+    }
 }

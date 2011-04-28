@@ -38,6 +38,7 @@ import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialog;
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.persistence.Persistence;
 
 /**
  * @author DP118M
@@ -64,6 +65,8 @@ final class DefaultDependenciesEditingDialog implements
     private ComboBox newDependencyComboBox;
     private Button addDependencyButton;
     private Button deleteButton;
+    private SchedulingObject schedulingObject;
+    private Persistence persistence;
 
     public ModalDialogResult getDialogResult() {
         return dialogResult;
@@ -233,6 +236,9 @@ final class DefaultDependenciesEditingDialog implements
         if (OK_BUTTON.equals(debugId)) {
             this.dialogResult = ModalDialogResult.CLOSED_WITH_OK;
             closeDialog();
+
+            this.schedulingObject.setPredecessors(this.selectedDependencies);
+            this.persistence.updateSchedulingObject(this.schedulingObject);
         } else if (CANCEL_BUTTON.equals(debugId)) {
             this.dialogResult = ModalDialogResult.CLOSED_WITH_CANCEL;
             closeDialog();
@@ -256,7 +262,7 @@ final class DefaultDependenciesEditingDialog implements
 
         for (final Object curItemId : this.dependenciesTable.getItemIds()) {
             final SchedulingObject curObject = (SchedulingObject) curItemId;
-            
+
             this.selectedDependencies.add(curObject);
         }
 
@@ -265,6 +271,9 @@ final class DefaultDependenciesEditingDialog implements
 
     @Override
     public void setInjector(final Injector aInjector) {
+        if (aInjector != null) {
+            persistence = aInjector.getInstance(Persistence.class);
+        }
     }
 
     @Override
@@ -275,5 +284,10 @@ final class DefaultDependenciesEditingDialog implements
 
     void tableSelectionChanged() {
         this.deleteButton.setEnabled(this.dependenciesTable.getValue() != null);
+    }
+
+    @Override
+    public void setSchedulingObject(final SchedulingObject aObject) {
+        this.schedulingObject = aObject;
     }
 }

@@ -32,12 +32,13 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.persistence.PersistenceState;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
+import at.silverstrike.pcc.test.mockpersistence.MockPersistenceAdapter;
 
 /**
  * @author DP118M
  * 
  */
-final class MockPersistenceEmptyDb implements Persistence {
+final class MockPersistenceEmptyDb extends MockPersistenceAdapter implements Persistence {
 
     @Override
     public void setInjector(final Injector aInjector) {

@@ -35,13 +35,14 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.persistence.PersistenceState;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
+import at.silverstrike.pcc.test.mockpersistence.MockPersistenceAdapter;
 import at.silverstrike.pcc.test.model.MockObjectFactory;
 
 /**
  * @author DP118M
  * 
  */
-final class MockPersistence implements Persistence {
+final class MockPersistence extends MockPersistenceAdapter implements Persistence {
     private MockObjectFactory mockObjectFactory = new MockObjectFactory();
     private boolean returnSubProcesses = true;
 
