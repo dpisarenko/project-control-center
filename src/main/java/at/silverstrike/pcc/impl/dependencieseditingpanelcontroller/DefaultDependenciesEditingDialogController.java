@@ -14,6 +14,9 @@ package at.silverstrike.pcc.impl.dependencieseditingpanelcontroller;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ru.altruix.commons.api.di.PccException;
 import ru.altruix.commons.api.gui.ModalDialogResult;
 
@@ -32,6 +35,8 @@ import at.silverstrike.pcc.api.persistence.Persistence;
  */
 final class DefaultDependenciesEditingDialogController implements
         DependenciesEditingDialogController {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultDependenciesEditingDialogController.class);
     private Set<SchedulingObject> newDependencies;
     private ModalDialogResult dialogResult;
     private SchedulingObject schedulingObject;
@@ -60,6 +65,8 @@ final class DefaultDependenciesEditingDialogController implements
         
         this.parentWindow.addWindow(dialog.toWindow());
 
+        LOGGER.debug("After this.parentWindow.addWindow, before this.dialogResult.");
+        
         this.dialogResult = dialog.getDialogResult();
 
         if (ModalDialogResult.CLOSED_WITH_OK.equals(this.dialogResult)) {
@@ -68,8 +75,9 @@ final class DefaultDependenciesEditingDialogController implements
     }
 
     private List<SchedulingObject> getAvailableDependencies() {
-        final Persistence persistence = this.injector.getInstance(Persistence.class);
-        
+        final Persistence persistence =
+                this.injector.getInstance(Persistence.class);
+
         return persistence.getPotentialDependencies(this.schedulingObject);
     }
 
