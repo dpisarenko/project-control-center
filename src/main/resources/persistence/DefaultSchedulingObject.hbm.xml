@@ -22,8 +22,8 @@
 			lazy="false" />
 
 		<set name="predecessors" lazy="false">
-			<key column="PREDECESSOR" />
-			<one-to-many
+			<key column="SCHEDULING_OBJECT_ID" />
+			<many-to-many column="PREDECESSOR_ID"
 				class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject" />
 		</set>
 
