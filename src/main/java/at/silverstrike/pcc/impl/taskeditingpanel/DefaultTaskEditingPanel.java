@@ -19,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
-import ru.altruix.commons.api.gui.ModalDialogResult;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.ComboBox;
@@ -302,13 +301,6 @@ class DefaultTaskEditingPanel extends Panel implements
             controller.run();
         } catch (final PccException exception) {
             LOGGER.error("", exception);
-        }
-
-        LOGGER.debug("Dialog result: {}", controller
-                .getDialogResult());
-        
-        if (ModalDialogResult.CLOSED_WITH_OK.equals(controller
-                .getDialogResult())) {
         }
     }
 
