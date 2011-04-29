@@ -9,12 +9,13 @@
  *
  **/
 
-package at.silverstrike.pcc.api.schedulingpanelcontroller;
+package at.silverstrike.pcc.api.schedulingguicontroller;
 
 import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
 
 import com.vaadin.ui.Panel;
 
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.GuiController;
 
 /**
@@ -22,6 +23,6 @@ import ru.altruix.commons.api.gui.GuiController;
  * 
  */
 public interface SchedulingPanelController extends GuiController<Panel>,
-        WebGuiBusListener {
+        WebGuiBusListener, ModuleWithInjectableDependencies {
 
 }

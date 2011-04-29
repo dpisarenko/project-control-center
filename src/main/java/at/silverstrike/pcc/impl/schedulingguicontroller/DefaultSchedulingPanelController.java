@@ -9,17 +9,19 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.schedulingpanelcontroller;
+package at.silverstrike.pcc.impl.schedulingguicontroller;
 
+import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
-import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
-import at.silverstrike.pcc.api.schedulingpanelcontroller.SchedulingPanelController;
-import at.silverstrike.pcc.api.schedulingpanelcontroller.SchedulingState;
+import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
+import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingState;
+import at.silverstrike.pcc.api.schedulingindicatorpanel.SchedulingIndicatorPanel;
+import at.silverstrike.pcc.api.schedulingindicatorpanel.SchedulingIndicatorPanelFactory;
 import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
 /**
@@ -27,14 +29,20 @@ import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
  *
  */
 class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter implements SchedulingPanelController {
-    private SchedulingPanel panel;
+    private SchedulingIndicatorPanel panel;
     private SchedulingState state;
+    private Injector injector;
     
     @Override
     public Panel initGui() {
-        // TODO Auto-generated method stub
         this.state = SchedulingState.UNDEFINED;
-        return null;
+        
+        final SchedulingIndicatorPanelFactory factory = this.injector.getInstance(SchedulingIndicatorPanelFactory.class);
+        this.panel = factory.create();
+        
+        this.panel.initGui();
+        
+        return this.panel.toPanel();
     }
 
     @Override
@@ -105,6 +113,12 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter implemen
     }
 
     private void calculatePlan() {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    @Override
+    public void setInjector(final Injector aInjector) {
         // TODO Auto-generated method stub
         
     }

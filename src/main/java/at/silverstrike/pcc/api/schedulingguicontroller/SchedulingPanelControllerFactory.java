@@ -9,12 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.schedulingpanelcontroller;
+package at.silverstrike.pcc.api.schedulingguicontroller;
+
+import ru.altruix.commons.api.conventions.Factory;
 
 /**
  * @author DP118M
  *
  */
-public enum SchedulingState {
-    UNDEFINED, IN_PROGRESS, ERROR, PLAN_UP_TO_DATE
+public interface SchedulingPanelControllerFactory extends
+        Factory<SchedulingPanelController> {
+
 }

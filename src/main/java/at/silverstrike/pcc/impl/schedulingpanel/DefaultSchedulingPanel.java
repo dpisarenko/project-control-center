@@ -28,7 +28,6 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
-import at.silverstrike.pcc.api.schedulingpanelcontroller.SchedulingState;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.HorizontalLayout;
@@ -204,11 +203,5 @@ class DefaultSchedulingPanel extends Panel implements SchedulingPanel {
     private void appendToLoggingTextArea(final String aStuffToAppend) {
         loggingTextArea.setValue(loggingTextArea.getValue() + NEWLINE
                 + aStuffToAppend);
-    }
-
-    @Override
-    public void displayState(final SchedulingState aState) {
-        // TODO Auto-generated method stub
-        
     }
 }

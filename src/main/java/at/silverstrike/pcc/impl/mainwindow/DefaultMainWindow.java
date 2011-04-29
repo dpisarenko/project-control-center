@@ -34,6 +34,8 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
+import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
+import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
@@ -82,10 +84,15 @@ class DefaultMainWindow implements MainWindow {
         final MenuBar menubar = createMenuBar();
         mainLayout.addComponent(menubar);
 
-        indicator = getStatus();
-        indicator.setContentMode(Label.CONTENT_XHTML);
+        final SchedulingPanelControllerFactory factory = this.injector.getInstance(SchedulingPanelControllerFactory.class);
+        final SchedulingPanelController schedulingPanelController = factory.create();
+        
+        schedulingPanelController.setInjector(this.injector);
+        
+//        indicator = getStatus();
+//        indicator.setContentMode(Label.CONTENT_XHTML);
 
-        mainLayout.addComponent(indicator);
+        mainLayout.addComponent(schedulingPanelController.initGui());
 
         this.tabSheet.addTab(centralEditingPanel, TM
                 .get("mainwindow.13-central-editing-panel"), null);

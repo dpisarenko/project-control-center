@@ -11,13 +11,9 @@
 
 package at.silverstrike.pcc.api.schedulingpanel;
 
-import at.silverstrike.pcc.api.schedulingpanelcontroller.SchedulingState;
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.vaadin.AbstractedPanel;
 
 public interface SchedulingPanel extends ModuleWithInjectableDependencies,
         AbstractedPanel {
-
-    void displayState(final SchedulingState aState);
-
 }
