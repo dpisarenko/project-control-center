@@ -243,7 +243,7 @@ final class DefaultDependenciesEditingDialog implements
             this.persistence.updateSchedulingObject(this.schedulingObject);
             
             LOGGER.debug("DefaultDependenciesEditingDialog.buttonClick.OK_BUTTON");
-            
+            webGuiBus.broadcastTaskDependenciesChangedMessage(this.schedulingObject);
             
             
         } else if (CANCEL_BUTTON.equals(debugId)) {
