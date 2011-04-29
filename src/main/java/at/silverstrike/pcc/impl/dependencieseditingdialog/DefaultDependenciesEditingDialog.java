@@ -39,6 +39,7 @@ import eu.livotov.tpt.i18n.TM;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialog;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 
 /**
  * @author DP118M
@@ -66,7 +67,8 @@ final class DefaultDependenciesEditingDialog implements
     private Button addDependencyButton;
     private Button deleteButton;
     private SchedulingObject schedulingObject;
-    private Persistence persistence;
+    private transient Persistence persistence;
+    private transient WebGuiBus webGuiBus;
 
     public ModalDialogResult getDialogResult() {
         return dialogResult;
@@ -239,6 +241,11 @@ final class DefaultDependenciesEditingDialog implements
 
             this.schedulingObject.setPredecessors(this.selectedDependencies);
             this.persistence.updateSchedulingObject(this.schedulingObject);
+            
+            LOGGER.debug("DefaultDependenciesEditingDialog.buttonClick.OK_BUTTON");
+            
+            
+            
         } else if (CANCEL_BUTTON.equals(debugId)) {
             this.dialogResult = ModalDialogResult.CLOSED_WITH_CANCEL;
             closeDialog();
@@ -273,6 +280,7 @@ final class DefaultDependenciesEditingDialog implements
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             persistence = aInjector.getInstance(Persistence.class);
+            webGuiBus = aInjector.getInstance(WebGuiBus.class);
         }
     }
 
