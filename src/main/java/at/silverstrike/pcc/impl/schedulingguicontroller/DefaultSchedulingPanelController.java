@@ -26,22 +26,25 @@ import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
 /**
  * @author DP118M
- *
+ * 
  */
-class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter implements SchedulingPanelController {
+class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
+        implements SchedulingPanelController {
     private SchedulingIndicatorPanel panel;
     private SchedulingState state;
     private Injector injector;
-    
+
     @Override
     public Panel initGui() {
         this.state = SchedulingState.UNDEFINED;
-        
-        final SchedulingIndicatorPanelFactory factory = this.injector.getInstance(SchedulingIndicatorPanelFactory.class);
+
+        final SchedulingIndicatorPanelFactory factory =
+                this.injector
+                        .getInstance(SchedulingIndicatorPanelFactory.class);
         this.panel = factory.create();
-        
+
         this.panel.initGui();
-        
+
         return this.panel.toPanel();
     }
 
@@ -101,25 +104,23 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter implemen
     }
 
     private void updatePlans() {
-        if (!SchedulingState.IN_PROGRESS.equals(this.state))
-        {
+        if (!SchedulingState.IN_PROGRESS.equals(this.state)) {
             this.state = SchedulingState.IN_PROGRESS;
             this.panel.displayState(this.state);
-            
+
             calculatePlan();
         }
-        
+
         this.panel.displayState(this.state);
     }
 
     private void calculatePlan() {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
     @Override
     public void setInjector(final Injector aInjector) {
-        // TODO Auto-generated method stub
-        
+        this.injector = aInjector;
     }
 }

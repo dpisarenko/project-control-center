@@ -58,6 +58,7 @@ import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
+import at.silverstrike.pcc.api.schedulingindicatorpanel.SchedulingIndicatorPanelFactory;
 import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
@@ -103,6 +104,7 @@ import at.silverstrike.pcc.impl.projectnetworkgraphpanel.DefaultProjectNetworkGr
 import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
 import at.silverstrike.pcc.impl.projecttreemodel.DefaultProjectTreeContainerFactory;
 import at.silverstrike.pcc.impl.schedulingguicontroller.DefaultSchedulingPanelControllerFactory;
+import at.silverstrike.pcc.impl.schedulingindicatorpanel.DefautSchedulingIndicatorPanelFactory;
 import at.silverstrike.pcc.impl.schedulingpanel.DefaultSchedulingPanelFactory;
 import at.silverstrike.pcc.impl.taskeditingpanel.DefaultTaskEditingPanelFactory;
 import at.silverstrike.pcc.impl.taskeditingpanelcontroller.DefaultTaskEditingPanelControllerFactory;
@@ -218,6 +220,8 @@ class InjectorModule extends AbstractModule {
                 new DefaultDependenciesEditingDialogFactory());
         bind(SchedulingPanelControllerFactory.class).toInstance(
                 new DefaultSchedulingPanelControllerFactory());
+        bind(SchedulingIndicatorPanelFactory.class).toInstance(
+                new DefautSchedulingIndicatorPanelFactory());
     }
 
     private TestTableCreator getTestTableCreator() {

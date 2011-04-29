@@ -11,6 +11,9 @@
 
 package at.silverstrike.pcc.impl.mainwindow;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ru.altruix.commons.api.version.PccVersionReader;
 
 import com.google.inject.Injector;
@@ -42,13 +45,15 @@ import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
 
 class DefaultMainWindow implements MainWindow {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultMainWindow.class);
     private Injector injector = null;
     private Window mainWindow;
     private TabSheet tabSheet;
     private PccDebugIdRegistry debugIdRegistry;
     private transient MainWindowController controller;
     private Panel centralEditingPanel;
-    
+
     public DefaultMainWindow() {
     }
 
@@ -58,7 +63,8 @@ class DefaultMainWindow implements MainWindow {
     }
 
     public void initGui() {
-        this.debugIdRegistry = this.injector.getInstance(PccDebugIdRegistry.class);
+        this.debugIdRegistry =
+                this.injector.getInstance(PccDebugIdRegistry.class);
 
         final PccVersionReader versionReader =
                 this.injector.getInstance(PccVersionReader.class);
@@ -82,11 +88,15 @@ class DefaultMainWindow implements MainWindow {
         final MenuBar menubar = createMenuBar();
         mainLayout.addComponent(menubar);
 
-        final SchedulingPanelControllerFactory factory = this.injector.getInstance(SchedulingPanelControllerFactory.class);
-        final SchedulingPanelController schedulingPanelController = factory.create();
-        
+        final SchedulingPanelControllerFactory factory =
+                this.injector
+                        .getInstance(SchedulingPanelControllerFactory.class);
+        final SchedulingPanelController schedulingPanelController =
+                factory.create();
+
+        LOGGER.debug("injector: {}", this.injector);
         schedulingPanelController.setInjector(this.injector);
-        
+
         mainLayout.addComponent(schedulingPanelController.initGui());
 
         this.tabSheet.addTab(centralEditingPanel, TM
@@ -169,7 +179,6 @@ class DefaultMainWindow implements MainWindow {
         }
     };
 
-
     private Component getEstimatedCompletionDateTimesPanel() {
         final EstimatedCompletionTimesPanelFactory factory =
                 this.injector
@@ -219,7 +228,6 @@ class DefaultMainWindow implements MainWindow {
         this.injector = aInjector;
     }
 
-    
     @Override
     public void setCentralEditingPanel(final Panel aPanel) {
         this.centralEditingPanel = aPanel;
