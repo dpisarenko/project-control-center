@@ -15,7 +15,6 @@ import ru.altruix.commons.api.version.PccVersionReader;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
@@ -47,7 +46,6 @@ class DefaultMainWindow implements MainWindow {
     private Window mainWindow;
     private TabSheet tabSheet;
     private PccDebugIdRegistry debugIdRegistry;
-    private Label indicator;
     private transient MainWindowController controller;
     private Panel centralEditingPanel;
     
@@ -89,9 +87,6 @@ class DefaultMainWindow implements MainWindow {
         
         schedulingPanelController.setInjector(this.injector);
         
-//        indicator = getStatus();
-//        indicator.setContentMode(Label.CONTENT_XHTML);
-
         mainLayout.addComponent(schedulingPanelController.initGui());
 
         this.tabSheet.addTab(centralEditingPanel, TM
@@ -119,11 +114,6 @@ class DefaultMainWindow implements MainWindow {
                 factory.create();
         returnValue.setInjector(this.injector);
         return returnValue;
-    }
-
-    private Label getStatus() {
-        indicator = new Label("<p>Plan completed</p>");
-        return indicator;
     }
 
     private MenuBar createMenuBar() {
