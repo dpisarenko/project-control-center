@@ -35,10 +35,6 @@ import at.silverstrike.pcc.api.persistence.Persistence;
  */
 final class DefaultDependenciesEditingDialogController implements
         DependenciesEditingDialogController {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(DefaultDependenciesEditingDialogController.class);
-    private Set<SchedulingObject> newDependencies;
-    private ModalDialogResult dialogResult;
     private SchedulingObject schedulingObject;
     private Injector injector;
     private Window parentWindow;
@@ -49,7 +45,6 @@ final class DefaultDependenciesEditingDialogController implements
             return;
         }
         
-        this.dialogResult = ModalDialogResult.UNDEFINED;
         final DependenciesEditingDialogFactory factory =
                 this.injector
                         .getInstance(DependenciesEditingDialogFactory.class);
@@ -65,14 +60,6 @@ final class DefaultDependenciesEditingDialogController implements
         dialog.initGui();
         
         this.parentWindow.addWindow(dialog.toWindow());
-
-        LOGGER.debug("After this.parentWindow.addWindow, before this.dialogResult.");
-        
-        this.dialogResult = dialog.getDialogResult();
-
-        if (ModalDialogResult.CLOSED_WITH_OK.equals(this.dialogResult)) {
-            this.newDependencies = dialog.getSelectedDependencies();
-        }
     }
 
     private List<SchedulingObject> getAvailableDependencies() {
@@ -85,16 +72,6 @@ final class DefaultDependenciesEditingDialogController implements
     @Override
     public void setSchedulingObject(final SchedulingObject aObject) {
         this.schedulingObject = aObject;
-    }
-
-    @Override
-    public ModalDialogResult getDialogResult() {
-        return dialogResult;
-    }
-
-    @Override
-    public Set<SchedulingObject> getNewDependencies() {
-        return this.newDependencies;
     }
 
     @Override

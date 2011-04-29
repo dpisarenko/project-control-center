@@ -11,14 +11,9 @@
 
 package at.silverstrike.pcc.api.dependencieseditingdialogcontroller;
 
-import java.util.Set;
-
 import ru.altruix.commons.api.conventions.SingleActivityModule;
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
-import ru.altruix.commons.api.gui.ModalDialogResult;
-
 import com.vaadin.ui.Window;
-
 import at.silverstrike.pcc.api.model.SchedulingObject;
 
 /**
@@ -33,13 +28,5 @@ public interface DependenciesEditingDialogController extends
      */
     void setSchedulingObject(final SchedulingObject aObject);
 
-    void setParentWindow(final Window aWindow);
-    
-    ModalDialogResult getDialogResult();
-
-    /**
-     * Возвращает перечень зависимостей (предшественников) расчётного объекта
-     * после того, как пользователь его отредактировал.
-     */
-    Set<SchedulingObject> getNewDependencies();
+    void setParentWindow(final Window aWindow);    
 }
