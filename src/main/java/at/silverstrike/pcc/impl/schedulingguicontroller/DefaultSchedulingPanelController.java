@@ -22,6 +22,7 @@ import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingState;
 import at.silverstrike.pcc.api.schedulingindicatorpanel.SchedulingIndicatorPanel;
 import at.silverstrike.pcc.api.schedulingindicatorpanel.SchedulingIndicatorPanelFactory;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
 /**
@@ -44,7 +45,11 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         this.panel = factory.create();
 
         this.panel.initGui();
+        this.panel.displayState(this.state);
 
+        final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
+        webGuiBus.addListener(this);
+        
         return this.panel.toPanel();
     }
 
