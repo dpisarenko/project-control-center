@@ -108,4 +108,10 @@ public abstract class WebGuiBusListenerAdapter implements WebGuiBusListener {
     public void taskDependenciesChanged(final SchedulingObject aObject) {
 
     }
+    @Override
+    public void milestoneEdited(final Milestone aMilestone) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
