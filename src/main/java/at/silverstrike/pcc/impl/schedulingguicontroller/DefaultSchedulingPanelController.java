@@ -11,13 +11,24 @@
 
 package at.silverstrike.pcc.impl.schedulingguicontroller;
 
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import ru.altruix.commons.api.di.PccException;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
+import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
+import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
+import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingState;
 import at.silverstrike.pcc.api.schedulingindicatorpanel.SchedulingIndicatorPanel;
@@ -34,7 +45,8 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
     private SchedulingIndicatorPanel panel;
     private SchedulingState state;
     private Injector injector;
-
+    private static final int ONE_MONTH = 1;
+    
     @Override
     public Panel initGui() {
         this.state = SchedulingState.UNDEFINED;
@@ -49,7 +61,7 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
 
         final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
         webGuiBus.addListener(this);
-        
+
         return this.panel.toPanel();
     }
 
@@ -120,8 +132,42 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
     }
 
     private void calculatePlan() {
-        // TODO Auto-generated method stub
+        final ProjectSchedulerFactory factory = injector
+                .getInstance(ProjectSchedulerFactory.class);
+        final ProjectScheduler scheduler = factory.create();
+        final Persistence persistence =
+                this.injector.getInstance(Persistence.class);
 
+        scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
+                persistence.getAllNotDeletedTasks());
+
+        final List<Resource> resources = new LinkedList<Resource>();
+        resources.addAll(persistence.getAllWorkers());
+
+        scheduler.getProjectExportInfo().setResourcesToExport(resources);
+
+        scheduler.getProjectExportInfo().setProjectName("pcc");
+
+        final Date now = new Date();
+
+        scheduler.getProjectExportInfo().setNow(now);
+        scheduler.getProjectExportInfo().setCopyright("Dmitri Pisarenko");
+        scheduler.getProjectExportInfo().setCurrency("EUR");
+        scheduler.getProjectExportInfo().setSchedulingHorizonMonths(ONE_MONTH);
+
+        scheduler.setDirectory(System.getProperty("user.dir") + "/");
+        scheduler.setInjector(injector);
+        scheduler.setNow(now);
+
+        try {
+            scheduler.run();
+            this.state = SchedulingState.PLAN_UP_TO_DATE;
+        } catch (final InvalidDurationException exception) {
+            this.state = SchedulingState.ERROR;
+        } catch (final PccException exception) {
+            this.state = SchedulingState.ERROR;
+        }
+        this.panel.displayState(this.state);
     }
 
     @Override
