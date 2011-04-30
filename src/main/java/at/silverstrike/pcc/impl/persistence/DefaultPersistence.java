@@ -1212,8 +1212,19 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public boolean markTaskAsCompleted(Task aTask) {
-        // TODO Auto-generated method stub
-        return false;
+        final Transaction tx = session.beginTransaction();
+        boolean success = false;
+        LOGGER.debug("Task done: {}", aTask);
+        try {
+            aTask.setState(ProcessState.ATTAINED);
+            session.update(aTask);
+            tx.commit();
+            success = true;
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+        return success;
     }
 
     @Override

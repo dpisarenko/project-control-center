@@ -15,6 +15,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ru.altruix.commons.api.di.PccException;
 
 import com.google.inject.Injector;
@@ -42,11 +45,14 @@ import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
  */
 class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         implements SchedulingPanelController {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultSchedulingPanelController.class);
+
+    private static final int ONE_MONTH = 1;
     private SchedulingIndicatorPanel panel;
     private SchedulingState state;
     private Injector injector;
-    private static final int ONE_MONTH = 1;
-    
+
     @Override
     public Panel initGui() {
         this.state = SchedulingState.UNDEFINED;
@@ -138,8 +144,25 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         final Persistence persistence =
                 this.injector.getInstance(Persistence.class);
 
+        final List<SchedulingObject> schedulingObjects =
+                persistence.getAllNotDeletedTasks();
+
+        // Находим все дела с неправильными трудозатратами
+        boolean tasksWithInvalidEffortEstimatesFound = false;
+        for (final SchedulingObject curSchedulingObject : schedulingObjects) {
+            if (curSchedulingObject instanceof Task) {
+                final Task curTask = (Task) curSchedulingObject;
+
+                if ((curTask.getBestCaseEffort() == null)
+                        || (curTask.getWorstCaseEffort() == null)) {
+                    tasksWithInvalidEffortEstimatesFound = true;
+//                    curTask.set
+                }
+            }
+        }
+
         scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
-                persistence.getAllNotDeletedTasks());
+                schedulingObjects);
 
         final List<Resource> resources = new LinkedList<Resource>();
         resources.addAll(persistence.getAllWorkers());
