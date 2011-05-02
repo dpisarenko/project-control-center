@@ -219,5 +219,10 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
     public void taskDependenciesChanged(final SchedulingObject aObject) {
         this.panel.taskDependenciesChanged(aObject);
     }
+
+    @Override
+    public void taskCompleted(final Task aTask) {
+        this.panel.taskCompleted(aTask);
+    }
     
 }

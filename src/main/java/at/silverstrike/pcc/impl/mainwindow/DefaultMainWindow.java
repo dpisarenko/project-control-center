@@ -11,11 +11,13 @@
 
 package at.silverstrike.pcc.impl.mainwindow;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ru.altruix.commons.api.version.PccVersionReader;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
@@ -34,21 +36,22 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
-import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
-import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
+import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
+import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
 
 class DefaultMainWindow implements MainWindow {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultMainWindow.class);
     private Injector injector = null;
     private Window mainWindow;
     private TabSheet tabSheet;
     private PccDebugIdRegistry debugIdRegistry;
-    private Label indicator;
     private transient MainWindowController controller;
     private Panel centralEditingPanel;
-    
+
     public DefaultMainWindow() {
     }
 
@@ -58,7 +61,8 @@ class DefaultMainWindow implements MainWindow {
     }
 
     public void initGui() {
-        this.debugIdRegistry = this.injector.getInstance(PccDebugIdRegistry.class);
+        this.debugIdRegistry =
+                this.injector.getInstance(PccDebugIdRegistry.class);
 
         final PccVersionReader versionReader =
                 this.injector.getInstance(PccVersionReader.class);
@@ -82,10 +86,16 @@ class DefaultMainWindow implements MainWindow {
         final MenuBar menubar = createMenuBar();
         mainLayout.addComponent(menubar);
 
-        indicator = getStatus();
-        indicator.setContentMode(Label.CONTENT_XHTML);
+        final SchedulingPanelControllerFactory factory =
+                this.injector
+                        .getInstance(SchedulingPanelControllerFactory.class);
+        final SchedulingPanelController schedulingPanelController =
+                factory.create();
 
-        mainLayout.addComponent(indicator);
+        LOGGER.debug("injector: {}", this.injector);
+        schedulingPanelController.setInjector(this.injector);
+
+        mainLayout.addComponent(schedulingPanelController.initGui());
 
         this.tabSheet.addTab(centralEditingPanel, TM
                 .get("mainwindow.13-central-editing-panel"), null);
@@ -95,8 +105,6 @@ class DefaultMainWindow implements MainWindow {
                 .get("mainwindow.12-estimated-completion-times-panel"), null);
         this.tabSheet.addTab(getWorkerPanelTab(), TM
                 .get("mainwindow.8-human-resource-tab"), null);
-        this.tabSheet.addTab(getSchedulingPanelTab(), TM
-                .get("mainwindow.9-scheduling-tab"), null);
 
         mainLayout.addComponent(this.tabSheet);
 
@@ -112,11 +120,6 @@ class DefaultMainWindow implements MainWindow {
                 factory.create();
         returnValue.setInjector(this.injector);
         return returnValue;
-    }
-
-    private Label getStatus() {
-        indicator = new Label("<p>Plan completed</p>");
-        return indicator;
     }
 
     private MenuBar createMenuBar() {
@@ -172,7 +175,6 @@ class DefaultMainWindow implements MainWindow {
         }
     };
 
-
     private Component getEstimatedCompletionDateTimesPanel() {
         final EstimatedCompletionTimesPanelFactory factory =
                 this.injector
@@ -195,17 +197,6 @@ class DefaultMainWindow implements MainWindow {
         return panel.toPanel();
     }
 
-    private Component getSchedulingPanelTab() {
-        final SchedulingPanelFactory factory =
-                this.injector.getInstance(SchedulingPanelFactory.class);
-        final SchedulingPanel panel = factory.create();
-
-        panel.setInjector(this.injector);
-        panel.initGui();
-
-        return panel.toPanel();
-    }
-
     private Component getWorkerPanelTab() {
         final WorkerPanelFactory factory =
                 this.injector.getInstance(WorkerPanelFactory.class);
@@ -222,7 +213,6 @@ class DefaultMainWindow implements MainWindow {
         this.injector = aInjector;
     }
 
-    
     @Override
     public void setCentralEditingPanel(final Panel aPanel) {
         this.centralEditingPanel = aPanel;

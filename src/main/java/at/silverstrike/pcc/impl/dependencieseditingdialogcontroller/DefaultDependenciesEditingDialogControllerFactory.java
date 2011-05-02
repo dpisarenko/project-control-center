@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.dependencieseditingpanelcontroller;
+package at.silverstrike.pcc.impl.dependencieseditingdialogcontroller;
 
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;

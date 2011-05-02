@@ -153,5 +153,12 @@ class MockPersistence01 extends MockPersistenceAdapter {
         return false;
     }
 
+    @Override
+    public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
+            Long aProcessId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 
 }

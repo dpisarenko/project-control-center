@@ -1,7 +1,4 @@
 #Fri Apr 29 17:12:11 MSD 2011
-=\=\=\=\=\=\=
-<<<<<<<=HEAD
->>>>>>>=d6e58aa4a46738f02189801397ed0b8f3b26ae07
 eclipse.preferences.version=1
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/application.properties=UTF-8
 encoding//WebContent/VAADIN/themes/silverstrikecs/i18n/ru/dailyplanpanel.properties=UTF-8
@@ -29,6 +26,7 @@ encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/eventeditingpanel.properties
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/milestoneeditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/projectnetworkgraphpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/projecttreemodel.properties=UTF-8
+encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/schedulingindicatorpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/schedulingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/en/taskeditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/application.properties=UTF-8
@@ -44,6 +42,7 @@ encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/mainwindow.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/milestoneeditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/projectnetworkgraphpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/projecttreemodel.properties=UTF-8
+encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/schedulingindicatorpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/schedulingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/taskeditingpanel.properties=UTF-8
 encoding//src/main/webapp/VAADIN/themes/pcc/i18n/ru/workerpanel.properties=UTF-8

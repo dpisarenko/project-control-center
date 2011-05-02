@@ -45,20 +45,21 @@ final class DefaultProjectNetworkDataCreator implements
         final Persistence persistence =
                 this.injector.getInstance(Persistence.class);
         final List<SchedulingObject> projectSchedulingObjects =
-                persistence.getSubProcessesWithChildren(this.currentProjectId);
+                persistence
+                        .getSubProcessesWithChildrenInclAttainedTasks(this.currentProjectId);
 
         LOGGER.debug("projectSchedulingObjects: {}", projectSchedulingObjects);
 
         /**
          * Преобразуем каждый расчётный объект в набор данных.
          */
-        this.dependencyTuples = new LinkedList<SchedulingObjectDependencyTuple>();
+        this.dependencyTuples =
+                new LinkedList<SchedulingObjectDependencyTuple>();
 
-        if (projectSchedulingObjects == null)
-        {
+        if (projectSchedulingObjects == null) {
             return;
         }
-        
+
         for (final SchedulingObject curObject : projectSchedulingObjects) {
             final String vertex = curObject.getLabel();
             final List<String> dependencies = new LinkedList<String>();

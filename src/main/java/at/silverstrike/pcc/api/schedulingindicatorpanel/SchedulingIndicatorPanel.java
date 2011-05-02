@@ -9,12 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.schedulingpanel;
+package at.silverstrike.pcc.api.schedulingindicatorpanel;
 
-import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingState;
 import ru.altruix.commons.api.vaadin.AbstractedPanel;
 
-public interface SchedulingPanel extends ModuleWithInjectableDependencies,
-        AbstractedPanel {
-
+/**
+ * @author DP118M
+ *
+ */
+public interface SchedulingIndicatorPanel extends AbstractedPanel {
+    void displayState(final SchedulingState aState);
 }

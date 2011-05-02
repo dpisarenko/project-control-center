@@ -57,7 +57,8 @@ import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanel
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainerFactory;
-import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
+import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
+import at.silverstrike.pcc.api.schedulingindicatorpanel.SchedulingIndicatorPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanelFactory;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelControllerFactory;
@@ -78,7 +79,7 @@ import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultPccDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.dependencieseditingdialog.DefaultDependenciesEditingDialogFactory;
 import at.silverstrike.pcc.impl.dependencieseditingpanel.DefaultDependenciesEditingPanelFactory;
-import at.silverstrike.pcc.impl.dependencieseditingpanelcontroller.DefaultDependenciesEditingDialogControllerFactory;
+import at.silverstrike.pcc.impl.dependencieseditingdialogcontroller.DefaultDependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
@@ -101,7 +102,8 @@ import at.silverstrike.pcc.impl.projectnetworkgraphcreator.DefaultProjectNetwork
 import at.silverstrike.pcc.impl.projectnetworkgraphpanel.DefaultProjectNetworkGraphPanelFactory;
 import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
 import at.silverstrike.pcc.impl.projecttreemodel.DefaultProjectTreeContainerFactory;
-import at.silverstrike.pcc.impl.schedulingpanel.DefaultSchedulingPanelFactory;
+import at.silverstrike.pcc.impl.schedulingguicontroller.DefaultSchedulingPanelControllerFactory;
+import at.silverstrike.pcc.impl.schedulingindicatorpanel.DefautSchedulingIndicatorPanelFactory;
 import at.silverstrike.pcc.impl.taskeditingpanel.DefaultTaskEditingPanelFactory;
 import at.silverstrike.pcc.impl.taskeditingpanelcontroller.DefaultTaskEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.testtablecreator.DefaultTestTableCreatorFactory;
@@ -127,8 +129,6 @@ class InjectorModule extends AbstractModule {
                 .toInstance(new DefaultMainWindowFactory());
         bind(WorkerPanelFactory.class).toInstance(
                 new DefaultWorkerPanelFactory());
-        bind(SchedulingPanelFactory.class).toInstance(
-                new DefaultSchedulingPanelFactory());
         bind(DefaultJRubySandBoxFactory.class).toInstance(
                 new DefaultJRubySandBoxFactory());
         bind(EmbeddedFileReader.class).toInstance(
@@ -214,6 +214,10 @@ class InjectorModule extends AbstractModule {
                 new DefaultDependenciesEditingDialogControllerFactory());
         bind(DependenciesEditingDialogFactory.class).toInstance(
                 new DefaultDependenciesEditingDialogFactory());
+        bind(SchedulingPanelControllerFactory.class).toInstance(
+                new DefaultSchedulingPanelControllerFactory());
+        bind(SchedulingIndicatorPanelFactory.class).toInstance(
+                new DefautSchedulingIndicatorPanelFactory());
     }
 
     private TestTableCreator getTestTableCreator() {

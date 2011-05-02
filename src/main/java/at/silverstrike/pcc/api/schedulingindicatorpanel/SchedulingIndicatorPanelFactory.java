@@ -9,10 +9,14 @@
  *
  **/
 
-package at.silverstrike.pcc.api.schedulingpanel;
+package at.silverstrike.pcc.api.schedulingindicatorpanel;
 
 import ru.altruix.commons.api.conventions.Factory;
 
-public interface SchedulingPanelFactory extends Factory<SchedulingPanel> {
+/**
+ * @author DP118M
+ *
+ */
+public interface SchedulingIndicatorPanelFactory extends Factory<SchedulingIndicatorPanel> {
 
 }

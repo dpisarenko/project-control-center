@@ -53,4 +53,6 @@ public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
     void updateEventNodeInTree(final Event aEvent);
 
     void taskDependenciesChanged(final SchedulingObject aObject);
+
+    void taskCompleted(final Task aTask);
 }
