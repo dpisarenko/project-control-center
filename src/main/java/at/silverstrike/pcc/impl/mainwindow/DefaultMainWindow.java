@@ -38,8 +38,6 @@ import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
-import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanel;
-import at.silverstrike.pcc.api.schedulingpanel.SchedulingPanelFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
@@ -107,8 +105,6 @@ class DefaultMainWindow implements MainWindow {
                 .get("mainwindow.12-estimated-completion-times-panel"), null);
         this.tabSheet.addTab(getWorkerPanelTab(), TM
                 .get("mainwindow.8-human-resource-tab"), null);
-        this.tabSheet.addTab(getSchedulingPanelTab(), TM
-                .get("mainwindow.9-scheduling-tab"), null);
 
         mainLayout.addComponent(this.tabSheet);
 
@@ -196,17 +192,6 @@ class DefaultMainWindow implements MainWindow {
 
         panel.setInjector(this.injector);
         panel.attach();
-        panel.initGui();
-
-        return panel.toPanel();
-    }
-
-    private Component getSchedulingPanelTab() {
-        final SchedulingPanelFactory factory =
-                this.injector.getInstance(SchedulingPanelFactory.class);
-        final SchedulingPanel panel = factory.create();
-
-        panel.setInjector(this.injector);
         panel.initGui();
 
         return panel.toPanel();
