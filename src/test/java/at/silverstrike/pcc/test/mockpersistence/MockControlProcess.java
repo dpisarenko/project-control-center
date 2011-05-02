@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import at.silverstrike.pcc.api.model.SchedulingObjectValidationError;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
@@ -44,6 +45,8 @@ class MockControlProcess implements Task {
 
     private Date worstEstimatedEndDateTime;
 
+    private SchedulingObjectValidationError validationError;
+    
     public MockControlProcess() {
         this.resourceAllocations = new LinkedList<ResourceAllocation>();
     }
@@ -174,6 +177,14 @@ class MockControlProcess implements Task {
         } else {
             return "";
         }
+    }
+
+    public SchedulingObjectValidationError getValidationError() {
+        return validationError;
+    }
+
+    public void setValidationError(SchedulingObjectValidationError validationError) {
+        this.validationError = validationError;
     }
 
 }

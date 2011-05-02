@@ -15,6 +15,7 @@ import java.util.Set;
 
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.SchedulingObjectValidationError;
 
 /**
  * @author DP118M
@@ -27,6 +28,7 @@ class DefaultSchedulingObject implements SchedulingObject {
     private SchedulingObject parent;
     private Set<SchedulingObject> predecessors;
     private ProcessState state;
+    private SchedulingObjectValidationError validationError;
 
     public DefaultSchedulingObject() {
         this.id = -1L;
@@ -90,5 +92,13 @@ class DefaultSchedulingObject implements SchedulingObject {
 
     public void setState(final ProcessState aState) {
         this.state = aState;
+    }
+
+    public SchedulingObjectValidationError getValidationError() {
+        return validationError;
+    }
+
+    public void setValidationError(final SchedulingObjectValidationError aError) {
+        this.validationError = aError;
     }
 }

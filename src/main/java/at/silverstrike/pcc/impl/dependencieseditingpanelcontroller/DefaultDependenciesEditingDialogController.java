@@ -12,13 +12,8 @@
 package at.silverstrike.pcc.impl.dependencieseditingpanelcontroller;
 
 import java.util.List;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
-import ru.altruix.commons.api.gui.ModalDialogResult;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Window;

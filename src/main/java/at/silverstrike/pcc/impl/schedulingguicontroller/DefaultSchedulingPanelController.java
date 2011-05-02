@@ -160,6 +160,13 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
                 }
             }
         }
+        
+        if (tasksWithInvalidEffortEstimatesFound)
+        {
+            this.state = SchedulingState.ERROR;
+            return;
+        }
+        
 
         scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
                 schedulingObjects);

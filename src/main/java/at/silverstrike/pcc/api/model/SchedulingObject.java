@@ -59,4 +59,10 @@ public interface SchedulingObject extends UniquelyIdentifiableObject {
      */
     void setPredecessors(final Set<SchedulingObject> aPredecessors);
     Set<SchedulingObject> getPredecessors();
+    
+    /**
+     * Ошибка при расчёте, связанная с этим объектом
+     */
+    void setValidationError(final SchedulingObjectValidationError aError);
+    SchedulingObjectValidationError getValidationError();
 }

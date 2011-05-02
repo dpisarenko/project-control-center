@@ -13,6 +13,8 @@ package at.silverstrike.pcc.test.model;
 
 import java.util.Date;
 import java.util.List;
+
+import at.silverstrike.pcc.api.model.SchedulingObjectValidationError;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 
@@ -25,6 +27,8 @@ class MockControlProcess extends MockSchedulingObject implements Task {
     private Date averageEstimatedEndDateTime;
     private Date bestEstimatedEndDateTime;
     private Date worstEstimatedEndDateTime;
+    private SchedulingObjectValidationError validationError;
+    
     public Double getBestCaseEffort() {
         return this.bestCaseEffort;
     }
@@ -77,6 +81,14 @@ class MockControlProcess extends MockSchedulingObject implements Task {
 
     public void setWorstEstimatedEndDateTime(final Date aDate) {
         this.worstEstimatedEndDateTime = aDate;
+    }
+
+    public SchedulingObjectValidationError getValidationError() {
+        return validationError;
+    }
+
+    public void setValidationError(SchedulingObjectValidationError validationError) {
+        this.validationError = validationError;
     }
 
 }
