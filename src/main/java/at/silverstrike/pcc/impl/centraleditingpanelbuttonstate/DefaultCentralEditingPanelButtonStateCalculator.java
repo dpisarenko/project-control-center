@@ -11,12 +11,16 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanelbuttonstate;
 
+import com.google.inject.Injector;
+
 import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculator;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 
 /**
  * @author DP118M
@@ -24,6 +28,8 @@ import at.silverstrike.pcc.api.model.Task;
  */
 class DefaultCentralEditingPanelButtonStateCalculator implements
         CentralEditingPanelButtonStateCalculator {
+    private Injector injector = null;
+    private Persistence persistence = null;
     private SchedulingObject currentSelection;
     private boolean increasePriorityButtonEnabled;
     private boolean decreasePriorityButtonEnabled;
@@ -32,23 +38,46 @@ class DefaultCentralEditingPanelButtonStateCalculator implements
     private boolean newMilestoneButtonEnabled;
 
     @Override
+    public void setInjector(final Injector aInjector) {
+        if (aInjector != null) {
+            this.injector = aInjector;
+            this.persistence = this.injector.getInstance(Persistence.class);
+        }
+    }
+
+    @Override
     public void run() throws PccException {
-        this.increasePriorityButtonEnabled = false;
-        this.decreasePriorityButtonEnabled = false;        
-        
         if (this.currentSelection == null) {
             this.newTaskButtonEnabled = true;
             this.newEventButtonEnabled = true;
             this.newMilestoneButtonEnabled = true;
+            this.increasePriorityButtonEnabled = false;
+            this.decreasePriorityButtonEnabled = false;
         } else if (this.currentSelection instanceof Task) {
             this.newTaskButtonEnabled = true;
             this.newEventButtonEnabled = true;
             this.newMilestoneButtonEnabled = true;
+            this.increasePriorityButtonEnabled =
+                    !persistence.isHighestPriorityObjectInProject(
+                            this.currentSelection.getParent(),
+                            this.currentSelection);
+            this.decreasePriorityButtonEnabled =
+                    !persistence.isLowestPriorityObjectInProject(
+                            this.currentSelection.getParent(),
+                            this.currentSelection);
         } else if ((this.currentSelection instanceof Milestone)
                 || (this.currentSelection instanceof Event)) {
             this.newTaskButtonEnabled = false;
             this.newEventButtonEnabled = false;
             this.newMilestoneButtonEnabled = false;
+            this.increasePriorityButtonEnabled =
+                    !persistence.isHighestPriorityObjectInProject(
+                            this.currentSelection.getParent(),
+                            this.currentSelection);
+            this.decreasePriorityButtonEnabled =
+                    !persistence.isLowestPriorityObjectInProject(
+                            this.currentSelection.getParent(),
+                            this.currentSelection);
         }
     }
 
@@ -59,9 +88,6 @@ class DefaultCentralEditingPanelButtonStateCalculator implements
 
     @Override
     public boolean isIncreasePriorityButtonEnabled() {
-    	//Long parentID = this.currentSelection.getParent().getId();
-
-    		
         return this.increasePriorityButtonEnabled;
     }
 

@@ -242,8 +242,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         final CentralEditingPanelButtonStateCalculatorFactory bscFactory =
                 this.injector
                         .getInstance(CentralEditingPanelButtonStateCalculatorFactory.class);
-        this.buttonStateCalculator =
-                bscFactory.create();
+        this.buttonStateCalculator = bscFactory.create();
+        this.buttonStateCalculator.setInjector(this.injector);
     }
 
     private void initMilestonePanelController() {
