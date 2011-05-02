@@ -79,7 +79,7 @@ import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultPccDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.dependencieseditingdialog.DefaultDependenciesEditingDialogFactory;
 import at.silverstrike.pcc.impl.dependencieseditingpanel.DefaultDependenciesEditingPanelFactory;
-import at.silverstrike.pcc.impl.dependencieseditingpanelcontroller.DefaultDependenciesEditingDialogControllerFactory;
+import at.silverstrike.pcc.impl.dependencieseditingdialogcontroller.DefaultDependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
