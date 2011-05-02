@@ -84,7 +84,7 @@ class DefaultTaskEditingPanel extends Panel implements
     private transient TaskEditingPanelController controller;
     private transient PccDebugIdRegistry debugIdRegistry;
     private transient Persistence persistence;
-    
+
     private TextField taskNameTextField;
     private ComboBox from;
     private ComboBox to;
@@ -263,20 +263,23 @@ class DefaultTaskEditingPanel extends Panel implements
                 String toEffort = (String) this.to.getValue();
                 Double toDouble = (Double) hm.get(toEffort);
 
-                if ((fromDouble != null) && (toDouble != null) && (fromDouble > toDouble) )
-                {
-                    final OptionDialog dialog =
-                        new OptionDialog(TPTApplication.getCurrentApplication());
+                LOGGER.debug("fromDouble: {}, toDouble: {}", new Object[] {
+                        fromDouble, toDouble });
 
+                if ((fromDouble != null) && (toDouble != null)
+                        && (fromDouble > toDouble)) {
+                    LOGGER.debug("Trying to display error message: {}", TPTApplication.getCurrentApplication());
+                    
+                    final OptionDialog dialog =
+                            new OptionDialog(
+                                    TPTApplication.getCurrentApplication());
                     dialog.showErrorMessage("Task",
-                            TM.get("taskeditingpanel.20-combobox-effort"), true);                    
-                }
-                else
-                {
+                            TM.get("taskeditingpanel.20-combobox-effort"), true);
+                } else {
                     this.task.setWorstCaseEffort(fromDouble);
                     this.task.setBestCaseEffort(toDouble);
+                    this.controller.saveTask(this.task);
                 }
-                this.controller.saveTask(this.task);                
             }
         } else if (DONE_TASK_BUTTON.equals(debugId)) {
             controller.markTaskAsCompleted(this.task);
