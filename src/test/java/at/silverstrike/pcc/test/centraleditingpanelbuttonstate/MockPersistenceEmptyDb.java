@@ -282,4 +282,11 @@ final class MockPersistenceEmptyDb extends MockPersistenceAdapter implements Per
         return false;
     }
 
+    @Override
+    public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
+            Long aProcessId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

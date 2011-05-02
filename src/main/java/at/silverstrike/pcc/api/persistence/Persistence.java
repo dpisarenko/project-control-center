@@ -101,11 +101,23 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      * Returns a list of processes, which
      * 
      * a) are sub-processes of process with the specified ID as their parent
-     * process and b) have child processes themselves.
+     * process and b) have child processes themselves. Deleted scheduling objects and 
+     * completed tasks are not returned.
      * 
      * If processId is null, the top-level processes are returned.
      */
     List<SchedulingObject> getSubProcessesWithChildren(final Long aProcessId);
+    
+    /**
+     * Returns a list of scheduling objects, which
+     * 
+     * a) are sub-processes of process with the specified ID as their parent
+     * process and b) have child processes themselves. Deleted scheduling objects and 
+     * completed tasks are not returned.
+     * 
+     * If processId is null, the top-level processes are returned.
+     */    
+    List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(final Long aProcessId);
 
     /**
      * Creates a new process on the same hierarchy level as the process with

@@ -1240,4 +1240,48 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }
     }
+
+    private static final String SUB_PROCESSES_WITH_CHILDREN_INCL_COMPLETED_TASKS_HQL_TEMPLATE =
+            "from "
+                    + "DefaultSchedulingObject p where (p.parent.id = ${processId}) and (state <> "
+                    + STATE_DELETED + ") order by priority desc";
+    private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_INCL_COMPLETED_TASKS_HQL_TEMPLATE =
+            "from "
+                    + "DefaultSchedulingObject p where (p.parent is null) and (state <> "
+                    + STATE_DELETED + ") order by priority desc";
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
+            Long aProcessId) {
+        List<SchedulingObject> processes = null;
+
+        try {
+            final String hql;
+
+            if (aProcessId != null) {
+                hql =
+                        SUB_PROCESSES_WITH_CHILDREN_INCL_COMPLETED_TASKS_HQL_TEMPLATE
+                                .replace(
+                                        PROCESS_ID, aProcessId.toString());
+            } else {
+                hql =
+                        SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_INCL_COMPLETED_TASKS_HQL_TEMPLATE;
+            }
+
+            final Query query = session.createQuery(hql);
+
+            query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
+
+            processes = (List<SchedulingObject>) query.list();
+
+            if ((aProcessId == null)
+                    && ((processes == null) || (processes.size() < 1))) {
+                return getAllNotDeletedTasks();
+            }
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+        }
+        return processes;
+    }
 }

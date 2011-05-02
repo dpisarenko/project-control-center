@@ -253,4 +253,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
     public void
             updateSchedulingObject(final SchedulingObject aSchedulingObject) {
     }
+
+    @Override
+    public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
+            final Long aProcessId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
 }
