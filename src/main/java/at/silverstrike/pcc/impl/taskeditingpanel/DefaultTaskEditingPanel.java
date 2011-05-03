@@ -30,13 +30,13 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Window.Notification;
 
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
-import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
@@ -82,7 +82,6 @@ class DefaultTaskEditingPanel extends Panel implements
     private transient Injector injector;
     private transient TaskEditingPanelController controller;
     private transient PccDebugIdRegistry debugIdRegistry;
-    private transient Persistence persistence;
 
     private TextField taskNameTextField;
     private ComboBox from;
@@ -267,13 +266,10 @@ class DefaultTaskEditingPanel extends Panel implements
 
                 if ((fromDouble != null) && (toDouble != null)
                         && (fromDouble > toDouble)) {
-                    LOGGER.debug("Trying to display error message: main window: {}", TPTApplication.getCurrentApplication().getMainWindow());
-                    
-                    final OptionDialog dialog =
-                            new OptionDialog(
-                                    TPTApplication.getCurrentApplication());
-                    dialog.showErrorMessage("Task",
-                            TM.get("taskeditingpanel.20-combobox-effort"), true);
+                    getWindow().showNotification(
+                            TM.get("taskeditingpanel.21-validation-error-title"),
+                            TM.get("taskeditingpanel.20-combobox-effort"),
+                            Notification.TYPE_ERROR_MESSAGE);
                 } else {
                     this.task.setWorstCaseEffort(fromDouble);
                     this.task.setBestCaseEffort(toDouble);
