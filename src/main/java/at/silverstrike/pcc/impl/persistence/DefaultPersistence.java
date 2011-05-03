@@ -64,6 +64,7 @@ public class DefaultPersistence implements Persistence {
     private static final String JDBC_CONN_STRING_NEW_DB = "jdbc:derby:"
             + DB_NAME + ";create=true";
     private static final String PROCESS_ID = "${processId}";
+    private static final String PARENT = "${parent}";
     private static final String STATE_BEING_ATTAINED = ":stateBeingAttained";
     private static final String STATE_DELETED = ":stateDeleted";
     private static final String STATE_ATTAINED = ":stateAttained";
@@ -96,6 +97,19 @@ public class DefaultPersistence implements Persistence {
             "from "
                     + "DefaultSchedulingObject p where (p.parent is null) and (state <> "
                     + STATE_DELETED + ") order by priority desc";
+
+    private static final String HIGHEST_PRIORITY_OBJECT_IN_PROJECT_HQL =
+            "select max(p.priority) from "
+                    + "DefaultSchedulingObject p where (p.parent = " + PARENT
+                    + ") and (state <> "
+                    + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
+                    + ")";
+    private static final String LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL =
+            "select min(p.priority) from "
+                    + "DefaultSchedulingObject p where (p.parent = " + PARENT
+                    + ") and (state <> "
+                    + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
+                    + ")";
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultPersistence.class);
@@ -248,6 +262,10 @@ public class DefaultPersistence implements Persistence {
 
             newProcess.setParent(getParentTask(aParentProcessId));
             newProcess.setName(aProcessName);
+
+            newProcess.setPriority(getNextSchedulingObjectPriority(
+                    getParentTask(aParentProcessId))
+                    .intValue());
 
             session.save(newProcess);
             tx.commit();
@@ -1092,6 +1110,10 @@ public class DefaultPersistence implements Persistence {
             newMilestone.setParent(getParentTask(aParentTaskId));
             newMilestone.setName(aName);
 
+            newMilestone.setPriority(getNextSchedulingObjectPriority(
+                    getParentTask(aParentTaskId))
+                    .intValue());
+
             session.save(newMilestone);
             tx.commit();
 
@@ -1112,8 +1134,11 @@ public class DefaultPersistence implements Persistence {
         try {
             final Event newEvent = new DefaultEvent();
 
-            newEvent.setParent(getParentTask(aParentProcessId));
+            Task parentTask = getParentTask(aParentProcessId);
+            newEvent.setParent(parentTask);
             newEvent.setName(aEventName);
+            newEvent.setPriority(getNextSchedulingObjectPriority(parentTask)
+                    .intValue());
 
             session.save(newEvent);
             tx.commit();
@@ -1208,15 +1233,56 @@ public class DefaultPersistence implements Persistence {
     @Override
     public boolean isHighestPriorityObjectInProject(SchedulingObject aProject,
             SchedulingObject aSchedulingObject) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isHighest = false;
+        try {
+            final Query query =
+                    session.createQuery(HIGHEST_PRIORITY_OBJECT_IN_PROJECT_HQL
+                            .replace(
+                                    "${parent}",
+                                    Long.toString(aProject.getId())));
+
+            query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
+            query.setParameter(STATE_ATTAINED.substring(1),
+                    ProcessState.ATTAINED);
+            String parent = Long.toString(aProject.getId());
+            LOGGER.debug("parent: {}", parent);
+            query.setParameter(PARENT, parent);
+
+            LOGGER.debug("query: {}", query);
+            Object priorityNum = query.list().get(0);
+            isHighest = priorityNum.equals(aSchedulingObject.getPriority());
+            LOGGER.debug("PRIORITYNUM = {}", priorityNum);
+            LOGGER.debug("aSchedulingObject = {}",
+                    aSchedulingObject.getPriority());
+            LOGGER.debug("isEqual = {}", isHighest);
+
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+        }
+        return isHighest;
     }
 
     @Override
     public boolean isLowestPriorityObjectInProject(SchedulingObject aProject,
             SchedulingObject aSchedulingObject) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isLowest = false;
+        try {
+            final Query query =
+                    session.createQuery(LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL
+                            .replace(
+                                    "${parent}",
+                                    Long.toString(aProject.getId())));
+
+            query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
+            query.setParameter(STATE_ATTAINED.substring(1),
+                    ProcessState.ATTAINED);
+
+            Object priorityNum = query.list().get(0);
+            isLowest = priorityNum.equals(aSchedulingObject.getPriority());
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+        }
+        return isLowest;
     }
 
     @Override
@@ -1285,12 +1351,11 @@ public class DefaultPersistence implements Persistence {
         return processes;
     }
 
-    public Long getNextSchedulingObjectId(final SchedulingObject aParent) {
-        Long maxPriority = 500L;
 
+    public Long getNextSchedulingObjectPriority(final SchedulingObject aParent) {
+        Long maxPriority = 500L;
         try {
             final String hql;
-
             if (aParent != null) {
                 hql =
                         "SELECT MAX(priority) FROM DefaultSchedulingObject WHERE (parent <> null) AND (parent.id = ${parentId})"
@@ -1300,10 +1365,12 @@ public class DefaultPersistence implements Persistence {
                 hql =
                         "SELECT MAX(priority) FROM DefaultSchedulingObject WHERE (parent == null)";
             }
+            LOGGER.debug("hql priority: {}", hql);
 
             final Query query = session.createQuery(hql);
 
             maxPriority = (Long) query.uniqueResult();
+            LOGGER.debug("maxPriority: {}", maxPriority);
         } catch (final Exception exception) {
             LOGGER.error("", exception);
         }
