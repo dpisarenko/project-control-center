@@ -41,7 +41,6 @@ import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
 import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.TPTApplication;
-import eu.livotov.tpt.gui.dialogs.OptionDialog;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultTaskEditingPanel extends Panel implements
@@ -268,7 +267,7 @@ class DefaultTaskEditingPanel extends Panel implements
 
                 if ((fromDouble != null) && (toDouble != null)
                         && (fromDouble > toDouble)) {
-                    LOGGER.debug("Trying to display error message: {}", TPTApplication.getCurrentApplication());
+                    LOGGER.debug("Trying to display error message: main window: {}", TPTApplication.getCurrentApplication().getMainWindow());
                     
                     final OptionDialog dialog =
                             new OptionDialog(

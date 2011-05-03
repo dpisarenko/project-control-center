@@ -52,6 +52,7 @@ import com.google.inject.Injector;
  * 
  */
 public class DefaultPersistence implements Persistence {
+    private static final int PRIORITY_INCREASE_STEP = 10;
     private static final int LAST_HOUR = 23;
     private static final int LAST_MINUTE = 59;
     private static final int LAST_SECOND = 59;
@@ -87,6 +88,14 @@ public class DefaultPersistence implements Persistence {
     private static final String POTENTIAL_PREDECESSORS_HQL =
             "from DefaultSchedulingObject where (state <> "
                     + STATE_DELETED + ") and (id <> ${id})";
+    private static final String SUB_PROCESSES_WITH_CHILDREN_INCL_COMPLETED_TASKS_HQL_TEMPLATE =
+            "from "
+                    + "DefaultSchedulingObject p where (p.parent.id = ${processId}) and (state <> "
+                    + STATE_DELETED + ") order by priority desc";
+    private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_INCL_COMPLETED_TASKS_HQL_TEMPLATE =
+            "from "
+                    + "DefaultSchedulingObject p where (p.parent is null) and (state <> "
+                    + STATE_DELETED + ") order by priority desc";
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultPersistence.class);
@@ -1241,15 +1250,6 @@ public class DefaultPersistence implements Persistence {
         }
     }
 
-    private static final String SUB_PROCESSES_WITH_CHILDREN_INCL_COMPLETED_TASKS_HQL_TEMPLATE =
-            "from "
-                    + "DefaultSchedulingObject p where (p.parent.id = ${processId}) and (state <> "
-                    + STATE_DELETED + ") order by priority desc";
-    private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_INCL_COMPLETED_TASKS_HQL_TEMPLATE =
-            "from "
-                    + "DefaultSchedulingObject p where (p.parent is null) and (state <> "
-                    + STATE_DELETED + ") order by priority desc";
-
     @SuppressWarnings("unchecked")
     @Override
     public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
@@ -1283,5 +1283,31 @@ public class DefaultPersistence implements Persistence {
             LOGGER.error("", exception);
         }
         return processes;
+    }
+
+    public Long getNextSchedulingObjectId(final SchedulingObject aParent) {
+        Long maxPriority = 500L;
+
+        try {
+            final String hql;
+
+            if (aParent != null) {
+                hql =
+                        "SELECT MAX(priority) FROM DefaultSchedulingObject WHERE (parent <> null) AND (parent.id = ${parentId})"
+                                .replace("${parentId}", aParent.getId()
+                                        .toString());
+            } else {
+                hql =
+                        "SELECT MAX(priority) FROM DefaultSchedulingObject WHERE (parent == null)";
+            }
+
+            final Query query = session.createQuery(hql);
+
+            maxPriority = (Long) query.uniqueResult();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+        }
+
+        return maxPriority + PRIORITY_INCREASE_STEP;
     }
 }
