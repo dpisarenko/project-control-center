@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
   <properties>
-    <title>Page Title Заголовок</title>
+    <title>Page Title</title>
     <author email="user@company.com">John Doe</author>
   </properties>
 
