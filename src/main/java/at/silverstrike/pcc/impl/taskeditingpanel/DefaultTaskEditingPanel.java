@@ -15,8 +15,6 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ru.altruix.commons.api.di.PccException;
-
 import com.google.inject.Injector;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
@@ -29,15 +27,12 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Window.Notification;
 
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
-import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
-import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEditingPanelController;
 import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
-import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultTaskEditingPanel extends Panel implements
@@ -68,7 +63,6 @@ class DefaultTaskEditingPanel extends Panel implements
     private static final String SAVE_TASK_BUTTON = "028.001";
     private static final String DONE_TASK_BUTTON = "028.002";
     private static final String DELETE_TASK_BUTTON = "028.003";
-    private static final String DEPENDENCIES_BUTTON = "028.004";
 
     private transient Injector injector;
     private transient TaskEditingPanelController controller;
@@ -275,6 +269,7 @@ class DefaultTaskEditingPanel extends Panel implements
                 from.setValue(null);
                 to.setValue(null);
             }
+            this.dependenciesPanelController.setData(this.task);
         } else {
             taskNameTextField.setValue("");
         }
