@@ -11,10 +11,7 @@
 
 package at.silverstrike.pcc.impl.taskeditingpanel;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +23,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -35,11 +31,12 @@ import com.vaadin.ui.Window.Notification;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
+import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEditingPanelController;
+import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.taskeditingpanel.TaskEditingPanel;
 import at.silverstrike.pcc.api.taskeditingpanelcontroller.TaskEditingPanelController;
-import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
@@ -68,12 +65,6 @@ class DefaultTaskEditingPanel extends Panel implements
             16.0,
             24.0,
             40.0 };
-    private static final String[] TEST_COLUMN_NAMES = new String[] { "�",
-            "Project", "Name" };
-    private static final List<String[]> TEST_TABLE_DATA =
-            Arrays.asList(
-                    new String[] { "1.1", "Project 1", "Task 1" },
-                    new String[] { "2.1", "Project 4", "Task 5" });
     private static final String SAVE_TASK_BUTTON = "028.001";
     private static final String DONE_TASK_BUTTON = "028.002";
     private static final String DELETE_TASK_BUTTON = "028.003";
@@ -161,22 +152,13 @@ class DefaultTaskEditingPanel extends Panel implements
 
         verticalLayoutRight.addComponent(effortLayout);
 
-        final HorizontalLayout dependLayout = new HorizontalLayout();
-        dependLayout.setSpacing(true);
+        final DependenciesEditingPanelControllerFactory factory =
+                this.injector
+                        .getInstance(DependenciesEditingPanelControllerFactory.class);
+        final DependenciesEditingPanelController dependenciesController =
+                factory.create();
 
-        final Label dependLabel =
-                new Label(
-                        TM.get("taskeditingpanel.17-label-dependencies"));
-        dependLayout.addComponent(dependLabel);
-
-        final Button dependEditButton = createDependEditButton();
-        dependLayout.addComponent(dependEditButton);
-
-        verticalLayoutRight.addComponent(dependLayout);
-
-        final Table table = createTestTable();
-        verticalLayoutRight.addComponent(table);
-        this.addComponent(verticalLayoutRight);
+        verticalLayoutRight.addComponent(dependenciesController.initGui());
     }
 
     private HorizontalLayout getEffortPanel() {
@@ -216,31 +198,6 @@ class DefaultTaskEditingPanel extends Panel implements
         return effortLayout;
     }
 
-    private Button createDependEditButton() {
-        final Button dependEditButton =
-                new Button(TM.get("taskeditingpanel.18-button-edit"));
-        dependEditButton.setDebugId(this.debugIdRegistry.getDebugId(
-                PccFunctionalBlock.taskeditingpanel,
-                "4-button-dependencies"));
-        dependEditButton.addListener(this);
-
-        return dependEditButton;
-    }
-
-    private Table createTestTable() {
-        final TestTableCreator creator =
-                this.injector.getInstance(TestTableCreator.class);
-        creator.setColumnNames(TEST_COLUMN_NAMES);
-        creator.setData(TEST_TABLE_DATA);
-        try {
-            creator.run();
-        } catch (final PccException exception) {
-            LOGGER.error(ErrorCodes.M_001_TEST_TABLE_CREATION, exception);
-        }
-        final Table table = creator.getTable();
-        return table;
-    }
-
     /*
      * Shows a notification when a button is clicked.
      */
@@ -266,10 +223,11 @@ class DefaultTaskEditingPanel extends Panel implements
 
                 if ((fromDouble != null) && (toDouble != null)
                         && (fromDouble > toDouble)) {
-                    getWindow().showNotification(
-                            TM.get("taskeditingpanel.21-validation-error-title"),
-                            TM.get("taskeditingpanel.20-combobox-effort"),
-                            Notification.TYPE_ERROR_MESSAGE);
+                    getWindow()
+                            .showNotification(
+                                    TM.get("taskeditingpanel.21-validation-error-title"),
+                                    TM.get("taskeditingpanel.20-combobox-effort"),
+                                    Notification.TYPE_ERROR_MESSAGE);
                 } else {
                     this.task.setWorstCaseEffort(fromDouble);
                     this.task.setBestCaseEffort(toDouble);

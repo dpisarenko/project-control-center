@@ -11,10 +11,12 @@
 
 package at.silverstrike.pcc.api.dependencieseditingpanel;
 
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.InitializableGuiComponent;
+import ru.altruix.commons.api.vaadin.AbstractedPanel;
 
 public interface DependenciesEditingPanel extends ModuleWithInjectableDependencies,
-	InitializableGuiComponent {
-
+	InitializableGuiComponent, AbstractedPanel {
+    void setData(final SchedulingObject aSchedulingObject);
 }

@@ -63,11 +63,6 @@ public class DefaultPersistence implements Persistence {
             + DB_NAME;
     private static final String JDBC_CONN_STRING_NEW_DB = "jdbc:derby:"
             + DB_NAME + ";create=true";
-    // private static final String JDBC_CONN_STRING_EXISTING_DB =
-    // "jdbc:derby://localhost:21527/pcc";
-    // private static final String JDBC_CONN_STRING_NEW_DB =
-    // "jdbc:derby://localhost:21527/pcc;create=true";
-
     private static final String PROCESS_ID = "${processId}";
     private static final String PARENT = "${parent}";
     private static final String STATE_BEING_ATTAINED = ":stateBeingAttained";

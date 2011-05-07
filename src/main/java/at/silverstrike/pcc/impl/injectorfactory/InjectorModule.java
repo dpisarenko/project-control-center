@@ -29,6 +29,7 @@ import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialogFactory;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanelFactory;
+import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
@@ -79,6 +80,7 @@ import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultPccDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.dependencieseditingdialog.DefaultDependenciesEditingDialogFactory;
 import at.silverstrike.pcc.impl.dependencieseditingpanel.DefaultDependenciesEditingPanelFactory;
+import at.silverstrike.pcc.impl.dependencieseditingpanelcontroller.DefaultDependenciesEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.dependencieseditingdialogcontroller.DefaultDependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
@@ -218,6 +220,8 @@ class InjectorModule extends AbstractModule {
                 new DefaultSchedulingPanelControllerFactory());
         bind(SchedulingIndicatorPanelFactory.class).toInstance(
                 new DefautSchedulingIndicatorPanelFactory());
+        bind(DependenciesEditingPanelControllerFactory.class).toInstance(
+                new DefaultDependenciesEditingPanelControllerFactory());
     }
 
     private TestTableCreator getTestTableCreator() {
