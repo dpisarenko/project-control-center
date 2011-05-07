@@ -11,15 +11,9 @@
 
 package at.silverstrike.pcc.impl.eventeditingpanel;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import ru.altruix.commons.api.di.PccException;
-
 import com.google.inject.Injector;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.InlineDateField;
@@ -27,16 +21,15 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.PopupDateField;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
+import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEditingPanelController;
+import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.eventeditingpanel.EventEditingPanel;
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelController;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
-import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import eu.livotov.tpt.i18n.TM;
 
 class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
@@ -49,15 +42,8 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 
     private static final int PROCESS_NAME_TEXT_FIELD_ROWS = 5;
 
-    private static final String[] TEST_COLUMN_NAMES = new String[] { "�",
-            "Project", "Name" };
-    private static final List<String[]> TEST_TABLE_DATA = Arrays.asList(
-            new String[] { "1.1", "Project 1", "Task 1" }, new String[] {
-                    "2.1", "Project 4", "Task 5" });
-
     private static final String SAVE_EVENT_BUTTON = "029.001";
     private static final String DELETE_EVENT_BUTTON = "029.002";
-    private static final String DEPENDENCIES_BUTTON = "029.XYZ";
     private transient at.silverstrike.pcc.api.model.Event event;
 
     private transient Injector injector;
@@ -67,6 +53,7 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
     private InlineDateField startDate;
     private InlineDateField finishDate;
     private TextField placeTextField;
+    private DependenciesEditingPanelController dependenciesPanelController;
 
     public TextField getTaskNameTextField() {
         return eventNameTextField;
@@ -86,12 +73,10 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
 
     @Override
     public void initGui() {
-        final Panel verticalLayoutRight = new Panel();
-
         final Label taskLabel = new Label(
                 TM.get("eventeditingpanel.1-label-event"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
-        verticalLayoutRight.addComponent(taskLabel);
+        this.addComponent(taskLabel);
 
         final HorizontalLayout buttonsTaskLayout = new HorizontalLayout();
         buttonsTaskLayout.setSpacing(true);
@@ -110,34 +95,25 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
         deleteButton.addListener((ClickListener) this); // react to clicks
         buttonsTaskLayout.addComponent(deleteButton);
 
-        verticalLayoutRight.addComponent(buttonsTaskLayout);
+        this.addComponent(buttonsTaskLayout);
 
         eventNameTextField = new TextField();
         eventNameTextField.setWidth("100%");
         eventNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
-        verticalLayoutRight.addComponent(eventNameTextField);
+        this.addComponent(eventNameTextField);
 
         final HorizontalLayout placeLayout = getPlacePanel();
-        verticalLayoutRight.addComponent(placeLayout);
+        this.addComponent(placeLayout);
 
         final HorizontalLayout datesLayout = getIntervalDatesPanel();
-        verticalLayoutRight.addComponent(datesLayout);
+        this.addComponent(datesLayout);
 
-//        final HorizontalLayout dependLayout = new HorizontalLayout();
-//        dependLayout.setSpacing(true);
-//
-//        final Label dependLabel = new Label(
-//                TM.get("eventeditingpanel.4-label-dependencies"));
-//        dependLayout.addComponent(dependLabel);
-//
-//        final Button dependEditButton = createDependEditButton();
-//        dependLayout.addComponent(dependEditButton);
-//
-//        verticalLayoutRight.addComponent(dependLayout);
-//
-//        final Table table = createTestTable();
-//        verticalLayoutRight.addComponent(table);
-        this.addComponent(verticalLayoutRight);
+        final DependenciesEditingPanelControllerFactory factory =
+                this.injector
+                        .getInstance(DependenciesEditingPanelControllerFactory.class);
+        dependenciesPanelController = factory.create();
+        dependenciesPanelController.setInjector(this.injector);
+        this.addComponent(dependenciesPanelController.initGui());
     }
 
     private HorizontalLayout getPlacePanel() {
@@ -185,28 +161,6 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
         return datesLayout;
     }
 
-    private Button createDependEditButton() {
-        final Button dependEditButton = new Button(
-                TM.get("eventeditingpanel.5-button-edit"));
-        dependEditButton.addListener(new DependenciesButtonClickListener(
-                controller));
-        return dependEditButton;
-    }
-
-    private Table createTestTable() {
-        final TestTableCreator creator = this.injector
-                .getInstance(TestTableCreator.class);
-        creator.setColumnNames(TEST_COLUMN_NAMES);
-        creator.setData(TEST_TABLE_DATA);
-        try {
-            creator.run();
-        } catch (final PccException exception) {
-            LOGGER.error(ErrorCodes.M_001_TEST_TABLE_CREATION, exception);
-        }
-        final Table table = creator.getTable();
-        return table;
-    }
-
     /*
      * Shows a notification when a button is clicked.
      */
@@ -224,8 +178,6 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
             }
         } else if (DELETE_EVENT_BUTTON.equals(debugId)) {
             controller.deleteEvent(this.event);
-        } else if (DEPENDENCIES_BUTTON.equals(debugId)) {
-            // letUserEnterDependencies();
         }
     }
 
@@ -255,6 +207,8 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
             }
             this.startDate.setValue(this.event.getStartDateTime());
             this.finishDate.setValue(this.event.getEndDateTime());
+            
+            this.dependenciesPanelController.setData(this.event);
         } else {
             clearIntervalDatesPanel();
         }

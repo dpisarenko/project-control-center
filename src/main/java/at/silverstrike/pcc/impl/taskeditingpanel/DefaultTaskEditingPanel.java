@@ -91,8 +91,6 @@ class DefaultTaskEditingPanel extends Panel implements
 
     @Override
     public void initGui() {
-//        final Panel verticalLayoutRight = new Panel();
-
         final Label taskLabel =
                 new Label(TM.get("taskeditingpanel.10-label-task"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
@@ -234,10 +232,7 @@ class DefaultTaskEditingPanel extends Panel implements
             controller.markTaskAsCompleted(this.task);
         } else if (DELETE_TASK_BUTTON.equals(debugId)) {
             controller.deleteTask(this.task);
-        } 
-//        else if (DEPENDENCIES_BUTTON.equals(debugId)) {
-//            letUserEnterDependencies();
-//        }
+        }
     }
 
 
