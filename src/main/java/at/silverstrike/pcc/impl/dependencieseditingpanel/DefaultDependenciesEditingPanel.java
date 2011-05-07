@@ -21,7 +21,6 @@ import ru.altruix.commons.api.di.PccException;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
@@ -50,7 +49,6 @@ class DefaultDependenciesEditingPanel extends Panel implements
             Arrays.asList(
                     new String[] { "1.1", "Project 1", "Task 1" },
                     new String[] { "2.1", "Project 4", "Task 5" });
-    private Panel panel;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -63,25 +61,16 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
     @Override
     public void initGui() {
-        panel = new Panel();
-
-        final HorizontalLayout dependLayout = new HorizontalLayout();
-        dependLayout.setSpacing(true);
-
         final Label dependLabel =
                 new Label(
                         TM.get("dependencieseditingpanel.1-label-dependencies"));
-        dependLayout.addComponent(dependLabel);
+        this.addComponent(dependLabel);
 
         final Button dependEditButton = createDependEditButton();
-        dependLayout.addComponent(dependEditButton);
-
-        panel.addComponent(dependLayout);
-
-        // final Dependen
+        this.addComponent(dependEditButton);
 
         final Table table = createTestTable();
-        panel.addComponent(table);
+        this.addComponent(table);
 
     }
 
@@ -118,7 +107,7 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
     @Override
     public Panel toPanel() {
-        return panel;
+        return this;
     }
 
     @Override

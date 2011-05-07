@@ -308,6 +308,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     }
 
     private void setRightPanel(final Panel aPanel) {
+        LOGGER.debug("setRightPanel, aPanel: {}", aPanel);
         if (aPanel != null) {
             verticalPanelRight = aPanel;
         }

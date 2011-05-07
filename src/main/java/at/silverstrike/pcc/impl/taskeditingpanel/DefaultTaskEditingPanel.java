@@ -159,6 +159,8 @@ class DefaultTaskEditingPanel extends Panel implements
                 factory.create();
         dependenciesController.setInjector(this.injector);
         verticalLayoutRight.addComponent(dependenciesController.initGui());
+        
+        this.addComponent(verticalLayoutRight);
     }
 
     private HorizontalLayout getEffortPanel() {

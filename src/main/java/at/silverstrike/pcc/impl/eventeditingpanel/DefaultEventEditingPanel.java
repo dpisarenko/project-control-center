@@ -123,20 +123,20 @@ class DefaultEventEditingPanel extends Panel implements EventEditingPanel,
         final HorizontalLayout datesLayout = getIntervalDatesPanel();
         verticalLayoutRight.addComponent(datesLayout);
 
-        final HorizontalLayout dependLayout = new HorizontalLayout();
-        dependLayout.setSpacing(true);
-
-        final Label dependLabel = new Label(
-                TM.get("eventeditingpanel.4-label-dependencies"));
-        dependLayout.addComponent(dependLabel);
-
-        final Button dependEditButton = createDependEditButton();
-        dependLayout.addComponent(dependEditButton);
-
-        verticalLayoutRight.addComponent(dependLayout);
-
-        final Table table = createTestTable();
-        verticalLayoutRight.addComponent(table);
+//        final HorizontalLayout dependLayout = new HorizontalLayout();
+//        dependLayout.setSpacing(true);
+//
+//        final Label dependLabel = new Label(
+//                TM.get("eventeditingpanel.4-label-dependencies"));
+//        dependLayout.addComponent(dependLabel);
+//
+//        final Button dependEditButton = createDependEditButton();
+//        dependLayout.addComponent(dependEditButton);
+//
+//        verticalLayoutRight.addComponent(dependLayout);
+//
+//        final Table table = createTestTable();
+//        verticalLayoutRight.addComponent(table);
         this.addComponent(verticalLayoutRight);
     }
 
