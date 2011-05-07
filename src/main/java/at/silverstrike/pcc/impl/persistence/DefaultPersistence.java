@@ -112,7 +112,7 @@ public class DefaultPersistence implements Persistence {
                     + ")";
     private static final String LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL_NO_PARENT =
         "select min(p.priority) from "
-                + "DefaultSchedulingObject p where and (state <> "
+                + "DefaultSchedulingObject p where (state <> "
                 + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
                 + ")";
 
