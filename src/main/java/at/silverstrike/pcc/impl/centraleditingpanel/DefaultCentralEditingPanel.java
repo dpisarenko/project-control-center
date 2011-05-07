@@ -296,7 +296,8 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         aTreeLayout.addComponent(treePanel);
         aLayout.addComponent(aTreeLayout);
         tree.addListener(new ProjectTreeSelectionListener(this));
-        tree.setItemStyleGenerator(new ProjectTreeItemStyleGenerator());
+        tree.setItemStyleGenerator(new ProjectTreeItemStyleGenerator(
+                this.treeModel));
     }
 
     private void initTreeModel() {
@@ -415,7 +416,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private void updateTree() {
         this.treeModel.updateData();
         this.tree.expandItemsRecursively(ProjectTreeContainer.TREE_ROOT_ID);
-        
+
     }
 
     @Override
@@ -615,13 +616,14 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
 
     @Override
     public void
-            updateEventNodeInTree(final at.silverstrike.pcc.api.model.Event aEvent) {
+            updateEventNodeInTree(
+                    final at.silverstrike.pcc.api.model.Event aEvent) {
         this.treeModel.updateNodeLettering(aEvent);
     }
 
     @Override
     public void taskDependenciesChanged(final SchedulingObject aObject) {
-        this.redrawProjectNetwork();        
+        this.redrawProjectNetwork();
     }
 
     @Override

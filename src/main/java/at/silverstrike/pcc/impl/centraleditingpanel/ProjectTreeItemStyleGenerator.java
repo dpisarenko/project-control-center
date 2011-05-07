@@ -11,8 +11,8 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanel;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
 
 import com.vaadin.ui.Tree;
 
@@ -22,20 +22,23 @@ import com.vaadin.ui.Tree;
  */
 class ProjectTreeItemStyleGenerator implements Tree.ItemStyleGenerator {
     private static final long serialVersionUID = 1L;
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(ProjectTreeItemStyleGenerator.class);
+    private ProjectTreeContainer treeModel;
+
+    public ProjectTreeItemStyleGenerator(final ProjectTreeContainer aTreeModel) {
+        this.treeModel = aTreeModel;
+    }
 
     @Override
     public String getStyle(final Object aItemId) {
-        LOGGER.debug("ProjectTreeItemStyleGenerator.getStyle: {}", aItemId);
-        return "schedulingObjectWithErrors";
-        
-//        final SchedulingObject schedulingObject = (SchedulingObject) aItemId;
-//
-//        if (schedulingObject.getValidationError() != null) {
-//            return "schedulingObjectWithErrors";
-//        } else {
-//            return "schedulingObjectWithoutErrors";
-//        }
+        final SchedulingObject curObject =
+                this.treeModel.getSchedulingObject((Integer) aItemId);
+
+        if (curObject == null) {
+            return "schedulingObjectWithoutErrors";
+        } else if (curObject.getValidationError() != null) {
+            return "schedulingObjectWithErrors";
+        } else {
+            return "schedulingObjectWithoutErrors";
+        }
     }
 }
