@@ -139,12 +139,13 @@ class DefaultMilestoneEditingPanel extends Panel implements
     }
 
     @Override
-    public void setMilestone(Milestone aMilestone) {
+    public void setMilestone(final Milestone aMilestone) {
         this.milestone = aMilestone;
         if (this.milestone != null) {
             milestoneNameTextField.setValue(this.milestone.getName());
         } else {
             milestoneNameTextField.setValue("");
         }
+        this.dependenciesPanelController.setData(this.milestone);
     }
 }
