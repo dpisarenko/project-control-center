@@ -1262,9 +1262,6 @@ public class DefaultPersistence implements Persistence {
             query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
             query.setParameter(STATE_ATTAINED.substring(1),
                     ProcessState.ATTAINED);
-            String parent = Long.toString(aProject.getId());
-            LOGGER.debug("parent: {}", parent);
-            query.setParameter(PARENT, parent);
 
             LOGGER.debug("query: {}", query);
             Object priorityNum = query.list().get(0);
