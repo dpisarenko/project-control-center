@@ -37,6 +37,7 @@ class DefaultDependenciesEditingPanelController implements
                 injector.getInstance(DependenciesEditingPanelFactory.class);
         final DependenciesEditingPanel panel = factory.create();
         
+        panel.setInjector(this.injector);
         panel.initGui();
 
         return panel.toPanel();
