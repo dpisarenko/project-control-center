@@ -80,6 +80,7 @@ class DefaultTaskEditingPanel extends Panel implements
     private transient Task task;
     private String[] effortList;
     private HashMap<String, Double> hm;
+    private DependenciesEditingPanelController dependenciesPanelController;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -155,10 +156,9 @@ class DefaultTaskEditingPanel extends Panel implements
         final DependenciesEditingPanelControllerFactory factory =
                 this.injector
                         .getInstance(DependenciesEditingPanelControllerFactory.class);
-        final DependenciesEditingPanelController dependenciesController =
-                factory.create();
-        dependenciesController.setInjector(this.injector);
-        this.addComponent(dependenciesController.initGui());
+        dependenciesPanelController = factory.create();
+        dependenciesPanelController.setInjector(this.injector);
+        this.addComponent(dependenciesPanelController.initGui());
     }
 
     private HorizontalLayout getEffortPanel() {
@@ -233,6 +233,8 @@ class DefaultTaskEditingPanel extends Panel implements
                     this.task.setBestCaseEffort(toDouble);
                     this.controller.saveTask(this.task);
                 }
+                
+                dependenciesPanelController.setData(this.task);
             }
         } else if (DONE_TASK_BUTTON.equals(debugId)) {
             controller.markTaskAsCompleted(this.task);
@@ -243,22 +245,6 @@ class DefaultTaskEditingPanel extends Panel implements
         }
     }
 
-    private void letUserEnterDependencies() {
-        final DependenciesEditingDialogControllerFactory factory =
-                this.injector
-                        .getInstance(DependenciesEditingDialogControllerFactory.class);
-        final DependenciesEditingDialogController controller = factory.create();
-
-        controller.setInjector(this.injector);
-        controller.setParentWindow(TPTApplication.getCurrentApplication()
-                .getMainWindow());
-        controller.setSchedulingObject(this.task);
-        try {
-            controller.run();
-        } catch (final PccException exception) {
-            LOGGER.error("", exception);
-        }
-    }
 
     @Override
     public Panel toPanel() {

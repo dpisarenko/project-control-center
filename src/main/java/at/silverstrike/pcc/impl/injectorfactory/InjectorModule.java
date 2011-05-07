@@ -30,6 +30,7 @@ import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDial
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEditingPanelControllerFactory;
+import at.silverstrike.pcc.api.dependencytablefiller.DependencyTableFillerFactory;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
@@ -82,6 +83,7 @@ import at.silverstrike.pcc.impl.dependencieseditingdialog.DefaultDependenciesEdi
 import at.silverstrike.pcc.impl.dependencieseditingpanel.DefaultDependenciesEditingPanelFactory;
 import at.silverstrike.pcc.impl.dependencieseditingpanelcontroller.DefaultDependenciesEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.dependencieseditingdialogcontroller.DefaultDependenciesEditingDialogControllerFactory;
+import at.silverstrike.pcc.impl.dependencytablefiller.DefaultDependencyTableFillerFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
 import at.silverstrike.pcc.impl.estimatedcompletiontimespanel.DefaultEstimatedCompletionTimesPanelFactory;
@@ -222,6 +224,8 @@ class InjectorModule extends AbstractModule {
                 new DefautSchedulingIndicatorPanelFactory());
         bind(DependenciesEditingPanelControllerFactory.class).toInstance(
                 new DefaultDependenciesEditingPanelControllerFactory());
+        bind(DependencyTableFillerFactory.class).toInstance(
+                new DefaultDependencyTableFillerFactory());
     }
 
     private TestTableCreator getTestTableCreator() {

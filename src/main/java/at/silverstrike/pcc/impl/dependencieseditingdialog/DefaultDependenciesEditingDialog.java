@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.PccException;
 import ru.altruix.commons.api.gui.ModalDialogResult;
 
 import com.google.inject.Injector;
@@ -37,6 +38,8 @@ import com.vaadin.ui.Window;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.dependencieseditingdialog.DependenciesEditingDialog;
+import at.silverstrike.pcc.api.dependencytablefiller.DependencyTableFiller;
+import at.silverstrike.pcc.api.dependencytablefiller.DependencyTableFillerFactory;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
@@ -69,6 +72,7 @@ final class DefaultDependenciesEditingDialog implements
     private SchedulingObject schedulingObject;
     private transient Persistence persistence;
     private transient WebGuiBus webGuiBus;
+    private transient DependencyTableFiller dependencyTableFiller;
 
     public ModalDialogResult getDialogResult() {
         return dialogResult;
@@ -150,28 +154,13 @@ final class DefaultDependenciesEditingDialog implements
     }
 
     private void addDependencyData(final Table aTable) {
-        if (this.existingDependencies == null) {
-            return;
+        dependencyTableFiller.setTable(aTable);
+        dependencyTableFiller.setDependencies(this.existingDependencies);
+        try {
+            dependencyTableFiller.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
         }
-        for (final SchedulingObject curExistingDependency : this.existingDependencies) {
-            addDependencyItem(aTable, curExistingDependency);
-        }
-    }
-
-    private void addDependencyItem(final Table aTable,
-            final SchedulingObject aCurExistingDependency) {
-        final String projectName;
-
-        if (aCurExistingDependency.getParent() != null) {
-            projectName = aCurExistingDependency.getParent().getName();
-        } else {
-            projectName = "";
-        }
-
-        aTable.addItem(
-                new Object[] { aCurExistingDependency.getId(), projectName,
-                        aCurExistingDependency.getName() },
-                aCurExistingDependency);
     }
 
     private HorizontalLayout getAddDependencyPanel() {
@@ -241,11 +230,11 @@ final class DefaultDependenciesEditingDialog implements
 
             this.schedulingObject.setPredecessors(this.selectedDependencies);
             this.persistence.updateSchedulingObject(this.schedulingObject);
-            
+
             LOGGER.debug("DefaultDependenciesEditingDialog.buttonClick.OK_BUTTON");
-            webGuiBus.broadcastTaskDependenciesChangedMessage(this.schedulingObject);
-            
-            
+            webGuiBus
+                    .broadcastTaskDependenciesChangedMessage(this.schedulingObject);
+
         } else if (CANCEL_BUTTON.equals(debugId)) {
             this.dialogResult = ModalDialogResult.CLOSED_WITH_CANCEL;
             closeDialog();
@@ -261,6 +250,21 @@ final class DefaultDependenciesEditingDialog implements
 
             this.dependenciesTable.removeItem(selectedObject);
             newDependencyComboBox.addItem(selectedObject);
+        }
+    }
+
+    private void addDependencyItem(final Table aTable,
+            final SchedulingObject aObject) {
+        final Set<SchedulingObject> dependencies =
+                new HashSet<SchedulingObject>();
+        dependencies.add(aObject);
+
+        dependencyTableFiller.setTable(aTable);
+        dependencyTableFiller.setDependencies(dependencies);
+        try {
+            dependencyTableFiller.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
         }
     }
 
@@ -281,6 +285,10 @@ final class DefaultDependenciesEditingDialog implements
         if (aInjector != null) {
             persistence = aInjector.getInstance(Persistence.class);
             webGuiBus = aInjector.getInstance(WebGuiBus.class);
+
+            final DependencyTableFillerFactory factory =
+                    aInjector.getInstance(DependencyTableFillerFactory.class);
+            dependencyTableFiller = factory.create();
         }
     }
 

@@ -17,6 +17,7 @@ import com.vaadin.ui.Panel;
 import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanelFactory;
 import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEditingPanelController;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 
 /**
  * @author DP118M
@@ -25,6 +26,7 @@ import at.silverstrike.pcc.api.dependencieseditingpanelcontroller.DependenciesEd
 class DefaultDependenciesEditingPanelController implements
         DependenciesEditingPanelController {
     private transient Injector injector;
+    private DependenciesEditingPanel panel;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -35,11 +37,16 @@ class DefaultDependenciesEditingPanelController implements
     public Panel initGui() {
         final DependenciesEditingPanelFactory factory =
                 injector.getInstance(DependenciesEditingPanelFactory.class);
-        final DependenciesEditingPanel panel = factory.create();
+        panel = factory.create();
         
         panel.setInjector(this.injector);
         panel.initGui();
 
         return panel.toPanel();
+    }
+
+    @Override
+    public void setData(final SchedulingObject aSchedulingObject) {
+        panel.setData(aSchedulingObject);
     }
 }

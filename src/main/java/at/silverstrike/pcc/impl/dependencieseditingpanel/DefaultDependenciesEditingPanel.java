@@ -11,9 +11,6 @@
 
 package at.silverstrike.pcc.impl.dependencieseditingpanel;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,12 +24,16 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
+import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
+import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
+import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanel;
+import at.silverstrike.pcc.api.dependencytablefiller.DependencyTableFiller;
+import at.silverstrike.pcc.api.dependencytablefiller.DependencyTableFillerFactory;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
-import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 
 class DefaultDependenciesEditingPanel extends Panel implements
         DependenciesEditingPanel, ClickListener {
@@ -42,13 +43,10 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
     private transient Injector injector;
     private transient PccDebugIdRegistry debugIdRegistry;
+    private transient DependencyTableFiller dependencyTableFiller;
 
-    private static final String[] TEST_COLUMN_NAMES = new String[] { "�",
-            "Project", "Name" };
-    private static final List<String[]> TEST_TABLE_DATA =
-            Arrays.asList(
-                    new String[] { "1.1", "Project 1", "Task 1" },
-                    new String[] { "2.1", "Project 4", "Task 5" });
+    private SchedulingObject schedulingObject;
+    private Table dependenciesTable;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -56,6 +54,10 @@ class DefaultDependenciesEditingPanel extends Panel implements
             this.injector = aInjector;
             this.debugIdRegistry =
                     this.injector.getInstance(PccDebugIdRegistry.class);
+            final DependencyTableFillerFactory factory =
+                    this.injector
+                            .getInstance(DependencyTableFillerFactory.class);
+            this.dependencyTableFiller = factory.create();
         }
     }
 
@@ -66,11 +68,27 @@ class DefaultDependenciesEditingPanel extends Panel implements
                         TM.get("dependencieseditingpanel.1-label-dependencies"));
         this.addComponent(dependLabel);
 
+        dependenciesTable = new Table();
+
+        dependenciesTable.setWidth("80%");
+        dependenciesTable.setHeight("170px");
+        dependenciesTable.addContainerProperty(
+                TM.get("dependencieseditingpanel.3-table-no"), Long.class,
+                null);
+        dependenciesTable.addContainerProperty(
+                TM.get("dependencieseditingpanel.4-table-project"),
+                String.class, null);
+        dependenciesTable.addContainerProperty(
+                TM.get("dependencieseditingpanel.5-table-name"), String.class,
+                null);
+        dependenciesTable.setSelectable(true);
+        dependenciesTable.setMultiSelect(false);
+        dependenciesTable.setImmediate(true);
+
         final Button dependEditButton = createDependEditButton();
         this.addComponent(dependEditButton);
 
-        final Table table = createTestTable();
-        this.addComponent(table);
+        this.addComponent(dependenciesTable);
 
     }
 
@@ -85,24 +103,26 @@ class DefaultDependenciesEditingPanel extends Panel implements
         return dependEditButton;
     }
 
-    private Table createTestTable() {
-        final TestTableCreator creator =
-                this.injector.getInstance(TestTableCreator.class);
-        creator.setColumnNames(TEST_COLUMN_NAMES);
-        creator.setData(TEST_TABLE_DATA);
-        try {
-            creator.run();
-        } catch (final PccException exception) {
-            LOGGER.error(ErrorCodes.M_001_TEST_TABLE_CREATION, exception);
-        }
-        final Table table = creator.getTable();
-        return table;
-    }
-
     @Override
     public void buttonClick(final ClickEvent aEvent) {
-        // TODO Auto-generated method stub
+        letUserEnterDependencies();
+    }
+    
+    private void letUserEnterDependencies() {
+        final DependenciesEditingDialogControllerFactory factory =
+                this.injector
+                        .getInstance(DependenciesEditingDialogControllerFactory.class);
+        final DependenciesEditingDialogController controller = factory.create();
 
+        controller.setInjector(this.injector);
+        controller.setParentWindow(TPTApplication.getCurrentApplication()
+                .getMainWindow());
+        controller.setSchedulingObject(this.schedulingObject);
+        try {
+            controller.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+        }
     }
 
     @Override
@@ -112,7 +132,17 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
     @Override
     public void setData(final SchedulingObject aSchedulingObject) {
-        // TODO Auto-generated method stub
-
+        schedulingObject = aSchedulingObject;
+        this.dependenciesTable.removeAllItems();
+        if (aSchedulingObject != null) {
+            this.dependencyTableFiller.setTable(this.dependenciesTable);
+            this.dependencyTableFiller.setDependencies(aSchedulingObject
+                    .getPredecessors());
+            try {
+                this.dependencyTableFiller.run();
+            } catch (final PccException exception) {
+                LOGGER.error("", exception);
+            }
+        }
     }
 }
