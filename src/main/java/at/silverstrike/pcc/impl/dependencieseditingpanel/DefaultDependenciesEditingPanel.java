@@ -26,14 +26,12 @@ import com.vaadin.ui.Button.ClickListener;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
-import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogController;
 import at.silverstrike.pcc.api.dependencieseditingdialogcontroller.DependenciesEditingDialogControllerFactory;
 import at.silverstrike.pcc.api.dependencieseditingpanel.DependenciesEditingPanel;
 import at.silverstrike.pcc.api.dependencytablefiller.DependencyTableFiller;
 import at.silverstrike.pcc.api.dependencytablefiller.DependencyTableFillerFactory;
 import at.silverstrike.pcc.api.model.SchedulingObject;
-import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 
 class DefaultDependenciesEditingPanel extends Panel implements
         DependenciesEditingPanel, ClickListener {
@@ -42,7 +40,6 @@ class DefaultDependenciesEditingPanel extends Panel implements
             .getLogger(DefaultDependenciesEditingPanel.class);
 
     private transient Injector injector;
-    private transient PccDebugIdRegistry debugIdRegistry;
     private transient DependencyTableFiller dependencyTableFiller;
 
     private SchedulingObject schedulingObject;
@@ -52,8 +49,6 @@ class DefaultDependenciesEditingPanel extends Panel implements
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             this.injector = aInjector;
-            this.debugIdRegistry =
-                    this.injector.getInstance(PccDebugIdRegistry.class);
             final DependencyTableFillerFactory factory =
                     this.injector
                             .getInstance(DependencyTableFillerFactory.class);
@@ -95,9 +90,7 @@ class DefaultDependenciesEditingPanel extends Panel implements
     private Button createDependEditButton() {
         final Button dependEditButton =
                 new Button(TM.get("dependencieseditingpanel.2-button-edit"));
-        dependEditButton.setDebugId(this.debugIdRegistry.getDebugId(
-                PccFunctionalBlock.dependencieseditingpanel,
-                "1-button-dependencies"));
+        dependEditButton.setDebugId("048.001");
         dependEditButton.addListener(this);
 
         return dependEditButton;
