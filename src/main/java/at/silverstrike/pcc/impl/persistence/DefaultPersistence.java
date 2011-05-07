@@ -110,6 +110,11 @@ public class DefaultPersistence implements Persistence {
                     + ") and (state <> "
                     + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
                     + ")";
+    private static final String LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL_NO_PARENT =
+        "select min(p.priority) from "
+                + "DefaultSchedulingObject p where and (state <> "
+                + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
+                + ")";
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultPersistence.class);
@@ -1261,15 +1266,25 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public boolean isLowestPriorityObjectInProject(SchedulingObject aProject,
-            SchedulingObject aSchedulingObject) {
+    public boolean isLowestPriorityObjectInProject(final SchedulingObject aProject,
+            final SchedulingObject aSchedulingObject) {
         boolean isLowest = false;
         try {
+            final String hql;
+            
+            if (aProject == null)
+            {
+                hql = LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL_NO_PARENT;
+            }
+            else
+            {
+                hql =
+                    LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL.replace("${parent}",
+                            Long.toString(aProject.getId()));
+            }
+            
             final Query query =
-                    session.createQuery(LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL
-                            .replace(
-                                    "${parent}",
-                                    Long.toString(aProject.getId())));
+                    session.createQuery(hql);
 
             query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
             query.setParameter(STATE_ATTAINED.substring(1),
