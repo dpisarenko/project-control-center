@@ -18,5 +18,5 @@
  **/
 @import url(../reindeer/styles.css);
 
-.schedulingObjectWithErrors { color:red; }
-.schedulingObjectWithoutErrors { color:black; }
+.v-tree-node-schedulingObjectWithErrors { color:red; }
+.v-tree-node-schedulingObjectWithoutErrors { color:black; }
