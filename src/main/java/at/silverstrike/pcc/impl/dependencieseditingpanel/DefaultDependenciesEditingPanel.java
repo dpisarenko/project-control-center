@@ -43,7 +43,7 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
     private transient Injector injector;
     private transient PccDebugIdRegistry debugIdRegistry;
-    
+
     private static final String[] TEST_COLUMN_NAMES = new String[] { "�",
             "Project", "Name" };
     private static final List<String[]> TEST_TABLE_DATA =
@@ -56,6 +56,8 @@ class DefaultDependenciesEditingPanel extends Panel implements
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
             this.injector = aInjector;
+            this.debugIdRegistry =
+                    this.injector.getInstance(PccDebugIdRegistry.class);
         }
     }
 
@@ -80,7 +82,7 @@ class DefaultDependenciesEditingPanel extends Panel implements
 
         final Table table = createTestTable();
         panel.addComponent(table);
-        
+
     }
 
     private Button createDependEditButton() {
@@ -122,6 +124,6 @@ class DefaultDependenciesEditingPanel extends Panel implements
     @Override
     public void setData(final SchedulingObject aSchedulingObject) {
         // TODO Auto-generated method stub
-        
+
     }
 }
