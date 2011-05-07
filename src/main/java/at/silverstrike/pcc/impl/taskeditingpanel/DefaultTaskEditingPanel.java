@@ -96,12 +96,12 @@ class DefaultTaskEditingPanel extends Panel implements
 
     @Override
     public void initGui() {
-        final Panel verticalLayoutRight = new Panel();
+//        final Panel verticalLayoutRight = new Panel();
 
         final Label taskLabel =
                 new Label(TM.get("taskeditingpanel.10-label-task"));
         taskLabel.setContentMode(Label.CONTENT_TEXT);
-        verticalLayoutRight.addComponent(taskLabel);
+        this.addComponent(taskLabel);
 
         final HorizontalLayout buttonsTaskLayout = new HorizontalLayout();
         buttonsTaskLayout.setSpacing(true);
@@ -135,22 +135,22 @@ class DefaultTaskEditingPanel extends Panel implements
         deleteButton.addListener(this); // react to clicks
         buttonsTaskLayout.addComponent(deleteButton);
 
-        verticalLayoutRight.addComponent(buttonsTaskLayout);
+        this.addComponent(buttonsTaskLayout);
 
         taskNameTextField = new TextField();
         taskNameTextField.setColumns(PROCESS_NAME_TEXT_FIELD_COLUMNS);
         taskNameTextField.setRows(PROCESS_NAME_TEXT_FIELD_ROWS);
         taskNameTextField.setImmediate(true);
-        verticalLayoutRight.addComponent(taskNameTextField);
+        this.addComponent(taskNameTextField);
 
         final Label effortLabel =
                 new Label(TM.get("taskeditingpanel.14-label-effort"));
         effortLabel.setContentMode(Label.CONTENT_TEXT);
-        verticalLayoutRight.addComponent(effortLabel);
+        this.addComponent(effortLabel);
 
         final HorizontalLayout effortLayout = getEffortPanel();
 
-        verticalLayoutRight.addComponent(effortLayout);
+        this.addComponent(effortLayout);
 
         final DependenciesEditingPanelControllerFactory factory =
                 this.injector
@@ -158,9 +158,7 @@ class DefaultTaskEditingPanel extends Panel implements
         final DependenciesEditingPanelController dependenciesController =
                 factory.create();
         dependenciesController.setInjector(this.injector);
-        verticalLayoutRight.addComponent(dependenciesController.initGui());
-        
-        this.addComponent(verticalLayoutRight);
+        this.addComponent(dependenciesController.initGui());
     }
 
     private HorizontalLayout getEffortPanel() {
