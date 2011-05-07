@@ -157,7 +157,7 @@ class DefaultTaskEditingPanel extends Panel implements
                         .getInstance(DependenciesEditingPanelControllerFactory.class);
         final DependenciesEditingPanelController dependenciesController =
                 factory.create();
-
+        dependenciesController.setInjector(this.injector);
         verticalLayoutRight.addComponent(dependenciesController.initGui());
     }
 
