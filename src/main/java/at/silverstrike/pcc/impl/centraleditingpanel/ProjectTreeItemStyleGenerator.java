@@ -11,7 +11,8 @@
 
 package at.silverstrike.pcc.impl.centraleditingpanel;
 
-import at.silverstrike.pcc.api.model.SchedulingObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vaadin.ui.Tree;
 
@@ -21,15 +22,20 @@ import com.vaadin.ui.Tree;
  */
 class ProjectTreeItemStyleGenerator implements Tree.ItemStyleGenerator {
     private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ProjectTreeItemStyleGenerator.class);
 
     @Override
     public String getStyle(final Object aItemId) {
-        final SchedulingObject schedulingObject = (SchedulingObject) aItemId;
-
-        if (schedulingObject.getValidationError() != null) {
-            return "schedulingObjectWithErrors";
-        } else {
-            return "schedulingObjectWithoutErrors";
-        }
+        LOGGER.debug("ProjectTreeItemStyleGenerator.getStyle: {}", aItemId);
+        return "schedulingObjectWithErrors";
+        
+//        final SchedulingObject schedulingObject = (SchedulingObject) aItemId;
+//
+//        if (schedulingObject.getValidationError() != null) {
+//            return "schedulingObjectWithErrors";
+//        } else {
+//            return "schedulingObjectWithoutErrors";
+//        }
     }
 }

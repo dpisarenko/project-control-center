@@ -1403,6 +1403,11 @@ public class DefaultPersistence implements Persistence {
             LOGGER.error("", exception);
         }
 
+        if (maxPriority == null)
+        {
+            maxPriority = 500; 
+        }
+        
         return maxPriority + PRIORITY_INCREASE_STEP;
     }
 }
