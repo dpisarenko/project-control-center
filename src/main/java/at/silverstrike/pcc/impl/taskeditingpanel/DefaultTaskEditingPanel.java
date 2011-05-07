@@ -240,9 +240,10 @@ class DefaultTaskEditingPanel extends Panel implements
             controller.markTaskAsCompleted(this.task);
         } else if (DELETE_TASK_BUTTON.equals(debugId)) {
             controller.deleteTask(this.task);
-        } else if (DEPENDENCIES_BUTTON.equals(debugId)) {
-            letUserEnterDependencies();
-        }
+        } 
+//        else if (DEPENDENCIES_BUTTON.equals(debugId)) {
+//            letUserEnterDependencies();
+//        }
     }
 
 
