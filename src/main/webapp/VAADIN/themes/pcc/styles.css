@@ -17,3 +17,6 @@
  * Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
  **/
 @import url(../reindeer/styles.css);
+
+.schedulingObjectWithErrors { color:red; }
+.schedulingObjectWithoutErrors { color:black; }

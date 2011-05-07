@@ -17,5 +17,5 @@ package at.silverstrike.pcc.api.model;
  */
 public enum SchedulingObjectValidationError {
     EFFORT_NOT_SPECIFIED,
-    MIN_EFFORT_GREATER_THAN_MAX_OR_VICE_VERSA
+//    MIN_EFFORT_GREATER_THAN_MAX_OR_VICE_VERSA
 }

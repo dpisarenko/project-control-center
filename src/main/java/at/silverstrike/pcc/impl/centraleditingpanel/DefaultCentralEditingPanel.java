@@ -296,6 +296,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
         aTreeLayout.addComponent(treePanel);
         aLayout.addComponent(aTreeLayout);
         tree.addListener(new ProjectTreeSelectionListener(this));
+        tree.setItemStyleGenerator(new ProjectTreeItemStyleGenerator());
     }
 
     private void initTreeModel() {
@@ -414,6 +415,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     private void updateTree() {
         this.treeModel.updateData();
         this.tree.expandItemsRecursively(ProjectTreeContainer.TREE_ROOT_ID);
+        
     }
 
     @Override
@@ -571,25 +573,18 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
                 .get("centraleditingpanel.28-milestoneCreationFailure-message");
 
         dialog.showConfirmationDialog(title, message, null);
-
     }
 
     @Override
     public void taskDeletionFailure() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void eventDeletionFailure() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void milestoneDeletionFailure() {
-        // TODO Auto-generated method stub
-
     }
 
     /**

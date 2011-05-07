@@ -14,20 +14,15 @@ package at.silverstrike.pcc.impl.schedulingguicontroller;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import ru.altruix.commons.api.di.PccException;
-
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
-
 import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.SchedulingObjectValidationError;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
@@ -45,9 +40,6 @@ import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
  */
 class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         implements SchedulingPanelController {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(DefaultSchedulingPanelController.class);
-
     private static final int ONE_MONTH = 1;
     private SchedulingIndicatorPanel panel;
     private SchedulingState state;
@@ -148,18 +140,10 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
                 persistence.getAllNotDeletedTasks();
 
         // Находим все дела с неправильными трудозатратами
-        boolean tasksWithInvalidEffortEstimatesFound = false;
-        for (final SchedulingObject curSchedulingObject : schedulingObjects) {
-            if (curSchedulingObject instanceof Task) {
-                final Task curTask = (Task) curSchedulingObject;
-
-                if ((curTask.getBestCaseEffort() == null)
-                        || (curTask.getWorstCaseEffort() == null)) {
-                    tasksWithInvalidEffortEstimatesFound = true;
-//                    curTask.set
-                }
-            }
-        }
+        boolean tasksWithInvalidEffortEstimatesFound =
+                areTasksWithInvalidEffortEstimatesFound(persistence,
+                        schedulingObjects);
+        
         
         if (tasksWithInvalidEffortEstimatesFound)
         {
@@ -198,6 +182,31 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
             this.state = SchedulingState.ERROR;
         }
         this.panel.displayState(this.state);
+    }
+
+    private boolean areTasksWithInvalidEffortEstimatesFound(
+            final Persistence persistence,
+            final List<SchedulingObject> schedulingObjects) {
+        boolean tasksWithInvalidEffortEstimatesFound = false;
+        final List<Task> tasksToUpdate = new LinkedList<Task>();
+        for (final SchedulingObject curSchedulingObject : schedulingObjects) {
+            if (curSchedulingObject instanceof Task) {
+                final Task curTask = (Task) curSchedulingObject;
+
+                if ((curTask.getBestCaseEffort() == null)
+                        || (curTask.getWorstCaseEffort() == null)) {
+                    tasksWithInvalidEffortEstimatesFound = true;
+                    curTask.setValidationError(SchedulingObjectValidationError.EFFORT_NOT_SPECIFIED);
+                    
+                    tasksToUpdate.add(curTask);
+                }
+            }
+        }
+        
+        for (final Task curTask : tasksToUpdate){
+            persistence.updateTask(curTask);
+        }
+        return tasksWithInvalidEffortEstimatesFound;
     }
 
     @Override
