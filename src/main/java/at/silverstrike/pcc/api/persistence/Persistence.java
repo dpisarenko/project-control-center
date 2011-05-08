@@ -172,13 +172,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     void updateMilestone(final Milestone aMilestone);
 
-/*
-	void updateEvent(final Event aEvent);
-
-	void increasePriority(final Long parentProjectId);
-
-	void decreasePriority(final Long parentProjectId);
-*/
     void updateEvent(final Event aEvent);
 
     /**
@@ -195,4 +188,5 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     void updateSchedulingObject(final SchedulingObject schedulingObject);
 
+    Worker getCurrentWorker();
 }

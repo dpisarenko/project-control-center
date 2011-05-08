@@ -277,7 +277,13 @@ public class DefaultPersistence implements Persistence {
             newProcess.setPriority(getNextSchedulingObjectPriority(
                     getParentTask(aParentProcessId)));
 
+            final ResourceAllocation alloc = new DefaultResourceAllocation();
+            alloc.setResource(this.getCurrentWorker());
+            newProcess.getResourceAllocations().add(alloc);
+            
+            session.save(alloc);
             session.save(newProcess);
+            
             tx.commit();
 
             returnValue = newProcess;
@@ -1403,11 +1409,44 @@ public class DefaultPersistence implements Persistence {
             LOGGER.error("", exception);
         }
 
-        if (maxPriority == null)
-        {
-            maxPriority = 500; 
+        if (maxPriority == null) {
+            maxPriority = 500;
         }
-        
+
         return maxPriority + PRIORITY_INCREASE_STEP;
+    }
+
+    @Override
+    public Worker getCurrentWorker() {
+        final String hql = "from DefaultWorker where abbreviation = 'USR'";
+
+        final Query query = session.createQuery(hql);
+
+        @SuppressWarnings("rawtypes")
+        List list = query.list();
+        if (list.size() == 1) {
+            return (Worker) list.get(0);
+        } else {
+            final Worker worker = new DefaultWorker();
+
+            worker.setAbbreviation("USR");
+            worker.setDailyLimitInHours(8.);
+            worker.setFirstName("Dmitri");
+            worker.setMiddleName("Anatol'evich");
+            worker.setSurname("Pisarenko");
+         
+            
+            final Transaction tx = session.beginTransaction();
+
+            try {
+                session.save(worker);
+                tx.commit();
+            } catch (final Exception exception) {
+                LOGGER.error("", exception);
+                tx.rollback();
+            }
+            
+            return worker;
+        }
     }
 }

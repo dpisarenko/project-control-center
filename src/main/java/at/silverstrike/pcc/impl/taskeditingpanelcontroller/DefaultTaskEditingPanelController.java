@@ -89,20 +89,13 @@ class DefaultTaskEditingPanelController extends WebGuiBusListenerAdapter
 
     @Override
     public void taskEdited(final Task aTask) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void clearPanel() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void milestoneEdited(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
-
     }
-
 }

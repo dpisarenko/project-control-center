@@ -165,7 +165,7 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
             this.state = SchedulingState.ERROR;
             return;
         }
-        
+                
         scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
                 schedulingObjects);
 

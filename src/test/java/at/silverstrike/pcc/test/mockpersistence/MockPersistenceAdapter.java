@@ -260,5 +260,11 @@ public abstract class MockPersistenceAdapter implements Persistence {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public Worker getCurrentWorker() {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }
