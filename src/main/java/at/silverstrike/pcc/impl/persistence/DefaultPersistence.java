@@ -365,6 +365,9 @@ public class DefaultPersistence implements Persistence {
 
         try {
             session.createQuery("delete DefaultDailyPlan").executeUpdate();
+            session.createQuery("delete DefaultDailySchedule").executeUpdate();
+            session.createQuery("delete DefaultDailyToDoList").executeUpdate();
+            session.createQuery("delete DefaultBooking").executeUpdate();
 
             final Date lastPlannedDay =
                     DateUtils.addDays(aNow, DAYS_TO_PLAN_AHEAD);
