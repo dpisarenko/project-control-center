@@ -279,6 +279,7 @@ public class DefaultPersistence implements Persistence {
 
             final ResourceAllocation alloc = new DefaultResourceAllocation();
             alloc.setResource(this.getCurrentWorker());
+            newProcess.setResourceAllocations(new LinkedList<ResourceAllocation>());
             newProcess.getResourceAllocations().add(alloc);
             
             session.save(alloc);
