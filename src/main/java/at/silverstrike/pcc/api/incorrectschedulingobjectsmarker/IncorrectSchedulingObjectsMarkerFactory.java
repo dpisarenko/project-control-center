@@ -9,12 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.model;
+package at.silverstrike.pcc.api.incorrectschedulingobjectsmarker;
+
+import ru.altruix.commons.api.conventions.Factory;
 
 /**
  * @author DP118M
- *
+ * 
  */
-public enum SchedulingObjectValidationError {
-    EFFORT_NOT_SPECIFIED
+public interface IncorrectSchedulingObjectsMarkerFactory extends
+        Factory<IncorrectSchedulingObjectsMarker> {
+
 }

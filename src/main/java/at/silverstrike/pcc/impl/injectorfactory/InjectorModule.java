@@ -39,6 +39,7 @@ import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelCont
 import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
+import at.silverstrike.pcc.api.incorrectschedulingobjectsmarker.IncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
@@ -91,6 +92,7 @@ import at.silverstrike.pcc.impl.eventeditingpanel.DefaultMeetingEditingPanelFact
 import at.silverstrike.pcc.impl.eventeditingpanelcontroller.DefaultEventEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.graph2resource.DefaultGraph2ResourceConverterFactory;
+import at.silverstrike.pcc.impl.incorrectschedulingobjectsmarker.DefaultIncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
@@ -226,6 +228,8 @@ class InjectorModule extends AbstractModule {
                 new DefaultDependenciesEditingPanelControllerFactory());
         bind(DependencyTableFillerFactory.class).toInstance(
                 new DefaultDependencyTableFillerFactory());
+        bind(IncorrectSchedulingObjectsMarkerFactory.class).toInstance(
+                new DefaultIncorrectSchedulingObjectsMarkerFactory());
     }
 
     private TestTableCreator getTestTableCreator() {
