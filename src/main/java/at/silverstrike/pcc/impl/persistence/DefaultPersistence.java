@@ -28,6 +28,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.DerbyDialect;
 
 import at.silverstrike.pcc.api.model.Booking;
+import at.silverstrike.pcc.api.model.DailyLimitResourceAllocation;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
@@ -277,8 +278,11 @@ public class DefaultPersistence implements Persistence {
             newProcess.setPriority(getNextSchedulingObjectPriority(
                     getParentTask(aParentProcessId)));
 
-            final ResourceAllocation alloc = new DefaultResourceAllocation();
-            alloc.setResource(this.getCurrentWorker());
+            
+            final DailyLimitResourceAllocation alloc = new DefaultDailyLimitResourceAllocation();
+            final Worker worker = this.getCurrentWorker();
+            alloc.setResource(worker);
+            alloc.setDailyLimit(worker.getDailyLimitInHours());
             newProcess.setResourceAllocations(new LinkedList<ResourceAllocation>());
             newProcess.getResourceAllocations().add(alloc);
             
