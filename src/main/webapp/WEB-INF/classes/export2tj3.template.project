@@ -17,7 +17,7 @@ project "${projectName}" ${now} +${schedulingHorizonMonths}m
 
   currency "${currency}"
 
-  timingresolution 15 min
+  timingresolution 10 min
   
   scenario plan "Plan" {
   }

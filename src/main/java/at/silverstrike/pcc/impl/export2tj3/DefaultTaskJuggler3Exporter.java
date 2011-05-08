@@ -113,7 +113,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             "export2tj3.template.resource";
     private static final String START_DATE_TIME = "${startDateTime}";
 
-    private static final Double TIMING_RESOLUTION_IN_HOURS = 0.25;
+    private static final Double TIMING_RESOLUTION_IN_HOURS = 0.16667;
 
     private String effortTemplate;
     private EmbeddedFileReader embeddedFileReader;
