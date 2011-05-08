@@ -22,6 +22,7 @@
 			</generator>
 		</id>
 		<property name="abbreviation" />
+		<property name="dailyLimitInHours" />
 		<joined-subclass name="at.silverstrike.pcc.impl.persistence.DefaultWorker"
 			table="TBL_WORKER"
 			lazy="false">
