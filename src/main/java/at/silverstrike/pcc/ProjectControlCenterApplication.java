@@ -69,7 +69,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
         setTheme(THEME);
         TM.getDictionary().setDefaultLanguage("en");
 
-        this.setUser("DP");
+        this.setUser("USR");
 
         final InjectorFactory injectorFactory = new DefaultInjectorFactory();
         injector = injectorFactory.createInjector();

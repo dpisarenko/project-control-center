@@ -22,6 +22,8 @@ final class ErrorCodes {
     public static final String M_001_SELECTED_DAY_CHANGED = PREFIX + "001";
 
     public static final String M_002_SELECTED_DAY_CHANGED2 = PREFIX + "002";
+    
+    public static final String M_003_SELECTED_DAY_CHANGED3 = PREFIX + "003";
 
     private ErrorCodes() {
     }

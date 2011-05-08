@@ -26,7 +26,7 @@
 		<bag name="tasksToCompleteToday" lazy="false">
 			<key column="DAILY_TO_DO_LIST_ID" />
 			<one-to-many
-				class="at.silverstrike.pcc.impl.persistence.DefaultTask" />
+				class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject" />
 		</bag>
 	</class>
 </hibernate-mapping>

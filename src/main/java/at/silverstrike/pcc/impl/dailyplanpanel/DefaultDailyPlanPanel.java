@@ -132,18 +132,22 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
                 .replace("#{dayOfWeek}", getDayOfWeek(now))
                 .replace("#{date}", getFullDate(now));
     }
-    private void removeHoursMinutesSeconds(final Date aDate)
-    {
-        DateUtils.setHours(aDate, 0);
-        DateUtils.setMinutes(aDate, 0);
-        DateUtils.setSeconds(aDate, 0);
-        DateUtils.setMilliseconds(aDate, 0);
-    }
-    protected void selectedDayChanged(final ValueChangeEvent aEvent) {
-        final Date newDate = (Date) aEvent.getProperty().getValue();
 
-        removeHoursMinutesSeconds(newDate);
-        
+    private Date removeHoursMinutesSeconds(final Date aDate) {
+        Date returnValue = DateUtils.setHours(aDate, 0);
+
+        returnValue = DateUtils.setMinutes(aDate, 0);
+        returnValue = DateUtils.setSeconds(aDate, 0);
+        returnValue = DateUtils.setMilliseconds(aDate, 0);
+
+        return returnValue;
+    }
+
+    protected void selectedDayChanged(final ValueChangeEvent aEvent) {
+        final Date newDate =
+                removeHoursMinutesSeconds((Date) aEvent.getProperty()
+                        .getValue());
+
         final Application app = getApplication();
         final String resource;
         if (app != null) {
@@ -158,6 +162,8 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         final Persistence persistence = this.injector
                 .getInstance(Persistence.class);
 
+        LOGGER.debug("{}: newDate: {}, resource: {}", new Object[] {});
+        
         final DailyPlan dailyPlan = persistence.getDailyPlan(newDate, resource);
 
         LOGGER.debug("{}: dailyPlan: {}", new Object[] {
@@ -165,7 +171,7 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 
         updateToDoTable(dailyPlan);
         updateScheduleTable(dailyPlan);
-        dateLabel.setValue(getDateLabelText(newDate));        
+        dateLabel.setValue(getDateLabelText(newDate));
     }
 
     private void updateToDoTable(final DailyPlan aDailyPlan) {
