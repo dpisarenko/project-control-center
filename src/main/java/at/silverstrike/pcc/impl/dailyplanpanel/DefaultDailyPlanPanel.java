@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,16 +89,15 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
     private Table scheduleTable;
     private Table todoTable;
 
+    private Label dateLabel;
+
     public DefaultDailyPlanPanel() {
     }
 
     private Component getDatePanel() {
         final HorizontalLayout layout = new HorizontalLayout();
         final Date now = new Date();
-        final Label dateLabel = new Label(DATE_LABEL_TEMPLATE
-                .replace("#{dayInMonth}", getDayInMonth(now))
-                .replace("#{dayOfWeek}", getDayOfWeek(now))
-                .replace("#{date}", getFullDate(now)));
+        dateLabel = new Label(getDateLabelText(now));
         dateLabel.setContentMode(Label.CONTENT_XHTML);
 
         selectedDayDateField = new InlineDateField();
@@ -126,9 +126,24 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         return layout;
     }
 
+    private String getDateLabelText(final Date now) {
+        return DATE_LABEL_TEMPLATE
+                .replace("#{dayInMonth}", getDayInMonth(now))
+                .replace("#{dayOfWeek}", getDayOfWeek(now))
+                .replace("#{date}", getFullDate(now));
+    }
+    private void removeHoursMinutesSeconds(final Date aDate)
+    {
+        DateUtils.setHours(aDate, 0);
+        DateUtils.setMinutes(aDate, 0);
+        DateUtils.setSeconds(aDate, 0);
+        DateUtils.setMilliseconds(aDate, 0);
+    }
     protected void selectedDayChanged(final ValueChangeEvent aEvent) {
         final Date newDate = (Date) aEvent.getProperty().getValue();
 
+        removeHoursMinutesSeconds(newDate);
+        
         final Application app = getApplication();
         final String resource;
         if (app != null) {
@@ -150,6 +165,7 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
 
         updateToDoTable(dailyPlan);
         updateScheduleTable(dailyPlan);
+        dateLabel.setValue(getDateLabelText(newDate));        
     }
 
     private void updateToDoTable(final DailyPlan aDailyPlan) {
