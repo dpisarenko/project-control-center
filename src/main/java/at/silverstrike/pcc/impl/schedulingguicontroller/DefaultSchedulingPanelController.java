@@ -158,6 +158,8 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
             LOGGER.error("", exception);
         }
         
+        LOGGER.debug("incorrectSchedulingObjectsMarker.areErrorsFound(): " + incorrectSchedulingObjectsMarker.areErrorsFound());
+        
         if (incorrectSchedulingObjectsMarker.areErrorsFound())
         {
             this.state = SchedulingState.ERROR;
@@ -190,36 +192,13 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
             this.state = SchedulingState.PLAN_UP_TO_DATE;
         } catch (final InvalidDurationException exception) {
             this.state = SchedulingState.ERROR;
+            LOGGER.error("", exception);
         } catch (final PccException exception) {
             this.state = SchedulingState.ERROR;
+            LOGGER.error("", exception);
         }
         this.panel.displayState(this.state);
     }
-
-//    private boolean areTasksWithInvalidEffortEstimatesFound(
-//            final Persistence persistence,
-//            final List<SchedulingObject> schedulingObjects) {
-//        boolean tasksWithInvalidEffortEstimatesFound = false;
-//        final List<Task> tasksToUpdate = new LinkedList<Task>();
-//        for (final SchedulingObject curSchedulingObject : schedulingObjects) {
-//            if (curSchedulingObject instanceof Task) {
-//                final Task curTask = (Task) curSchedulingObject;
-//
-//                if ((curTask.getBestCaseEffort() == null)
-//                        || (curTask.getWorstCaseEffort() == null)) {
-//                    tasksWithInvalidEffortEstimatesFound = true;
-//                    curTask.setValidationError(SchedulingObjectValidationError.EFFORT_NOT_SPECIFIED);
-//                    
-//                    tasksToUpdate.add(curTask);
-//                }
-//            }
-//        }
-//        
-//        for (final Task curTask : tasksToUpdate){
-//            persistence.updateTask(curTask);
-//        }
-//        return tasksWithInvalidEffortEstimatesFound;
-//    }
 
     @Override
     public void setInjector(final Injector aInjector) {
