@@ -65,12 +65,12 @@ resourceDeclaration
 
 task
 	:
-	Task Identifier String OpenParen 
+	Task Identifier String OpenParen
+	task* 
 	Start DateTimeWithTimeZone
 	End DateTimeWithTimeZone
 	Scheduling Asap
 	Scheduled
-	task*
 	CloseParen
 	;
 
