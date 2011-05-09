@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 14:05:07 src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g 2011-05-09 23:21:01
+// $ANTLR 3.2 Sep 23, 2009 14:05:07 src\\main\\java\\at\\silverstrike\\pcc\\impl\\tj3bookingsparser\\grammar\\Bookings.g 2011-05-09 23:48:15
 
 package at.silverstrike.pcc.impl.tj3bookingsparser.grammar;
 
@@ -16,14 +16,14 @@ public class BookingsLexer extends Lexer {
     public static final int A=35;
     public static final int Prj=5;
     public static final int CloseParen=10;
-    public static final int IntegerNumber=22;
+    public static final int IntegerNumber=24;
     public static final int Supplement=20;
     public static final int DayOfWeek=26;
     public static final int DateTimeWithTimeZone=7;
     public static final int Time=29;
     public static final int Colon=30;
     public static final int EOF=-1;
-    public static final int FloatingPointNumber=24;
+    public static final int FloatingPointNumber=22;
     public static final int Project=4;
     public static final int Identifier=13;
     public static final int Space=36;
@@ -35,14 +35,14 @@ public class BookingsLexer extends Lexer {
     public static final int OpenParen=9;
     public static final int T__37=37;
     public static final int Booking=31;
-    public static final int Priority=21;
+    public static final int Priority=23;
     public static final int Projectids=11;
     public static final int Scheduling=17;
     public static final int String=6;
     public static final int Task=14;
     public static final int Asap=18;
     public static final int Comma=28;
-    public static final int Complete=23;
+    public static final int Complete=21;
     public static final int Workinghours=25;
 
     // delegates
