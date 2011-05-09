@@ -1476,7 +1476,7 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public boolean hasChildren(final SchedulingObject aObject) {
-        Integer numberOfChildren = 0;
+        Long numberOfChildren = 0;
         try {
             final String hql;
             hql =
@@ -1484,10 +1484,8 @@ public class DefaultPersistence implements Persistence {
                             .replace("${parentId}", aObject.getId()
                                     .toString());
 
-            LOGGER.debug("hql priority: {}", hql);
-
             final Query query = session.createQuery(hql);
-            numberOfChildren = (Integer) query.uniqueResult();
+            numberOfChildren = (Long) query.uniqueResult();
             LOGGER.debug("numberOfChildren: {}", numberOfChildren);
         } catch (final Exception exception) {
             LOGGER.error("", exception);
