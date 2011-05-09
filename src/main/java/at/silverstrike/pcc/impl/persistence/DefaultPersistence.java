@@ -1113,14 +1113,28 @@ public class DefaultPersistence implements Persistence {
                 session.createQuery("from DefaultDailyPlan");
         final List<DailyPlan> dailyPlans = dailyPlanQuery.list();
 
-        final Query processesQuery =
-                session.createQuery("from DefaultTask");
-        final List<SchedulingObject> processes = processesQuery.list();
+        final List<SchedulingObject> schedulingObjects =
+                new LinkedList<SchedulingObject>();
 
+        final Query tasksQuery =
+                session.createQuery("from DefaultTask");
+        final Query eventsQuery =
+                session.createQuery("from DefaultEvent");
+        final Query milestonesQuery =
+                session.createQuery("from DefaultMilestone");
+
+        final List<SchedulingObject> tasks = tasksQuery.list();
+        final List<SchedulingObject> events = eventsQuery.list();
+        final List<SchedulingObject> milestones = milestonesQuery.list();
+
+        schedulingObjects.addAll(tasks);
+        schedulingObjects.addAll(events);
+        schedulingObjects.addAll(milestones);
+        
         userData.setBookings(bookings);
         userData.setDailyPlans(dailyPlans);
         userData.setIdentifier("dp");
-        userData.setSchedulingData(processes);
+        userData.setSchedulingData(schedulingObjects);
 
         return userData;
     }
@@ -1458,5 +1472,26 @@ public class DefaultPersistence implements Persistence {
 
             return worker;
         }
+    }
+
+    @Override
+    public boolean hasChildren(final SchedulingObject aObject) {
+        Integer numberOfChildren = 0;
+        try {
+            final String hql;
+            hql =
+                    "SELECT COUNT(*) FROM DefaultSchedulingObject WHERE parent.id = ${parentId}"
+                            .replace("${parentId}", aObject.getId()
+                                    .toString());
+
+            LOGGER.debug("hql priority: {}", hql);
+
+            final Query query = session.createQuery(hql);
+            numberOfChildren = (Integer) query.uniqueResult();
+            LOGGER.debug("numberOfChildren: {}", numberOfChildren);
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+        }
+        return numberOfChildren > 0;
     }
 }

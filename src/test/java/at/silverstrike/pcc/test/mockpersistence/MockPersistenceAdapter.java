@@ -266,5 +266,11 @@ public abstract class MockPersistenceAdapter implements Persistence {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public boolean hasChildren(final SchedulingObject aObject) {
+        // TODO Auto-generated method stub
+        return false;
+    }
     
 }

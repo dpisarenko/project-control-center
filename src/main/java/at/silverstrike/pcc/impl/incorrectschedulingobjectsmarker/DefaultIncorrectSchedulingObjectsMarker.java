@@ -49,8 +49,10 @@ class DefaultIncorrectSchedulingObjectsMarker implements
                 boolean hasErrorFlagSet =
                         (curTask.getValidationError() != null);
 
-                if ((curTask.getBestCaseEffort() == null)
-                        || (curTask.getWorstCaseEffort() == null)) {
+                boolean hasChildren = persistence.hasChildren(curTask);
+                
+                if (hasChildren && ((curTask.getBestCaseEffort() == null)
+                        || (curTask.getWorstCaseEffort() == null))) {
                     errorsFound = true;
                     errorFound = true;
                     curTask.setValidationError(SchedulingObjectValidationError.EFFORT_NOT_SPECIFIED);
