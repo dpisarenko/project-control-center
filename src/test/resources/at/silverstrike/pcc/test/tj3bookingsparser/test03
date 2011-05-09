@@ -13,10 +13,10 @@ task T9 "Write blog entry  From wish..." {
 }
 
 supplement task T7.T12 {
-  booking R1 2011-05-09-16:20-+0100 + 1.66666666666667h { overtime 2 }
   priority 600
+  booking R1 2011-05-09-16:20-+0100 + 1.66h { overtime 2 }
+  complete 0.0
 }
-
 
 supplement resource R1 {
   workinghours sun off
