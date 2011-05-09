@@ -414,12 +414,15 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         }
 
         for (final SchedulingObject proc : processes) {
-            checkTimingResolution((Task) proc,
-                    ((Task) proc).getBestCaseEffort());
-            checkTimingResolution((Task) proc,
-                    ((Task) proc).getAverageCaseEffort());
-            checkTimingResolution((Task) proc,
-                    ((Task) proc).getWorstCaseEffort());
+            if (proc instanceof Task) {
+                final Task task = (Task) proc;
+
+                if (!persistence.hasChildren(task)) {
+                    checkTimingResolution(task, task.getBestCaseEffort());
+                    checkTimingResolution(task, task.getAverageCaseEffort());
+                    checkTimingResolution(task, task.getWorstCaseEffort());
+                }
+            }
         }
     }
 
