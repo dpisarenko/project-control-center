@@ -10,7 +10,7 @@ project "${projectName}" ${now} +${schedulingHorizonMonths}m
 {
   timeformat "%d.%m.%Y %H:%M"
 
-  numberformat "-" "" "." "," 1
+  numberformat "-" "" "." "," 2
   currencyformat "(" ")" "." "," 0
 
   now ${now}

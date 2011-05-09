@@ -66,7 +66,7 @@ resourceDeclaration
 task
 	:
 	Task Identifier String OpenParen
-	task* 
+	(task)* 
 	(Start DateTimeWithTimeZone
 	End DateTimeWithTimeZone
 	Scheduling Asap
@@ -181,8 +181,13 @@ Plus
 
 duration
 	:
-	FloatingPointNumber 'h'
+	D+ P D+H
 	;
+
+fragment
+H
+  : 'h'
+  ;
 
 overtime
 	:
@@ -278,7 +283,7 @@ IntegerNumber
   ;
 
 Identifier
-  : (D|A|'.')+;
+  : (D|A|P)+;
 
 String
   :  '"' ~'"'* '"'
@@ -297,6 +302,11 @@ fragment
 A
   : 'A'..'Z'
   | 'a'..'z'
+  ;
+
+fragment
+P
+  : '.'
   ;
 
 Space   
