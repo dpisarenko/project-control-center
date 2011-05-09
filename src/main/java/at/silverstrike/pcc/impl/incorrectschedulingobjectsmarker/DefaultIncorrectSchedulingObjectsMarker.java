@@ -59,6 +59,7 @@ class DefaultIncorrectSchedulingObjectsMarker implements
                 if (errorFound && !hasErrorFlagSet) {
                     tasksToUpdate.add(curTask);
                 } else if (!errorFound && hasErrorFlagSet) {
+                    curTask.setValidationError(null);
                     tasksToUpdate.add(curTask);
                 }
             }
