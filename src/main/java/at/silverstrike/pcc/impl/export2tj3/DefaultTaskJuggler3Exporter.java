@@ -345,10 +345,14 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
     private CharSequence shortenName(final String aName) {
         if (aName != null) {
-            return StringUtils.abbreviate(aName, MAX_TASK_NAME_LENGTH);
+            return StringUtils.abbreviate(removeSpecialCharacters(aName), MAX_TASK_NAME_LENGTH);
         } else {
             return "";
         }
+    }
+
+    private String removeSpecialCharacters(final String aName) {
+        return aName.replace('\"', ' ');
     }
 
     private String subsituteResourcePlaceHolders(
