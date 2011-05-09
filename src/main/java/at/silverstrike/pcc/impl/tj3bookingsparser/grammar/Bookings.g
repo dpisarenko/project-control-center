@@ -80,7 +80,7 @@ supplementTask returns [DefaultSupplementStatement suppStmt]
 		{
 			suppStmt = new DefaultSupplementStatement();
 		}	
-	Supplement Task taskId=TaskIdentifier {suppStmt.setTaskId($taskId.text); } 
+	Supplement Task taskId=Identifier {suppStmt.setTaskId($taskId.text); } 
 	OpenParen
 	(Priority IntegerNumber)*
 	(
@@ -278,11 +278,7 @@ IntegerNumber
   ;
 
 Identifier
-  : (D|A)+;
-
-TaskIdentifier
-  : (D|A)(D|A|'.')+;
-
+  : (D|A|'.')+;
 
 String
   :  '"' ~'"'* '"'
