@@ -277,7 +277,7 @@ IntegerNumber
   ;
 
 Identifier
-  : (D|A)+;
+  : (D|A|'.')+;
 
 String
   :  '"' ~'"'* '"'
