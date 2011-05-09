@@ -70,6 +70,7 @@ task
 	End DateTimeWithTimeZone
 	Scheduling Asap
 	Scheduled
+	task*
 	CloseParen
 	;
 
@@ -79,7 +80,7 @@ supplementTask returns [DefaultSupplementStatement suppStmt]
 		{
 			suppStmt = new DefaultSupplementStatement();
 		}	
-	Supplement Task taskId=Identifier {suppStmt.setTaskId($taskId.text); } 
+	Supplement Task taskId=TaskIdentifier {suppStmt.setTaskId($taskId.text); } 
 	OpenParen
 	(Priority IntegerNumber)*
 	(
@@ -277,7 +278,11 @@ IntegerNumber
   ;
 
 Identifier
-  : (D|A|'.')+;
+  : (D|A)+;
+
+TaskIdentifier
+  : (D|A)(D|A|'.')+;
+
 
 String
   :  '"' ~'"'* '"'
