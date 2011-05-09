@@ -1476,7 +1476,7 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public boolean hasChildren(final SchedulingObject aObject) {
-        Long numberOfChildren = 0;
+        Long numberOfChildren = 0L;
         try {
             final String hql;
             hql =
