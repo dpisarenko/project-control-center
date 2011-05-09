@@ -289,7 +289,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             return effortTemplate
                     .replace(EFFORT, formatDouble(worstCaseEffort));
         } else {
-            return effortTemplate.replace(EFFORT, formatDouble(0.));
+            return "";
         }
     }
 

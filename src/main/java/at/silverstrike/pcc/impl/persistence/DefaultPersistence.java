@@ -368,8 +368,9 @@ public class DefaultPersistence implements Persistence {
             session.createQuery("delete from DefaultBooking").executeUpdate();
             session.createQuery("delete from DefaultDailySchedule")
                     .executeUpdate();
-            session.createSQLQuery("delete from TBL_DAILY_TO_DO_LIST_TASKSTOCOMPLETETODAY")
-            .executeUpdate();
+            session.createSQLQuery(
+                    "delete from TBL_DAILY_TO_DO_LIST_TASKSTOCOMPLETETODAY")
+                    .executeUpdate();
             session.createQuery("delete from DefaultDailyToDoList")
                     .executeUpdate();
             session.createQuery("delete from DefaultDailyPlan").executeUpdate();
@@ -426,11 +427,15 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
 
         try {
+            final String hql = "from DefaultSchedulingObject where ((state <> "
+                    + STATE_DELETED
+                    + ") and (state <> "
+                    + STATE_ATTAINED + "))";
+
+            LOGGER.debug("getAllNotDeletedTasks: hql: {}", hql);
+
             final Query query =
-                    session.createQuery("from DefaultSchedulingObject where ((state <> "
-                            + STATE_DELETED
-                            + ") and (state <> "
-                            + STATE_ATTAINED + "))");
+                    session.createQuery(hql);
 
             query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
             query.setParameter(STATE_ATTAINED.substring(1),
@@ -438,8 +443,15 @@ public class DefaultPersistence implements Persistence {
 
             final List result = query.list();
 
+            LOGGER.debug("getAllNotDeletedTasks: result.size: {}",
+                    result.size());
+
             for (final Object record : result) {
                 if (record instanceof DefaultTask) {
+                    LOGGER.debug(
+                            "getAllNotDeletedTasks: Task: {}, state: {}",
+                            new Object[] { record,
+                                    ((DefaultTask) record).getState() });
                     returnValue.add((DefaultSchedulingObject) record);
                 }
             }
