@@ -17,6 +17,7 @@
 		<property name="name" />
 		<property name="priority" />
 		<property name="state" />
+		<property name="validationError" />
 		<many-to-one name="parent"
 			class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject"
 			lazy="false" />

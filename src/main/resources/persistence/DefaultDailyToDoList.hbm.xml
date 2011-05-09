@@ -1,13 +1,7 @@
 <?xml version="1.0"?>
-<!--
-  This file is part of Project Control Center (PCC).
-  
-  PCC (Project Control Center) project is intellectual property of 
-  Dmitri Anatol'evich Pisarenko.
-  
-  Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
-  All rights reserved
--->
+<!-- This file is part of Project Control Center (PCC). PCC (Project Control 
+	Center) project is intellectual property of Dmitri Anatol'evich Pisarenko. 
+	Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko All rights reserved -->
 
 <!DOCTYPE hibernate-mapping PUBLIC
          "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
@@ -25,7 +19,7 @@
 
 		<bag name="tasksToCompleteToday" lazy="false">
 			<key column="DAILY_TO_DO_LIST_ID" />
-			<one-to-many
+			<many-to-many column="DAILY_TO_DO_LIST_ITEM_ID"
 				class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject" />
 		</bag>
 	</class>
