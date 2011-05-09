@@ -14,6 +14,9 @@ package at.silverstrike.pcc.impl.incorrectschedulingobjectsmarker;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ru.altruix.commons.api.di.PccException;
 
 import com.google.inject.Injector;
@@ -30,6 +33,9 @@ import at.silverstrike.pcc.api.persistence.Persistence;
  */
 class DefaultIncorrectSchedulingObjectsMarker implements
         IncorrectSchedulingObjectsMarker {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultIncorrectSchedulingObjectsMarker.class);
+
     private Injector injector;
     private List<SchedulingObject> schedulingObjects;
     private boolean errorsFound;
@@ -50,20 +56,23 @@ class DefaultIncorrectSchedulingObjectsMarker implements
                         (curTask.getValidationError() != null);
 
                 boolean hasChildren = persistence.hasChildren(curTask);
-                
-                if (hasChildren && ((curTask.getBestCaseEffort() == null)
+
+                if ((!hasChildren) && ((curTask.getBestCaseEffort() == null)
                         || (curTask.getWorstCaseEffort() == null))) {
                     errorsFound = true;
                     errorFound = true;
                     curTask.setValidationError(SchedulingObjectValidationError.EFFORT_NOT_SPECIFIED);
+                } else {
+                    curTask.setValidationError(null);
                 }
 
                 if (errorFound && !hasErrorFlagSet) {
                     tasksToUpdate.add(curTask);
                 } else if (!errorFound && hasErrorFlagSet) {
-                    curTask.setValidationError(null);
                     tasksToUpdate.add(curTask);
                 }
+                LOGGER.debug("curTask: {}, errorFound: {}, hasErrorFlagSet: {}, hasChildren: {}", new Object[]{curTask.getName(),
+                        errorFound, hasErrorFlagSet, hasChildren});
             }
         }
 

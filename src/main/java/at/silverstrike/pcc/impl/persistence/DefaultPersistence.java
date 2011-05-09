@@ -1130,7 +1130,7 @@ public class DefaultPersistence implements Persistence {
         schedulingObjects.addAll(tasks);
         schedulingObjects.addAll(events);
         schedulingObjects.addAll(milestones);
-        
+
         userData.setBookings(bookings);
         userData.setDailyPlans(dailyPlans);
         userData.setIdentifier("dp");
@@ -1486,10 +1486,11 @@ public class DefaultPersistence implements Persistence {
 
             final Query query = session.createQuery(hql);
             numberOfChildren = (Long) query.uniqueResult();
-            LOGGER.debug("numberOfChildren: {}", numberOfChildren);
+            LOGGER.debug("numberOfChildren: {}, task: {}", new Object[] {
+                    numberOfChildren, aObject.getName() });
         } catch (final Exception exception) {
             LOGGER.error("", exception);
         }
-        return numberOfChildren > 0;
+        return numberOfChildren > 0L;
     }
 }
