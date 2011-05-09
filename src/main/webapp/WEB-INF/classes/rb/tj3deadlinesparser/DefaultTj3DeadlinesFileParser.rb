@@ -16,7 +16,7 @@ class DefaultProcessEndTimeTuple
 	def initialize(processId, endDateTime)
 		logger = org.slf4j.LoggerFactory.getLogger("DefaultProcessEndTimeTuple")
 		
-		@processId = Integer(processId.tr('"', ' ').tr('T', ' '))
+		@processId = Integer(processId.split(".").last.tr('"', ' ').tr('T', ' '))
 		@endDateTime = Java::at.silverstrike.pcc.impl.jruby.RubyDateTimeUtils.getDate(
 			endDateTime.year, endDateTime.month-1, endDateTime.mday, endDateTime.hour, 
 			endDateTime.min) 
