@@ -368,6 +368,8 @@ public class DefaultPersistence implements Persistence {
             session.createQuery("delete from DefaultBooking").executeUpdate();
             session.createQuery("delete from DefaultDailySchedule")
                     .executeUpdate();
+            session.createSQLQuery("delete from TBL_DAILY_TO_DO_LIST_TASKSTOCOMPLETETODAY")
+            .executeUpdate();
             session.createQuery("delete from DefaultDailyToDoList")
                     .executeUpdate();
             session.createQuery("delete from DefaultDailyPlan").executeUpdate();
