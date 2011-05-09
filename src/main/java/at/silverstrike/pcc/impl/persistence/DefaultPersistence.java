@@ -365,7 +365,6 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
 
         try {
-            session.createQuery("delete from DefaultBooking").executeUpdate();
             session.createQuery("delete from DefaultDailySchedule")
                     .executeUpdate();
             session.createSQLQuery(
@@ -962,6 +961,8 @@ public class DefaultPersistence implements Persistence {
 
         final List<Booking> bookings = bookingsQuery.list();
 
+        LOGGER.debug("updateDailySchedules: bookings.size(): {}", bookings.size());
+        
         for (final Booking curBooking : bookings) {
             final Query dailyPlanQuery =
                     aSession.createQuery("from DefaultDailyPlan "

@@ -18,6 +18,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingStatement;
@@ -33,6 +36,7 @@ class DefaultBookingsFile2Bookings implements BookingsFile2Bookings {
     private List<BookingTuple> tuples;
     private BookingsFile bookingsFile = null;
     private Persistence persistence = null;
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultBookingsFile2Bookings.class);
 
     @Override
     public List<BookingTuple> getTuples() {
@@ -72,6 +76,7 @@ class DefaultBookingsFile2Bookings implements BookingsFile2Bookings {
                 }
             }
         }
+        LOGGER.debug("tuples: {}", this.tuples.size());
     }
 
     private double parseDuration(final String aDuration) {
