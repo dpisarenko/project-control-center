@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.tj3bookingsparser;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 
@@ -42,4 +44,15 @@ class DefaultBookingTuple implements BookingTuple {
     public void setBooking(final Booking aBooking) {
         this.booking = aBooking;
     }
+
+    @Override
+    public String toString() {
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(this).
+                append("processId", processId).
+                append("resourceId", resourceId).
+                append("booking", booking);
+
+        return toStringBuilder.toString();
+    }
+
 }

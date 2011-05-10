@@ -13,6 +13,8 @@ package at.silverstrike.pcc.impl.persistence;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import ru.altruix.commons.impl.util.Utils;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Task;
@@ -72,6 +74,17 @@ class DefaultBooking implements Booking {
 
     public void setId(final Long aId) {
         this.id = aId;
+    }
+
+    @Override
+    public String toString() {
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(this).
+                append("id", id).
+                append("process", process).
+                append("resource", resource).
+                append("startDateTime", startDateTime).
+                append("duration", duration);
+        return toStringBuilder.toString();
     }
 
 }

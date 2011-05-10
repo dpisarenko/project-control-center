@@ -17,6 +17,7 @@ import static org.apache.commons.io.IOUtils.closeQuietly;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -137,6 +138,19 @@ public final class TestDefaultTj3BookingsParser {
 
         Assert.assertNotNull(bookingTuples);
         Assert.assertTrue(bookingTuples.size() > 0);
+        
+        Assert.assertEquals("SO 7", 0, findTuplesByProcessId(7L).size());
+        Assert.assertEquals("SO 11", 2, findTuplesByProcessId(11L).size());
+    }
+
+    private List<BookingTuple> findTuplesByProcessId(final long aProcessId) {
+        final List<BookingTuple> foundTuples = new LinkedList<BookingTuple>();
+        for (final BookingTuple curTuple : foundTuples){
+            if (curTuple.getProcessId() == aProcessId){
+                foundTuples.add(curTuple);
+            }
+        }
+        return foundTuples;
     }
     @Test
     public void test03() {

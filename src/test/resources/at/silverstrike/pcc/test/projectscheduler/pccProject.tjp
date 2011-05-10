@@ -10,7 +10,7 @@ project "Sample project" 2010-10-25 +1m
 {
   timeformat "%d.%m.%Y %H:%M"
 
-  numberformat "-" "" "." "," 1
+  numberformat "-" "" "." "," 2
   currencyformat "(" ")" "." "," 0
 
   now 2010-10-25
