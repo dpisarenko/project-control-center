@@ -165,9 +165,13 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
             this.state = SchedulingState.ERROR;
             return;
         }
-                
+
+        final List<SchedulingObject> schedulingObjectsToExport =
+            persistence.getTopLevelTasks();
+
+        
         scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
-                schedulingObjects);
+                schedulingObjectsToExport);
 
         final List<Resource> resources = new LinkedList<Resource>();
         resources.addAll(persistence.getAllWorkers());

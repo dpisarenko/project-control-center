@@ -961,8 +961,9 @@ public class DefaultPersistence implements Persistence {
 
         final List<Booking> bookings = bookingsQuery.list();
 
-        LOGGER.debug("updateDailySchedules: bookings.size(): {}", bookings.size());
-        
+        LOGGER.debug("updateDailySchedules: bookings.size(): {}",
+                bookings.size());
+
         for (final Booking curBooking : bookings) {
             final Query dailyPlanQuery =
                     aSession.createQuery("from DefaultDailyPlan "
@@ -1507,5 +1508,42 @@ public class DefaultPersistence implements Persistence {
             LOGGER.error("", exception);
         }
         return numberOfChildren > 0L;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<SchedulingObject> getTopLevelTasks() {
+        @SuppressWarnings("rawtypes")
+        List result = null;
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            final String hql = "from DefaultSchedulingObject where ((state <> "
+                    + STATE_DELETED
+                    + ") and (state <> "
+                    + STATE_ATTAINED + ")) and (parent is null)";
+
+            LOGGER.debug("getTopLevelTasks: hql: {}", hql);
+
+            final Query query =
+                    session.createQuery(hql);
+
+            query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
+            query.setParameter(STATE_ATTAINED.substring(1),
+                    ProcessState.ATTAINED);
+
+            result = query.list();
+
+            LOGGER.debug("getTopLevelTasks: result.size: {}",
+                    result.size());
+
+            tx.commit();
+
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+
+        return (List<SchedulingObject>)result;
     }
 }

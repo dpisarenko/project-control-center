@@ -191,4 +191,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     Worker getCurrentWorker();
 
     boolean hasChildren(final SchedulingObject aObject);
+
+    List<SchedulingObject> getTopLevelTasks();
 }
