@@ -13,9 +13,9 @@ task T2010 "Some interesting task" {
 }
 
 supplement task T2010 {
-  priority 200
   booking R1210 2010-10-25-09:00-+0200 + 2.75h { overtime 2 }
   complete 0.0
+  priority 200
 }
 
 supplement resource R1210 {

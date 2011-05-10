@@ -90,6 +90,7 @@ public final class TestDefaultTj3BookingsParser {
         final List<BookingTuple> bookingTuples = objectUnderTest.getBookings();
 
         Assert.assertNotNull(bookingTuples);
+        Assert.assertTrue(bookingTuples.size() > 0);
     }
     @Test
     public void test02() {

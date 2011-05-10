@@ -74,6 +74,7 @@ task
 	CloseParen
 	;
 
+/* (Complete FloatingPointNumber)* */
 
 supplementTask returns [DefaultSupplementStatement suppStmt]
 	:
@@ -84,8 +85,7 @@ supplementTask returns [DefaultSupplementStatement suppStmt]
 	OpenParen
 	(
 	bStmt=booking {suppStmt.addBookingStatement( $bStmt.stmt ); }
-	)*
-	(Complete FloatingPointNumber)*
+	)*	
 	Priority IntegerNumber
 	CloseParen
 	;
@@ -154,16 +154,16 @@ booking  returns [DefaultBookingStatement stmt]
 	(Comma 
 	bt2=bookingTime  { stmt.addIndBooking($bt2.indBooking); } 
 	)*
-	OpenParen 
+	(OpenParen 
 	overtime 
-	CloseParen
+	CloseParen)
 	;
 
 bookingTime returns [DefaultIndBooking indBooking]
 	:
 	startTime=DateTimeWithTimeZone 
 	Plus 
-	bookingDuration=duration
+	bookingDuration=FloatingPointNumberDuration
 	{
 		$indBooking = new DefaultIndBooking($startTime.text, $bookingDuration.text);
 	}
@@ -181,13 +181,8 @@ Plus
 
 duration
 	:
-	D+ P D+H
+	FloatingPointNumber 'h'
 	;
-
-fragment
-H
-  : 'h'
-  ;
 
 overtime
 	:
@@ -277,6 +272,9 @@ Hyphen
 FloatingPointNumber
   : D+'.'D+
   ;
+FloatingPointNumberDuration
+  : D+ P D+ H
+  ;
 
 IntegerNumber
   : D+
@@ -308,6 +306,12 @@ fragment
 P
   : '.'
   ;
+
+fragment
+H
+  : 'h'
+  ;
+
 
 Space   
   :  (' ' | '\t' | '\r'? '\n'){$channel=HIDDEN;}
