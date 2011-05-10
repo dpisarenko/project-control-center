@@ -148,6 +148,64 @@ public final class TestDefaultTj3BookingsParser {
         checkNumberOfBookings(bookingTuples, 11L, 3);
         checkNumberOfBookings(bookingTuples, 12L, 3);
     }
+    @Test
+    public void test04() {
+        /**
+         * Create the injector
+         */
+        final InjectorFactory injectorFactory =
+                new MockInjectorFactory(new MockInjectorModule());
+        final Injector injector = injectorFactory.createInjector();
+
+        /**
+         * Get object under test
+         */
+        final Tj3BookingsParser objectUnderTest =
+                injector.getInstance(Tj3BookingsParser.class);
+        Assert.assertNotNull(objectUnderTest);
+
+        /**
+         * Parse file
+         */
+        objectUnderTest.setInjector(injector);
+
+        InputStream inputStream = null;
+        try {
+            inputStream = FileUtils.openInputStream(new File(DIR + "test04"));
+
+            objectUnderTest.setInputStream(inputStream);
+
+            objectUnderTest.run();
+        } catch (final IOException exception) {
+            LOGGER.error("", exception);
+            fail(exception.getMessage());
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+            fail(exception.getMessage());
+        } finally {
+            closeQuietly(inputStream);
+        }
+
+        /**
+         * Check actual and expected results.
+         */
+        final List<BookingTuple> bookingTuples = objectUnderTest.getBookings();
+
+        for (final BookingTuple curTuple : bookingTuples) {
+            LOGGER.debug(curTuple.toString());
+        }
+
+        Assert.assertNotNull(bookingTuples);
+        Assert.assertTrue(bookingTuples.size() > 0);
+
+        checkNumberOfBookings(bookingTuples, 5L, 0);
+        checkNumberOfBookings(bookingTuples, 9L, 1);
+        checkNumberOfBookings(bookingTuples, 10L, 2);
+        checkNumberOfBookings(bookingTuples, 6L, 0);
+        checkNumberOfBookings(bookingTuples, 7L, 1);
+        checkNumberOfBookings(bookingTuples, 8L, 1);
+
+    }
 
     private void
             checkNumberOfBookings(final List<BookingTuple> aTuples,
