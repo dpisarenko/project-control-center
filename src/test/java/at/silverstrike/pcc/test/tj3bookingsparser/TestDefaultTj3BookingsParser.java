@@ -93,6 +93,7 @@ public final class TestDefaultTj3BookingsParser {
         Assert.assertNotNull(bookingTuples);
         Assert.assertTrue(bookingTuples.size() > 0);
     }
+
     @Test
     public void test02() {
         /**
@@ -136,22 +137,28 @@ public final class TestDefaultTj3BookingsParser {
          */
         final List<BookingTuple> bookingTuples = objectUnderTest.getBookings();
 
+        for (final BookingTuple curTuple : bookingTuples) {
+            LOGGER.debug(curTuple.toString());
+        }
+
         Assert.assertNotNull(bookingTuples);
         Assert.assertTrue(bookingTuples.size() > 0);
-        
-        Assert.assertEquals("SO 7", 0, findTuplesByProcessId(7L).size());
-        Assert.assertEquals("SO 11", 2, findTuplesByProcessId(11L).size());
+
+        Assert.assertEquals("SO 7", 0, findTuplesByProcessId(bookingTuples, 7L).size());
+        Assert.assertEquals("SO 11", 2, findTuplesByProcessId(bookingTuples, 11L).size());
     }
 
-    private List<BookingTuple> findTuplesByProcessId(final long aProcessId) {
+    private List<BookingTuple> findTuplesByProcessId(
+            final List<BookingTuple> aTuples, final long aProcessId) {
         final List<BookingTuple> foundTuples = new LinkedList<BookingTuple>();
-        for (final BookingTuple curTuple : foundTuples){
-            if (curTuple.getProcessId() == aProcessId){
+        for (final BookingTuple curTuple : aTuples) {
+            if (curTuple.getProcessId() == aProcessId) {
                 foundTuples.add(curTuple);
             }
         }
         return foundTuples;
     }
+
     @Test
     public void test03() {
         /**

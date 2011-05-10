@@ -13,6 +13,8 @@ package at.silverstrike.pcc.test.mockpersistence;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import ru.altruix.commons.impl.util.Utils;
 
 import at.silverstrike.pcc.api.model.Booking;
@@ -69,5 +71,15 @@ public final class MockBooking implements Booking {
     @Override
     public Date getEndDateTime() {
         return Utils.addHours(this.startDateTime, this.duration);
+    }
+    @Override
+    public String toString() {
+        final ToStringBuilder toStringBuilder = new ToStringBuilder(this).
+                append("id", id).
+                append("process", process).
+                append("resource", resource).
+                append("startDateTime", startDateTime).
+                append("duration", duration);
+        return toStringBuilder.toString();
     }
 }
