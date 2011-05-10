@@ -24,7 +24,7 @@
 			</generator>
 		</id>
 
-		<bag name="bookings" lazy="false" cascade="delete">
+		<bag name="bookings" lazy="false">
 			<key column="DAILY_SCHEDULE_ID" />
 			<one-to-many class="at.silverstrike.pcc.impl.persistence.DefaultBooking" />
 		</bag>
