@@ -4,7 +4,6 @@ project prj "pcc" "1.0" 2011-05-10-00:00-+0100 - 2011-06-09-10:00-+0100 {
 projectids prj
 
 resource R1 "USR"
-resource R2 "DP"
 
 task T5 "Project 1" {
   task T9 "Task 1.1" {
@@ -58,15 +57,6 @@ supplement task T6.T8 {
   priority 240
 }
 supplement resource R1 {
-  workinghours sun off
-                workinghours mon 9:00 - 12:00, 13:00 - 18:00
-                workinghours tue 9:00 - 12:00, 13:00 - 18:00
-                workinghours wed 9:00 - 12:00, 13:00 - 18:00
-                workinghours thu 9:00 - 12:00, 13:00 - 18:00
-                workinghours fri 9:00 - 12:00, 13:00 - 18:00
-                workinghours sat off
-}
-supplement resource R2 {
   workinghours sun off
                 workinghours mon 9:00 - 12:00, 13:00 - 18:00
                 workinghours tue 9:00 - 12:00, 13:00 - 18:00
