@@ -144,8 +144,18 @@ public final class TestDefaultTj3BookingsParser {
         Assert.assertNotNull(bookingTuples);
         Assert.assertTrue(bookingTuples.size() > 0);
 
-        Assert.assertEquals("SO 7", 0, findTuplesByProcessId(bookingTuples, 7L).size());
-        Assert.assertEquals("SO 11", 2, findTuplesByProcessId(bookingTuples, 11L).size());
+        checkNumberOfBookings(bookingTuples, 7L, 0);
+        checkNumberOfBookings(bookingTuples, 11L, 3);
+        checkNumberOfBookings(bookingTuples, 12L, 3);
+    }
+
+    private void
+            checkNumberOfBookings(final List<BookingTuple> aTuples,
+                    final long aSchedulingObjectId,
+                    final int aExpectedNumberOfBookings) {
+        Assert.assertEquals("SO " + aSchedulingObjectId,
+                aExpectedNumberOfBookings,
+                findTuplesByProcessId(aTuples, aSchedulingObjectId).size());
     }
 
     private List<BookingTuple> findTuplesByProcessId(
