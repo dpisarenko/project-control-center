@@ -367,7 +367,7 @@ public class MockPersistenceLowestPriorityTask extends MockPersistenceAdapter im
     public boolean isLowestPriorityObjectInProject(final SchedulingObject aArg1,
             final SchedulingObject aArg2) {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     /* (non-Javadoc)
