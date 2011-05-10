@@ -1,0 +1,843 @@
+<at.silverstrike.pcc.impl.persistence.DefaultUserData>
+  <identifier>dp</identifier>
+  <processes class="linked-list">
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>1</id>
+      <name>Task 1</name>
+      <priority>510</priority>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">1</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>DELETED</state>
+      <bestCaseEffort>0.5</bestCaseEffort>
+      <worstCaseEffort>0.17</worstCaseEffort>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">1</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker">
+              <abbreviation>USR</abbreviation>
+              <id>1</id>
+              <dailyLimitInHours>8.0</dailyLimitInHours>
+              <firstName>Dmitri</firstName>
+              <middleName>Anatol&apos;evich</middleName>
+              <surname>Pisarenko</surname>
+            </resource>
+            <id>1</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+      <averageEstimatedEndDateTime class="sql-timestamp">2011-05-09 09:20:00.0</averageEstimatedEndDateTime>
+      <bestEstimatedEndDateTime class="sql-timestamp">2011-05-09 09:20:00.0</bestEstimatedEndDateTime>
+      <worstEstimatedEndDateTime class="sql-timestamp">2011-05-09 09:20:00.0</worstEstimatedEndDateTime>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>2</id>
+      <name>Task 2a</name>
+      <priority>520</priority>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">2</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>DELETED</state>
+      <bestCaseEffort>1.0</bestCaseEffort>
+      <worstCaseEffort>1.0</worstCaseEffort>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">2</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>2</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+      <averageEstimatedEndDateTime class="sql-timestamp">2011-05-10 15:00:00.0</averageEstimatedEndDateTime>
+      <bestEstimatedEndDateTime class="sql-timestamp">2011-05-10 15:00:00.0</bestEstimatedEndDateTime>
+      <worstEstimatedEndDateTime class="sql-timestamp">2011-05-10 15:00:00.0</worstEstimatedEndDateTime>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>3</id>
+      <name>Task 3a</name>
+      <priority>530</priority>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">3</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>DELETED</state>
+      <bestCaseEffort>16.0</bestCaseEffort>
+      <worstCaseEffort>8.0</worstCaseEffort>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">3</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>3</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+      <averageEstimatedEndDateTime class="sql-timestamp">2011-05-10 14:00:00.0</averageEstimatedEndDateTime>
+      <bestEstimatedEndDateTime class="sql-timestamp">2011-05-10 14:00:00.0</bestEstimatedEndDateTime>
+      <worstEstimatedEndDateTime class="sql-timestamp">2011-05-10 14:00:00.0</worstEstimatedEndDateTime>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>4</id>
+      <name>&lt;New task&gt; + ctl</name>
+      <priority>540</priority>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">4</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>DELETED</state>
+      <validationError>EFFORT_NOT_SPECIFIED</validationError>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">4</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>4</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>5</id>
+      <name>Russian blog</name>
+      <priority>550</priority>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">5</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>DELETED</state>
+      <validationError>EFFORT_NOT_SPECIFIED</validationError>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">5</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>5</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>6</id>
+      <name>English blog</name>
+      <priority>560</priority>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">6</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>DELETED</state>
+      <validationError>EFFORT_NOT_SPECIFIED</validationError>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">6</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>6</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>7</id>
+      <name>Project control center</name>
+      <priority>570</priority>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">7</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>REPORTED</state>
+      <validationError>EFFORT_NOT_SPECIFIED</validationError>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">7</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>7</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>8</id>
+      <name>Blog</name>
+      <priority>580</priority>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">8</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>REPORTED</state>
+      <validationError>EFFORT_NOT_SPECIFIED</validationError>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">8</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>8</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>9</id>
+      <name>Write blog entry &quot;From wishes to requirements&quot;</name>
+      <priority>590</priority>
+      <parent class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../at.silverstrike.pcc.impl.persistence.DefaultTask[8]"/>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">9</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>REPORTED</state>
+      <bestCaseEffort>5.0</bestCaseEffort>
+      <worstCaseEffort>3.0</worstCaseEffort>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">9</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>9</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>10</id>
+      <name>Bugfix: Projects without effort are marked red.</name>
+      <priority>580</priority>
+      <parent class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../at.silverstrike.pcc.impl.persistence.DefaultTask[7]"/>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">10</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>REPORTED</state>
+      <bestCaseEffort>0.5</bestCaseEffort>
+      <worstCaseEffort>0.17</worstCaseEffort>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">10</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>10</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>11</id>
+      <name>Bugfix: No scheduling object numbers are displayed in the tree.</name>
+      <priority>590</priority>
+      <parent class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../at.silverstrike.pcc.impl.persistence.DefaultTask[7]"/>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">11</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>REPORTED</state>
+      <bestCaseEffort>3.0</bestCaseEffort>
+      <worstCaseEffort>1.0</worstCaseEffort>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">11</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>11</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>12</id>
+      <name>Bugfix: Best/avg./worst case estimates are not calculated.</name>
+      <priority>600</priority>
+      <parent class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../at.silverstrike.pcc.impl.persistence.DefaultTask[7]"/>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">12</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>REPORTED</state>
+      <bestCaseEffort>3.0</bestCaseEffort>
+      <worstCaseEffort>1.0</worstCaseEffort>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">12</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>12</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+    <at.silverstrike.pcc.impl.persistence.DefaultTask>
+      <id>13</id>
+      <name>Data export does not work</name>
+      <priority>610</priority>
+      <parent class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../at.silverstrike.pcc.impl.persistence.DefaultTask[7]"/>
+      <predecessors class="org.hibernate.collection.PersistentSet">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject.predecessors</role>
+        <key class="long">13</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="map"/>
+        <set/>
+      </predecessors>
+      <state>REPORTED</state>
+      <validationError>EFFORT_NOT_SPECIFIED</validationError>
+      <resourceAllocations class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>at.silverstrike.pcc.impl.persistence.DefaultTask.resourceAllocations</role>
+        <key class="long">13</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+            <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../../../at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+            <id>13</id>
+            <dailyLimit>8.0</dailyLimit>
+          </at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation>
+        </storedSnapshot>
+        <bag>
+          <at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation reference="../../storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation"/>
+        </bag>
+      </resourceAllocations>
+    </at.silverstrike.pcc.impl.persistence.DefaultTask>
+  </processes>
+  <dailyPlans>
+    <at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <date class="sql-timestamp">2011-05-08 00:00:00.0</date>
+      <toDoList class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList">
+        <tasksToCompleteToday class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList.tasksToCompleteToday</role>
+          <key class="long">15</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </tasksToCompleteToday>
+        <id>15</id>
+      </toDoList>
+      <schedule class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule">
+        <bookings class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailySchedule.bookings</role>
+          <key class="long">15</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </bookings>
+        <id>15</id>
+      </schedule>
+      <id>15</id>
+    </at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+    <at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <date class="sql-timestamp">2011-05-09 00:00:00.0</date>
+      <toDoList class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList">
+        <tasksToCompleteToday class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList.tasksToCompleteToday</role>
+          <key class="long">16</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </tasksToCompleteToday>
+        <id>16</id>
+      </toDoList>
+      <schedule class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule">
+        <bookings class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailySchedule.bookings</role>
+          <key class="long">16</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </bookings>
+        <id>16</id>
+      </schedule>
+      <id>16</id>
+    </at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+    <at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <date class="sql-timestamp">2011-05-10 00:00:00.0</date>
+      <toDoList class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList">
+        <tasksToCompleteToday class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList.tasksToCompleteToday</role>
+          <key class="long">17</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list">
+            <at.silverstrike.pcc.impl.persistence.DefaultTask reference="../../../../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask"/>
+            <at.silverstrike.pcc.impl.persistence.DefaultTask reference="../../../../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[2]"/>
+            <at.silverstrike.pcc.impl.persistence.DefaultTask reference="../../../../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+          </storedSnapshot>
+          <bag>
+            <at.silverstrike.pcc.impl.persistence.DefaultTask reference="../../../../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask"/>
+            <at.silverstrike.pcc.impl.persistence.DefaultTask reference="../../../../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[2]"/>
+            <at.silverstrike.pcc.impl.persistence.DefaultTask reference="../../../../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+          </bag>
+        </tasksToCompleteToday>
+        <id>17</id>
+      </toDoList>
+      <schedule class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule">
+        <bookings class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailySchedule.bookings</role>
+          <key class="long">17</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </bookings>
+        <id>17</id>
+      </schedule>
+      <id>17</id>
+    </at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+    <at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <date class="sql-timestamp">2011-05-11 00:00:00.0</date>
+      <toDoList class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList">
+        <tasksToCompleteToday class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList.tasksToCompleteToday</role>
+          <key class="long">18</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </tasksToCompleteToday>
+        <id>18</id>
+      </toDoList>
+      <schedule class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule">
+        <bookings class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailySchedule.bookings</role>
+          <key class="long">18</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </bookings>
+        <id>18</id>
+      </schedule>
+      <id>18</id>
+    </at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+    <at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <date class="sql-timestamp">2011-05-12 00:00:00.0</date>
+      <toDoList class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList">
+        <tasksToCompleteToday class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList.tasksToCompleteToday</role>
+          <key class="long">19</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </tasksToCompleteToday>
+        <id>19</id>
+      </toDoList>
+      <schedule class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule">
+        <bookings class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailySchedule.bookings</role>
+          <key class="long">19</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </bookings>
+        <id>19</id>
+      </schedule>
+      <id>19</id>
+    </at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+    <at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <date class="sql-timestamp">2011-05-13 00:00:00.0</date>
+      <toDoList class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList">
+        <tasksToCompleteToday class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList.tasksToCompleteToday</role>
+          <key class="long">20</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </tasksToCompleteToday>
+        <id>20</id>
+      </toDoList>
+      <schedule class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule">
+        <bookings class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailySchedule.bookings</role>
+          <key class="long">20</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </bookings>
+        <id>20</id>
+      </schedule>
+      <id>20</id>
+    </at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+    <at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <date class="sql-timestamp">2011-05-14 00:00:00.0</date>
+      <toDoList class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList">
+        <tasksToCompleteToday class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailyToDoList.tasksToCompleteToday</role>
+          <key class="long">21</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </tasksToCompleteToday>
+        <id>21</id>
+      </toDoList>
+      <schedule class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule">
+        <bookings class="org.hibernate.collection.PersistentBag">
+          <initialized>true</initialized>
+          <owner class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>at.silverstrike.pcc.impl.persistence.DefaultDailySchedule.bookings</role>
+          <key class="long">21</key>
+          <dirty>false</dirty>
+          <storedSnapshot class="list"/>
+          <bag/>
+        </bookings>
+        <id>21</id>
+      </schedule>
+      <id>21</id>
+    </at.silverstrike.pcc.impl.persistence.DefaultDailyPlan>
+  </dailyPlans>
+  <bookings>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>12</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 15:00:00.0</startDateTime>
+      <duration>0.333333333333333</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>13</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[2]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 14:00:00.0</startDateTime>
+      <duration>1.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>14</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-09 09:00:00.0</startDateTime>
+      <duration>3.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>15</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-09 13:00:00.0</startDateTime>
+      <duration>5.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>16</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 09:00:00.0</startDateTime>
+      <duration>3.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>17</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 13:00:00.0</startDateTime>
+      <duration>1.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>18</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 15:00:00.0</startDateTime>
+      <duration>0.333333333333333</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>19</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[2]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 14:00:00.0</startDateTime>
+      <duration>1.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>20</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-09 09:00:00.0</startDateTime>
+      <duration>3.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>21</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-09 13:00:00.0</startDateTime>
+      <duration>5.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>22</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 09:00:00.0</startDateTime>
+      <duration>3.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>23</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 13:00:00.0</startDateTime>
+      <duration>1.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>24</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 14:00:00.0</startDateTime>
+      <duration>0.333333333333333</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>25</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-09 09:00:00.0</startDateTime>
+      <duration>3.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>26</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-09 13:00:00.0</startDateTime>
+      <duration>5.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>27</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 09:00:00.0</startDateTime>
+      <duration>3.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>28</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask[3]"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-10 13:00:00.0</startDateTime>
+      <duration>1.0</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+    <at.silverstrike.pcc.impl.persistence.DefaultBooking>
+      <id>29</id>
+      <process class="at.silverstrike.pcc.impl.persistence.DefaultTask" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask"/>
+      <resource class="at.silverstrike.pcc.impl.persistence.DefaultWorker" reference="../../../processes/at.silverstrike.pcc.impl.persistence.DefaultTask/resourceAllocations/storedSnapshot/at.silverstrike.pcc.impl.persistence.DefaultDailyLimitResourceAllocation/resource"/>
+      <startDateTime class="sql-timestamp">2011-05-09 09:00:00.0</startDateTime>
+      <duration>0.333333333333333</duration>
+    </at.silverstrike.pcc.impl.persistence.DefaultBooking>
+  </bookings>
+</at.silverstrike.pcc.impl.persistence.DefaultUserData>

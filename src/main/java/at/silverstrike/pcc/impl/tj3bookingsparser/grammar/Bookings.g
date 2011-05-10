@@ -65,14 +65,16 @@ resourceDeclaration
 
 task
 	:
-	Task Identifier String OpenParen 
-	Start DateTimeWithTimeZone
+	Task Identifier String OpenParen
+	(task)* 
+	(Start DateTimeWithTimeZone
 	End DateTimeWithTimeZone
 	Scheduling Asap
-	Scheduled
+	Scheduled)*
 	CloseParen
 	;
 
+/* (Complete FloatingPointNumber)* */
 
 supplementTask returns [DefaultSupplementStatement suppStmt]
 	:
@@ -81,11 +83,10 @@ supplementTask returns [DefaultSupplementStatement suppStmt]
 		}	
 	Supplement Task taskId=Identifier {suppStmt.setTaskId($taskId.text); } 
 	OpenParen
-	(Priority IntegerNumber)*
 	(
 	bStmt=booking {suppStmt.addBookingStatement( $bStmt.stmt ); }
-	)*
-	(Complete FloatingPointNumber)*
+	)*	
+	Priority IntegerNumber
 	CloseParen
 	;
 
@@ -153,16 +154,16 @@ booking  returns [DefaultBookingStatement stmt]
 	(Comma 
 	bt2=bookingTime  { stmt.addIndBooking($bt2.indBooking); } 
 	)*
-	OpenParen 
+	(OpenParen 
 	overtime 
-	CloseParen
+	CloseParen)
 	;
 
 bookingTime returns [DefaultIndBooking indBooking]
 	:
 	startTime=DateTimeWithTimeZone 
 	Plus 
-	bookingDuration=duration
+	bookingDuration=FloatingPointNumberDuration
 	{
 		$indBooking = new DefaultIndBooking($startTime.text, $bookingDuration.text);
 	}
@@ -271,13 +272,16 @@ Hyphen
 FloatingPointNumber
   : D+'.'D+
   ;
+FloatingPointNumberDuration
+  : D+ P D+ H
+  ;
 
 IntegerNumber
   : D+
   ;
 
 Identifier
-  : (D|A)+;
+  : (D|A|P)+;
 
 String
   :  '"' ~'"'* '"'
@@ -297,6 +301,17 @@ A
   : 'A'..'Z'
   | 'a'..'z'
   ;
+
+fragment
+P
+  : '.'
+  ;
+
+fragment
+H
+  : 'h'
+  ;
+
 
 Space   
   :  (' ' | '\t' | '\r'? '\n'){$channel=HIDDEN;}

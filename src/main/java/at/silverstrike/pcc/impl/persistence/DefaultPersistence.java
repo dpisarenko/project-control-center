@@ -365,8 +365,10 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
 
         try {
-            session.createQuery("delete from DefaultBooking").executeUpdate();
             session.createQuery("delete from DefaultDailySchedule")
+                    .executeUpdate();
+            session.createSQLQuery(
+                    "delete from TBL_DAILY_TO_DO_LIST_TASKSTOCOMPLETETODAY")
                     .executeUpdate();
             session.createQuery("delete from DefaultDailyToDoList")
                     .executeUpdate();
@@ -424,11 +426,15 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
 
         try {
+            final String hql = "from DefaultSchedulingObject where ((state <> "
+                    + STATE_DELETED
+                    + ") and (state <> "
+                    + STATE_ATTAINED + "))";
+
+            LOGGER.debug("getAllNotDeletedTasks: hql: {}", hql);
+
             final Query query =
-                    session.createQuery("from DefaultSchedulingObject where ((state <> "
-                            + STATE_DELETED
-                            + ") and (state <> "
-                            + STATE_ATTAINED + "))");
+                    session.createQuery(hql);
 
             query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
             query.setParameter(STATE_ATTAINED.substring(1),
@@ -436,8 +442,15 @@ public class DefaultPersistence implements Persistence {
 
             final List result = query.list();
 
+            LOGGER.debug("getAllNotDeletedTasks: result.size: {}",
+                    result.size());
+
             for (final Object record : result) {
                 if (record instanceof DefaultTask) {
+                    LOGGER.debug(
+                            "getAllNotDeletedTasks: Task: {}, state: {}",
+                            new Object[] { record,
+                                    ((DefaultTask) record).getState() });
                     returnValue.add((DefaultSchedulingObject) record);
                 }
             }
@@ -948,6 +961,8 @@ public class DefaultPersistence implements Persistence {
 
         final List<Booking> bookings = bookingsQuery.list();
 
+        LOGGER.debug("updateDailySchedules: bookings.size(): {}", bookings.size());
+        
         for (final Booking curBooking : bookings) {
             final Query dailyPlanQuery =
                     aSession.createQuery("from DefaultDailyPlan "
@@ -1113,14 +1128,28 @@ public class DefaultPersistence implements Persistence {
                 session.createQuery("from DefaultDailyPlan");
         final List<DailyPlan> dailyPlans = dailyPlanQuery.list();
 
-        final Query processesQuery =
+        final List<SchedulingObject> schedulingObjects =
+                new LinkedList<SchedulingObject>();
+
+        final Query tasksQuery =
                 session.createQuery("from DefaultTask");
-        final List<SchedulingObject> processes = processesQuery.list();
+        final Query eventsQuery =
+                session.createQuery("from DefaultEvent");
+        final Query milestonesQuery =
+                session.createQuery("from DefaultMilestone");
+
+        final List<SchedulingObject> tasks = tasksQuery.list();
+        final List<SchedulingObject> events = eventsQuery.list();
+        final List<SchedulingObject> milestones = milestonesQuery.list();
+
+        schedulingObjects.addAll(tasks);
+        schedulingObjects.addAll(events);
+        schedulingObjects.addAll(milestones);
 
         userData.setBookings(bookings);
         userData.setDailyPlans(dailyPlans);
         userData.setIdentifier("dp");
-        userData.setSchedulingData(processes);
+        userData.setSchedulingData(schedulingObjects);
 
         return userData;
     }
@@ -1458,5 +1487,25 @@ public class DefaultPersistence implements Persistence {
 
             return worker;
         }
+    }
+
+    @Override
+    public boolean hasChildren(final SchedulingObject aObject) {
+        Long numberOfChildren = 0L;
+        try {
+            final String hql;
+            hql =
+                    "SELECT COUNT(*) FROM DefaultSchedulingObject WHERE parent.id = ${parentId}"
+                            .replace("${parentId}", aObject.getId()
+                                    .toString());
+
+            final Query query = session.createQuery(hql);
+            numberOfChildren = (Long) query.uniqueResult();
+            LOGGER.debug("numberOfChildren: {}, task: {}", new Object[] {
+                    numberOfChildren, aObject.getName() });
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+        }
+        return numberOfChildren > 0L;
     }
 }

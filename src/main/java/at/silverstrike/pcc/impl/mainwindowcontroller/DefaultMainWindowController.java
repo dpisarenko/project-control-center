@@ -35,6 +35,7 @@ import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.model.UserData;
+import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializer;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializer;
@@ -120,9 +121,9 @@ class DefaultMainWindowController implements MainWindowController {
     }
 
     private UserData getSampleData() {
-        final UserData returnValue = new MockUserData();
-
-        returnValue.setIdentifier("myIdentifier");
+        final Persistence persistence = this.injector.getInstance(Persistence.class);
+        
+        final UserData returnValue = persistence.getUserData();;
 
         return returnValue;
     }

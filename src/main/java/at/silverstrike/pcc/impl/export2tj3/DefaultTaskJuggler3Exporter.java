@@ -289,7 +289,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             return effortTemplate
                     .replace(EFFORT, formatDouble(worstCaseEffort));
         } else {
-            return effortTemplate.replace(EFFORT, formatDouble(0.));
+            return "";
         }
     }
 
@@ -345,10 +345,14 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
     private CharSequence shortenName(final String aName) {
         if (aName != null) {
-            return StringUtils.abbreviate(aName, MAX_TASK_NAME_LENGTH);
+            return StringUtils.abbreviate(removeSpecialCharacters(aName), MAX_TASK_NAME_LENGTH);
         } else {
             return "";
         }
+    }
+
+    private String removeSpecialCharacters(final String aName) {
+        return aName.replace('\"', ' ');
     }
 
     private String subsituteResourcePlaceHolders(
@@ -414,12 +418,15 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
         }
 
         for (final SchedulingObject proc : processes) {
-            checkTimingResolution((Task) proc,
-                    ((Task) proc).getBestCaseEffort());
-            checkTimingResolution((Task) proc,
-                    ((Task) proc).getAverageCaseEffort());
-            checkTimingResolution((Task) proc,
-                    ((Task) proc).getWorstCaseEffort());
+            if (proc instanceof Task) {
+                final Task task = (Task) proc;
+
+                if (!persistence.hasChildren(task)) {
+                    checkTimingResolution(task, task.getBestCaseEffort());
+                    checkTimingResolution(task, task.getAverageCaseEffort());
+                    checkTimingResolution(task, task.getWorstCaseEffort());
+                }
+            }
         }
     }
 

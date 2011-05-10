@@ -17,7 +17,7 @@
 			</generator>
 		</id>
 
-		<bag name="tasksToCompleteToday" lazy="false">
+		<bag name="tasksToCompleteToday" lazy="false" cascade="delete">
 			<key column="DAILY_TO_DO_LIST_ID" />
 			<many-to-many column="DAILY_TO_DO_LIST_ITEM_ID"
 				class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject" />

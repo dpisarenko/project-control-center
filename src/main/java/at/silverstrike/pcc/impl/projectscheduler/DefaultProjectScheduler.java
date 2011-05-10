@@ -129,6 +129,8 @@ class DefaultProjectScheduler implements ProjectScheduler {
             parser.setInputStream(fileInputStream);
             parser.run();
             this.bookingTuples = parser.getBookings();
+            
+            LOGGER.debug("parseBookingsFile: this.bookingTuples.size(): {}", this.bookingTuples.size());
         } catch (final FileNotFoundException exception) {
             throw new PccException(exception);
         } catch (final Exception exception) {

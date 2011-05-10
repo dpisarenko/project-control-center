@@ -90,5 +90,99 @@ public final class TestDefaultTj3BookingsParser {
         final List<BookingTuple> bookingTuples = objectUnderTest.getBookings();
 
         Assert.assertNotNull(bookingTuples);
+        Assert.assertTrue(bookingTuples.size() > 0);
     }
+    @Test
+    public void test02() {
+        /**
+         * Create the injector
+         */
+        final InjectorFactory injectorFactory =
+                new MockInjectorFactory(new MockInjectorModule());
+        final Injector injector = injectorFactory.createInjector();
+
+        /**
+         * Get object under test
+         */
+        final Tj3BookingsParser objectUnderTest =
+                injector.getInstance(Tj3BookingsParser.class);
+        Assert.assertNotNull(objectUnderTest);
+
+        /**
+         * Parse file
+         */
+        objectUnderTest.setInjector(injector);
+
+        InputStream inputStream = null;
+        try {
+            inputStream = FileUtils.openInputStream(new File(DIR + "test02"));
+
+            objectUnderTest.setInputStream(inputStream);
+
+            objectUnderTest.run();
+        } catch (final IOException exception) {
+            LOGGER.error("", exception);
+            fail(exception.getMessage());
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+            fail(exception.getMessage());
+        } finally {
+            closeQuietly(inputStream);
+        }
+
+        /**
+         * Check actual and expected results.
+         */
+        final List<BookingTuple> bookingTuples = objectUnderTest.getBookings();
+
+        Assert.assertNotNull(bookingTuples);
+        Assert.assertTrue(bookingTuples.size() > 0);
+    }
+    @Test
+    public void test03() {
+        /**
+         * Create the injector
+         */
+        final InjectorFactory injectorFactory =
+                new MockInjectorFactory(new MockInjectorModule());
+        final Injector injector = injectorFactory.createInjector();
+
+        /**
+         * Get object under test
+         */
+        final Tj3BookingsParser objectUnderTest =
+                injector.getInstance(Tj3BookingsParser.class);
+        Assert.assertNotNull(objectUnderTest);
+
+        /**
+         * Parse file
+         */
+        objectUnderTest.setInjector(injector);
+
+        InputStream inputStream = null;
+        try {
+            inputStream = FileUtils.openInputStream(new File(DIR + "test03"));
+
+            objectUnderTest.setInputStream(inputStream);
+
+            objectUnderTest.run();
+        } catch (final IOException exception) {
+            LOGGER.error("", exception);
+            fail(exception.getMessage());
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+            fail(exception.getMessage());
+        } finally {
+            closeQuietly(inputStream);
+        }
+
+        /**
+         * Check actual and expected results.
+         */
+        final List<BookingTuple> bookingTuples = objectUnderTest.getBookings();
+
+        Assert.assertNotNull(bookingTuples);
+        Assert.assertTrue(bookingTuples.size() > 0);
+    }
+
 }
