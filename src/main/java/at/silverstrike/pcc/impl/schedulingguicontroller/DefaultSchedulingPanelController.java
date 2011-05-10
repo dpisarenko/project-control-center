@@ -174,8 +174,8 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
                 schedulingObjectsToExport);
 
         final List<Resource> resources = new LinkedList<Resource>();
-        resources.addAll(persistence.getAllWorkers());
-
+        resources.add(persistence.getCurrentWorker());
+       
         scheduler.getProjectExportInfo().setResourcesToExport(resources);
 
         scheduler.getProjectExportInfo().setProjectName("pcc");
