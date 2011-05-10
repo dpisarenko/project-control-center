@@ -272,5 +272,11 @@ public abstract class MockPersistenceAdapter implements Persistence {
         // TODO Auto-generated method stub
         return false;
     }
+
+    @Override
+    public List<SchedulingObject> getTopLevelTasks() {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }
