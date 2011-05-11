@@ -56,7 +56,7 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
                 .get("centraleditingpanelcontroller.3-new-milestone-name");
         final Milestone newMilestone =
                 this.persistence.createNewMilestone(null,
-                        milestoneName + " + ctl",
+                        milestoneName,
                         aProjectIdCurrentlySelectedInTree);
 
         if (milestoneName != null) {
@@ -72,7 +72,7 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
         final String taskName = TM
                 .get("centraleditingpanelcontroller.1-new-task-name");
         final Task newTask = this.persistence.createSubTask(
-                taskName + " + ctl", aProjectIdCurrentlySelectedInTree);
+                taskName, aProjectIdCurrentlySelectedInTree);
 
         if (newTask != null) {
             this.webGuiBus.broadcastTaskCreatedMessage(newTask);
@@ -86,8 +86,9 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
             final Long aProjectIdCurrentlySelectedInTree) {
         final String eventName = TM
                 .get("centraleditingpanelcontroller.2-new-event-name");
-        final Event newEvent = this.persistence.createSubEvent(eventName
-                + " + ctl", aProjectIdCurrentlySelectedInTree);
+        final Event newEvent =
+                this.persistence.createSubEvent(eventName,
+                        aProjectIdCurrentlySelectedInTree);
 
         if (newEvent != null) {
             this.webGuiBus.broadcastEventCreatedMessage(newEvent);
@@ -224,5 +225,5 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
     public void taskCompleted(final Task aTask) {
         this.panel.taskCompleted(aTask);
     }
-    
+
 }

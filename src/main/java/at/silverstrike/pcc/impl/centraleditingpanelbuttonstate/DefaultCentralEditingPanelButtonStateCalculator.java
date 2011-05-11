@@ -20,7 +20,6 @@ import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.persistence.Persistence;
-import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 
 /**
  * @author DP118M
