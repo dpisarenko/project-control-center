@@ -87,12 +87,12 @@ class DefaultCentralEditingPanelButtonStateCalculator implements
     }
 
     @Override
-    public boolean isIncreasePriorityButtonEnabled() {
+    public Boolean isIncreasePriorityButtonEnabled() {
         return this.increasePriorityButtonEnabled;
     }
 
     @Override
-    public boolean isDecreasePriorityButtonEnabled() {
+    public Boolean isDecreasePriorityButtonEnabled() {
         return this.decreasePriorityButtonEnabled;
     }
 

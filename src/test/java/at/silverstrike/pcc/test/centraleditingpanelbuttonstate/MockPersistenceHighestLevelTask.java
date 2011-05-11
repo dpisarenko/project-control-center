@@ -28,7 +28,7 @@ public class MockPersistenceHighestLevelTask extends MockPersistenceAdapter impl
     public boolean isHighestPriorityObjectInProject(SchedulingObject arg0,
             SchedulingObject arg1) {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     /* (non-Javadoc)
