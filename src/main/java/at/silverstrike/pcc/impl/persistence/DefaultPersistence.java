@@ -53,6 +53,8 @@ import com.google.inject.Injector;
  * 
  */
 public class DefaultPersistence implements Persistence {
+    private static final double DAILY_LIMIT_IN_HOURS = 8.;
+    private static final int MAX_PRIORITY = 500;
     private static final int PRIORITY_INCREASE_STEP = 10;
     private static final int LAST_HOUR = 23;
     private static final int LAST_MINUTE = 59;
@@ -1191,7 +1193,7 @@ public class DefaultPersistence implements Persistence {
         try {
             final Event newEvent = new DefaultEvent();
 
-            Task parentTask = getParentTask(aParentProcessId);
+            final Task parentTask = getParentTask(aParentProcessId);
             newEvent.setParent(parentTask);
             newEvent.setName(aEventName);
             newEvent.setPriority(getNextSchedulingObjectPriority(parentTask));
@@ -1240,7 +1242,7 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public void updateMilestone(Milestone aProcess) {
+    public final void updateMilestone(final Milestone aProcess) {
         final Transaction tx = session.beginTransaction();
 
         try {
@@ -1253,7 +1255,7 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public void updateEvent(Event aProcess) {
+    public final void updateEvent(final Event aProcess) {
         final Transaction tx = session.beginTransaction();
 
         try {
@@ -1267,7 +1269,7 @@ public class DefaultPersistence implements Persistence {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<SchedulingObject> getPotentialDependencies(
+    public final List<SchedulingObject> getPotentialDependencies(
             final SchedulingObject aObject) {
         List<SchedulingObject> processes = new LinkedList<SchedulingObject>();
 
@@ -1287,7 +1289,7 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public boolean isHighestPriorityObjectInProject(
+    public final boolean isHighestPriorityObjectInProject(
             final SchedulingObject aProject,
             final SchedulingObject aSchedulingObject) {
         boolean isHighest = false;
@@ -1311,7 +1313,7 @@ public class DefaultPersistence implements Persistence {
                     ProcessState.ATTAINED);
 
             LOGGER.debug("query: {}", query);
-            Object priorityNum = query.list().get(0);
+            final Object priorityNum = query.list().get(0);
             isHighest = priorityNum.equals(aSchedulingObject.getPriority());
             LOGGER.debug("PRIORITYNUM = {}", priorityNum);
             LOGGER.debug("aSchedulingObject = {}",
@@ -1325,7 +1327,7 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public boolean isLowestPriorityObjectInProject(
+    public final boolean isLowestPriorityObjectInProject(
             final SchedulingObject aProject,
             final SchedulingObject aSchedulingObject) {
         boolean isLowest = false;
@@ -1348,7 +1350,7 @@ public class DefaultPersistence implements Persistence {
             query.setParameter(STATE_ATTAINED.substring(1),
                     ProcessState.ATTAINED);
 
-            Object priorityNum = query.list().get(0);
+            final Object priorityNum = query.list().get(0);
             isLowest = priorityNum.equals(aSchedulingObject.getPriority());
         } catch (final Exception exception) {
             LOGGER.error("", exception);
@@ -1357,7 +1359,7 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public boolean markTaskAsCompleted(Task aTask) {
+    public final boolean markTaskAsCompleted(final Task aTask) {
         final Transaction tx = session.beginTransaction();
         boolean success = false;
         LOGGER.debug("Task done: {}", aTask);
@@ -1374,7 +1376,7 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public void
+    public final void
             updateSchedulingObject(final SchedulingObject aSchedulingObject) {
         final Transaction tx = session.beginTransaction();
 
@@ -1389,8 +1391,8 @@ public class DefaultPersistence implements Persistence {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
-            Long aProcessId) {
+    public final List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
+            final Long aProcessId) {
         List<SchedulingObject> processes = null;
 
         try {
@@ -1422,9 +1424,9 @@ public class DefaultPersistence implements Persistence {
         return processes;
     }
 
-    public Integer getNextSchedulingObjectPriority(
+    public final Integer getNextSchedulingObjectPriority(
             final SchedulingObject aParent) {
-        Integer maxPriority = 500;
+        Integer maxPriority = MAX_PRIORITY;
         try {
             final String hql;
             if (aParent != null) {
@@ -1451,27 +1453,27 @@ public class DefaultPersistence implements Persistence {
         }
 
         if (maxPriority == null) {
-            maxPriority = 500;
+            maxPriority = MAX_PRIORITY;
         }
 
         return maxPriority + PRIORITY_INCREASE_STEP;
     }
 
     @Override
-    public Worker getCurrentWorker() {
+    public final Worker getCurrentWorker() {
         final String hql = "from DefaultWorker where abbreviation = 'USR'";
 
         final Query query = session.createQuery(hql);
 
         @SuppressWarnings("rawtypes")
-        List list = query.list();
+        final List list = query.list();
         if (list.size() == 1) {
             return (Worker) list.get(0);
         } else {
             final Worker worker = new DefaultWorker();
 
             worker.setAbbreviation("USR");
-            worker.setDailyLimitInHours(8.);
+            worker.setDailyLimitInHours(DAILY_LIMIT_IN_HOURS);
             worker.setFirstName("Dmitri");
             worker.setMiddleName("Anatol'evich");
             worker.setSurname("Pisarenko");
@@ -1491,7 +1493,7 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public boolean hasChildren(final SchedulingObject aObject) {
+    public final boolean hasChildren(final SchedulingObject aObject) {
         Long numberOfChildren = 0L;
         try {
             final String hql;
@@ -1512,7 +1514,7 @@ public class DefaultPersistence implements Persistence {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<SchedulingObject> getTopLevelTasks() {
+    public final List<SchedulingObject> getTopLevelTasks() {
         @SuppressWarnings("rawtypes")
         List result = null;
         final Transaction tx = session.beginTransaction();
@@ -1544,6 +1546,6 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }
 
-        return (List<SchedulingObject>)result;
+        return (List<SchedulingObject>) result;
     }
 }
