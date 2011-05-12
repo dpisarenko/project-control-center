@@ -273,7 +273,11 @@
 		<repository>
 		  <id>altruix-repository</id>
 		  <url>ftp://silverstrike.at/altruix-repository/</url>
-		</repository>		
+		</repository>
+		<repository>
+		   <id>vaadin-addons</id>
+		   <url>http://maven.vaadin.com/vaadin-addons</url>
+		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
@@ -409,7 +413,11 @@
 		   <artifactId>commons</artifactId>
 		   <version>1.1</version>
 		</dependency>
-
+		<dependency>
+		   <groupId>org.vaadin.addons</groupId>
+		   <artifactId>vaadin-calendar</artifactId>
+		   <version>1.0.1</version>
+		</dependency>
 	</dependencies>
 	<reporting>
 		<plugins>
