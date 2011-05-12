@@ -19,6 +19,8 @@ import ru.altruix.commons.api.version.PccVersionReader;
 import ru.altruix.commons.api.version.PccVersionReaderFactory;
 import ru.altruix.commons.impl.version.DefaultPccVersionReaderFactory;
 
+import at.silverstrike.pcc.api.calendarpanel.CalendarPanelFactory;
+import at.silverstrike.pcc.api.calendarpanelcontroller.CalendarPanelControllerFactory;
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
@@ -74,6 +76,8 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
+import at.silverstrike.pcc.impl.calendarpanel.DefaultCalendarPanelFactory;
+import at.silverstrike.pcc.impl.calendarpanelcontroller.DefaultCalendarPanelControllerFactory;
 import at.silverstrike.pcc.impl.centraleditingpanel.DefaultCentralEditingPanelFactory;
 import at.silverstrike.pcc.impl.centraleditingpanelbuttonstate.DefaultCentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
@@ -230,6 +234,10 @@ class InjectorModule extends AbstractModule {
                 new DefaultDependencyTableFillerFactory());
         bind(IncorrectSchedulingObjectsMarkerFactory.class).toInstance(
                 new DefaultIncorrectSchedulingObjectsMarkerFactory());
+        bind(CalendarPanelFactory.class).toInstance(
+                new DefaultCalendarPanelFactory());
+        bind(CalendarPanelControllerFactory.class).toInstance(
+                new DefaultCalendarPanelControllerFactory());
     }
 
     private TestTableCreator getTestTableCreator() {
