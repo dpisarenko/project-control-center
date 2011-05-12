@@ -784,7 +784,7 @@ public class DefaultPersistence implements Persistence {
     public final void updateBookings(final List<BookingTuple> aBookingTuples) {
         final Transaction tx = session.beginTransaction();
         try {
-            session.createQuery("delete from DefaultBooking");
+            session.createQuery("delete from DefaultBooking").executeUpdate();
 
             for (final BookingTuple tuple : aBookingTuples) {
                 final Booking booking = tuple.getBooking();
