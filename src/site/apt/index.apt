@@ -28,4 +28,8 @@ How to update the project's documentation, including reports
 
   mvn site
 
+Which checkstyle errors can be ignored?
 
+  1) File does not end with a newline
+  
+  2) "Method is not final" in any adapter class
