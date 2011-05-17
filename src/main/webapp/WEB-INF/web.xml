@@ -24,7 +24,6 @@
 		    <param-name>widgetset</param-name>
 		    <param-value>at.silverstrike.pcc.widgetset.PccWidgetset</param-value>
 		</init-param>
-		
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Project Control Center Application</servlet-name>
