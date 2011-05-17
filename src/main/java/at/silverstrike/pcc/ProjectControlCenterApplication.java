@@ -11,9 +11,16 @@
 
 package at.silverstrike.pcc;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +33,13 @@ import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponder;
 import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.xmlserialization.XmlSerializer;
+import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
+import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
@@ -38,6 +49,7 @@ import eu.livotov.tpt.i18n.TM;
 
 public class ProjectControlCenterApplication extends TPTApplication implements
         HttpServletRequestListener {
+    private static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ProjectControlCenterApplication.class);
     private static final String THEME = "pcc";
@@ -54,6 +66,41 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     public final void close() {
         super.close();
         closeSession();
+        exportData();
+    }
+
+    private void exportData() {
+        final Persistence persistence =
+                this.injector.getInstance(Persistence.class);
+
+        final UserData writtenData = persistence.getUserData();
+        ;
+
+        final XmlSerializerFactory serializerFactory =
+                new DefaultXmlSerializerFactory();
+        final XmlSerializer serializer = serializerFactory.create();
+
+        final String fileName =
+                "PCC_exported_data_${datetime}.xml".replace("${datetime}",
+                        TIMESTAMP_FORMAT
+                                .format(new Date()));
+
+        final File targetFile = new File(fileName);
+        FileOutputStream fileOutputStream = null;
+
+        try {
+            fileOutputStream = new FileOutputStream(targetFile);
+            serializer.setOutputStream(fileOutputStream);
+            serializer.setUserData(writtenData);
+
+            serializer.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+        } catch (final FileNotFoundException exception) {
+            LOGGER.error("", exception);
+        } finally {
+            IOUtils.closeQuietly(fileOutputStream);
+        }
     }
 
     protected final void closeSession() {
@@ -98,9 +145,10 @@ public class ProjectControlCenterApplication extends TPTApplication implements
             setMainWindow(entryWindow.toWindow());
         } else {
             final MainWindowControllerFactory mainWindowControllerFactory =
-                injector.getInstance(MainWindowControllerFactory.class);
-            final MainWindowController controller = mainWindowControllerFactory.create();
-            
+                    injector.getInstance(MainWindowControllerFactory.class);
+            final MainWindowController controller =
+                    mainWindowControllerFactory.create();
+
             controller.setInjector(injector);
             controller.initGui(this);
         }
