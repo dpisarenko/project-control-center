@@ -28,6 +28,8 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
+import at.silverstrike.pcc.api.calendarpanelcontroller.CalendarPanelController;
+import at.silverstrike.pcc.api.calendarpanelcontroller.CalendarPanelControllerFactory;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
@@ -35,6 +37,7 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
+import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
@@ -105,15 +108,25 @@ class DefaultMainWindow implements MainWindow {
                 .get("mainwindow.12-estimated-completion-times-panel"), null);
         this.tabSheet.addTab(getWorkerPanelTab(), TM
                 .get("mainwindow.8-human-resource-tab"), null);
-
+        this.tabSheet.addTab(getCalendarTab(), TM
+                .get("mainwindow.20-calendar-tab"), null);
+        
         mainLayout.addComponent(this.tabSheet);
 
         mainWindow.setContent(mainLayout);
 
     }
 
+    private Component getCalendarTab() {
+        final CalendarPanelControllerFactory factory = this.injector.getInstance(CalendarPanelControllerFactory.class);
+        final CalendarPanelController controller = factory.create();
+        
+        controller.setInjector(this.injector);
+        return controller.initGui();
+    }
+
     private MainWindowController getController() {
-        final DefaultMainWindowControllerFactory factory =
+        final MainWindowControllerFactory factory =
                 this.injector
                         .getInstance(DefaultMainWindowControllerFactory.class);
         final MainWindowController returnValue =
