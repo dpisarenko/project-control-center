@@ -70,19 +70,50 @@
 				<version>2.0</version>
 			</plugin>
 
-			<!-- Compile custom GWT components or widget dependencies with the GWT 
-				compiler -->
-			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>gwt-maven-plugin</artifactId> 
-				<version>1.3-SNAPSHOT</version> <executions> <execution> <configuration> 
-				<webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory> 
-				<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs> <runTarget>pcc</runTarget> 
-				<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp> 
-				<noServer>true</noServer> <port>8080</port> <soyc>false</soyc> </configuration> 
-				<goals> <goal>resources</goal> <goal>compile</goal> </goals> </execution> 
-				</executions> </plugin> <plugin> <groupId>com.vaadin</groupId> <artifactId>vaadin-maven-plugin</artifactId> 
-				<version>1.0.0</version> <executions> <execution> <configuration> </configuration> 
-				<goals> <goal>update-widgetset</goal> </goals> </execution> </executions> 
-				</plugin> -->
+			<!-- Compiles your custom GWT components with the GWT compiler -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<!-- Version 2.1.0-1 works at least with Vaadin 6.5 -->
+				<version>2.1.0-1</version>
+				<configuration>
+					<!-- if you don't specify any modules, the plugin will find them -->
+					<!--modules> .. </modules -->
+					<webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
+					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+					<runTarget>clean</runTarget>
+					<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+					<noServer>true</noServer>
+					<port>8080</port>
+					<soyc>false</soyc>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>resources</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Updates Vaadin 6.2+ widgetset definitions based on project dependencies -->
+			<plugin>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<configuration>
+							<!-- if you don't specify any modules, the plugin will find them -->
+							<!-- <modules> <module>${package}.gwt.MyWidgetSet</module> </modules> -->
+						</configuration>
+						<goals>
+							<goal>update-widgetset</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 
 			<!-- A simple Jetty test server at http://localhost:8080/pcc can be launched 
 				with the Maven goal jetty:run and stopped with jetty:stop -->
@@ -97,13 +128,16 @@
 						redeployment -->
 					<scanIntervalSeconds>0</scanIntervalSeconds>
 					<!-- make sure Jetty also finds the widgetset -->
-					<classesDirectory>${basedir}/target/generated-classes/cobertura</classesDirectory>
+					<!-- <classesDirectory>${basedir}/target/generated-classes/cobertura</classesDirectory> -->
+					<classesDirectory>${basedir}/target/classes</classesDirectory>
 					<webAppConfig>
 						<contextPath>/pcc</contextPath>
 						<baseResource implementation="org.mortbay.resource.ResourceCollection">
 							<!-- Workaround for Maven/Jetty issue http://jira.codehaus.org/browse/JETTY-680 -->
 							<!-- <resources>src/main/webapp,${project.build.directory}/${project.build.finalName}</resources> -->
-							<resourcesAsCSV>src/main/webapp,${project.build.directory}/generated-classes/cobertura</resourcesAsCSV>
+							<!-- <resources>src/main/webapp,${project.build.directory}/${project.build.finalName}</resources> -->
+							<resourcesAsCSV>src/main/webapp,${project.build.directory}/classes</resourcesAsCSV>
+							<!-- <resourcesAsCSV>src/main/webapp,${project.build.directory}/generated-classes/cobertura</resourcesAsCSV> -->
 						</baseResource>
 					</webAppConfig>
 				</configuration>
@@ -163,9 +197,13 @@
 						<artifactId>commons-io</artifactId>
 						<version>1.4</version>
 					</dependency>
-					<!-- This is also used by gwt-maven-plugin to deduce GWT version number. -->
-					<!-- <dependency> <groupId>com.google.gwt</groupId> <artifactId>gwt-user</artifactId> 
-						<version>2.0.3</version> <scope>provided</scope> </dependency> -->
+					<dependency>
+						<groupId>com.google.gwt</groupId>
+						<artifactId>gwt-user</artifactId>
+						<version>2.1.1</version>
+						<scope>provided</scope>
+					</dependency>
+
 					<dependency>
 						<groupId>junit</groupId>
 						<artifactId>junit</artifactId>
@@ -271,12 +309,12 @@
 			</snapshots>
 		</repository>
 		<repository>
-		  <id>altruix-repository</id>
-		  <url>ftp://silverstrike.at/altruix-repository/</url>
+			<id>altruix-repository</id>
+			<url>ftp://silverstrike.at/altruix-repository/</url>
 		</repository>
 		<repository>
-		   <id>vaadin-addons</id>
-		   <url>http://maven.vaadin.com/vaadin-addons</url>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
 		</repository>
 	</repositories>
 	<dependencies>
@@ -325,9 +363,13 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.4</version>
 		</dependency>
-		<!-- This is also used by gwt-maven-plugin to deduce GWT version number. -->
-		<!-- <dependency> <groupId>com.google.gwt</groupId> <artifactId>gwt-user</artifactId> 
-			<version>2.0.3</version> <scope>provided</scope> </dependency> -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>2.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -389,34 +431,34 @@
 			<type>pom</type>
 		</dependency>
 		<dependency>
-        	<groupId>net.sf.jung</groupId>
-            <artifactId>jung-graph-impl</artifactId>
-            <version>2.0.1</version>
+			<groupId>net.sf.jung</groupId>
+			<artifactId>jung-graph-impl</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 		<dependency>
-        	<groupId>net.sf.jung</groupId>
-            <artifactId>jung-api</artifactId>
-            <version>2.0.1</version>
+			<groupId>net.sf.jung</groupId>
+			<artifactId>jung-api</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 		<dependency>
-        	<groupId>net.sf.jung</groupId>
-            <artifactId>jung-visualization</artifactId>
-            <version>2.0.1</version>
-		</dependency>		
-		<dependency>
-		   <groupId>batik</groupId>
-		   <artifactId>batik</artifactId>
-		   <version>1.1.1</version>
+			<groupId>net.sf.jung</groupId>
+			<artifactId>jung-visualization</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 		<dependency>
-		   <groupId>ru.altruix</groupId>
-		   <artifactId>commons</artifactId>
-		   <version>1.1</version>
+			<groupId>batik</groupId>
+			<artifactId>batik</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>vaadin-calendar</artifactId>
-		   <version>1.0.1</version>
+			<groupId>ru.altruix</groupId>
+			<artifactId>commons</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>vaadin-calendar</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 	<reporting>
