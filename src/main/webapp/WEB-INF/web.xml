@@ -6,10 +6,9 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	<display-name>pcc</display-name>
+	<display-name>pcc</display-name>	
 	<context-param>
-		<description>
-  	Vaadin production mode</description>
+		<description>Vaadin production mode</description>
 		<param-name>productionMode</param-name>
 		<param-value>false</param-value>
 	</context-param>
@@ -17,11 +16,15 @@
 		<servlet-name>Project Control Center Application</servlet-name>
 		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
 		<init-param>
-			<description>
-  		Vaadin application class to start</description>
+			<description>Vaadin application class to start</description>
 			<param-name>application</param-name>
 			<param-value>at.silverstrike.pcc.ProjectControlCenterApplication</param-value>
 		</init-param>
+		<init-param>
+		    <param-name>widgetset</param-name>
+		    <param-value>at.silverstrike.pcc.widgetset.PccWidgetset</param-value>
+		</init-param>
+		
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Project Control Center Application</servlet-name>
@@ -40,5 +43,5 @@
 	</listener>
 	<session-config>
 		<session-timeout>480</session-timeout>
-	</session-config>
+	</session-config>	
 </web-app>
