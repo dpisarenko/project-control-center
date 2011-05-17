@@ -64,9 +64,9 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 
     @Override
     public final void close() {
-        super.close();
-        closeSession();
         exportData();
+        closeSession();
+        super.close();
     }
 
     private void exportData() {
@@ -210,4 +210,5 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     public void onRequestEnd(final HttpServletRequest aRequest,
             final HttpServletResponse aResponse) {
     }
+    
 }
