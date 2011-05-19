@@ -64,8 +64,9 @@ public class ProjectControlCenterApplication extends TPTApplication implements
         final InjectorFactory injectorFactory = new DefaultInjectorFactory();
         injector = injectorFactory.createInjector();
 
-        ((WebApplicationContext)getContext()).getHttpSession().setAttribute(PARAM_INJECTOR, injector);
-                
+        ((WebApplicationContext) getContext()).getHttpSession()
+                .getServletContext().setAttribute(PARAM_INJECTOR, injector);
+
         persistence = injector.getInstance(Persistence.class);
 
         persistence.openSession();
@@ -155,5 +156,5 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     public void onRequestEnd(final HttpServletRequest aRequest,
             final HttpServletResponse aResponse) {
     }
-    
+
 }
