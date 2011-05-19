@@ -127,8 +127,6 @@ class DefaultMainWindow implements MainWindow {
         final MenuBar menubar = new MenuBar();
         menubar.setWidth("100%");
 
-        // Save reference to individual items so we can add sub-menu items to
-        // them
         final MenuBar.MenuItem file =
                 menubar.addItem(
                         TM.get("mainwindow.15-menu-file"), null);
@@ -140,7 +138,6 @@ class DefaultMainWindow implements MainWindow {
         file.addItem(TM.get("mainwindow.18-menu-exit"),
                 menuCommand);
 
-        menubar.addItem(TM.get("mainwindow.19-menu-other"), null);
         return menubar;
     }
 
