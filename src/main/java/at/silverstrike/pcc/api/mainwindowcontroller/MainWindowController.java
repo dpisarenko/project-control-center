@@ -12,14 +12,13 @@
 package at.silverstrike.pcc.api.mainwindowcontroller;
 
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.gui.GuiController;
 
-import com.vaadin.Application;
+import com.vaadin.ui.Window;
 
-
-public interface MainWindowController extends ModuleWithInjectableDependencies {
+public interface MainWindowController extends ModuleWithInjectableDependencies,
+        GuiController<Window> {
     void importFromXML();
 
     void exportToXML();
-
-    void initGui(final Application aApplication);
 }

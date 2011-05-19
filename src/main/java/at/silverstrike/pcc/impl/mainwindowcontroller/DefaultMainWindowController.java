@@ -121,15 +121,16 @@ class DefaultMainWindowController implements MainWindowController {
     }
 
     private UserData getSampleData() {
-        final Persistence persistence = this.injector.getInstance(Persistence.class);
-        
-        final UserData returnValue = persistence.getUserData();;
+        final Persistence persistence =
+                this.injector.getInstance(Persistence.class);
+
+        final UserData returnValue = persistence.getUserData();
 
         return returnValue;
     }
 
     @Override
-    public void initGui(final Application aApplication) {
+    public Window initGui() {
         final CentralEditingPanelControllerFactory ctlFactory =
                 this.injector
                         .getInstance(CentralEditingPanelControllerFactory.class);
@@ -147,6 +148,6 @@ class DefaultMainWindowController implements MainWindowController {
         mainWindow.setCentralEditingPanel(centralEditingPanel);
         mainWindow.initGui();
 
-        aApplication.setMainWindow(mainWindow.toWindow());
+        return mainWindow.toWindow();
     }
 }

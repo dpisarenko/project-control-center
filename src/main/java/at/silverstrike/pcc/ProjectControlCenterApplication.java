@@ -33,6 +33,7 @@ import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
 import com.google.inject.Injector;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
+import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
@@ -96,9 +97,10 @@ public class ProjectControlCenterApplication extends TPTApplication implements
                     mainWindowControllerFactory.create();
 
             controller.setInjector(injector);
-            controller.initGui(this);
+            
+            final Window mainWindow = controller.initGui();
+            this.setMainWindow(mainWindow);
         }
-
     }
 
     @Override
