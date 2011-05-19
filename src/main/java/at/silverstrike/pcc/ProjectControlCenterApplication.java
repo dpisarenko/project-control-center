@@ -53,18 +53,6 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     private transient HttpServletRequest request;
 
     @Override
-    public final void close() {
-        super.close();
-        closeSession();
-    }
-
-    protected final void closeSession() {
-        if (this.persistence != null) {
-            this.persistence.closeSession();
-        }
-    }
-
-    @Override
     public final void applicationInit() {
         LOGGER.info("PCC application starts");
 

@@ -46,6 +46,8 @@ final class ErrorCodes {
 
     public static final String M_013_CREATE_HUMAN_RESOURCE2 = PREFIX + "013";
 
+    public static final String M_014_EXPORT_FAILURE = PREFIX + "001";
+    
     private ErrorCodes() {
 
     }
