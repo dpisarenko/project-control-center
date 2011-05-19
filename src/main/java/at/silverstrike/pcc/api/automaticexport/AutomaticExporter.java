@@ -11,13 +11,16 @@
 
 package at.silverstrike.pcc.api.automaticexport;
 
+import java.io.File;
+
 import ru.altruix.commons.api.conventions.SingleActivityModule;
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 
 /**
  * @author DP118M
- *
+ * 
  */
-public interface AutomaticExporter extends ModuleWithInjectableDependencies, SingleActivityModule {
-
+public interface AutomaticExporter extends ModuleWithInjectableDependencies,
+        SingleActivityModule {
+    File getTargetFile();
 }

@@ -42,6 +42,7 @@ class DefaultAutomaticExporter implements AutomaticExporter {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultAutomaticExporter.class);
     private Injector injector;
+    private File targetFile;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -64,7 +65,7 @@ class DefaultAutomaticExporter implements AutomaticExporter {
                         TIMESTAMP_FORMAT
                                 .format(new Date()));
 
-        final File targetFile = new File(fileName);
+        targetFile = new File(fileName);
         FileOutputStream fileOutputStream = null;
 
         try {
@@ -80,5 +81,10 @@ class DefaultAutomaticExporter implements AutomaticExporter {
         } finally {
             IOUtils.closeQuietly(fileOutputStream);
         }
+    }
+
+    @Override
+    public File getTargetFile() {
+        return this.targetFile;
     }
 }
