@@ -120,8 +120,9 @@ class DefaultMainWindowController implements MainWindowController {
 
         mainWindow.setInjector(injector);
         mainWindow.setCentralEditingPanel(centralEditingPanel);
+        mainWindow.setGuiController(this);
         mainWindow.initGui();
-
+        
         return mainWindow.toWindow();
     }
 }

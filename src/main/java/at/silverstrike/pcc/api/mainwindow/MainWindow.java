@@ -12,14 +12,17 @@
 package at.silverstrike.pcc.api.mainwindow;
 
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
+import ru.altruix.commons.api.gui.ExternallyControlledGuiComponent;
 import ru.altruix.commons.api.gui.InitializableGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedWindow;
+import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 
 import com.vaadin.ui.Panel;
-
+import com.vaadin.ui.Window;
 
 public interface MainWindow extends ModuleWithInjectableDependencies,
-		InitializableGuiComponent, AbstractedWindow {
+        InitializableGuiComponent, AbstractedWindow,
+        ExternallyControlledGuiComponent<MainWindowController, Window> {
 
-    void setCentralEditingPanel(final Panel aPanel);	
+    void setCentralEditingPanel(final Panel aPanel);
 }

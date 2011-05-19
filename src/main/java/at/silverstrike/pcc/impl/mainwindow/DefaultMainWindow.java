@@ -37,13 +37,11 @@ import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletion
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
-import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
-import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
 
 class DefaultMainWindow implements MainWindow {
     private static final Logger LOGGER = LoggerFactory
@@ -125,16 +123,6 @@ class DefaultMainWindow implements MainWindow {
         return controller.initGui();
     }
 
-    private MainWindowController getController() {
-        final MainWindowControllerFactory factory =
-                this.injector
-                        .getInstance(DefaultMainWindowControllerFactory.class);
-        final MainWindowController returnValue =
-                factory.create();
-        returnValue.setInjector(this.injector);
-        return returnValue;
-    }
-
     private MenuBar createMenuBar() {
         final MenuBar menubar = new MenuBar();
         menubar.setWidth("100%");
@@ -161,9 +149,6 @@ class DefaultMainWindow implements MainWindow {
         private static final long serialVersionUID = 1L;
 
         public void menuSelected(final MenuItem aSelectedItem) {
-            if (controller == null) {
-                controller = getController();
-            }
             controller.importFromXML();
         }
     };
@@ -173,9 +158,6 @@ class DefaultMainWindow implements MainWindow {
         private static final long serialVersionUID = 1L;
 
         public void menuSelected(final MenuItem aSelectedItem) {
-            if (controller == null) {
-                controller = getController();
-            }
             controller.exportToXML();
         }
     };
@@ -229,5 +211,10 @@ class DefaultMainWindow implements MainWindow {
     @Override
     public void setCentralEditingPanel(final Panel aPanel) {
         this.centralEditingPanel = aPanel;
+    }
+    
+    @Override
+    public void setGuiController(final MainWindowController aController) {
+        this.controller = aController;
     }
 }
