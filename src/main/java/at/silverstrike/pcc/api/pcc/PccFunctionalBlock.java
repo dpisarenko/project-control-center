@@ -27,5 +27,5 @@ public enum PccFunctionalBlock {
     projectnetworkgraphcreator, projectnetworkgraphpanelcontroller,
     projecttreemodel, webguibus, validation, testtablecreator,
     taskeditingpanelcontroller, centraleditingpanelbuttonstate,
-    dependencieseditingdialog, dependencieseditingpanel
+    dependencieseditingdialog, dependencieseditingpanel, automaticexport
 }

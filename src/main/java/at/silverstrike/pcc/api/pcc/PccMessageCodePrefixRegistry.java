@@ -119,5 +119,10 @@ public final class PccMessageCodePrefixRegistry extends
         aPrefixesByFunctionalBlocks.put(
                 PccFunctionalBlock.dependencieseditingpanel,
                 "048");
+        aPrefixesByFunctionalBlocks.put(
+                PccFunctionalBlock.automaticexport,
+                "049");
+        
+        
     }
 }

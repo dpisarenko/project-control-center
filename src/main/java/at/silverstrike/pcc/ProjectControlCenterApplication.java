@@ -43,12 +43,14 @@ import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
+import com.vaadin.terminal.gwt.server.WebApplicationContext;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
 public class ProjectControlCenterApplication extends TPTApplication implements
         HttpServletRequestListener {
+    public static final String PARAM_INJECTOR = "PARAM_INJECTOR";
     private static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ProjectControlCenterApplication.class);
@@ -64,9 +66,8 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 
     @Override
     public final void close() {
-        exportData();
-        closeSession();
         super.close();
+        closeSession();
     }
 
     private void exportData() {
@@ -74,7 +75,6 @@ public class ProjectControlCenterApplication extends TPTApplication implements
                 this.injector.getInstance(Persistence.class);
 
         final UserData writtenData = persistence.getUserData();
-        ;
 
         final XmlSerializerFactory serializerFactory =
                 new DefaultXmlSerializerFactory();
@@ -121,6 +121,8 @@ public class ProjectControlCenterApplication extends TPTApplication implements
         final InjectorFactory injectorFactory = new DefaultInjectorFactory();
         injector = injectorFactory.createInjector();
 
+        ((WebApplicationContext)getContext()).getHttpSession().setAttribute(PARAM_INJECTOR, injector);
+                
         persistence = injector.getInstance(Persistence.class);
 
         persistence.openSession();
