@@ -9,12 +9,12 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.xmlimportwindowcontroller;
+package at.silverstrike.pcc.impl.xmlimportdialogcontroller;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Window;
 
-import at.silverstrike.pcc.api.xmlimportwindowcontroller.XmlImportWindowController;
+import at.silverstrike.pcc.api.xmlimportdialogcontroller.XmlImportWindowController;
 
 /**
  * @author DP118M

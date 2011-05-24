@@ -9,19 +9,22 @@
  *
  **/
 
-package at.silverstrike.pcc.api.xmlimportwindow;
+package at.silverstrike.pcc.api.xmlimportdialog;
 
 import com.vaadin.ui.Window;
 
-import at.silverstrike.pcc.api.xmlimportwindowcontroller.XmlImportWindowController;
+import at.silverstrike.pcc.api.xmlimportdialogcontroller.XmlImportWindowController;
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.ExternallyControlledGuiComponent;
+import ru.altruix.commons.api.gui.InitializableGuiComponent;
+import ru.altruix.commons.api.vaadin.AbstractedWindow;
 
 /**
  * @author DP118M
  * 
  */
 public interface XmlImportWindow extends ModuleWithInjectableDependencies,
-        ExternallyControlledGuiComponent<XmlImportWindowController, Window> {
+        ExternallyControlledGuiComponent<XmlImportWindowController, Window>,
+        AbstractedWindow, InitializableGuiComponent {
 
 }

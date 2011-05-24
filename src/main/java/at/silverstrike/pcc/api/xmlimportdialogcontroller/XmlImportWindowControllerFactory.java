@@ -9,10 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.xmlimportwindow;
+package at.silverstrike.pcc.api.xmlimportdialogcontroller;
 
 import ru.altruix.commons.api.conventions.Factory;
 
-public interface XmlImportWindowFactory extends Factory<XmlImportWindow> {
+/**
+ * @author DP118M
+ * 
+ */
+public interface XmlImportWindowControllerFactory extends
+        Factory<XmlImportWindowController> {
 
 }

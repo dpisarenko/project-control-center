@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.api.xmlimportwindowcontroller;
+package at.silverstrike.pcc.api.xmlimportdialogcontroller;
 
 import com.vaadin.ui.Window;
 

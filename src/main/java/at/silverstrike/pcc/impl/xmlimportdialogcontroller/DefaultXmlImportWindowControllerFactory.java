@@ -9,10 +9,10 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.xmlimportwindowcontroller;
+package at.silverstrike.pcc.impl.xmlimportdialogcontroller;
 
-import at.silverstrike.pcc.api.xmlimportwindowcontroller.XmlImportWindowController;
-import at.silverstrike.pcc.api.xmlimportwindowcontroller.XmlImportWindowControllerFactory;
+import at.silverstrike.pcc.api.xmlimportdialogcontroller.XmlImportWindowController;
+import at.silverstrike.pcc.api.xmlimportdialogcontroller.XmlImportWindowControllerFactory;
 
 /**
  * @author DP118M

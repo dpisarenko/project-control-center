@@ -9,10 +9,10 @@
  *
  **/
 
-package at.silverstrike.pcc.impl.xmlimportwindow;
+package at.silverstrike.pcc.impl.xmlimportdialog;
 
-import at.silverstrike.pcc.api.xmlimportwindow.XmlImportWindow;
-import at.silverstrike.pcc.api.xmlimportwindow.XmlImportWindowFactory;
+import at.silverstrike.pcc.api.xmlimportdialog.XmlImportWindow;
+import at.silverstrike.pcc.api.xmlimportdialog.XmlImportWindowFactory;
 
 /**
  * @author DP118M
