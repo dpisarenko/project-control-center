@@ -23,6 +23,7 @@ import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factor
 import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3;
 import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3Factory;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
+import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
 
 /**
  * @author DP118M
@@ -64,7 +65,8 @@ class DefaultInvitationGuiController implements InvitationGuiController {
     }
 
     @Override
-    public void nextButtonInStep2Pressed() {
+    public void nextButtonInStep2Pressed(final SupportedOpenIdProvider aOpenIdProvider,
+            final String aUserUrl) {
         final InvitationRequestWindowStep3Factory factory =
                 this.injector
                         .getInstance(InvitationRequestWindowStep3Factory.class);

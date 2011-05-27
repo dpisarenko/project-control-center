@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.api.invitationguicontroller;
 
+import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
+
 import com.vaadin.ui.Window;
 
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
@@ -25,5 +27,8 @@ public interface InvitationGuiController extends
 
     void nextButtonInStep1Pressed();
 
-    void nextButtonInStep2Pressed();
+    void
+            nextButtonInStep2Pressed(
+                    final SupportedOpenIdProvider aOpenIdProvider,
+                    final String aUserUrl);
 }

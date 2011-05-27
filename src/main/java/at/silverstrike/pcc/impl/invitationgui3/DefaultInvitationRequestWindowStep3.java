@@ -23,6 +23,7 @@ import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
 public class DefaultInvitationRequestWindowStep3 implements
         InvitationRequestWindowStep3 {
     private InvitationGuiController controller;
+    private Window window;
     
     @Override
     public void initGui() {
@@ -32,8 +33,7 @@ public class DefaultInvitationRequestWindowStep3 implements
 
     @Override
     public Window toWindow() {
-        // TODO Auto-generated method stub
-        return null;
+        return window;
     }
 
     
