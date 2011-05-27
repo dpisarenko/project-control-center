@@ -193,4 +193,11 @@ class DefaultWebGuiBus implements WebGuiBus {
             listener.taskDependenciesChanged(aObject);
         }
     }
+
+    @Override
+    public void broadcastPlanCalculatedMessage() {
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.planCalculated();
+        }        
+    }
 }

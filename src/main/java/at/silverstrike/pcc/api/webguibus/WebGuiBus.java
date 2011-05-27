@@ -71,4 +71,6 @@ public interface WebGuiBus {
     void broadcastTaskCompletedFailureMessage();
     
     void broadcastTaskDependenciesChangedMessage(final SchedulingObject aObject);
+
+    void broadcastPlanCalculatedMessage();
 }

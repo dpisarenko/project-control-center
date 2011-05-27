@@ -194,6 +194,10 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         try {
             scheduler.run();
             this.state = SchedulingState.PLAN_UP_TO_DATE;
+            
+            final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
+            webGuiBus.broadcastPlanCalculatedMessage();
+            
         } catch (final InvalidDurationException exception) {
             this.state = SchedulingState.ERROR;
             LOGGER.error("", exception);

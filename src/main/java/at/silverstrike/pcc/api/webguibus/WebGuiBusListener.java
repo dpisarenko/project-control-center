@@ -52,4 +52,6 @@ public interface WebGuiBusListener {
     void taskComletedFailure();
 
     void taskDependenciesChanged(final SchedulingObject aObject);
+
+    void planCalculated();
 }

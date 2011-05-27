@@ -17,27 +17,42 @@ import com.vaadin.ui.Panel;
 import at.silverstrike.pcc.api.calendarpanel.CalendarPanel;
 import at.silverstrike.pcc.api.calendarpanel.CalendarPanelFactory;
 import at.silverstrike.pcc.api.calendarpanelcontroller.CalendarPanelController;
+import at.silverstrike.pcc.api.webguibus.WebGuiBus;
+import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
 
 /**
  * @author DP118M
- *
+ * 
  */
-class DefaultCalendarPanelController implements CalendarPanelController {
+class DefaultCalendarPanelController extends WebGuiBusListenerAdapter implements
+        CalendarPanelController {
     private Injector injector;
-    
+    private CalendarPanel panel;
+
     @Override
     public Panel initGui() {
-        final CalendarPanelFactory factory = this.injector.getInstance(CalendarPanelFactory.class);
-        final CalendarPanel panel = factory.create();
-        
+        final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
+        webGuiBus.addListener(this);
+
+        final CalendarPanelFactory factory =
+                this.injector.getInstance(CalendarPanelFactory.class);
+        panel = factory.create();
+
         panel.setInjector(this.injector);
         panel.initGui();
-        
+
         return panel.toPanel();
     }
 
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
+    }
+
+    @Override
+    public void planCalculated() {
+        /**
+         * This method is called whenever a plan has been calculated successfully.
+         */
     }
 }

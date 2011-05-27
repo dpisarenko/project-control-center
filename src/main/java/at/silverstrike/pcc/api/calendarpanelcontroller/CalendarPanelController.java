@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.api.calendarpanelcontroller;
 
+import at.silverstrike.pcc.api.webguibus.WebGuiBusListener;
+
 import com.vaadin.ui.Panel;
 
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
@@ -21,6 +23,6 @@ import ru.altruix.commons.api.gui.GuiController;
  * 
  */
 public interface CalendarPanelController extends GuiController<Panel>,
-        ModuleWithInjectableDependencies {
+        ModuleWithInjectableDependencies, WebGuiBusListener {
 
 }

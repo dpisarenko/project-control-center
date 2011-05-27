@@ -114,4 +114,10 @@ public abstract class WebGuiBusListenerAdapter implements WebGuiBusListener {
         
     }
 
+    @Override
+    public void planCalculated() {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
