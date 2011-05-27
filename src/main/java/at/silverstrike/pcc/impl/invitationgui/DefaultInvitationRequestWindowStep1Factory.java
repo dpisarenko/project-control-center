@@ -11,13 +11,19 @@
 
 package at.silverstrike.pcc.impl.invitationgui;
 
+import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1;
 import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1Factory;
 
 /**
  * @author DP118M
  *
  */
-public interface DefaultInvitationRequestWindowStep1Factory extends
+public class DefaultInvitationRequestWindowStep1Factory implements
         InvitationRequestWindowStep1Factory {
+
+    @Override
+    public InvitationRequestWindowStep1 create() {
+        return new DefaultInvitationRequestWindowStep1();
+    }
 
 }

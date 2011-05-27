@@ -43,6 +43,11 @@ import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelCont
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
 import at.silverstrike.pcc.api.incorrectschedulingobjectsmarker.IncorrectSchedulingObjectsMarkerFactory;
+import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1Factory;
+import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factory;
+import at.silverstrike.pcc.api.invitationgui2validator.InvitationRequestWindowStep2ValidatorFactory;
+import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3Factory;
+import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiControllerFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
@@ -99,6 +104,11 @@ import at.silverstrike.pcc.impl.eventeditingpanelcontroller.DefaultEventEditingP
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.graph2resource.DefaultGraph2ResourceConverterFactory;
 import at.silverstrike.pcc.impl.incorrectschedulingobjectsmarker.DefaultIncorrectSchedulingObjectsMarkerFactory;
+import at.silverstrike.pcc.impl.invitationgui.DefaultInvitationRequestWindowStep1Factory;
+import at.silverstrike.pcc.impl.invitationgui2.DefaultInvitationRequestWindowStep2Factory;
+import at.silverstrike.pcc.impl.invitationgui2validator.DefaultInvitationRequestWindowStep2ValidatorFactory;
+import at.silverstrike.pcc.impl.invitationgui3.DefaultInvitationRequestWindowStep3Factory;
+import at.silverstrike.pcc.impl.invitationguicontroller.DefaultInvitationGuiControllerFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
@@ -242,6 +252,16 @@ class InjectorModule extends AbstractModule {
                 new DefaultCalendarPanelControllerFactory());
         bind(AutomaticExporterFactory.class).toInstance(
                 new DefaultAutomaticExporterFactory());
+        bind(InvitationRequestWindowStep1Factory.class).toInstance(
+                new DefaultInvitationRequestWindowStep1Factory());
+        bind(InvitationRequestWindowStep2Factory.class).toInstance(
+                new DefaultInvitationRequestWindowStep2Factory());
+        bind(InvitationRequestWindowStep3Factory.class).toInstance(
+                new DefaultInvitationRequestWindowStep3Factory());
+        bind(InvitationGuiControllerFactory.class).toInstance(
+                new DefaultInvitationGuiControllerFactory());
+        bind(InvitationRequestWindowStep2ValidatorFactory.class).toInstance(
+                new DefaultInvitationRequestWindowStep2ValidatorFactory());
     }
 
     private TestTableCreator getTestTableCreator() {
