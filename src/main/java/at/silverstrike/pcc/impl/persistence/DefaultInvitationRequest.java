@@ -33,47 +33,47 @@ class DefaultInvitationRequest implements InvitationRequest {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(final Long aId) {
+        this.id = aId;
     }
 
     public Date getSubmissionDateTime() {
         return submissionDateTime;
     }
 
-    public void setSubmissionDateTime(Date submissionDateTime) {
-        this.submissionDateTime = submissionDateTime;
+    public void setSubmissionDateTime(final Date aSubmissionDateTime) {
+        this.submissionDateTime = aSubmissionDateTime;
     }
 
     public SupportedOpenIdProvider getOpenIdProvider() {
         return openIdProvider;
     }
 
-    public void setOpenIdProvider(SupportedOpenIdProvider openIdProvider) {
-        this.openIdProvider = openIdProvider;
+    public void setOpenIdProvider(final SupportedOpenIdProvider aOpenIdProvider) {
+        this.openIdProvider = aOpenIdProvider;
     }
 
     public String getEnteredId() {
         return enteredId;
     }
 
-    public void setEnteredId(String enteredId) {
-        this.enteredId = enteredId;
+    public void setEnteredId(final String aEnteredId) {
+        this.enteredId = aEnteredId;
     }
 
     public InvitationRequestStatus getStatus() {
         return status;
     }
 
-    public void setStatus(InvitationRequestStatus status) {
-        this.status = status;
+    public void setStatus(final InvitationRequestStatus aStatus) {
+        this.status = aStatus;
     }
 
     public String getIdentity() {
         return identity;
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
+    public void setIdentity(final String aIdentity) {
+        this.identity = aIdentity;
     }
 }
