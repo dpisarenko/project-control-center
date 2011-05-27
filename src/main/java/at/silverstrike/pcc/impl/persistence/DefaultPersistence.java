@@ -30,6 +30,8 @@ import org.hibernate.dialect.DerbyDialect;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.DailyLimitResourceAllocation;
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.InvitationRequest;
+import at.silverstrike.pcc.api.model.InvitationRequestStatus;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -41,6 +43,7 @@ import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
+import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.persistence.PersistenceState;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
@@ -930,6 +933,7 @@ public class DefaultPersistence implements Persistence {
         cnf.addResource("persistence/DefaultDailyPlan.hbm.xml");
         cnf.addResource("persistence/DefaultDailySchedule.hbm.xml");
         cnf.addResource("persistence/DefaultDailyToDoList.hbm.xml");
+        cnf.addResource("persistence/DefaultInvitationRequest.hbm.xml");
 
         LOGGER.debug("tryToOpenSession, 3");
 
@@ -1391,8 +1395,9 @@ public class DefaultPersistence implements Persistence {
 
     @SuppressWarnings("unchecked")
     @Override
-    public final List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
-            final Long aProcessId) {
+    public final List<SchedulingObject>
+            getSubProcessesWithChildrenInclAttainedTasks(
+                    final Long aProcessId) {
         List<SchedulingObject> processes = null;
 
         try {
@@ -1547,5 +1552,31 @@ public class DefaultPersistence implements Persistence {
         }
 
         return (List<SchedulingObject>) result;
+    }
+
+    @Override
+    public void
+            createInvitationRequest(
+                    final SupportedOpenIdProvider aOpenIdProvider,
+                    final String aUserUrl) {
+        
+        final InvitationRequest request = new DefaultInvitationRequest();
+        
+        request.setEnteredId(aUserUrl);
+        request.setIdentity(null);
+        request.setOpenIdProvider(aOpenIdProvider);
+        request.setStatus(InvitationRequestStatus.SUBMITTED);
+        request.setSubmissionDateTime(new Date());
+        
+
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            session.save(request);
+            tx.commit();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
     }
 }

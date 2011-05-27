@@ -27,6 +27,7 @@ import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
+import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
 
@@ -193,4 +194,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     boolean hasChildren(final SchedulingObject aObject);
 
     List<SchedulingObject> getTopLevelTasks();
+    
+    void createInvitationRequest(final SupportedOpenIdProvider aOpenIdProvider, final String aUserUrl);
 }

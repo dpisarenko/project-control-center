@@ -27,6 +27,7 @@ import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
+import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.persistence.PersistenceState;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
@@ -277,6 +278,13 @@ public abstract class MockPersistenceAdapter implements Persistence {
     public List<SchedulingObject> getTopLevelTasks() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void createInvitationRequest(
+            final SupportedOpenIdProvider aOpenIdProvider, final String aUserUrl) {
+        // TODO Auto-generated method stub
+        
     }
     
 }
