@@ -22,6 +22,8 @@ import ru.altruix.commons.api.di.PccException;
 
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
+import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
+import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiControllerFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
@@ -45,6 +47,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
             .getLogger(ProjectControlCenterApplication.class);
     private static final String THEME = "pcc";
     private static final boolean OPENID_DEBUGGED = false;
+    private static final boolean TEST_INVITATION = false;
 
     private static final long serialVersionUID = 1L;
 
@@ -90,6 +93,17 @@ public class ProjectControlCenterApplication extends TPTApplication implements
             entryWindow.initGui();
 
             setMainWindow(entryWindow.toWindow());
+        } else if (TEST_INVITATION) {
+            final InvitationGuiControllerFactory invitationGuiControllerFactory =
+                    injector.getInstance(InvitationGuiControllerFactory.class);
+            final InvitationGuiController controller =
+                    invitationGuiControllerFactory.create();
+
+            controller.setInjector(injector);
+
+            final Window invitationRequestWindow = controller.initGui();
+
+            this.setMainWindow(invitationRequestWindow);
         } else {
             final MainWindowControllerFactory mainWindowControllerFactory =
                     injector.getInstance(MainWindowControllerFactory.class);
@@ -97,7 +111,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
                     mainWindowControllerFactory.create();
 
             controller.setInjector(injector);
-            
+
             final Window mainWindow = controller.initGui();
             this.setMainWindow(mainWindow);
         }

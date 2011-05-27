@@ -108,7 +108,7 @@ class DefaultMainWindow implements MainWindow {
                 .get("mainwindow.8-human-resource-tab"), null);
         this.tabSheet.addTab(getCalendarTab(), TM
                 .get("mainwindow.20-calendar-tab"), null);
-        
+
         mainLayout.addComponent(this.tabSheet);
 
         mainWindow.setContent(mainLayout);
@@ -116,9 +116,10 @@ class DefaultMainWindow implements MainWindow {
     }
 
     private Component getCalendarTab() {
-        final CalendarPanelControllerFactory factory = this.injector.getInstance(CalendarPanelControllerFactory.class);
+        final CalendarPanelControllerFactory factory =
+                this.injector.getInstance(CalendarPanelControllerFactory.class);
         final CalendarPanelController controller = factory.create();
-        
+
         controller.setInjector(this.injector);
         return controller.initGui();
     }
@@ -209,7 +210,7 @@ class DefaultMainWindow implements MainWindow {
     public void setCentralEditingPanel(final Panel aPanel) {
         this.centralEditingPanel = aPanel;
     }
-    
+
     @Override
     public void setGuiController(final MainWindowController aController) {
         this.controller = aController;
