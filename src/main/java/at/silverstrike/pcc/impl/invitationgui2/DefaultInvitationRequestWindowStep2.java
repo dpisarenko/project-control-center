@@ -54,8 +54,6 @@ class DefaultInvitationRequestWindowStep2 implements
         this.window.addComponent(textFieldLayout);
         this.window.addComponent(bodyTextBottomLabel);
         this.window.addComponent(nextButton);
-
-
     }
 
     private GridLayout createTextfieldLayout() {

@@ -20,6 +20,8 @@ import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1;
 import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1Factory;
 import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2;
 import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factory;
+import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3;
+import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3Factory;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
 
 /**
@@ -63,7 +65,14 @@ class DefaultInvitationGuiController implements InvitationGuiController {
 
     @Override
     public void nextButtonInStep2Pressed() {
-        // TODO Auto-generated method stub
-        
+        final InvitationRequestWindowStep3Factory factory =
+                this.injector
+                        .getInstance(InvitationRequestWindowStep3Factory.class);
+        final InvitationRequestWindowStep3 window = factory.create();
+
+        window.setGuiController(this);
+        window.initGui();
+
+        TPTApplication.getCurrentApplication().setMainWindow(window.toWindow());
     }
 }
