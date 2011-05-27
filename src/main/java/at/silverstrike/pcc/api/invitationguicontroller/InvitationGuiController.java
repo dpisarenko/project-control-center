@@ -24,4 +24,6 @@ public interface InvitationGuiController extends
         ModuleWithInjectableDependencies, GuiController<Window> {
 
     void nextButtonInStep1Pressed();
+
+    void nextButtonInStep2Pressed();
 }

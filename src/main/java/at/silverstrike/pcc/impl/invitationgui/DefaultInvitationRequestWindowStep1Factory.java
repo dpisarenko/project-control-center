@@ -17,7 +17,7 @@ import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1Factory
  * @author DP118M
  *
  */
-public interface DefaultInvitationRequestWindowFactory extends
+public interface DefaultInvitationRequestWindowStep1Factory extends
         InvitationRequestWindowStep1Factory {
 
 }

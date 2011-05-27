@@ -14,8 +14,12 @@ package at.silverstrike.pcc.impl.invitationguicontroller;
 import com.google.inject.Injector;
 import com.vaadin.ui.Window;
 
+import eu.livotov.tpt.TPTApplication;
+
 import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1;
 import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1Factory;
+import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2;
+import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factory;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
 
 /**
@@ -33,18 +37,32 @@ class DefaultInvitationGuiController implements InvitationGuiController {
     @Override
     public Window initGui() {
         final InvitationRequestWindowStep1Factory factory =
-                this.injector.getInstance(InvitationRequestWindowStep1Factory.class);
+                this.injector
+                        .getInstance(InvitationRequestWindowStep1Factory.class);
         final InvitationRequestWindowStep1 window = factory.create();
-        
+
         window.setGuiController(this);
 
         window.initGui();
-        
+
         return window.toWindow();
     }
 
     @Override
     public void nextButtonInStep1Pressed() {
+        final InvitationRequestWindowStep2Factory factory =
+                this.injector
+                        .getInstance(InvitationRequestWindowStep2Factory.class);
+        final InvitationRequestWindowStep2 window = factory.create();
+
+        window.setGuiController(this);
+        window.initGui();
+
+        TPTApplication.getCurrentApplication().setMainWindow(window.toWindow());
+    }
+
+    @Override
+    public void nextButtonInStep2Pressed() {
         // TODO Auto-generated method stub
         
     }

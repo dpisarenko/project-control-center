@@ -25,5 +25,5 @@ import com.vaadin.ui.Window;
 public interface InvitationRequestWindowStep2 extends
         InitializableGuiComponent, AbstractedWindow,
         ExternallyControlledGuiComponent<InvitationGuiController, Window> {
-
+    
 }
