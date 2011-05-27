@@ -36,7 +36,6 @@ public class DefaultInvitationRequestWindowStep3 implements
         return window;
     }
 
-    
     @Override
     public void setGuiController(final InvitationGuiController aController) {
         this.controller = aController;
