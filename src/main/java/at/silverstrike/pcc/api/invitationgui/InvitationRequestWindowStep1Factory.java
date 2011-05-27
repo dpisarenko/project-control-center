@@ -17,7 +17,7 @@ import ru.altruix.commons.api.conventions.Factory;
  * @author DP118M
  * 
  */
-public interface InvitationRequestWindowFactory extends
+public interface InvitationRequestWindowStep1Factory extends
         Factory<InvitationRequestWindowStep1> {
 
 }

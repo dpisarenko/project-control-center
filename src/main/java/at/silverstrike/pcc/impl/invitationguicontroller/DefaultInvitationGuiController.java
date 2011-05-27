@@ -15,7 +15,7 @@ import com.google.inject.Injector;
 import com.vaadin.ui.Window;
 
 import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1;
-import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowFactory;
+import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1Factory;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
 
 /**
@@ -32,15 +32,20 @@ class DefaultInvitationGuiController implements InvitationGuiController {
 
     @Override
     public Window initGui() {
-        final InvitationRequestWindowFactory factory =
-                this.injector.getInstance(InvitationRequestWindowFactory.class);
+        final InvitationRequestWindowStep1Factory factory =
+                this.injector.getInstance(InvitationRequestWindowStep1Factory.class);
         final InvitationRequestWindowStep1 window = factory.create();
         
         window.setGuiController(this);
-        window.setInjector(this.injector);
 
         window.initGui();
         
         return window.toWindow();
+    }
+
+    @Override
+    public void nextButtonInStep1Pressed() {
+        // TODO Auto-generated method stub
+        
     }
 }
