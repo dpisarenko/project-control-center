@@ -9,15 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.invitationgui;
+package at.silverstrike.pcc.impl.invitationgui;
 
-import ru.altruix.commons.api.conventions.Factory;
+import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowFactory;
 
 /**
  * @author DP118M
- * 
+ *
  */
-public interface InvitationRequestWindowFactory extends
-        Factory<InvitationRequestWindowStep1> {
+public interface DefaultInvitationRequestWindowFactory extends
+        InvitationRequestWindowFactory {
 
 }

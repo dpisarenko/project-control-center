@@ -11,7 +11,6 @@
 
 package at.silverstrike.pcc.api.invitationgui;
 
-import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.ExternallyControlledGuiComponent;
 import ru.altruix.commons.api.gui.InitializableGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedWindow;
@@ -23,8 +22,7 @@ import com.vaadin.ui.Window;
  * @author DP118M
  * 
  */
-public interface InvitationRequestWindow extends
-        ModuleWithInjectableDependencies,
+public interface InvitationRequestWindowStep1 extends
         InitializableGuiComponent, AbstractedWindow,
         ExternallyControlledGuiComponent<InvitationGuiController, Window> {
 

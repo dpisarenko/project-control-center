@@ -14,7 +14,7 @@ package at.silverstrike.pcc.impl.invitationguicontroller;
 import com.google.inject.Injector;
 import com.vaadin.ui.Window;
 
-import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindow;
+import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1;
 import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowFactory;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
 
@@ -34,7 +34,7 @@ class DefaultInvitationGuiController implements InvitationGuiController {
     public Window initGui() {
         final InvitationRequestWindowFactory factory =
                 this.injector.getInstance(InvitationRequestWindowFactory.class);
-        final InvitationRequestWindow window = factory.create();
+        final InvitationRequestWindowStep1 window = factory.create();
         
         window.setGuiController(this);
         window.setInjector(this.injector);
