@@ -33,6 +33,7 @@ import at.silverstrike.pcc.api.model.InvitationRequestStatus;
  */
 public class DefaultInvitationRequestAdminPanel implements
         InvitationRequestAdminPanel, ClickListener {
+    private static final long serialVersionUID = 1L;
     private InvitationRequestAdminPanelController controller;
     private Injector injector;
     private Panel panel;
