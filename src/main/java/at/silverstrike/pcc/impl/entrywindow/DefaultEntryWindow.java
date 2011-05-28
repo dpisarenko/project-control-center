@@ -39,8 +39,7 @@ import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 
-class DefaultEntryWindow implements EntryWindow, ParameterHandler,
-        HttpServletRequestListener {
+class DefaultEntryWindow implements EntryWindow {
     private static final int OPEN_ID_TEXT_FIELD_COLUMNS = 30;
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
@@ -54,7 +53,6 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
     private Button authenticateButton;
     private Label signupLabel;
     private transient Injector injector;
-    private transient HttpServletRequest request;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -70,21 +68,22 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
     @Override
     public void initGui() {
         window = new Window();
-        window.addParameterHandler(this);
         window.setSizeFull();
 
         final GridLayout layout = new GridLayout(2, 1);
 
         layout.setSizeFull();
         initAuthPanel();
-
+        
+        
+        
         this.signupLabel = new Label("", Label.CONTENT_XHTML);
 
         layout.addComponent(this.signupLabel, 0, 0);
         layout.addComponent(this.authPanel, 1, 0);
 
         window.addComponent(layout);
-
+        updateControls();
     }
 
     @Override
@@ -92,32 +91,6 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
         return this.window;
     }
 
-    @Override
-    public void handleParameters(final Map<String, String[]> aParameters) {
-        this.parameterDataReader.setParameters(aParameters);
-        try {
-            this.parameterDataReader.run();
-        } catch (final PccException exception) {
-            LOGGER.error(M_001_HANDLE_PARAMETERS_1, exception);
-        }
-
-        final String culture = this.parameterDataReader.getCulture();
-
-        this.cultureToLanguageMapper.setCulture(culture);
-        try {
-            this.cultureToLanguageMapper.run();
-        } catch (final PccException exception) {
-            LOGGER.error(ErrorCodes.M_002_HANDLE_PARAMETERS_2, exception);
-        }
-
-        final String language = this.cultureToLanguageMapper.getLanguage();
-
-        LOGGER.debug("{}: Culture='{}', language='{}'", new Object[] {
-                ErrorCodes.M_003_HANDLE_PARAMETERS_3, culture, language });
-        TM.getDictionary().setDefaultLanguage(language);
-
-        updateControls();
-    }
 
     private void updateControls() {
         this.window.setCaption(TM.get("entrywindow.1-title"));
@@ -144,13 +117,6 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
         openIdTextField.setColumns(OPEN_ID_TEXT_FIELD_COLUMNS);
         authenticateButton = new Button();
 
-        final AuthenticateButtonListener listener =
-                new AuthenticateButtonListener();
-        listener.setInjector(this.injector);
-        listener.setRequest(this.request);
-        listener.setOpenIdTextField(this.openIdTextField);
-        this.authenticateButton.addListener(listener);
-
         gridLayout.addComponent(openIdLabel, 0, 0);
         gridLayout.addComponent(openIdTextField, 1, 0);
         gridLayout.addComponent(authenticateButton, 0, 1, 1, 1);
@@ -158,21 +124,5 @@ class DefaultEntryWindow implements EntryWindow, ParameterHandler,
         this.authPanel.addComponent(gridLayout);
         this.authPanel.setSizeFull();
     }
-
-    @Override
-    public void onRequestStart(final HttpServletRequest aRequest,
-            final HttpServletResponse aResponse) {
-        this.request = aRequest;
-    }
-
-    @Override
-    public void onRequestEnd(final HttpServletRequest aRequest,
-            final HttpServletResponse aResponse) {
-    }
     
-    @Override
-    public void setRequest(final HttpServletRequest aRequest) {
-        this.request = aRequest;
-    }
-
 }

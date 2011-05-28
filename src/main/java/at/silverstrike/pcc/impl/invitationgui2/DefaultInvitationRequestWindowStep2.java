@@ -82,11 +82,11 @@ class DefaultInvitationRequestWindowStep2 implements
 
         layout.setSizeFull();
         
-        final Label faceBookLabel =
+        final Label emailLabel =
                 new Label(TM.get("invitationgui2.5-email"));
         emailTextField = new TextField("");
 
-        layout.addComponent(faceBookLabel);
+        layout.addComponent(emailLabel);
         layout.addComponent(emailTextField);
 
         return layout;
