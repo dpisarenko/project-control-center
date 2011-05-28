@@ -44,6 +44,7 @@ class DefaultInvitationGuiController implements InvitationGuiController {
         final InvitationRequestWindowStep2 window = factory.create();
 
         window.setGuiController(this);
+        window.setInjector(this.injector);
         window.initGui();
 
         return window.toWindow();

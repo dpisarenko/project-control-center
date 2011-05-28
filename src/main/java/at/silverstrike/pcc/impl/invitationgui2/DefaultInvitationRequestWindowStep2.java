@@ -58,6 +58,9 @@ class DefaultInvitationRequestWindowStep2 implements
 
         final Label headerLabel =
                 new Label(TM.get("invitationgui2.2-headerLabel"));
+        
+        headerLabel.setContentMode(Label.CONTENT_XHTML);
+
         final Label bodyTextTopLabel =
                 new Label(TM.get("invitationgui2.3-bodyTextLabel-top"));
         final Label bodyTextBottomLabel =
@@ -83,21 +86,8 @@ class DefaultInvitationRequestWindowStep2 implements
                 new Label(TM.get("invitationgui2.5-facebook"));
         faceBookTextField = new TextField("");
 
-        final Label vkontakteLabel =
-                new Label(TM.get("invitationgui2.6-vkontakte"));
-        vkontakteTextField = new TextField("");
-
-        final Label googleLabel = new Label(TM.get("invitationgui2.7-google"));
-        googleTextField = new TextField("");
-
         layout.addComponent(faceBookLabel, 0, 0);
         layout.addComponent(faceBookTextField, 1, 0);
-
-        layout.addComponent(vkontakteLabel, 0, 1);
-        layout.addComponent(vkontakteTextField, 1, 1);
-
-        layout.addComponent(googleLabel, 0, 2);
-        layout.addComponent(googleTextField, 1, 2);
 
         return layout;
     }
