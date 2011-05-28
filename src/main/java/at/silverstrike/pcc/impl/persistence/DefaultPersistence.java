@@ -1562,9 +1562,6 @@ public class DefaultPersistence implements Persistence {
 
         final InvitationRequest request = new DefaultInvitationRequest();
 
-        request.setEnteredId(aUserUrl);
-        request.setUserIdentity(null);
-        request.setOpenIdProvider(aOpenIdProvider);
         request.setStatus(InvitationRequestStatus.SUBMITTED);
         request.setSubmissionDateTime(new Date());
 
@@ -1623,12 +1620,12 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public void acceptInvitationRequest(final InvitationRequest aRequest,
-            final String aUserIdentity) {
+            final String aPassword) {
         final DefaultInvitationRequest request =
                 (DefaultInvitationRequest) aRequest;
 
         request.setStatus(InvitationRequestStatus.ACCEPTED);
-        request.setUserIdentity(aUserIdentity);
+        request.setPassword(aPassword);
 
         final Transaction tx = session.beginTransaction();
 
