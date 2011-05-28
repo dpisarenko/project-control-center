@@ -23,7 +23,7 @@ import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
  * @author DP118M
  * 
  */
-public class DefaultInvitationRequestWindowStep3 implements
+class DefaultInvitationRequestWindowStep3 implements
         InvitationRequestWindowStep3 {
     private Window window;
 
@@ -38,6 +38,9 @@ public class DefaultInvitationRequestWindowStep3 implements
         final Label bodyTextLabel =
                 new Label(TM.get("invitationgui3.3-bodyTextLabel"));
 
+        headerLabel.setContentMode(Label.CONTENT_XHTML);
+        bodyTextLabel.setContentMode(Label.CONTENT_XHTML);
+        
         this.window.addComponent(headerLabel);
         this.window.addComponent(bodyTextLabel);
     }
