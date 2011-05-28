@@ -293,5 +293,11 @@ public abstract class MockPersistenceAdapter implements Persistence {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public void rejectInvitationRequest(InvitationRequest aSelectedRequest) {
+        // TODO Auto-generated method stub
+        
+    }
     
 }

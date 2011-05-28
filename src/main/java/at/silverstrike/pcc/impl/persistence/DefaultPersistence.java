@@ -1559,15 +1559,14 @@ public class DefaultPersistence implements Persistence {
             createInvitationRequest(
                     final SupportedOpenIdProvider aOpenIdProvider,
                     final String aUserUrl) {
-        
+
         final InvitationRequest request = new DefaultInvitationRequest();
-        
+
         request.setEnteredId(aUserUrl);
         request.setUserIdentity(null);
         request.setOpenIdProvider(aOpenIdProvider);
         request.setStatus(InvitationRequestStatus.SUBMITTED);
         request.setSubmissionDateTime(new Date());
-        
 
         final Transaction tx = session.beginTransaction();
 
@@ -1601,5 +1600,23 @@ public class DefaultPersistence implements Persistence {
         }
 
         return (List<InvitationRequest>) result;
+    }
+
+    @Override
+    public void
+            rejectInvitationRequest(final InvitationRequest aSelectedRequest) {
+        final DefaultInvitationRequest request =
+                (DefaultInvitationRequest) aSelectedRequest;
+
+        request.setStatus(InvitationRequestStatus.REJECTED);
+
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            session.update(request);
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
     }
 }

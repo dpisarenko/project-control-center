@@ -14,6 +14,8 @@ package at.silverstrike.pcc.api.invitationrequestadminpanelcontroller;
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.GuiController;
 
+import at.silverstrike.pcc.api.model.InvitationRequest;
+
 import com.vaadin.ui.Panel;
 
 /**
@@ -25,7 +27,7 @@ public interface InvitationRequestAdminPanelController extends
 
     void acceptButtonPressed();
 
-    void rejectButtonPressed();
+    void rejectButtonPressed(final InvitationRequest aSelectedRequest);
 
     void refreshButtonPressed();
 

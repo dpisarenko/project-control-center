@@ -63,8 +63,8 @@ class DefaultInvitationRequestAdminPanelController implements
     }
 
     @Override
-    public void rejectButtonPressed() {
-        // TODO Auto-generated method stub
+    public void rejectButtonPressed(final InvitationRequest aSelectedRequest) {
+        this.persistence.rejectInvitationRequest(aSelectedRequest);
         refreshButtonPressed();
     }
 

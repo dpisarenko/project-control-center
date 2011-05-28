@@ -131,12 +131,14 @@ class DefaultInvitationRequestAdminPanel implements
     @Override
     public void buttonClick(final ClickEvent aEvent) {
         final String pressedButtonCaption = aEvent.getButton().getCaption();
+        final InvitationRequest selectedRequest = (InvitationRequest)this.table.getValue();
+        
         if (this.acceptButtonCaption.equals(pressedButtonCaption)) {
             LOGGER.debug("acceptButton pressed");
             this.controller.acceptButtonPressed();
         } else if (this.rejectButtonCaption.equals(pressedButtonCaption)) {
             LOGGER.debug("rejectButtonCaption pressed");
-            this.controller.rejectButtonPressed();
+            this.controller.rejectButtonPressed(selectedRequest);
         } else if (this.refreshButtonCaption.equals(pressedButtonCaption)) {
             LOGGER.debug("refreshButtonCaption pressed");
             this.controller.refreshButtonPressed();
