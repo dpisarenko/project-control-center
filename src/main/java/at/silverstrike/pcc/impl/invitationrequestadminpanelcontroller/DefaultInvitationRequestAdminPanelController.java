@@ -48,6 +48,7 @@ class DefaultInvitationRequestAdminPanelController implements
         panel = factory.create();
 
         panel.setInjector(this.injector);
+        panel.setGuiController(this);
         panel.initGui();
         
         this.refreshButtonPressed();
@@ -58,13 +59,13 @@ class DefaultInvitationRequestAdminPanelController implements
     @Override
     public void acceptButtonPressed() {
         // TODO Auto-generated method stub
-        this.panel.updateView();
+        refreshButtonPressed();
     }
 
     @Override
     public void rejectButtonPressed() {
         // TODO Auto-generated method stub
-        this.panel.updateView();
+        refreshButtonPressed();
     }
 
     @Override
