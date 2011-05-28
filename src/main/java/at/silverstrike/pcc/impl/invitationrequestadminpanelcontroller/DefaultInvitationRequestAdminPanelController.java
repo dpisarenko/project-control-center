@@ -11,12 +11,16 @@
 
 package at.silverstrike.pcc.impl.invitationrequestadminpanelcontroller;
 
+import java.util.List;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
 import at.silverstrike.pcc.api.invitationrequestadminpanel.InvitationRequestAdminPanel;
 import at.silverstrike.pcc.api.invitationrequestadminpanel.InvitationRequestAdminPanelFactory;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelController;
+import at.silverstrike.pcc.api.model.InvitationRequest;
+import at.silverstrike.pcc.api.persistence.Persistence;
 
 /**
  * @author DP118M
@@ -25,10 +29,15 @@ import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationR
 class DefaultInvitationRequestAdminPanelController implements
         InvitationRequestAdminPanelController {
     private Injector injector;
+    private InvitationRequestAdminPanel panel;
+    private Persistence persistence;
 
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
+        if (aInjector != null) {
+            this.persistence = aInjector.getInstance(Persistence.class);
+        }
     }
 
     @Override
@@ -36,11 +45,29 @@ class DefaultInvitationRequestAdminPanelController implements
         final InvitationRequestAdminPanelFactory factory =
                 this.injector
                         .getInstance(InvitationRequestAdminPanelFactory.class);
-        final InvitationRequestAdminPanel panel = factory.create();
-        
+        panel = factory.create();
+
         panel.setInjector(this.injector);
         panel.initGui();
-        
+
         return panel.toPanel();
+    }
+
+    @Override
+    public void acceptButtonPressed() {
+        // TODO Auto-generated method stub
+        this.panel.updateView();
+    }
+
+    @Override
+    public void rejectButtonPressed() {
+        // TODO Auto-generated method stub
+        this.panel.updateView();
+    }
+
+    @Override
+    public void refreshButtonPressed() {
+        final List<InvitationRequest> requests = this.persistence.getInvitationRequests();
+        this.panel.updateView();
     }
 }

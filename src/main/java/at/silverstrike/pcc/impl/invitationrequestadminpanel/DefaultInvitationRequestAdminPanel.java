@@ -12,6 +12,10 @@
 package at.silverstrike.pcc.impl.invitationrequestadminpanel;
 
 import java.util.Date;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Button;
@@ -25,6 +29,7 @@ import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.invitationrequestadminpanel.InvitationRequestAdminPanel;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelController;
+import at.silverstrike.pcc.api.model.InvitationRequest;
 import at.silverstrike.pcc.api.model.InvitationRequestStatus;
 
 /**
@@ -34,10 +39,16 @@ import at.silverstrike.pcc.api.model.InvitationRequestStatus;
 public class DefaultInvitationRequestAdminPanel implements
         InvitationRequestAdminPanel, ClickListener {
     private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultInvitationRequestAdminPanel.class);
     private InvitationRequestAdminPanelController controller;
     private Injector injector;
     private Panel panel;
     private Table table;
+    private List<InvitationRequest> data;
+    private String refreshButtonCaption;
+    private String acceptButtonCaption;
+    private String rejectButtonCaption;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -81,22 +92,35 @@ public class DefaultInvitationRequestAdminPanel implements
         this.table.setMultiSelect(false);
         this.table.setImmediate(true);
 
-        final Button refreshButton = new Button(TM.get("invitationrequestadminpanel.7-refreshButton"));
-        final Button acceptButton = new Button(TM.get("invitationrequestadminpanel.8-acceptButton"));
-        final Button rejectButton = new Button(TM.get("invitationrequestadminpanel.9-rejectButton"));
-        
+        refreshButtonCaption =
+                TM.get("invitationrequestadminpanel.7-refreshButton");
+        acceptButtonCaption =
+                TM.get("invitationrequestadminpanel.8-acceptButton");
+        rejectButtonCaption =
+                TM.get("invitationrequestadminpanel.9-rejectButton");
+
+        final Button refreshButton =
+                new Button(
+                        refreshButtonCaption);
+        final Button acceptButton =
+                new Button(acceptButtonCaption);
+        final Button rejectButton =
+                new Button(rejectButtonCaption);
+
         refreshButton.addListener(this);
         acceptButton.addListener(this);
         rejectButton.addListener(this);
-        
+
         final HorizontalLayout buttonLayout = new HorizontalLayout();
-        
+
         buttonLayout.addComponent(refreshButton);
         buttonLayout.addComponent(acceptButton);
         buttonLayout.addComponent(rejectButton);
-        
+
         this.panel.addComponent(this.table);
         this.panel.addComponent(buttonLayout);
+        
+        this.updateView();
     }
 
     @Override
@@ -107,7 +131,38 @@ public class DefaultInvitationRequestAdminPanel implements
 
     @Override
     public void buttonClick(final ClickEvent aEvent) {
-        // TODO Auto-generated method stub
-        
+        final String pressedButtonCaption = aEvent.getButton().getCaption();
+        if (this.acceptButtonCaption.equals(pressedButtonCaption)) {
+            LOGGER.debug("acceptButton pressed");
+            this.controller.acceptButtonPressed();
+        } else if (this.rejectButtonCaption.equals(pressedButtonCaption)) {
+            LOGGER.debug("rejectButtonCaption pressed");
+            this.controller.rejectButtonPressed();
+        } else if (this.refreshButtonCaption.equals(pressedButtonCaption)) {
+            LOGGER.debug("refreshButtonCaption pressed");
+            this.controller.refreshButtonPressed();
+        }
+    }
+
+    @Override
+    public void setData(final List<InvitationRequest> aRequests) {
+        this.data = aRequests;
+    }
+
+    @Override
+    public void updateView() {
+        this.table.removeAllItems();
+        for (final InvitationRequest curRequest : this.data) {
+            final Object[] data = new Object[6];
+
+            data[0] = curRequest.getId();
+            data[1] = curRequest.getSubmissionDateTime();
+            data[2] = curRequest.getOpenIdProvider();
+            data[3] = curRequest.getEnteredId();
+            data[4] = curRequest.getStatus();
+            data[5] = curRequest.getUserIdentity();
+
+            this.table.addItem(data, curRequest);
+        }
     }
 }

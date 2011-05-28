@@ -20,6 +20,7 @@ import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.InvitationRequest;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -285,6 +286,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
             final SupportedOpenIdProvider aOpenIdProvider, final String aUserUrl) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public List<InvitationRequest> getInvitationRequests() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }

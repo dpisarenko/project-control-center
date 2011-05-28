@@ -1579,4 +1579,27 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<InvitationRequest> getInvitationRequests() {
+        List result = null;
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            final String hql = "from DefaultInvitationRequest";
+
+            final Query query =
+                    session.createQuery(hql);
+
+            result = query.list();
+
+            tx.commit();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+
+        return (List<InvitationRequest>) result;
+    }
 }

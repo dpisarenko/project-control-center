@@ -20,6 +20,7 @@ import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.InvitationRequest;
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -196,4 +197,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     List<SchedulingObject> getTopLevelTasks();
     
     void createInvitationRequest(final SupportedOpenIdProvider aOpenIdProvider, final String aUserUrl);
+
+    List<InvitationRequest> getInvitationRequests();
 }

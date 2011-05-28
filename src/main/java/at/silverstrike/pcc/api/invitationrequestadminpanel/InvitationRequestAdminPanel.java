@@ -11,10 +11,13 @@
 
 package at.silverstrike.pcc.api.invitationrequestadminpanel;
 
+import java.util.List;
+
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.ExternallyControlledGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedPanel;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelController;
+import at.silverstrike.pcc.api.model.InvitationRequest;
 
 import com.vaadin.ui.Panel;
 
@@ -27,5 +30,6 @@ public interface InvitationRequestAdminPanel
         ModuleWithInjectableDependencies,
         AbstractedPanel,
         ExternallyControlledGuiComponent<InvitationRequestAdminPanelController, Panel> {
-
+    void setData(final List<InvitationRequest> aRequests);
+    void updateView();
 }

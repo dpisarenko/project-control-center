@@ -23,4 +23,10 @@ import com.vaadin.ui.Panel;
 public interface InvitationRequestAdminPanelController extends
         ModuleWithInjectableDependencies, GuiController<Panel> {
 
+    void acceptButtonPressed();
+
+    void rejectButtonPressed();
+
+    void refreshButtonPressed();
+
 }
