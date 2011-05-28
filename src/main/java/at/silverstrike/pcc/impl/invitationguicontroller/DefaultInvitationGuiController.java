@@ -11,13 +11,15 @@
 
 package at.silverstrike.pcc.impl.invitationguicontroller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.inject.Injector;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 
-import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2;
-import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factory;
+import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1;
+import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1Factory;
 import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3;
 import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3Factory;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
@@ -29,6 +31,9 @@ import at.silverstrike.pcc.api.persistence.Persistence;
  * 
  */
 class DefaultInvitationGuiController implements InvitationGuiController {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultInvitationGuiController.class);
+
     private Injector injector;
 
     @Override
@@ -38,13 +43,13 @@ class DefaultInvitationGuiController implements InvitationGuiController {
 
     @Override
     public Window initGui() {
-        final InvitationRequestWindowStep2Factory factory =
+        final InvitationRequestWindowStep1Factory factory =
                 this.injector
-                        .getInstance(InvitationRequestWindowStep2Factory.class);
-        final InvitationRequestWindowStep2 window = factory.create();
+                        .getInstance(InvitationRequestWindowStep1Factory.class);
+        final InvitationRequestWindowStep1 window = factory.create();
 
         window.setGuiController(this);
-        window.setInjector(this.injector);
+//        window.setInjector(this.injector);
         window.initGui();
 
         return window.toWindow();
@@ -71,5 +76,10 @@ class DefaultInvitationGuiController implements InvitationGuiController {
                 TPTApplication.getCurrentApplication().getMainWindow());
 
         TPTApplication.getCurrentApplication().setMainWindow(window.toWindow());
+    }
+
+    @Override
+    public void nextButtonInStep1Pressed() {
+
     }
 }

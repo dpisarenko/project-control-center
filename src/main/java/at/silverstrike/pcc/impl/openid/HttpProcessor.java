@@ -25,7 +25,7 @@ import org.openid4java.util.ProxyProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-final class HttpProcessor {
+public final class HttpProcessor {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(HttpProcessor.class);
 

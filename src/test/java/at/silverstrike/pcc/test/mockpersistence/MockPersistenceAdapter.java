@@ -299,5 +299,8 @@ public abstract class MockPersistenceAdapter implements Persistence {
         // TODO Auto-generated method stub
         
     }
-    
+    @Override
+    public void acceptInvitationRequest(final InvitationRequest aRequest,
+            final String aUserIdentity) {
+    }    
 }

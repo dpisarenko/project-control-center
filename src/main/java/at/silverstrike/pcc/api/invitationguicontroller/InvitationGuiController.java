@@ -29,4 +29,6 @@ public interface InvitationGuiController extends
             nextButtonInStep2Pressed(
                     final SupportedOpenIdProvider aOpenIdProvider,
                     final String aUserUrl);
+
+    void nextButtonInStep1Pressed();
 }

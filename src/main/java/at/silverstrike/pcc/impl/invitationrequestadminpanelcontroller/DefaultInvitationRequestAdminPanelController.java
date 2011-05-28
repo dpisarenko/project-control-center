@@ -56,11 +56,6 @@ class DefaultInvitationRequestAdminPanelController implements
         return panel.toPanel();
     }
 
-    @Override
-    public void acceptButtonPressed() {
-        // TODO Auto-generated method stub
-        refreshButtonPressed();
-    }
 
     @Override
     public void rejectButtonPressed(final InvitationRequest aSelectedRequest) {
@@ -73,5 +68,11 @@ class DefaultInvitationRequestAdminPanelController implements
         final List<InvitationRequest> requests = this.persistence.getInvitationRequests();
         this.panel.setData(requests);
         this.panel.updateView();
+    }
+
+    @Override
+    public void acceptButtonPressed(final String aUserIdentity,
+            final InvitationRequest aRequest) {
+        this.persistence.acceptInvitationRequest(aRequest, aUserIdentity);
     }
 }

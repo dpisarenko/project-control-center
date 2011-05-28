@@ -201,7 +201,6 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
 
     @Override
     public Resource getResource(final Long aResourceId) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -213,80 +212,67 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
     @Override
     public Milestone createNewMilestone(final String aUser, final String aName,
             final Long aParentTaskId) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Event createSubEvent(final String aProcessName,
             final Long aParentProcessId) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public boolean deleteTask(final Task aTask) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean deleteEvent(final Event aEvent) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean deleteMilestone(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public void updateMilestone(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void updateEvent(final Event aEvent) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public List<SchedulingObject> getPotentialDependencies(
             final SchedulingObject aObject) {
-        // TODO Auto-generated method stub
         return null;
 
     }
 
     @Override
-    public boolean isHighestPriorityObjectInProject(SchedulingObject aProject,
-            SchedulingObject aSchedulingObject) {
-        // TODO Auto-generated method stub
+    public boolean isHighestPriorityObjectInProject(
+            final SchedulingObject aProject,
+            final SchedulingObject aSchedulingObject) {
         return false;
     }
 
     @Override
-    public boolean isLowestPriorityObjectInProject(SchedulingObject aProject,
-            SchedulingObject aSchedulingObject) {
-        // TODO Auto-generated method stub
+    public boolean isLowestPriorityObjectInProject(
+            final SchedulingObject aProject,
+            final SchedulingObject aSchedulingObject) {
         return false;
     }
 
     @Override
-    public boolean markTaskAsCompleted(Task aTask) {
-        // TODO Auto-generated method stub
+    public boolean markTaskAsCompleted(final Task aTask) {
         return false;
     }
 
     @Override
     public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
-            Long aProcessId) {
-        // TODO Auto-generated method stub
+            final Long aProcessId) {
         return null;
     }
-
 }

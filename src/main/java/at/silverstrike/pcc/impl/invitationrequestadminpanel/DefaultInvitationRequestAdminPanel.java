@@ -21,8 +21,10 @@ import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickListener;
 
 import eu.livotov.tpt.i18n.TM;
@@ -49,6 +51,7 @@ class DefaultInvitationRequestAdminPanel implements
     private String refreshButtonCaption;
     private String acceptButtonCaption;
     private String rejectButtonCaption;
+    private TextField userIdentityTextField;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -118,7 +121,20 @@ class DefaultInvitationRequestAdminPanel implements
         buttonLayout.addComponent(acceptButton);
         buttonLayout.addComponent(rejectButton);
 
+        this.userIdentityTextField = new TextField();
+        this.userIdentityTextField.setColumns(100);
+        this.userIdentityTextField.setImmediate(true);
+
+        final Label userIdentityLabel =
+                new Label(
+                        TM.get("invitationrequestadminpanel.10-userIdentityLabel"));
+        final HorizontalLayout userIdentityLayout = new HorizontalLayout();
+
+        userIdentityLayout.addComponent(userIdentityLabel);
+        userIdentityLayout.addComponent(this.userIdentityTextField);
+
         this.panel.addComponent(this.table);
+        this.panel.addComponent(userIdentityLayout);
         this.panel.addComponent(buttonLayout);
     }
 
@@ -131,11 +147,13 @@ class DefaultInvitationRequestAdminPanel implements
     @Override
     public void buttonClick(final ClickEvent aEvent) {
         final String pressedButtonCaption = aEvent.getButton().getCaption();
-        final InvitationRequest selectedRequest = (InvitationRequest)this.table.getValue();
-        
+        final InvitationRequest selectedRequest =
+                (InvitationRequest) this.table.getValue();
+
         if (this.acceptButtonCaption.equals(pressedButtonCaption)) {
             LOGGER.debug("acceptButton pressed");
-            this.controller.acceptButtonPressed();
+            final String userIdentity = (String)this.userIdentityTextField.getValue();
+            this.controller.acceptButtonPressed(userIdentity, selectedRequest);
         } else if (this.rejectButtonCaption.equals(pressedButtonCaption)) {
             LOGGER.debug("rejectButtonCaption pressed");
             this.controller.rejectButtonPressed(selectedRequest);

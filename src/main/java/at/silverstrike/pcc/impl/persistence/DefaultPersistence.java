@@ -1582,6 +1582,7 @@ public class DefaultPersistence implements Persistence {
     @SuppressWarnings("unchecked")
     @Override
     public List<InvitationRequest> getInvitationRequests() {
+        @SuppressWarnings("rawtypes")
         List result = null;
         final Transaction tx = session.beginTransaction();
 
@@ -1609,6 +1610,25 @@ public class DefaultPersistence implements Persistence {
                 (DefaultInvitationRequest) aSelectedRequest;
 
         request.setStatus(InvitationRequestStatus.REJECTED);
+
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            session.update(request);
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+    }
+
+    @Override
+    public void acceptInvitationRequest(final InvitationRequest aRequest,
+            final String aUserIdentity) {
+        final DefaultInvitationRequest request =
+                (DefaultInvitationRequest) aRequest;
+
+        request.setStatus(InvitationRequestStatus.ACCEPTED);
+        request.setUserIdentity(aUserIdentity);
 
         final Transaction tx = session.beginTransaction();
 

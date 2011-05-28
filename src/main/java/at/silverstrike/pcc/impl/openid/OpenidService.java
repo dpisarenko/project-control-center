@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Class performs OpenId operations.
  */
-class OpenidService {
+public class OpenidService {
     private static final int MAX_AGE = 10000;
 
     private static final Logger LOGGER = LoggerFactory

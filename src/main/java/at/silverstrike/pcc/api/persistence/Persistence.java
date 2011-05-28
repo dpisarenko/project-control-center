@@ -201,4 +201,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     List<InvitationRequest> getInvitationRequests();
 
     void rejectInvitationRequest(final InvitationRequest aSelectedRequest);
+
+    void acceptInvitationRequest(final InvitationRequest aRequest,
+            final String aUserIdentity);
 }
