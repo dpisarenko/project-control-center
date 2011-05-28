@@ -67,6 +67,9 @@ class DefaultInvitationGuiController implements InvitationGuiController {
         window.setGuiController(this);
         window.initGui();
 
+        TPTApplication.getCurrentApplication().removeWindow(
+                TPTApplication.getCurrentApplication().getMainWindow());
+
         TPTApplication.getCurrentApplication().setMainWindow(window.toWindow());
     }
 }
