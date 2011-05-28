@@ -49,6 +49,8 @@ class DefaultInvitationRequestAdminPanelController implements
 
         panel.setInjector(this.injector);
         panel.initGui();
+        
+        this.refreshButtonPressed();
 
         return panel.toPanel();
     }
@@ -68,6 +70,7 @@ class DefaultInvitationRequestAdminPanelController implements
     @Override
     public void refreshButtonPressed() {
         final List<InvitationRequest> requests = this.persistence.getInvitationRequests();
+        this.panel.setData(requests);
         this.panel.updateView();
     }
 }

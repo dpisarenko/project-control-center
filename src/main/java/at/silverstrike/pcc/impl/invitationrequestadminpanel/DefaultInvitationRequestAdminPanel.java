@@ -120,8 +120,6 @@ class DefaultInvitationRequestAdminPanel implements
 
         this.panel.addComponent(this.table);
         this.panel.addComponent(buttonLayout);
-        
-        this.updateView();
     }
 
     @Override
