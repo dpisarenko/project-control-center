@@ -47,7 +47,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
             .getLogger(ProjectControlCenterApplication.class);
     private static final String THEME = "pcc";
     private static final boolean OPENID_DEBUGGED = false;
-    private static final boolean TEST_INVITATION = true;
+    private static final boolean TEST_INVITATION = false;
 
     private static final long serialVersionUID = 1L;
 

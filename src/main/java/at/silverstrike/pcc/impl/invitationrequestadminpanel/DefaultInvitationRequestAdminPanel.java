@@ -36,7 +36,7 @@ import at.silverstrike.pcc.api.model.InvitationRequestStatus;
  * @author DP118M
  * 
  */
-public class DefaultInvitationRequestAdminPanel implements
+class DefaultInvitationRequestAdminPanel implements
         InvitationRequestAdminPanel, ClickListener {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
@@ -62,6 +62,7 @@ public class DefaultInvitationRequestAdminPanel implements
 
     @Override
     public void initGui() {
+        this.panel = new Panel();
         this.table = new Table();
 
         this.table.setWidth("80%");

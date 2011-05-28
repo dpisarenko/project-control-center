@@ -48,6 +48,8 @@ import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factor
 import at.silverstrike.pcc.api.invitationgui2validator.InvitationRequestWindowStep2ValidatorFactory;
 import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3Factory;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiControllerFactory;
+import at.silverstrike.pcc.api.invitationrequestadminpanel.InvitationRequestAdminPanelFactory;
+import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelControllerFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.milestoneeditingpanel.MilestoneEditingPanelFactory;
@@ -109,6 +111,8 @@ import at.silverstrike.pcc.impl.invitationgui2.DefaultInvitationRequestWindowSte
 import at.silverstrike.pcc.impl.invitationgui2validator.DefaultInvitationRequestWindowStep2ValidatorFactory;
 import at.silverstrike.pcc.impl.invitationgui3.DefaultInvitationRequestWindowStep3Factory;
 import at.silverstrike.pcc.impl.invitationguicontroller.DefaultInvitationGuiControllerFactory;
+import at.silverstrike.pcc.impl.invitationrequestadminpanel.DefaultInvitationRequestAdminPanelFactory;
+import at.silverstrike.pcc.impl.invitationrequestadminpanelcontroller.DefaultInvitationRequestAdminPanelControllerFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
@@ -262,6 +266,10 @@ class InjectorModule extends AbstractModule {
                 new DefaultInvitationGuiControllerFactory());
         bind(InvitationRequestWindowStep2ValidatorFactory.class).toInstance(
                 new DefaultInvitationRequestWindowStep2ValidatorFactory());
+        bind(InvitationRequestAdminPanelControllerFactory.class).toInstance(
+                new DefaultInvitationRequestAdminPanelControllerFactory());
+        bind(InvitationRequestAdminPanelFactory.class).toInstance(
+                new DefaultInvitationRequestAdminPanelFactory());
     }
 
     private TestTableCreator getTestTableCreator() {

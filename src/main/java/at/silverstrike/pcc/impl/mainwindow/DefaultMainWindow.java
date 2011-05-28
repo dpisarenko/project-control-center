@@ -35,6 +35,8 @@ import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanel;
 import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
+import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelController;
+import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelControllerFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
@@ -108,11 +110,25 @@ class DefaultMainWindow implements MainWindow {
                 .get("mainwindow.8-human-resource-tab"), null);
         this.tabSheet.addTab(getCalendarTab(), TM
                 .get("mainwindow.20-calendar-tab"), null);
+        this.tabSheet.addTab(getInvitationRequestTab(), TM
+                .get("mainwindow.21-invitation-tab"), null);
 
         mainLayout.addComponent(this.tabSheet);
 
         mainWindow.setContent(mainLayout);
 
+    }
+
+    private Component getInvitationRequestTab() {
+        final InvitationRequestAdminPanelControllerFactory factory =
+                this.injector
+                        .getInstance(InvitationRequestAdminPanelControllerFactory.class);
+        final InvitationRequestAdminPanelController controller =
+                factory.create();
+
+        controller.setInjector(this.injector);
+
+        return controller.initGui();
     }
 
     private Component getCalendarTab() {
