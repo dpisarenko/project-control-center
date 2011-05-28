@@ -11,17 +11,9 @@
 
 package at.silverstrike.pcc.impl.invitationgui;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.openid4java.message.AuthRequest;
-import org.openid4java.message.AuthSuccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -33,10 +25,7 @@ import eu.livotov.tpt.i18n.TM;
 import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
 import at.silverstrike.pcc.impl.openid.HttpProcessor;
-import at.silverstrike.pcc.impl.openid.OpenIdSingleton;
-import at.silverstrike.pcc.impl.openid.OpenidModel;
 import at.silverstrike.pcc.impl.openid.OpenidService;
-import at.silverstrike.pcc.impl.openid.TextUtils;
 
 /**
  * @author DP118M
@@ -85,15 +74,6 @@ class DefaultInvitationRequestWindowStep1 implements
 
     @Override
     public void buttonClick(final ClickEvent aEvent) {
-        OpenIdSingleton.getInstance().initiateInvitationRequestAuth();
-        
-
-    }
-
-    @Override
-    public void onRequestEnd(final HttpServletRequest aRequest,
-            final HttpServletResponse aResponse) {
-        // TODO Auto-generated method stub
-
+//        OpenIdSingleton.getInstance().initiateInvitationRequestAuth();
     }
 }

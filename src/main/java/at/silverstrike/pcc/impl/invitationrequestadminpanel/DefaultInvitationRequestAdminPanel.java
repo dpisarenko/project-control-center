@@ -51,7 +51,7 @@ class DefaultInvitationRequestAdminPanel implements
     private String refreshButtonCaption;
     private String acceptButtonCaption;
     private String rejectButtonCaption;
-    private TextField userIdentityTextField;
+    private TextField passwordTextField;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -78,20 +78,14 @@ class DefaultInvitationRequestAdminPanel implements
                 Date.class,
                 null);
         this.table.addContainerProperty(
-                TM.get("invitationrequestadminpanel.3-openIdProvider"),
-                String.class,
-                null);
-        this.table.addContainerProperty(
-                TM.get("invitationrequestadminpanel.4-enteredId"),
+                TM.get("invitationrequestadminpanel.11-email"),
                 String.class,
                 null);
         this.table.addContainerProperty(
                 TM.get("invitationrequestadminpanel.5-status"),
                 InvitationRequestStatus.class,
                 null);
-        this.table.addContainerProperty(
-                TM.get("invitationrequestadminpanel.6-identity"), String.class,
-                null);
+
         this.table.setSelectable(true);
         this.table.setMultiSelect(false);
         this.table.setImmediate(true);
@@ -121,9 +115,9 @@ class DefaultInvitationRequestAdminPanel implements
         buttonLayout.addComponent(acceptButton);
         buttonLayout.addComponent(rejectButton);
 
-        this.userIdentityTextField = new TextField();
-        this.userIdentityTextField.setColumns(100);
-        this.userIdentityTextField.setImmediate(true);
+        this.passwordTextField = new TextField();
+        this.passwordTextField.setColumns(100);
+        this.passwordTextField.setImmediate(true);
 
         final Label userIdentityLabel =
                 new Label(
@@ -131,7 +125,7 @@ class DefaultInvitationRequestAdminPanel implements
         final HorizontalLayout userIdentityLayout = new HorizontalLayout();
 
         userIdentityLayout.addComponent(userIdentityLabel);
-        userIdentityLayout.addComponent(this.userIdentityTextField);
+        userIdentityLayout.addComponent(this.passwordTextField);
 
         this.panel.addComponent(this.table);
         this.panel.addComponent(userIdentityLayout);
@@ -152,7 +146,7 @@ class DefaultInvitationRequestAdminPanel implements
 
         if (this.acceptButtonCaption.equals(pressedButtonCaption)) {
             LOGGER.debug("acceptButton pressed");
-            final String userIdentity = (String)this.userIdentityTextField.getValue();
+            final String userIdentity = (String)this.passwordTextField.getValue();
             this.controller.acceptButtonPressed(userIdentity, selectedRequest);
         } else if (this.rejectButtonCaption.equals(pressedButtonCaption)) {
             LOGGER.debug("rejectButtonCaption pressed");
@@ -172,14 +166,12 @@ class DefaultInvitationRequestAdminPanel implements
     public void updateView() {
         this.table.removeAllItems();
         for (final InvitationRequest curRequest : this.data) {
-            final Object[] data = new Object[6];
+            final Object[] data = new Object[4];
 
             data[0] = curRequest.getId();
             data[1] = curRequest.getSubmissionDateTime();
-            data[2] = curRequest.getOpenIdProvider();
-            data[3] = curRequest.getEnteredId();
-            data[4] = curRequest.getStatus();
-            data[5] = curRequest.getUserIdentity();
+            data[2] = curRequest.getEmail();
+            data[3] = curRequest.getStatus();
 
             this.table.addItem(data, curRequest);
         }

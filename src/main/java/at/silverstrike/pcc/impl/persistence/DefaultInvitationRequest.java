@@ -15,7 +15,6 @@ import java.util.Date;
 
 import at.silverstrike.pcc.api.model.InvitationRequest;
 import at.silverstrike.pcc.api.model.InvitationRequestStatus;
-import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
 
 /**
  * @author DP118M
@@ -24,11 +23,10 @@ import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
 class DefaultInvitationRequest implements InvitationRequest {
     private Long id;
     private Date submissionDateTime;
-    private SupportedOpenIdProvider openIdProvider;
-    private String enteredId;
     private InvitationRequestStatus status;
-    private String userIdentity;
-
+    private String email;
+    private String password;
+    
     public Long getId() {
         return id;
     }
@@ -45,35 +43,33 @@ class DefaultInvitationRequest implements InvitationRequest {
         this.submissionDateTime = aSubmissionDateTime;
     }
 
-    public SupportedOpenIdProvider getOpenIdProvider() {
-        return openIdProvider;
+    @Override
+    public void setEmail(final String aEmail) {
+        this.email = aEmail;
     }
 
-    public void setOpenIdProvider(final SupportedOpenIdProvider aOpenIdProvider) {
-        this.openIdProvider = aOpenIdProvider;
+    @Override
+    public String getEmail() {
+        return this.email;
+    }
+    
+    @Override
+    public void setPassword(final String aPassword) {
+        this.password = aPassword;
     }
 
-    public String getEnteredId() {
-        return enteredId;
+    @Override
+    public String getPassword() {
+        return this.password;
     }
-
-    public void setEnteredId(final String aEnteredId) {
-        this.enteredId = aEnteredId;
-    }
-
-    public InvitationRequestStatus getStatus() {
-        return status;
-    }
-
+    
+    @Override
     public void setStatus(final InvitationRequestStatus aStatus) {
         this.status = aStatus;
     }
 
-    public String getUserIdentity() {
-        return userIdentity;
-    }
-
-    public void setUserIdentity(final String aIdentity) {
-        this.userIdentity = aIdentity;
+    @Override
+    public InvitationRequestStatus getStatus() {
+        return this.status;
     }
 }

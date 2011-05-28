@@ -17,9 +17,8 @@
 			</generator>
 		</id>
 		<property name="submissionDateTime" />
-		<property name="openIdProvider" />
-		<property name="enteredId" />
 		<property name="status" />
-		<property name="userIdentity" />
+		<property name="email" />
+		<property name="password" />		
 	</class>
 </hibernate-mapping>

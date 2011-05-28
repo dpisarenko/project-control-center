@@ -12,9 +12,6 @@
 package at.silverstrike.pcc.api.model;
 
 import java.util.Date;
-
-import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
-
 import ru.altruix.commons.api.conventions.UniquelyIdentifiableObject;
 
 /**
@@ -25,15 +22,12 @@ public interface InvitationRequest extends UniquelyIdentifiableObject {
     void setSubmissionDateTime(final Date aDate);
     Date getSubmissionDateTime();
     
-    void setOpenIdProvider(final SupportedOpenIdProvider aProvider);
-    SupportedOpenIdProvider getOpenIdProvider();
-    
-    void setEnteredId(final String aUserUrl);
-    String getEnteredId();
-    
     void setStatus(final InvitationRequestStatus aStatus);
     InvitationRequestStatus getStatus();
     
-    void setUserIdentity(final String aIdentity);
-    String getUserIdentity();
+    void setEmail(final String aEmail);
+    String getEmail();
+    
+    void setPassword(final String aPassword);
+    String getPassword();
 }

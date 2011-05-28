@@ -17,11 +17,9 @@ import org.slf4j.LoggerFactory;
 import ru.altruix.commons.api.di.PccException;
 
 import com.google.inject.Injector;
-import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Window.Notification;
 import com.vaadin.ui.Label;
@@ -46,7 +44,7 @@ class DefaultInvitationRequestWindowStep2 implements
     private InvitationGuiController controller;
     private InvitationRequestWindowStep2Validator validator;
     private Window window;
-    private TextField faceBookTextField;
+    private TextField emailTextField;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultInvitationRequestWindowStep2.class);
 
@@ -72,18 +70,9 @@ class DefaultInvitationRequestWindowStep2 implements
 
         final HorizontalLayout textFieldLayout = createTextfieldLayout();
 
-        final Embedded image =
-                new Embedded(
-                        TM.get("invitationgui2.11-image-caption"),
-                        new ExternalResource(
-                                "http://dl.dropbox.com/u/11776689/pcc/2011_05_28_faceBookProfileURL.png"));
-        image.setType(Embedded.TYPE_IMAGE);
-
-
         this.window.addComponent(headerLabel);
         this.window.addComponent(bodyTextTopLabel);
         this.window.addComponent(textFieldLayout);
-        this.window.addComponent(image);
         this.window.addComponent(bodyTextBottomLabel);
         this.window.addComponent(nextButton);
     }
@@ -91,12 +80,14 @@ class DefaultInvitationRequestWindowStep2 implements
     private HorizontalLayout createTextfieldLayout() {
         final HorizontalLayout layout = new HorizontalLayout();
 
+        layout.setSizeFull();
+        
         final Label faceBookLabel =
-                new Label(TM.get("invitationgui2.5-facebook"));
-        faceBookTextField = new TextField("");
+                new Label(TM.get("invitationgui2.5-email"));
+        emailTextField = new TextField("");
 
         layout.addComponent(faceBookLabel);
-        layout.addComponent(faceBookTextField);
+        layout.addComponent(emailTextField);
 
         return layout;
     }
@@ -114,7 +105,7 @@ class DefaultInvitationRequestWindowStep2 implements
     @Override
     public void buttonClick(final ClickEvent aEvent) {
         this.validator
-                .setFacebookId((String) this.faceBookTextField.getValue());
+                .setFacebookId((String) this.emailTextField.getValue());
 
         try {
             this.validator.run();
