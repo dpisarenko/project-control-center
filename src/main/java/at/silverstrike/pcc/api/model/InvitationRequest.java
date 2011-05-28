@@ -34,6 +34,6 @@ public interface InvitationRequest extends UniquelyIdentifiableObject {
     void setStatus(final InvitationRequestStatus aStatus);
     InvitationRequestStatus getStatus();
     
-    void setIdentity(final String aIdentity);
-    String getIdentity();
+    void setUserIdentity(final String aIdentity);
+    String getUserIdentity();
 }

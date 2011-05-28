@@ -1563,7 +1563,7 @@ public class DefaultPersistence implements Persistence {
         final InvitationRequest request = new DefaultInvitationRequest();
         
         request.setEnteredId(aUserUrl);
-        request.setIdentity(null);
+        request.setUserIdentity(null);
         request.setOpenIdProvider(aOpenIdProvider);
         request.setStatus(InvitationRequestStatus.SUBMITTED);
         request.setSubmissionDateTime(new Date());

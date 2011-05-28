@@ -27,7 +27,7 @@ class DefaultInvitationRequest implements InvitationRequest {
     private SupportedOpenIdProvider openIdProvider;
     private String enteredId;
     private InvitationRequestStatus status;
-    private String identity;
+    private String userIdentity;
 
     public Long getId() {
         return id;
@@ -69,11 +69,11 @@ class DefaultInvitationRequest implements InvitationRequest {
         this.status = aStatus;
     }
 
-    public String getIdentity() {
-        return identity;
+    public String getUserIdentity() {
+        return userIdentity;
     }
 
-    public void setIdentity(final String aIdentity) {
-        this.identity = aIdentity;
+    public void setUserIdentity(final String aIdentity) {
+        this.userIdentity = aIdentity;
     }
 }

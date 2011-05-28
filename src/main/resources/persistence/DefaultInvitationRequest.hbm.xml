@@ -20,6 +20,6 @@
 		<property name="openIdProvider" />
 		<property name="enteredId" />
 		<property name="status" />
-		<property name="identity" />
+		<property name="userIdentity" />
 	</class>
 </hibernate-mapping>
