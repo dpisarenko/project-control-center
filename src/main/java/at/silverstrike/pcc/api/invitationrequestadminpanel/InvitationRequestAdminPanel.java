@@ -14,7 +14,7 @@ package at.silverstrike.pcc.api.invitationrequestadminpanel;
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.ExternallyControlledGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedPanel;
-import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelController;
+import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelController;
 
 import com.vaadin.ui.Panel;
 

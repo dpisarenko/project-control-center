@@ -25,8 +25,6 @@ import ru.altruix.commons.api.gui.GuiController;
 public interface InvitationGuiController extends
         ModuleWithInjectableDependencies, GuiController<Window> {
 
-    void nextButtonInStep1Pressed();
-
     void
             nextButtonInStep2Pressed(
                     final SupportedOpenIdProvider aOpenIdProvider,

@@ -30,7 +30,6 @@ class DefaultInvitationRequestWindowStep1 implements
         InvitationRequestWindowStep1, ClickListener {
     private static final long serialVersionUID = 1L;
     private Window window;
-    private InvitationGuiController controller;
 
     @Override
     public void initGui() {
@@ -56,11 +55,9 @@ class DefaultInvitationRequestWindowStep1 implements
 
     @Override
     public void setGuiController(final InvitationGuiController aController) {
-        this.controller = aController;
     }
 
     @Override
     public void buttonClick(final ClickEvent aEvent) {
-        this.controller.nextButtonInStep1Pressed();
     }
 }

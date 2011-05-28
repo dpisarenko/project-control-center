@@ -16,8 +16,6 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 
-import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1;
-import at.silverstrike.pcc.api.invitationgui.InvitationRequestWindowStep1Factory;
 import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2;
 import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factory;
 import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3;
@@ -40,20 +38,6 @@ class DefaultInvitationGuiController implements InvitationGuiController {
 
     @Override
     public Window initGui() {
-        final InvitationRequestWindowStep1Factory factory =
-                this.injector
-                        .getInstance(InvitationRequestWindowStep1Factory.class);
-        final InvitationRequestWindowStep1 window = factory.create();
-
-        window.setGuiController(this);
-
-        window.initGui();
-
-        return window.toWindow();
-    }
-
-    @Override
-    public void nextButtonInStep1Pressed() {
         final InvitationRequestWindowStep2Factory factory =
                 this.injector
                         .getInstance(InvitationRequestWindowStep2Factory.class);
@@ -62,16 +46,18 @@ class DefaultInvitationGuiController implements InvitationGuiController {
         window.setGuiController(this);
         window.initGui();
 
-        TPTApplication.getCurrentApplication().setMainWindow(window.toWindow());
+        return window.toWindow();
     }
 
     @Override
-    public void nextButtonInStep2Pressed(final SupportedOpenIdProvider aOpenIdProvider,
+    public void nextButtonInStep2Pressed(
+            final SupportedOpenIdProvider aOpenIdProvider,
             final String aUserUrl) {
-        final Persistence persistence = this.injector.getInstance(Persistence.class);
-        
+        final Persistence persistence =
+                this.injector.getInstance(Persistence.class);
+
         persistence.createInvitationRequest(aOpenIdProvider, aUserUrl);
-        
+
         final InvitationRequestWindowStep3Factory factory =
                 this.injector
                         .getInstance(InvitationRequestWindowStep3Factory.class);
