@@ -70,6 +70,7 @@ class DefaultInvitationGuiController implements InvitationGuiController {
         final InvitationRequestWindowStep3 window = factory.create();
 
         window.setGuiController(this);
+        window.setInjector(this.injector);
         window.initGui();
 
         TPTApplication.getCurrentApplication().removeWindow(
