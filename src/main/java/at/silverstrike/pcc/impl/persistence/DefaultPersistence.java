@@ -1672,7 +1672,6 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public Long getUserCount() {
-        @SuppressWarnings("rawtypes")
         Long result = null;
         final Transaction tx = session.beginTransaction();
 
