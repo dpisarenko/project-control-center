@@ -935,7 +935,7 @@ public class DefaultPersistence implements Persistence {
         cnf.addResource("persistence/DefaultDailyToDoList.hbm.xml");
         cnf.addResource("persistence/DefaultInvitationRequest.hbm.xml");
         cnf.addResource("persistence/DefaultUserData.hbm.xml");
-        
+
         LOGGER.debug("tryToOpenSession, 3");
 
         sessionFactory = cnf.buildSessionFactory();
@@ -1628,13 +1628,68 @@ public class DefaultPersistence implements Persistence {
         request.setStatus(InvitationRequestStatus.ACCEPTED);
         request.setPassword(aPassword);
 
+        final DefaultUserData userData = new DefaultUserData();
+
+        userData.setBookings(new LinkedList<Booking>());
+        userData.setDailyPlans(new LinkedList<DailyPlan>());
+        userData.setIdentifier("");
+        userData.setPassword(aPassword);
+        userData.setSchedulingData(new LinkedList<SchedulingObject>());
+        userData.setUsername(aRequest.getEmail());
+
         final Transaction tx = session.beginTransaction();
 
         try {
             session.update(request);
+            session.save(userData);
         } catch (final Exception exception) {
             LOGGER.error("", exception);
             tx.rollback();
         }
+    }
+
+    @Override
+    public void createSuperUser() {
+        final DefaultUserData userData = new DefaultUserData();
+
+        userData.setBookings(new LinkedList<Booking>());
+        userData.setDailyPlans(new LinkedList<DailyPlan>());
+        userData.setIdentifier("");
+        userData.setPassword("su");
+        userData.setSchedulingData(new LinkedList<SchedulingObject>());
+        userData.setUsername("dp@sw-dev.at");
+
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            session.save(userData);
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+    }
+
+    @Override
+    public Long getUserCount() {
+        @SuppressWarnings("rawtypes")
+        Long result = null;
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            final String hql = "count(*) from DefaultUserData";
+
+            final Query query =
+                    session.createQuery(hql);
+
+            result = (Long) query.uniqueResult();
+
+            tx.commit();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+
+        return result;
+
     }
 }

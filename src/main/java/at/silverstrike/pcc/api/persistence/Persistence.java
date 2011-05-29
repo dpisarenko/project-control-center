@@ -204,4 +204,8 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     void acceptInvitationRequest(final InvitationRequest aRequest,
             final String aPassword);
+
+    void createSuperUser();
+
+    Long getUserCount();
 }

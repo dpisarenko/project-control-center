@@ -146,8 +146,8 @@ class DefaultInvitationRequestAdminPanel implements
 
         if (this.acceptButtonCaption.equals(pressedButtonCaption)) {
             LOGGER.debug("acceptButton pressed");
-            final String userIdentity = (String)this.passwordTextField.getValue();
-            this.controller.acceptButtonPressed(userIdentity, selectedRequest);
+            final String password = (String)this.passwordTextField.getValue();
+            this.controller.acceptButtonPressed(password, selectedRequest);
         } else if (this.rejectButtonCaption.equals(pressedButtonCaption)) {
             LOGGER.debug("rejectButtonCaption pressed");
             this.controller.rejectButtonPressed(selectedRequest);

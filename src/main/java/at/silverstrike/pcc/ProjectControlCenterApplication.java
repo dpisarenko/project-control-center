@@ -107,6 +107,11 @@ public class ProjectControlCenterApplication extends TPTApplication  {
             final Window mainWindow = controller.initGui();
             this.setMainWindow(mainWindow);
         }
+        
+        if (this.persistence.getUserCount() < 1)
+        {
+            this.persistence.createSuperUser();
+        }
     }
 
     @Override
