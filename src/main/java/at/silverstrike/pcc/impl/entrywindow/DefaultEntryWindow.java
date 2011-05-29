@@ -15,16 +15,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Injector;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
+
+import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
+import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
+import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiControllerFactory;
 
-class DefaultEntryWindow implements EntryWindow {
+class DefaultEntryWindow implements EntryWindow, ClickListener {
     private static final int OPEN_ID_TEXT_FIELD_COLUMNS = 30;
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
@@ -55,9 +61,12 @@ class DefaultEntryWindow implements EntryWindow {
 
         layout.setSizeFull();
         initAuthPanel();
-        
-        final Button requestInviteButton = new Button(TM.get("entrywindow.9-requestInviteButton"));
-        
+
+        final Button requestInviteButton =
+                new Button(TM.get("entrywindow.9-requestInviteButton"));
+
+        requestInviteButton.addListener(this);
+
         this.signupLabel = new Label("", Label.CONTENT_XHTML);
 
         layout.addComponent(requestInviteButton, 0, 0);
@@ -72,7 +81,6 @@ class DefaultEntryWindow implements EntryWindow {
         return this.window;
     }
 
-
     private void updateControls() {
         this.window.setCaption(TM.get("entrywindow.1-title"));
         this.signupLabel.setValue(TM.get("entrywindow.4-signuplabel"));
@@ -84,7 +92,7 @@ class DefaultEntryWindow implements EntryWindow {
         this.loginButton.setCaption(TM
                 .get("entrywindow.3-authenticateButton"));
         this.passwordLabel.setCaption(TM.get("entrywindow.8-password-label"));
-        
+
         this.emailLabel.setSizeFull();
         this.loginButton.setSizeFull();
     }
@@ -97,22 +105,36 @@ class DefaultEntryWindow implements EntryWindow {
         emailLabel = new Label();
         emailTextField = new TextField();
         emailTextField.setColumns(OPEN_ID_TEXT_FIELD_COLUMNS);
-        
+
         passwordLabel = new Label();
         this.passwordTextField = new PasswordField();
-        
+
         loginButton = new Button();
 
         gridLayout.addComponent(emailLabel, 0, 0);
         gridLayout.addComponent(emailTextField, 1, 0);
-        
+
         gridLayout.addComponent(passwordLabel, 0, 1);
         gridLayout.addComponent(passwordTextField, 1, 1);
-        
+
         gridLayout.addComponent(loginButton, 0, 2, 1, 2);
 
         this.authPanel.addComponent(gridLayout);
         this.authPanel.setSizeFull();
     }
-    
+
+    @Override
+    public void buttonClick(final ClickEvent aEvent) {
+        final InvitationGuiControllerFactory invitationGuiControllerFactory =
+                injector.getInstance(InvitationGuiControllerFactory.class);
+        final InvitationGuiController controller =
+                invitationGuiControllerFactory.create();
+
+        controller.setInjector(injector);
+
+        final Window invitationRequestWindow = controller.initGui();
+
+        TPTApplication.getCurrentApplication().setMainWindow(
+                invitationRequestWindow);
+    }
 }
