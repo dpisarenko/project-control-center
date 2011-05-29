@@ -25,6 +25,7 @@ class DefaultUserData implements UserData {
     private List<Booking> bookings;
     private String username;
     private String password;
+    private Long id;
     
     public String getIdentifier() {
         return identifier;
@@ -62,7 +63,7 @@ class DefaultUserData implements UserData {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
@@ -70,8 +71,16 @@ class DefaultUserData implements UserData {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long aId) {
+        this.id = aId;
     }
 
 }

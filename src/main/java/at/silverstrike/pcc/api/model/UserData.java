@@ -12,7 +12,9 @@ package at.silverstrike.pcc.api.model;
 
 import java.util.List;
 
-public interface UserData {
+import ru.altruix.commons.api.conventions.UniquelyIdentifiableObject;
+
+public interface UserData extends UniquelyIdentifiableObject {
     void setIdentifier(final String aIdentifier);
 
     String getIdentifier();
