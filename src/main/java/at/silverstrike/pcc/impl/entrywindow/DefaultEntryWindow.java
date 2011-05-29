@@ -11,56 +11,37 @@
 
 package at.silverstrike.pcc.impl.entrywindow;
 
-import static at.silverstrike.pcc.impl.entrywindow.ErrorCodes.M_001_HANDLE_PARAMETERS_1;
-
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import ru.altruix.commons.api.di.PccException;
-
 import com.google.inject.Injector;
-import com.vaadin.terminal.ParameterHandler;
-import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
-
 import eu.livotov.tpt.i18n.TM;
-
-import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
-import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 
 class DefaultEntryWindow implements EntryWindow {
     private static final int OPEN_ID_TEXT_FIELD_COLUMNS = 30;
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultEntryWindow.class);
-    private transient ParameterDataReader parameterDataReader;
-    private transient CultureToLanguageMapper cultureToLanguageMapper;
     private Window window;
     private Panel authPanel;
-    private Label openIdLabel;
-    private TextField openIdTextField;
-    private Button authenticateButton;
+    private Label emailLabel;
+    private TextField emailTextField;
+    private PasswordField passwordTextField;
+    private Button loginButton;
     private Label signupLabel;
     private transient Injector injector;
+    private Label passwordLabel;
 
     @Override
     public void setInjector(final Injector aInjector) {
         if (aInjector != null) {
-            this.parameterDataReader = aInjector
-                    .getInstance(ParameterDataReader.class);
-            this.cultureToLanguageMapper = aInjector
-                    .getInstance(CultureToLanguageMapper.class);
             this.injector = aInjector;
         }
     }
@@ -75,11 +56,11 @@ class DefaultEntryWindow implements EntryWindow {
         layout.setSizeFull();
         initAuthPanel();
         
-        
+        final Button requestInviteButton = new Button(TM.get("entrywindow.9-requestInviteButton"));
         
         this.signupLabel = new Label("", Label.CONTENT_XHTML);
 
-        layout.addComponent(this.signupLabel, 0, 0);
+        layout.addComponent(requestInviteButton, 0, 0);
         layout.addComponent(this.authPanel, 1, 0);
 
         window.addComponent(layout);
@@ -99,27 +80,36 @@ class DefaultEntryWindow implements EntryWindow {
     }
 
     private void updateCaptionsAuthPanel() {
-        this.openIdLabel.setValue(TM.get("entrywindow.2-openIdLabel"));
-        this.authenticateButton.setCaption(TM
+        this.emailLabel.setValue(TM.get("entrywindow.2-openIdLabel"));
+        this.loginButton.setCaption(TM
                 .get("entrywindow.3-authenticateButton"));
-
-        this.openIdLabel.setSizeFull();
-        this.authenticateButton.setSizeFull();
+        this.passwordLabel.setCaption(TM.get("entrywindow.8-password-label"));
+        
+        this.emailLabel.setSizeFull();
+        this.loginButton.setSizeFull();
     }
 
     private void initAuthPanel() {
-        final GridLayout gridLayout = new GridLayout(2, 2);
+        final GridLayout gridLayout = new GridLayout(2, 3);
 
         this.authPanel = new Panel();
 
-        openIdLabel = new Label();
-        openIdTextField = new TextField();
-        openIdTextField.setColumns(OPEN_ID_TEXT_FIELD_COLUMNS);
-        authenticateButton = new Button();
+        emailLabel = new Label();
+        emailTextField = new TextField();
+        emailTextField.setColumns(OPEN_ID_TEXT_FIELD_COLUMNS);
+        
+        passwordLabel = new Label();
+        this.passwordTextField = new PasswordField();
+        
+        loginButton = new Button();
 
-        gridLayout.addComponent(openIdLabel, 0, 0);
-        gridLayout.addComponent(openIdTextField, 1, 0);
-        gridLayout.addComponent(authenticateButton, 0, 1, 1, 1);
+        gridLayout.addComponent(emailLabel, 0, 0);
+        gridLayout.addComponent(emailTextField, 1, 0);
+        
+        gridLayout.addComponent(passwordLabel, 0, 1);
+        gridLayout.addComponent(passwordTextField, 1, 1);
+        
+        gridLayout.addComponent(loginButton, 0, 2, 1, 2);
 
         this.authPanel.addComponent(gridLayout);
         this.authPanel.setSizeFull();
