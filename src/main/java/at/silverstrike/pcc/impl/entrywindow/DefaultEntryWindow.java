@@ -64,7 +64,6 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         final Button requestInviteButton =
                 new Button(TM.get("entrywindow.9-requestInviteButton"));
-        requestInviteButton.setImmediate(true);
         requestInviteButton.addListener(this);
 
         this.signupLabel = new Label("", Label.CONTENT_XHTML);
@@ -125,6 +124,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
     @Override
     public void buttonClick(final ClickEvent aEvent) {
+        LOGGER.debug("buttonClick");
         final InvitationGuiControllerFactory invitationGuiControllerFactory =
                 injector.getInstance(InvitationGuiControllerFactory.class);
         final InvitationGuiController controller =
@@ -134,6 +134,11 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         final Window invitationRequestWindow = controller.initGui();
 
+        LOGGER.debug("buttonClick, 2, invitationRequestWindow: {}",
+                invitationRequestWindow);
+
+        TPTApplication.getCurrentApplication().removeWindow(
+                TPTApplication.getCurrentApplication().getMainWindow());
         TPTApplication.getCurrentApplication().setMainWindow(
                 invitationRequestWindow);
     }
