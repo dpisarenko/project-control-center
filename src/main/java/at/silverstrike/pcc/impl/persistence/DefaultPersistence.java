@@ -70,6 +70,7 @@ public class DefaultPersistence implements Persistence {
     private static final String JDBC_CONN_STRING_NEW_DB = "jdbc:derby:"
             + DB_NAME + ";create=true";
     private static final String PROCESS_ID = "${processId}";
+    private static final String USER_ID = "${userId}";
     private static final String PARENT = "${parent}";
     private static final String STATE_BEING_ATTAINED = ":stateBeingAttained";
     private static final String STATE_DELETED = ":stateDeleted";
@@ -79,12 +80,12 @@ public class DefaultPersistence implements Persistence {
             "from "
                     + "DefaultSchedulingObject p where (p.parent.id = ${processId}) and (state <> "
                     + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
-                    + ") order by priority desc";
+                    + ") and (userData.id = ${userId}) order by priority desc";
     private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL =
             "from "
                     + "DefaultSchedulingObject p where (p.parent is null) and (state <> "
                     + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
-                    + ") order by priority desc";
+                    + ") and (userData.id = ${userId}) order by priority desc";
     private static final String UNCOMPLETED_TASKS_WITH_ESTIMATED_END_TIME_HQL =
             "from " + "DefaultTask where ((state = "
                     + STATE_SCHEDULED + ") or (state = " + STATE_BEING_ATTAINED
@@ -130,7 +131,7 @@ public class DefaultPersistence implements Persistence {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultPersistence.class);
-    private static final String USER_ID = "${userId}";
+    
     private Session session;
     private SessionFactory sessionFactory;
     private PersistenceState state;
