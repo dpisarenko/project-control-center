@@ -81,4 +81,9 @@ final class MockUserData implements UserData {
         return null;
     }
 
+    @Override
+    public Long getId() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
