@@ -1559,13 +1559,14 @@ public class DefaultPersistence implements Persistence {
     public void
             createInvitationRequest(
                     final SupportedOpenIdProvider aOpenIdProvider,
-                    final String aUserUrl) {
+                    final String aEmail) {
 
         final InvitationRequest request = new DefaultInvitationRequest();
 
         request.setStatus(InvitationRequestStatus.SUBMITTED);
         request.setSubmissionDateTime(new Date());
-
+        request.setEmail(aEmail);
+        
         final Transaction tx = session.beginTransaction();
 
         try {

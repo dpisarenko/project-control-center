@@ -81,7 +81,7 @@ class DefaultInvitationRequestWindowStep2 implements
         final HorizontalLayout layout = new HorizontalLayout();
 
         layout.setSizeFull();
-        
+
         final Label emailLabel =
                 new Label(TM.get("invitationgui2.5-email"));
         emailTextField = new TextField("");
@@ -104,11 +104,16 @@ class DefaultInvitationRequestWindowStep2 implements
 
     @Override
     public void buttonClick(final ClickEvent aEvent) {
+        final String email = (String) this.emailTextField.getValue();
         this.validator
-                .setFacebookId((String) this.emailTextField.getValue());
-
+                .setEmail(email);
+        LOGGER.debug("email: {}", email);
         try {
             this.validator.run();
+            
+            LOGGER.debug("this.validator.isValid(): {}",
+                    this.validator.isValid());
+            
 
             if (this.validator.isValid()) {
                 this.controller.nextButtonInStep2Pressed(

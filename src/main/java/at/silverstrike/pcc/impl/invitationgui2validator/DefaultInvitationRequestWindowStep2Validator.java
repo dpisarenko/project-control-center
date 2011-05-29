@@ -54,7 +54,7 @@ class DefaultInvitationRequestWindowStep2Validator implements
     }
 
     @Override
-    public void setFacebookId(final String aFacebookId) {
+    public void setEmail(final String aFacebookId) {
         this.facebookId = aFacebookId;
     }
 

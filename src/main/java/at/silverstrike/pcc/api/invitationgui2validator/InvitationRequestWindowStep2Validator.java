@@ -19,7 +19,7 @@ import ru.altruix.commons.api.conventions.SingleActivityModule;
  *
  */
 public interface InvitationRequestWindowStep2Validator extends SingleActivityModule {
-    void setFacebookId(final String aFacebookId);
+    void setEmail(final String aFacebookId);
     void setVkontakteId(final String aVkontakteId);
     void setGoogleUsername(final String aGoogleUsername);
     

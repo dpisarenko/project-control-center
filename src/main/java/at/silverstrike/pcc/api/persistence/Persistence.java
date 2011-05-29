@@ -196,7 +196,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     List<SchedulingObject> getTopLevelTasks();
     
-    void createInvitationRequest(final SupportedOpenIdProvider aOpenIdProvider, final String aUserUrl);
+    void createInvitationRequest(final SupportedOpenIdProvider aOpenIdProvider, final String aEmail);
 
     List<InvitationRequest> getInvitationRequests();
 
