@@ -28,4 +28,10 @@ public interface UserData {
     void setBookings(List<Booking> aBookings);
 
     List<Booking> getBookings();
+    
+    void setUsername(final String aUsername);
+    String getUsername();
+    
+    void setPassword(final String aPassword);
+    String getPassword();
 }

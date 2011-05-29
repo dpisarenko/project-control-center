@@ -20,10 +20,12 @@ import at.silverstrike.pcc.api.model.UserData;
 
 class DefaultUserData implements UserData {
     private String identifier;
-    private List<SchedulingObject> processes;
+    private List<SchedulingObject> schedulingObjects;
     private List<DailyPlan> dailyPlans;
     private List<Booking> bookings;
-
+    private String username;
+    private String password;
+    
     public String getIdentifier() {
         return identifier;
     }
@@ -33,11 +35,11 @@ class DefaultUserData implements UserData {
     }
 
     public List<SchedulingObject> getSchedulingData() {
-        return processes;
+        return schedulingObjects;
     }
 
     public void setSchedulingData(final List<SchedulingObject> aProcesses) {
-        this.processes = aProcesses;
+        this.schedulingObjects = aProcesses;
     }
 
     public List<DailyPlan> getDailyPlans() {
@@ -54,6 +56,22 @@ class DefaultUserData implements UserData {
 
     public void setBookings(final List<Booking> aBookings) {
         this.bookings = aBookings;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

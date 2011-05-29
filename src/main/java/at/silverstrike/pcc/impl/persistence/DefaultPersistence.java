@@ -934,7 +934,8 @@ public class DefaultPersistence implements Persistence {
         cnf.addResource("persistence/DefaultDailySchedule.hbm.xml");
         cnf.addResource("persistence/DefaultDailyToDoList.hbm.xml");
         cnf.addResource("persistence/DefaultInvitationRequest.hbm.xml");
-
+        cnf.addResource("persistence/DefaultUserData.hbm.xml");
+        
         LOGGER.debug("tryToOpenSession, 3");
 
         sessionFactory = cnf.buildSessionFactory();
