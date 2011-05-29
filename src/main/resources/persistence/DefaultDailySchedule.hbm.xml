@@ -28,5 +28,8 @@
 			<key column="DAILY_SCHEDULE_ID" />
 			<one-to-many class="at.silverstrike.pcc.impl.persistence.DefaultBooking" />
 		</bag>
+		<many-to-one name="user"
+			class="at.silverstrike.pcc.impl.persistence.DefaultUserData" 
+			lazy="false"/>
 	</class>
 </hibernate-mapping>

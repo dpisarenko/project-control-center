@@ -32,5 +32,8 @@
 		<one-to-one name="schedule"
 			class="at.silverstrike.pcc.impl.persistence.DefaultDailySchedule" 
 			lazy="false"/>
+		<many-to-one name="user"
+			class="at.silverstrike.pcc.impl.persistence.DefaultUserData" 
+			lazy="false"/>
 	</class>
 </hibernate-mapping>

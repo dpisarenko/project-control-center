@@ -29,5 +29,8 @@
 		<many-to-one name="resource"
 			class="at.silverstrike.pcc.impl.persistence.DefaultResource" 
 			lazy="false"/>
+		<many-to-one name="user"
+			class="at.silverstrike.pcc.impl.persistence.DefaultUserData" 
+			lazy="false"/>
 	</class>
 </hibernate-mapping>

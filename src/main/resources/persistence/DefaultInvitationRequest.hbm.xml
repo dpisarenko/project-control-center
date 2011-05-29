@@ -19,6 +19,9 @@
 		<property name="submissionDateTime" />
 		<property name="status" />
 		<property name="email" />
-		<property name="password" />		
+		<property name="password" />
+		<many-to-one name="user"
+			class="at.silverstrike.pcc.impl.persistence.DefaultUserData" 
+			lazy="false"/>
 	</class>
 </hibernate-mapping>
