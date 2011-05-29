@@ -79,13 +79,17 @@ public class DefaultPersistence implements Persistence {
     private static final String SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE =
             "from "
                     + "DefaultSchedulingObject p where (p.parent.id = ${processId}) and (state <> "
-                    + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
-                    + ") and (userData.id = ${userId}) order by priority desc";
+                    + STATE_DELETED
+                    + ") and (state <> "
+                    + STATE_ATTAINED
+                    + ") and (p.userData.id = ${userId}) order by priority desc";
     private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL =
             "from "
                     + "DefaultSchedulingObject p where (p.parent is null) and (state <> "
-                    + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
-                    + ") and (userData.id = ${userId}) order by priority desc";
+                    + STATE_DELETED
+                    + ") and (state <> "
+                    + STATE_ATTAINED
+                    + ") and (p.userData.id = ${userId}) order by priority desc";
     private static final String UNCOMPLETED_TASKS_WITH_ESTIMATED_END_TIME_HQL =
             "from " + "DefaultTask where ((state = "
                     + STATE_SCHEDULED + ") or (state = " + STATE_BEING_ATTAINED
@@ -131,7 +135,7 @@ public class DefaultPersistence implements Persistence {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultPersistence.class);
-    
+
     private Session session;
     private SessionFactory sessionFactory;
     private PersistenceState state;
@@ -429,16 +433,32 @@ public class DefaultPersistence implements Persistence {
 
     @SuppressWarnings({ "rawtypes" })
     @Override
-    public final List<SchedulingObject> getAllNotDeletedTasks() {
+    public final List<SchedulingObject> getAllNotDeletedTasks(
+            final UserData aUser) {
         final List<SchedulingObject> returnValue =
                 new LinkedList<SchedulingObject>();
         final Transaction tx = session.beginTransaction();
 
         try {
-            final String hql = "from DefaultSchedulingObject where ((state <> "
-                    + STATE_DELETED
-                    + ") and (state <> "
-                    + STATE_ATTAINED + "))";
+            String hql = null;
+            if (aUser != null) {
+                final String userId = Long.toString(aUser.getId());
+
+                hql =
+                        "from DefaultSchedulingObject where ((state <> "
+                                + STATE_DELETED
+                                + ") and (state <> "
+                                + STATE_ATTAINED
+                                + ") and (userData.id = ${userId}))".replace(
+                                        USER_ID, userId);
+            } else {
+                hql =
+                        "from DefaultSchedulingObject where ((state <> "
+                                + STATE_DELETED
+                                + ") and (state <> "
+                                + STATE_ATTAINED
+                                + "))";
+            }
 
             LOGGER.debug("getAllNotDeletedTasks: hql: {}", hql);
 
@@ -657,7 +677,9 @@ public class DefaultPersistence implements Persistence {
         try {
             final String hql;
             final String userId = Long.toString(aUser.getId());
-            
+
+            LOGGER.debug("getSubProcessesWithChildren, aUser: {}", userId);
+
             if (aProcessId != null) {
                 hql =
                         SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE.replace(
@@ -678,7 +700,7 @@ public class DefaultPersistence implements Persistence {
 
             if ((aProcessId == null)
                     && ((processes == null) || (processes.size() < 1))) {
-                return getAllNotDeletedTasks();
+                return getAllNotDeletedTasks(aUser);
             }
         } catch (final Exception exception) {
             LOGGER.error("", exception);
@@ -953,7 +975,7 @@ public class DefaultPersistence implements Persistence {
 
         LOGGER.debug("tryToOpenSession, 5");
 
-        getAllNotDeletedTasks();
+        getAllNotDeletedTasks(null);
 
         LOGGER.debug("tryToOpenSession, 6");
 
@@ -1429,7 +1451,7 @@ public class DefaultPersistence implements Persistence {
 
             if ((aProcessId == null)
                     && ((processes == null) || (processes.size() < 1))) {
-                return getAllNotDeletedTasks();
+                return getAllNotDeletedTasks(null);
             }
         } catch (final Exception exception) {
             LOGGER.error("", exception);

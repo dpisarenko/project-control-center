@@ -47,7 +47,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     Task createSubTask(final String aProcessName, final Long aParentProcessId,
             final UserData aUser);
 
-    List<SchedulingObject> getAllNotDeletedTasks();
+    List<SchedulingObject> getAllNotDeletedTasks(final UserData aUser);
 
     Task getTask(final Object aProcessid);
 
