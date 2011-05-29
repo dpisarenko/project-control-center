@@ -64,7 +64,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         final Button requestInviteButton =
                 new Button(TM.get("entrywindow.9-requestInviteButton"));
-
+        requestInviteButton.setImmediate(true);
         requestInviteButton.addListener(this);
 
         this.signupLabel = new Label("", Label.CONTENT_XHTML);
