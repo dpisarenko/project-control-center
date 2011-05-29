@@ -15,6 +15,7 @@ import java.util.Date;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 
 class MockBooking implements Booking {
 
@@ -24,7 +25,15 @@ class MockBooking implements Booking {
     private Date startDateTime;
     private double durationInHours;
     private Date endDateTime;
+    private UserData user;
 
+    public UserData getUser() {
+            return user;
+    }
+
+    public void setUser(UserData user) {
+            this.user = user;
+    }
     public Long getId() {
         return this.id;
     }

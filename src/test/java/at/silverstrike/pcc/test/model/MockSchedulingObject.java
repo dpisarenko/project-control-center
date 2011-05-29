@@ -16,10 +16,11 @@ import java.util.Set;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.SchedulingObjectValidationError;
+import at.silverstrike.pcc.api.model.UserData;
 
 /**
  * @author DP118M
- *
+ * 
  */
 class MockSchedulingObject {
     private Long id;
@@ -29,7 +30,16 @@ class MockSchedulingObject {
     private SchedulingObject parentProcess;
     private Set<SchedulingObject> predecessors;
     private SchedulingObjectValidationError validationError;
-    
+    private UserData user;
+
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(UserData user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return this.id;
     }
@@ -93,7 +103,8 @@ class MockSchedulingObject {
         return validationError;
     }
 
-    public void setValidationError(SchedulingObjectValidationError validationError) {
+    public void setValidationError(
+            SchedulingObjectValidationError validationError) {
         this.validationError = validationError;
     }
 

@@ -14,11 +14,20 @@ package at.silverstrike.pcc.test.model;
 import java.util.List;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.DailySchedule;
+import at.silverstrike.pcc.api.model.UserData;
 
 class MockDailySchedule implements DailySchedule {
-
     private Long id;
     private List<Booking> bookings;
+    private UserData user;
+
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(UserData user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return this.id;

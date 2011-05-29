@@ -16,49 +16,58 @@ import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.DailyToDoList;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 
 class MockDailyPlan implements DailyPlan {
 
-	private Long id;
-	private Resource resource;
-	private Date date;
-	private DailyToDoList toDoList;
-	private DailySchedule schedule;
+    private Long id;
+    private Resource resource;
+    private Date date;
+    private DailyToDoList toDoList;
+    private DailySchedule schedule;
+    private UserData user;
 
-	public Long getId() {
-		return this.id;
-	}
+    public UserData getUser() {
+            return user;
+    }
 
-	public void setResource(final Resource aResource) {
-		this.resource = aResource;
-	}
+    public void setUser(UserData user) {
+            this.user = user;
+    }
+    public Long getId() {
+        return this.id;
+    }
 
-	public Resource getResource() {
-		return this.resource;
-	}
+    public void setResource(final Resource aResource) {
+        this.resource = aResource;
+    }
 
-	public void setDate(final Date aDate) {
-		this.date = aDate;
-	}
+    public Resource getResource() {
+        return this.resource;
+    }
 
-	public Date getDate() {
-		return this.date;
-	}
+    public void setDate(final Date aDate) {
+        this.date = aDate;
+    }
 
-	public void setToDoList(final DailyToDoList aToDoList) {
-		this.toDoList = aToDoList;
-	}
+    public Date getDate() {
+        return this.date;
+    }
 
-	public DailyToDoList getToDoList() {
-		return this.toDoList;
-	}
+    public void setToDoList(final DailyToDoList aToDoList) {
+        this.toDoList = aToDoList;
+    }
 
-	public void setSchedule(final DailySchedule aSchedule) {
-		this.schedule = aSchedule;
-	}
+    public DailyToDoList getToDoList() {
+        return this.toDoList;
+    }
 
-	public DailySchedule getSchedule() {
-		return this.schedule;
-	}
+    public void setSchedule(final DailySchedule aSchedule) {
+        this.schedule = aSchedule;
+    }
+
+    public DailySchedule getSchedule() {
+        return this.schedule;
+    }
 
 }

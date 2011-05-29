@@ -20,6 +20,7 @@ import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.model.SchedulingObject;
+import at.silverstrike.pcc.api.model.UserData;
 
 class MockControlProcess implements Task {
     private Date averageEstimatedEndDateTime;
@@ -46,9 +47,19 @@ class MockControlProcess implements Task {
     private Date worstEstimatedEndDateTime;
 
     private SchedulingObjectValidationError validationError;
-    
+
+    private UserData user;
+
     public MockControlProcess() {
         this.resourceAllocations = new LinkedList<ResourceAllocation>();
+    }
+
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(UserData user) {
+        this.user = user;
     }
 
     @Override
@@ -183,7 +194,8 @@ class MockControlProcess implements Task {
         return validationError;
     }
 
-    public void setValidationError(SchedulingObjectValidationError validationError) {
+    public void setValidationError(
+            SchedulingObjectValidationError validationError) {
         this.validationError = validationError;
     }
 

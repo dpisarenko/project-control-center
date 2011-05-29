@@ -14,6 +14,7 @@ package at.silverstrike.pcc.test.model;
 import java.util.Date;
 
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.UserData;
 
 /**
  * @author DP118M
@@ -23,6 +24,15 @@ class MockEvent extends MockSchedulingObject implements Event {
     private String place;
     private Date startDateTime;
     private Date endDateTime;
+    private UserData user;
+
+    public UserData getUser() {
+            return user;
+    }
+
+    public void setUser(UserData user) {
+            this.user = user;
+    }
     
     public String getPlace() {
         return place;

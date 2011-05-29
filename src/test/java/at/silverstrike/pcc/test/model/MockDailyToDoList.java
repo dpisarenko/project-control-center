@@ -14,11 +14,20 @@ package at.silverstrike.pcc.test.model;
 import java.util.List;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyToDoList;
+import at.silverstrike.pcc.api.model.UserData;
 
 class MockDailyToDoList implements DailyToDoList {
-
     private Long id;
     private List<Task> tasksToCompleteToday;
+    private UserData user;
+
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(UserData user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return this.id;

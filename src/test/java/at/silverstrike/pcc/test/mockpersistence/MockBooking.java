@@ -20,6 +20,7 @@ import ru.altruix.commons.impl.util.Utils;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 
 public final class MockBooking implements Booking {
     private Long id;
@@ -27,6 +28,7 @@ public final class MockBooking implements Booking {
     private Resource resource;
     private Date startDateTime;
     private double duration;
+    private UserData user;
 
     public Long getId() {
         return id;
@@ -81,5 +83,13 @@ public final class MockBooking implements Booking {
                 append("startDateTime", startDateTime).
                 append("duration", duration);
         return toStringBuilder.toString();
+    }
+
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(UserData user) {
+        this.user = user;
     }
 }
