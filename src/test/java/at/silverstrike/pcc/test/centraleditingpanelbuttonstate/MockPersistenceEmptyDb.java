@@ -74,12 +74,6 @@ final class MockPersistenceEmptyDb extends MockPersistenceAdapter implements Per
     }
 
     @Override
-    public Task createSubTask(final String aProcessName,
-            final Long aParentProcessId) {
-        throw new NotImplementedException();
-    }
-
-    @Override
     public List<SchedulingObject> getAllNotDeletedTasks() {
         throw new NotImplementedException();
     }
@@ -162,7 +156,7 @@ final class MockPersistenceEmptyDb extends MockPersistenceAdapter implements Per
 
     @Override
     public List<SchedulingObject> getSubProcessesWithChildren(
-            final Long aProcessId) {
+            final Long aProcessId, final UserData aUser) {
         throw new NotImplementedException();
     }
 

@@ -65,4 +65,7 @@ public interface SchedulingObject extends UniquelyIdentifiableObject {
      */
     void setValidationError(final SchedulingObjectValidationError aError);
     SchedulingObjectValidationError getValidationError();
+    
+    void setUser(final UserData aUserData);
+    UserData getUser();
 }

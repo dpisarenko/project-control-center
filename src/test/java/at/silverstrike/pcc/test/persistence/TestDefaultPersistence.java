@@ -95,8 +95,8 @@ public class TestDefaultPersistence {
         Assert.assertEquals(0, processList2.size());
 
         Assert.assertEquals(0, persistence.getChildTasks((Long) null).size());
-        Assert.assertNotNull(persistence.getSubProcessesWithChildren((Long) null));
-        Assert.assertEquals(0, persistence.getSubProcessesWithChildren((Long) null).size());
+        Assert.assertNotNull(persistence.getSubProcessesWithChildren((Long) null, null));
+        Assert.assertEquals(0, persistence.getSubProcessesWithChildren((Long) null, null).size());
     }
     
     @Test
@@ -117,13 +117,13 @@ public class TestDefaultPersistence {
         persistence.clearDatabase();
 
         // Количество объектов должно быть нулевым
-        assertEquals(0, persistence.getSubProcessesWithChildren(null).size());
+        assertEquals(0, persistence.getSubProcessesWithChildren(null, null).size());
         
         // Создаём событие
         persistence.createSubEvent("test event", null);
         
         // Проверяем - создалось ли событие
-        assertEquals(1, persistence.getSubProcessesWithChildren(null).size());
+        assertEquals(1, persistence.getSubProcessesWithChildren(null, null).size());
     }
     
     /**
@@ -202,10 +202,10 @@ public class TestDefaultPersistence {
         persistence.clearDatabase();
         
         // Создаём событие
-        final Task project = persistence.createSubTask("project", null);
+        final Task project = persistence.createSubTask("project", null, null);
         final Event event = persistence.createSubEvent("test event", null);
         
-        Assert.assertEquals(2, persistence.getSubProcessesWithChildren(null).size());
+        Assert.assertEquals(2, persistence.getSubProcessesWithChildren(null, null).size());
         
         // Удаляем и смотрим - вылетает ли исключение
         try
@@ -218,6 +218,6 @@ public class TestDefaultPersistence {
             Assert.fail(exception.getMessage());
         }
         
-        Assert.assertEquals(1, persistence.getSubProcessesWithChildren(null).size());
+        Assert.assertEquals(1, persistence.getSubProcessesWithChildren(null, null).size());
     }
 }

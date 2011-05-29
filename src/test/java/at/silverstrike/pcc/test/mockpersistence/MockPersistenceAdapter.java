@@ -68,7 +68,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public Task createSubTask(final String aProcessName,
-            final Long aParentProcessId) {
+            final Long aParentProcessId, final UserData aUser) {
         return null;
     }
 
@@ -129,7 +129,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public List<SchedulingObject> getSubProcessesWithChildren(
-            final Long aProcessId) {
+            final Long aProcessId, final UserData aUser) {
         return null;
     }
 

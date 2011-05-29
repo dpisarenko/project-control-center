@@ -19,6 +19,7 @@ import ru.altruix.commons.impl.util.Utils;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 
 /**
  * @author Dmitri Pisarenko
@@ -30,6 +31,7 @@ class DefaultBooking implements Booking {
     private Resource resource;
     private Date startDateTime;
     private double duration;
+    private UserData user;
 
     public Task getProcess() {
         return process;
@@ -87,4 +89,11 @@ class DefaultBooking implements Booking {
         return toStringBuilder.toString();
     }
 
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(final UserData aUser) {
+        this.user = aUser;
+    }
 }

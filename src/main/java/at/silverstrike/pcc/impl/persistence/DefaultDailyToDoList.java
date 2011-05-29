@@ -16,6 +16,7 @@ import java.util.List;
 
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyToDoList;
+import at.silverstrike.pcc.api.model.UserData;
 
 /**
  * @author Dmitri Pisarenko
@@ -24,6 +25,7 @@ import at.silverstrike.pcc.api.model.DailyToDoList;
 class DefaultDailyToDoList implements DailyToDoList {
     private List<Task> tasksToCompleteToday;
     private Long id;
+    private UserData user;
 
     public DefaultDailyToDoList() {
         this.tasksToCompleteToday = new LinkedList<Task>();
@@ -44,5 +46,13 @@ class DefaultDailyToDoList implements DailyToDoList {
 
     public void setId(final Long aId) {
         this.id = aId;
+    }
+
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(final UserData aUser) {
+        this.user = aUser;
     }
 }

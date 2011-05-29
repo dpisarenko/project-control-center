@@ -17,6 +17,7 @@ import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.DailyToDoList;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 
 /**
  * @author Dmitri Pisarenko
@@ -32,6 +33,7 @@ class DefaultDailyPlan implements DailyPlan {
     private DailySchedule schedule;
 
     private Long id;
+    private UserData user;
 
     public Resource getResource() {
         return resource;
@@ -71,5 +73,13 @@ class DefaultDailyPlan implements DailyPlan {
 
     public void setId(final Long aId) {
         this.id = aId;
+    }
+
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(final UserData aUser) {
+        this.user = aUser;
     }
 }

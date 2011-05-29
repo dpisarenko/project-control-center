@@ -22,10 +22,12 @@ import com.google.inject.Injector;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 
+import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projecttreemodel.ProjectTreeContainer;
 
@@ -58,7 +60,9 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     @Override
     public void updateData() {
         final List<SchedulingObject> topLevelProcesses =
-                persistence.getSubProcessesWithChildren(null);
+                persistence.getSubProcessesWithChildren(null,
+                        (UserData) TPTApplication.getCurrentApplication()
+                                .getUser());
 
         if (this.schedulingObjectsByTreeItemIds != null) {
             for (final Integer taskNodeId : this.schedulingObjectsByTreeItemIds
@@ -120,7 +124,10 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
 
             final List<SchedulingObject> subProcessesWithChildren =
                     aPersistence
-                            .getSubProcessesWithChildren(schedulingObjectId);
+                            .getSubProcessesWithChildren(schedulingObjectId,
+                                    (UserData) TPTApplication
+                                            .getCurrentApplication()
+                                            .getUser());
 
             treeItemId =
                     addNodes(subProcessesWithChildren,

@@ -44,7 +44,8 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     Long createTask(final String aProcessName);
 
-    Task createSubTask(final String aProcessName, final Long aParentProcessId);
+    Task createSubTask(final String aProcessName, final Long aParentProcessId,
+            final UserData aUser);
 
     List<SchedulingObject> getAllNotDeletedTasks();
 
@@ -103,23 +104,25 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      * Returns a list of processes, which
      * 
      * a) are sub-processes of process with the specified ID as their parent
-     * process and b) have child processes themselves. Deleted scheduling objects and 
-     * completed tasks are not returned.
+     * process and b) have child processes themselves. Deleted scheduling
+     * objects and completed tasks are not returned.
      * 
      * If processId is null, the top-level processes are returned.
      */
-    List<SchedulingObject> getSubProcessesWithChildren(final Long aProcessId);
-    
+    List<SchedulingObject> getSubProcessesWithChildren(final Long aProcessId,
+            final UserData aUser);
+
     /**
      * Returns a list of scheduling objects, which
      * 
      * a) are sub-processes of process with the specified ID as their parent
-     * process and b) have child processes themselves. Deleted scheduling objects and 
-     * completed tasks are not returned.
+     * process and b) have child processes themselves. Deleted scheduling
+     * objects and completed tasks are not returned.
      * 
      * If processId is null, the top-level processes are returned.
-     */    
-    List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(final Long aProcessId);
+     */
+    List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
+            final Long aProcessId);
 
     /**
      * Creates a new process on the same hierarchy level as the process with
@@ -177,14 +180,17 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     void updateEvent(final Event aEvent);
 
     /**
-     * Возвращает перечень объектов, которые могут быть предшественниками aObject.
+     * Возвращает перечень объектов, которые могут быть предшественниками
+     * aObject.
      */
     List<SchedulingObject> getPotentialDependencies(
             final SchedulingObject aObject);
-    
-    boolean isHighestPriorityObjectInProject(final SchedulingObject aProject, final SchedulingObject aSchedulingObject);
-    
-    boolean isLowestPriorityObjectInProject(final SchedulingObject aProject, final SchedulingObject aSchedulingObject);
+
+    boolean isHighestPriorityObjectInProject(final SchedulingObject aProject,
+            final SchedulingObject aSchedulingObject);
+
+    boolean isLowestPriorityObjectInProject(final SchedulingObject aProject,
+            final SchedulingObject aSchedulingObject);
 
     boolean markTaskAsCompleted(final Task aTask);
 
@@ -195,8 +201,9 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     boolean hasChildren(final SchedulingObject aObject);
 
     List<SchedulingObject> getTopLevelTasks();
-    
-    void createInvitationRequest(final SupportedOpenIdProvider aOpenIdProvider, final String aEmail);
+
+    void createInvitationRequest(final SupportedOpenIdProvider aOpenIdProvider,
+            final String aEmail);
 
     List<InvitationRequest> getInvitationRequests();
 

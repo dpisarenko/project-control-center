@@ -15,12 +15,17 @@ import java.util.List;
 
 import ru.altruix.commons.api.conventions.UniquelyIdentifiableObject;
 
-
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
-public interface DailyToDoList extends UniquelyIdentifiableObject {	
-	void setTasksToCompleteToday(final List<Task> aTasksToCompleteToday);
-	List<Task> getTasksToCompleteToday();
+public interface DailyToDoList extends UniquelyIdentifiableObject {
+    void setTasksToCompleteToday(final List<Task> aTasksToCompleteToday);
+
+    List<Task> getTasksToCompleteToday();
+    
+    void setUser(final UserData aUserData);
+
+    UserData getUser();
+
 }

@@ -15,6 +15,7 @@ import java.util.List;
 
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.DailySchedule;
+import at.silverstrike.pcc.api.model.UserData;
 
 /**
  * @author Dmitri Pisarenko
@@ -23,6 +24,7 @@ import at.silverstrike.pcc.api.model.DailySchedule;
 class DefaultDailySchedule implements DailySchedule {
     private List<Booking> bookings;
     private Long id;
+    private UserData user;
 
     public List<Booking> getBookings() {
         return bookings;
@@ -38,5 +40,13 @@ class DefaultDailySchedule implements DailySchedule {
 
     public void setId(final Long aId) {
         this.id = aId;
+    }
+
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(final UserData aUser) {
+        this.user = aUser;
     }
 }

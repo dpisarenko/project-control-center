@@ -130,6 +130,7 @@ public class DefaultPersistence implements Persistence {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultPersistence.class);
+    private static final String USER_ID = "${userId}";
     private Session session;
     private SessionFactory sessionFactory;
     private PersistenceState state;
@@ -270,13 +271,15 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public final Task createSubTask(final String aProcessName,
-            final Long aParentProcessId) {
+            final Long aParentProcessId,
+            final UserData aUser) {
         final Transaction tx = session.beginTransaction();
         Task returnValue = null;
 
         try {
             final Task newProcess = new DefaultTask();
 
+            newProcess.setUser(aUser);
             newProcess.setParent(getParentTask(aParentProcessId));
             newProcess.setName(aProcessName);
 
@@ -647,18 +650,21 @@ public class DefaultPersistence implements Persistence {
     @SuppressWarnings("unchecked")
     @Override
     public final List<SchedulingObject> getSubProcessesWithChildren(
-            final Long aProcessId) {
+            final Long aProcessId, final UserData aUser) {
         List<SchedulingObject> processes = null;
 
         try {
             final String hql;
-
+            final String userId = Long.toString(aUser.getId());
+            
             if (aProcessId != null) {
                 hql =
                         SUB_PROCESSES_WITH_CHILDREN_HQL_TEMPLATE.replace(
-                                PROCESS_ID, aProcessId.toString());
+                                PROCESS_ID, aProcessId.toString()).replace(
+                                USER_ID, userId);
             } else {
-                hql = SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL;
+                hql = SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_HQL.replace(
+                        USER_ID, userId);
             }
 
             final Query query = session.createQuery(hql);
@@ -1566,7 +1572,7 @@ public class DefaultPersistence implements Persistence {
         request.setStatus(InvitationRequestStatus.SUBMITTED);
         request.setSubmissionDateTime(new Date());
         request.setEmail(aEmail);
-        
+
         final Transaction tx = session.beginTransaction();
 
         try {

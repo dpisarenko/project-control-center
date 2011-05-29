@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
 
+import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanel;
@@ -26,6 +27,7 @@ import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Event;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.impl.webguibus.WebGuiBusListenerAdapter;
@@ -71,8 +73,11 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
             final Long aProjectIdCurrentlySelectedInTree) {
         final String taskName = TM
                 .get("centraleditingpanelcontroller.1-new-task-name");
+        final UserData user =
+                (UserData) TPTApplication.getCurrentApplication().getUser();
+
         final Task newTask = this.persistence.createSubTask(
-                taskName, aProjectIdCurrentlySelectedInTree);
+                taskName, aProjectIdCurrentlySelectedInTree, user);
 
         if (newTask != null) {
             this.webGuiBus.broadcastTaskCreatedMessage(newTask);

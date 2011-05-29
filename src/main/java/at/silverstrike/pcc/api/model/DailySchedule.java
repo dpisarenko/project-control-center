@@ -15,12 +15,17 @@ import java.util.List;
 
 import ru.altruix.commons.api.conventions.UniquelyIdentifiableObject;
 
-
 /**
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public interface DailySchedule extends UniquelyIdentifiableObject {
-	void setBookings(final List<Booking> aBookings);
-	List<Booking> getBookings();
+    void setBookings(final List<Booking> aBookings);
+
+    List<Booking> getBookings();
+
+    void setUser(final UserData aUserData);
+
+    UserData getUser();
+
 }
