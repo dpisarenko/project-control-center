@@ -302,5 +302,25 @@ public abstract class MockPersistenceAdapter implements Persistence {
     @Override
     public void acceptInvitationRequest(final InvitationRequest aRequest,
             final String aUserIdentity) {
+    }
+
+    @Override
+    public void createSuperUser() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Long getUserCount() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public UserData getUser(String userName, String password) {
+        // TODO Auto-generated method stub
+        return null;
     }    
+    
+    
 }
