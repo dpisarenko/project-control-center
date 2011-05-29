@@ -293,7 +293,7 @@ public class DefaultPersistence implements Persistence {
 
             final DailyLimitResourceAllocation alloc =
                     new DefaultDailyLimitResourceAllocation();
-            final Worker worker = this.getCurrentWorker();
+            final Worker worker = this.getCurrentWorker(aUser);
             alloc.setResource(worker);
             alloc.setDailyLimit(worker.getDailyLimitInHours());
             newProcess
@@ -1495,8 +1495,10 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public final Worker getCurrentWorker() {
-        final String hql = "from DefaultWorker where abbreviation = 'USR'";
+    public final Worker getCurrentWorker(final UserData aUser) {
+        final String resourceName = aUser.getResourceName();
+        final String hql = "from DefaultWorker where abbreviation = '${resource}'".
+            replace("${resource}", resourceName);
 
         final Query query = session.createQuery(hql);
 
@@ -1507,11 +1509,11 @@ public class DefaultPersistence implements Persistence {
         } else {
             final Worker worker = new DefaultWorker();
 
-            worker.setAbbreviation("USR");
+            worker.setAbbreviation(resourceName);
             worker.setDailyLimitInHours(DAILY_LIMIT_IN_HOURS);
-            worker.setFirstName("Dmitri");
-            worker.setMiddleName("Anatol'evich");
-            worker.setSurname("Pisarenko");
+            worker.setFirstName(resourceName);
+            worker.setMiddleName("");
+            worker.setSurname("");
 
             final Transaction tx = session.beginTransaction();
 

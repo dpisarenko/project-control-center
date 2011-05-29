@@ -196,7 +196,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     void updateSchedulingObject(final SchedulingObject schedulingObject);
 
-    Worker getCurrentWorker();
+    Worker getCurrentWorker(final UserData aUser);
 
     boolean hasChildren(final SchedulingObject aObject);
 

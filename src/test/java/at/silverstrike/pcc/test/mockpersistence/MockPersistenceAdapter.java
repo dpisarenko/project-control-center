@@ -93,7 +93,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public List<SchedulingObject> getAllNotDeletedTasks() {
+    public List<SchedulingObject> getAllNotDeletedTasks(final UserData aUser) {
         return null;
     }
 
@@ -264,7 +264,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public Worker getCurrentWorker() {
+    public Worker getCurrentWorker(final UserData aUser) {
         // TODO Auto-generated method stub
         return null;
     }

@@ -83,4 +83,13 @@ class DefaultUserData implements UserData {
         this.id = aId;
     }
 
+    @Override
+    public String getResourceName() {
+        final StringBuilder builder = new StringBuilder();
+        
+        builder.append("R");
+        builder.append(this.identifier);
+        
+        return builder.toString();
+    }
 }

@@ -103,18 +103,6 @@ public class MockPersistenceHighestLevelTask extends MockPersistenceAdapter
      * (non-Javadoc)
      * 
      * @see
-     * at.silverstrike.pcc.api.persistence.Persistence#getAllNotDeletedTasks()
-     */
-    @Override
-    public final List<SchedulingObject> getAllNotDeletedTasks() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
      * at.silverstrike.pcc.api.persistence.Persistence#getTask(java.lang.Object)
      */
     @Override

@@ -86,4 +86,13 @@ final class MockUserData implements UserData {
         // TODO Auto-generated method stub
         return null;
     }
+    @Override
+    public String getResourceName() {
+        final StringBuilder builder = new StringBuilder();
+        
+        builder.append("R");
+        builder.append(this.identifier);
+        
+        return builder.toString();
+    }
 }

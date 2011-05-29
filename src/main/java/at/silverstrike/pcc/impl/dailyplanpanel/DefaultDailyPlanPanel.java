@@ -34,6 +34,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.SplitPanel;
 import com.vaadin.ui.Table;
 
+import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
@@ -42,6 +43,7 @@ import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.ProcessState;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
 /**
@@ -151,7 +153,8 @@ class DefaultDailyPlanPanel extends Panel implements DailyPlanPanel {
         final Application app = getApplication();
         final String resource;
         if (app != null) {
-            resource = (String) app.getUser();
+            final UserData user = (UserData)TPTApplication.getCurrentApplication().getUser();
+            resource = user.getResourceName();
         } else {
             resource = null;
         }

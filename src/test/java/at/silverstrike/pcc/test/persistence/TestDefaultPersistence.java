@@ -77,7 +77,7 @@ public class TestDefaultPersistence {
 
         // Verify it's present in the list of not attained tasks
         final List<SchedulingObject> processList1 =
-                persistence.getAllNotDeletedTasks();
+                persistence.getAllNotDeletedTasks(null);
 
         Assert.assertEquals(1, processList1.size());
 
@@ -90,7 +90,7 @@ public class TestDefaultPersistence {
 
         // Verify it's not present in the list of not attained tasks
         final List<SchedulingObject> processList2 =
-                persistence.getAllNotDeletedTasks();
+                persistence.getAllNotDeletedTasks(null);
 
         Assert.assertEquals(0, processList2.size());
 

@@ -74,11 +74,6 @@ final class MockPersistenceEmptyDb extends MockPersistenceAdapter implements Per
     }
 
     @Override
-    public List<SchedulingObject> getAllNotDeletedTasks() {
-        throw new NotImplementedException();
-    }
-
-    @Override
     public Task getTask(final Object aProcessid) {
         throw new NotImplementedException();
     }

@@ -21,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import ru.altruix.commons.api.di.PccException;
 import com.google.inject.Injector;
 import com.vaadin.ui.Panel;
+
+import eu.livotov.tpt.TPTApplication;
 import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.incorrectschedulingobjectsmarker.IncorrectSchedulingObjectsMarker;
 import at.silverstrike.pcc.api.incorrectschedulingobjectsmarker.IncorrectSchedulingObjectsMarkerFactory;
@@ -29,6 +31,7 @@ import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
@@ -50,8 +53,9 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
     private SchedulingState state;
     private Injector injector;
     private IncorrectSchedulingObjectsMarker incorrectSchedulingObjectsMarker;
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSchedulingPanelController.class);
-    
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultSchedulingPanelController.class);
+
     @Override
     public Panel initGui() {
         this.state = SchedulingState.UNDEFINED;
@@ -67,10 +71,12 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
         webGuiBus.addListener(this);
 
-        final IncorrectSchedulingObjectsMarkerFactory markerFactory = this.injector.getInstance(IncorrectSchedulingObjectsMarkerFactory.class);
+        final IncorrectSchedulingObjectsMarkerFactory markerFactory =
+                this.injector
+                        .getInstance(IncorrectSchedulingObjectsMarkerFactory.class);
         incorrectSchedulingObjectsMarker = markerFactory.create();
         incorrectSchedulingObjectsMarker.setInjector(this.injector);
-        
+
         return this.panel.toPanel();
     }
 
@@ -146,36 +152,36 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         final ProjectScheduler scheduler = factory.create();
         final Persistence persistence =
                 this.injector.getInstance(Persistence.class);
-
         final List<SchedulingObject> schedulingObjects =
-                persistence.getAllNotDeletedTasks();
+                persistence.getAllNotDeletedTasks((UserData) TPTApplication
+                        .getCurrentApplication().getUser());
 
         // Находим все дела с неправильными трудозатратами
-        incorrectSchedulingObjectsMarker.setSchedulingObjects(schedulingObjects);
+        incorrectSchedulingObjectsMarker
+                .setSchedulingObjects(schedulingObjects);
         try {
             incorrectSchedulingObjectsMarker.run();
         } catch (final PccException exception) {
             LOGGER.error("", exception);
         }
-        
-        LOGGER.debug("incorrectSchedulingObjectsMarker.areErrorsFound(): " + incorrectSchedulingObjectsMarker.areErrorsFound());
-        
-        if (incorrectSchedulingObjectsMarker.areErrorsFound())
-        {
+
+        LOGGER.debug("incorrectSchedulingObjectsMarker.areErrorsFound(): "
+                + incorrectSchedulingObjectsMarker.areErrorsFound());
+
+        if (incorrectSchedulingObjectsMarker.areErrorsFound()) {
             this.state = SchedulingState.ERROR;
             return;
         }
 
         final List<SchedulingObject> schedulingObjectsToExport =
-            persistence.getTopLevelTasks();
+                persistence.getTopLevelTasks();
 
-        
         scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
                 schedulingObjectsToExport);
 
         final List<Resource> resources = new LinkedList<Resource>();
-        resources.add(persistence.getCurrentWorker());
-       
+        resources.add(persistence.getCurrentWorker((UserData)TPTApplication.getCurrentApplication().getUser()));
+
         scheduler.getProjectExportInfo().setResourcesToExport(resources);
 
         scheduler.getProjectExportInfo().setProjectName("pcc");
@@ -194,10 +200,11 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         try {
             scheduler.run();
             this.state = SchedulingState.PLAN_UP_TO_DATE;
-            
-            final WebGuiBus webGuiBus = this.injector.getInstance(WebGuiBus.class);
+
+            final WebGuiBus webGuiBus =
+                    this.injector.getInstance(WebGuiBus.class);
             webGuiBus.broadcastPlanCalculatedMessage();
-            
+
         } catch (final InvalidDurationException exception) {
             this.state = SchedulingState.ERROR;
             LOGGER.error("", exception);

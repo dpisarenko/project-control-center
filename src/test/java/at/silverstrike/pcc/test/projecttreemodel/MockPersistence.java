@@ -87,11 +87,6 @@ final class MockPersistence extends MockPersistenceAdapter implements Persistenc
     }
 
 
-    @Override
-    public List<SchedulingObject> getAllNotDeletedTasks() {
-        throw new NotImplementedException();
-
-    }
 
     @Override
     public Task getTask(final Object aProcessid) {
@@ -320,10 +315,4 @@ final class MockPersistence extends MockPersistenceAdapter implements Persistenc
         return false;
     }
 
-    @Override
-    public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
-            Long aProcessId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

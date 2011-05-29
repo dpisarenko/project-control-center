@@ -36,4 +36,6 @@ public interface UserData extends UniquelyIdentifiableObject {
     
     void setPassword(final String aPassword);
     String getPassword();
+
+    String getResourceName();
 }

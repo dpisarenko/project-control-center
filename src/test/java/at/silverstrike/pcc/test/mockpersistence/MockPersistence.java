@@ -98,10 +98,6 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
         throw new NotImplementedException();
     }
 
-    @Override
-    public List<SchedulingObject> getAllNotDeletedTasks() {
-        throw new NotImplementedException();
-    }
 
     @Override
     public List<Worker> getAllWorkers() {
