@@ -26,11 +26,11 @@ class MockEvent extends MockSchedulingObject implements Event {
     private Date endDateTime;
     private UserData user;
 
-    public UserData getUser() {
+    public UserData getUserData() {
             return user;
     }
 
-    public void setUser(UserData user) {
+    public void setUserData(UserData user) {
             this.user = user;
     }
     

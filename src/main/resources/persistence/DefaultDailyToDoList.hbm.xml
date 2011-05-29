@@ -22,7 +22,7 @@
 			<many-to-many column="DAILY_TO_DO_LIST_ITEM_ID"
 				class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject" />
 		</bag>
-		<many-to-one name="user"
+		<many-to-one name="userData"
 			class="at.silverstrike.pcc.impl.persistence.DefaultUserData" 
 			lazy="false"/>		
 	</class>

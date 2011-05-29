@@ -54,11 +54,11 @@ class MockControlProcess implements Task {
         this.resourceAllocations = new LinkedList<ResourceAllocation>();
     }
 
-    public UserData getUser() {
+    public UserData getUserData() {
         return user;
     }
 
-    public void setUser(UserData user) {
+    public void setUserData(UserData user) {
         this.user = user;
     }
 

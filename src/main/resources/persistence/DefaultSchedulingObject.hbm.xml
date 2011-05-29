@@ -27,7 +27,7 @@
 			<many-to-many column="PREDECESSOR_ID"
 				class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject" />
 		</set>
-		<many-to-one name="user"
+		<many-to-one name="userData"
 			class="at.silverstrike.pcc.impl.persistence.DefaultUserData" 
 			lazy="false"/>
 		<joined-subclass name="at.silverstrike.pcc.impl.persistence.DefaultEvent"

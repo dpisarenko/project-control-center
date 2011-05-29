@@ -36,7 +36,7 @@ public interface DailyPlan extends UniquelyIdentifiableObject {
 
     DailySchedule getSchedule();
     
-    void setUser(final UserData aUserData);
-    UserData getUser();
+    void setUserData(final UserData aUserData);
+    UserData getUserData();
 
 }

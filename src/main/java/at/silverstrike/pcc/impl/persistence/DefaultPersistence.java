@@ -279,7 +279,7 @@ public class DefaultPersistence implements Persistence {
         try {
             final Task newProcess = new DefaultTask();
 
-            newProcess.setUser(aUser);
+            newProcess.setUserData(aUser);
             newProcess.setParent(getParentTask(aParentProcessId));
             newProcess.setName(aProcessName);
 

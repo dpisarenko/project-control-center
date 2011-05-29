@@ -42,11 +42,11 @@ class DefaultDailySchedule implements DailySchedule {
         this.id = aId;
     }
 
-    public UserData getUser() {
+    public UserData getUserData() {
         return user;
     }
 
-    public void setUser(final UserData aUser) {
+    public void setUserData(final UserData aUser) {
         this.user = aUser;
     }
 }

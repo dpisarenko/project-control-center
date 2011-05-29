@@ -24,8 +24,8 @@ public interface DailySchedule extends UniquelyIdentifiableObject {
 
     List<Booking> getBookings();
 
-    void setUser(final UserData aUserData);
+    void setUserData(final UserData aUserData);
 
-    UserData getUser();
+    UserData getUserData();
 
 }

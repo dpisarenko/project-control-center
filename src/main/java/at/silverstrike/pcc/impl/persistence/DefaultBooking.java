@@ -89,11 +89,11 @@ class DefaultBooking implements Booking {
         return toStringBuilder.toString();
     }
 
-    public UserData getUser() {
+    public UserData getUserData() {
         return user;
     }
 
-    public void setUser(final UserData aUser) {
+    public void setUserData(final UserData aUser) {
         this.user = aUser;
     }
 }

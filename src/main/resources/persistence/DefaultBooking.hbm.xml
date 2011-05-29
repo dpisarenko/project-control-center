@@ -29,7 +29,7 @@
 		<many-to-one name="resource"
 			class="at.silverstrike.pcc.impl.persistence.DefaultResource" 
 			lazy="false"/>
-		<many-to-one name="user"
+		<many-to-one name="userData"
 			class="at.silverstrike.pcc.impl.persistence.DefaultUserData" 
 			lazy="false"/>
 	</class>
