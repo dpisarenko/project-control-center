@@ -1692,4 +1692,37 @@ public class DefaultPersistence implements Persistence {
         return result;
 
     }
+
+    @Override
+    public UserData getUser(final String aUserName, final String aPassword) {
+        @SuppressWarnings("rawtypes")
+        List result = null;
+        UserData returnValue = null;
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            final String hql =
+                    "from DefaultUserData where username = '${username}' and password='${password}'"
+                            .replace("${username}", aUserName)
+                            .replace("${password}", aPassword);
+
+            final Query query =
+                    session.createQuery(hql);
+
+            result = query.list();
+
+            if (result.size() > 0) {
+                returnValue = (UserData) result.get(0);
+            } else {
+                returnValue = null;
+            }
+
+            tx.commit();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+
+        return returnValue;
+    }
 }

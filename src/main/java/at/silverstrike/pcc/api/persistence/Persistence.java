@@ -208,4 +208,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     void createSuperUser();
 
     Long getUserCount();
+
+    UserData getUser(String userName, String password);
 }

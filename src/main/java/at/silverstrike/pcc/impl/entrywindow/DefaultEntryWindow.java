@@ -23,12 +23,17 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.Window.Notification;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiControllerFactory;
+import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
+import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
+import at.silverstrike.pcc.api.model.UserData;
+import at.silverstrike.pcc.api.persistence.Persistence;
 
 class DefaultEntryWindow implements EntryWindow, ClickListener {
     private static final int OPEN_ID_TEXT_FIELD_COLUMNS = 30;
@@ -44,6 +49,8 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
     private Label signupLabel;
     private transient Injector injector;
     private Label passwordLabel;
+    private String requestInviteButtonCaption;
+    private String loginButtonCaption;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -54,7 +61,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
     @Override
     public void initGui() {
-        window = new Window();
+        window = new Window(TM.get("entrywindow.1-title"));
         window.setSizeFull();
 
         final GridLayout layout = new GridLayout(2, 1);
@@ -62,17 +69,20 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         layout.setSizeFull();
         initAuthPanel();
 
+        requestInviteButtonCaption =
+                TM.get("entrywindow.9-requestInviteButton");
         final Button requestInviteButton =
-                new Button(TM.get("entrywindow.9-requestInviteButton"));
+                new Button(requestInviteButtonCaption);
         requestInviteButton.addListener(this);
 
-        this.signupLabel = new Label("", Label.CONTENT_XHTML);
+        this.signupLabel =
+                new Label(TM.get("entrywindow.4-signuplabel"),
+                        Label.CONTENT_XHTML);
 
         layout.addComponent(requestInviteButton, 0, 0);
         layout.addComponent(this.authPanel, 1, 0);
 
         window.addComponent(layout);
-        updateControls();
     }
 
     @Override
@@ -80,35 +90,20 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         return this.window;
     }
 
-    private void updateControls() {
-        this.window.setCaption(TM.get("entrywindow.1-title"));
-        this.signupLabel.setValue(TM.get("entrywindow.4-signuplabel"));
-        updateCaptionsAuthPanel();
-    }
-
-    private void updateCaptionsAuthPanel() {
-        this.emailLabel.setValue(TM.get("entrywindow.2-openIdLabel"));
-        this.loginButton.setCaption(TM
-                .get("entrywindow.3-authenticateButton"));
-        this.passwordLabel.setCaption(TM.get("entrywindow.8-password-label"));
-
-        this.emailLabel.setSizeFull();
-        this.loginButton.setSizeFull();
-    }
-
     private void initAuthPanel() {
         final GridLayout gridLayout = new GridLayout(2, 3);
 
         this.authPanel = new Panel();
 
-        emailLabel = new Label();
+        emailLabel = new Label(TM.get("entrywindow.2-openIdLabel"));
         emailTextField = new TextField();
         emailTextField.setColumns(OPEN_ID_TEXT_FIELD_COLUMNS);
 
-        passwordLabel = new Label();
+        passwordLabel = new Label(TM.get("entrywindow.8-password-label"));
         this.passwordTextField = new PasswordField();
 
-        loginButton = new Button();
+        loginButtonCaption = TM.get("entrywindow.3-authenticateButton");
+        loginButton = new Button(loginButtonCaption);
 
         gridLayout.addComponent(emailLabel, 0, 0);
         gridLayout.addComponent(emailTextField, 1, 0);
@@ -124,22 +119,60 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
     @Override
     public void buttonClick(final ClickEvent aEvent) {
-        LOGGER.debug("buttonClick");
-        final InvitationGuiControllerFactory invitationGuiControllerFactory =
-                injector.getInstance(InvitationGuiControllerFactory.class);
-        final InvitationGuiController controller =
-                invitationGuiControllerFactory.create();
+        final String buttonCaption = aEvent.getButton().getCaption();
 
-        controller.setInjector(injector);
+        if (this.requestInviteButtonCaption.equals(buttonCaption)) {
+            LOGGER.debug("buttonClick");
+            final InvitationGuiControllerFactory invitationGuiControllerFactory =
+                    injector.getInstance(InvitationGuiControllerFactory.class);
+            final InvitationGuiController controller =
+                    invitationGuiControllerFactory.create();
 
-        final Window invitationRequestWindow = controller.initGui();
+            controller.setInjector(injector);
 
-        LOGGER.debug("buttonClick, 2, invitationRequestWindow: {}",
-                invitationRequestWindow);
+            final Window invitationRequestWindow = controller.initGui();
 
-        TPTApplication.getCurrentApplication().removeWindow(
-                TPTApplication.getCurrentApplication().getMainWindow());
-        TPTApplication.getCurrentApplication().setMainWindow(
-                invitationRequestWindow);
+            LOGGER.debug("buttonClick, 2, invitationRequestWindow: {}",
+                    invitationRequestWindow);
+
+            TPTApplication.getCurrentApplication().removeWindow(
+                    TPTApplication.getCurrentApplication().getMainWindow());
+            TPTApplication.getCurrentApplication().setMainWindow(
+                    invitationRequestWindow);
+
+        } else if (this.loginButtonCaption.equals(buttonCaption)) {
+            final String userName = (String) this.emailTextField.getValue();
+            final String password = (String) this.passwordTextField.getValue();
+            final Persistence persistence =
+                    this.injector.getInstance(Persistence.class);
+
+            final UserData user = persistence.getUser(userName, password);
+
+            if (user != null) {
+                TPTApplication.getCurrentApplication().setUser(user);
+
+                final MainWindowControllerFactory mainWindowControllerFactory =
+                        injector.getInstance(MainWindowControllerFactory.class);
+                final MainWindowController controller =
+                        mainWindowControllerFactory.create();
+
+                controller.setInjector(injector);
+
+                final Window mainWindow = controller.initGui();
+
+                final Window curMainWindow = TPTApplication.getCurrentApplication().getMainWindow();
+                TPTApplication.getCurrentApplication().removeWindow(curMainWindow);
+                TPTApplication.getCurrentApplication().setMainWindow(mainWindow);
+                
+            } else {
+                TPTApplication
+                        .getCurrentApplication()
+                        .getMainWindow()
+                        .showNotification(this.window.getCaption(),
+                                TM.get("entrywindow.10-errorMessage"),
+                                Notification.TYPE_ERROR_MESSAGE);
+                TPTApplication.getCurrentApplication().setUser(null);
+            }
+        }
     }
 }
