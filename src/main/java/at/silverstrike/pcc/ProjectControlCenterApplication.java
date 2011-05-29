@@ -56,8 +56,6 @@ public class ProjectControlCenterApplication extends TPTApplication  {
         setTheme(THEME);
         TM.getDictionary().setDefaultLanguage("en");
 
-        this.setUser("USR");
-
         final InjectorFactory injectorFactory = new DefaultInjectorFactory();
         injector = injectorFactory.createInjector();
 
@@ -68,6 +66,12 @@ public class ProjectControlCenterApplication extends TPTApplication  {
 
         persistence.openSession();
 
+        if (this.persistence.getUserCount() < 1)
+        {
+            this.persistence.createSuperUser();
+        }
+
+        
         if (OPENID_DEBUGGED) {
             final EntryWindowFactory entryWindowFactory = injector
                     .getInstance(EntryWindowFactory.class);
@@ -106,12 +110,7 @@ public class ProjectControlCenterApplication extends TPTApplication  {
 
             final Window mainWindow = controller.initGui();
             this.setMainWindow(mainWindow);
-        }
-        
-        if (this.persistence.getUserCount() < 1)
-        {
-            this.persistence.createSuperUser();
-        }
+        }        
     }
 
     @Override
