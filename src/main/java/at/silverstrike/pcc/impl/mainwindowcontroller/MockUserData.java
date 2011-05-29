@@ -57,4 +57,28 @@ final class MockUserData implements UserData {
         this.bookings = aBookings;
     }
 
+    @Override
+    public void setUsername(String aUsername) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String getUsername() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setPassword(String aPassword) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String getPassword() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
