@@ -104,7 +104,8 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         loginButtonCaption = TM.get("entrywindow.3-authenticateButton");
         loginButton = new Button(loginButtonCaption);
-
+        loginButton.addListener(this);
+        
         gridLayout.addComponent(emailLabel, 0, 0);
         gridLayout.addComponent(emailTextField, 1, 0);
 
@@ -120,6 +121,14 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
     @Override
     public void buttonClick(final ClickEvent aEvent) {
         final String buttonCaption = aEvent.getButton().getCaption();
+
+        LOGGER.debug(
+                "buttonCaption: ${buttonCaption}, requestInviteButtonCaption: "
+                        +
+                        "${requestInviteButtonCaption}," +
+                        " loginButtonCaption: ${loginButtonCaption}",
+                new Object[] { buttonCaption, requestInviteButtonCaption,
+                        loginButtonCaption });
 
         if (this.requestInviteButtonCaption.equals(buttonCaption)) {
             LOGGER.debug("buttonClick");
@@ -160,10 +169,13 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
                 final Window mainWindow = controller.initGui();
 
-                final Window curMainWindow = TPTApplication.getCurrentApplication().getMainWindow();
-                TPTApplication.getCurrentApplication().removeWindow(curMainWindow);
-                TPTApplication.getCurrentApplication().setMainWindow(mainWindow);
-                
+                final Window curMainWindow =
+                        TPTApplication.getCurrentApplication().getMainWindow();
+                TPTApplication.getCurrentApplication().removeWindow(
+                        curMainWindow);
+                TPTApplication.getCurrentApplication()
+                        .setMainWindow(mainWindow);
+
             } else {
                 TPTApplication
                         .getCurrentApplication()
