@@ -1676,7 +1676,7 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
 
         try {
-            final String hql = "count(*) from DefaultUserData";
+            final String hql = "select count(*) from DefaultUserData";
 
             final Query query =
                     session.createQuery(hql);
