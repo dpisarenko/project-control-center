@@ -200,7 +200,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
 
     boolean hasChildren(final SchedulingObject aObject);
 
-    List<SchedulingObject> getTopLevelTasks();
+    List<SchedulingObject> getTopLevelTasks(final UserData aUser);
 
     void createInvitationRequest(final SupportedOpenIdProvider aOpenIdProvider,
             final String aEmail);

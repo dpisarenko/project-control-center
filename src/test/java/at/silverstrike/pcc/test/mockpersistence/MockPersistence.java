@@ -264,4 +264,7 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
             final Long aProcessId) {
         return null;
     }
+
+
+    
 }

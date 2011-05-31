@@ -275,11 +275,6 @@ public abstract class MockPersistenceAdapter implements Persistence {
         return false;
     }
 
-    @Override
-    public List<SchedulingObject> getTopLevelTasks() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public void createInvitationRequest(
@@ -322,5 +317,8 @@ public abstract class MockPersistenceAdapter implements Persistence {
         return null;
     }    
     
-    
+    @Override
+    public List<SchedulingObject> getTopLevelTasks(final UserData aUser) {
+        return null;
+    }    
 }

@@ -1551,7 +1551,7 @@ public class DefaultPersistence implements Persistence {
 
     @SuppressWarnings("unchecked")
     @Override
-    public final List<SchedulingObject> getTopLevelTasks() {
+    public final List<SchedulingObject> getTopLevelTasks(final UserData aUser) {
         @SuppressWarnings("rawtypes")
         List result = null;
         final Transaction tx = session.beginTransaction();
@@ -1560,7 +1560,8 @@ public class DefaultPersistence implements Persistence {
             final String hql = "from DefaultSchedulingObject where ((state <> "
                     + STATE_DELETED
                     + ") and (state <> "
-                    + STATE_ATTAINED + ")) and (parent is null)";
+                    + STATE_ATTAINED + ")) and (parent is null) and (userData.id = ${userId})".
+                    replace(USER_ID, Long.toString(aUser.getId()));
 
             LOGGER.debug("getTopLevelTasks: hql: {}", hql);
 

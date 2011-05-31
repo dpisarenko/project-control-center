@@ -152,9 +152,13 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         final ProjectScheduler scheduler = factory.create();
         final Persistence persistence =
                 this.injector.getInstance(Persistence.class);
+        final UserData user = (UserData) TPTApplication
+                .getCurrentApplication().getUser();
+        
+        LOGGER.debug("calculatePlan, user: {}", user.getId());
+        
         final List<SchedulingObject> schedulingObjects =
-                persistence.getAllNotDeletedTasks((UserData) TPTApplication
-                        .getCurrentApplication().getUser());
+                persistence.getAllNotDeletedTasks(user);
 
         // Находим все дела с неправильными трудозатратами
         incorrectSchedulingObjectsMarker
@@ -174,13 +178,13 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
         }
 
         final List<SchedulingObject> schedulingObjectsToExport =
-                persistence.getTopLevelTasks();
+                persistence.getTopLevelTasks(user);
 
         scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
                 schedulingObjectsToExport);
 
         final List<Resource> resources = new LinkedList<Resource>();
-        resources.add(persistence.getCurrentWorker((UserData)TPTApplication.getCurrentApplication().getUser()));
+        resources.add(persistence.getCurrentWorker(user));
 
         scheduler.getProjectExportInfo().setResourcesToExport(resources);
 
