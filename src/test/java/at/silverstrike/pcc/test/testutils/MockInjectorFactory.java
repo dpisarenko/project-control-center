@@ -31,7 +31,6 @@ public final class MockInjectorFactory implements InjectorFactory {
         return injector;
     }
 
-    @Override
     public void setTaskJugglerPath(final String aPath) {
     }
 }
