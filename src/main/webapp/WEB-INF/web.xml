@@ -14,7 +14,7 @@
 	</context-param>
 	<context-param>
 		<param-name>TaskJuggler path</param-name>
-		<param-value>C:\Ruby191\bin\tj3.bat </param-value>
+		<param-value>C:\\Ruby191\\bin\\tj3.bat</param-value>
 	</context-param>
 	<servlet>
 		<servlet-name>Project Control Center Application</servlet-name>
