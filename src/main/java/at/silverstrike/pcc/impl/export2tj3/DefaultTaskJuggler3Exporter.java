@@ -246,6 +246,11 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
     private CharSequence getEffortAllocations(final Task aProcess) {
         final StringBuilder stringBuilder = new StringBuilder();
 
+        final String resource =
+                "R"
+                        + Long.toString(this.projectExportInfo
+                                .getResourcesToExport().get(0).getId());
+
         if ((aProcess != null) && (aProcess.getResourceAllocations() != null)) {
             for (final ResourceAllocation resourceAllocation : aProcess
                     .getResourceAllocations()) {
@@ -258,8 +263,7 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
                     resourceAllocationInfo =
                             resourceAllocationLimitsTemplate.replace(
                                     RESOURCE,
-                                    getResourceIdentifier(limitAlloc
-                                            .getResource())).replace(
+                                    resource).replace(
                                     MAX_HOURS_PER_DAY,
                                     formatDouble(limitAlloc.getDailyLimit()));
                 } else {
@@ -345,7 +349,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
 
     private CharSequence shortenName(final String aName) {
         if (aName != null) {
-            return StringUtils.abbreviate(removeSpecialCharacters(aName), MAX_TASK_NAME_LENGTH);
+            return StringUtils.abbreviate(removeSpecialCharacters(aName),
+                    MAX_TASK_NAME_LENGTH);
         } else {
             return "";
         }
