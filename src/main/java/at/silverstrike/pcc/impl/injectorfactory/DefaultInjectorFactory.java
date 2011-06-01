@@ -21,12 +21,12 @@ public class DefaultInjectorFactory implements InjectorFactory {
 
     public final Injector createInjector() {
         final InjectorModule injectorModule = new InjectorModule();
+        injectorModule.setTaskJugglerPath(this.taskJugglerPath);
         final Injector injector = Guice.createInjector(injectorModule);
 
         return injector;
     }
 
-    @Override
     public void setTaskJugglerPath(final String aPath) {
         this.taskJugglerPath = aPath;
     }
