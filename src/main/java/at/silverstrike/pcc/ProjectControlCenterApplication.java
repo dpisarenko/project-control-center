@@ -61,7 +61,7 @@ public class ProjectControlCenterApplication extends TPTApplication {
                 ((WebApplicationContext) getContext()).getHttpSession()
                         .getServletContext();
 
-        final InjectorFactory injectorFactory = new DefaultInjectorFactory();
+        final DefaultInjectorFactory injectorFactory = new DefaultInjectorFactory();
         final String taskJugglerPath = servletContext.getInitParameter("TaskJuggler path");
         
         injectorFactory.setTaskJugglerPath(taskJugglerPath);
