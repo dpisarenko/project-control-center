@@ -147,9 +147,8 @@ class DefaultSchedulingPanelController extends WebGuiBusListenerAdapter
     }
 
     private void calculatePlan() {
-        final ProjectSchedulerFactory factory = injector
-                .getInstance(ProjectSchedulerFactory.class);
-        final ProjectScheduler scheduler = factory.create();
+        final ProjectScheduler scheduler = injector.getInstance(ProjectScheduler.class);
+        
         final Persistence persistence =
                 this.injector.getInstance(Persistence.class);
         final UserData user = (UserData) TPTApplication

@@ -276,6 +276,9 @@ class InjectorModule extends AbstractModule {
 
     private ProjectScheduler getScheduler() {
         final ProjectScheduler scheduler = new DefaultProjectSchedulerFactory().create();
+        
+        LOGGER.debug("this.taskJugglerPath: {}", this.taskJugglerPath);
+        
         scheduler.setTaskJugglerPath(this.taskJugglerPath);
         return scheduler;
     }
