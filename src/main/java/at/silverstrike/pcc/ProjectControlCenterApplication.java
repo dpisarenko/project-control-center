@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ import com.vaadin.ui.Window;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
-public class ProjectControlCenterApplication extends TPTApplication  {
+public class ProjectControlCenterApplication extends TPTApplication {
     public static final String PARAM_INJECTOR = "PARAM_INJECTOR";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ProjectControlCenterApplication.class);
@@ -56,22 +57,26 @@ public class ProjectControlCenterApplication extends TPTApplication  {
         setTheme(THEME);
         TM.getDictionary().setDefaultLanguage("en");
 
+        final ServletContext servletContext =
+                ((WebApplicationContext) getContext()).getHttpSession()
+                        .getServletContext();
+
         final InjectorFactory injectorFactory = new DefaultInjectorFactory();
+        final String taskJugglerPath = servletContext.getInitParameter("TaskJuggler path");
+        
+        injectorFactory.setTaskJugglerPath(taskJugglerPath);
         injector = injectorFactory.createInjector();
 
-        ((WebApplicationContext) getContext()).getHttpSession()
-                .getServletContext().setAttribute(PARAM_INJECTOR, injector);
+        servletContext.setAttribute(PARAM_INJECTOR, injector);
 
         persistence = injector.getInstance(Persistence.class);
 
         persistence.openSession();
 
-        if (this.persistence.getUserCount() < 1)
-        {
+        if (this.persistence.getUserCount() < 1) {
             this.persistence.createSuperUser();
         }
 
-        
         if (OPENID_DEBUGGED) {
             final EntryWindowFactory entryWindowFactory = injector
                     .getInstance(EntryWindowFactory.class);
@@ -110,7 +115,7 @@ public class ProjectControlCenterApplication extends TPTApplication  {
 
             final Window mainWindow = controller.initGui();
             this.setMainWindow(mainWindow);
-        }        
+        }
     }
 
     @Override

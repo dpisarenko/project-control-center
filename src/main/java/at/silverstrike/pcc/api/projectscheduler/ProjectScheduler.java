@@ -33,4 +33,6 @@ public interface ProjectScheduler extends ModuleWithInjectableDependencies,
     void setDirectory(final String aProperty);
 
     void setNow(final Date aDate);
+    
+    void setTaskJugglerPath(final String aPath);
 }

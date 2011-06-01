@@ -148,6 +148,8 @@ class InjectorModule extends AbstractModule {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(InjectorModule.class);
 
+    private String taskJugglerPath;
+    
     @Override
     protected void configure() {
         bind(Persistence.class).toInstance(new DefaultPersistence());
@@ -168,7 +170,7 @@ class InjectorModule extends AbstractModule {
         bind(Tj3BookingsParserFactory.class).toInstance(
                 new DefaultTj3BookingsParserFactory());
         bind(ProjectScheduler.class).toInstance(
-                new DefaultProjectSchedulerFactory().create());
+                getScheduler());
         bind(EstimatedCompletionTimesPanelFactory.class).toInstance(
                 new DefaultEstimatedCompletionTimesPanelFactory());
         bind(DailyPlanPanelFactory.class).toInstance(
@@ -272,6 +274,12 @@ class InjectorModule extends AbstractModule {
                 new DefaultInvitationRequestAdminPanelFactory());
     }
 
+    private ProjectScheduler getScheduler() {
+        final ProjectScheduler scheduler = new DefaultProjectSchedulerFactory().create();
+        scheduler.setTaskJugglerPath(this.taskJugglerPath);
+        return scheduler;
+    }
+
     private TestTableCreator getTestTableCreator() {
         return new DefaultTestTableCreatorFactory().create();
     }
@@ -316,5 +324,9 @@ class InjectorModule extends AbstractModule {
             LOGGER.error(ErrorCodes.M_001_VERSION_READER, exception);
         }
         return versionReader;
+    }
+    
+    public void setTaskJugglerPath(final String aPath){
+        this.taskJugglerPath = aPath;
     }
 }

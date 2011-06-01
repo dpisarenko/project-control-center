@@ -17,9 +17,17 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class DefaultInjectorFactory implements InjectorFactory {
+    private String taskJugglerPath;
+
     public final Injector createInjector() {
-        final Injector injector = Guice.createInjector(new InjectorModule());
+        final InjectorModule injectorModule = new InjectorModule();
+        final Injector injector = Guice.createInjector(injectorModule);
 
         return injector;
+    }
+
+    @Override
+    public void setTaskJugglerPath(final String aPath) {
+        this.taskJugglerPath = aPath;
     }
 }

@@ -48,7 +48,6 @@ import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
  * 
  */
 class DefaultProjectScheduler implements ProjectScheduler {
-    private static final String RUBY_PATH = "C:\\Ruby191\\bin\\tj3.bat ";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultProjectScheduler.class);
 
@@ -58,6 +57,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
     private String directory;
     private ProjectExportInfo projectExportInfo;
     private Date now;
+    private String taskJugglerPath;
 
     public DefaultProjectScheduler() {
         this.projectExportInfo = new DefaultProjectExportInfo();
@@ -129,8 +129,9 @@ class DefaultProjectScheduler implements ProjectScheduler {
             parser.setInputStream(fileInputStream);
             parser.run();
             this.bookingTuples = parser.getBookings();
-            
-            LOGGER.debug("parseBookingsFile: this.bookingTuples.size(): {}", this.bookingTuples.size());
+
+            LOGGER.debug("parseBookingsFile: this.bookingTuples.size(): {}",
+                    this.bookingTuples.size());
         } catch (final FileNotFoundException exception) {
             throw new PccException(exception);
         } catch (final Exception exception) {
@@ -179,7 +180,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
         BufferedReader input = null;
         BufferedReader error = null;
         try {
-            final String command = RUBY_PATH + TJ3_INPUT_FILE;
+            final String command = this.taskJugglerPath + TJ3_INPUT_FILE;
 
             LOGGER.info("command: " + command);
 
@@ -236,6 +237,11 @@ class DefaultProjectScheduler implements ProjectScheduler {
 
     public void setNow(final Date aNow) {
         this.now = aNow;
+    }
+
+    @Override
+    public void setTaskJugglerPath(final String aPath) {
+        this.taskJugglerPath = aPath;
     }
 
 }
