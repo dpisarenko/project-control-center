@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ru.altruix.commons.api.di.InjectorFactory;
-
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;

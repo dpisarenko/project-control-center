@@ -48,6 +48,12 @@ import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
  * 
  */
 class DefaultProjectScheduler implements ProjectScheduler {
+    private static final String PLACEHOLDER_FILE = "${file}";
+
+    private static final String PLACEHOLDER_TJ = "${tj}";
+
+    private static final String COMMAND_TEMPLATE = "${tj} ${file}";
+
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultProjectScheduler.class);
 
@@ -180,7 +186,10 @@ class DefaultProjectScheduler implements ProjectScheduler {
         BufferedReader input = null;
         BufferedReader error = null;
         try {
-            final String command = this.taskJugglerPath + TJ3_INPUT_FILE;
+            final String command =
+                    COMMAND_TEMPLATE.replace(PLACEHOLDER_TJ,
+                            this.taskJugglerPath)
+                            .replace(PLACEHOLDER_FILE, TJ3_INPUT_FILE);
 
             LOGGER.info("command: " + command);
 

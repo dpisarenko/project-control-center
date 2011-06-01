@@ -34,7 +34,6 @@ import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
-import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingState;
 import at.silverstrike.pcc.api.schedulingindicatorpanel.SchedulingIndicatorPanel;
