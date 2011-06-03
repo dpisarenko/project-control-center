@@ -33,6 +33,8 @@ import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
 
 public interface Persistence extends ModuleWithInjectableDependencies {
+    public static final String SUPER_USER_PASSWORD = "DCvEu4LKyC";
+    public static final String SUPER_USER_NAME = "dp@sw-dev.at";
 
     void openSession();
 

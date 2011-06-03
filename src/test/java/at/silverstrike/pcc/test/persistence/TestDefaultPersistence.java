@@ -26,13 +26,14 @@ import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.ProcessState;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 
 public class TestDefaultPersistence {
     private static final Logger LOGGER =
-        LoggerFactory
-                .getLogger(TestDefaultPersistence.class);
+            LoggerFactory
+                    .getLogger(TestDefaultPersistence.class);
 
     @Test
     public final void test01() {
@@ -72,6 +73,10 @@ public class TestDefaultPersistence {
         // Clear database
         persistence.clearDatabase();
 
+        // Fetch super user
+        final UserData user = persistence.getUser(Persistence.SUPER_USER_NAME,
+                Persistence.SUPER_USER_PASSWORD);
+
         // Add one task
         final Long taskId = persistence.createTask("Bug #57");
 
@@ -90,18 +95,20 @@ public class TestDefaultPersistence {
 
         // Verify it's not present in the list of not attained tasks
         final List<SchedulingObject> processList2 =
-                persistence.getAllNotDeletedTasks(null);
+                persistence.getAllNotDeletedTasks(user);
 
         Assert.assertEquals(0, processList2.size());
-
         Assert.assertEquals(0, persistence.getChildTasks((Long) null).size());
-        Assert.assertNotNull(persistence.getSubProcessesWithChildren((Long) null, null));
-        Assert.assertEquals(0, persistence.getSubProcessesWithChildren((Long) null, null).size());
+        final List<SchedulingObject> topLevelProcesses =
+                persistence.getSubProcessesWithChildren(
+                        (Long) null, user);
+        Assert.assertNotNull(topLevelProcesses);
+        Assert.assertEquals(0,
+                topLevelProcesses);
     }
-    
+
     @Test
-    public final void testEventCreation()
-    {
+    public final void testEventCreation() {
         // Get object under test (persistence)
         final Persistence persistence = new DefaultPersistence();
 
@@ -117,18 +124,21 @@ public class TestDefaultPersistence {
         persistence.clearDatabase();
 
         // Количество объектов должно быть нулевым
-        assertEquals(0, persistence.getSubProcessesWithChildren(null, null).size());
-        
+        assertEquals(0, persistence.getSubProcessesWithChildren(null, null)
+                .size());
+
         // Создаём событие
         persistence.createSubEvent("test event", null);
-        
+
         // Проверяем - создалось ли событие
-        assertEquals(1, persistence.getSubProcessesWithChildren(null, null).size());
+        assertEquals(1, persistence.getSubProcessesWithChildren(null, null)
+                .size());
     }
-    
+
     /**
-     * Эта проверочная программа проверяет наличие следующей ошибки при попытке 
+     * Эта проверочная программа проверяет наличие следующей ошибки при попытке
      * удалить событие.
+     * 
      * <pre>
      * Caused by: java.sql.SQLIntegrityConstraintViolationException: DELETE on table 'T
      * BL_SCHEDULING_OBJECT' caused a violation of foreign key constraint 'FK1F4FD5E95B
@@ -185,8 +195,7 @@ public class TestDefaultPersistence {
      * </pre>
      */
     @Test
-    public void testEventDeletion()
-    {
+    public void testEventDeletion() {
         // Get object under test (persistence)
         final Persistence persistence = new DefaultPersistence();
 
@@ -200,24 +209,23 @@ public class TestDefaultPersistence {
 
         // Clear database
         persistence.clearDatabase();
-        
+
         // Создаём событие
         final Task project = persistence.createSubTask("project", null, null);
         final Event event = persistence.createSubEvent("test event", null);
-        
-        Assert.assertEquals(2, persistence.getSubProcessesWithChildren(null, null).size());
-        
+
+        Assert.assertEquals(2,
+                persistence.getSubProcessesWithChildren(null, null).size());
+
         // Удаляем и смотрим - вылетает ли исключение
-        try
-        {
+        try {
             persistence.deleteEvent(event);
-        }
-        catch (final Exception exception)
-        {
+        } catch (final Exception exception) {
             LOGGER.error("", exception);
             Assert.fail(exception.getMessage());
         }
-        
-        Assert.assertEquals(1, persistence.getSubProcessesWithChildren(null, null).size());
+
+        Assert.assertEquals(1,
+                persistence.getSubProcessesWithChildren(null, null).size());
     }
 }

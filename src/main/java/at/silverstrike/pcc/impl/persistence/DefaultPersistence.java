@@ -1688,9 +1688,9 @@ public class DefaultPersistence implements Persistence {
         userData.setBookings(new LinkedList<Booking>());
         userData.setDailyPlans(new LinkedList<DailyPlan>());
         userData.setIdentifier("");
-        userData.setPassword("su");
+        userData.setPassword(Persistence.SUPER_USER_PASSWORD);
         userData.setSchedulingData(new LinkedList<SchedulingObject>());
-        userData.setUsername("dp@sw-dev.at");
+        userData.setUsername(Persistence.SUPER_USER_NAME);
 
         final Transaction tx = session.beginTransaction();
 
