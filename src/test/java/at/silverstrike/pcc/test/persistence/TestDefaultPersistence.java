@@ -105,7 +105,7 @@ public class TestDefaultPersistence {
                         (Long) null, user);
         Assert.assertNotNull(topLevelProcesses);
         Assert.assertEquals(0,
-                topLevelProcesses);
+                topLevelProcesses.size());
     }
 
     @Test
