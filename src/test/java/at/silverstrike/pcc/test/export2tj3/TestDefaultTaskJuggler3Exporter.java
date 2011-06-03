@@ -334,9 +334,7 @@ public final class TestDefaultTaskJuggler3Exporter {
         final MockProjectExportInfo projectExportInfo =
                 new MockProjectExportInfo();
 
-        // final MockObjectFactory mockObjectFactory = new MockObjectFactory();
         Resource resource1 = null;
-        // resource1 = mockObjectFactory.createResource((long) 1);
 
         final Task task = (Task) readData.getSchedulingData().get(0);
         resource1 = task.getResourceAllocations().get(0).getResource();

@@ -1,6 +1,6 @@
 <at.silverstrike.pcc.impl.persistence.DefaultUserData>
   <identifier>dp</identifier>
-  <processes>
+  <schedulingData>
     <at.silverstrike.pcc.impl.persistence.DefaultTask>
       <id>1</id>
       <name>task 2</name>
@@ -33,7 +33,7 @@
         </bag>
       </resourceAllocations>
     </at.silverstrike.pcc.impl.persistence.DefaultTask>
-  </processes>
+  </schedulingData>
   <dailyPlans/>
   <bookings/>
 </at.silverstrike.pcc.impl.persistence.DefaultUserData>
