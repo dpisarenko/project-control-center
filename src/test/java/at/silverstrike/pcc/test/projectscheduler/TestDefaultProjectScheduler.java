@@ -47,6 +47,7 @@ import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 import com.google.inject.Injector;
 
 public final class TestDefaultProjectScheduler {
+    private static final String TJ3_PATH = "C:\\Ruby191\\bin\\tj3.bat";
     private static final String DIR = "src/test/resources/at/silverstrike/"
                             + "pcc/test/projectscheduler/";
     private final static Logger LOGGER =
@@ -82,7 +83,7 @@ public final class TestDefaultProjectScheduler {
 
         this.helper.fillProjectInfo01(projectInfo);
         objectUnderTest.setInjector(injector);
-
+        objectUnderTest.setTaskJugglerPath(TJ3_PATH);
         /**
          * Set input data
          */
@@ -162,7 +163,7 @@ public final class TestDefaultProjectScheduler {
 
         this.helper.fillProjectInfo02(projectInfo, persistence);
         objectUnderTest.setInjector(injector);
-
+        objectUnderTest.setTaskJugglerPath(TJ3_PATH);
         /**
          * Save all task and resource data in the database
          */
@@ -272,9 +273,5 @@ public final class TestDefaultProjectScheduler {
 
         Assert.assertEquals(expectedTask.getId(), task.getId());
         Assert.assertEquals(((Task) expectedTask).getName(), task.getName());
-    }
-
-    @Test
-    public void testElementaryScenarioScheduling() {
     }
 }
