@@ -135,7 +135,7 @@ public class TestDefaultPersistence {
                 .size());
 
         // Создаём событие
-        persistence.createSubEvent("test event", null);
+        persistence.createSubEvent("test event", null, user);
 
         // Проверяем - создалось ли событие
         assertEquals(1, persistence.getSubProcessesWithChildren(null, user)
@@ -219,7 +219,7 @@ public class TestDefaultPersistence {
 
         // Создаём событие
         final Task project = persistence.createSubTask("project", null, null);
-        final Event event = persistence.createSubEvent("test event", null);
+        final Event event = persistence.createSubEvent("test event", null, null);
 
         Assert.assertEquals(2,
                 persistence.getSubProcessesWithChildren(null, null).size());

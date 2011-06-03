@@ -91,9 +91,11 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
             final Long aProjectIdCurrentlySelectedInTree) {
         final String eventName = TM
                 .get("centraleditingpanelcontroller.2-new-event-name");
+        final UserData user =
+            (UserData) TPTApplication.getCurrentApplication().getUser();
         final Event newEvent =
                 this.persistence.createSubEvent(eventName,
-                        aProjectIdCurrentlySelectedInTree);
+                        aProjectIdCurrentlySelectedInTree, user);
 
         if (newEvent != null) {
             this.webGuiBus.broadcastEventCreatedMessage(newEvent);

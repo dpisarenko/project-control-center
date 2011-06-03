@@ -204,11 +204,6 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
         return null;
     }
 
-    @Override
-    public Event createSubEvent(final String aProcessName,
-            final Long aParentProcessId) {
-        return null;
-    }
 
     @Override
     public boolean deleteTask(final Task aTask) {

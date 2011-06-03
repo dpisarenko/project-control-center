@@ -191,7 +191,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public Event createSubEvent(final String aProcessName,
-            final Long aParentProcessId) {
+            final Long aParentProcessId, final UserData aUser) {
         return null;
     }
 

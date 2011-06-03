@@ -207,12 +207,6 @@ final class MockPersistenceEmptyDb extends MockPersistenceAdapter implements Per
         return null;
     }
 
-    @Override
-    public Event createSubEvent(final String aProcessName,
-            final Long aParentProcessId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public boolean deleteTask(final Task aTask) {

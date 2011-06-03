@@ -1220,7 +1220,7 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public final Event createSubEvent(final String aEventName,
-            final Long aParentProcessId) {
+            final Long aParentProcessId, final UserData aUser) {
         final Transaction tx = session.beginTransaction();
         Event returnValue = null;
 
@@ -1231,7 +1231,8 @@ public class DefaultPersistence implements Persistence {
             newEvent.setParent(parentTask);
             newEvent.setName(aEventName);
             newEvent.setPriority(getNextSchedulingObjectPriority(parentTask));
-
+            newEvent.setUserData(aUser);
+            
             session.save(newEvent);
             tx.commit();
 

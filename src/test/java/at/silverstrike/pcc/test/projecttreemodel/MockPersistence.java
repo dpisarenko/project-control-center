@@ -250,13 +250,6 @@ final class MockPersistence extends MockPersistenceAdapter implements Persistenc
     }
 
     @Override
-    public Event createSubEvent(final String aProcessName,
-            final Long aParentProcessId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public boolean deleteTask(final Task aTask) {
         // TODO Auto-generated method stub
         return false;

@@ -99,11 +99,6 @@ class MockPersistence01 extends MockPersistenceAdapter {
     }
 
     @Override
-    public Event createSubEvent(final String aProcessName, final Long aParentProcessId) {
-        return null;
-    }
-
-    @Override
     public boolean deleteTask(final Task aTask) {
         // TODO Auto-generated method stub
         return false;

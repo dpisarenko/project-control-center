@@ -385,19 +385,6 @@ public class MockPersistenceHighestLevelTask extends MockPersistenceAdapter
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * at.silverstrike.pcc.api.persistence.Persistence#createSubEvent(java.lang
-     * .String, java.lang.Long)
-     */
-    @Override
-    public final Event createSubEvent(final String aProcessName,
-            final Long aParentProcessId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     /*
      * (non-Javadoc)
