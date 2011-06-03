@@ -84,6 +84,7 @@ public final class TestDefaultProjectScheduler {
         this.helper.fillProjectInfo01(projectInfo);
         objectUnderTest.setInjector(injector);
         objectUnderTest.setTaskJugglerPath(TJ3_PATH);
+        
         /**
          * Set input data
          */
