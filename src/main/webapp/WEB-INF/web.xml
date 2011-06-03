@@ -14,6 +14,10 @@
 	</context-param>
 	<context-param>
 		<param-name>TaskJuggler path</param-name>
+		<!-- 
+			Ubuntu: /var/lib/gems/1.8/bin/tj3
+			Windows: C:\\Ruby191\\bin\\tj3.bat
+		-->
 		<param-value>C:\\Ruby191\\bin\\tj3.bat</param-value>
 	</context-param>
 	<servlet>
