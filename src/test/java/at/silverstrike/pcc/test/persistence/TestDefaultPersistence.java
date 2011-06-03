@@ -217,12 +217,18 @@ public class TestDefaultPersistence {
         // Clear database
         persistence.clearDatabase();
 
-        // Создаём событие
-        final Task project = persistence.createSubTask("project", null, null);
-        final Event event = persistence.createSubEvent("test event", null, null);
+        // Create/fetch super user
+        persistence.createSuperUser();
+        final UserData user =
+                persistence.getUser(Persistence.SUPER_USER_NAME,
+                        Persistence.SUPER_USER_PASSWORD);
 
-        Assert.assertEquals(2,
-                persistence.getSubProcessesWithChildren(null, null).size());
+        // Создаём событие
+        final Event event =
+                persistence.createSubEvent("test event", null, user);
+
+        Assert.assertEquals(1,
+                persistence.getSubProcessesWithChildren(null, user).size());
 
         // Удаляем и смотрим - вылетает ли исключение
         try {
@@ -232,7 +238,7 @@ public class TestDefaultPersistence {
             Assert.fail(exception.getMessage());
         }
 
-        Assert.assertEquals(1,
-                persistence.getSubProcessesWithChildren(null, null).size());
+        Assert.assertEquals(0,
+                persistence.getSubProcessesWithChildren(null, user).size());
     }
 }
