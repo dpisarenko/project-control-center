@@ -305,6 +305,7 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
                 .getInstance(ProjectTreeContainerFactory.class);
         this.treeModel = treeModelFactory.create();
         this.treeModel.setInjector(this.injector);
+        this.treeModel.setRootCaption(TM.get("projecttreemodel.1-visibleTreeRootCaption"));
         this.treeModel.init();
         this.treeModel.updateData();
     }

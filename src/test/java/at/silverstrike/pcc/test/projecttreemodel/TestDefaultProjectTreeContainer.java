@@ -26,7 +26,6 @@ import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 import com.google.inject.Injector;
 
-import eu.livotov.tpt.i18n.TM;
 
 /**
  * @author DP118M
@@ -57,9 +56,7 @@ public class TestDefaultProjectTreeContainer {
      * </pre>
      */
     @Test
-    public final void testNullPointerExceptionInAddNodes() {
-        TM.getDictionary().setDefaultLanguage("en");
-        
+    public final void testNullPointerExceptionInAddNodes() {        
         /**
          * Get object under test
          */
@@ -78,7 +75,7 @@ public class TestDefaultProjectTreeContainer {
          */
         Assert.assertNotNull(objectUnderTest);
         objectUnderTest.setInjector(injector);
-
+        objectUnderTest.setRootCaption("root");
         objectUnderTest.init();
 
         /**

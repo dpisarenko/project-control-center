@@ -23,7 +23,6 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 
 import eu.livotov.tpt.TPTApplication;
-import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
@@ -46,6 +45,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     private transient Map<Long, Integer> treeItemIdsBySchedulingObjectsId;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultProjectTreeContainer.class);
+    private String rootCaption;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -146,7 +146,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         this.root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                 this.rootLabel);
         this.root.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
-                TM.get("projecttreemodel.1-visibleTreeRootCaption"));
+                rootCaption);
 
         this.setChildrenAllowed(TREE_ROOT_ID, true);
     }
@@ -186,5 +186,10 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
         node.getItemProperty(PROJECT_PROPERTY_NAME).setValue(
                 aShedulingObject.getName());
 
+    }
+
+    @Override
+    public void setRootCaption(final String aCaption) {
+        this.rootCaption = aCaption;
     }
 }

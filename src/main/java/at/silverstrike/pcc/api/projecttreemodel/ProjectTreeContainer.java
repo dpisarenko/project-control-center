@@ -36,4 +36,6 @@ public interface ProjectTreeContainer extends Container.Hierarchical,
     void updateNodeLettering(final Task aTask);
 
     void updateNodeLettering(final SchedulingObject aShedulingObject);
+    
+    void setRootCaption(final String aCaption);
 }
