@@ -10,83 +10,41 @@ project "MyProject" 2010-10-18 +1m
 {
   timeformat "%d.%m.%Y %H:%M"
 
-  numberformat "-" "" "." "," 1
+  numberformat "-" "" "." "," 2
   currencyformat "(" ")" "." "," 0
 
   now 2010-10-18
 
   currency "EUR"
 
-  timingresolution 15 min
+  timingresolution 10 min
   
   scenario plan "Plan" {
   }
 }
 
 copyright "Dmitri Pisarenko"
-# This file is part of Project Control Center (PCC).
-# 
-# PCC (Project Control Center) project is intellectual property of 
-# Dmitri Anatol'evich Pisarenko.
-# 
-# Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
-# All rights reserved
 
 resource R1210 "DP"
 {
 	limits { dailymax 8.00h }
 }
-# This file is part of Project Control Center (PCC).
-# 
-# PCC (Project Control Center) project is intellectual property of 
-# Dmitri Anatol'evich Pisarenko.
-# 
-# Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
-# All rights reserved
 
 task T2010 "Some interesting task"
 {
-	# This file is part of Project Control Center (PCC).
-# 
-# PCC (Project Control Center) project is intellectual property of 
-# Dmitri Anatol'evich Pisarenko.
-# 
-# Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
-# All rights reserved
-
+	
 start ${now}
 
 	priority 200
-	# This file is part of Project Control Center (PCC).
-# 
-# PCC (Project Control Center) project is intellectual property of 
-# Dmitri Anatol'evich Pisarenko.
-# 
-# Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
-# All rights reserved
-
+	
 allocate R1210
 
-	# This file is part of Project Control Center (PCC).
-# 
-# PCC (Project Control Center) project is intellectual property of 
-# Dmitri Anatol'evich Pisarenko.
-# 
-# Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
-# All rights reserved
-
+	
 effort 2.50h
 
 	
 	
 }
-# This file is part of Project Control Center (PCC).
-# 
-# PCC (Project Control Center) project is intellectual property of 
-# Dmitri Anatol'evich Pisarenko.
-# 
-# Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
-# All rights reserved
 
 taskreport status "pccDeadlines" {
  formats csv
