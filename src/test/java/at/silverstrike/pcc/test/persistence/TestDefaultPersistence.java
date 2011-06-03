@@ -124,15 +124,21 @@ public class TestDefaultPersistence {
         // Clear database
         persistence.clearDatabase();
 
+        // Create/fetch super user
+        persistence.createSuperUser();
+        final UserData user =
+                persistence.getUser(Persistence.SUPER_USER_NAME,
+                        Persistence.SUPER_USER_PASSWORD);
+
         // Количество объектов должно быть нулевым
-        assertEquals(0, persistence.getSubProcessesWithChildren(null, null)
+        assertEquals(0, persistence.getSubProcessesWithChildren(null, user)
                 .size());
 
         // Создаём событие
         persistence.createSubEvent("test event", null);
 
         // Проверяем - создалось ли событие
-        assertEquals(1, persistence.getSubProcessesWithChildren(null, null)
+        assertEquals(1, persistence.getSubProcessesWithChildren(null, user)
                 .size());
     }
 
