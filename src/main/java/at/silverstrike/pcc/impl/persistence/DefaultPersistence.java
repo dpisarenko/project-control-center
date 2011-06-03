@@ -1497,8 +1497,9 @@ public class DefaultPersistence implements Persistence {
     @Override
     public final Worker getCurrentWorker(final UserData aUser) {
         final String resourceName = aUser.getResourceName();
-        final String hql = "from DefaultWorker where abbreviation = '${resource}'".
-            replace("${resource}", resourceName);
+        final String hql =
+                "from DefaultWorker where abbreviation = '${resource}'".
+                        replace("${resource}", resourceName);
 
         final Query query = session.createQuery(hql);
 
@@ -1557,11 +1558,15 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
 
         try {
-            final String hql = "from DefaultSchedulingObject where ((state <> "
-                    + STATE_DELETED
-                    + ") and (state <> "
-                    + STATE_ATTAINED + ")) and (parent is null) and (userData.id = ${userId})".
-                    replace(USER_ID, Long.toString(aUser.getId()));
+            final String hql =
+                    "from DefaultSchedulingObject where ((state <> "
+                            + STATE_DELETED
+                            + ") and (state <> "
+                            + STATE_ATTAINED
+                            + ")) and (parent is null) and (userData.id = ${userId})"
+                                    .
+                                    replace(USER_ID,
+                                            Long.toString(aUser.getId()));
 
             LOGGER.debug("getTopLevelTasks: hql: {}", hql);
 
@@ -1683,22 +1688,28 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public void createSuperUser() {
-        final DefaultUserData userData = new DefaultUserData();
+        final UserData superUser =
+                this.getUser(Persistence.SUPER_USER_NAME,
+                        Persistence.SUPER_USER_PASSWORD);
 
-        userData.setBookings(new LinkedList<Booking>());
-        userData.setDailyPlans(new LinkedList<DailyPlan>());
-        userData.setIdentifier("");
-        userData.setPassword(Persistence.SUPER_USER_PASSWORD);
-        userData.setSchedulingData(new LinkedList<SchedulingObject>());
-        userData.setUsername(Persistence.SUPER_USER_NAME);
+        if (superUser == null) {
+            final DefaultUserData userData = new DefaultUserData();
 
-        final Transaction tx = session.beginTransaction();
+            userData.setBookings(new LinkedList<Booking>());
+            userData.setDailyPlans(new LinkedList<DailyPlan>());
+            userData.setIdentifier("");
+            userData.setPassword(Persistence.SUPER_USER_PASSWORD);
+            userData.setSchedulingData(new LinkedList<SchedulingObject>());
+            userData.setUsername(Persistence.SUPER_USER_NAME);
 
-        try {
-            session.save(userData);
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
+            final Transaction tx = session.beginTransaction();
+
+            try {
+                session.save(userData);
+            } catch (final Exception exception) {
+                LOGGER.error("", exception);
+                tx.rollback();
+            }
         }
     }
 

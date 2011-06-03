@@ -74,6 +74,7 @@ public class TestDefaultPersistence {
         persistence.clearDatabase();
 
         // Fetch super user
+        persistence.createSuperUser();
         final UserData user = persistence.getUser(Persistence.SUPER_USER_NAME,
                 Persistence.SUPER_USER_PASSWORD);
 
