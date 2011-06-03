@@ -22,8 +22,6 @@ import com.google.inject.Injector;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 
-import eu.livotov.tpt.TPTApplication;
-
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.UserData;
@@ -46,6 +44,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultProjectTreeContainer.class);
     private String rootCaption;
+    private UserData user;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -60,9 +59,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     @Override
     public void updateData() {
         final List<SchedulingObject> topLevelProcesses =
-                persistence.getSubProcessesWithChildren(null,
-                        (UserData) TPTApplication.getCurrentApplication()
-                                .getUser());
+                persistence.getSubProcessesWithChildren(null, this.user);
 
         if (this.schedulingObjectsByTreeItemIds != null) {
             for (final Integer taskNodeId : this.schedulingObjectsByTreeItemIds
@@ -125,9 +122,7 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
             final List<SchedulingObject> subProcessesWithChildren =
                     aPersistence
                             .getSubProcessesWithChildren(schedulingObjectId,
-                                    (UserData) TPTApplication
-                                            .getCurrentApplication()
-                                            .getUser());
+                                    this.user);
 
             treeItemId =
                     addNodes(subProcessesWithChildren,
@@ -191,5 +186,10 @@ class DefaultProjectTreeContainer extends HierarchicalContainer implements
     @Override
     public void setRootCaption(final String aCaption) {
         this.rootCaption = aCaption;
+    }
+
+    @Override
+    public void setUser(final UserData aUser) {
+        this.user = aUser;
     }
 }

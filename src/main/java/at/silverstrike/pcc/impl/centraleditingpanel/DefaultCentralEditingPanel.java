@@ -43,6 +43,7 @@ import at.silverstrike.pcc.api.milestoneeditingpanelcontroller.MilestoneEditingP
 import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.projectnetworkdatacreator.ProjectNetworkDataCreator;
 import at.silverstrike.pcc.api.projectnetworkdatacreator.ProjectNetworkDataCreatorFactory;
@@ -305,7 +306,11 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
                 .getInstance(ProjectTreeContainerFactory.class);
         this.treeModel = treeModelFactory.create();
         this.treeModel.setInjector(this.injector);
-        this.treeModel.setRootCaption(TM.get("projecttreemodel.1-visibleTreeRootCaption"));
+        this.treeModel.setRootCaption(TM
+                .get("projecttreemodel.1-visibleTreeRootCaption"));
+        this.treeModel.setUser((UserData) TPTApplication
+                .getCurrentApplication()
+                                .getUser());
         this.treeModel.init();
         this.treeModel.updateData();
     }

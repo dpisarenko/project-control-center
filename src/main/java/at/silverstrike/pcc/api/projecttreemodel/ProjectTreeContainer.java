@@ -15,6 +15,7 @@ import ru.altruix.commons.api.conventions.InitializableComponent;
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
+import at.silverstrike.pcc.api.model.UserData;
 
 import com.vaadin.data.Container;
 
@@ -38,4 +39,6 @@ public interface ProjectTreeContainer extends Container.Hierarchical,
     void updateNodeLettering(final SchedulingObject aShedulingObject);
     
     void setRootCaption(final String aCaption);
+    
+    void setUser(final UserData aUser);
 }

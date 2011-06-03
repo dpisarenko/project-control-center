@@ -69,13 +69,14 @@ public class TestDefaultProjectTreeContainer {
                 factory.create();
         final MockPersistence persistence =
                 (MockPersistence) injector.getInstance(Persistence.class);
-
+        
         /**
          * Initialize it
          */
         Assert.assertNotNull(objectUnderTest);
         objectUnderTest.setInjector(injector);
         objectUnderTest.setRootCaption("root");
+        objectUnderTest.setUser(null);
         objectUnderTest.init();
 
         /**
