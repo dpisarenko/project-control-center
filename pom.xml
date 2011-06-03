@@ -7,13 +7,13 @@
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.17</version>
+	<version>1.0.17-SNAPSHOT</version>
 	<name>Project Control Center</name>
 
 	<scm>
 		<connection>scm:git:ssh://dp118m.beanstalkapp.com/pcc.git</connection>
 		<url>scm:git:ssh://dp118m.beanstalkapp.com/pcc.git</url>
-		<developerConnection>scm:git:[fetch=]git@dp118m.beanstalkapp.com:/pcc.git[push=]beanstalk</developerConnection>
+		<developerConnection>scm:git:[fetch=]git@dp118m.beanstalkapp.com:/pcc.git[push=]pcc</developerConnection>
 	</scm>
 
 
