@@ -11,12 +11,12 @@
 
 package at.silverstrike.pcc.impl.injectorfactory;
 
-import ru.altruix.commons.api.di.InjectorFactory;
+import at.silverstrike.pcc.api.di.PccInjectorFactory;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public class DefaultInjectorFactory implements InjectorFactory {
+public class DefaultInjectorFactory implements PccInjectorFactory {
     private String taskJugglerPath;
 
     public final Injector createInjector() {

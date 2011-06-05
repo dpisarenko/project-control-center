@@ -42,6 +42,8 @@ import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
+import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
+import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelControllerFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 
@@ -112,11 +114,24 @@ class DefaultMainWindow implements MainWindow {
                 .get("mainwindow.20-calendar-tab"), null);
         this.tabSheet.addTab(getInvitationRequestTab(), TM
                 .get("mainwindow.21-invitation-tab"), null);
+        this.tabSheet.addTab(getUserSettingsTab(), TM
+                .get("mainwindow.22-user-settings-tab"), null);
 
         mainLayout.addComponent(this.tabSheet);
 
         mainWindow.setContent(mainLayout);
 
+    }
+
+    private Component getUserSettingsTab() {
+        final UserSettingsPanelControllerFactory factory =
+                this.injector
+                        .getInstance(UserSettingsPanelControllerFactory.class);
+        final UserSettingsPanelController controller = factory.create();
+        
+        controller.setInjector(this.injector);
+        
+        return controller.initGui();
     }
 
     private Component getInvitationRequestTab() {

@@ -78,6 +78,8 @@ import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
+import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanelFactory;
+import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelControllerFactory;
 import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
@@ -134,6 +136,8 @@ import at.silverstrike.pcc.impl.testtablecreator.DefaultTestTableCreatorFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultBookingsFile2BookingsFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultTj3BookingsParserFactory;
 import at.silverstrike.pcc.impl.tj3deadlinesparser.DefaultTj3DeadlinesFileParserFactory;
+import at.silverstrike.pcc.impl.usersettingspanel.DefaultUserSettingsPanelFactory;
+import at.silverstrike.pcc.impl.usersettingspanelcontroller.DefaultUserSettingsPanelControllerFactory;
 import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusFactory;
 import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusMessageFactory;
 import at.silverstrike.pcc.impl.workerpanel.DefaultWorkerPanelFactory;
@@ -147,7 +151,7 @@ class InjectorModule extends AbstractModule {
             .getLogger(InjectorModule.class);
 
     private String taskJugglerPath;
-    
+
     @Override
     protected void configure() {
         bind(Persistence.class).toInstance(new DefaultPersistence());
@@ -268,13 +272,18 @@ class InjectorModule extends AbstractModule {
                 new DefaultInvitationRequestAdminPanelControllerFactory());
         bind(InvitationRequestAdminPanelFactory.class).toInstance(
                 new DefaultInvitationRequestAdminPanelFactory());
+        bind(UserSettingsPanelFactory.class).toInstance(
+                new DefaultUserSettingsPanelFactory());
+        bind(UserSettingsPanelControllerFactory.class).toInstance(
+                new DefaultUserSettingsPanelControllerFactory());
     }
 
     private ProjectScheduler getScheduler() {
-        final ProjectScheduler scheduler = new DefaultProjectSchedulerFactory().create();
-        
+        final ProjectScheduler scheduler =
+                new DefaultProjectSchedulerFactory().create();
+
         LOGGER.debug("this.taskJugglerPath: {}", this.taskJugglerPath);
-        
+
         scheduler.setTaskJugglerPath(this.taskJugglerPath);
         return scheduler;
     }
@@ -324,8 +333,8 @@ class InjectorModule extends AbstractModule {
         }
         return versionReader;
     }
-    
-    public void setTaskJugglerPath(final String aPath){
+
+    public void setTaskJugglerPath(final String aPath) {
         this.taskJugglerPath = aPath;
     }
 }
