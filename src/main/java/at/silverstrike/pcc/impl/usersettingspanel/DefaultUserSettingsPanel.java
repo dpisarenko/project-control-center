@@ -73,6 +73,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel {
         gridLayout.addComponent(passwordTextField, 1, 1);
 
         gridLayout.addComponent(buttonPanel, 0, 2, 1, 2);
+        
+        this.addComponent(gridLayout);
     }
 
     @Override
