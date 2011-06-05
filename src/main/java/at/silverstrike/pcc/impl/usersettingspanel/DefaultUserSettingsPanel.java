@@ -46,6 +46,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel {
     @Override
     public void initGui() {
         final GridLayout gridLayout = new GridLayout(2, 3);
+        
+        gridLayout.setSizeFull();
 
         final Label usernameLabel =
                 new Label(TM.get("usersettingspanel.1-google-username"));
