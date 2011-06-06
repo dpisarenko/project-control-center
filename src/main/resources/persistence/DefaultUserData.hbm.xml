@@ -24,6 +24,10 @@
 		<property name="identifier" />
 		<property name="username" />
 		<property name="password" />
+		
+		<property name="googleUsername" />
+		<property name="googlePassword" />
+		
 		<bag name="schedulingData" lazy="false">
 			<key column="USER_DATA_ID" />
 			<one-to-many class="at.silverstrike.pcc.impl.persistence.DefaultSchedulingObject" />

@@ -23,4 +23,10 @@ import com.vaadin.ui.Panel;
 public interface UserSettingsPanelController extends
         ModuleWithInjectableDependencies, GuiController<Panel> {
 
+    void saveGoogleAccessData(final String aUsername, final String aPassword);
+
+    void fetchData(final String aUsername, final String aPassword);
+
+    void writeDataToGoogle(final String aUsername, final String aPassword);
+
 }

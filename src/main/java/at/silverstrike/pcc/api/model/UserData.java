@@ -38,4 +38,10 @@ public interface UserData extends UniquelyIdentifiableObject {
     String getPassword();
 
     String getResourceName();
+    
+    void setGoogleUsername(final String aGoogleUsername);
+    String getGoogleUsername();
+    
+    void setGooglePassword(final String aGooglePassword);
+    String getGooglePassword();
 }

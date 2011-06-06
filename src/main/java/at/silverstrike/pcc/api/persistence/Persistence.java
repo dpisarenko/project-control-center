@@ -219,4 +219,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     Long getUserCount();
 
     UserData getUser(String userName, String password);
+    
+    void updateUser(final UserData aUser);
 }

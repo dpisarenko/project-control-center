@@ -26,6 +26,8 @@ class DefaultUserData implements UserData {
     private String username;
     private String password;
     private Long id;
+    private String googleUsername;
+    private String googlePassword;
     
     public String getIdentifier() {
         return identifier;
@@ -91,5 +93,21 @@ class DefaultUserData implements UserData {
         builder.append(this.identifier);
         
         return builder.toString();
+    }
+
+    public String getGoogleUsername() {
+        return googleUsername;
+    }
+
+    public void setGoogleUsername(final String aGoogleUsername) {
+        this.googleUsername = aGoogleUsername;
+    }
+
+    public String getGooglePassword() {
+        return googlePassword;
+    }
+
+    public void setGooglePassword(final String aGooglePassword) {
+        this.googlePassword = aGooglePassword;
     }
 }

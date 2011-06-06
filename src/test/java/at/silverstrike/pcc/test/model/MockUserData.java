@@ -18,12 +18,14 @@ import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.UserData;
 
 class MockUserData implements UserData {
-
     private String identifier;
     private List<SchedulingObject> processes;
     private List<DailyPlan> dailyPlans;
     private List<Booking> bookings;
+    private String googleUsername;
+    private String googlePassword;
 
+    
     public String getIdentifier() {
         return identifier;
     }
@@ -93,5 +95,21 @@ class MockUserData implements UserData {
         builder.append(this.identifier);
         
         return builder.toString();
+    }
+
+    public String getGoogleUsername() {
+        return googleUsername;
+    }
+
+    public void setGoogleUsername(String googleUsername) {
+        this.googleUsername = googleUsername;
+    }
+
+    public String getGooglePassword() {
+        return googlePassword;
+    }
+
+    public void setGooglePassword(String googlePassword) {
+        this.googlePassword = googlePassword;
     }
 }
