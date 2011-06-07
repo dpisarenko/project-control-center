@@ -22,6 +22,8 @@ import com.google.gdata.client.calendar.CalendarService;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.bookings2googleexporter.Bookings2GoogleCaendarExporter;
+import at.silverstrike.pcc.api.gcalreader.GoogleCalendarReader;
+import at.silverstrike.pcc.api.gcalreader.GoogleCalendarReaderFactory;
 import at.silverstrike.pcc.api.gcalservicecreator.GoogleCalendarServiceCreator;
 import at.silverstrike.pcc.api.gcalservicecreator.GoogleCalendarServiceCreatorFactory;
 import at.silverstrike.pcc.api.model.Booking;
@@ -75,9 +77,23 @@ class DefaultBookings2GoogleCaendarExporter implements
 
     }
 
-    private void removeEvents(CalendarService aService) {
+    private void removeEvents(final CalendarService aService) {
         // TODO Auto-generated method stub
+        final GoogleCalendarReaderFactory gcalFactory =
+            injector.getInstance(GoogleCalendarReaderFactory.class);
+        final GoogleCalendarReader gcalReader = gcalFactory.create();
 
+        try
+        {
+            gcalReader.setCalendarService(aService);
+            gcalReader.run();
+            gcalReader.getCalendarEntries();
+            
+        }
+        catch (final PccException exception)
+        {
+            LOGGER.error("", exception);
+        }
     }
 
     private List<Booking> getBookings() {
