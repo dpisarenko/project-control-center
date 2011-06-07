@@ -326,6 +326,12 @@ public abstract class MockPersistenceAdapter implements Persistence {
     public void updateUser(final UserData aUser) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public List<Booking> getBookings(final UserData aUser) {
+        // TODO Auto-generated method stub
+        return null;
     }    
     
 }

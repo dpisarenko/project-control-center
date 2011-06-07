@@ -11,6 +11,9 @@
 
 package at.silverstrike.pcc.impl.usersettingspanel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -34,6 +37,7 @@ import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelCont
  */
 class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         ClickListener {
+
     private static final long serialVersionUID = 1L;
     private UserSettingsPanelController controller;
     private Injector injector;

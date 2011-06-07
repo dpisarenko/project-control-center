@@ -73,4 +73,6 @@ public interface WebGuiBus {
     void broadcastTaskDependenciesChangedMessage(final SchedulingObject aObject);
 
     void broadcastPlanCalculatedMessage();
+
+    void broadcastTasksImportedFromGoogleMessage();
 }

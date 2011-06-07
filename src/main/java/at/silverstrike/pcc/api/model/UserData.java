@@ -44,4 +44,11 @@ public interface UserData extends UniquelyIdentifiableObject {
     
     void setGooglePassword(final String aGooglePassword);
     String getGooglePassword();
+    
+//    void setGoogleTasksClientId(final String aClientId);
+//    String getGoogleTasksClientId();
+//    
+//    void setGoogleTasksClientSecret(final String aClientId);
+//    String getGoogleTasksClientId();
+
 }

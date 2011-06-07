@@ -200,4 +200,10 @@ class DefaultWebGuiBus implements WebGuiBus {
             listener.planCalculated();
         }        
     }
+
+    @Override
+    public void broadcastTasksImportedFromGoogleMessage() {
+        // TODO Auto-generated method stub
+        
+    }
 }

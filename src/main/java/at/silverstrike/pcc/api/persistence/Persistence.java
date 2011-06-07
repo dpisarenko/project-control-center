@@ -221,4 +221,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     UserData getUser(String userName, String password);
     
     void updateUser(final UserData aUser);
+
+    List<Booking> getBookings(final UserData aUser);
 }

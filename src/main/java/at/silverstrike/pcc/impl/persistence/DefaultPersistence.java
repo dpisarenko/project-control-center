@@ -1232,7 +1232,7 @@ public class DefaultPersistence implements Persistence {
             newEvent.setName(aEventName);
             newEvent.setPriority(getNextSchedulingObjectPriority(parentTask));
             newEvent.setUserData(aUser);
-            
+
             session.save(newEvent);
             tx.commit();
 
@@ -1781,6 +1781,29 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }
     }
-    
-    
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Booking> getBookings(final UserData aUser) {
+        List<Booking> result = null;
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            final String hql =
+                    "from DefaultBooking where user.id = ${userId}"
+                            .replace("${userId}", Long.toString(aUser.getId()));
+
+            final Query query =
+                    session.createQuery(hql);
+
+            result = (List<Booking>)query.list();
+
+            tx.commit();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
+
+        return result;
+    }
 }
