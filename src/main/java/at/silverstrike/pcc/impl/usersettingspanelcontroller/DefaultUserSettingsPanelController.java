@@ -91,6 +91,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void fetchData(final String aUsername, final String aPassword) {
+        LOGGER.debug("at.silverstrike.pcc.impl.usersettingspanelcontroller.DefaultUserSettingsPanelController.fetchData(String, String)");
         try {
             HttpTransport httpTransport = new NetHttpTransport();
             JacksonFactory jsonFactory = new JacksonFactory();

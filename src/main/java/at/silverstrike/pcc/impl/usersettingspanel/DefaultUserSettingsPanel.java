@@ -37,6 +37,8 @@ import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelCont
  */
 class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         ClickListener {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultUserSettingsPanel.class);
 
     private static final long serialVersionUID = 1L;
     private UserSettingsPanelController controller;
@@ -102,6 +104,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         final VerticalLayout buttonPanel = new VerticalLayout();
 
         saveButton.addListener(this);
+        fetchDataButton.addListener(this);
+        writeDataToGoogleButton.addListener(this);
 
         buttonPanel.addComponent(saveButton);
         buttonPanel.addComponent(fetchDataButton);
@@ -119,6 +123,9 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         final String username = (String) this.usernameTextField.getValue();
         final String password = (String) this.passwordTextField.getValue();
         final String buttonCaption = aEvent.getButton().getCaption();
+
+        LOGGER.debug("buttonCaption: '{}', this.fetchDataButtonCaption: '{}'",
+                new Object[] { buttonCaption, this.fetchDataButtonCaption });
 
         if (this.saveButtonCaption.equals(buttonCaption)) {
             this.controller.saveGoogleAccessData(
