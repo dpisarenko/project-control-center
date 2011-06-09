@@ -11,14 +11,10 @@
 
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import ru.altruix.commons.api.di.PccException;
 
 import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
@@ -28,17 +24,12 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
-import com.google.gdata.client.calendar.CalendarService;
 import com.google.inject.Injector;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Panel;
 
 import eu.livotov.tpt.TPTApplication;
 
-import at.silverstrike.pcc.api.gcalservicecreator.GoogleCalendarServiceCreator;
-import at.silverstrike.pcc.api.gcalservicecreator.GoogleCalendarServiceCreatorFactory;
-import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
-import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanel;
@@ -175,5 +166,30 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             writeDataToGoogle(final String aUsername, final String aPassword) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public void requestGoogleAuthorizationCode() {
+        // The clientId and clientSecret are copied from the API Access tab
+        // on
+        // the Google APIs Console
+        String clientId = "482402692152.apps.googleusercontent.com";
+
+        // Or your redirect URL for web based applications.
+        String redirectUrl = "urn:ietf:wg:oauth:2.0:oob";
+        String scope = "https://www.googleapis.com/auth/tasks";
+
+        // Step 1: Authorize -->
+        String authorizationUrl =
+                new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
+                        scope)
+                        .build();
+
+        // Point or redirect your user to the authorizationUrl.
+        System.out.println("Go to the following link in your browser:");
+        System.out.println(authorizationUrl);
+
+        TPTApplication.getCurrentApplication().getMainWindow()
+                .open(new ExternalResource(authorizationUrl), "_blank");
     }
 }

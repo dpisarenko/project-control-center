@@ -29,4 +29,6 @@ public interface UserSettingsPanelController extends
 
     void writeDataToGoogle(final String aUsername, final String aPassword);
 
+    void requestGoogleAuthorizationCode();
+
 }
