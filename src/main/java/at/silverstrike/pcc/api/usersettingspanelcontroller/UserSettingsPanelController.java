@@ -25,9 +25,9 @@ public interface UserSettingsPanelController extends
 
     void saveGoogleAccessData(final String aUsername, final String aPassword);
 
-    void fetchData(final String aUsername, final String aPassword);
+    void fetchData(final String aAuthCode);
 
-    void writeDataToGoogle(final String aUsername, final String aPassword);
+    void writeDataToGoogle();
 
     void requestGoogleAuthorizationCode();
 
