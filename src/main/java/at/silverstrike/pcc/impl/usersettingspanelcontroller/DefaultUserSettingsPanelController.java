@@ -74,6 +74,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 this.injector.getInstance(UserSettingsPanelFactory.class);
         final UserSettingsPanel panel = factory.create();
         panel.initGui();
+        panel.setGuiController(this);
         return panel.toPanel();
     }
 
