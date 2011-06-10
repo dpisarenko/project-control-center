@@ -12,18 +12,13 @@
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant;
+import ru.altruix.commons.api.di.PccException;
+
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
 import com.google.api.services.tasks.v1.model.TaskList;
 import com.google.api.services.tasks.v1.model.TaskLists;
@@ -33,6 +28,8 @@ import com.vaadin.ui.Panel;
 
 import eu.livotov.tpt.TPTApplication;
 
+import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
+import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanel;
@@ -86,33 +83,23 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void fetchData(final String aAuthorizationCode) {
-        HttpTransport httpTransport = new NetHttpTransport();
-        JacksonFactory jsonFactory = new JacksonFactory();
-        String clientId = "482402692152.apps.googleusercontent.com";
-        String clientSecret = "8dKZsmt4W2YwQwcw3WyFZy6x";
-        String redirectUrl = "urn:ietf:wg:oauth:2.0:oob";
-
         try {
-            // Step 2: Exchange -->
-            AccessTokenResponse response =
-                    new GoogleAuthorizationCodeGrant(httpTransport,
-                            jsonFactory,
-                            clientId, clientSecret, aAuthorizationCode,
-                            redirectUrl).execute();
-            // End of Step 2 <--
 
-            GoogleAccessProtectedResource accessProtectedResource =
-                    new GoogleAccessProtectedResource(
-                            response.accessToken, httpTransport, jsonFactory,
-                            clientId, clientSecret,
-                            response.refreshToken);
+            final GoogleTasksServiceCreatorFactory factory =
+                    this.injector
+                            .getInstance(GoogleTasksServiceCreatorFactory.class);
+            final GoogleTasksServiceCreator serviceCreator = factory.create();
 
-            Tasks service =
-                    new Tasks(httpTransport, accessProtectedResource,
-                            jsonFactory);
-            service.setApplicationName("PCC");
+            serviceCreator.setApplicationName("PCC");
+            serviceCreator.setAuthorizationCode(aAuthorizationCode);
+            serviceCreator
+                    .setClientId("482402692152.apps.googleusercontent.com");
+            serviceCreator.setClientSecret("8dKZsmt4W2YwQwcw3WyFZy6x");
+            serviceCreator.setRedirectUrl("urn:ietf:wg:oauth:2.0:oob");
+            serviceCreator.run();
 
-            TaskLists taskLists = service.tasklists.list().execute();
+            final Tasks tasksService = serviceCreator.getService();
+            final TaskLists taskLists = tasksService.tasklists.list().execute();
 
             LOGGER.debug("TASK LISTS (START)");
 
@@ -124,20 +111,25 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             LOGGER.debug("TASKS (START)");
 
             final com.google.api.services.tasks.v1.model.Tasks tasks =
-                    service.tasks.list("@default").execute();
+                tasksService.tasks.list("@default").execute();
 
             for (final com.google.api.services.tasks.v1.model.Task curTask : tasks.items) {
-                LOGGER.debug("Task list: title='{}', completed='{}', id='{}'",
+                LOGGER.debug(
+                        "Task list: title='{}', completed='{}', id='{}', kind='{}', notes='{}', parent='{}', position='{}', status='{}', updated='{}'",
                         new Object[] { curTask.title, curTask.completed,
-                                curTask.id });
+                                curTask.id, curTask.kind, curTask.notes,
+                                curTask.parent, curTask.position,
+                                curTask.status,
+                                curTask.updated });
 
             }
             LOGGER.debug("TASKS (END)");
 
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
         } catch (IOException exception) {
             LOGGER.error("", exception);
         }
-
     }
 
     @Override

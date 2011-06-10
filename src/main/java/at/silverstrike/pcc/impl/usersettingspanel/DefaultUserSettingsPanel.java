@@ -24,10 +24,8 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
-import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanel;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
 

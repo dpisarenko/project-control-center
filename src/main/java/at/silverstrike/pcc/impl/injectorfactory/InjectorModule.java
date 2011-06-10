@@ -43,6 +43,7 @@ import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelCont
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.gcalservicecreator.GoogleCalendarServiceCreatorFactory;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
+import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
 import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
 import at.silverstrike.pcc.api.incorrectschedulingobjectsmarker.IncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factory;
@@ -109,6 +110,7 @@ import at.silverstrike.pcc.impl.eventeditingpanelcontroller.DefaultEventEditingP
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.gcalservicecreator.DefaultGoogleCalendarServiceCreatorFactory;
 import at.silverstrike.pcc.impl.gcaltasks2pcc.DefaultGoogleCalendarTasks2PccImporterFactory;
+import at.silverstrike.pcc.impl.googletasksservicecreator.DefaultGoogleTasksServiceCreatorFactory;
 import at.silverstrike.pcc.impl.graph2resource.DefaultGraph2ResourceConverterFactory;
 import at.silverstrike.pcc.impl.incorrectschedulingobjectsmarker.DefaultIncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.impl.invitationgui2.DefaultInvitationRequestWindowStep2Factory;
@@ -283,7 +285,9 @@ class InjectorModule extends AbstractModule {
         bind(GoogleCalendarServiceCreatorFactory.class).toInstance(
                 new DefaultGoogleCalendarServiceCreatorFactory());
         bind(GoogleCalendarTasks2PccImporterFactory.class).toInstance(
-                new DefaultGoogleCalendarTasks2PccImporterFactory());        
+                new DefaultGoogleCalendarTasks2PccImporterFactory());
+        bind(GoogleTasksServiceCreatorFactory.class).toInstance(
+                new DefaultGoogleTasksServiceCreatorFactory());
     }
 
     private ProjectScheduler getScheduler() {
