@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.impl.gtaskrelevance;
 
+import org.apache.commons.lang.StringUtils;
+
 import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculator;
 
@@ -25,7 +27,26 @@ class DefaultIsGoogleTaskRelevantCalculator implements
     
     @Override
     public void run() throws PccException {
-        this.relevant = (task.completed == null);
+        final boolean completed = (task.completed == null);
+        final boolean topLevelTask = StringUtils.isBlank(task.parent);
+        final boolean effortSpecified = isEffortSpecified(task.notes);
+        
+        if (completed)
+        {
+            this.relevant = false;
+        }
+        else if (topLevelTask)
+        {
+            this.relevant = true;
+        }
+//        else if ()
+//        
+//        this.relevant = completed;
+    }
+
+    private boolean isEffortSpecified(final String aNotes) {
+        // TODO Auto-generated method stub
+        return false;
     }
 
     @Override

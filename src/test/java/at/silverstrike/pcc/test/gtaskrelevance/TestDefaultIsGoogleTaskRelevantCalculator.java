@@ -41,7 +41,10 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
-        task.set("completed", "2011-06-10T11:44:22.300Z");
+        task.set(IsGoogleTaskRelevantCalculator.COMPLETED,
+                "2011-06-10T11:44:22.300Z");
+        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+                "MTE5OTY3NjA1Mjc5NDc1OTc1NjI6MDo5");
 
         Assert.assertFalse(getActualRelevance(objectUnderTest, task));
     }
@@ -54,8 +57,10 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
-        task.set("completed", null);
-        task.set("notes", null);
+        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
+        task.set(IsGoogleTaskRelevantCalculator.NOTES, null);
+        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+                "MTE5OTY3NjA1Mjc5NDc1OTc1NjI6MDo5");
 
         Assert.assertFalse(getActualRelevance(objectUnderTest, task));
     }
@@ -68,10 +73,28 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
-        task.set("completed", null);
-        task.set("notes", "   ");
+        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
+        task.set(IsGoogleTaskRelevantCalculator.NOTES, "   ");
+        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+                "MTE5OTY3NjA1Mjc5NDc1OTc1NjI6MDo5");
 
         Assert.assertFalse(getActualRelevance(objectUnderTest, task));
+    }
+
+    @Test
+    public void testNotCompletedEmptyNoteTopLevelTask() {
+        final IsGoogleTaskRelevantCalculatorFactory factory =
+                new DefaultIsGoogleTaskRelevantCalculatorFactory();
+        final IsGoogleTaskRelevantCalculator objectUnderTest = factory.create();
+
+        final com.google.api.services.tasks.v1.model.Task task = new Task();
+
+        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
+        task.set(IsGoogleTaskRelevantCalculator.NOTES, "   ");
+        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+                null);
+
+        Assert.assertTrue(getActualRelevance(objectUnderTest, task));
     }
 
     private boolean getActualRelevance(

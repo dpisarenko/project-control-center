@@ -9,7 +9,7 @@
  *
  **/
 
-package at.silverstrike.pcc.api.gtaskrelevance;
+package at.silverstrike.pcc.api.gtasknoteparser;
 
 import ru.altruix.commons.api.conventions.SingleActivityModule;
 
@@ -17,11 +17,9 @@ import ru.altruix.commons.api.conventions.SingleActivityModule;
  * @author DP118M
  *
  */
-public interface IsGoogleTaskRelevantCalculator extends SingleActivityModule {
-    final String NOTES = "notes";
-    final String PARENT = "parent";
-    String COMPLETED = "completed";
-
-    void setGoogleTask(final com.google.api.services.tasks.v1.model.Task aTask);
-    boolean isRelevant();
+public interface GoogleTaskNotesParser extends SingleActivityModule {
+    void setNotes(final String aNotes);
+    
+    boolean isEffortSpecified();
+    double getEffortInHours();
 }
