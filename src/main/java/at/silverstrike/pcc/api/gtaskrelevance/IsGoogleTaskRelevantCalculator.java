@@ -12,16 +12,19 @@
 package at.silverstrike.pcc.api.gtaskrelevance;
 
 import ru.altruix.commons.api.conventions.SingleActivityModule;
+import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 
 /**
  * @author DP118M
- *
+ * 
  */
-public interface IsGoogleTaskRelevantCalculator extends SingleActivityModule {
+public interface IsGoogleTaskRelevantCalculator extends SingleActivityModule,
+        ModuleWithInjectableDependencies {
     final String NOTES = "notes";
     final String PARENT = "parent";
     String COMPLETED = "completed";
 
     void setGoogleTask(final com.google.api.services.tasks.v1.model.Task aTask);
+
     boolean isRelevant();
 }

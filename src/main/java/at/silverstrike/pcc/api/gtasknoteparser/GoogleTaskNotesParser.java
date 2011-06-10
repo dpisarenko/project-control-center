@@ -15,11 +15,12 @@ import ru.altruix.commons.api.conventions.SingleActivityModule;
 
 /**
  * @author DP118M
- *
+ * 
  */
 public interface GoogleTaskNotesParser extends SingleActivityModule {
     void setNotes(final String aNotes);
-    
+
     boolean isEffortSpecified();
+
     double getEffortInHours();
 }

@@ -14,6 +14,8 @@ package at.silverstrike.pcc.impl.gtasknoteparser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
 
@@ -34,17 +36,20 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
         final String effortRegex = "(\\d(\\.\\d{0,2}?)?)h";
 
         pattern = Pattern.compile(effortRegex);
-
     }
 
     @Override
     public void run() throws PccException {
-        final Matcher matcher = this.pattern.matcher(this.notes);
-        this.effortSpecified = matcher.matches();
+        if (!StringUtils.isBlank(this.notes)) {
+            final Matcher matcher = this.pattern.matcher(this.notes.trim());
+            this.effortSpecified = matcher.matches();
 
-        if (this.effortSpecified) {
-            final String effortAsString = matcher.group(1);
-            this.effortInHours = Double.parseDouble(effortAsString);
+            if (this.effortSpecified) {
+                final String effortAsString = matcher.group(1);
+                this.effortInHours = Double.parseDouble(effortAsString);
+            }
+        } else {
+            this.effortSpecified = false;
         }
     }
 

@@ -17,13 +17,16 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.InjectorFactory;
 import ru.altruix.commons.api.di.PccException;
 
 import com.google.api.services.tasks.v1.model.Task;
+import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculator;
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFactory;
 import at.silverstrike.pcc.impl.gtaskrelevance.DefaultIsGoogleTaskRelevantCalculatorFactory;
+import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 /**
  * @author DP118M
@@ -35,9 +38,8 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
     @Test
     public void testCompleted() {
-        final IsGoogleTaskRelevantCalculatorFactory factory =
-                new DefaultIsGoogleTaskRelevantCalculatorFactory();
-        final IsGoogleTaskRelevantCalculator objectUnderTest = factory.create();
+        final IsGoogleTaskRelevantCalculator objectUnderTest =
+                getObjectUnderTest();
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
@@ -49,11 +51,22 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         Assert.assertFalse(getActualRelevance(objectUnderTest, task));
     }
 
-    @Test
-    public void testNotCompletedNullNote() {
+    private IsGoogleTaskRelevantCalculator getObjectUnderTest() {
+        final InjectorFactory injectorFactory = new MockInjectorFactory(
+                new MockInjectorModule());
+        final Injector injector = injectorFactory.createInjector();
         final IsGoogleTaskRelevantCalculatorFactory factory =
                 new DefaultIsGoogleTaskRelevantCalculatorFactory();
         final IsGoogleTaskRelevantCalculator objectUnderTest = factory.create();
+        objectUnderTest.setInjector(injector);
+        
+        return objectUnderTest;
+    }
+
+    @Test
+    public void testNotCompletedNullNote() {
+        final IsGoogleTaskRelevantCalculator objectUnderTest =
+                getObjectUnderTest();
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
@@ -67,9 +80,8 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
     @Test
     public void testNotCompletedEmptyNote() {
-        final IsGoogleTaskRelevantCalculatorFactory factory =
-                new DefaultIsGoogleTaskRelevantCalculatorFactory();
-        final IsGoogleTaskRelevantCalculator objectUnderTest = factory.create();
+        final IsGoogleTaskRelevantCalculator objectUnderTest =
+                getObjectUnderTest();
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
@@ -83,9 +95,8 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
     @Test
     public void testNotCompletedEmptyNoteTopLevelTask() {
-        final IsGoogleTaskRelevantCalculatorFactory factory =
-                new DefaultIsGoogleTaskRelevantCalculatorFactory();
-        final IsGoogleTaskRelevantCalculator objectUnderTest = factory.create();
+        final IsGoogleTaskRelevantCalculator objectUnderTest =
+                getObjectUnderTest();
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
