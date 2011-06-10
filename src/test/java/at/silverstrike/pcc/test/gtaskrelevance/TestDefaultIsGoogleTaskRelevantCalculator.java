@@ -46,6 +46,34 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         Assert.assertFalse(getActualRelevance(objectUnderTest, task));
     }
 
+    @Test
+    public void testNotCompletedNullNote() {
+        final IsGoogleTaskRelevantCalculatorFactory factory =
+                new DefaultIsGoogleTaskRelevantCalculatorFactory();
+        final IsGoogleTaskRelevantCalculator objectUnderTest = factory.create();
+
+        final com.google.api.services.tasks.v1.model.Task task = new Task();
+
+        task.set("completed", null);
+        task.set("notes", null);
+
+        Assert.assertFalse(getActualRelevance(objectUnderTest, task));
+    }
+
+    @Test
+    public void testNotCompletedEmptyNote() {
+        final IsGoogleTaskRelevantCalculatorFactory factory =
+                new DefaultIsGoogleTaskRelevantCalculatorFactory();
+        final IsGoogleTaskRelevantCalculator objectUnderTest = factory.create();
+
+        final com.google.api.services.tasks.v1.model.Task task = new Task();
+
+        task.set("completed", null);
+        task.set("notes", "   ");
+
+        Assert.assertFalse(getActualRelevance(objectUnderTest, task));
+    }
+
     private boolean getActualRelevance(
             final IsGoogleTaskRelevantCalculator objectUnderTest,
             final com.google.api.services.tasks.v1.model.Task task) {
