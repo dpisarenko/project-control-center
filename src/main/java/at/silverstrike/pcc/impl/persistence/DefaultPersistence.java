@@ -1481,8 +1481,12 @@ public class DefaultPersistence implements Persistence {
             maxPriority = (Integer) query.uniqueResult();
             LOGGER.debug("maxPriority: {}", maxPriority);
 
-            if (maxPriority == null) {
+            if ((maxPriority == null) && (aParent != null)) {
                 maxPriority = aParent.getPriority();
+            }
+            else
+            {
+                maxPriority = 500;
             }
         } catch (final Exception exception) {
             LOGGER.error("", exception);
