@@ -37,18 +37,23 @@ class DefaultIsGoogleTaskRelevantCalculator implements
 
     @Override
     public void run() throws PccException {
-        final boolean completed = (task.completed == null);
+        final boolean completed = (task.completed != null);
         final boolean topLevelTask = StringUtils.isBlank(task.parent);
         final boolean effortSpecified = isEffortSpecified(task.notes);
 
+        LOGGER.debug("completed: {}, topLevelTask: {}, effortSpecified: {}",
+                new Object[] { completed, topLevelTask, effortSpecified });
+
         if (completed) {
             this.relevant = false;
-        } else if (topLevelTask) {
+        } else if (topLevelTask && !effortSpecified) {
             this.relevant = true;
-        } else if (!topLevelTask && !effortSpecified) {
+        } else if (!topLevelTask && effortSpecified) {
+            this.relevant = true;
+        } else if (!topLevelTask && effortSpecified) {
+            this.relevant = true;
+        } else {
             this.relevant = false;
-        } else if (effortSpecified) {
-            this.relevant = true;
         }
     }
 
