@@ -28,6 +28,8 @@ import com.vaadin.ui.Panel;
 
 import eu.livotov.tpt.TPTApplication;
 
+import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
+import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
 import at.silverstrike.pcc.api.model.UserData;
@@ -99,19 +101,31 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             serviceCreator.run();
 
             final Tasks tasksService = serviceCreator.getService();
-            final TaskLists taskLists = tasksService.tasklists.list().execute();
 
-            LOGGER.debug("TASK LISTS (START)");
+            final GoogleCalendarTasks2PccImporterFactory importerFactory =
+                    this.injector
+                            .getInstance(GoogleCalendarTasks2PccImporterFactory.class);
+            final GoogleCalendarTasks2PccImporter importer = importerFactory.create();
 
-            for (final TaskList curTaskList : taskLists.items) {
-                LOGGER.debug("Task list: {}", curTaskList.title);
-            }
-            LOGGER.debug("TASK LISTS (END)");
+            importer.setInjector(this.injector);
+            importer.setService(tasksService);
+            importer.setUser((UserData) TPTApplication.getCurrentApplication().getUser());
+            
+            importer.run();
+            
+//            final TaskLists taskLists = tasksService.tasklists.list().execute();
+//
+//            LOGGER.debug("TASK LISTS (START)");
+//
+//            for (final TaskList curTaskList : taskLists.items) {
+//                LOGGER.debug("Task list: {}", curTaskList.title);
+//            }
+//            LOGGER.debug("TASK LISTS (END)");
 
             LOGGER.debug("TASKS (START)");
 
             final com.google.api.services.tasks.v1.model.Tasks tasks =
-                tasksService.tasks.list("@default").execute();
+                    tasksService.tasks.list("@default").execute();
 
             for (final com.google.api.services.tasks.v1.model.Task curTask : tasks.items) {
                 LOGGER.debug(

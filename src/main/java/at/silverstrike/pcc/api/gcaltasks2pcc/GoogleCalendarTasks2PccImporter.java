@@ -13,8 +13,7 @@ package at.silverstrike.pcc.api.gcaltasks2pcc;
 
 import at.silverstrike.pcc.api.model.UserData;
 
-import com.google.gdata.client.calendar.CalendarService;
-
+import com.google.api.services.tasks.v1.Tasks;
 import ru.altruix.commons.api.conventions.SingleActivityModule;
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 
@@ -24,5 +23,6 @@ import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
  */
 public interface GoogleCalendarTasks2PccImporter extends SingleActivityModule,
         ModuleWithInjectableDependencies {
+    void setService(final Tasks aService);
     void setUser(final UserData aUser);
 }
