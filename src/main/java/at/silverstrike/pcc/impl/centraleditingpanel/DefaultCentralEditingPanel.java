@@ -636,4 +636,10 @@ class DefaultCentralEditingPanel extends Panel implements CentralEditingPanel,
     public void taskCompleted(final Task aTask) {
         this.updateTree();
     }
+
+    @Override
+    public void tasksImportedFromGoogle() {
+        this.updateTree();
+        this.redrawProjectNetwork();
+    }
 }

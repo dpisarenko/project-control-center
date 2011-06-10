@@ -55,4 +55,6 @@ public interface CentralEditingPanel extends ModuleWithInjectableDependencies,
     void taskDependenciesChanged(final SchedulingObject aObject);
 
     void taskCompleted(final Task aTask);
+
+    void tasksImportedFromGoogle();
 }

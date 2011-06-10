@@ -203,7 +203,8 @@ class DefaultWebGuiBus implements WebGuiBus {
 
     @Override
     public void broadcastTasksImportedFromGoogleMessage() {
-        // TODO Auto-generated method stub
-        
+        for (final WebGuiBusListener listener : this.listeners) {
+            listener.tasksImportedFromGoogle();
+        }        
     }
 }

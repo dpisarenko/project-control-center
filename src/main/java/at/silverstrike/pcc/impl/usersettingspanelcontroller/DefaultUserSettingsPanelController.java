@@ -11,8 +11,6 @@
 
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +18,6 @@ import ru.altruix.commons.api.di.PccException;
 
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
 import com.google.api.services.tasks.v1.Tasks;
-import com.google.api.services.tasks.v1.model.TaskList;
-import com.google.api.services.tasks.v1.model.TaskLists;
 import com.google.inject.Injector;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Panel;
@@ -113,35 +109,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             
             importer.run();
             
-//            final TaskLists taskLists = tasksService.tasklists.list().execute();
-//
-//            LOGGER.debug("TASK LISTS (START)");
-//
-//            for (final TaskList curTaskList : taskLists.items) {
-//                LOGGER.debug("Task list: {}", curTaskList.title);
-//            }
-//            LOGGER.debug("TASK LISTS (END)");
-
-            LOGGER.debug("TASKS (START)");
-
-            final com.google.api.services.tasks.v1.model.Tasks tasks =
-                    tasksService.tasks.list("@default").execute();
-
-            for (final com.google.api.services.tasks.v1.model.Task curTask : tasks.items) {
-                LOGGER.debug(
-                        "Task list: title='{}', completed='{}', id='{}', kind='{}', notes='{}', parent='{}', position='{}', status='{}', updated='{}'",
-                        new Object[] { curTask.title, curTask.completed,
-                                curTask.id, curTask.kind, curTask.notes,
-                                curTask.parent, curTask.position,
-                                curTask.status,
-                                curTask.updated });
-
-            }
-            LOGGER.debug("TASKS (END)");
-
+            this.webGuiBus.broadcastTasksImportedFromGoogleMessage();
         } catch (final PccException exception) {
-            LOGGER.error("", exception);
-        } catch (IOException exception) {
             LOGGER.error("", exception);
         }
     }

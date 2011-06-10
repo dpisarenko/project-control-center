@@ -233,4 +233,9 @@ class DefaultCentralEditingPanelController extends WebGuiBusListenerAdapter
         this.panel.taskCompleted(aTask);
     }
 
+    @Override
+    public void tasksImportedFromGoogle() {
+        this.panel.tasksImportedFromGoogle();
+    }
+
 }

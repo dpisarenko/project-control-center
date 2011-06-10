@@ -54,4 +54,6 @@ public interface WebGuiBusListener {
     void taskDependenciesChanged(final SchedulingObject aObject);
 
     void planCalculated();
+
+    void tasksImportedFromGoogle();
 }
