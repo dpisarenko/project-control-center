@@ -147,6 +147,8 @@ class DefaultGoogleCalendarTasks2PccImporter implements
         final IsGoogleTaskRelevantCalculator relevanceCalculator =
                 factory.create();
 
+        relevanceCalculator.setInjector(this.injector);
+        
         for (final com.google.api.services.tasks.v1.model.Task curTask : tasks.items) {
             LOGGER.debug(
                     "Task list: title='{}', completed='{}', id='{}', kind='{}', notes='{}', parent='{}', position='{}', status='{}', updated='{}'",

@@ -11,11 +11,16 @@
 
 package at.silverstrike.pcc.impl.gtask2pcctaskconverter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Injector;
 
 import ru.altruix.commons.api.di.PccException;
 
 import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverter;
+import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
+import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParserFactory;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
@@ -24,17 +29,31 @@ import at.silverstrike.pcc.api.persistence.Persistence;
  * 
  */
 class DefaultGoogleTask2PccTaskConverter implements GoogleTask2PccTaskConverter {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultGoogleTask2PccTaskConverter.class);
+
     private com.google.api.services.tasks.v1.model.Task googleTask;
     private at.silverstrike.pcc.api.model.Task task;
     private UserData user;
     private Injector injector;
     private Persistence persistence;
+    private GoogleTaskNotesParser parser;
 
     @Override
     public void run() throws PccException {
         this.task =
                 persistence.createSubTask(googleTask.title, null,
                         this.user);
+        try {
+            this.parser.setNotes(googleTask.notes);
+            this.parser.run();
+            final double effortInHours = this.parser.getEffortInHours();
+            this.task.setBestCaseEffort(effortInHours);
+            this.task.setWorstCaseEffort(effortInHours);
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+        }
+
     }
 
     @Override
@@ -53,6 +72,11 @@ class DefaultGoogleTask2PccTaskConverter implements GoogleTask2PccTaskConverter 
         this.injector = aInjector;
         if (this.injector != null) {
             this.persistence = this.injector.getInstance(Persistence.class);
+
+            final GoogleTaskNotesParserFactory factory =
+                    this.injector
+                            .getInstance(GoogleTaskNotesParserFactory.class);
+            this.parser = factory.create();
         }
     }
 
