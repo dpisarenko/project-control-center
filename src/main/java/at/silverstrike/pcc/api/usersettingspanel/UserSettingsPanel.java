@@ -11,7 +11,6 @@
 
 package at.silverstrike.pcc.api.usersettingspanel;
 
-import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.ExternallyControlledGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedPanel;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
@@ -22,7 +21,7 @@ import com.vaadin.ui.Panel;
  * @author DP118M
  * 
  */
-public interface UserSettingsPanel extends ModuleWithInjectableDependencies,
+public interface UserSettingsPanel extends
         AbstractedPanel,
         ExternallyControlledGuiComponent<UserSettingsPanelController, Panel> {
 

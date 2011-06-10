@@ -9,21 +9,15 @@
  *
  **/
 
-package at.silverstrike.pcc.api.gtask2pcctaskconverter;
+package at.silverstrike.pcc.api.gtaskrelevance;
 
-import at.silverstrike.pcc.api.model.UserData;
 import ru.altruix.commons.api.conventions.SingleActivityModule;
-import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 
 /**
  * @author DP118M
- * 
+ *
  */
-public interface GoogleTask2PccTaskConverter extends SingleActivityModule,
-        ModuleWithInjectableDependencies {
+public interface IsGoogleTaskRelevantCalculator extends SingleActivityModule {
     void setGoogleTask(final com.google.api.services.tasks.v1.model.Task aTask);
-
-    at.silverstrike.pcc.api.model.Task getPccTask();
-
-    void setUser(final UserData aUser);
+    boolean isRelevant();
 }

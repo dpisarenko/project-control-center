@@ -14,7 +14,6 @@ package at.silverstrike.pcc.impl.usersettingspanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -40,16 +39,10 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
     private static final long serialVersionUID = 1L;
     private UserSettingsPanelController controller;
-    private Injector injector;
     private String requestAuthCodeCaption;
     private String fetchDataButtonCaption;
     private String writeDataToGoogleButtonCaption;
     private TextField googleCodeTextField;
-
-    @Override
-    public void setInjector(final Injector aInjector) {
-        this.injector = aInjector;
-    }
 
     @Override
     public Panel toPanel() {

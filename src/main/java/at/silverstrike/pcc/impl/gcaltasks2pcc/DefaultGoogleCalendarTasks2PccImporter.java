@@ -24,6 +24,10 @@ import com.google.api.services.tasks.v1.Tasks;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
+import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverter;
+import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverterFactory;
+import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculator;
+import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFactory;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
@@ -104,17 +108,30 @@ class DefaultGoogleCalendarTasks2PccImporter implements
             createPccTasks(
                     final Map<String, com.google.api.services.tasks.v1.model.Task> aRelevantTasksByIds,
                     final Persistence aPersistence) {
+        final GoogleTask2PccTaskConverterFactory factory =
+                this.injector
+                        .getInstance(GoogleTask2PccTaskConverterFactory.class);
+        final GoogleTask2PccTaskConverter converter = factory.create();
+
+        converter.setUser(this.user);
+        converter.setInjector(this.injector);
+
         final Map<String, at.silverstrike.pcc.api.model.Task> pccTasksByGoogleIds =
                 new HashMap<String, at.silverstrike.pcc.api.model.Task>();
 
         for (final com.google.api.services.tasks.v1.model.Task curTask : aRelevantTasksByIds
                 .values()) {
+            try {
+                converter.setGoogleTask(curTask);
+                converter.run();
 
-            final at.silverstrike.pcc.api.model.Task pccTask =
-                    aPersistence.createSubTask(curTask.title, null,
-                            this.user);
+                final at.silverstrike.pcc.api.model.Task pccTask =
+                        converter.getPccTask();
 
-            pccTasksByGoogleIds.put(curTask.id, pccTask);
+                pccTasksByGoogleIds.put(curTask.id, pccTask);
+            } catch (final PccException exception) {
+                LOGGER.error("", exception);
+            }
         }
         return pccTasksByGoogleIds;
     }
@@ -124,16 +141,29 @@ class DefaultGoogleCalendarTasks2PccImporter implements
             getRelevantGoogleTasks(
                     final com.google.api.services.tasks.v1.model.Tasks tasks,
                     final Map<String, com.google.api.services.tasks.v1.model.Task> relevantTasksByIds) {
+        final IsGoogleTaskRelevantCalculatorFactory factory =
+                this.injector
+                        .getInstance(IsGoogleTaskRelevantCalculatorFactory.class);
+        final IsGoogleTaskRelevantCalculator relevanceCalculator =
+                factory.create();
+
         for (final com.google.api.services.tasks.v1.model.Task curTask : tasks.items) {
             LOGGER.debug(
                     "Task list: title='{}', completed='{}', id='{}', kind='{}', notes='{}', parent='{}', position='{}', status='{}', updated='{}'",
                     new Object[] { curTask.title, curTask.completed,
                             curTask.id, curTask.kind, curTask.notes,
-                            curTask.parent, curTask.position,
-                            curTask.status,
+                            curTask.parent, curTask.position, curTask.status,
                             curTask.updated });
-            if (curTask.completed == null) {
-                relevantTasksByIds.put(curTask.id, curTask);
+            
+            try {
+                relevanceCalculator.setGoogleTask(curTask);
+                relevanceCalculator.run();
+                if (relevanceCalculator.isRelevant())
+                {
+                    relevantTasksByIds.put(curTask.id, curTask);
+                }
+            } catch (final PccException exception) {
+                LOGGER.error("", exception);
             }
         }
     }
