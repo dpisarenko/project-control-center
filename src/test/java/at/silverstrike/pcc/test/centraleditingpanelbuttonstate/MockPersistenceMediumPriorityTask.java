@@ -19,7 +19,7 @@ import at.silverstrike.pcc.test.mockpersistence.MockPersistenceAdapter;
  * @author DP118M
  *
  */
-public class MockPersistenceMediumPriorityTask extends MockPersistenceAdapter implements Persistence {
+final class MockPersistenceMediumPriorityTask extends MockPersistenceAdapter implements Persistence {
 
     /* (non-Javadoc)
      * @see at.silverstrike.pcc.api.persistence.Persistence#isHighestPriorityObjectInProject(at.silverstrike.pcc.api.model.SchedulingObject, at.silverstrike.pcc.api.model.SchedulingObject)

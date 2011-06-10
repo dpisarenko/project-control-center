@@ -55,6 +55,8 @@ class DefaultGoogleCalendarTasks2PccImporter implements
 
             getRelevantGoogleTasks(tasks, relevantTasksByIds);
 
+            LOGGER.debug("Relevant tasks: " + relevantTasksByIds.size());
+
             // Create tasks in PCC database
             final Map<String, at.silverstrike.pcc.api.model.Task> pccTasksByGoogleIds =
                     createPccTasks(relevantTasksByIds, persistence);
@@ -80,7 +82,7 @@ class DefaultGoogleCalendarTasks2PccImporter implements
             // Fetch parent ID
             final String parentId = childTask.parent;
 
-            if (!"null".equals(parentId)) {
+            if (parentId != null) {
                 // Fetch child PCC task
                 final at.silverstrike.pcc.api.model.Task childPccTask =
                         aPccTasksByGoogleIds.get(curGoogleTaskId);
@@ -130,7 +132,7 @@ class DefaultGoogleCalendarTasks2PccImporter implements
                             curTask.parent, curTask.position,
                             curTask.status,
                             curTask.updated });
-            if ("null".equals(curTask.completed)) {
+            if (curTask.completed == null) {
                 relevantTasksByIds.put(curTask.id, curTask);
             }
         }

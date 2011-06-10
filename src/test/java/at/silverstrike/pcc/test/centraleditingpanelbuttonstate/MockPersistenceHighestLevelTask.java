@@ -37,7 +37,7 @@ import at.silverstrike.pcc.test.mockpersistence.MockPersistenceAdapter;
  * @author DP118M
  * 
  */
-public class MockPersistenceHighestLevelTask extends MockPersistenceAdapter
+final class MockPersistenceHighestLevelTask extends MockPersistenceAdapter
         implements Persistence {
 
     /*

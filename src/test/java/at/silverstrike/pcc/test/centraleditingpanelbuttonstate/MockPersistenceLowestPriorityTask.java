@@ -19,7 +19,7 @@ import at.silverstrike.pcc.test.mockpersistence.MockPersistenceAdapter;
  * @author DP118M
  *
  */
-public class MockPersistenceLowestPriorityTask extends MockPersistenceAdapter implements Persistence {
+final class MockPersistenceLowestPriorityTask extends MockPersistenceAdapter implements Persistence {
 
 
     /* (non-Javadoc)
