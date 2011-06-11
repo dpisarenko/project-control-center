@@ -11,6 +11,10 @@
 
 package at.silverstrike.pcc.impl.gtaskprioritycalculator;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import ru.altruix.commons.api.di.PccException;
@@ -21,17 +25,46 @@ import at.silverstrike.pcc.api.gtaskprioritycalculator.GoogleTasksPriorityCalcul
 
 /**
  * @author DP118M
- *
+ * 
  */
 class DefaultGoogleTasksPriorityCalculator implements
         GoogleTasksPriorityCalculator {
     private Map<String, Task> tasksByTaskIds;
-    private Map<String, Long> prioritiesByTaskIds;
-    
+    private Map<String, Integer> prioritiesByTaskIds;
+
     @Override
     public void run() throws PccException {
-        // TODO Auto-generated method stub
+        final List<GoogleTaskIdAndPriorityTuple> tuples = getTuples();
+        Collections.sort(tuples);
+        setPriorities(tuples);
+    }
 
+    private void
+            setPriorities(final List<GoogleTaskIdAndPriorityTuple> aTuples) {
+        int curPriority = 1000;
+        
+        this.prioritiesByTaskIds = new HashMap<String, Integer>();
+        
+        for (final GoogleTaskIdAndPriorityTuple curTuple : aTuples) {
+            this.prioritiesByTaskIds.put(curTuple.getId(), curPriority);
+            curPriority--;
+        }
+    }
+
+    private List<GoogleTaskIdAndPriorityTuple> getTuples() {
+        final List<GoogleTaskIdAndPriorityTuple> returnValue =
+                new LinkedList<GoogleTaskIdAndPriorityTuple>();
+        for (final Task curTask : tasksByTaskIds.values())
+        {
+            final GoogleTaskIdAndPriorityTuple curTuple = new GoogleTaskIdAndPriorityTuple();
+            
+            curTuple.setId(curTask.id);
+            curTuple.setPosition(curTask.position);
+            
+            returnValue.add(curTuple);
+        }
+
+        return returnValue;
     }
 
     @Override
@@ -40,7 +73,7 @@ class DefaultGoogleTasksPriorityCalculator implements
     }
 
     @Override
-    public Map<String, Long> getPrioritiesByTaskIds() {
+    public Map<String, Integer> getPrioritiesByTaskIds() {
         return prioritiesByTaskIds;
     }
 

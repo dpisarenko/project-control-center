@@ -24,5 +24,5 @@ public interface GoogleTasksPriorityCalculator extends SingleActivityModule {
             setTasks(
                     final Map<String, com.google.api.services.tasks.v1.model.Task> aTasksByTaskIds);
 
-    Map<String, Long> getPrioritiesByTaskIds();
+    Map<String, Integer> getPrioritiesByTaskIds();
 }
