@@ -1814,15 +1814,30 @@ public class DefaultPersistence implements Persistence {
         final Transaction tx = session.beginTransaction();
 
         try {
-            final String hql =
-                    "delete from DefaultSchedulingObject where userData.id = ${userId}"
-                            .
-                            replace("${userId}", Long.toString(aUser.getId()));
+            final String[] queries =
+            {
+                    // "delete from DefaultDailyLimitResourceAllocation where userData.id = ${userId}",
+                    // "delete from DefaultResourceAllocation where userData.id = ${userId}",
+                    "delete from DefaultBooking where userData.id = ${userId}",
+                    "delete from DefaultDailyPlan where userData.id = ${userId}",
+                    "delete from DefaultDailySchedule where userData.id = ${userId}",
+                    // "delete from DefaultResource where userData.id = ${userId}",
+                    "delete from DefaultTask where userData.id = ${userId}",
+                    "delete from DefaultEvent where userData.id = ${userId}",
+                    "delete from DefaultMilestone where userData.id = ${userId}",
+                    "delete from DefaultSchedulingObject where userData.id = ${userId}",
+                    "delete from DefaultDailyToDoList where userData.id = ${userId}" };
 
-            final Query query =
-                    session.createQuery(hql);
+            for (final String curHqlStatement : queries) {
+                final String hql =
+                        curHqlStatement.replace("${userId}",
+                                Long.toString(aUser.getId()));
 
-            query.executeUpdate();
+                final Query query =
+                        session.createQuery(hql);
+
+                query.executeUpdate();
+            }
 
             tx.commit();
         } catch (final Exception exception) {

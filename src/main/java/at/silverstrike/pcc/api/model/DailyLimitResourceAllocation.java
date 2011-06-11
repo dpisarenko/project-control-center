@@ -13,10 +13,12 @@ package at.silverstrike.pcc.api.model;
 
 /**
  * allocate dp {limits {dailymax 3h}}
+ * 
  * @author Dmitri Pisarenko
- *
+ * 
  */
 public interface DailyLimitResourceAllocation extends ResourceAllocation {
-	void setDailyLimit(final double aDailyLimitHours);
-	double getDailyLimit();
+    void setDailyLimit(final double aDailyLimitHours);
+
+    double getDailyLimit();
 }
