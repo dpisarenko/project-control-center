@@ -52,6 +52,8 @@ class DefaultIsGoogleTaskRelevantCalculator implements
             this.relevant = true;
         } else if (!topLevelTask && effortSpecified) {
             this.relevant = true;
+        } else if (topLevelTask && effortSpecified) {
+            this.relevant = true;
         } else {
             this.relevant = false;
         }
