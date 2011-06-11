@@ -2,7 +2,8 @@
 <!-- This file is part of Project Control Center (PCC). PCC (Project Control 
 	Center) project is intellectual property of Dmitri Anatol'evich Pisarenko. 
 	Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko All rights reserved -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
@@ -322,34 +323,29 @@
 			<url>http://maven.vaadin.com/vaadin-addons</url>
 		</repository>
 		<repository>
-		  <id>google-api-services</id>
-		  <url>http://mavenrepo.google-api-java-client.googlecode.com/hg</url>
-		</repository>		
+			<id>google-api-services</id>
+			<url>http://mavenrepo.google-api-java-client.googlecode.com/hg</url>
+		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
-		    <groupId>com.google.api.services.tasks</groupId>
-		    <artifactId>google-api-services-tasks-v1</artifactId>
-		    <version>1.0.0-beta</version>
-		</dependency>	
-	    <dependency>
-	      <groupId>com.google.api.client</groupId>
-	      <artifactId>google-api-client</artifactId>
-	      <version>1.4.1-beta</version>
-	    </dependency>
-<!-- 
-		<dependency>
-		   <groupId>com.google.gdata</groupId>
-		   <artifactId>gdata-client</artifactId>
-		   <version>1.0</version>
+			<groupId>com.google.api.services.tasks</groupId>
+			<artifactId>google-api-services-tasks-v1</artifactId>
+			<version>1.0.0-beta</version>
 		</dependency>
-		 -->
 		<dependency>
-		   <groupId>com.google.collections</groupId>
-		   <artifactId>google-collections</artifactId>
-		   <version>1.0</version>
+			<groupId>com.google.api.client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.4.1-beta</version>
 		</dependency>
- 
+		<!-- <dependency> <groupId>com.google.gdata</groupId> <artifactId>gdata-client</artifactId> 
+			<version>1.0</version> </dependency> -->
+		<dependency>
+			<groupId>com.google.collections</groupId>
+			<artifactId>google-collections</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.google.gdata</groupId>
 			<artifactId>gdata-calendar</artifactId>
@@ -361,7 +357,7 @@
 			<artifactId>gdata-core</artifactId>
 			<version>1.0</version>
 		</dependency>
-<!--		-->
+		<!-- -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
