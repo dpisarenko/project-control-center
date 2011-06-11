@@ -55,6 +55,16 @@ public class TestDefaultGoogleTaskNotesParser {
         objectUnderTest.setNotes("1");
         checkReturnValues(objectUnderTest, false, null);
     }
+    @Test
+    public void testRepetition() {
+        final GoogleTaskNotesParser objectUnderTest = getObjectUnderTest();
+
+        objectUnderTest.setNotes("1h");
+        checkReturnValues(objectUnderTest, true, 1.0);
+        
+        objectUnderTest.setNotes(null);
+        checkReturnValues(objectUnderTest, false, null);
+    }
     
     private void checkReturnValues(final GoogleTaskNotesParser objectUnderTest,
             final boolean expectedEffortSpecified, Double expectedEffort) {
