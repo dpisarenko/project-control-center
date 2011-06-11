@@ -59,7 +59,7 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
                 new DefaultIsGoogleTaskRelevantCalculatorFactory();
         final IsGoogleTaskRelevantCalculator objectUnderTest = factory.create();
         objectUnderTest.setInjector(injector);
-        
+
         return objectUnderTest;
     }
 
@@ -102,6 +102,21 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
         task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
         task.set(IsGoogleTaskRelevantCalculator.NOTES, "   ");
+        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+                null);
+
+        Assert.assertTrue(getActualRelevance(objectUnderTest, task));
+    }
+
+    @Test
+    public void testTopLevelTaskWithEffortEstimate() {
+        final IsGoogleTaskRelevantCalculator objectUnderTest =
+                getObjectUnderTest();
+
+        final com.google.api.services.tasks.v1.model.Task task = new Task();
+
+        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
+        task.set(IsGoogleTaskRelevantCalculator.NOTES, "3h");
         task.set(IsGoogleTaskRelevantCalculator.PARENT,
                 null);
 
