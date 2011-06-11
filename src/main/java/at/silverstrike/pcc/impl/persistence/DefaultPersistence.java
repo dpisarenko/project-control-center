@@ -1483,9 +1483,7 @@ public class DefaultPersistence implements Persistence {
 
             if ((maxPriority == null) && (aParent != null)) {
                 maxPriority = aParent.getPriority();
-            }
-            else
-            {
+            } else {
                 maxPriority = 500;
             }
         } catch (final Exception exception) {
@@ -1800,7 +1798,7 @@ public class DefaultPersistence implements Persistence {
             final Query query =
                     session.createQuery(hql);
 
-            result = (List<Booking>)query.list();
+            result = (List<Booking>) query.list();
 
             tx.commit();
         } catch (final Exception exception) {
@@ -1809,5 +1807,27 @@ public class DefaultPersistence implements Persistence {
         }
 
         return result;
+    }
+
+    @Override
+    public void removeUserSchedulingObjects(final UserData aUser) {
+        final Transaction tx = session.beginTransaction();
+
+        try {
+            final String hql =
+                    "from DefaultSchedulingObject a where a.UserData.id = ${userId}"
+                            .
+                            replace("${userId}", Long.toString(aUser.getId()));
+
+            final Query query =
+                    session.createQuery(hql);
+
+            query.executeUpdate();
+
+            tx.commit();
+        } catch (final Exception exception) {
+            LOGGER.error("", exception);
+            tx.rollback();
+        }
     }
 }

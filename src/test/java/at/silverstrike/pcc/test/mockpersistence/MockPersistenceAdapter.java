@@ -197,58 +197,58 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public boolean deleteTask(final Task aTask) {
-        // TODO Auto-generated method stub
+        
         return false;
     }
 
     @Override
     public boolean deleteEvent(final Event aEvent) {
-        // TODO Auto-generated method stub
+        
         return false;
     }
 
     @Override
     public boolean deleteMilestone(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
+        
         return false;
     }
 
     @Override
     public void updateMilestone(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
+        
 
     }
 
     @Override
     public void updateEvent(final Event aEvent) {
-        // TODO Auto-generated method stub
+        
 
     }
 
     @Override
     public List<SchedulingObject> getPotentialDependencies(
-            SchedulingObject aObject) {
-        // TODO Auto-generated method stub
+            final SchedulingObject aObject) {
+        
         return null;
     }
 
     @Override
-    public boolean isHighestPriorityObjectInProject(SchedulingObject aProject,
-            SchedulingObject aSchedulingObject) {
-        // TODO Auto-generated method stub
+    public boolean isHighestPriorityObjectInProject(final SchedulingObject aProject,
+            final SchedulingObject aSchedulingObject) {
+        
         return false;
     }
 
     @Override
     public boolean isLowestPriorityObjectInProject(SchedulingObject aProject,
             SchedulingObject aSchedulingObject) {
-        // TODO Auto-generated method stub
+        
         return false;
     }
 
     @Override
-    public boolean markTaskAsCompleted(Task aTask) {
-        // TODO Auto-generated method stub
+    public boolean markTaskAsCompleted(final Task aTask) {
+        
         return false;
     }
     @Override
@@ -259,19 +259,19 @@ public abstract class MockPersistenceAdapter implements Persistence {
     @Override
     public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
             final Long aProcessId) {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 
     @Override
     public Worker getCurrentWorker(final UserData aUser) {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 
     @Override
     public boolean hasChildren(final SchedulingObject aObject) {
-        // TODO Auto-generated method stub
+        
         return false;
     }
 
@@ -279,19 +279,19 @@ public abstract class MockPersistenceAdapter implements Persistence {
     @Override
     public void createInvitationRequest(
             final SupportedOpenIdProvider aOpenIdProvider, final String aUserUrl) {
-        // TODO Auto-generated method stub
+        
         
     }
 
     @Override
     public List<InvitationRequest> getInvitationRequests() {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 
     @Override
-    public void rejectInvitationRequest(InvitationRequest aSelectedRequest) {
-        // TODO Auto-generated method stub
+    public void rejectInvitationRequest(final InvitationRequest aSelectedRequest) {
+        
         
     }
     @Override
@@ -301,19 +301,19 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public void createSuperUser() {
-        // TODO Auto-generated method stub
+        
         
     }
 
     @Override
     public Long getUserCount() {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 
     @Override
-    public UserData getUser(String userName, String password) {
-        // TODO Auto-generated method stub
+    public UserData getUser(final String aUuserName, final String aPassword) {
+        
         return null;
     }    
     
@@ -324,14 +324,20 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public void updateUser(final UserData aUser) {
-        // TODO Auto-generated method stub
+        
         
     }
 
     @Override
     public List<Booking> getBookings(final UserData aUser) {
-        // TODO Auto-generated method stub
+        
         return null;
+    }
+
+    @Override
+    public void removeUserSchedulingObjects(final UserData aUser) {
+        
+        
     }    
     
 }

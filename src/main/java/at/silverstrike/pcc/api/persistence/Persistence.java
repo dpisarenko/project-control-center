@@ -223,4 +223,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     void updateUser(final UserData aUser);
 
     List<Booking> getBookings(final UserData aUser);
+
+    void removeUserSchedulingObjects(final UserData aUser);
 }

@@ -50,6 +50,8 @@ class DefaultGoogleCalendarTasks2PccImporter implements
                 this.injector.getInstance(Persistence.class);
 
         try {
+            persistence.removeUserSchedulingObjects(this.user);
+            
             final com.google.api.services.tasks.v1.model.Tasks tasks =
                     service.tasks.list("@default").execute();
 
