@@ -1815,7 +1815,7 @@ public class DefaultPersistence implements Persistence {
 
         try {
             final String hql =
-                    "from DefaultSchedulingObject a where a.UserData.id = ${userId}"
+                    "delete from DefaultSchedulingObject where userData.id = ${userId}"
                             .
                             replace("${userId}", Long.toString(aUser.getId()));
 
