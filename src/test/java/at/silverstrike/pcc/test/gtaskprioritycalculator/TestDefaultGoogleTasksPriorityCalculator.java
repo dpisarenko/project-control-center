@@ -66,8 +66,8 @@ public class TestDefaultGoogleTasksPriorityCalculator {
             final Map<String, Integer> prioritiesByTaskIds =
                     objectUnderTest.getPrioritiesByTaskIds();
 
-            Assert.assertEquals(new Long(1000L), prioritiesByTaskIds.get(ID_1));
-            Assert.assertEquals(new Long(900L), prioritiesByTaskIds.get(ID_2));
+            Assert.assertEquals(new Integer(1000), prioritiesByTaskIds.get(ID_1));
+            Assert.assertEquals(new Integer(999), prioritiesByTaskIds.get(ID_2));
         } catch (final PccException exception) {
             LOGGER.error("", exception);
             Assert.fail(exception.getMessage());
@@ -102,8 +102,8 @@ public class TestDefaultGoogleTasksPriorityCalculator {
             final Map<String, Integer> prioritiesByTaskIds =
                     objectUnderTest.getPrioritiesByTaskIds();
 
-            Assert.assertEquals(new Long(999L), prioritiesByTaskIds.get(ID_1));
-            Assert.assertEquals(new Long(1000L), prioritiesByTaskIds.get(ID_2));
+            Assert.assertEquals(new Integer(999), prioritiesByTaskIds.get(ID_1));
+            Assert.assertEquals(new Integer(1000), prioritiesByTaskIds.get(ID_2));
         } catch (final PccException exception) {
             LOGGER.error("", exception);
             Assert.fail(exception.getMessage());

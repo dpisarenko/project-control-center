@@ -41,7 +41,7 @@ class GoogleTaskIdAndPriorityTuple implements
         final long criterion1 = getSortCriterion(this);
         final long criterion2 = getSortCriterion(aAnotherTuple);
 
-        return (int) (-1 * (criterion1 - criterion2));
+        return (int) (criterion1 - criterion2);
     }
 
     private long getSortCriterion(final GoogleTaskIdAndPriorityTuple aTuple) {
