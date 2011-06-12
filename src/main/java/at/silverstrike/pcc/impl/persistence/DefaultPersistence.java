@@ -1816,12 +1816,10 @@ public class DefaultPersistence implements Persistence {
         try {
             final String[] queries =
             {
-                    "delete from DefaultDailyLimitResourceAllocation where userData.id = ${userId}",
                     "delete from DefaultResourceAllocation where userData.id = ${userId}",
                     "delete from DefaultBooking where userData.id = ${userId}",
                     "delete from DefaultDailyPlan where userData.id = ${userId}",
                     "delete from DefaultDailySchedule where userData.id = ${userId}",
-                    // "delete from DefaultResource where userData.id = ${userId}",
                     "delete from DefaultTask where userData.id = ${userId}",
                     "delete from DefaultEvent where userData.id = ${userId}",
                     "delete from DefaultMilestone where userData.id = ${userId}",
