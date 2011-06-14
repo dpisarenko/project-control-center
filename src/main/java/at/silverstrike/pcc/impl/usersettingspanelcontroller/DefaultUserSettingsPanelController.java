@@ -30,7 +30,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
-import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthParameters;
 import com.google.gdata.client.calendar.CalendarService;
@@ -49,7 +48,6 @@ import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
-import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.UserData;
@@ -155,6 +153,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     public void
             writeDataToGoogle(final String aAuthorizationCode) {
         calculatePlan();
+        LOGGER.debug("Calculated the plan");
         exportBookingsToGoogleCalendar(aAuthorizationCode);
 
     }
@@ -172,6 +171,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                             jsonFactory,
                             CLIENT_ID, CLIENT_SECRET, aAuthorizationCode,
                             REDIRECT_URL).execute();
+            LOGGER.debug("response: {}", response);
             // End of Step 2 <--
 
             final GoogleAccessProtectedResource accessProtectedResource =
@@ -180,21 +180,29 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                             CLIENT_ID, CLIENT_SECRET,
                             response.refreshToken);
 
+            LOGGER.debug("accessProtectedResource: {}", accessProtectedResource);
+            
             final OAuthParameters oauth = new OAuthParameters();
             oauth.setOAuthConsumerKey(CLIENT_ID);
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(accessProtectedResource.getAccessToken());
 
+            LOGGER.debug("oauth: {}", oauth);
+            
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
             calendarService.setOAuthCredentials(oauth, null);
 
+            LOGGER.debug("resultFeed: {}", calendarService);
+            
             final URL feedUrl =
                     new URL(
                             "http://www.google.com/calendar/feeds/default/allcalendars/full");
             final CalendarFeed resultFeed =
                     calendarService.getFeed(feedUrl, CalendarFeed.class);
 
+            LOGGER.debug("resultFeed: {}", resultFeed);
+            
             final List<CalendarEntry> entries = resultFeed.getEntries();
 
             LOGGER.debug("Entries (START)");
@@ -301,11 +309,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         try {
             scheduler.run();
-
-            final WebGuiBus webGuiBus =
-                    this.injector.getInstance(WebGuiBus.class);
-            webGuiBus.broadcastPlanCalculatedMessage();
-
         } catch (final InvalidDurationException exception) {
             LOGGER.error("", exception);
         } catch (final PccException exception) {
