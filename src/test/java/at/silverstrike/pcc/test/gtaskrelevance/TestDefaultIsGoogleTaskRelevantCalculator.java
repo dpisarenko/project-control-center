@@ -43,6 +43,7 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
+        task.set("title", "bla-bla task");
         task.set(IsGoogleTaskRelevantCalculator.COMPLETED,
                 "2011-06-10T11:44:22.300Z");
         task.set(IsGoogleTaskRelevantCalculator.PARENT,
@@ -70,6 +71,7 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
+        task.set("title", "bla-bla task");
         task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
         task.set(IsGoogleTaskRelevantCalculator.NOTES, null);
         task.set(IsGoogleTaskRelevantCalculator.PARENT,
@@ -85,6 +87,7 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
+        task.set("title", "bla-bla task");
         task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
         task.set(IsGoogleTaskRelevantCalculator.NOTES, "   ");
         task.set(IsGoogleTaskRelevantCalculator.PARENT,
@@ -100,6 +103,7 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
+        task.set("title", "bla-bla task");
         task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
         task.set(IsGoogleTaskRelevantCalculator.NOTES, "   ");
         task.set(IsGoogleTaskRelevantCalculator.PARENT,
@@ -115,6 +119,7 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
 
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
+        task.set("title", "bla-bla task");
         task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
         task.set(IsGoogleTaskRelevantCalculator.NOTES, "3h");
         task.set(IsGoogleTaskRelevantCalculator.PARENT,
@@ -123,6 +128,29 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         Assert.assertTrue(getActualRelevance(objectUnderTest, task));
     }
 
+    @Test
+    public void testTopLevelTaskWithEmptyName() {
+        final IsGoogleTaskRelevantCalculator objectUnderTest =
+                getObjectUnderTest();
+
+        final com.google.api.services.tasks.v1.model.Task task = new Task();
+
+        task.set("title", "   ");
+
+        Assert.assertFalse(getActualRelevance(objectUnderTest, task));
+    }
+    @Test
+    public void testTopLevelTaskWithNullName() {
+        final IsGoogleTaskRelevantCalculator objectUnderTest =
+                getObjectUnderTest();
+
+        final com.google.api.services.tasks.v1.model.Task task = new Task();
+
+        task.set("title", null);
+
+        Assert.assertFalse(getActualRelevance(objectUnderTest, task));
+    }
+    
     private boolean getActualRelevance(
             final IsGoogleTaskRelevantCalculator objectUnderTest,
             final com.google.api.services.tasks.v1.model.Task task) {

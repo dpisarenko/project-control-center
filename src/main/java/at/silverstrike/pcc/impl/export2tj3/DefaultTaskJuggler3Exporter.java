@@ -426,6 +426,8 @@ class DefaultTaskJuggler3Exporter implements TaskJuggler3Exporter {
             if (proc instanceof Task) {
                 final Task task = (Task) proc;
 
+                LOGGER.debug("task: " + task.getName());
+
                 if (!persistence.hasChildren(task)) {
                     checkTimingResolution(task, task.getBestCaseEffort());
                     checkTimingResolution(task, task.getAverageCaseEffort());

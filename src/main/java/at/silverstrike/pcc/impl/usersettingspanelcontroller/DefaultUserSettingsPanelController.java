@@ -68,9 +68,12 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private static final String REDIRECT_URL = "urn:ietf:wg:oauth:2.0:oob";
     private static final String CLIENT_SECRET = "8dKZsmt4W2YwQwcw3WyFZy6x";
     private static final String APPLICATION_NAME = "PCC";
-    private static final String SCOPE_CALENDAR = "https://www.google.com/calendar/feeds/";
-    private static final String SCOPE_TASKS = "https://www.googleapis.com/auth/tasks";
-    private static final String CLIENT_ID = "482402692152.apps.googleusercontent.com";
+    private static final String SCOPE_CALENDAR =
+            "https://www.google.com/calendar/feeds/";
+    private static final String SCOPE_TASKS =
+            "https://www.googleapis.com/auth/tasks";
+    private static final String CLIENT_ID =
+            "482402692152.apps.googleusercontent.com";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultUserSettingsPanelController.class);
     private static final int ONE_MONTH = 1;
@@ -156,13 +159,13 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     }
 
-    private void exportBookingsToGoogleCalendar(final String aAuthorizationCode) {
+    private void
+            exportBookingsToGoogleCalendar(final String aAuthorizationCode) {
         final HttpTransport httpTransport = new NetHttpTransport();
         final JacksonFactory jsonFactory = new JacksonFactory();
 
         try {
 
-            
             // Step 2: Exchange -->
             final AccessTokenResponse response =
                     new GoogleAuthorizationCodeGrant(httpTransport,
@@ -177,22 +180,23 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                             CLIENT_ID, CLIENT_SECRET,
                             response.refreshToken);
 
-            
-            
             final OAuthParameters oauth = new OAuthParameters();
             oauth.setOAuthConsumerKey(CLIENT_ID);
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(accessProtectedResource.getAccessToken());
 
-            final CalendarService calendarService = new CalendarService(APPLICATION_NAME);
+            final CalendarService calendarService =
+                    new CalendarService(APPLICATION_NAME);
             calendarService.setOAuthCredentials(oauth, null);
 
-            final URL feedUrl = new URL("http://www.google.com/calendar/feeds/default/allcalendars/full");
+            final URL feedUrl =
+                    new URL(
+                            "http://www.google.com/calendar/feeds/default/allcalendars/full");
             final CalendarFeed resultFeed =
-                calendarService.getFeed(feedUrl, CalendarFeed.class);
+                    calendarService.getFeed(feedUrl, CalendarFeed.class);
 
             final List<CalendarEntry> entries = resultFeed.getEntries();
-            
+
             LOGGER.debug("Entries (START)");
 
             for (final CalendarEntry entry : entries) {
@@ -211,11 +215,12 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             }
 
             LOGGER.debug("Entries (END)");
-            
+
             // Read bookings
-//            final UserData user =
-//                    (UserData) TPTApplication.getCurrentApplication().getUser();
-//            final List<Booking> bookings = this.persistence.getBookings(user);
+            // final UserData user =
+            // (UserData) TPTApplication.getCurrentApplication().getUser();
+            // final List<Booking> bookings =
+            // this.persistence.getBookings(user);
 
         } catch (final OAuthException exception) {
             LOGGER.error("", exception);
@@ -264,6 +269,14 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         final List<SchedulingObject> schedulingObjectsToExport =
                 persistence.getTopLevelTasks(user);
+
+        LOGGER.debug("SCHEDULING OBJECTS TO EXPORT (START)");
+        for (final SchedulingObject curSchedulingObject : schedulingObjectsToExport) {
+            LOGGER.debug("Name: {}, ID: {}",
+                    new Object[] { curSchedulingObject.getName(),
+                            curSchedulingObject.getId() });
+        }
+        LOGGER.debug("SCHEDULING OBJECTS TO EXPORT (END)");
 
         scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
                 schedulingObjectsToExport);

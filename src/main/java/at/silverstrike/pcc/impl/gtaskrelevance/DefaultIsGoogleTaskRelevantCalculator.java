@@ -40,11 +40,13 @@ class DefaultIsGoogleTaskRelevantCalculator implements
         final boolean completed = (task.completed != null);
         final boolean topLevelTask = StringUtils.isBlank(task.parent);
         final boolean effortSpecified = isEffortSpecified(task.notes);
+        final boolean titleBlank = StringUtils.isBlank(task.title);
 
         LOGGER.debug("completed: {}, topLevelTask: {}, effortSpecified: {}",
                 new Object[] { completed, topLevelTask, effortSpecified });
-
-        if (completed) {
+        if (titleBlank) {
+            this.relevant = false;
+        } else if (completed) {
             this.relevant = false;
         } else if (topLevelTask && !effortSpecified) {
             this.relevant = true;
