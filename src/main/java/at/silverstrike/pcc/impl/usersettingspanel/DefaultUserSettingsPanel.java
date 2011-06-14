@@ -70,7 +70,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     }
 
     private VerticalLayout getButtonPanel() {
-        requestAuthCodeCaption = TM.get("usersettingspanel.7-request-auth-code");
+        requestAuthCodeCaption =
+                TM.get("usersettingspanel.7-request-auth-code");
         final Button requestAuthCodeButton =
                 new Button(requestAuthCodeCaption);
         fetchDataButtonCaption = TM.get("usersettingspanel.4-fetch-tasks");
@@ -106,10 +107,12 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
                 new Object[] { buttonCaption, this.fetchDataButtonCaption });
         if (this.requestAuthCodeCaption.equals(buttonCaption)) {
             this.controller.requestGoogleAuthorizationCode();
-        }
-        else if (this.fetchDataButtonCaption.equals(buttonCaption)) {
-            this.controller.fetchData((String)this.googleCodeTextField.getValue());
+        } else if (this.fetchDataButtonCaption.equals(buttonCaption)) {
+            this.controller.fetchData((String) this.googleCodeTextField
+                    .getValue());
         } else if (this.writeDataToGoogleButtonCaption.equals(buttonCaption)) {
+            this.controller.writeDataToGoogle((String) this.googleCodeTextField
+                    .getValue());
         }
     }
 }
