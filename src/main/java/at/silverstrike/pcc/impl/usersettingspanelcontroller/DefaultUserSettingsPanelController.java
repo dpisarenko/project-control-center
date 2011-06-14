@@ -32,6 +32,7 @@ import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthParameters;
+import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.Link;
 import com.google.gdata.data.calendar.CalendarEntry;
@@ -191,15 +192,18 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
-            calendarService.setOAuthCredentials(oauth, null);
-
-            LOGGER.debug("resultFeed: {}", calendarService);
+            calendarService.setOAuthCredentials(oauth, new OAuthRsaSha1Signer());
+                        
+            
+            LOGGER.debug("calendarService: {}", calendarService);
             
             final URL feedUrl =
                     new URL(
                             "http://www.google.com/calendar/feeds/default/allcalendars/full");
             final CalendarFeed resultFeed =
                     calendarService.getFeed(feedUrl, CalendarFeed.class);
+            
+            
 
             LOGGER.debug("resultFeed: {}", resultFeed);
             
