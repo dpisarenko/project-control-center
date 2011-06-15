@@ -65,7 +65,7 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
  */
 class DefaultUserSettingsPanelController implements UserSettingsPanelController {
     private static final String REDIRECT_URL = "urn:ietf:wg:oauth:2.0:oob";
-    private static final String CLIENT_SECRET = "8dKZsmt4W2YwQwcw3WyFZy6x";
+    private static final String CLIENT_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
     private static final String APPLICATION_NAME = "PCC";
     private static final String SCOPE_CALENDAR =
             "https://www.google.com/calendar/feeds/";
@@ -165,7 +165,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         final JacksonFactory jsonFactory = new JacksonFactory();
 
         try {
-
             // Step 2: Exchange -->
             final AccessTokenResponse response =
                     new GoogleAuthorizationCodeGrant(httpTransport,
@@ -184,7 +183,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             LOGGER.debug("accessProtectedResource: {}", accessProtectedResource);
             
             final OAuthParameters oauth = new OAuthParameters();
-            oauth.setOAuthConsumerKey(CLIENT_ID);
+            oauth.setOAuthConsumerKey("pcchq.com");
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(accessProtectedResource.getAccessToken());
 

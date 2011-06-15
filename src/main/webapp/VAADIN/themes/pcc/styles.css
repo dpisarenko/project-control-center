@@ -20,3 +20,129 @@
 
 .v-tree-node-schedulingObjectWithErrors { color:red; }
 .v-tree-node-schedulingObjectWithoutErrors { color:black; }
+
+/**
+ * Entry page stylesheet (START)
+ * @charset "utf-8";
+ */
+body {
+margin:0;
+padding:0;
+background-color:#666;
+}
+
+#title_tbl {
+	background:url(img/bg_title.jpg) repeat-x;
+	height:54px;
+}
+
+#content_tbl {
+	background-color:#FFF;
+}
+
+#request_box_content {
+	background:url(img/request_box_content.png) no-repeat;
+	text-align:center;
+}
+
+#login_content {
+	background:url(img/login_bg.jpg) repeat-x;
+	text-align:left;
+}
+
+#login_btn {
+	margin-left:10px;
+	margin-top:5px;
+}
+
+#footer {
+	 background:url(img/footer_bg.jpg) repeat-x;
+}
+
+h1#request_suc {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:24px;
+	font-weight:bold;
+	margin:0; padding:0;
+	letter-spacing:-2px;
+	color:#454545;
+	text-align:center;
+}
+
+#request_tbl {
+	text-align:center;
+	background:url(img/rq_bg.jpg) repeat-x;
+}
+
+h1 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:24px;
+	font-weight:bold;
+	margin:0; padding:0;
+	letter-spacing:-2px;
+	color:#454545;
+}
+
+h2 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:15px;
+	font-weight:bold;
+	margin:0; padding:0;
+	letter-spacing:-1px;
+	text-indent:10px;
+}
+
+h3 {
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	font-weight: normal;
+	margin:0; padding:0;
+	letter-spacing:-1px;
+	text-indent:10px;
+	color:#454545;
+}
+
+h4 {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size:27px;
+	font-weight:900;
+	text-transform:uppercase;
+	letter-spacing:-3px;
+	margin:0; padding:0;
+	color:#454545;
+}
+
+h5 {
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:15px;
+	letter-spacing:3.4px;
+	text-transform:uppercase;
+	font-weight:lighter;
+	margin:0; padding:0;
+}
+
+p.app_txt{
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	font-weight:lighter;
+	margin-left:10px;
+	margin-top:0;
+	line-height:15px;
+}
+
+span.app_txt{
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:12px;
+	font-weight:lighter;
+	color:#1589b1;
+}
+
+.login_input{
+	margin-left:10px;
+	margin-top:5px;
+	margin-bottom:10px;
+}
+/**
+ * Entry page stylesheet (END)
+ */
+ 
