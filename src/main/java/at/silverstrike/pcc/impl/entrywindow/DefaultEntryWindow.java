@@ -63,34 +63,64 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
     @Override
     public void initGui() {
         final CustomLayout customLayout = new CustomLayout("entrywindow");
-        
+
         window = new Window(TM.get("entrywindow.1-title"));
         window.setContent(customLayout);
-        
+
         // titleLettering
-        
-        final Label titleLettering = new Label(TM.get("entrywindow.11-titleLettering"));
+
+        final Label titleLettering =
+                new Label(TM.get("entrywindow.11-titleLettering"));
+
+        final Label tagline = new Label(TM.get("entrywindow.12-tagline"));
+        final Label privateBetaTesterLogin =
+                new Label(TM.get("entrywindow.13-privateBetaTesterLogin"));
+        final Label theProblemTitle =
+                new Label(TM.get("entrywindow.14-theProblemTitle"));
+        final Label theProblemText =
+                new Label(TM.get("entrywindow.15-theProblemText"));
+        final Label theSolutionTitle =
+                new Label(TM.get("entrywindow.16-theSolutionTitle"));
+        final Label theSolutionText =
+                new Label(TM.get("entrywindow.17-theSolutionText"));
+        final Label theNextStepTitle =
+                new Label(TM.get("entrywindow.18-theNextStepTitle"));
+        final Label theNextStepText =
+                new Label(TM.get("entrywindow.19-theNextStepText"));
+        final Label copyright = new Label(TM.get("entrywindow.20-copyright"));
+
         customLayout.addComponent(titleLettering, "titleLettering");
+        customLayout.addComponent(tagline, "tagline");
+        customLayout.addComponent(privateBetaTesterLogin, "privateBetaTesterLogin");
+        customLayout.addComponent(theProblemTitle, "theProblemTitle");
+        customLayout.addComponent(theProblemText, "theProblemText");
+        customLayout.addComponent(theSolutionTitle, "theSolutionTitle");
+        customLayout.addComponent(theSolutionText, "theSolutionText");
+        customLayout.addComponent(theNextStepTitle, "theNextStepTitle");
+        customLayout.addComponent(theNextStepText, "theNextStepText");
+        customLayout.addComponent(copyright, "copyright");
         
-//        final GridLayout layout = new GridLayout(2, 1);
-//
-//        layout.setSizeFull();
-//        initAuthPanel();
-//
-//        requestInviteButtonCaption =
-//                TM.get("entrywindow.9-requestInviteButton");
-//        final Button requestInviteButton =
-//                new Button(requestInviteButtonCaption);
-//        requestInviteButton.addListener(this);
-//
-//        this.signupLabel =
-//                new Label(TM.get("entrywindow.4-signuplabel"),
-//                        Label.CONTENT_XHTML);
-//
-//        layout.addComponent(requestInviteButton, 0, 0);
-//        layout.addComponent(this.authPanel, 1, 0);
-//
-//        window.addComponent(layout);
+        
+
+        // final GridLayout layout = new GridLayout(2, 1);
+        //
+        // layout.setSizeFull();
+        // initAuthPanel();
+        //
+        // requestInviteButtonCaption =
+        // TM.get("entrywindow.9-requestInviteButton");
+        // final Button requestInviteButton =
+        // new Button(requestInviteButtonCaption);
+        // requestInviteButton.addListener(this);
+        //
+        // this.signupLabel =
+        // new Label(TM.get("entrywindow.4-signuplabel"),
+        // Label.CONTENT_XHTML);
+        //
+        // layout.addComponent(requestInviteButton, 0, 0);
+        // layout.addComponent(this.authPanel, 1, 0);
+        //
+        // window.addComponent(layout);
     }
 
     @Override
@@ -113,7 +143,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         loginButtonCaption = TM.get("entrywindow.3-authenticateButton");
         loginButton = new Button(loginButtonCaption);
         loginButton.addListener(this);
-        
+
         gridLayout.addComponent(emailLabel, 0, 0);
         gridLayout.addComponent(emailTextField, 1, 0);
 
