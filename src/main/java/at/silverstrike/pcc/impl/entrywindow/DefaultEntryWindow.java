@@ -65,10 +65,13 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final CustomLayout customLayout = new CustomLayout("entrywindow");
         
         window = new Window(TM.get("entrywindow.1-title"));
-//        window.setSizeFull();
-
         window.setContent(customLayout);
-//        
+        
+        // titleLettering
+        
+        final Label titleLettering = new Label(TM.get("entrywindow.11-titleLettering"));
+        customLayout.addComponent(titleLettering, "titleLettering");
+        
 //        final GridLayout layout = new GridLayout(2, 1);
 //
 //        layout.setSizeFull();
