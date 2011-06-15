@@ -78,16 +78,16 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label theProblemTitle =
                 new Label(TM.get("entrywindow.14-theProblemTitle"));
         final Label theProblemText =
-                new Label(TM.get("entrywindow.15-theProblemText"));
+                new Label(TM.get("entrywindow.15-theProblemText"), Label.CONTENT_XHTML);
         final Label theSolutionTitle =
                 new Label(TM.get("entrywindow.16-theSolutionTitle"));
         final Label theSolutionText =
-                new Label(TM.get("entrywindow.17-theSolutionText"));
+                new Label(TM.get("entrywindow.17-theSolutionText"), Label.CONTENT_XHTML);
         final Label theNextStepTitle =
                 new Label(TM.get("entrywindow.18-theNextStepTitle"));
         final Label theNextStepText =
                 new Label(TM.get("entrywindow.19-theNextStepText"));
-        final Label copyright = new Label(TM.get("entrywindow.20-copyright"));
+        final Label copyright = new Label(TM.get("entrywindow.20-copyright"), Label.CONTENT_XHTML);
 
         customLayout.addComponent(titleLettering, "titleLettering");
         customLayout.addComponent(tagline, "tagline");
