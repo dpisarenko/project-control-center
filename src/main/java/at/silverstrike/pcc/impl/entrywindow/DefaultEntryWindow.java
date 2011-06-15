@@ -17,6 +17,7 @@ import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
@@ -61,28 +62,32 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
     @Override
     public void initGui() {
+        final CustomLayout customLayout = new CustomLayout("entrywindow");
+        
         window = new Window(TM.get("entrywindow.1-title"));
         window.setSizeFull();
 
-        final GridLayout layout = new GridLayout(2, 1);
-
-        layout.setSizeFull();
-        initAuthPanel();
-
-        requestInviteButtonCaption =
-                TM.get("entrywindow.9-requestInviteButton");
-        final Button requestInviteButton =
-                new Button(requestInviteButtonCaption);
-        requestInviteButton.addListener(this);
-
-        this.signupLabel =
-                new Label(TM.get("entrywindow.4-signuplabel"),
-                        Label.CONTENT_XHTML);
-
-        layout.addComponent(requestInviteButton, 0, 0);
-        layout.addComponent(this.authPanel, 1, 0);
-
-        window.addComponent(layout);
+        window.setContent(customLayout);
+//        
+//        final GridLayout layout = new GridLayout(2, 1);
+//
+//        layout.setSizeFull();
+//        initAuthPanel();
+//
+//        requestInviteButtonCaption =
+//                TM.get("entrywindow.9-requestInviteButton");
+//        final Button requestInviteButton =
+//                new Button(requestInviteButtonCaption);
+//        requestInviteButton.addListener(this);
+//
+//        this.signupLabel =
+//                new Label(TM.get("entrywindow.4-signuplabel"),
+//                        Label.CONTENT_XHTML);
+//
+//        layout.addComponent(requestInviteButton, 0, 0);
+//        layout.addComponent(this.authPanel, 1, 0);
+//
+//        window.addComponent(layout);
     }
 
     @Override
