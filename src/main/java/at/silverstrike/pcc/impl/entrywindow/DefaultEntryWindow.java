@@ -66,7 +66,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         window = new Window(TM.get("entrywindow.1-title"));
         window.setContent(customLayout);
-
+        window.setSizeFull();
         // titleLettering
 
         final Label titleLettering =
@@ -79,14 +79,14 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
                 new Label(TM.get("entrywindow.14-theProblemTitle"));
         final Label theProblemText =
                 new Label(TM.get("entrywindow.15-theProblemText"), Label.CONTENT_XHTML);
-        final Label theSolutionTitle =
-                new Label(TM.get("entrywindow.16-theSolutionTitle"));
-        final Label theSolutionText =
-                new Label(TM.get("entrywindow.17-theSolutionText"), Label.CONTENT_XHTML);
-        final Label theNextStepTitle =
-                new Label(TM.get("entrywindow.18-theNextStepTitle"));
-        final Label theNextStepText =
-                new Label(TM.get("entrywindow.19-theNextStepText"));
+//        final Label theSolutionTitle =
+//                new Label(TM.get("entrywindow.16-theSolutionTitle"));
+//        final Label theSolutionText =
+//                new Label(TM.get("entrywindow.17-theSolutionText"), Label.CONTENT_XHTML);
+//        final Label theNextStepTitle =
+//                new Label(TM.get("entrywindow.18-theNextStepTitle"));
+//        final Label theNextStepText =
+//                new Label(TM.get("entrywindow.19-theNextStepText"), Label.CONTENT_XHTML);
         final Label copyright = new Label(TM.get("entrywindow.20-copyright"), Label.CONTENT_XHTML);
 
         customLayout.addComponent(titleLettering, "titleLettering");
@@ -94,10 +94,10 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         customLayout.addComponent(privateBetaTesterLogin, "privateBetaTesterLogin");
         customLayout.addComponent(theProblemTitle, "theProblemTitle");
         customLayout.addComponent(theProblemText, "theProblemText");
-        customLayout.addComponent(theSolutionTitle, "theSolutionTitle");
-        customLayout.addComponent(theSolutionText, "theSolutionText");
-        customLayout.addComponent(theNextStepTitle, "theNextStepTitle");
-        customLayout.addComponent(theNextStepText, "theNextStepText");
+//        customLayout.addComponent(theSolutionTitle, "theSolutionTitle");
+//        customLayout.addComponent(theSolutionText, "theSolutionText");
+//        customLayout.addComponent(theNextStepTitle, "theNextStepTitle");
+//        customLayout.addComponent(theNextStepText, "theNextStepText");
         customLayout.addComponent(copyright, "copyright");
         
         
