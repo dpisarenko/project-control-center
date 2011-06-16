@@ -37,8 +37,7 @@
 											</tr>
 											<tr>
 												<td><img src="img/member_title_02.png"
-													alt="member title box image" width="290" height="10" />
-												</td>
+													alt="member title box image" width="290" height="10" /></td>
 											</tr>
 										</table>
 									</td>
@@ -50,26 +49,13 @@
 								<tr>
 									<td width="44">&nbsp;</td>
 									<td width="396" valign="top">
+										<!-- 
 										<h1>
 											<div location="theProblemTitle" />
 										</h1>
-										<p class="app_txt">
-											<div location="theProblemText" />
-										</p>
+										 -->
 
-										<h1>
-											<div location="theSolutionTitle" />
-										</h1>
-										<p class="app_txt">
-											<div location="theSolutionText" />
-										</p>
-
-										<h1>
-											<div location="theNextStepTitle" />
-										</h1>
-										<p class="app_txt">
-											<div location="theNextStepText" />
-										</p> <!--REQUEST BOX BEGINS-->
+										<div class="app_txt" location="theProblemText" /> adsassf <!--REQUEST BOX BEGINS-->
 										<table id="request_tbl" width="290" border="0" cellpadding="0"
 											cellspacing="0" align="center">
 											<tr>
@@ -83,8 +69,10 @@
 											<tr>
 												<td><img src="img/request_box_left.png" width="2"
 													height="75" alt="" /></td>
-												<td id="request_box_content"><span class="app_txt">Interested
-														in the application?</span>
+												<td id="request_box_content">
+												
+												<span class="app_txt"><div location="invitationPanelTitle" /></span>
+													<div location="emailTextField" />
 													<form action="request.html">
 														<input name="email_request" type="text"
 															value="Please Enter your Email" size="30" /> <input
@@ -119,12 +107,11 @@
 																		<td id="login_content">
 																			<form action="login.html" method="post"
 																				target="_self">
-																				<h2>Username</h2>
+																				<h2><div location="usernameLettering" /></h2>
 																				<input class="login_input" type="text" size="35" />
-																				<h2>Password</h2>
+																				<h2><div location="passwortLettering" /></h2>
 																				<input class="login_input" type="text" size="35" />
-																				<input id="login_btn" name="" type="submit"
-																					value="Login" />
+																				<div location="loginButton" />
 																			</form>
 																		</td>
 																		<td><img src="img/login_right.png" width="8"
@@ -147,8 +134,9 @@
 											<tr>
 												<td id="video_atr">
 													<!-- ///// COMMENT THIS PART TO HIDE THIS SECTION - BEGINS \\\\\ -->
-													<h1>See it in action</h1> <img src="img/video_ie.jpg"
-													width="386" height="312" /> <!-- ///// COMMENT THIS PART TO HIDE THIS SECTION - ENDS \\\\\ -->
+													<!-- <h1>See it in action</h1> <img src="img/video_ie.jpg"
+													width="386" height="312" /> 
+													--> <!-- ///// COMMENT THIS PART TO HIDE THIS SECTION - ENDS \\\\\ -->
 												</td>
 											</tr>
 										</table> <!--LOGIN AND VIDEO TABLE ENDS--></td>

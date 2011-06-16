@@ -78,29 +78,45 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label theProblemTitle =
                 new Label(TM.get("entrywindow.14-theProblemTitle"));
         final Label theProblemText =
-                new Label(TM.get("entrywindow.15-theProblemText"), Label.CONTENT_XHTML);
-//        final Label theSolutionTitle =
-//                new Label(TM.get("entrywindow.16-theSolutionTitle"));
-//        final Label theSolutionText =
-//                new Label(TM.get("entrywindow.17-theSolutionText"), Label.CONTENT_XHTML);
-//        final Label theNextStepTitle =
-//                new Label(TM.get("entrywindow.18-theNextStepTitle"));
-//        final Label theNextStepText =
-//                new Label(TM.get("entrywindow.19-theNextStepText"), Label.CONTENT_XHTML);
-        final Label copyright = new Label(TM.get("entrywindow.20-copyright"), Label.CONTENT_XHTML);
+                new Label(TM.get("entrywindow.15-theProblemText"),
+                        Label.CONTENT_XHTML);
+        // final Label theSolutionTitle =
+        // new Label(TM.get("entrywindow.16-theSolutionTitle"));
+        // final Label theSolutionText =
+        // new Label(TM.get("entrywindow.17-theSolutionText"),
+        // Label.CONTENT_XHTML);
+        // final Label theNextStepTitle =
+        // new Label(TM.get("entrywindow.18-theNextStepTitle"));
+        // final Label theNextStepText =
+        // new Label(TM.get("entrywindow.19-theNextStepText"),
+        // Label.CONTENT_XHTML);
+        final Label copyright =
+                new Label(TM.get("entrywindow.20-copyright"),
+                        Label.CONTENT_XHTML);
+        final Label invitationPanelTitle =
+                new Label(TM.get("entrywindow.21-invitationPanelTitle"));
+        final TextField emailTextField = new TextField();
+        final Button loginButton =
+                new Button(TM.get("entrywindow.22-loginButton"));
+        final Label usernameLettering = new Label(TM.get("entrywindow.23-usernameLettering"));
+        final Label passwortLettering = new Label(TM.get("entrywindow.24-passwortLettering"));
 
         customLayout.addComponent(titleLettering, "titleLettering");
         customLayout.addComponent(tagline, "tagline");
-        customLayout.addComponent(privateBetaTesterLogin, "privateBetaTesterLogin");
+        customLayout.addComponent(privateBetaTesterLogin,
+                "privateBetaTesterLogin");
         customLayout.addComponent(theProblemTitle, "theProblemTitle");
         customLayout.addComponent(theProblemText, "theProblemText");
-//        customLayout.addComponent(theSolutionTitle, "theSolutionTitle");
-//        customLayout.addComponent(theSolutionText, "theSolutionText");
-//        customLayout.addComponent(theNextStepTitle, "theNextStepTitle");
-//        customLayout.addComponent(theNextStepText, "theNextStepText");
+        // customLayout.addComponent(theSolutionTitle, "theSolutionTitle");
+        // customLayout.addComponent(theSolutionText, "theSolutionText");
+        // customLayout.addComponent(theNextStepTitle, "theNextStepTitle");
+        // customLayout.addComponent(theNextStepText, "theNextStepText");
         customLayout.addComponent(copyright, "copyright");
-        
-        
+        customLayout.addComponent(invitationPanelTitle, "invitationPanelTitle");
+        customLayout.addComponent(emailTextField, "emailTextField");
+        customLayout.addComponent(loginButton, "loginButton");
+        customLayout.addComponent(usernameLettering, "usernameLettering");
+        customLayout.addComponent(passwortLettering, "passwortLettering");
 
         // final GridLayout layout = new GridLayout(2, 1);
         //
