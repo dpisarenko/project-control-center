@@ -67,6 +67,9 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
     }
 
     private void initGuiSimpleLayout() {
+        window = new Window(TM.get("entrywindow.1-title"));
+        window.setSizeFull();
+
         final GridLayout layout = new GridLayout(2, 1);
 
         layout.setSizeFull();
