@@ -40,8 +40,7 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     private static final long serialVersionUID = 1L;
     private UserSettingsPanelController controller;
     private String requestAuthCodeCaption;
-    private String fetchDataButtonCaption;
-    private String writeDataToGoogleButtonCaption;
+    private String calculateSyncDataButtonCaption;
     private TextField googleCodeTextField;
 
     @Override
@@ -74,23 +73,17 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
                 TM.get("usersettingspanel.7-request-auth-code");
         final Button requestAuthCodeButton =
                 new Button(requestAuthCodeCaption);
-        fetchDataButtonCaption = TM.get("usersettingspanel.4-fetch-tasks");
-        final Button fetchDataButton =
-                new Button(fetchDataButtonCaption);
-        writeDataToGoogleButtonCaption =
-                TM.get("usersettingspanel.5-write-bookings");
-        final Button writeDataToGoogleButton =
-                new Button(writeDataToGoogleButtonCaption);
+        calculateSyncDataButtonCaption = TM.get("usersettingspanel.4-fetch-tasks");
+        final Button calculateSyncDataButton =
+                new Button(calculateSyncDataButtonCaption);
 
         final VerticalLayout buttonPanel = new VerticalLayout();
 
         requestAuthCodeButton.addListener(this);
-        fetchDataButton.addListener(this);
-        writeDataToGoogleButton.addListener(this);
+        calculateSyncDataButton.addListener(this);
 
         buttonPanel.addComponent(requestAuthCodeButton);
-        buttonPanel.addComponent(fetchDataButton);
-        buttonPanel.addComponent(writeDataToGoogleButton);
+        buttonPanel.addComponent(calculateSyncDataButton);
         return buttonPanel;
     }
 
@@ -104,14 +97,11 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         final String buttonCaption = aEvent.getButton().getCaption();
 
         LOGGER.debug("buttonCaption: '{}', this.fetchDataButtonCaption: '{}'",
-                new Object[] { buttonCaption, this.fetchDataButtonCaption });
+                new Object[] { buttonCaption, this.calculateSyncDataButtonCaption });
         if (this.requestAuthCodeCaption.equals(buttonCaption)) {
             this.controller.requestGoogleAuthorizationCode();
-        } else if (this.fetchDataButtonCaption.equals(buttonCaption)) {
-            this.controller.fetchData((String) this.googleCodeTextField
-                    .getValue());
-        } else if (this.writeDataToGoogleButtonCaption.equals(buttonCaption)) {
-            this.controller.writeDataToGoogle((String) this.googleCodeTextField
+        } else if (this.calculateSyncDataButtonCaption.equals(buttonCaption)) {
+            this.controller.calculateAndSyncData((String) this.googleCodeTextField
                     .getValue());
         }
     }

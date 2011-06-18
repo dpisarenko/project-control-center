@@ -113,7 +113,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     @Override
-    public void fetchData(final String aAuthorizationCode) {
+    public void calculateAndSyncData(final String aAuthorizationCode) {
         try {
 
             final GoogleTasksServiceCreatorFactory factory =
@@ -145,18 +145,14 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             importer.run();
 
             this.webGuiBus.broadcastTasksImportedFromGoogleMessage();
+            
+            calculatePlan();
+            LOGGER.debug("Calculated the plan");
+            exportBookingsToGoogleCalendar(aAuthorizationCode);
+
         } catch (final PccException exception) {
             LOGGER.error("", exception);
         }
-    }
-
-    @Override
-    public void
-            writeDataToGoogle(final String aAuthorizationCode) {
-        calculatePlan();
-        LOGGER.debug("Calculated the plan");
-        exportBookingsToGoogleCalendar(aAuthorizationCode);
-
     }
 
     private void
