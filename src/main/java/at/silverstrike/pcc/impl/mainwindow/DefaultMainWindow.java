@@ -102,21 +102,23 @@ class DefaultMainWindow implements MainWindow {
 
         mainLayout.addComponent(schedulingPanelController.initGui());
 
-        this.tabSheet.addTab(centralEditingPanel, TM
-                .get("mainwindow.13-central-editing-panel"), null);
-        this.tabSheet.addTab(getDailyPlanPanel(), TM
-                .get("mainwindow.11-daily-plan-panel"), null);
-        this.tabSheet.addTab(getEstimatedCompletionDateTimesPanel(), TM
-                .get("mainwindow.12-estimated-completion-times-panel"), null);
-        this.tabSheet.addTab(getWorkerPanelTab(), TM
-                .get("mainwindow.8-human-resource-tab"), null);
-        this.tabSheet.addTab(getCalendarTab(), TM
-                .get("mainwindow.20-calendar-tab"), null);
-        this.tabSheet.addTab(getInvitationRequestTab(), TM
-                .get("mainwindow.21-invitation-tab"), null);
         this.tabSheet.addTab(getUserSettingsTab(), TM
                 .get("mainwindow.22-user-settings-tab"), null);
+        this.tabSheet.addTab(getInvitationRequestTab(), TM
+                .get("mainwindow.21-invitation-tab"), null);
 
+//        this.tabSheet.addTab(centralEditingPanel, TM
+//                .get("mainwindow.13-central-editing-panel"), null);
+//        this.tabSheet.addTab(getDailyPlanPanel(), TM
+//                .get("mainwindow.11-daily-plan-panel"), null);
+//        this.tabSheet.addTab(getEstimatedCompletionDateTimesPanel(), TM
+//                .get("mainwindow.12-estimated-completion-times-panel"), null);
+//        this.tabSheet.addTab(getWorkerPanelTab(), TM
+//                .get("mainwindow.8-human-resource-tab"), null);
+//        this.tabSheet.addTab(getCalendarTab(), TM
+//                .get("mainwindow.20-calendar-tab"), null);
+
+        
         mainLayout.addComponent(this.tabSheet);
 
         mainWindow.setContent(mainLayout);
