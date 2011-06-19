@@ -43,6 +43,7 @@ import at.silverstrike.pcc.api.eventeditingpanelcontroller.EventEditingPanelCont
 import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.gcalservicecreator.GoogleCalendarServiceCreatorFactory;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
+import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2Factory;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
 import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
 import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverterFactory;
@@ -113,6 +114,7 @@ import at.silverstrike.pcc.impl.eventeditingpanelcontroller.DefaultEventEditingP
 import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.gcalservicecreator.DefaultGoogleCalendarServiceCreatorFactory;
 import at.silverstrike.pcc.impl.gcaltasks2pcc.DefaultGoogleCalendarTasks2PccImporterFactory;
+import at.silverstrike.pcc.impl.gcaltasks2pccimporter.DefaultGoogleCalendarTasks2PccImporter2Factory;
 import at.silverstrike.pcc.impl.googletasksservicecreator.DefaultGoogleTasksServiceCreatorFactory;
 import at.silverstrike.pcc.impl.graph2resource.DefaultGraph2ResourceConverterFactory;
 import at.silverstrike.pcc.impl.gtask2pcctaskconverter.DefaultGoogleTask2PccTaskConverterFactory;
@@ -300,6 +302,8 @@ class InjectorModule extends AbstractModule {
                 new DefaultIsGoogleTaskRelevantCalculatorFactory());
         bind(GoogleTaskNotesParserFactory.class).toInstance(
                 new DefaultGoogleTaskNotesParserFactory());
+        bind(GoogleCalendarTasks2PccImporter2Factory.class).toInstance(new
+                DefaultGoogleCalendarTasks2PccImporter2Factory());
 
     }
 

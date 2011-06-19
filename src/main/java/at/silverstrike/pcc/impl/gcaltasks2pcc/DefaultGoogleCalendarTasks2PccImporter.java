@@ -12,8 +12,6 @@
 package at.silverstrike.pcc.impl.gcaltasks2pcc;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +22,8 @@ import com.google.api.services.tasks.v1.Tasks;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
-import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverter;
-import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverterFactory;
-import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculator;
-import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFactory;
+import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2;
+import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2Factory;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
@@ -51,124 +47,21 @@ class DefaultGoogleCalendarTasks2PccImporter implements
 
         try {
             persistence.removeUserSchedulingObjects(this.user);
-            
+
             final com.google.api.services.tasks.v1.model.Tasks tasks =
                     service.tasks.list("@default").execute();
 
-            final Map<String, com.google.api.services.tasks.v1.model.Task> relevantTasksByIds =
-                    new HashMap<String,
-                    com.google.api.services.tasks.v1.model.Task>();
-
-            getRelevantGoogleTasks(tasks, relevantTasksByIds);
-
-            LOGGER.debug("Relevant tasks: " + relevantTasksByIds.size());
-
-            // Create tasks in PCC database
-            final Map<String, at.silverstrike.pcc.api.model.Task> pccTasksByGoogleIds =
-                    createPccTasks(relevantTasksByIds, persistence);
-
-            // Set parents
-            setParents(persistence, relevantTasksByIds, pccTasksByGoogleIds);
+            final GoogleCalendarTasks2PccImporter2Factory factory =
+                    this.injector
+                            .getInstance(GoogleCalendarTasks2PccImporter2Factory.class);
+            final GoogleCalendarTasks2PccImporter2 importer2 = factory.create();
+            
+            importer2.setGoogleTasks(tasks.items);
+            importer2.setInjector(this.injector);
+            importer2.setUser(this.user);
+            importer2.run();
         } catch (final IOException exception) {
             LOGGER.error("", exception);
-        }
-    }
-
-    private
-            void
-            setParents(
-                    final Persistence aPersistence,
-                    final Map<String, com.google.api.services.tasks.v1.model.Task> aRelevantTasksByIds,
-                    final Map<String, at.silverstrike.pcc.api.model.Task> aPccTasksByGoogleIds) {
-        for (final String curGoogleTaskId : aRelevantTasksByIds.keySet()) {
-            // Fetch child Google Task
-            final com.google.api.services.tasks.v1.model.Task childTask =
-                    aRelevantTasksByIds.get(curGoogleTaskId);
-
-            // Fetch parent ID
-            final String parentId = childTask.parent;
-
-            if (parentId != null) {
-                // Fetch child PCC task
-                final at.silverstrike.pcc.api.model.Task childPccTask =
-                        aPccTasksByGoogleIds.get(curGoogleTaskId);
-
-                // Fetch parent PCC task
-                final at.silverstrike.pcc.api.model.Task parentPccTask =
-                        aPccTasksByGoogleIds.get(parentId);
-
-                // Update child task
-                childPccTask.setParent(parentPccTask);
-
-                aPersistence.updateTask(childPccTask);
-            }
-        }
-    }
-
-    private
-            Map<String, at.silverstrike.pcc.api.model.Task>
-            createPccTasks(
-                    final Map<String, com.google.api.services.tasks.v1.model.Task> aRelevantTasksByIds,
-                    final Persistence aPersistence) {
-        final GoogleTask2PccTaskConverterFactory factory =
-                this.injector
-                        .getInstance(GoogleTask2PccTaskConverterFactory.class);
-        final GoogleTask2PccTaskConverter converter = factory.create();
-
-        converter.setUser(this.user);
-        converter.setInjector(this.injector);
-
-        final Map<String, at.silverstrike.pcc.api.model.Task> pccTasksByGoogleIds =
-                new HashMap<String, at.silverstrike.pcc.api.model.Task>();
-
-        for (final com.google.api.services.tasks.v1.model.Task curTask : aRelevantTasksByIds
-                .values()) {
-            try {
-                converter.setGoogleTask(curTask);
-                converter.run();
-
-                final at.silverstrike.pcc.api.model.Task pccTask =
-                        converter.getPccTask();
-
-                pccTasksByGoogleIds.put(curTask.id, pccTask);
-            } catch (final PccException exception) {
-                LOGGER.error("", exception);
-            }
-        }
-        return pccTasksByGoogleIds;
-    }
-
-    private
-            void
-            getRelevantGoogleTasks(
-                    final com.google.api.services.tasks.v1.model.Tasks tasks,
-                    final Map<String, com.google.api.services.tasks.v1.model.Task> relevantTasksByIds) {
-        final IsGoogleTaskRelevantCalculatorFactory factory =
-                this.injector
-                        .getInstance(IsGoogleTaskRelevantCalculatorFactory.class);
-        final IsGoogleTaskRelevantCalculator relevanceCalculator =
-                factory.create();
-
-        relevanceCalculator.setInjector(this.injector);
-        
-        for (final com.google.api.services.tasks.v1.model.Task curTask : tasks.items) {
-            LOGGER.debug(
-                    "Task list: title='{}', completed='{}', id='{}', kind='{}', notes='{}', parent='{}', position='{}', status='{}', updated='{}'",
-                    new Object[] { curTask.title, curTask.completed,
-                            curTask.id, curTask.kind, curTask.notes,
-                            curTask.parent, curTask.position, curTask.status,
-                            curTask.updated });
-            
-            try {
-                relevanceCalculator.setGoogleTask(curTask);
-                relevanceCalculator.run();
-                if (relevanceCalculator.isRelevant())
-                {
-                    relevantTasksByIds.put(curTask.id, curTask);
-                }
-            } catch (final PccException exception) {
-                LOGGER.error("", exception);
-            }
         }
     }
 
