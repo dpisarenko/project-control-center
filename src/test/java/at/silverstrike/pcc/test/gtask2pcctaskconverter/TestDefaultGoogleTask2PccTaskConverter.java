@@ -88,6 +88,77 @@ public class TestDefaultGoogleTask2PccTaskConverter {
         Assert.assertNull(pccTask2.getWorstCaseEffort());
     }
 
+    public void testReadingLabelsPositive() {
+        final GoogleTask2PccTaskConverter objectUnderTest =
+                getObjectUnderTest();
+
+        final com.google.api.services.tasks.v1.model.Task task1 =
+                new com.google.api.services.tasks.v1.model.Task();
+        task1.set("title", "T1: bla-bla-bla");
+
+        objectUnderTest.setGoogleTask(task1);
+        objectUnderTest.setUser(getUserData());
+        try {
+            objectUnderTest.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+
+        final at.silverstrike.pcc.api.model.Task pccTask =
+                objectUnderTest.getPccTask();
+
+        Assert.assertNotNull(pccTask.getLabel());
+        Assert.assertEquals("T1", pccTask.getLabel());
+    }
+
+    public void testReadingLabelsPositiveMultipleSemicola() {
+        final GoogleTask2PccTaskConverter objectUnderTest =
+                getObjectUnderTest();
+
+        final com.google.api.services.tasks.v1.model.Task task1 =
+                new com.google.api.services.tasks.v1.model.Task();
+        task1.set("title", "T2: T1: bla-bla-bla");
+
+        objectUnderTest.setGoogleTask(task1);
+        objectUnderTest.setUser(getUserData());
+        try {
+            objectUnderTest.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+
+        final at.silverstrike.pcc.api.model.Task pccTask =
+                objectUnderTest.getPccTask();
+
+        Assert.assertNotNull(pccTask.getLabel());
+        Assert.assertEquals("T2", pccTask.getLabel());
+    }
+
+    public void testReadingLabelsNegative() {
+        final GoogleTask2PccTaskConverter objectUnderTest =
+                getObjectUnderTest();
+
+        final com.google.api.services.tasks.v1.model.Task task1 =
+                new com.google.api.services.tasks.v1.model.Task();
+        task1.set("title", "T1 bla-bla-bla");
+
+        objectUnderTest.setGoogleTask(task1);
+        objectUnderTest.setUser(getUserData());
+        try {
+            objectUnderTest.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+
+        final at.silverstrike.pcc.api.model.Task pccTask =
+                objectUnderTest.getPccTask();
+
+        Assert.assertNull(pccTask.getLabel());
+    }
+
     private GoogleTask2PccTaskConverter getObjectUnderTest() {
         final InjectorFactory injectorFactory = new MockInjectorFactory(
                 new MockInjectorModule(new MockPersistence()));
