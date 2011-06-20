@@ -62,8 +62,8 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
     @Override
     public void initGui() {
-        initGuiSimpleLayout();
-        // initGuiCustomLayout();
+//        initGuiSimpleLayout();
+         initGuiCustomLayout();
     }
 
     private void initGuiSimpleLayout() {
