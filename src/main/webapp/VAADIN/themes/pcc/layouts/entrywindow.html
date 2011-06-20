@@ -36,12 +36,10 @@
 				<tr>
 					<td><img src="img/request_box_left.png" width="2" height="75"
 						alt="" /></td>
-					<td id="request_box_content"><span class="app_txt">Interested
-							in the application?</span>
+					<td id="request_box_content"><span class="app_txt"><div location="invitationPanelTitle"/></span>
 						<form action="request.html">
-							<input name="email_request" type="text"
-								value="Please Enter your Email" size="30" /> <input
-								type="submit" value="Request Invitation" />
+							<div location="emailTextField"/>
+							<div location="submitInviationRequestButton"/>
 						</form></td>
 					<td><img src="img/request_box_right.png" width="4" height="75"
 						alt="" /></td>
@@ -68,11 +66,11 @@
 						</td>
 						<td id="login_content">
 							<form action="login.html" method="post" target="_self">
-								<h2>Username</h2>
-								<input class="login_input" type="text" size="35" />
-								<h2>Password</h2>
-								<input class="login_input" type="text" size="50" /> <input
-									id="login_btn" name="" type="submit" value="Login" />
+								<h2><div location="usernameLettering"/></h2>
+								<div location="usernameTextField"/>
+								<h2><div location="passwordLettering"/></h2>
+								<div location="passwordTextField"/>
+								<div location = "loginButton"/>
 							</form>
 						</td>
 						<td><img src="img/loging_right.png" width="15" height="142"
