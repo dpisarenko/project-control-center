@@ -114,6 +114,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label theProblemText =
                 new Label(TM.get("entrywindow.15-theProblemText"),
                         Label.CONTENT_XHTML);
+        theProblemText.setStyleName("about_app");
         // final Label theSolutionTitle =
         // new Label(TM.get("entrywindow.16-theSolutionTitle"));
         // final Label theSolutionText =
