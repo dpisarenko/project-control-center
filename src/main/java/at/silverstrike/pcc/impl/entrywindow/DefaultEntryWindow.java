@@ -128,7 +128,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label copyright =
                 new Label(TM.get("entrywindow.20-copyright"),
                         Label.CONTENT_XHTML);
-        copyright.setStyleName("foot");
+        copyright.setStyleName("footer_container foot");
         
         
         final Label invitationPanelTitle =
