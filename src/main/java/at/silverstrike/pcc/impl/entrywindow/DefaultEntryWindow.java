@@ -133,6 +133,8 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label passwortLettering =
                 new Label(TM.get("entrywindow.24-passwortLettering"));
 
+        final Button submitInviationRequestButton = new Button(TM.get("entrywindow.25-submitInviationRequestButton"));
+        
         final TextField usernameTextField = new TextField();
         final PasswordField passwordTextField = new PasswordField();
 
@@ -145,10 +147,6 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
                 "privateBetaTesterLogin");
         customLayout.addComponent(theProblemTitle, "theProblemTitle");
         customLayout.addComponent(theProblemText, "theProblemText");
-        // customLayout.addComponent(theSolutionTitle, "theSolutionTitle");
-        // customLayout.addComponent(theSolutionText, "theSolutionText");
-        // customLayout.addComponent(theNextStepTitle, "theNextStepTitle");
-        // customLayout.addComponent(theNextStepText, "theNextStepText");
         customLayout.addComponent(copyright, "copyright");
         customLayout.addComponent(invitationPanelTitle, "invitationPanelTitle");
         customLayout.addComponent(emailTextField, "emailTextField");
@@ -157,6 +155,8 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         customLayout.addComponent(passwortLettering, "passwortLettering");
         customLayout.addComponent(usernameTextField, "usernameTextField");
         customLayout.addComponent(passwordTextField, "passwordTextField");
+        customLayout.addComponent(submitInviationRequestButton, "submitInviationRequestButton");
+        
     }
 
     @Override
