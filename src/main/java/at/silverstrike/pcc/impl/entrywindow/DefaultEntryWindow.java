@@ -17,12 +17,12 @@ import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
 
@@ -92,82 +92,96 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
     }
 
     private void initGuiCustomLayout() {
-        final CustomLayout customLayout = new CustomLayout("entrywindow");
-        
-        window = new Window(TM.get("entrywindow.1-title"));
-        window.setContent(customLayout);
-        window.setSizeFull();
-        // titleLettering
+        final GridLayout mainLayout = new GridLayout(2, 2);
 
-        final Label titleLettering =
-                new Label(TM.get("entrywindow.11-titleLettering"),
+        window = new Window(TM.get("entrywindow.1-title"));
+        window.setContent(mainLayout);
+        window.setSizeFull();
+
+        final VerticalLayout leftLayout = getLeftLayout();
+        final VerticalLayout rightLayout = getRightLayout();
+
+        final Label copyright =
+                new Label(TM.get("entrywindow.20-copyright"),
                         Label.CONTENT_XHTML);
 
-        final Label tagline = new Label(TM.get("entrywindow.12-tagline"),
-                Label.CONTENT_XHTML);
+        mainLayout.addComponent(leftLayout, 0, 0);
+        mainLayout.addComponent(rightLayout, 1, 0);
+        mainLayout.addComponent(copyright, 0, 1, 1, 1);
+    }
+
+    private VerticalLayout getRightLayout() {
+        final VerticalLayout layout = new VerticalLayout();
+
         final Label privateBetaTesterLogin =
                 new Label(TM.get("entrywindow.13-privateBetaTesterLogin"),
                         Label.CONTENT_XHTML);
         privateBetaTesterLogin.setStyleName("login_title");
-        final Label theProblemTitle =
-                new Label(TM.get("entrywindow.14-theProblemTitle"));
-        final Label theProblemText =
-                new Label(TM.get("entrywindow.15-theProblemText"),
-                        Label.CONTENT_XHTML);
-        theProblemText.setStyleName("about_app");
-        // final Label theSolutionTitle =
-        // new Label(TM.get("entrywindow.16-theSolutionTitle"));
-        // final Label theSolutionText =
-        // new Label(TM.get("entrywindow.17-theSolutionText"),
-        // Label.CONTENT_XHTML);
-        // final Label theNextStepTitle =
-        // new Label(TM.get("entrywindow.18-theNextStepTitle"));
-        // final Label theNextStepText =
-        // new Label(TM.get("entrywindow.19-theNextStepText"),
-        // Label.CONTENT_XHTML);
-        final Label copyright =
-                new Label(TM.get("entrywindow.20-copyright"),
-                        Label.CONTENT_XHTML);
-        copyright.setStyleName("footer_container foot");
-        
-        
-        final Label invitationPanelTitle =
-                new Label(TM.get("entrywindow.21-invitationPanelTitle"), Label.CONTENT_XHTML);
-        final TextField emailTextField = new TextField();
+
         final Button loginButton =
                 new Button(TM.get("entrywindow.22-loginButton"));
         final Label usernameLettering =
-                new Label(TM.get("entrywindow.23-usernameLettering"), Label.CONTENT_XHTML);
+                new Label(TM.get("entrywindow.23-usernameLettering"),
+                        Label.CONTENT_XHTML);
         final Label passwordLettering =
-                new Label(TM.get("entrywindow.24-passwortLettering"), Label.CONTENT_XHTML);
-
-        final Button submitInviationRequestButton =
-                new Button(
-                        TM.get("entrywindow.25-submitInviationRequestButton"));
+                new Label(TM.get("entrywindow.24-passwortLettering"),
+                        Label.CONTENT_XHTML);
 
         final TextField usernameTextField = new TextField();
         final PasswordField passwordTextField = new PasswordField();
 
         usernameTextField.setColumns(35);
-        passwordTextField.setColumns(35);
+        passwordTextField.setColumns(50);
 
-        customLayout.addComponent(titleLettering, "titleLettering");
-        customLayout.addComponent(tagline, "tagline");
-        customLayout.addComponent(privateBetaTesterLogin,
-                "privateBetaTesterLogin");
-        customLayout.addComponent(theProblemTitle, "theProblemTitle");
-        customLayout.addComponent(theProblemText, "theProblemText");
-        customLayout.addComponent(copyright, "copyright");
-        customLayout.addComponent(invitationPanelTitle, "invitationPanelTitle");
-        customLayout.addComponent(emailTextField, "emailTextField");
-        customLayout.addComponent(loginButton, "loginButton");
-        customLayout.addComponent(usernameLettering, "usernameLettering");
-        customLayout.addComponent(passwordLettering, "passwordLettering");
-        customLayout.addComponent(usernameTextField, "usernameTextField");
-        customLayout.addComponent(passwordTextField, "passwordTextField");
-        customLayout.addComponent(submitInviationRequestButton,
-                "submitInviationRequestButton");
+        layout.addComponent(privateBetaTesterLogin);
+        layout.addComponent(loginButton);
+        layout.addComponent(usernameLettering);
+        layout.addComponent(usernameTextField);
+        layout.addComponent(passwordLettering);
+        layout.addComponent(passwordTextField);
+        layout.addComponent(loginButton);
+        
+        return layout;
+    }
 
+    private VerticalLayout getLeftLayout() {
+        final VerticalLayout layout = new VerticalLayout();
+
+        final Label titleLettering =
+                new Label(TM.get("entrywindow.11-titleLettering"),
+                        Label.CONTENT_XHTML);
+        final Label tagline = new Label(TM.get("entrywindow.12-tagline"),
+                Label.CONTENT_XHTML);
+        final Label theProblemText =
+                new Label(TM.get("entrywindow.15-theProblemText"),
+                        Label.CONTENT_XHTML);
+
+        final Panel invitationRequestPanel = getInvitationRequestPanel();
+
+        layout.addComponent(titleLettering);
+        layout.addComponent(tagline);
+        layout.addComponent(theProblemText);
+        layout.addComponent(invitationRequestPanel);
+
+        return layout;
+    }
+
+    private Panel getInvitationRequestPanel() {
+        final Panel panel = new Panel();
+
+        final Label invitationPanelTitle =
+                new Label(TM.get("entrywindow.21-invitationPanelTitle"),
+                        Label.CONTENT_XHTML);
+        final TextField emailTextField = new TextField();
+        final Button submitInviationRequestButton =
+                new Button(
+                        TM.get("entrywindow.25-submitInviationRequestButton"));
+
+        panel.addComponent(invitationPanelTitle);
+        panel.addComponent(emailTextField);
+        panel.addComponent(submitInviationRequestButton);
+
+        return panel;
     }
 
     @Override
