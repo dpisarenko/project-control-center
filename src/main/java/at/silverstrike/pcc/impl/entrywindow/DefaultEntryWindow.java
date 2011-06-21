@@ -62,7 +62,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
     @Override
     public void initGui() {
-//        initGuiSimpleLayout();
+        // initGuiSimpleLayout();
         initGuiCustomLayout();
     }
 
@@ -93,18 +93,21 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
     private void initGuiCustomLayout() {
         final CustomLayout customLayout = new CustomLayout("entrywindow");
-
+        
         window = new Window(TM.get("entrywindow.1-title"));
         window.setContent(customLayout);
         window.setSizeFull();
         // titleLettering
 
         final Label titleLettering =
-                new Label(TM.get("entrywindow.11-titleLettering"));
+                new Label(TM.get("entrywindow.11-titleLettering"),
+                        Label.CONTENT_XHTML);
 
-        final Label tagline = new Label(TM.get("entrywindow.12-tagline"));
+        final Label tagline = new Label(TM.get("entrywindow.12-tagline"),
+                Label.CONTENT_XHTML);
         final Label privateBetaTesterLogin =
-                new Label(TM.get("entrywindow.13-privateBetaTesterLogin"));
+                new Label(TM.get("entrywindow.13-privateBetaTesterLogin"),
+                        Label.CONTENT_XHTML);
         final Label theProblemTitle =
                 new Label(TM.get("entrywindow.14-theProblemTitle"));
         final Label theProblemText =
@@ -124,17 +127,19 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
                 new Label(TM.get("entrywindow.20-copyright"),
                         Label.CONTENT_XHTML);
         final Label invitationPanelTitle =
-                new Label(TM.get("entrywindow.21-invitationPanelTitle"));
+                new Label(TM.get("entrywindow.21-invitationPanelTitle"), Label.CONTENT_XHTML);
         final TextField emailTextField = new TextField();
         final Button loginButton =
                 new Button(TM.get("entrywindow.22-loginButton"));
         final Label usernameLettering =
-                new Label(TM.get("entrywindow.23-usernameLettering"));
+                new Label(TM.get("entrywindow.23-usernameLettering"), Label.CONTENT_XHTML);
         final Label passwortLettering =
-                new Label(TM.get("entrywindow.24-passwortLettering"));
+                new Label(TM.get("entrywindow.24-passwortLettering"), Label.CONTENT_XHTML);
 
-        final Button submitInviationRequestButton = new Button(TM.get("entrywindow.25-submitInviationRequestButton"));
-        
+        final Button submitInviationRequestButton =
+                new Button(
+                        TM.get("entrywindow.25-submitInviationRequestButton"));
+
         final TextField usernameTextField = new TextField();
         final PasswordField passwordTextField = new PasswordField();
 
@@ -155,8 +160,9 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         customLayout.addComponent(passwortLettering, "passwortLettering");
         customLayout.addComponent(usernameTextField, "usernameTextField");
         customLayout.addComponent(passwordTextField, "passwordTextField");
-        customLayout.addComponent(submitInviationRequestButton, "submitInviationRequestButton");
-        
+        customLayout.addComponent(submitInviationRequestButton,
+                "submitInviationRequestButton");
+
     }
 
     @Override
