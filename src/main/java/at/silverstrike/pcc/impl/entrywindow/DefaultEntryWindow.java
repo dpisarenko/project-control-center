@@ -138,7 +138,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
                 new Button(TM.get("entrywindow.22-loginButton"));
         final Label usernameLettering =
                 new Label(TM.get("entrywindow.23-usernameLettering"), Label.CONTENT_XHTML);
-        final Label passwortLettering =
+        final Label passwordLettering =
                 new Label(TM.get("entrywindow.24-passwortLettering"), Label.CONTENT_XHTML);
 
         final Button submitInviationRequestButton =
@@ -162,7 +162,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         customLayout.addComponent(emailTextField, "emailTextField");
         customLayout.addComponent(loginButton, "loginButton");
         customLayout.addComponent(usernameLettering, "usernameLettering");
-        customLayout.addComponent(passwortLettering, "passwortLettering");
+        customLayout.addComponent(passwordLettering, "passwordLettering");
         customLayout.addComponent(usernameTextField, "usernameTextField");
         customLayout.addComponent(passwordTextField, "passwordTextField");
         customLayout.addComponent(submitInviationRequestButton,
