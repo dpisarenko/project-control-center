@@ -30,29 +30,29 @@
  * Entry page stylesheet (START)
  * @charset "utf-8";
  */
-html{
+entrypage_html {
 	margin: 0;
 	padding: 0;
 }
 
-body {
+entrypage_body {
 margin:0;
 padding:0;
 background-color:#666;
 }
 
-#header_container{
+#entrypage_header_container{
 	width: 100%;
 	height:auto;
 	margin: 0px auto;
 }
 
-#footer_container {
+#entrypage_footer_container {
 	width:100%;
 	height:auto;
 	margin: 0px auto;}
 
-#foot{
+#entrypage_foot{
 	width:980px;
 	height: 23px;
 	margin:0px auto;
@@ -60,7 +60,7 @@ background-color:#666;
 
 }
 
-#header{
+#entrypage_header{
 	width: 980px;
 	height: 54px;
 	margin:0px auto;
@@ -68,14 +68,14 @@ background-color:#666;
 
 }
 
-#logo{
+#entrypage_logo{
 	position:relative;
 	float:left;
 	height:54px;
 	margin-left:44px;
 }
 
-#login_title{
+#entrypage_login_title{
 	position:relative;
 	float:right;
 	width:290px;
@@ -85,7 +85,7 @@ background-color:#666;
 
 
 
-#content{
+#entrypage_content{
 	width: 980px;
 	margin: 0px auto;
 	position: relative;
@@ -94,72 +94,59 @@ background-color:#666;
 
 }
 
-#about_app{
+#entrypage_about_app{
 	float:left;
 	width:396px;
 	margin-left:44px;
 }
 
-#log_video{
+#entrypage_log_video{
 	float:right;
 	width:400px;
 	margin-right:42px;
 }
 
-#login{
+#entrypage_login{
 	z-index:3;
 }
 
-#login_box{
+#entrypage_login_box{
 	position:relative;
 	float:right;
 	top: -5px;
 	}
 	
-#login_bottom{
+#entrypage_login_bottom{
 	background:url(img/login_bottom_bg.png) repeat-x;
 	background-position:top;
 	height: 14px;
 }
 	
-#video{
+#entrypage_video{
 	position:relative;
 	float:right;
 }
-#request_box_content {
+
+entrypage_request_box_content {
 	background:url(img/request_box_content.png) no-repeat;
 	text-align:center;
 }
 
-#login_content {
+#entrypage_login_content {
 	background:url(img/login_bg.png) repeat-x;
 	text-align:left;
 }
 
-#login_btn {
+#entrypage_login_btn {
 	margin-left:10px;
 	margin-top:5px;
 }
 
-#request {
+#entrypage_request {
 	margin-top:148px;
 	margin-bottom:200px;
 }
 
-h1#request_suc {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:24px;
-	font-weight:bold;
-	margin:0; padding:0;
-	letter-spacing:-2px;
-	color:#454545;
-	text-align:center;
-}
-
-#request_tbl {
-	text-align:center;
-	background:url(img/rq_bg.jpg) repeat-x;
-}
 
 
 h1 {
