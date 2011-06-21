@@ -108,6 +108,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label privateBetaTesterLogin =
                 new Label(TM.get("entrywindow.13-privateBetaTesterLogin"),
                         Label.CONTENT_XHTML);
+        privateBetaTesterLogin.setStyleName("login_title");
         final Label theProblemTitle =
                 new Label(TM.get("entrywindow.14-theProblemTitle"));
         final Label theProblemText =
