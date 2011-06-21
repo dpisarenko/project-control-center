@@ -14,15 +14,22 @@ package at.silverstrike.pcc.test.gcaltasks2pccimporter;
 import java.util.LinkedList;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.InjectorFactory;
+import ru.altruix.commons.api.di.PccException;
 
 import com.google.api.services.tasks.v1.model.Task;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2;
 import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2Factory;
+import at.silverstrike.pcc.api.model.UserData;
+import at.silverstrike.pcc.test.model.MockObjectFactory;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
 /**
@@ -30,11 +37,18 @@ import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
  * 
  */
 public final class TestDefaultGoogleCalendarTasks2PccImporter2 {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(TestDefaultGoogleCalendarTasks2PccImporter2.class);
+
+    private static final MockObjectFactory MOCK_OBJECT_FACTORY =
+            new MockObjectFactory();
+
     @Test
     public void testDependenciesReadingPrefix() {
         final Injector injector = getInjector();
         final GoogleCalendarTasks2PccImporter2 objectUnderTest =
                 getObjectUnderTest(injector);
+        final UserData user = MOCK_OBJECT_FACTORY.createUserData();
 
         // Prepare test data (START)
         final List<Task> googleTasks = new LinkedList<Task>();
@@ -60,7 +74,23 @@ public final class TestDefaultGoogleCalendarTasks2PccImporter2 {
         // Prepare test data (END)
 
         objectUnderTest.setGoogleTasks(googleTasks);
-        // objectUnderTest.setInjector(aInjector)
+        objectUnderTest.setInjector(injector);
+        objectUnderTest.setUser(user);
+        try {
+            objectUnderTest.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+
+        final List<at.silverstrike.pcc.api.model.Task> createdPccTasks =
+                objectUnderTest.getCreatedPccTasks();
+
+        Assert.assertNotNull(createdPccTasks);
+        Assert.assertEquals(3, createdPccTasks.size());
+        
+        // Check T1
+
     }
 
     @Test

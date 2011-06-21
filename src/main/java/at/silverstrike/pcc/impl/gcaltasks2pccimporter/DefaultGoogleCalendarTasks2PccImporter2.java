@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 
-import com.google.api.services.tasks.v1.model.Task;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2;
@@ -40,11 +39,13 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultGoogleCalendarTasks2PccImporter2.class);
 
-    private java.util.List<Task> googleTasks;
+    private List<com.google.api.services.tasks.v1.model.Task> googleTasks;
+    private List<at.silverstrike.pcc.api.model.Task> createdPccTasks;
     private Injector injector;
     private UserData user;
+    
 
-    public void setGoogleTasks(List<Task> aGoogleTasks) {
+    public void setGoogleTasks(List<com.google.api.services.tasks.v1.model.Task> aGoogleTasks) {
         this.googleTasks = aGoogleTasks;
     }
 
@@ -84,7 +85,7 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
             void
             setDependencies(
                     final Persistence aPersistence,
-                    final Map<String, Task> aRelevantTasksByIds,
+                    final Map<String, com.google.api.services.tasks.v1.model.Task> aRelevantTasksByIds,
                     final Map<String, at.silverstrike.pcc.api.model.Task> aPccTasksByGoogleIds) {
 
     }
@@ -187,6 +188,10 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
 
     public void setUser(UserData user) {
         this.user = user;
+    }
+
+    public List<at.silverstrike.pcc.api.model.Task> getCreatedPccTasks() {
+        return createdPccTasks;
     }
 
 }
