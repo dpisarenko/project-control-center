@@ -96,6 +96,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         window = new Window(TM.get("entrywindow.1-title"));
         window.setContent(mainLayout);
+        window.setStyleName("window");
         window.setSizeFull();
 
         final VerticalLayout leftLayout = getLeftLayout();
@@ -104,6 +105,10 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label copyright =
                 new Label(TM.get("entrywindow.20-copyright"),
                         Label.CONTENT_XHTML);
+        copyright.setStyleName("copyright");
+        
+        leftLayout.setStyleName("leftLayout");
+        rightLayout.setStyleName("rightLayout");
 
         mainLayout.addComponent(leftLayout, 0, 0);
         mainLayout.addComponent(rightLayout, 1, 0);
@@ -116,7 +121,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label privateBetaTesterLogin =
                 new Label(TM.get("entrywindow.13-privateBetaTesterLogin"),
                         Label.CONTENT_XHTML);
-        privateBetaTesterLogin.setStyleName("login_title");
+        
 
         final Button loginButton =
                 new Button(TM.get("entrywindow.22-loginButton"));
@@ -131,8 +136,15 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final PasswordField passwordTextField = new PasswordField();
 
         usernameTextField.setColumns(35);
-        passwordTextField.setColumns(50);
+        passwordTextField.setColumns(10);
 
+        privateBetaTesterLogin.setStyleName("privateBetaTesterLogin");
+        loginButton.setStyleName("loginButton");
+        usernameLettering.setStyleName("usernameLettering");
+        usernameTextField.setStyleName("usernameTextField");
+        passwordLettering.setStyleName("passwordLettering");
+        passwordTextField.setStyleName("passwordTextField");
+        
         layout.addComponent(privateBetaTesterLogin);
         layout.addComponent(loginButton);
         layout.addComponent(usernameLettering);
@@ -158,6 +170,11 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         final Panel invitationRequestPanel = getInvitationRequestPanel();
 
+        titleLettering.setStyleName("titleLettering");
+        tagline.setStyleName("tagline");
+        theProblemText.setStyleName("theProblemText");
+        invitationRequestPanel.setStyleName("invitationRequestPanel");
+        
         layout.addComponent(titleLettering);
         layout.addComponent(tagline);
         layout.addComponent(theProblemText);
@@ -177,6 +194,10 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
                 new Button(
                         TM.get("entrywindow.25-submitInviationRequestButton"));
 
+        invitationPanelTitle.setStyleName("invitationPanelTitle");
+        emailTextField.setStyleName("emailTextField");
+        submitInviationRequestButton.setStyleName("submitInviationRequestButton");
+        
         panel.addComponent(invitationPanelTitle);
         panel.addComponent(emailTextField);
         panel.addComponent(submitInviationRequestButton);
