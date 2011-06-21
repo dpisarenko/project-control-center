@@ -16,11 +16,11 @@
  *
  * Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
  **/
-
+@import url(../reindeer/styles.css);
 /**
 
 
-@import url(../reindeer/styles.css);
+
 .v-tree-node-schedulingObjectWithErrors { color:red; }
 .v-tree-node-schedulingObjectWithoutErrors { color:black; }
 
