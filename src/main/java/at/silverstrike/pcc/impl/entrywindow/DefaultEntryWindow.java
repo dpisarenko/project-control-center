@@ -126,6 +126,9 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label copyright =
                 new Label(TM.get("entrywindow.20-copyright"),
                         Label.CONTENT_XHTML);
+        copyright.setStyleName("foot");
+        
+        
         final Label invitationPanelTitle =
                 new Label(TM.get("entrywindow.21-invitationPanelTitle"), Label.CONTENT_XHTML);
         final TextField emailTextField = new TextField();
