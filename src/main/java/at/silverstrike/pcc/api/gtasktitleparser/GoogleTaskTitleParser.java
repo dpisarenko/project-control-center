@@ -9,24 +9,17 @@
  *
  **/
 
-package at.silverstrike.pcc.api.gtasknoteparser;
-
-import java.util.List;
+package at.silverstrike.pcc.api.gtasktitleparser;
 
 import ru.altruix.commons.api.conventions.SingleActivityModule;
 
 /**
  * @author DP118M
- * 
+ *
  */
-public interface GoogleTaskNotesParser extends SingleActivityModule {
-    void setNotes(final String aNotes);
-
-    boolean isEffortSpecified();
-
-    double getEffortInHours();
-        
-    boolean arePredecessorsSpecified();
+public interface GoogleTaskTitleParser extends SingleActivityModule {
+    void setTitle(final String aTitle);
     
-    List<String> getPredecessorLabels();
+    boolean isLabelSpecified();
+    String getLabel();
 }

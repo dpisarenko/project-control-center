@@ -25,14 +25,12 @@ import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
  * 
  */
 class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
-    private static final String LABEL_MARKER = ":";
+    
     private String notes;
     private boolean effortSpecified;
     private Pattern pattern;
     private double effortInHours;
 
-    private boolean labelSpecified;
-    private String label;
     private boolean predecessorsSpecified;
     private List<String> predecessorLabels;
 
@@ -49,22 +47,12 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
     public void run() throws PccException {
         if (!StringUtils.isBlank(this.notes)) {
             parseEffort();
-            parseLabel();
         } else {
             this.effortSpecified = false;
-            this.labelSpecified = false;
             this.predecessorsSpecified = false;
         }
     }
 
-    private void parseLabel() {
-        if (this.notes.contains(LABEL_MARKER)) {
-            this.labelSpecified = true;
-            this.label = StringUtils.split(this.notes, LABEL_MARKER)[0];
-        } else {
-            this.labelSpecified = false;
-        }
-    }
 
     private void parseEffort() {
         final Matcher matcher = this.pattern.matcher(this.notes.trim());
@@ -89,14 +77,6 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
     @Override
     public double getEffortInHours() {
         return this.effortInHours;
-    }
-
-    public boolean isLabelSpecified() {
-        return labelSpecified;
-    }
-
-    public String getLabel() {
-        return label;
     }
 
     public boolean arePredecessorsSpecified() {

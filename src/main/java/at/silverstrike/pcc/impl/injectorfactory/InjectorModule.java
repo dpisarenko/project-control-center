@@ -49,6 +49,7 @@ import at.silverstrike.pcc.api.graph2resource.Graph2ResourceConverter;
 import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverterFactory;
 import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParserFactory;
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFactory;
+import at.silverstrike.pcc.api.gtasktitleparser.GoogleTaskTitleParserFactory;
 import at.silverstrike.pcc.api.incorrectschedulingobjectsmarker.IncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factory;
 import at.silverstrike.pcc.api.invitationgui2validator.InvitationRequestWindowStep2ValidatorFactory;
@@ -120,6 +121,7 @@ import at.silverstrike.pcc.impl.graph2resource.DefaultGraph2ResourceConverterFac
 import at.silverstrike.pcc.impl.gtask2pcctaskconverter.DefaultGoogleTask2PccTaskConverterFactory;
 import at.silverstrike.pcc.impl.gtasknoteparser.DefaultGoogleTaskNotesParserFactory;
 import at.silverstrike.pcc.impl.gtaskrelevance.DefaultIsGoogleTaskRelevantCalculatorFactory;
+import at.silverstrike.pcc.impl.gtasktitleparser.DefaultGoogleTaskTitleParserFactory;
 import at.silverstrike.pcc.impl.incorrectschedulingobjectsmarker.DefaultIncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.impl.invitationgui2.DefaultInvitationRequestWindowStep2Factory;
 import at.silverstrike.pcc.impl.invitationgui2validator.DefaultInvitationRequestWindowStep2ValidatorFactory;
@@ -304,7 +306,8 @@ class InjectorModule extends AbstractModule {
                 new DefaultGoogleTaskNotesParserFactory());
         bind(GoogleCalendarTasks2PccImporter2Factory.class).toInstance(new
                 DefaultGoogleCalendarTasks2PccImporter2Factory());
-
+        bind(GoogleTaskTitleParserFactory.class).toInstance(new
+                DefaultGoogleTaskTitleParserFactory());
     }
 
     private ProjectScheduler getScheduler() {

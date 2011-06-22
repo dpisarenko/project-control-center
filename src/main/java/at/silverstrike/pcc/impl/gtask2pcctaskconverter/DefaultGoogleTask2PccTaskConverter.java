@@ -21,6 +21,8 @@ import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverter;
 import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
 import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParserFactory;
+import at.silverstrike.pcc.api.gtasktitleparser.GoogleTaskTitleParser;
+import at.silverstrike.pcc.api.gtasktitleparser.GoogleTaskTitleParserFactory;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
@@ -37,7 +39,8 @@ class DefaultGoogleTask2PccTaskConverter implements GoogleTask2PccTaskConverter 
     private UserData user;
     private Injector injector;
     private Persistence persistence;
-    private GoogleTaskNotesParser parser;
+    private GoogleTaskNotesParser notesParser;
+    private GoogleTaskTitleParser titleParser;
 
     @Override
     public void run() throws PccException {
@@ -45,17 +48,22 @@ class DefaultGoogleTask2PccTaskConverter implements GoogleTask2PccTaskConverter 
                 persistence.createSubTask(googleTask.title, null,
                         this.user);
         try {
-            this.parser.setNotes(googleTask.notes);
-            this.parser.run();
+            this.notesParser.setNotes(googleTask.notes);
+            this.notesParser.run();
 
-            if (this.parser.isEffortSpecified()) {
-                final double effortInHours = this.parser.getEffortInHours();
+            if (this.notesParser.isEffortSpecified()) {
+                final double effortInHours =
+                        this.notesParser.getEffortInHours();
                 this.task.setBestCaseEffort(effortInHours);
                 this.task.setWorstCaseEffort(effortInHours);
             }
 
-            if (this.parser.isLabelSpecified()) {
-                this.task.setLabel(this.parser.getLabel());
+            this.titleParser.setTitle(googleTask.title);
+            this.titleParser.run();
+            
+            if (this.titleParser.isLabelSpecified())
+            {
+                this.task.setLabel(this.titleParser.getLabel());
             }
         } catch (final PccException exception) {
             LOGGER.error("", exception);
@@ -80,10 +88,15 @@ class DefaultGoogleTask2PccTaskConverter implements GoogleTask2PccTaskConverter 
         if (this.injector != null) {
             this.persistence = this.injector.getInstance(Persistence.class);
 
-            final GoogleTaskNotesParserFactory factory =
+            final GoogleTaskNotesParserFactory noteParserFactory =
                     this.injector
                             .getInstance(GoogleTaskNotesParserFactory.class);
-            this.parser = factory.create();
+            this.notesParser = noteParserFactory.create();
+
+            final GoogleTaskTitleParserFactory titleParserFactory =
+                    this.injector
+                            .getInstance(GoogleTaskTitleParserFactory.class);
+            this.titleParser = titleParserFactory.create();
         }
     }
 
