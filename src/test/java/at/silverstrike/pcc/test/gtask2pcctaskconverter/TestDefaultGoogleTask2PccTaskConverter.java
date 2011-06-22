@@ -88,6 +88,7 @@ public class TestDefaultGoogleTask2PccTaskConverter {
         Assert.assertNull(pccTask2.getWorstCaseEffort());
     }
 
+    @Test
     public void testReadingLabelsPositive() {
         final GoogleTask2PccTaskConverter objectUnderTest =
                 getObjectUnderTest();
@@ -112,6 +113,7 @@ public class TestDefaultGoogleTask2PccTaskConverter {
         Assert.assertEquals("T1", pccTask.getLabel());
     }
 
+    @Test
     public void testReadingLabelsPositiveMultipleSemicola() {
         final GoogleTask2PccTaskConverter objectUnderTest =
                 getObjectUnderTest();
@@ -136,6 +138,7 @@ public class TestDefaultGoogleTask2PccTaskConverter {
         Assert.assertEquals("T2", pccTask.getLabel());
     }
 
+    @Test
     public void testReadingLabelsNegative() {
         final GoogleTask2PccTaskConverter objectUnderTest =
                 getObjectUnderTest();
