@@ -125,6 +125,8 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
                 }
 
                 tuple.setPccTask(aPccTasksByGoogleIds.get(curGoogleTaskId));
+                
+                tuples.add(tuple);
             } catch (final PccException exception) {
                 LOGGER.error("", exception);
             }
