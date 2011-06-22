@@ -114,6 +114,39 @@ public class TestDefaultGoogleTaskNotesParser {
         checkReturnValues(objectUnderTest, true, 1.0);
         Assert.assertFalse(objectUnderTest.arePredecessorsSpecified());
     }
+
+    @Test
+    public void testEffortAndDepenencyHashtags() {
+        final GoogleTaskNotesParser objectUnderTest = getObjectUnderTest();
+
+        objectUnderTest.setNotes("1h #T1");
+        checkReturnValues(objectUnderTest, true, 1.0);
+
+        Assert.assertTrue(objectUnderTest.arePredecessorsSpecified());
+        Assert.assertEquals(1, objectUnderTest.getPredecessorLabels().size());
+        Assert.assertEquals("T1", objectUnderTest.getPredecessorLabels().get(0));
+    }
+
+    @Test
+    public void testDepenenciesHashtags() {
+        final GoogleTaskNotesParser objectUnderTest = getObjectUnderTest();
+
+        objectUnderTest.setNotes("1h #T1 #T2 #T3");
+        checkReturnValues(objectUnderTest, true, 1.0);
+
+        Assert.assertTrue(objectUnderTest.arePredecessorsSpecified());
+
+        final List<String> predecessors =
+                objectUnderTest.getPredecessorLabels();
+
+        Assert.assertEquals(3, predecessors.size());
+        Assert.assertEquals("T1", predecessors.get(0));
+        Assert.assertEquals("T2", predecessors.get(1));
+        Assert.assertEquals("T3", predecessors.get(2));
+    }
+
+    
+    
     
     private void checkReturnValues(final GoogleTaskNotesParser objectUnderTest,
             final boolean expectedEffortSpecified, Double expectedEffort) {

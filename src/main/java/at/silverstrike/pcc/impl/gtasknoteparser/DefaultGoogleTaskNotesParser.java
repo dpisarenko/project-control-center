@@ -18,6 +18,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
@@ -27,6 +29,8 @@ import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
  * 
  */
 class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultGoogleTaskNotesParser.class);
 
     private static final String PREFIX = "Depends on";
     private static final String HASHTAG = "#";
@@ -69,7 +73,19 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
     }
 
     private void parseDependenciesWithHashtags() {
-        this.predecessorsSpecified = false;
+        final String effortRegex =
+                "(?:^|\\s|[\\p{Punct}&&[^/]])(#[\\p{L}0-9-_]+)";
+        final Pattern pattern = Pattern.compile(effortRegex);
+
+        final Matcher matcher = pattern.matcher(this.notes.trim());
+
+        this.predecessorLabels = new LinkedList<String>();
+        while (matcher.find()) {
+            this.predecessorLabels.add(StringUtils.trim(matcher.group())
+                    .substring(1));
+        }
+
+        this.predecessorsSpecified = this.predecessorLabels.size() > 0;
     }
 
     private void parseDependenciesWithPrefix() {
