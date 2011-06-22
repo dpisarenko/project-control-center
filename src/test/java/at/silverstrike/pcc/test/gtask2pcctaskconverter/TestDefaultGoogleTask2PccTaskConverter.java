@@ -13,6 +13,7 @@ package at.silverstrike.pcc.test.gtask2pcctaskconverter;
 
 import junit.framework.Assert;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -159,7 +160,7 @@ public class TestDefaultGoogleTask2PccTaskConverter {
         final at.silverstrike.pcc.api.model.Task pccTask =
                 objectUnderTest.getPccTask();
 
-        Assert.assertNull(pccTask.getLabel());
+        Assert.assertTrue(StringUtils.isBlank(pccTask.getLabel()));
     }
 
     private GoogleTask2PccTaskConverter getObjectUnderTest() {

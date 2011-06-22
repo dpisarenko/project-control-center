@@ -11,15 +11,17 @@
 
 package at.silverstrike.pcc.test.gcaltasks2pccimporter;
 
+import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2Factory;
 import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.impl.gcaltasks2pccimporter.DefaultGoogleCalendarTasks2PccImporter2Factory;
 
 import com.google.inject.AbstractModule;
 
 /**
  * @author DP118M
- *
+ * 
  */
-final class MockInjectorModule extends AbstractModule  {
+final class MockInjectorModule extends AbstractModule {
     private Persistence persistence;
 
     public MockInjectorModule(final Persistence aPersistence) {
@@ -28,8 +30,9 @@ final class MockInjectorModule extends AbstractModule  {
 
     @Override
     protected void configure() {
-        // TODO Auto-generated method stub
-        
+        bind(GoogleCalendarTasks2PccImporter2Factory.class).toInstance(
+                new DefaultGoogleCalendarTasks2PccImporter2Factory());
+        bind(Persistence.class).toInstance(this.persistence);
     }
 
 }

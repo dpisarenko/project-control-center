@@ -60,9 +60,8 @@ class DefaultGoogleTask2PccTaskConverter implements GoogleTask2PccTaskConverter 
 
             this.titleParser.setTitle(googleTask.title);
             this.titleParser.run();
-            
-            if (this.titleParser.isLabelSpecified())
-            {
+
+            if (this.titleParser.isLabelSpecified()) {
                 this.task.setLabel(this.titleParser.getLabel());
             }
         } catch (final PccException exception) {
