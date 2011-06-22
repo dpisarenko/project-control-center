@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.impl.gcaltasks2pccimporter;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
  *
  */
 final class RelevantTaskInformation {
-    private List<String> predecessorLabels;
+    private List<String> predecessorLabels = new LinkedList<String>();
     private at.silverstrike.pcc.api.model.Task pccTask;
     
     public List<String> getPredecessorLabels() {

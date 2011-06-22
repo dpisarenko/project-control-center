@@ -12,10 +12,10 @@
 package at.silverstrike.pcc.test.gcaltasks2pccimporter;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import junit.framework.Assert;
 
@@ -87,7 +87,7 @@ public final class TestDefaultGoogleCalendarTasks2PccImporter2 {
         final Task t1 = new Task();
         t1.set(GoogleTaskFields.ID, "1");
         t1.set(GoogleTaskFields.TITLE, "T1: Task 1");
-        
+
         // Task T2, depends on T1
         final Task t2 = new Task();
         t2.set(GoogleTaskFields.ID, "2");
@@ -107,13 +107,11 @@ public final class TestDefaultGoogleCalendarTasks2PccImporter2 {
         testDependencyCreation(googleTasks);
     }
 
-    
     private void testDependencyCreation(final List<Task> aGoogleTasks) {
         final Injector injector = getInjector();
         final GoogleCalendarTasks2PccImporter2 objectUnderTest =
                 getObjectUnderTest(injector);
         final UserData user = MOCK_OBJECT_FACTORY.createUserData();
-
 
         // Prepare test data (END)
         objectUnderTest.setGoogleTasks(aGoogleTasks);
@@ -152,18 +150,25 @@ public final class TestDefaultGoogleCalendarTasks2PccImporter2 {
         // Check T3
         final at.silverstrike.pcc.api.model.Task t3pcc =
                 pccTasksByLabels.get("T3");
-        Assert.assertEquals(2, t3pcc.getPredecessors().size());
+        final Set<SchedulingObject> t3pccPredecessors = t3pcc.getPredecessors();
 
-        final Iterator<SchedulingObject> t3predecessorsIterator =
-                t3pcc.getPredecessors().iterator();
+        Assert.assertEquals(2, t3pccPredecessors.size());
 
-        final at.silverstrike.pcc.api.model.SchedulingObject t3predecessor1 =
-                t3predecessorsIterator.next();
-        Assert.assertEquals("T1", t3predecessor1.getLabel());
+        final List<String> t3predecessorLabels =
+                getPredecessorLabels(t3pccPredecessors);
 
-        final at.silverstrike.pcc.api.model.SchedulingObject t3predecessor2 =
-                t3predecessorsIterator.next();
-        Assert.assertEquals("T2", t3predecessor2.getLabel());
+        Assert.assertTrue(t3predecessorLabels.contains("T1"));
+        Assert.assertTrue(t3predecessorLabels.contains("T2"));
+    }
+
+    private List<String> getPredecessorLabels(
+            final Set<SchedulingObject> t3pccPredecessors) {
+        final List<String> t3predecessorLabels = new LinkedList<String>();
+
+        for (final SchedulingObject curTask : t3pccPredecessors) {
+            t3predecessorLabels.add(curTask.getLabel());
+        }
+        return t3predecessorLabels;
     }
 
     private Map<String, at.silverstrike.pcc.api.model.Task>
@@ -178,7 +183,6 @@ public final class TestDefaultGoogleCalendarTasks2PccImporter2 {
 
         return returnValue;
     }
-
 
     private GoogleCalendarTasks2PccImporter2 getObjectUnderTest(
             final Injector aInjector) {
