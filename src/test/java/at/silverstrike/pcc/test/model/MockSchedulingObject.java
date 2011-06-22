@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.test.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -30,7 +31,7 @@ class MockSchedulingObject {
     private ProcessState state;
     private Integer priority;
     private SchedulingObject parentProcess;
-    private Set<SchedulingObject> predecessors;
+    private Set<SchedulingObject> predecessors = new HashSet<SchedulingObject>();
     private SchedulingObjectValidationError validationError;
     private UserData user;
     private String label;
