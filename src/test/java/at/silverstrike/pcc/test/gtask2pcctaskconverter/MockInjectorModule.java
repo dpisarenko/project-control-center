@@ -12,8 +12,10 @@
 package at.silverstrike.pcc.test.gtask2pcctaskconverter;
 
 import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParserFactory;
+import at.silverstrike.pcc.api.gtasktitleparser.GoogleTaskTitleParserFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.gtasknoteparser.DefaultGoogleTaskNotesParserFactory;
+import at.silverstrike.pcc.impl.gtasktitleparser.DefaultGoogleTaskTitleParserFactory;
 
 import com.google.inject.AbstractModule;
 
@@ -33,5 +35,7 @@ class MockInjectorModule extends AbstractModule {
         bind(Persistence.class).toInstance(this.persistence);
         bind(GoogleTaskNotesParserFactory.class).toInstance(
                 new DefaultGoogleTaskNotesParserFactory());
+        bind(GoogleTaskTitleParserFactory.class).toInstance(
+                new DefaultGoogleTaskTitleParserFactory());
     }
 }
