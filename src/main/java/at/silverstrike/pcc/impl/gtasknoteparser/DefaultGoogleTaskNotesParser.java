@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.impl.gtasknoteparser;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,10 +25,16 @@ import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
  * 
  */
 class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
+    private static final String LABEL_MARKER = ":";
     private String notes;
     private boolean effortSpecified;
     private Pattern pattern;
     private double effortInHours;
+
+    private boolean labelSpecified;
+    private String label;
+    private boolean predecessorsSpecified;
+    private List<String> predecessorLabels;
 
     public DefaultGoogleTaskNotesParser() {
         // This means N.YYh
@@ -41,15 +48,31 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
     @Override
     public void run() throws PccException {
         if (!StringUtils.isBlank(this.notes)) {
-            final Matcher matcher = this.pattern.matcher(this.notes.trim());
-            this.effortSpecified = matcher.matches();
-
-            if (this.effortSpecified) {
-                final String effortAsString = matcher.group(1);
-                this.effortInHours = Double.parseDouble(effortAsString);
-            }
+            parseEffort();
+            parseLabel();
         } else {
             this.effortSpecified = false;
+            this.labelSpecified = false;
+            this.predecessorsSpecified = false;
+        }
+    }
+
+    private void parseLabel() {
+        if (this.notes.contains(LABEL_MARKER)) {
+            this.labelSpecified = true;
+            this.label = StringUtils.split(this.notes, LABEL_MARKER)[0];
+        } else {
+            this.labelSpecified = false;
+        }
+    }
+
+    private void parseEffort() {
+        final Matcher matcher = this.pattern.matcher(this.notes.trim());
+        this.effortSpecified = matcher.matches();
+
+        if (this.effortSpecified) {
+            final String effortAsString = matcher.group(1);
+            this.effortInHours = Double.parseDouble(effortAsString);
         }
     }
 
@@ -66,5 +89,21 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
     @Override
     public double getEffortInHours() {
         return this.effortInHours;
+    }
+
+    public boolean isLabelSpecified() {
+        return labelSpecified;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public boolean arePredecessorsSpecified() {
+        return predecessorsSpecified;
+    }
+
+    public List<String> getPredecessorLabels() {
+        return predecessorLabels;
     }
 }

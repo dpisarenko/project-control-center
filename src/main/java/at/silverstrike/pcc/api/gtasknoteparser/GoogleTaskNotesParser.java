@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.api.gtasknoteparser;
 
+import java.util.List;
+
 import ru.altruix.commons.api.conventions.SingleActivityModule;
 
 /**
@@ -23,4 +25,12 @@ public interface GoogleTaskNotesParser extends SingleActivityModule {
     boolean isEffortSpecified();
 
     double getEffortInHours();
+    
+    boolean isLabelSpecified();
+    
+    String getLabel();
+    
+    boolean arePredecessorsSpecified();
+    
+    List<String> getPredecessorLabels();
 }
