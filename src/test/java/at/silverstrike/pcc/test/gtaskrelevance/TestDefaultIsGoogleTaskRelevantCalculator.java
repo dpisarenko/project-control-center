@@ -129,6 +129,22 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
     }
 
     @Test
+    public void testTopLevelTaskWithEffortEstimateAndDependencyPrefix() {
+        final IsGoogleTaskRelevantCalculator objectUnderTest =
+                getObjectUnderTest();
+
+        final com.google.api.services.tasks.v1.model.Task task = new Task();
+
+        task.set("title", "bla-bla task");
+        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
+        task.set(IsGoogleTaskRelevantCalculator.NOTES, "1h Depends on T1");
+        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+                null);
+
+        Assert.assertTrue(getActualRelevance(objectUnderTest, task));
+    }
+
+    @Test
     public void testTopLevelTaskWithEmptyName() {
         final IsGoogleTaskRelevantCalculator objectUnderTest =
                 getObjectUnderTest();
