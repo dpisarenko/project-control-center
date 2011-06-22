@@ -18,23 +18,13 @@ import ru.altruix.commons.api.version.PccVersionReader;
 
 import com.google.inject.Injector;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.MenuBar.Command;
-import com.vaadin.ui.MenuBar.MenuItem;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
-import at.silverstrike.pcc.api.calendarpanelcontroller.CalendarPanelController;
-import at.silverstrike.pcc.api.calendarpanelcontroller.CalendarPanelControllerFactory;
-import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanel;
-import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
-import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanel;
-import at.silverstrike.pcc.api.estimatedcompletiontimespanel.EstimatedCompletionTimesPanelFactory;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelController;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelControllerFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
@@ -44,8 +34,6 @@ import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelControllerFactory;
-import at.silverstrike.pcc.api.workerpanel.WorkerPanel;
-import at.silverstrike.pcc.api.workerpanel.WorkerPanelFactory;
 
 class DefaultMainWindow implements MainWindow {
     private static final Logger LOGGER = LoggerFactory
@@ -54,8 +42,6 @@ class DefaultMainWindow implements MainWindow {
     private Window mainWindow;
     private TabSheet tabSheet;
     private PccDebugIdRegistry debugIdRegistry;
-    private transient MainWindowController controller;
-    private Panel centralEditingPanel;
 
     public DefaultMainWindow() {
     }
@@ -88,9 +74,6 @@ class DefaultMainWindow implements MainWindow {
 
         final VerticalLayout mainLayout = new VerticalLayout();
 
-//        final MenuBar menubar = createMenuBar();
-//        mainLayout.addComponent(menubar);
-
         final SchedulingPanelControllerFactory factory =
                 this.injector
                         .getInstance(SchedulingPanelControllerFactory.class);
@@ -100,29 +83,14 @@ class DefaultMainWindow implements MainWindow {
         LOGGER.debug("injector: {}", this.injector);
         schedulingPanelController.setInjector(this.injector);
 
-//        mainLayout.addComponent(schedulingPanelController.initGui());
-
         this.tabSheet.addTab(getUserSettingsTab(), TM
                 .get("mainwindow.22-user-settings-tab"), null);
         this.tabSheet.addTab(getInvitationRequestTab(), TM
                 .get("mainwindow.21-invitation-tab"), null);
-
-//        this.tabSheet.addTab(centralEditingPanel, TM
-//                .get("mainwindow.13-central-editing-panel"), null);
-//        this.tabSheet.addTab(getDailyPlanPanel(), TM
-//                .get("mainwindow.11-daily-plan-panel"), null);
-//        this.tabSheet.addTab(getEstimatedCompletionDateTimesPanel(), TM
-//                .get("mainwindow.12-estimated-completion-times-panel"), null);
-//        this.tabSheet.addTab(getWorkerPanelTab(), TM
-//                .get("mainwindow.8-human-resource-tab"), null);
-//        this.tabSheet.addTab(getCalendarTab(), TM
-//                .get("mainwindow.20-calendar-tab"), null);
-
         
         mainLayout.addComponent(this.tabSheet);
 
         mainWindow.setContent(mainLayout);
-
     }
 
     private Component getUserSettingsTab() {
@@ -148,104 +116,12 @@ class DefaultMainWindow implements MainWindow {
         return controller.initGui();
     }
 
-    private Component getCalendarTab() {
-        final CalendarPanelControllerFactory factory =
-                this.injector.getInstance(CalendarPanelControllerFactory.class);
-        final CalendarPanelController controller = factory.create();
-
-        controller.setInjector(this.injector);
-        return controller.initGui();
-    }
-
-    private MenuBar createMenuBar() {
-        final MenuBar menubar = new MenuBar();
-        menubar.setWidth("100%");
-
-        final MenuBar.MenuItem file =
-                menubar.addItem(
-                        TM.get("mainwindow.15-menu-file"), null);
-        file.addItem(TM.get("mainwindow.16-menu-exportXML"),
-                exportToXMLCommand);
-        file.addItem(TM.get("mainwindow.17-menu-importXML"),
-                importFromXMLCommand);
-        file.addSeparator();
-        file.addItem(TM.get("mainwindow.18-menu-exit"),
-                menuCommand);
-
-        return menubar;
-    }
-
-    private Command importFromXMLCommand = new Command() {
-
-        private static final long serialVersionUID = 1L;
-
-        public void menuSelected(final MenuItem aSelectedItem) {
-            controller.importFromXML();
-        }
-    };
-
-    private Command exportToXMLCommand = new Command() {
-
-        private static final long serialVersionUID = 1L;
-
-        public void menuSelected(final MenuItem aSelectedItem) {
-            controller.exportToXML();
-        }
-    };
-
-    private Command menuCommand = new Command() {
-        private static final long serialVersionUID = 1L;
-
-        public void menuSelected(final MenuItem aSelectedItem) {
-            toWindow().showNotification("Action " + aSelectedItem.getText());
-        }
-    };
-
-    private Component getEstimatedCompletionDateTimesPanel() {
-        final EstimatedCompletionTimesPanelFactory factory =
-                this.injector
-                        .getInstance(EstimatedCompletionTimesPanelFactory.class);
-        final EstimatedCompletionTimesPanel panel = factory.create();
-        panel.setInjector(this.injector);
-        panel.initGui();
-        return panel.toPanel();
-    }
-
-    private Component getDailyPlanPanel() {
-        final DailyPlanPanelFactory factory =
-                this.injector.getInstance(DailyPlanPanelFactory.class);
-        final DailyPlanPanel panel = factory.create();
-
-        panel.setInjector(this.injector);
-        panel.attach();
-        panel.initGui();
-
-        return panel.toPanel();
-    }
-
-    private Component getWorkerPanelTab() {
-        final WorkerPanelFactory factory =
-                this.injector.getInstance(WorkerPanelFactory.class);
-        final WorkerPanel panel = factory.create();
-
-        panel.setInjector(this.injector);
-        panel.initGui();
-
-        return panel.toPanel();
-    }
-
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
     }
 
     @Override
-    public void setCentralEditingPanel(final Panel aPanel) {
-        this.centralEditingPanel = aPanel;
-    }
-
-    @Override
     public void setGuiController(final MainWindowController aController) {
-        this.controller = aController;
     }
 }
