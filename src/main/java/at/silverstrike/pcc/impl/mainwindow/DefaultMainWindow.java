@@ -24,12 +24,10 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.i18n.TM;
 
-import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelController;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelControllerFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
-import at.silverstrike.pcc.api.pcc.PccFunctionalBlock;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController;
 import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelControllerFactory;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
@@ -41,7 +39,7 @@ class DefaultMainWindow implements MainWindow {
     private Injector injector = null;
     private Window mainWindow;
     private TabSheet tabSheet;
-    private PccDebugIdRegistry debugIdRegistry;
+//    private PccDebugIdRegistry debugIdRegistry;
 
     public DefaultMainWindow() {
     }
@@ -52,9 +50,6 @@ class DefaultMainWindow implements MainWindow {
     }
 
     public void initGui() {
-        this.debugIdRegistry =
-                this.injector.getInstance(PccDebugIdRegistry.class);
-
         final PccVersionReader versionReader =
                 this.injector.getInstance(PccVersionReader.class);
 
@@ -62,13 +57,10 @@ class DefaultMainWindow implements MainWindow {
                 new Window(TM.get("mainwindow.1-title",
                         versionReader.getVersion()));
         mainWindow.setSizeFull();
-        mainWindow.setDebugId(this.debugIdRegistry
-                .getDebugId(PccFunctionalBlock.mainwindow, "1"));
+        mainWindow.setDebugId("011.001");
 
         this.tabSheet = new TabSheet();
-        this.tabSheet.setDebugId(this.debugIdRegistry
-                .getDebugId(PccFunctionalBlock.mainwindow,
-                        "2-tab-sheet"));
+        this.tabSheet.setDebugId("011.002");
 
         this.tabSheet.setSizeFull();
 
