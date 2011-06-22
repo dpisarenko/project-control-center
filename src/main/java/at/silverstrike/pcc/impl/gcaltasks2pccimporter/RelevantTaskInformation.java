@@ -18,23 +18,9 @@ import java.util.List;
  *
  */
 final class RelevantTaskInformation {
-    private String googleId;
-    private String label;
     private List<String> predecessorLabels;
     private at.silverstrike.pcc.api.model.Task pccTask;
     
-    public String getGoogleId() {
-        return googleId;
-    }
-    public void setGoogleId(final String aGoogleId) {
-        this.googleId = aGoogleId;
-    }
-    public String getLabel() {
-        return label;
-    }
-    public void setLabel(final String aLabel) {
-        this.label = aLabel;
-    }
     public List<String> getPredecessorLabels() {
         return predecessorLabels;
     }

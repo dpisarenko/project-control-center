@@ -63,23 +63,25 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
             parseDependenciesWithPrefix();
         } else if (this.notes.contains(HASHTAG)) {
             parseDependenciesWithHashtags();
+        } else {
+            this.predecessorsSpecified = false;
         }
     }
 
     private void parseDependenciesWithHashtags() {
-        // TODO Auto-generated method stub
-
+        this.predecessorsSpecified = false;
     }
 
     private void parseDependenciesWithPrefix() {
         final String dependencies = this.notes.trim().split(PREFIX)[1];
-        final StringTokenizer tokenizer2 = new StringTokenizer(dependencies, ",");
+        final StringTokenizer tokenizer2 =
+                new StringTokenizer(dependencies, ",");
 
         this.predecessorLabels = new LinkedList<String>();
         while (tokenizer2.hasMoreTokens()) {
             this.predecessorLabels.add(tokenizer2.nextToken().trim());
         }
-        
+
         this.predecessorsSpecified = this.predecessorLabels.size() > 0;
     }
 

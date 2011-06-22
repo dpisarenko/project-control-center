@@ -39,6 +39,8 @@ public class TestDefaultGoogleTaskNotesParser {
 
         objectUnderTest.setNotes("1h");
         checkReturnValues(objectUnderTest, true, 1.0);
+        Assert.assertFalse(objectUnderTest.arePredecessorsSpecified());
+
     }
 
     @Test
@@ -89,15 +91,29 @@ public class TestDefaultGoogleTaskNotesParser {
         checkReturnValues(objectUnderTest, true, 1.0);
 
         Assert.assertTrue(objectUnderTest.arePredecessorsSpecified());
-        
-        final List<String> predecessors = objectUnderTest.getPredecessorLabels();
-        
+
+        final List<String> predecessors =
+                objectUnderTest.getPredecessorLabels();
+
         Assert.assertEquals(3, predecessors.size());
         Assert.assertEquals("T1", predecessors.get(0));
         Assert.assertEquals("T2", predecessors.get(1));
         Assert.assertEquals("T3", predecessors.get(2));
     }
+    
+    @Test
+    public void testDependenciesRepetition() {
+        final GoogleTaskNotesParser objectUnderTest = getObjectUnderTest();
 
+        objectUnderTest.setNotes("1h Depends on T1, T2, T3");
+        checkReturnValues(objectUnderTest, true, 1.0);
+
+        Assert.assertTrue(objectUnderTest.arePredecessorsSpecified());
+
+        objectUnderTest.setNotes("1h");
+        checkReturnValues(objectUnderTest, true, 1.0);
+        Assert.assertFalse(objectUnderTest.arePredecessorsSpecified());
+    }
     
     private void checkReturnValues(final GoogleTaskNotesParser objectUnderTest,
             final boolean expectedEffortSpecified, Double expectedEffort) {
