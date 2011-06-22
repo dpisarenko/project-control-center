@@ -17,7 +17,6 @@ import ru.altruix.commons.api.gui.InitializableGuiComponent;
 import ru.altruix.commons.api.vaadin.AbstractedWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.Window;
 
 public interface MainWindow extends ModuleWithInjectableDependencies,

@@ -104,9 +104,10 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     public void buttonClick(final ClickEvent aEvent) {
         final String buttonCaption = aEvent.getButton().getCaption();
 
-        LOGGER.debug("buttonCaption: '{}', this.fetchDataButtonCaption: '{}'",
+        LOGGER.debug("buttonCaption: '{}', this.fetchDataButtonCaption: '{}', this.logoutButtonCaption: '{}'",
                 new Object[] { buttonCaption,
-                        this.calculateSyncDataButtonCaption });
+                        this.calculateSyncDataButtonCaption,
+                        this.logoutButtonCaption});
         if (this.requestAuthCodeCaption.equals(buttonCaption)) {
             this.controller.requestGoogleAuthorizationCode();
         } else if (this.calculateSyncDataButtonCaption.equals(buttonCaption)) {

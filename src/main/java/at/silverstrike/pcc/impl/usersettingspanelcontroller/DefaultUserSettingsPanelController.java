@@ -44,6 +44,8 @@ import com.vaadin.ui.Panel;
 
 import eu.livotov.tpt.TPTApplication;
 
+import at.silverstrike.pcc.api.entrywindow.EntryWindow;
+import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
 import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
@@ -321,14 +323,17 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     public void logout() {
         TPTApplication.getCurrentApplication().setUser(null);
 
-        final MainWindowControllerFactory factory =
-                this.injector.getInstance(MainWindowControllerFactory.class);
-        final MainWindowController mainWindowController = factory.create();
+        final EntryWindowFactory factory =
+                this.injector.getInstance(EntryWindowFactory.class);
+        final EntryWindow mainWindow = factory.create();
 
-        mainWindowController.setInjector(this.injector);
+        mainWindow.setInjector(this.injector);
+        mainWindow.initGui();
 
+        TPTApplication.getCurrentApplication().removeWindow(
+                TPTApplication.getCurrentApplication().getMainWindow());
         TPTApplication.getCurrentApplication().setMainWindow(
-                mainWindowController.initGui());
+                mainWindow.toWindow());
     }
 
 }
