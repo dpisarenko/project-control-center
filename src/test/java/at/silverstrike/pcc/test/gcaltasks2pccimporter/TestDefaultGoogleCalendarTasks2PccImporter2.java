@@ -55,16 +55,17 @@ public final class TestDefaultGoogleCalendarTasks2PccImporter2 {
         // Task T1, depends on nothing
         final Task t1 = new Task();
         t1.set("title", "T1: Task 1");
+        t1.set("notes", "1h");
 
         // Task T2, depends on T1
         final Task t2 = new Task();
         t2.set("title", "T2: Task 2");
-        t2.set("notes", "Depends on T1");
+        t2.set("notes", "1h Depends on T1");
 
         // Task T3, depends on T1 and T2
         final Task t3 = new Task();
         t3.set("title", "T3: Task 3");
-        t3.set("notes", "Depends on T1, T2");
+        t3.set("notes", "1h Depends on T1, T2");
 
         googleTasks.add(t1);
         googleTasks.add(t2);
