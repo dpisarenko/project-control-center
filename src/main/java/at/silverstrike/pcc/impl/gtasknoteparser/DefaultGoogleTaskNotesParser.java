@@ -47,7 +47,7 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
         effortPattern = Pattern.compile(effortRegex);
 
         final String dependenciesWithPrefixRegex =
-                ".*${prefix}\\:?+(.*)(,\\s.*)*\\s.*".replace("${prefix}", PREFIX);
+                ".*${prefix}\\:?+(.*)(\\,\\s.*)*\\s*.*".replace("${prefix}", PREFIX);
         this.predecessorPattern = Pattern.compile(dependenciesWithPrefixRegex);
     }
 
@@ -83,7 +83,7 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
         final int numberOfPredecessors = matcher.groupCount();
 
         this.predecessorLabels = new LinkedList<String>();
-        for (int i = 0; i < numberOfPredecessors; i++) {
+        for (int i = 1; i < numberOfPredecessors; i++) {
             String text = StringUtils.trimToEmpty(matcher.group(i));
 
             if (text.startsWith(",")) {
