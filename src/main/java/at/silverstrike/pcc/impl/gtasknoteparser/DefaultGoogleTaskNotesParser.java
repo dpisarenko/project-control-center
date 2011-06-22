@@ -18,8 +18,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
@@ -29,9 +27,6 @@ import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
  * 
  */
 class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(DefaultGoogleTaskNotesParser.class);
-
     private static final String PREFIX = "Depends on";
     private static final String HASHTAG = "#";
     private String notes;
