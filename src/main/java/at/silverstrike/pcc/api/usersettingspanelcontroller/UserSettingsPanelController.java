@@ -29,4 +29,6 @@ public interface UserSettingsPanelController extends
 
     void requestGoogleAuthorizationCode();
 
+    void logout();
+
 }

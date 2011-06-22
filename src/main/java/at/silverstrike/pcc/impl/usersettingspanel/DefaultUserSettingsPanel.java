@@ -112,7 +112,7 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
                     .calculateAndSyncData((String) this.googleCodeTextField
                             .getValue());
         } else if (this.logoutButtonCaption.equals(buttonCaption)) {
-
+            this.controller.logout();
         }
     }
 }

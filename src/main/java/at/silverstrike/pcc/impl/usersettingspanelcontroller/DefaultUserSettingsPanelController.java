@@ -49,6 +49,10 @@ import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
+import at.silverstrike.pcc.api.mainwindow.MainWindow;
+import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
+import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
+import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.UserData;
@@ -145,7 +149,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             importer.run();
 
             this.webGuiBus.broadcastTasksImportedFromGoogleMessage();
-            
+
             calculatePlan();
             LOGGER.debug("Calculated the plan");
             exportBookingsToGoogleCalendar(aAuthorizationCode);
@@ -177,31 +181,29 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                             response.refreshToken);
 
             LOGGER.debug("accessProtectedResource: {}", accessProtectedResource);
-            
+
             final OAuthParameters oauth = new OAuthParameters();
             oauth.setOAuthConsumerKey("pcchq.com");
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(accessProtectedResource.getAccessToken());
 
             LOGGER.debug("oauth: {}", oauth);
-            
+
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
-            calendarService.setOAuthCredentials(oauth, new OAuthRsaSha1Signer());
-                        
-            
+            calendarService
+                    .setOAuthCredentials(oauth, new OAuthRsaSha1Signer());
+
             LOGGER.debug("calendarService: {}", calendarService);
-            
+
             final URL feedUrl =
                     new URL(
                             "http://www.google.com/calendar/feeds/default/allcalendars/full");
             final CalendarFeed resultFeed =
                     calendarService.getFeed(feedUrl, CalendarFeed.class);
-            
-            
 
             LOGGER.debug("resultFeed: {}", resultFeed);
-            
+
             final List<CalendarEntry> entries = resultFeed.getEntries();
 
             LOGGER.debug("Entries (START)");
@@ -313,6 +315,20 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         } catch (final PccException exception) {
             LOGGER.error("", exception);
         }
+    }
+
+    @Override
+    public void logout() {
+        TPTApplication.getCurrentApplication().setUser(null);
+
+        final MainWindowControllerFactory factory =
+                this.injector.getInstance(MainWindowControllerFactory.class);
+        final MainWindowController mainWindowController = factory.create();
+
+        mainWindowController.setInjector(this.injector);
+
+        TPTApplication.getCurrentApplication().setMainWindow(
+                mainWindowController.initGui());
     }
 
 }
