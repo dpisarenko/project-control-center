@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.test.gtasknoteparser;
 
+import java.util.List;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -47,7 +49,7 @@ public class TestDefaultGoogleTaskNotesParser {
         checkReturnValues(objectUnderTest, false, null);
 
     }
-    
+
     @Test
     public void testInvalidEffort2() {
         final GoogleTaskNotesParser objectUnderTest = getObjectUnderTest();
@@ -55,13 +57,14 @@ public class TestDefaultGoogleTaskNotesParser {
         objectUnderTest.setNotes("1");
         checkReturnValues(objectUnderTest, false, null);
     }
+
     @Test
     public void testRepetition() {
         final GoogleTaskNotesParser objectUnderTest = getObjectUnderTest();
 
         objectUnderTest.setNotes("1h");
         checkReturnValues(objectUnderTest, true, 1.0);
-        
+
         objectUnderTest.setNotes(null);
         checkReturnValues(objectUnderTest, false, null);
     }
@@ -71,7 +74,28 @@ public class TestDefaultGoogleTaskNotesParser {
         final GoogleTaskNotesParser objectUnderTest = getObjectUnderTest();
 
         objectUnderTest.setNotes("1h Depends on T1");
-        checkReturnValues(objectUnderTest, true, 1.0);        
+        checkReturnValues(objectUnderTest, true, 1.0);
+
+        Assert.assertTrue(objectUnderTest.arePredecessorsSpecified());
+        Assert.assertEquals(1, objectUnderTest.getPredecessorLabels().size());
+        Assert.assertEquals("T1", objectUnderTest.getPredecessorLabels().get(0));
+    }
+
+    @Test
+    public void testDepenenciesWithPrefix() {
+        final GoogleTaskNotesParser objectUnderTest = getObjectUnderTest();
+
+        objectUnderTest.setNotes("1h Depends on T1, T2, T3");
+        checkReturnValues(objectUnderTest, true, 1.0);
+
+        Assert.assertTrue(objectUnderTest.arePredecessorsSpecified());
+        
+        final List<String> predecessors = objectUnderTest.getPredecessorLabels();
+        
+        Assert.assertEquals(3, predecessors.size());
+        Assert.assertEquals("T1", predecessors.get(0));
+        Assert.assertEquals("T2", predecessors.get(1));
+        Assert.assertEquals("T3", predecessors.get(3));
     }
 
     
@@ -82,7 +106,8 @@ public class TestDefaultGoogleTaskNotesParser {
 
             if (expectedEffortSpecified) {
                 Assert.assertTrue(objectUnderTest.isEffortSpecified());
-                Assert.assertEquals(expectedEffort, objectUnderTest.getEffortInHours(),
+                Assert.assertEquals(expectedEffort,
+                        objectUnderTest.getEffortInHours(),
                         1. / 1000000.);
             } else {
                 Assert.assertFalse(objectUnderTest.isEffortSpecified());

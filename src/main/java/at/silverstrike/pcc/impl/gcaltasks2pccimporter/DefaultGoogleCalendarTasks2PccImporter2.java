@@ -119,7 +119,11 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
                 notesParser.setNotes(curGoogleTask.notes);
                 notesParser.run();
 
-                tuple.setPredecessorLabels(notesParser.getPredecessorLabels());
+                if (notesParser.arePredecessorsSpecified()) {
+                    tuple.setPredecessorLabels(notesParser
+                            .getPredecessorLabels());
+                }
+
                 tuple.setPccTask(aPccTasksByGoogleIds.get(curGoogleTaskId));
             } catch (final PccException exception) {
                 LOGGER.error("", exception);
@@ -144,9 +148,9 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
 
             for (final String curPredecessorLabel : curTuple
                     .getPredecessorLabels()) {
-                predecessors.add(pccTasksByLabels.get(curPredecessorLabel));                
+                predecessors.add(pccTasksByLabels.get(curPredecessorLabel));
             }
-            
+
             curTuple.getPccTask().setPredecessors(predecessors);
         }
     }
