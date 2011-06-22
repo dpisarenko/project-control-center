@@ -47,7 +47,7 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
         effortPattern = Pattern.compile(effortRegex);
 
         final String dependenciesWithPrefixRegex =
-                "${prefix}\\:?+(.*)(,\\s.*)*\\s".replace("${prefix}", PREFIX);
+                ".*${prefix}\\:?+(.*)(,\\s.*)*\\s.*".replace("${prefix}", PREFIX);
         this.predecessorPattern = Pattern.compile(dependenciesWithPrefixRegex);
     }
 
