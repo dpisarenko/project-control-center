@@ -12,10 +12,13 @@
 package at.silverstrike.pcc.impl.gcaltasks2pccimporter;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +29,11 @@ import com.google.inject.Injector;
 import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2;
 import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverter;
 import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverterFactory;
+import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParser;
+import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParserFactory;
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculator;
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFactory;
+import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
@@ -71,7 +77,7 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
         LOGGER.debug("Relevant tasks: " + relevantTasksByIds.size());
 
         this.createdPccTasks =
-            new LinkedList<at.silverstrike.pcc.api.model.Task>();
+                new LinkedList<at.silverstrike.pcc.api.model.Task>();
 
         // Create tasks in PCC database
         final Map<String, at.silverstrike.pcc.api.model.Task> pccTasksByGoogleIds =
@@ -83,7 +89,6 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
         // Set dependencies
         setDependencies(persistence, relevantTasksByIds,
                     pccTasksByGoogleIds);
-
 
         for (final at.silverstrike.pcc.api.model.Task curTask : pccTasksByGoogleIds
                 .values()) {
@@ -97,7 +102,53 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
                     final Persistence aPersistence,
                     final Map<String, com.google.api.services.tasks.v1.model.Task> aRelevantTasksByIds,
                     final Map<String, at.silverstrike.pcc.api.model.Task> aPccTasksByGoogleIds) {
+        final GoogleTaskNotesParserFactory factory =
+                this.injector.getInstance(GoogleTaskNotesParserFactory.class);
+        final GoogleTaskNotesParser notesParser = factory.create();
 
+        final List<RelevantTaskInformation> tuples =
+                new LinkedList<RelevantTaskInformation>();
+
+        for (final String curGoogleTaskId : aRelevantTasksByIds.keySet()) {
+            try {
+                RelevantTaskInformation tuple = new RelevantTaskInformation();
+
+                final com.google.api.services.tasks.v1.model.Task curGoogleTask =
+                        aRelevantTasksByIds.get(curGoogleTaskId);
+
+                notesParser.setNotes(curGoogleTask.notes);
+                notesParser.run();
+
+                tuple.setPredecessorLabels(notesParser.getPredecessorLabels());
+                tuple.setPccTask(aPccTasksByGoogleIds.get(curGoogleTaskId));
+            } catch (final PccException exception) {
+                LOGGER.error("", exception);
+            }
+        }
+
+        final Map<String, at.silverstrike.pcc.api.model.Task> pccTasksByLabels =
+                new HashMap<String, at.silverstrike.pcc.api.model.Task>();
+
+        for (final at.silverstrike.pcc.api.model.Task curPccTask : aPccTasksByGoogleIds
+                .values()) {
+            final String label = curPccTask.getLabel();
+
+            if (!StringUtils.isBlank(label)) {
+                pccTasksByLabels.put(label, curPccTask);
+            }
+        }
+
+        for (final RelevantTaskInformation curTuple : tuples) {
+            final Set<SchedulingObject> predecessors =
+                    new HashSet<SchedulingObject>();
+
+            for (final String curPredecessorLabel : curTuple
+                    .getPredecessorLabels()) {
+                predecessors.add(pccTasksByLabels.get(curPredecessorLabel));                
+            }
+            
+            curTuple.getPccTask().setPredecessors(predecessors);
+        }
     }
 
     private
