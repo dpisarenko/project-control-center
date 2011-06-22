@@ -81,6 +81,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
         this.logoutButtonCaption = TM.get("usersettingspanel.8-logout");
         final Button logoutButton = new Button(this.logoutButtonCaption);
+        
+        logoutButton.addListener(this);
 
         final VerticalLayout buttonPanel = new VerticalLayout();
 
