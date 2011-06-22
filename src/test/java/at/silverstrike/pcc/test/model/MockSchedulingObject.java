@@ -13,6 +13,8 @@ package at.silverstrike.pcc.test.model;
 
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+
 import at.silverstrike.pcc.api.model.ProcessState;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.SchedulingObjectValidationError;
@@ -31,6 +33,7 @@ class MockSchedulingObject {
     private Set<SchedulingObject> predecessors;
     private SchedulingObjectValidationError validationError;
     private UserData user;
+    private String label;
 
     public UserData getUserData() {
         return user;
@@ -89,10 +92,13 @@ class MockSchedulingObject {
     }
 
     public void setLabel(final String aLabel) {
+        this.label = aLabel;
     }
 
     public String getLabel() {
-        if (this.id != null) {
+        if (!StringUtils.isBlank(this.label)) {
+            return this.label;
+        } else if (this.id != null) {
             return this.id.toString();
         } else {
             return "";
