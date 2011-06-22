@@ -20,9 +20,6 @@ import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
  */
 public interface IsGoogleTaskRelevantCalculator extends SingleActivityModule,
         ModuleWithInjectableDependencies {
-    final String NOTES = "notes";
-    final String PARENT = "parent";
-    String COMPLETED = "completed";
 
     void setGoogleTask(final com.google.api.services.tasks.v1.model.Task aTask);
 

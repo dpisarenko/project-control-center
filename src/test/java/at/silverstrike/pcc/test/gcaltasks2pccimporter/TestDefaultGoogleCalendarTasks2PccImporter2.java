@@ -31,6 +31,7 @@ import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2;
 import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2Factory;
+import at.silverstrike.pcc.api.gtasks.GoogleTaskFields;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.test.model.MockObjectFactory;
@@ -54,18 +55,21 @@ public final class TestDefaultGoogleCalendarTasks2PccImporter2 {
 
         // Task T1, depends on nothing
         final Task t1 = new Task();
-        t1.set("title", "T1: Task 1");
-        t1.set("notes", "1h");
+        t1.set(GoogleTaskFields.ID, "1");
+        t1.set(GoogleTaskFields.TITLE, "T1: Task 1");
+        t1.set(GoogleTaskFields.NOTES, "1h");
 
         // Task T2, depends on T1
         final Task t2 = new Task();
-        t2.set("title", "T2: Task 2");
-        t2.set("notes", "1h Depends on T1");
+        t2.set(GoogleTaskFields.ID, "2");
+        t2.set(GoogleTaskFields.TITLE, "T2: Task 2");
+        t2.set(GoogleTaskFields.NOTES, "1h Depends on T1");
 
         // Task T3, depends on T1 and T2
         final Task t3 = new Task();
-        t3.set("title", "T3: Task 3");
-        t3.set("notes", "1h Depends on T1, T2");
+        t3.set(GoogleTaskFields.ID, "3");
+        t3.set(GoogleTaskFields.TITLE, "T3: Task 3");
+        t3.set(GoogleTaskFields.NOTES, "1h Depends on T1, T2");
 
         googleTasks.add(t1);
         googleTasks.add(t2);
@@ -81,16 +85,19 @@ public final class TestDefaultGoogleCalendarTasks2PccImporter2 {
 
         // Task T1, depends on nothing
         final Task t1 = new Task();
-        t1.set("title", "T1: Task 1");
-
+        t1.set(GoogleTaskFields.ID, "1");
+        t1.set(GoogleTaskFields.TITLE, "T1: Task 1");
+        
         // Task T2, depends on T1
         final Task t2 = new Task();
-        t2.set("title", "T2: Task 2");
+        t2.set(GoogleTaskFields.ID, "2");
+        t2.set(GoogleTaskFields.TITLE, "T2: Task 2");
         t2.set("notes", "#T1");
 
         // Task T3, depends on T1 and T2
         final Task t3 = new Task();
-        t3.set("title", "T3: Task 3");
+        t3.set(GoogleTaskFields.ID, "3");
+        t3.set(GoogleTaskFields.TITLE, "T3: Task 3");
         t3.set("notes", "#T1 #T2");
 
         googleTasks.add(t1);

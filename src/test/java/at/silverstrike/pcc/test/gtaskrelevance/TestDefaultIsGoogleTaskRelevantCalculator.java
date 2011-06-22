@@ -25,6 +25,7 @@ import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculator;
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFactory;
+import at.silverstrike.pcc.api.gtasks.GoogleTaskFields;
 import at.silverstrike.pcc.impl.gtaskrelevance.DefaultIsGoogleTaskRelevantCalculatorFactory;
 import at.silverstrike.pcc.test.testutils.MockInjectorFactory;
 
@@ -44,9 +45,9 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
         task.set("title", "bla-bla task");
-        task.set(IsGoogleTaskRelevantCalculator.COMPLETED,
+        task.set(GoogleTaskFields.COMPLETED,
                 "2011-06-10T11:44:22.300Z");
-        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+        task.set(GoogleTaskFields.PARENT,
                 "MTE5OTY3NjA1Mjc5NDc1OTc1NjI6MDo5");
 
         Assert.assertFalse(getActualRelevance(objectUnderTest, task));
@@ -72,9 +73,9 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
         task.set("title", "bla-bla task");
-        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
-        task.set(IsGoogleTaskRelevantCalculator.NOTES, null);
-        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+        task.set(GoogleTaskFields.COMPLETED, null);
+        task.set(GoogleTaskFields.NOTES, null);
+        task.set(GoogleTaskFields.PARENT,
                 "MTE5OTY3NjA1Mjc5NDc1OTc1NjI6MDo5");
 
         Assert.assertFalse(getActualRelevance(objectUnderTest, task));
@@ -88,9 +89,9 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
         task.set("title", "bla-bla task");
-        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
-        task.set(IsGoogleTaskRelevantCalculator.NOTES, "   ");
-        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+        task.set(GoogleTaskFields.COMPLETED, null);
+        task.set(GoogleTaskFields.NOTES, "   ");
+        task.set(GoogleTaskFields.PARENT,
                 "MTE5OTY3NjA1Mjc5NDc1OTc1NjI6MDo5");
 
         Assert.assertFalse(getActualRelevance(objectUnderTest, task));
@@ -104,9 +105,9 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
         task.set("title", "bla-bla task");
-        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
-        task.set(IsGoogleTaskRelevantCalculator.NOTES, "   ");
-        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+        task.set(GoogleTaskFields.COMPLETED, null);
+        task.set(GoogleTaskFields.NOTES, "   ");
+        task.set(GoogleTaskFields.PARENT,
                 null);
 
         Assert.assertTrue(getActualRelevance(objectUnderTest, task));
@@ -120,9 +121,9 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
         task.set("title", "bla-bla task");
-        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
-        task.set(IsGoogleTaskRelevantCalculator.NOTES, "3h");
-        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+        task.set(GoogleTaskFields.COMPLETED, null);
+        task.set(GoogleTaskFields.NOTES, "3h");
+        task.set(GoogleTaskFields.PARENT,
                 null);
 
         Assert.assertTrue(getActualRelevance(objectUnderTest, task));
@@ -136,9 +137,9 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         final com.google.api.services.tasks.v1.model.Task task = new Task();
 
         task.set("title", "bla-bla task");
-        task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
-        task.set(IsGoogleTaskRelevantCalculator.NOTES, "1h Depends on T1");
-        task.set(IsGoogleTaskRelevantCalculator.PARENT,
+        task.set(GoogleTaskFields.COMPLETED, null);
+        task.set(GoogleTaskFields.NOTES, "1h Depends on T1");
+        task.set(GoogleTaskFields.PARENT,
                 "someparent");
 
         Assert.assertTrue(getActualRelevance(objectUnderTest, task));
