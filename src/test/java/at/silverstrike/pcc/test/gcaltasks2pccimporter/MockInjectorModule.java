@@ -12,9 +12,11 @@
 package at.silverstrike.pcc.test.gcaltasks2pccimporter;
 
 import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2Factory;
+import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParserFactory;
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.gcaltasks2pccimporter.DefaultGoogleCalendarTasks2PccImporter2Factory;
+import at.silverstrike.pcc.impl.gtasknoteparser.DefaultGoogleTaskNotesParserFactory;
 import at.silverstrike.pcc.impl.gtaskrelevance.DefaultIsGoogleTaskRelevantCalculatorFactory;
 
 import com.google.inject.AbstractModule;
@@ -37,6 +39,8 @@ final class MockInjectorModule extends AbstractModule {
         bind(Persistence.class).toInstance(this.persistence);
         bind(IsGoogleTaskRelevantCalculatorFactory.class).toInstance(
                 new DefaultIsGoogleTaskRelevantCalculatorFactory());
+        bind(GoogleTaskNotesParserFactory.class).toInstance(
+                new DefaultGoogleTaskNotesParserFactory());
     }
 
 }
