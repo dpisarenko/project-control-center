@@ -70,6 +70,9 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
 
         LOGGER.debug("Relevant tasks: " + relevantTasksByIds.size());
 
+        this.createdPccTasks =
+            new LinkedList<at.silverstrike.pcc.api.model.Task>();
+
         // Create tasks in PCC database
         final Map<String, at.silverstrike.pcc.api.model.Task> pccTasksByGoogleIds =
                     createPccTasks(relevantTasksByIds, persistence);
@@ -81,8 +84,6 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
         setDependencies(persistence, relevantTasksByIds,
                     pccTasksByGoogleIds);
 
-        this.createdPccTasks =
-                new LinkedList<at.silverstrike.pcc.api.model.Task>();
 
         for (final at.silverstrike.pcc.api.model.Task curTask : pccTasksByGoogleIds
                 .values()) {
@@ -156,6 +157,7 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
                         converter.getPccTask();
 
                 pccTasksByGoogleIds.put(curTask.id, pccTask);
+                this.createdPccTasks.add(pccTask);
             } catch (final PccException exception) {
                 LOGGER.error("", exception);
             }
