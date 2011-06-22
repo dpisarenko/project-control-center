@@ -12,6 +12,7 @@
 package at.silverstrike.pcc.impl.gcaltasks2pccimporter;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,9 +44,9 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
     private List<at.silverstrike.pcc.api.model.Task> createdPccTasks;
     private Injector injector;
     private UserData user;
-    
 
-    public void setGoogleTasks(List<com.google.api.services.tasks.v1.model.Task> aGoogleTasks) {
+    public void setGoogleTasks(
+            List<com.google.api.services.tasks.v1.model.Task> aGoogleTasks) {
         this.googleTasks = aGoogleTasks;
     }
 
@@ -79,6 +80,14 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
         // Set dependencies
         setDependencies(persistence, relevantTasksByIds,
                     pccTasksByGoogleIds);
+
+        this.createdPccTasks =
+                new LinkedList<at.silverstrike.pcc.api.model.Task>();
+
+        for (final at.silverstrike.pcc.api.model.Task curTask : pccTasksByGoogleIds
+                .values()) {
+            this.createdPccTasks.add(curTask);
+        }
     }
 
     private
