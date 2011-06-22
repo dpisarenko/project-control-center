@@ -41,6 +41,7 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     private UserSettingsPanelController controller;
     private String requestAuthCodeCaption;
     private String calculateSyncDataButtonCaption;
+    private String logoutButtonCaption;
     private TextField googleCodeTextField;
 
     @Override
@@ -73,9 +74,13 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
                 TM.get("usersettingspanel.7-request-auth-code");
         final Button requestAuthCodeButton =
                 new Button(requestAuthCodeCaption);
-        calculateSyncDataButtonCaption = TM.get("usersettingspanel.4-fetch-tasks");
+        calculateSyncDataButtonCaption =
+                TM.get("usersettingspanel.4-fetch-tasks");
         final Button calculateSyncDataButton =
                 new Button(calculateSyncDataButtonCaption);
+
+        this.logoutButtonCaption = TM.get("usersettingspanel.8-logout");
+        final Button logoutButton = new Button(this.logoutButtonCaption);
 
         final VerticalLayout buttonPanel = new VerticalLayout();
 
@@ -84,6 +89,7 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
         buttonPanel.addComponent(requestAuthCodeButton);
         buttonPanel.addComponent(calculateSyncDataButton);
+        buttonPanel.addComponent(logoutButton);
         return buttonPanel;
     }
 
@@ -97,12 +103,16 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         final String buttonCaption = aEvent.getButton().getCaption();
 
         LOGGER.debug("buttonCaption: '{}', this.fetchDataButtonCaption: '{}'",
-                new Object[] { buttonCaption, this.calculateSyncDataButtonCaption });
+                new Object[] { buttonCaption,
+                        this.calculateSyncDataButtonCaption });
         if (this.requestAuthCodeCaption.equals(buttonCaption)) {
             this.controller.requestGoogleAuthorizationCode();
         } else if (this.calculateSyncDataButtonCaption.equals(buttonCaption)) {
-            this.controller.calculateAndSyncData((String) this.googleCodeTextField
-                    .getValue());
+            this.controller
+                    .calculateAndSyncData((String) this.googleCodeTextField
+                            .getValue());
+        } else if (this.logoutButtonCaption.equals(buttonCaption)) {
+
         }
     }
 }
