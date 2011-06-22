@@ -53,6 +53,10 @@ class DefaultGoogleTask2PccTaskConverter implements GoogleTask2PccTaskConverter 
                 this.task.setBestCaseEffort(effortInHours);
                 this.task.setWorstCaseEffort(effortInHours);
             }
+
+            if (this.parser.isLabelSpecified()) {
+                this.task.setLabel(this.parser.getLabel());
+            }
         } catch (final PccException exception) {
             LOGGER.error("", exception);
         }
