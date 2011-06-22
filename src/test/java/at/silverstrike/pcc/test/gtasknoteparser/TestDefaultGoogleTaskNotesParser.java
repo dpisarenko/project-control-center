@@ -95,7 +95,7 @@ public class TestDefaultGoogleTaskNotesParser {
         Assert.assertEquals(3, predecessors.size());
         Assert.assertEquals("T1", predecessors.get(0));
         Assert.assertEquals("T2", predecessors.get(1));
-        Assert.assertEquals("T3", predecessors.get(3));
+        Assert.assertEquals("T3", predecessors.get(2));
     }
 
     

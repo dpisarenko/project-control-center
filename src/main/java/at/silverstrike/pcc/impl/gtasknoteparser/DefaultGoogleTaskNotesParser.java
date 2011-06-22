@@ -13,6 +13,7 @@ package at.silverstrike.pcc.impl.gtasknoteparser;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +37,6 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
 
     private boolean predecessorsSpecified;
     private List<String> predecessorLabels;
-    private Pattern predecessorPattern;
 
     public DefaultGoogleTaskNotesParser() {
         // This means N.YYh
@@ -45,10 +45,6 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
         final String effortRegex = ".*(\\d(\\.\\d{0,2}?)?)h.*";
 
         effortPattern = Pattern.compile(effortRegex);
-
-        final String dependenciesWithPrefixRegex =
-                ".*${prefix}\\:?+(.*)(\\,\\s.*)*\\s*.*".replace("${prefix}", PREFIX);
-        this.predecessorPattern = Pattern.compile(dependenciesWithPrefixRegex);
     }
 
     @Override
@@ -76,22 +72,15 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
     }
 
     private void parseDependenciesWithPrefix() {
-        final Matcher matcher =
-                this.predecessorPattern.matcher(this.notes.trim());
-        this.predecessorsSpecified = matcher.matches();
-
-        final int numberOfPredecessors = matcher.groupCount();
+        final String dependencies = this.notes.trim().split(PREFIX)[1];
+        final StringTokenizer tokenizer2 = new StringTokenizer(dependencies, ",");
 
         this.predecessorLabels = new LinkedList<String>();
-        for (int i = 1; i < numberOfPredecessors; i++) {
-            String text = StringUtils.trimToEmpty(matcher.group(i));
-
-            if (text.startsWith(",")) {
-                text = text.replace(",", "");
-            }
-
-            this.predecessorLabels.add(text);
+        while (tokenizer2.hasMoreTokens()) {
+            this.predecessorLabels.add(tokenizer2.nextToken().trim());
         }
+        
+        this.predecessorsSpecified = this.predecessorLabels.size() > 0;
     }
 
     private void parseEffort() {
