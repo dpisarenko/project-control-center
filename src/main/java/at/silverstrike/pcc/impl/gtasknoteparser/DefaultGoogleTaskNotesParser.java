@@ -38,7 +38,7 @@ class DefaultGoogleTaskNotesParser implements GoogleTaskNotesParser {
         // This means N.YYh
         // I. e. max effort is 9.99 hours.
         // The fractional part is optional.
-        final String effortRegex = "(\\d(\\.\\d{0,2}?)?)h";
+        final String effortRegex = "*.(\\d(\\.\\d{0,2}?)?)h*.";
 
         pattern = Pattern.compile(effortRegex);
     }

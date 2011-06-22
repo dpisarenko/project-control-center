@@ -129,7 +129,7 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
     }
 
     @Test
-    public void testTopLevelTaskWithEffortEstimateAndDependencyPrefix() {
+    public void testChildTaskWithEffortEstimateAndDependencyPrefix() {
         final IsGoogleTaskRelevantCalculator objectUnderTest =
                 getObjectUnderTest();
 
@@ -139,7 +139,7 @@ public class TestDefaultIsGoogleTaskRelevantCalculator {
         task.set(IsGoogleTaskRelevantCalculator.COMPLETED, null);
         task.set(IsGoogleTaskRelevantCalculator.NOTES, "1h Depends on T1");
         task.set(IsGoogleTaskRelevantCalculator.PARENT,
-                null);
+                "someparent");
 
         Assert.assertTrue(getActualRelevance(objectUnderTest, task));
     }

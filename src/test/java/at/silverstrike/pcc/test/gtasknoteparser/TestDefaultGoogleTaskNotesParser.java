@@ -65,6 +65,15 @@ public class TestDefaultGoogleTaskNotesParser {
         objectUnderTest.setNotes(null);
         checkReturnValues(objectUnderTest, false, null);
     }
+
+    @Test
+    public void testEffortAndDepenencyPrefix() {
+        final GoogleTaskNotesParser objectUnderTest = getObjectUnderTest();
+
+        objectUnderTest.setNotes("1h Depends on T1");
+        checkReturnValues(objectUnderTest, true, 1.0);        
+    }
+
     
     private void checkReturnValues(final GoogleTaskNotesParser objectUnderTest,
             final boolean expectedEffortSpecified, Double expectedEffort) {
