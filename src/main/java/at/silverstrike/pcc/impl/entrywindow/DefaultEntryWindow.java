@@ -37,19 +37,13 @@ import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 
 class DefaultEntryWindow implements EntryWindow, ClickListener {
-    private static final int OPEN_ID_TEXT_FIELD_COLUMNS = 30;
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultEntryWindow.class);
     private Window window;
-    private Panel authPanel;
-    private Label emailLabel;
     private TextField emailTextField;
     private PasswordField passwordTextField;
-    private Button loginButton;
-    private Label signupLabel;
     private transient Injector injector;
-    private Label passwordLabel;
     private String requestInviteButtonCaption;
     private String loginButtonCaption;
 
@@ -62,36 +56,6 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
     @Override
     public void initGui() {
-        // initGuiSimpleLayout();
-        initGuiCustomLayout();
-    }
-
-    private void initGuiSimpleLayout() {
-        window = new Window(TM.get("entrywindow.1-title"));
-        window.setSizeFull();
-
-        final GridLayout layout = new GridLayout(2, 1);
-
-        layout.setSizeFull();
-        initAuthPanel();
-
-        requestInviteButtonCaption =
-                TM.get("entrywindow.9-requestInviteButton");
-        final Button requestInviteButton =
-                new Button(requestInviteButtonCaption);
-        requestInviteButton.addListener(this);
-
-        this.signupLabel =
-                new Label(TM.get("entrywindow.4-signuplabel"),
-                        Label.CONTENT_XHTML);
-
-        layout.addComponent(requestInviteButton, 0, 0);
-        layout.addComponent(this.authPanel, 1, 0);
-
-        window.addComponent(layout);
-    }
-
-    private void initGuiCustomLayout() {
         final GridLayout mainLayout = new GridLayout(2, 2);
 
         window = new Window(TM.get("entrywindow.1-title"));
@@ -106,7 +70,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
                 new Label(TM.get("entrywindow.20-copyright"),
                         Label.CONTENT_XHTML);
         copyright.setStyleName("copyright");
-        
+
         leftLayout.setStyleName("leftLayout");
         rightLayout.setStyleName("rightLayout");
 
@@ -121,38 +85,40 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label privateBetaTesterLogin =
                 new Label(TM.get("entrywindow.13-privateBetaTesterLogin"),
                         Label.CONTENT_XHTML);
-        
+
+        loginButtonCaption = TM.get("entrywindow.22-loginButton");
 
         final Button loginButton =
-                new Button(TM.get("entrywindow.22-loginButton"));
+                new Button(loginButtonCaption);
+        loginButton.addListener(this);
         final Label usernameLettering =
                 new Label(TM.get("entrywindow.23-usernameLettering"),
                         Label.CONTENT_XHTML);
         final Label passwordLettering =
                 new Label(TM.get("entrywindow.24-passwortLettering"),
                         Label.CONTENT_XHTML);
+        
+        emailTextField = new TextField();
+        passwordTextField = new PasswordField();
 
-        final TextField usernameTextField = new TextField();
-        final PasswordField passwordTextField = new PasswordField();
-
-        usernameTextField.setColumns(35);
+        emailTextField.setColumns(35);
         passwordTextField.setColumns(10);
 
         privateBetaTesterLogin.setStyleName("privateBetaTesterLogin");
         loginButton.setStyleName("loginButton");
         usernameLettering.setStyleName("usernameLettering");
-        usernameTextField.setStyleName("usernameTextField");
+        emailTextField.setStyleName("usernameTextField");
         passwordLettering.setStyleName("passwordLettering");
         passwordTextField.setStyleName("passwordTextField");
-        
+
         layout.addComponent(privateBetaTesterLogin);
         layout.addComponent(loginButton);
         layout.addComponent(usernameLettering);
-        layout.addComponent(usernameTextField);
+        layout.addComponent(emailTextField);
         layout.addComponent(passwordLettering);
         layout.addComponent(passwordTextField);
         layout.addComponent(loginButton);
-        
+
         return layout;
     }
 
@@ -174,7 +140,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         tagline.setStyleName("tagline");
         theProblemText.setStyleName("theProblemText");
         invitationRequestPanel.setStyleName("invitationRequestPanel");
-        
+
         layout.addComponent(titleLettering);
         layout.addComponent(tagline);
         layout.addComponent(theProblemText);
@@ -190,14 +156,20 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
                 new Label(TM.get("entrywindow.21-invitationPanelTitle"),
                         Label.CONTENT_XHTML);
         final TextField emailTextField = new TextField();
+
+        requestInviteButtonCaption =
+                TM.get("entrywindow.25-submitInviationRequestButton");
         final Button submitInviationRequestButton =
                 new Button(
-                        TM.get("entrywindow.25-submitInviationRequestButton"));
+                        requestInviteButtonCaption);
+
+        submitInviationRequestButton.addListener(this);
 
         invitationPanelTitle.setStyleName("invitationPanelTitle");
         emailTextField.setStyleName("emailTextField");
-        submitInviationRequestButton.setStyleName("submitInviationRequestButton");
-        
+        submitInviationRequestButton
+                .setStyleName("submitInviationRequestButton");
+
         panel.addComponent(invitationPanelTitle);
         panel.addComponent(emailTextField);
         panel.addComponent(submitInviationRequestButton);
@@ -208,34 +180,6 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
     @Override
     public Window toWindow() {
         return this.window;
-    }
-
-    private void initAuthPanel() {
-        final GridLayout gridLayout = new GridLayout(2, 3);
-
-        this.authPanel = new Panel();
-
-        emailLabel = new Label(TM.get("entrywindow.2-openIdLabel"));
-        emailTextField = new TextField();
-        emailTextField.setColumns(OPEN_ID_TEXT_FIELD_COLUMNS);
-
-        passwordLabel = new Label(TM.get("entrywindow.8-password-label"));
-        this.passwordTextField = new PasswordField();
-
-        loginButtonCaption = TM.get("entrywindow.3-authenticateButton");
-        loginButton = new Button(loginButtonCaption);
-        loginButton.addListener(this);
-
-        gridLayout.addComponent(emailLabel, 0, 0);
-        gridLayout.addComponent(emailTextField, 1, 0);
-
-        gridLayout.addComponent(passwordLabel, 0, 1);
-        gridLayout.addComponent(passwordTextField, 1, 1);
-
-        gridLayout.addComponent(loginButton, 0, 2, 1, 2);
-
-        this.authPanel.addComponent(gridLayout);
-        this.authPanel.setSizeFull();
     }
 
     @Override

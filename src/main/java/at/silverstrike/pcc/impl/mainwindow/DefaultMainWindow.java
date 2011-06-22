@@ -88,8 +88,8 @@ class DefaultMainWindow implements MainWindow {
 
         final VerticalLayout mainLayout = new VerticalLayout();
 
-        final MenuBar menubar = createMenuBar();
-        mainLayout.addComponent(menubar);
+//        final MenuBar menubar = createMenuBar();
+//        mainLayout.addComponent(menubar);
 
         final SchedulingPanelControllerFactory factory =
                 this.injector
@@ -100,7 +100,7 @@ class DefaultMainWindow implements MainWindow {
         LOGGER.debug("injector: {}", this.injector);
         schedulingPanelController.setInjector(this.injector);
 
-        mainLayout.addComponent(schedulingPanelController.initGui());
+//        mainLayout.addComponent(schedulingPanelController.initGui());
 
         this.tabSheet.addTab(getUserSettingsTab(), TM
                 .get("mainwindow.22-user-settings-tab"), null);
