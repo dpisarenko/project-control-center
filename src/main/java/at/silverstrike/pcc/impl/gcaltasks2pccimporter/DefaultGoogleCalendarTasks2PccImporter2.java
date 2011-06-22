@@ -157,7 +157,6 @@ class DefaultGoogleCalendarTasks2PccImporter2 implements
                         converter.getPccTask();
 
                 pccTasksByGoogleIds.put(curTask.id, pccTask);
-                this.createdPccTasks.add(pccTask);
             } catch (final PccException exception) {
                 LOGGER.error("", exception);
             }
