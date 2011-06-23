@@ -18,69 +18,70 @@
  **/
 @import url(../reindeer/styles.css);
 
-
-html{
+html {
 	margin: 0;
 	padding: 0;
 }
 
 body {
-margin:0;
-padding:0;
-background-color:#666;
+	margin: 0;
+	padding: 0;
+	background-color: #666;
 }
 
 .window {
-	width:100%;
+	width: 100%;
 }
 
 .v-gridlayout {
-	width:980px;
-	margin:0px auto;
+	width: 980px;
+	margin: 0px auto;
 }
 
 .titleLettering {
-		font-family: Verdana, Geneva, sans-serif;
-	font-size:26px;
-	font-weight:900;
-	text-transform:uppercase;
-	letter-spacing:-1px;
-	margin:0; padding:0;
-	color:#454545;
-	height:54px;
-	background:url(img/bg_title.jpg) repeat-x;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 26px;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: -1px;
+	margin: 0;
+	padding: 0;
+	color: #454545;
+	height: 54px;
+	background: url(img/bg_title.jpg) repeat-x;
 }
 
 .copyright {
-		font-family:Tahoma, Geneva, sans-serif;
-	font-size:12px;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
 	font-weight: normal;
-	margin:0; padding:0;
-	letter-spacing:-1px;
-	text-indent:10px;
-	color:#454545;
-	padding-top:2px;
-	padding-left:44px;
-	}
-	
-.theProblemText {
-		font-family:Tahoma, Geneva, sans-serif;
-	font-size:12px;
-	font-weight:lighter;
-	margin-left:10px;
-	margin-top:0;
-	line-height:15px;
-	background-color:#FFF;
+	margin: 0;
+	padding: 0;
+	letter-spacing: -1px;
+	text-indent: 10px;
+	color: #454545;
+	padding-top: 2px;
+	padding-left: 44px;
 }
 
-.invitationRequestPanel {
-	text-align:center;
-	background:url(img/rq_bg.jpg) repeat-x;
+.theProblemText {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: lighter;
+	margin-left: 10px;
+	margin-top: 0;
+	line-height: 15px;
+	background-color: #FFF;
+}
+
+.v-panel .v-panel-invitationRequestPanel .invitationRequestPanel {
+	text-align: center;
+	background: url(img/rq_bg.jpg) repeat-x;
 }
 
 .rightLayout {
-	background:url(img/login_bg.png) repeat-x;
-	text-align:left;
+	background: url(img/login_bg.png) repeat-x;
+	text-align: left;
 }
 
 /*.leftLayout {
@@ -90,63 +91,63 @@ background-color:#666;
 	display: table;
 	background-color:#FFF;
 }*/
-
 .privateBetaTesterLogin {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:24px;
-	font-weight:bold;
-	margin:0; padding:0;
-	letter-spacing:-2px;
-	color:#454545;
-	text-align:left;
-	margin-bottom:1px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	letter-spacing: -2px;
+	color: #454545;
+	text-align: left;
+	margin-bottom: 1px;
 }
 
 .usernameLettering {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:15px;
-	font-weight:bold;
-	margin:0; padding:0;
-	letter-spacing:-1px;
-	text-indent:10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	letter-spacing: -1px;
+	text-indent: 10px;
 }
 
 .passwordLettering {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:15px;
-	font-weight:bold;
-	margin:0; padding:0;
-	letter-spacing:-1px;
-	text-indent:10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	letter-spacing: -1px;
+	text-indent: 10px;
 }
 
 .loginButton {
-	font-family:Tahoma, Geneva, sans-serif;
-	font-size:12px;
-	display:block;
-	background-color:#CCC;
-	padding:5px 5px 5px 0px;
-	text-align:center;
-	width:45px;
-	height:20px;
-	
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	display: block;
+	background-color: #CCC;
+	padding: 5px 5px 5px 0px;
+	text-align: center;
+	width: 45px;
+	height: 20px;
 }
 
 .invitationPanelTitle {
-	font-family:Tahoma, Geneva, sans-serif;
-	font-size:12px;
-	font-weight:lighter;
-	color:#1589b1;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: lighter;
+	color: #1589b1;
 }
 
 .submitInviationRequestButton {
-	font-family:Tahoma, Geneva, sans-serif;
-	font-size:12px;
-	display:block;
-	background-color:#CCC;
-	padding:5px 5px 5px 0px;
-	text-align:center;
-	width:120px;
-	height:20px;	
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	display: block;
+	background-color: #CCC;
+	padding: 5px 5px 5px 0px;
+	text-align: center;
+	width: 120px;
+	height: 20px;
 }
- 
