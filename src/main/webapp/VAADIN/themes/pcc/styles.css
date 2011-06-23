@@ -38,7 +38,7 @@ body {
 	margin: 0px auto;
 }
 
-.titleLettering {
+.v-label .v-label-titleLettering .titleLettering .v-label-undef-w {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 26px;
 	font-weight: 900;
