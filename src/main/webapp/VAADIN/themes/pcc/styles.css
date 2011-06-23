@@ -38,7 +38,7 @@ body {
 	margin: 0px auto;
 }
 
-.v-label .v-label-titleLettering .titleLettering .v-label-undef-w {
+.titleLettering .v-label-undef-w {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 26px;
 	font-weight: 900;
@@ -51,7 +51,7 @@ body {
 	background: url(img/bg_title.jpg) repeat-x;
 }
 
-.v-label .v-label-copyright .copyright .v-label-undef-w {
+.copyright .v-label-undef-w {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: normal;
@@ -64,7 +64,7 @@ body {
 	padding-left: 44px;
 }
 
-.v-label .v-label-theProblemText .theProblemText .v-label-undef-w {
+.theProblemText .v-label-undef-w {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: lighter;
@@ -74,17 +74,17 @@ body {
 	background-color: #FFF;
 }
 
-.v-panel .v-panel-invitationRequestPanel .invitationRequestPanel {
+.v-panel-invitationRequestPanel .invitationRequestPanel {
 	text-align: center;
 	background: url(img/rq_bg.jpg) repeat-x;
 }
 
-.v-verticallayout .v-verticallayout-rightLayout .rightLayout {
+.v-verticallayout-rightLayout .rightLayout {
 	background: url(img/login_bg.png) repeat-x;
 	text-align: left;
 }
 
-.v-label .v-label-privateBetaTesterLogin .privateBetaTesterLogin .v-label-undef-w {
+.privateBetaTesterLogin .v-label-undef-w {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 24px;
 	font-weight: bold;
@@ -96,7 +96,7 @@ body {
 	margin-bottom: 1px;
 }
 
-.v-label .v-label-usernameLettering .usernameLettering .v-label-undef-w {
+.usernameLettering .v-label-undef-w {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
@@ -106,7 +106,7 @@ body {
 	text-indent: 10px;
 }
 
-.v-label .v-label-passwordLettering .passwordLettering .v-label-undef-w {
+.passwordLettering .v-label-undef-w {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
@@ -116,7 +116,7 @@ body {
 	text-indent: 10px;
 }
 
-.v-button .v-button-loginButton .loginButton {
+.v-button-loginButton .loginButton {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	display: block;
@@ -127,14 +127,14 @@ body {
 	height: 20px;
 }
 
-.v-label .v-label-invitationPanelTitle .invitationPanelTitle .v-label-undef-w {
+.invitationPanelTitle .v-label-undef-w {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: lighter;
 	color: #1589b1;
 }
 
-.v-button .v-button-submitInviationRequestButton .submitInviationRequestButton {
+.v-button-submitInviationRequestButton .submitInviationRequestButton {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	display: block;
