@@ -79,7 +79,7 @@ body {
 	background: url(img/rq_bg.jpg) repeat-x;
 }
 
-.rightLayout {
+.v-verticallayout .v-verticallayout-rightLayout .rightLayout {
 	background: url(img/login_bg.png) repeat-x;
 	text-align: left;
 }
