@@ -131,3 +131,11 @@
 	font-size: 12px;
 	text-align: center;
 }
+
+.v-gridlayout-mainLayout {
+    background-color: #FFFFFF;
+    display: table;
+    margin: 0 auto;
+    position: relative;
+    width: 980px;	
+}
