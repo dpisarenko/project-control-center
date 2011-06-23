@@ -29,7 +29,7 @@ body {
 	background-color: #666;
 }
 
-.window {
+.v-view .window  {
 	width: 100%;
 }
 
@@ -51,7 +51,7 @@ body {
 	background: url(img/bg_title.jpg) repeat-x;
 }
 
-.copyright {
+.v-label .v-label-copyright .copyright .v-label-undef-w {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: normal;
@@ -64,7 +64,7 @@ body {
 	padding-left: 44px;
 }
 
-.theProblemText {
+.v-label .v-label-theProblemText .theProblemText .v-label-undef-w {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: lighter;
@@ -84,14 +84,7 @@ body {
 	text-align: left;
 }
 
-/*.leftLayout {
-	width: 980px;
-	margin: 0px auto;
-	position: relative;
-	display: table;
-	background-color:#FFF;
-}*/
-.privateBetaTesterLogin {
+.v-label .v-label-privateBetaTesterLogin .privateBetaTesterLogin .v-label-undef-w {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 24px;
 	font-weight: bold;
@@ -103,7 +96,7 @@ body {
 	margin-bottom: 1px;
 }
 
-.usernameLettering {
+.v-label .v-label-usernameLettering .usernameLettering .v-label-undef-w {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
@@ -113,7 +106,7 @@ body {
 	text-indent: 10px;
 }
 
-.passwordLettering {
+.v-label .v-label-passwordLettering .passwordLettering .v-label-undef-w {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
@@ -123,7 +116,7 @@ body {
 	text-indent: 10px;
 }
 
-.loginButton {
+.v-button .v-button-loginButton .loginButton {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	display: block;
@@ -134,14 +127,14 @@ body {
 	height: 20px;
 }
 
-.invitationPanelTitle {
+.v-label .v-label-invitationPanelTitle .invitationPanelTitle .v-label-undef-w {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: lighter;
 	color: #1589b1;
 }
 
-.submitInviationRequestButton {
+.v-button .v-button-submitInviationRequestButton .submitInviationRequestButton {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	display: block;
