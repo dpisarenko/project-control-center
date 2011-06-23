@@ -142,5 +142,9 @@
 }
 
 .v-verticallayout-loginPanel {
+	z-index:3;	
+}
+
+.v-verticallayout-loginPanel div {
 	background: url(img/loginPanel_left.png) no-repeat top left;
 }
