@@ -140,8 +140,13 @@
 	width: 980px;
 }
 
-.v-verticallayout-loginPanel {
-	z-index: 3;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
+.loginPanel {
+      border-radius-bottomleft:20px 40px;
+      border-radius-bottomright:20px 40px; 
+      -moz-border-radius-bottomleft:20px 40px; 
+      -moz-border-radius-bottomright:20px 40px; 
+      -khtml-border-radius-bottomleft:20px 40px; 
+      -khtml-border-radius-bottomright:20px 40px; 
+      -webkit-border-radius-bottomleft:20px 40px; 
+      -webkit-border-radius-bottomright:20px 40px; 
 }

@@ -86,7 +86,8 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         final VerticalLayout loginPanel = new VerticalLayout();
         
-        loginPanel.setStyleName("loginPanel");
+        loginPanel.addStyleName("loginPanel");
+        
         
         
         final Label privateBetaTesterLogin =
@@ -108,7 +109,10 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         emailTextField = new TextField();
         passwordTextField = new PasswordField();
 
-        emailTextField.setColumns(35);
+        emailTextField.setSizeUndefined();
+        emailTextField.setColumns(20);
+        
+        passwordTextField.setSizeUndefined();
         passwordTextField.setColumns(10);
 
         privateBetaTesterLogin.setStyleName("privateBetaTesterLogin");
