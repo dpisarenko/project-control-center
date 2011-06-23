@@ -48,6 +48,7 @@ body {
 	padding: 0;
 	color: #454545;
 	height: 54px;
+	width:980px;
 	background: url(img/bg_title.jpg) repeat-x;
 }
 
@@ -72,7 +73,6 @@ body {
 	margin-top: 0;
 	line-height: 15px;
 	background-color: #FFF;
-	width:250px;
 }
 
 .v-panel-invitationRequestPanel {
@@ -120,12 +120,7 @@ body {
 .v-button-loginButton {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
-	display: block;
-	background-color: #CCC;
-	padding: 5px 5px 5px 0px;
 	text-align: center;
-	width: 45px;
-	height: 20px;
 }
 
 .v-label-invitationPanelTitle {
@@ -138,10 +133,5 @@ body {
 .v-button-submitInviationRequestButton {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
-	display: block;
-	background-color: #CCC;
-	padding: 5px 5px 5px 0px;
 	text-align: center;
-	width: 120px;
-	height: 20px;
 }
