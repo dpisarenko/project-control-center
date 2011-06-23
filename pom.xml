@@ -2,13 +2,12 @@
 <!-- This file is part of Project Control Center (PCC). PCC (Project Control 
 	Center) project is intellectual property of Dmitri Anatol'evich Pisarenko. 
 	Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko All rights reserved -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.18-SNAPSHOT</version>
+	<version>1.0.18</version>
 	<name>Project Control Center</name>
 
 	<scm>
