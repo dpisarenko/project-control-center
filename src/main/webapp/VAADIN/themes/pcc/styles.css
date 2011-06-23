@@ -16,16 +16,15 @@
  *
  * Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko
  **/
- 
 @import url(../reindeer/styles.css);
 
 .v-app {
 	margin: 0;
 	padding: 0;
-	background-color: #666;	
+	background-color: #666;
 }
 
-.v-view .window  {
+.v-view .window {
 	width: 100%;
 }
 
@@ -44,7 +43,7 @@
 	padding: 0;
 	color: #454545;
 	height: 54px;
-	width:980px;
+	width: 980px;
 	background: url(img/bg_title.jpg) repeat-x;
 }
 
@@ -134,17 +133,15 @@
 }
 
 .v-gridlayout-mainLayout {
-    background-color: #FFFFFF;
-    display: table;
-    margin: 0 auto;
-    position: relative;
-    width: 980px;	
+	background-color: #FFFFFF;
+	display: table;
+	margin: 0 auto;
+	position: relative;
+	width: 980px;
 }
 
 .v-verticallayout-loginPanel {
-	z-index:3;	
-}
-
-.v-verticallayout-loginPanel div {
-	background: url(img/loginPanel_left.png) no-repeat top left;
+	z-index: 3;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
 }
