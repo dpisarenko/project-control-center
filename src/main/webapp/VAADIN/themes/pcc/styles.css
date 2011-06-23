@@ -18,7 +18,7 @@
  **/
 @import url(../reindeer/styles.css);
 
-html {
+.v-app-ProjectControlCenterApplication {
 	margin: 0;
 	padding: 0;
 }
@@ -38,7 +38,7 @@ body {
 	margin: 0px auto;
 }
 
-.titleLettering .v-label-undef-w {
+.v-label-titleLettering {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 26px;
 	font-weight: 900;
@@ -51,7 +51,7 @@ body {
 	background: url(img/bg_title.jpg) repeat-x;
 }
 
-.copyright .v-label-undef-w {
+.v-label-copyright {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: normal;
@@ -64,7 +64,7 @@ body {
 	padding-left: 44px;
 }
 
-.theProblemText .v-label-undef-w {
+.v-label-theProblemText {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: lighter;
@@ -74,17 +74,17 @@ body {
 	background-color: #FFF;
 }
 
-.v-panel-invitationRequestPanel .invitationRequestPanel {
+.v-panel-invitationRequestPanel {
 	text-align: center;
 	background: url(img/rq_bg.jpg) repeat-x;
 }
 
-.v-verticallayout-rightLayout .rightLayout {
+.v-verticallayout-rightLayout {
 	background: url(img/login_bg.png) repeat-x;
 	text-align: left;
 }
 
-.privateBetaTesterLogin .v-label-undef-w {
+.v-label-privateBetaTesterLogin {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 24px;
 	font-weight: bold;
@@ -96,7 +96,7 @@ body {
 	margin-bottom: 1px;
 }
 
-.usernameLettering .v-label-undef-w {
+.v-label-usernameLettering {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
@@ -106,7 +106,7 @@ body {
 	text-indent: 10px;
 }
 
-.passwordLettering .v-label-undef-w {
+.v-label-passwordLettering {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
@@ -116,7 +116,7 @@ body {
 	text-indent: 10px;
 }
 
-.v-button-loginButton .loginButton {
+.v-button-loginButton {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	display: block;
@@ -127,14 +127,14 @@ body {
 	height: 20px;
 }
 
-.invitationPanelTitle .v-label-undef-w {
+.v-label-invitationPanelTitle {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: lighter;
 	color: #1589b1;
 }
 
-.v-button-submitInviationRequestButton .submitInviationRequestButton {
+.v-button-submitInviationRequestButton {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	display: block;
