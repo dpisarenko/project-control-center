@@ -84,6 +84,11 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
     private VerticalLayout getRightLayout() {
         final VerticalLayout layout = new VerticalLayout();
 
+        final VerticalLayout loginPanel = new VerticalLayout();
+        
+        loginPanel.setStyleName("loginPanel");
+        
+        
         final Label privateBetaTesterLogin =
                 new Label(TM.get("entrywindow.13-privateBetaTesterLogin"),
                         Label.CONTENT_XHTML);
@@ -113,14 +118,16 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         passwordLettering.setStyleName("passwordLettering");
         passwordTextField.setStyleName("passwordTextField");
 
-        layout.addComponent(privateBetaTesterLogin);
-        layout.addComponent(loginButton);
-        layout.addComponent(usernameLettering);
-        layout.addComponent(emailTextField);
-        layout.addComponent(passwordLettering);
-        layout.addComponent(passwordTextField);
-        layout.addComponent(loginButton);
+        loginPanel.addComponent(privateBetaTesterLogin);
+        loginPanel.addComponent(loginButton);
+        loginPanel.addComponent(usernameLettering);
+        loginPanel.addComponent(emailTextField);
+        loginPanel.addComponent(passwordLettering);
+        loginPanel.addComponent(passwordTextField);
+        loginPanel.addComponent(loginButton);
 
+        layout.addComponent(loginPanel);
+        
         return layout;
     }
 
@@ -172,6 +179,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         submitInviationRequestButton
                 .setStyleName("submitInviationRequestButton");
 
+        panel.setStyleName("invitationRequestPanel");
         panel.addComponent(invitationPanelTitle);
         panel.addComponent(emailTextField);
         panel.addComponent(submitInviationRequestButton);

@@ -140,3 +140,7 @@
     position: relative;
     width: 980px;	
 }
+
+.v-verticallayout-loginPanel {
+	background: url(ima/loginPanel_left.png) no-repeat top left;
+}
