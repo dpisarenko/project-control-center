@@ -76,6 +76,8 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         mainLayout.setStyleName("mainLayout");
         
+        mainLayout.setMargin(true, true, false, false);
+        
         mainLayout.addComponent(leftLayout, 0, 0);
         mainLayout.addComponent(rightLayout, 1, 0);
         mainLayout.addComponent(copyright, 0, 1, 1, 1);
