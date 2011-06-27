@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.impl.entrywindow;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Injector;
@@ -29,8 +30,6 @@ import com.vaadin.ui.Window.Notification;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
-import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
-import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiControllerFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.model.UserData;
@@ -46,6 +45,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
     private transient Injector injector;
     private String requestInviteButtonCaption;
     private String loginButtonCaption;
+    private TextField invitationEmailTextField;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -75,7 +75,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         rightLayout.setStyleName("rightLayout");
 
         mainLayout.setStyleName("mainLayout");
-                
+
         mainLayout.addComponent(leftLayout, 0, 0);
         mainLayout.addComponent(rightLayout, 1, 0);
         mainLayout.addComponent(copyright, 0, 1, 1, 1);
@@ -85,11 +85,9 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final VerticalLayout layout = new VerticalLayout();
 
         final VerticalLayout loginPanel = new VerticalLayout();
-        
+
         loginPanel.addStyleName("loginPanel");
-        
-        
-        
+
         final Label privateBetaTesterLogin =
                 new Label(TM.get("entrywindow.13-privateBetaTesterLogin"),
                         Label.CONTENT_XHTML);
@@ -105,13 +103,13 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label passwordLettering =
                 new Label(TM.get("entrywindow.24-passwortLettering"),
                         Label.CONTENT_XHTML);
-        
+
         emailTextField = new TextField();
         passwordTextField = new PasswordField();
 
         emailTextField.setSizeUndefined();
         emailTextField.setColumns(10);
-        
+
         passwordTextField.setSizeUndefined();
         passwordTextField.setColumns(10);
 
@@ -131,7 +129,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         loginPanel.addComponent(loginButton);
 
         layout.addComponent(loginPanel);
-        
+
         return layout;
     }
 
@@ -168,7 +166,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         final Label invitationPanelTitle =
                 new Label(TM.get("entrywindow.21-invitationPanelTitle"),
                         Label.CONTENT_XHTML);
-        final TextField emailTextField = new TextField();
+        invitationEmailTextField = new TextField();
 
         requestInviteButtonCaption =
                 TM.get("entrywindow.25-submitInviationRequestButton");
@@ -179,13 +177,13 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         submitInviationRequestButton.addListener(this);
 
         invitationPanelTitle.setStyleName("invitationPanelTitle");
-        emailTextField.setStyleName("emailTextField");
+        invitationEmailTextField.setStyleName("emailTextField");
         submitInviationRequestButton
                 .setStyleName("submitInviationRequestButton");
 
         panel.setStyleName("invitationRequestPanel");
         panel.addComponent(invitationPanelTitle);
-        panel.addComponent(emailTextField);
+        panel.addComponent(invitationEmailTextField);
         panel.addComponent(submitInviationRequestButton);
 
         return panel;
@@ -210,23 +208,32 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
         if (this.requestInviteButtonCaption.equals(buttonCaption)) {
             LOGGER.debug("buttonClick");
-            final InvitationGuiControllerFactory invitationGuiControllerFactory =
-                    injector.getInstance(InvitationGuiControllerFactory.class);
-            final InvitationGuiController controller =
-                    invitationGuiControllerFactory.create();
 
-            controller.setInjector(injector);
+            final String email =
+                    (String) this.invitationEmailTextField.getValue();
+            
+            if (StringUtils.isBlank(email))
+            {
+                TPTApplication
+                .getCurrentApplication()
+                .getMainWindow()
+                .showNotification(this.window.getCaption(),
+                        TM.get("entrywindow.26-no-invitation-email"),
+                        Notification.TYPE_ERROR_MESSAGE);
+            }
+            else
+            {
+                final Persistence persistence =
+                    this.injector.getInstance(Persistence.class);
+                persistence.createInvitationRequest(null, email);
 
-            final Window invitationRequestWindow = controller.initGui();
-
-            LOGGER.debug("buttonClick, 2, invitationRequestWindow: {}",
-                    invitationRequestWindow);
-
-            TPTApplication.getCurrentApplication().removeWindow(
-                    TPTApplication.getCurrentApplication().getMainWindow());
-            TPTApplication.getCurrentApplication().setMainWindow(
-                    invitationRequestWindow);
-
+                TPTApplication
+                .getCurrentApplication()
+                .getMainWindow()
+                .showNotification(this.window.getCaption(),
+                        TM.get("entrywindow.27-invitation-request-submitted"),
+                        Notification.TYPE_ERROR_MESSAGE);
+            }
         } else if (this.loginButtonCaption.equals(buttonCaption)) {
             final String userName = (String) this.emailTextField.getValue();
             final String password = (String) this.passwordTextField.getValue();
