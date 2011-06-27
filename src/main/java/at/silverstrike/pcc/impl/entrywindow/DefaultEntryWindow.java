@@ -211,28 +211,30 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
 
             final String email =
                     (String) this.invitationEmailTextField.getValue();
-            
-            if (StringUtils.isBlank(email))
-            {
+
+            if (StringUtils.isBlank(email)) {
                 TPTApplication
-                .getCurrentApplication()
-                .getMainWindow()
-                .showNotification(this.window.getCaption(),
-                        TM.get("entrywindow.26-no-invitation-email"),
-                        Notification.TYPE_ERROR_MESSAGE);
-            }
-            else
-            {
+                        .getCurrentApplication()
+                        .getMainWindow()
+                        .showNotification(this.window.getCaption(),
+                                TM.get("entrywindow.26-no-invitation-email"),
+                                Notification.TYPE_ERROR_MESSAGE);
+            } else {
                 final Persistence persistence =
-                    this.injector.getInstance(Persistence.class);
+                        this.injector.getInstance(Persistence.class);
                 persistence.createInvitationRequest(null, email);
 
+                final Notification notification =
+                        new Notification(
+                                this.window.getCaption(),
+                                TM.get("entrywindow.27-invitation-request-submitted"),
+                                Notification.TYPE_WARNING_MESSAGE);
+                notification.setDelayMsec(-1);
+
                 TPTApplication
-                .getCurrentApplication()
-                .getMainWindow()
-                .showNotification(this.window.getCaption(),
-                        TM.get("entrywindow.27-invitation-request-submitted"),
-                        Notification.TYPE_HUMANIZED_MESSAGE);
+                        .getCurrentApplication()
+                        .getMainWindow()
+                        .showNotification(notification);
             }
         } else if (this.loginButtonCaption.equals(buttonCaption)) {
             final String userName = (String) this.emailTextField.getValue();
