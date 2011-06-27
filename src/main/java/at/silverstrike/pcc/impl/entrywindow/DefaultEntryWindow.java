@@ -232,7 +232,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
                 .getMainWindow()
                 .showNotification(this.window.getCaption(),
                         TM.get("entrywindow.27-invitation-request-submitted"),
-                        Notification.TYPE_ERROR_MESSAGE);
+                        Notification.TYPE_HUMANIZED_MESSAGE);
             }
         } else if (this.loginButtonCaption.equals(buttonCaption)) {
             final String userName = (String) this.emailTextField.getValue();
