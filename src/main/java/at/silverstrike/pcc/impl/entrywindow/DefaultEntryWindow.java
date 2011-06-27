@@ -75,9 +75,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         rightLayout.setStyleName("rightLayout");
 
         mainLayout.setStyleName("mainLayout");
-        
-        mainLayout.setMargin(true, true, false, false);
-        
+                
         mainLayout.addComponent(leftLayout, 0, 0);
         mainLayout.addComponent(rightLayout, 1, 0);
         mainLayout.addComponent(copyright, 0, 1, 1, 1);
@@ -112,7 +110,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
         passwordTextField = new PasswordField();
 
         emailTextField.setSizeUndefined();
-        emailTextField.setColumns(20);
+        emailTextField.setColumns(10);
         
         passwordTextField.setSizeUndefined();
         passwordTextField.setColumns(10);

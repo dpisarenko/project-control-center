@@ -65,7 +65,6 @@
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	font-weight: lighter;
-	/*margin-left: 10px;*/
 	margin-top: 0;
 	line-height: 15px;
 	background-color: #FFF;
@@ -148,14 +147,3 @@
 	position: relative;
 	width: 980px;
 }
-
-/*.loginPanel {
-      border-radius-bottomleft:20px 40px;
-      border-radius-bottomright:20px 40px; 
-      -moz-border-radius-bottomleft:20px 40px; 
-      -moz-border-radius-bottomright:20px 40px; 
-      -khtml-border-radius-bottomleft:20px 40px; 
-      -khtml-border-radius-bottomright:20px 40px; 
-      -webkit-border-radius-bottomleft:20px 40px; 
-      -webkit-border-radius-bottomright:20px 40px; 
-}*/
