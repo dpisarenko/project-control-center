@@ -78,7 +78,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private static final String SCOPE_TASKS =
             "https://www.googleapis.com/auth/tasks";
     private static final String CLIENT_ID =
-            "482402692152.apps.googleusercontent.com";
+            "pcchq.com";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultUserSettingsPanelController.class);
     private static final int ONE_MONTH = 1;
