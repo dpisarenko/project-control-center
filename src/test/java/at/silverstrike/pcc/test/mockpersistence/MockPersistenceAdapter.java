@@ -197,60 +197,60 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public boolean deleteTask(final Task aTask) {
-        
+
         return false;
     }
 
     @Override
     public boolean deleteEvent(final Event aEvent) {
-        
+
         return false;
     }
 
     @Override
     public boolean deleteMilestone(final Milestone aMilestone) {
-        
+
         return false;
     }
 
     @Override
     public void updateMilestone(final Milestone aMilestone) {
-        
 
     }
 
     @Override
     public void updateEvent(final Event aEvent) {
-        
 
     }
 
     @Override
     public List<SchedulingObject> getPotentialDependencies(
             final SchedulingObject aObject) {
-        
+
         return null;
     }
 
     @Override
-    public boolean isHighestPriorityObjectInProject(final SchedulingObject aProject,
+    public boolean isHighestPriorityObjectInProject(
+            final SchedulingObject aProject,
             final SchedulingObject aSchedulingObject) {
-        
+
         return false;
     }
 
     @Override
     public boolean isLowestPriorityObjectInProject(SchedulingObject aProject,
             SchedulingObject aSchedulingObject) {
-        
+
         return false;
     }
 
     @Override
     public boolean markTaskAsCompleted(final Task aTask) {
-        
+
         return false;
     }
+
     @Override
     public void
             updateSchedulingObject(final SchedulingObject aSchedulingObject) {
@@ -259,41 +259,42 @@ public abstract class MockPersistenceAdapter implements Persistence {
     @Override
     public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
             final Long aProcessId) {
-        
+
         return null;
     }
 
     @Override
     public Worker getCurrentWorker(final UserData aUser) {
-        
+
         return null;
     }
 
     @Override
     public boolean hasChildren(final SchedulingObject aObject) {
-        
+
         return false;
     }
 
-
     @Override
-    public void createInvitationRequest(
-            final SupportedOpenIdProvider aOpenIdProvider, final String aUserUrl) {
-        
-        
+    public void
+            createInvitationRequest(
+                    final SupportedOpenIdProvider aOpenIdProvider,
+                    final String aUserUrl) {
+
     }
 
     @Override
     public List<InvitationRequest> getInvitationRequests() {
-        
+
         return null;
     }
 
     @Override
-    public void rejectInvitationRequest(final InvitationRequest aSelectedRequest) {
-        
-        
+    public void
+            rejectInvitationRequest(final InvitationRequest aSelectedRequest) {
+
     }
+
     @Override
     public void acceptInvitationRequest(final InvitationRequest aRequest,
             final String aUserIdentity) {
@@ -301,22 +302,21 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public void createSuperUser() {
-        
-        
+
     }
 
     @Override
     public Long getUserCount() {
-        
+
         return null;
     }
 
     @Override
     public UserData getUser(final String aUuserName, final String aPassword) {
-        
+
         return null;
-    }    
-    
+    }
+
     @Override
     public List<SchedulingObject> getTopLevelTasks(final UserData aUser) {
         return null;
@@ -324,20 +324,23 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public void updateUser(final UserData aUser) {
-        
-        
+
     }
 
     @Override
     public List<Booking> getBookings(final UserData aUser) {
-        
+
         return null;
     }
 
     @Override
     public void removeUserSchedulingObjects(final UserData aUser) {
-        
-        
-    }    
-    
+
+    }
+
+    @Override
+    public Task createTaskStub() {
+        return null;
+    }
+
 }
