@@ -52,7 +52,17 @@ class DefaultTask extends DefaultSchedulingObject implements
 
     @Override
     public double getAverageCaseEffort() {
-        return (this.bestCaseEffort + this.worstCaseEffort) / 2.0;
+        if ((this.bestCaseEffort != null) && (this.worstCaseEffort == null)) {
+            return this.bestCaseEffort;
+        } else if ((this.bestCaseEffort == null)
+                && (this.worstCaseEffort != null)) {
+            return this.worstCaseEffort;
+        } else if ((this.bestCaseEffort == null)
+                && (this.worstCaseEffort == null)) {
+            return 0.;
+        } else {
+            return (this.bestCaseEffort + this.worstCaseEffort) / 2;
+        }
     }
 
     public List<ResourceAllocation> getResourceAllocations() {

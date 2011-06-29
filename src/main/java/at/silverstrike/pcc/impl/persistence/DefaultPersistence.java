@@ -1844,4 +1844,9 @@ public class DefaultPersistence implements Persistence {
             tx.rollback();
         }
     }
+
+    @Override
+    public Task createTaskStub() {
+        return new DefaultTask();
+    }
 }

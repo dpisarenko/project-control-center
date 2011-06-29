@@ -225,4 +225,6 @@ public interface Persistence extends ModuleWithInjectableDependencies {
     List<Booking> getBookings(final UserData aUser);
 
     void removeUserSchedulingObjects(final UserData aUser);
+    
+    Task createTaskStub();
 }
