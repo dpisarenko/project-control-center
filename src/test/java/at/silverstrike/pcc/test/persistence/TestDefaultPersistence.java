@@ -241,4 +241,41 @@ public class TestDefaultPersistence {
         Assert.assertEquals(0,
                 persistence.getSubProcessesWithChildren(null, user).size());
     }
+
+    @Test
+    public void testNullPointerExceptionInDefaultTask() {
+        // Get object under test (persistence)
+        final Persistence persistence = new DefaultPersistence();
+
+        try {
+            persistence.openSession();
+        } catch (final RuntimeException exception) {
+            Assert.fail(exception.getMessage());
+        } catch (final Exception exception) {
+            Assert.fail(exception.getMessage());
+        }
+
+        // Clear database
+        persistence.clearDatabase();
+
+        // Create/fetch super user
+        persistence.createSuperUser();
+        final UserData user =
+                persistence.getUser(Persistence.SUPER_USER_NAME,
+                        Persistence.SUPER_USER_PASSWORD);
+
+        // Создаём событие
+        final Task task =
+                persistence.createSubTask("Bla-bla task", null, user);
+
+        task.setBestCaseEffort(null);
+        task.setWorstCaseEffort(null);
+
+        try {
+            task.getAverageCaseEffort();
+        } catch (final NullPointerException exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+    }
 }
