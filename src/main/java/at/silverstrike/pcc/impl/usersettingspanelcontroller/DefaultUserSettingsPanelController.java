@@ -51,10 +51,6 @@ import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
-import at.silverstrike.pcc.api.mainwindow.MainWindow;
-import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
-import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
-import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.UserData;
@@ -71,14 +67,14 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
  */
 class DefaultUserSettingsPanelController implements UserSettingsPanelController {
     private static final String REDIRECT_URL = "urn:ietf:wg:oauth:2.0:oob";
-    private static final String CLIENT_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
-    private static final String APPLICATION_NAME = "PCC";
+    private static final String CLIENT_SECRET = "J1JRmoTA-EmOjTwKkW-eLHLY";
+    private static final String APPLICATION_NAME = "pcchq.com";
     private static final String SCOPE_CALENDAR =
             "https://www.google.com/calendar/feeds/";
     private static final String SCOPE_TASKS =
             "https://www.googleapis.com/auth/tasks";
     private static final String CLIENT_ID =
-            "pcchq.com";
+            "294496059397.apps.googleusercontent.com";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultUserSettingsPanelController.class);
     private static final int ONE_MONTH = 1;
