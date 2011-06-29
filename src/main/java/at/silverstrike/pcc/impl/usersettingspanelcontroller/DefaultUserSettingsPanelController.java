@@ -260,7 +260,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         System.out.println(authorizationUrl);
 
         TPTApplication.getCurrentApplication().getMainWindow()
-                .open(new ExternalResource(authorizationUrl), "_blank");
+                .open(new ExternalResource(authorizationUrl), "_top");
     }
 
     private void calculatePlan() {
