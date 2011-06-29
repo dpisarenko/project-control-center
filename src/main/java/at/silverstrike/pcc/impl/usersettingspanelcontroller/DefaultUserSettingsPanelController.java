@@ -66,7 +66,7 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
  * 
  */
 class DefaultUserSettingsPanelController implements UserSettingsPanelController {
-    private static final String REDIRECT_URL = "urn:ietf:wg:oauth:2.0:oob";
+    private static final String REDIRECT_URL = "http://localhost:8080/pcc/oauth2callback";
     private static final String CLIENT_SECRET = "J1JRmoTA-EmOjTwKkW-eLHLY";
     private static final String APPLICATION_NAME = "pcchq.com";
     private static final String SCOPE_CALENDAR =
