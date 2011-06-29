@@ -376,4 +376,61 @@ public final class TestDefaultTaskJuggler3Exporter {
         }
 
     }
+    
+    @Test
+    public void testValidateInputs()
+    {
+        /**
+         * Create the injector
+         */
+        final InjectorFactory injectorFactory = new MockInjectorFactory(
+                new MockInjectorModule());
+        final Injector injector = injectorFactory.createInjector();
+
+        /**
+         * Get object under test
+         */
+        final TaskJuggler3Exporter objectUnderTest = injector
+                .getInstance(TaskJuggler3Exporter.class);
+
+        Assert.assertNotNull(objectUnderTest);
+
+        objectUnderTest.setInjector(injector);
+
+        /**
+         * Set input data
+         */
+        final ProjectExportInfo projectExportInfo = new MockProjectExportInfo();
+
+        objectUnderTest.setProjectExportInfo(projectExportInfo);
+
+        projectExportInfo.setSchedulingObjectsToExport(this.helper
+                .getTestValidateInputsProcesses());
+        projectExportInfo.setCopyright("Dmitri Pisarenko");
+        projectExportInfo.setCurrency(EURO);
+        projectExportInfo.setNow(helper.getDate18October2010());
+        projectExportInfo.setProjectName("MyProject");
+        projectExportInfo.setResourcesToExport(this.helper
+                .getTestValidateInputsResources());
+        projectExportInfo.setSchedulingHorizonMonths(ONE_MONTH);
+
+        /**
+         * Run the method under test
+         */
+        try {
+            objectUnderTest.run();
+        } catch (final InvalidDurationException exception) {
+            /**
+             * Since the duration of the process is null and it's less than the
+             * timing resolution, it is OK for us to land here.
+             */
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        } catch (final NullPointerException exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+        
+    }
 }

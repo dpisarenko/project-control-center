@@ -22,13 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 
-import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthParameters;
@@ -105,7 +99,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     @Override
     public void calculateAndSyncData(final String aAuthorizationCode) {
         try {
-
+            LOGGER.debug("Before serviceCreator");
+            
             final GoogleTasksServiceCreatorFactory factory =
                     this.injector
                             .getInstance(GoogleTasksServiceCreatorFactory.class);
@@ -119,6 +114,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             serviceCreator.setRedirectUrl(REDIRECT_URL);
             serviceCreator.run();
 
+            LOGGER.debug("Before tasksService = serviceCreator.getService()");
+            
             final Tasks tasksService = serviceCreator.getService();
 
             final GoogleCalendarTasks2PccImporterFactory importerFactory =
@@ -134,8 +131,13 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
             importer.run();
 
+            LOGGER.debug("Before webGuiBus.broadcastTasksImportedFromGoogleMessage");
+            
             this.webGuiBus.broadcastTasksImportedFromGoogleMessage();
 
+            
+            LOGGER.debug("Before calculatePlan");
+            
             calculatePlan();
             LOGGER.debug("Calculated the plan");
             exportBookingsToGoogleCalendar(aAuthorizationCode);

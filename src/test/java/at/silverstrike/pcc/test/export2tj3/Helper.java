@@ -157,4 +157,33 @@ class Helper {
         return processes;
     }
 
+    public List<Resource> getTestValidateInputsResources() {
+        final List<Resource> resources = new LinkedList<Resource>();
+
+        resources.add(MOCK_OBJECT_FACTORY.createResource(20L));
+
+        return resources;
+
+    }
+
+    public List<SchedulingObject> getTestValidateInputsProcesses() {
+        final List<SchedulingObject> processes =
+                new LinkedList<SchedulingObject>();
+
+        final Task task = MOCK_OBJECT_FACTORY.createControlProcess(null);
+
+        task.setName(null);
+        task.setPriority(null);
+
+        Assert.assertNull(task.getName());
+        Assert.assertNull(task.getId());
+        Assert.assertNull(task.getPriority());
+        Assert.assertNull(task.getBestCaseEffort());
+        Assert.assertNull(task.getWorstCaseEffort());
+
+        processes.add(task);
+
+        return processes;
+    }
+
 }
