@@ -103,18 +103,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     @Override
-    public void saveGoogleAccessData(final String aUsername,
-            final String aPassword) {
-        final UserData user =
-                (UserData) TPTApplication.getCurrentApplication().getUser();
-
-        user.setGoogleUsername(aUsername);
-        user.setGooglePassword(aPassword);
-
-        this.persistence.updateUser(user);
-    }
-
-    @Override
     public void calculateAndSyncData(final String aAuthorizationCode) {
         try {
 
@@ -159,31 +147,12 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     private void
             exportBookingsToGoogleCalendar(final String aAuthorizationCode) {
-        final HttpTransport httpTransport = new NetHttpTransport();
-        final JacksonFactory jsonFactory = new JacksonFactory();
-
         try {
-            // Step 2: Exchange -->
-            final AccessTokenResponse response =
-                    new GoogleAuthorizationCodeGrant(httpTransport,
-                            jsonFactory,
-                            CLIENT_ID, CLIENT_SECRET, aAuthorizationCode,
-                            REDIRECT_URL).execute();
-            LOGGER.debug("response: {}", response);
-            // End of Step 2 <--
-
-            final GoogleAccessProtectedResource accessProtectedResource =
-                    new GoogleAccessProtectedResource(
-                            response.accessToken, httpTransport, jsonFactory,
-                            CLIENT_ID, CLIENT_SECRET,
-                            response.refreshToken);
-
-            LOGGER.debug("accessProtectedResource: {}", accessProtectedResource);
 
             final OAuthParameters oauth = new OAuthParameters();
             oauth.setOAuthConsumerKey("pcchq.com");
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
-            oauth.setOAuthToken(accessProtectedResource.getAccessToken());
+            oauth.setOAuthToken(aAuthorizationCode);
 
             LOGGER.debug("oauth: {}", oauth);
 

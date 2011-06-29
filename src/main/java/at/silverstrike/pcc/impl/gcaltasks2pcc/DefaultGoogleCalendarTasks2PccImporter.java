@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import ru.altruix.commons.api.di.PccException;
 
 import com.google.api.services.tasks.v1.Tasks;
+import com.google.api.services.tasks.v1.model.TaskList;
 import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
@@ -48,6 +49,21 @@ class DefaultGoogleCalendarTasks2PccImporter implements
         try {
             persistence.removeUserSchedulingObjects(this.user);
 
+            LOGGER.debug("service: {}", service);
+            LOGGER.debug("service.tasks: {}", service.tasks);
+
+            LOGGER.debug("Task lists (START)");
+
+            for (final TaskList curTaskList : service.tasklists.list()
+                    .execute().items) {
+                LOGGER.debug(
+                        "Task list: etag='{}', id='{}', kind='{}', title='{}'",
+                        new Object[] { curTaskList.etag, curTaskList.id,
+                                curTaskList.kind, curTaskList.title });
+            }
+
+            LOGGER.debug("Task lists (END)");
+
             final com.google.api.services.tasks.v1.model.Tasks tasks =
                     service.tasks.list("@default").execute();
 
@@ -55,7 +71,7 @@ class DefaultGoogleCalendarTasks2PccImporter implements
                     this.injector
                             .getInstance(GoogleCalendarTasks2PccImporter2Factory.class);
             final GoogleCalendarTasks2PccImporter2 importer2 = factory.create();
-            
+
             importer2.setGoogleTasks(tasks.items);
             importer2.setInjector(this.injector);
             importer2.setUser(this.user);
