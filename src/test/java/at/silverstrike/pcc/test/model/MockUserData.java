@@ -12,6 +12,9 @@
 package at.silverstrike.pcc.test.model;
 
 import java.util.List;
+
+import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
+
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.DailyPlan;
@@ -111,5 +114,18 @@ class MockUserData implements UserData {
 
     public void setGooglePassword(String googlePassword) {
         this.googlePassword = googlePassword;
+    }
+
+    @Override
+    public void setCalendarOAuthParameters(
+            GoogleOAuthParameters aOauthParameters) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public GoogleOAuthParameters getCalendarOAuthParameters() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
