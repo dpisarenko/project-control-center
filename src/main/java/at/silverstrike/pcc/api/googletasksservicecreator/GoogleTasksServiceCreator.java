@@ -26,4 +26,5 @@ public interface GoogleTasksServiceCreator extends SingleActivityModule {
     void setAuthorizationCode(final String aAuthorizationCode);
     
     Tasks getService();
+    String getOAuthTokenSecret();
 }

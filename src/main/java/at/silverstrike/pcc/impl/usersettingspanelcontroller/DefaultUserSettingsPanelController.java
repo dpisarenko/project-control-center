@@ -122,6 +122,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             
             final Tasks tasksService = serviceCreator.getService();
 
+            
+            
             final GoogleCalendarTasks2PccImporterFactory importerFactory =
                     this.injector
                             .getInstance(GoogleCalendarTasks2PccImporterFactory.class);
@@ -144,7 +146,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             
             calculatePlan();
             LOGGER.debug("Calculated the plan");
-            exportBookingsToGoogleCalendar(aAuthorizationCode);
+            exportBookingsToGoogleCalendar(aAuthorizationCode, serviceCreator.getOAuthTokenSecret());
 
         } catch (final PccException exception) {
             LOGGER.error("", exception);
@@ -152,7 +154,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     private void
-            exportBookingsToGoogleCalendar(final String aAuthorizationCode) {
+            exportBookingsToGoogleCalendar(final String aAuthorizationCode, final String aOauthTokenSecret) {
         try {
 
             final OAuthParameters oauth = new OAuthParameters();
@@ -160,7 +162,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(aAuthorizationCode);
             
-            oauth.setOAuthTokenSecret(CLIENT_SECRET);
+            oauth.setOAuthTokenSecret(aOauthTokenSecret);
 
             LOGGER.debug("oauth: {}", oauth);
 

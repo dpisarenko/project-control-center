@@ -41,6 +41,7 @@ class DefaultGoogleTasksServiceCreator implements GoogleTasksServiceCreator {
     private String applicationName;
     private Tasks service;
     private String authorizationCode;
+    private String oauthTokenSecret;
 
     @Override
     public void run() throws PccException {
@@ -60,7 +61,11 @@ class DefaultGoogleTasksServiceCreator implements GoogleTasksServiceCreator {
                             response.accessToken, httpTransport, jsonFactory,
                             clientId, clientSecret,
                             response.refreshToken);
+            
+            LOGGER.debug("response.accessToken: {}", response.accessToken);
 
+            this.oauthTokenSecret = response.accessToken;
+            
             this.service =
                     new Tasks(httpTransport, accessProtectedResource,
                             jsonFactory);
@@ -98,5 +103,10 @@ class DefaultGoogleTasksServiceCreator implements GoogleTasksServiceCreator {
     @Override
     public void setAuthorizationCode(final String aAuthorizationCode) {
         this.authorizationCode = aAuthorizationCode;
+    }
+
+    @Override
+    public String getOAuthTokenSecret() {
+        return oauthTokenSecret;
     }
 }
