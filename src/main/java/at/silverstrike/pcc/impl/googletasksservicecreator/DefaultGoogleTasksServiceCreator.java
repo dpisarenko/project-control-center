@@ -25,6 +25,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
+import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
 
@@ -41,7 +42,7 @@ class DefaultGoogleTasksServiceCreator implements GoogleTasksServiceCreator {
     private String applicationName;
     private Tasks service;
     private String authorizationCode;
-    private String oauthTokenSecret;
+    private String oauthAccessToken;
 
     @Override
     public void run() throws PccException {
@@ -63,9 +64,9 @@ class DefaultGoogleTasksServiceCreator implements GoogleTasksServiceCreator {
                             response.refreshToken);
             
             LOGGER.debug("response.accessToken: {}", response.accessToken);
-
-            this.oauthTokenSecret = response.accessToken;
             
+            this.oauthAccessToken = response.accessToken;
+                        
             this.service =
                     new Tasks(httpTransport, accessProtectedResource,
                             jsonFactory);
@@ -106,7 +107,7 @@ class DefaultGoogleTasksServiceCreator implements GoogleTasksServiceCreator {
     }
 
     @Override
-    public String getOAuthTokenSecret() {
-        return oauthTokenSecret;
+    public String getOAuthAccessToken() {
+        return oauthAccessToken;
     }
 }

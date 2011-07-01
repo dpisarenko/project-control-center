@@ -148,7 +148,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             
             calculatePlan();
             LOGGER.debug("Calculated the plan");
-            exportBookingsToGoogleCalendar(aAuthorizationCode, serviceCreator.getOAuthTokenSecret());
+            exportBookingsToGoogleCalendar(aAuthorizationCode, serviceCreator.getOAuthAccessToken());
 
         } catch (final PccException exception) {
             LOGGER.error("", exception);
@@ -156,15 +156,18 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     private void
-            exportBookingsToGoogleCalendar(final String aAuthorizationCode, final String aOauthTokenSecret) {
+            exportBookingsToGoogleCalendar(final String aAuthorizationCode, final String aOauthAccessToken) {
         try {
             final OAuthHmacSha1Signer signer = new OAuthHmacSha1Signer();
             
             final GoogleOAuthParameters  oauth = new GoogleOAuthParameters ();
             
-            oauth.setOAuthConsumerKey("pcchq.com");
+            // CLIENT_ID
+            // 294496059397.apps.googleusercontent.com
+//            oauth.setOAuthConsumerKey("pcchq.com");
+            oauth.setOAuthConsumerKey("294496059397.apps.googleusercontent.com");
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
-            oauth.setOAuthToken(aOauthTokenSecret);
+            oauth.setOAuthToken(aOauthAccessToken);
             oauth.setOAuthTokenSecret(aAuthorizationCode);
             oauth.setScope(SCOPE_CALENDAR);
                         
