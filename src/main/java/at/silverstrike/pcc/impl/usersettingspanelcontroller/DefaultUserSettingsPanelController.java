@@ -325,23 +325,25 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         final GoogleOAuthHelper oauthHelper =
                 new GoogleOAuthHelper(new OAuthHmacSha1Signer());
+
         try {
             oauthHelper.getUnauthorizedRequestToken(oauthParameters);
-
-            final String approvalPageUrl =
-                    oauthHelper.createUserAuthorizationUrl(oauthParameters);
-
-            final UserData userData = (UserData)
-                    TPTApplication.getCurrentApplication().getUser();
-            
-            userData.setCalendarOAuthParameters(oauthParameters);
-            
-            TPTApplication.getCurrentApplication().getMainWindow()
-                    .open(new ExternalResource(approvalPageUrl), "_top");
-
         } catch (final OAuthException exception) {
             LOGGER.error("", exception);
         }
+        
+//        final String approvalPageUrl =
+//                oauthHelper.createUserAuthorizationUrl(oauthParameters);
+//
+//        
+//        final UserData userData = (UserData)
+//                TPTApplication.getCurrentApplication().getUser();
+//
+//        userData.setCalendarOAuthParameters(oauthParameters);
+//
+//        TPTApplication.getCurrentApplication().getMainWindow()
+//                .open(new ExternalResource(approvalPageUrl), "_top");
+
     }
 
 }
