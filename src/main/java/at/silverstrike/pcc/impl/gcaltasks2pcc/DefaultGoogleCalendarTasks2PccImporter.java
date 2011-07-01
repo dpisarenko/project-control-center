@@ -50,7 +50,7 @@ class DefaultGoogleCalendarTasks2PccImporter implements
             persistence.removeUserSchedulingObjects(this.user);
 
             LOGGER.debug("service: {}", service);
-            LOGGER.debug("service.tasks: {}", service.tasks);
+            
 
             LOGGER.debug("Task lists (START)");
 
@@ -64,6 +64,8 @@ class DefaultGoogleCalendarTasks2PccImporter implements
 
             LOGGER.debug("Task lists (END)");
 
+            LOGGER.debug("service.tasks: {}", service.tasks);
+            
             final com.google.api.services.tasks.v1.model.Tasks tasks =
                     service.tasks.list("@default").execute();
 

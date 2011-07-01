@@ -65,6 +65,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private static final String APPLICATION_NAME = "pcchq.com";
     private static final String SCOPE_CALENDAR =
             "https://www.google.com/calendar/feeds/";
+    
+    // http(s)://www.google.com/calendar/feeds/
     private static final String SCOPE_TASKS =
             "https://www.googleapis.com/auth/tasks";
     private static final String CLIENT_ID =
@@ -225,10 +227,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
                         scope)
                         .build();
-
-        // Point or redirect your user to the authorizationUrl.
-        System.out.println("Go to the following link in your browser:");
-        System.out.println(authorizationUrl);
 
         TPTApplication.getCurrentApplication().getMainWindow()
                 .open(new ExternalResource(authorizationUrl), "_top");
