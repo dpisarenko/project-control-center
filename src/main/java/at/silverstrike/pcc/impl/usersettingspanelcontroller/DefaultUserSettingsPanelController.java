@@ -166,6 +166,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(aOauthTokenSecret);
             oauth.setOAuthTokenSecret(aAuthorizationCode);
+            oauth.setScope(SCOPE_CALENDAR);
                         
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
