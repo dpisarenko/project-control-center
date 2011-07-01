@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +27,7 @@ import ru.altruix.commons.api.di.PccException;
 import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
 import com.google.api.services.tasks.v1.Tasks;
+import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
@@ -64,12 +67,13 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
  * 
  */
 class DefaultUserSettingsPanelController implements UserSettingsPanelController {
-    private static final String REDIRECT_URL = "http://localhost:8080/pcc/oauth2callback";
+    private static final String REDIRECT_URL =
+            "http://localhost:8080/pcc/oauth2callback";
     private static final String CLIENT_SECRET = "J1JRmoTA-EmOjTwKkW-eLHLY";
     private static final String APPLICATION_NAME = "pcchq.com";
     private static final String SCOPE_CALENDAR =
             "https://www.google.com/calendar/feeds/";
-    
+
     // http(s)://www.google.com/calendar/feeds/
     private static final String SCOPE_TASKS =
             "https://www.googleapis.com/auth/tasks";
@@ -106,7 +110,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     public void calculateAndSyncData(final String aAuthorizationCode) {
         try {
             LOGGER.debug("Before serviceCreator");
-            
+
             final GoogleTasksServiceCreatorFactory factory =
                     this.injector
                             .getInstance(GoogleTasksServiceCreatorFactory.class);
@@ -121,11 +125,9 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             serviceCreator.run();
 
             LOGGER.debug("Before tasksService = serviceCreator.getService()");
-            
+
             final Tasks tasksService = serviceCreator.getService();
 
-            
-            
             final GoogleCalendarTasks2PccImporterFactory importerFactory =
                     this.injector
                             .getInstance(GoogleCalendarTasks2PccImporterFactory.class);
@@ -140,15 +142,15 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             importer.run();
 
             LOGGER.debug("Before webGuiBus.broadcastTasksImportedFromGoogleMessage");
-            
+
             this.webGuiBus.broadcastTasksImportedFromGoogleMessage();
 
-            
             LOGGER.debug("Before calculatePlan");
-            
+
             calculatePlan();
             LOGGER.debug("Calculated the plan");
-            exportBookingsToGoogleCalendar(aAuthorizationCode, serviceCreator.getOAuthAccessToken());
+            exportBookingsToGoogleCalendar(aAuthorizationCode,
+                    serviceCreator.getOAuthAccessToken());
 
         } catch (final PccException exception) {
             LOGGER.error("", exception);
@@ -156,27 +158,24 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     private void
-            exportBookingsToGoogleCalendar(final String aAuthorizationCode, final String aOauthAccessToken) {
+            exportBookingsToGoogleCalendar(final String aAuthorizationCode,
+                    final String aOauthAccessToken) {
         try {
             final OAuthHmacSha1Signer signer = new OAuthHmacSha1Signer();
-            
-            final GoogleOAuthParameters  oauth = new GoogleOAuthParameters ();
-            
-            // CLIENT_ID
-            // 294496059397.apps.googleusercontent.com
-//            oauth.setOAuthConsumerKey("pcchq.com");
-            oauth.setOAuthConsumerKey("294496059397.apps.googleusercontent.com");
+
+            final GoogleOAuthParameters oauth = new GoogleOAuthParameters();
+
+            oauth.setOAuthConsumerKey("pcchq.com");
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(aOauthAccessToken);
             oauth.setOAuthTokenSecret(aAuthorizationCode);
             oauth.setScope(SCOPE_CALENDAR);
-                        
+
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
-            
+
             calendarService
                     .setOAuthCredentials(oauth, signer);
-            
 
             LOGGER.debug("calendarService: {}", calendarService);
 
@@ -312,6 +311,37 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 TPTApplication.getCurrentApplication().getMainWindow());
         TPTApplication.getCurrentApplication().setMainWindow(
                 mainWindow.toWindow());
+    }
+
+    @Override
+    public void writeBookingsToCalendar() {
+        final GoogleOAuthParameters oauthParameters =
+                new GoogleOAuthParameters();
+        oauthParameters.setOAuthConsumerKey("pcchq.com");
+        oauthParameters.setOAuthConsumerSecret(CLIENT_SECRET);
+        oauthParameters.setScope(SCOPE_CALENDAR);
+        oauthParameters
+                .setOAuthCallback(REDIRECT_URL);
+
+        final GoogleOAuthHelper oauthHelper =
+                new GoogleOAuthHelper(new OAuthHmacSha1Signer());
+        try {
+            oauthHelper.getUnauthorizedRequestToken(oauthParameters);
+
+            final String approvalPageUrl =
+                    oauthHelper.createUserAuthorizationUrl(oauthParameters);
+
+            final UserData userData = (UserData)
+                    TPTApplication.getCurrentApplication().getUser();
+            
+            userData.setCalendarOAuthParameters(oauthParameters);
+            
+            TPTApplication.getCurrentApplication().getMainWindow()
+                    .open(new ExternalResource(approvalPageUrl), "_top");
+
+        } catch (final OAuthException exception) {
+            LOGGER.error("", exception);
+        }
     }
 
 }

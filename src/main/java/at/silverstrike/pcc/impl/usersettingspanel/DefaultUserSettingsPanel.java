@@ -44,6 +44,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     private String logoutButtonCaption;
     private TextField googleCodeTextField;
 
+    private String writeBookingsToCalendarButtonCaption;
+
     @Override
     public Panel toPanel() {
         return this;
@@ -79,8 +81,15 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         final Button calculateSyncDataButton =
                 new Button(calculateSyncDataButtonCaption);
 
+        writeBookingsToCalendarButtonCaption = TM.get("usersettingspanel.5-write-bookings");
+        
+        final Button writeBookingsToCalendarButton = new Button(writeBookingsToCalendarButtonCaption);
+        writeBookingsToCalendarButton.addListener(this);
+        
         this.logoutButtonCaption = TM.get("usersettingspanel.8-logout");
         final Button logoutButton = new Button(this.logoutButtonCaption);
+        
+        // 
         
         logoutButton.addListener(this);
 
@@ -91,6 +100,7 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
         buttonPanel.addComponent(requestAuthCodeButton);
         buttonPanel.addComponent(calculateSyncDataButton);
+        buttonPanel.addComponent(writeBookingsToCalendarButton);
         buttonPanel.addComponent(logoutButton);
         return buttonPanel;
     }
@@ -116,6 +126,10 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
                             .getValue());
         } else if (this.logoutButtonCaption.equals(buttonCaption)) {
             this.controller.logout();
+        }
+        else if (writeBookingsToCalendarButtonCaption.equals(buttonCaption))
+        {
+            this.controller.writeBookingsToCalendar();
         }
     }
 }

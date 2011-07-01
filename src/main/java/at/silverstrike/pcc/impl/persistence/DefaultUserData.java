@@ -13,6 +13,8 @@ package at.silverstrike.pcc.impl.persistence;
 
 import java.util.List;
 
+import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
+
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.DailyPlan;
@@ -28,7 +30,8 @@ class DefaultUserData implements UserData {
     private Long id;
     private String googleUsername;
     private String googlePassword;
-    
+    private GoogleOAuthParameters oauthParameters;
+
     public String getIdentifier() {
         return identifier;
     }
@@ -88,10 +91,10 @@ class DefaultUserData implements UserData {
     @Override
     public String getResourceName() {
         final StringBuilder builder = new StringBuilder();
-        
+
         builder.append("R");
         builder.append(this.identifier);
-        
+
         return builder.toString();
     }
 
@@ -109,5 +112,15 @@ class DefaultUserData implements UserData {
 
     public void setGooglePassword(final String aGooglePassword) {
         this.googlePassword = aGooglePassword;
+    }
+
+    public void setCalendarOAuthParameters(
+            final GoogleOAuthParameters aOauthParameters) {
+        oauthParameters = aOauthParameters;
+    }
+
+    @Override
+    public GoogleOAuthParameters getCalendarOAuthParameters() {
+        return oauthParameters;
     }
 }

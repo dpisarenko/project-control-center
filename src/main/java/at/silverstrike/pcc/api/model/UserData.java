@@ -12,6 +12,8 @@ package at.silverstrike.pcc.api.model;
 
 import java.util.List;
 
+import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
+
 import ru.altruix.commons.api.conventions.UniquelyIdentifiableObject;
 
 public interface UserData extends UniquelyIdentifiableObject {
@@ -44,11 +46,7 @@ public interface UserData extends UniquelyIdentifiableObject {
     
     void setGooglePassword(final String aGooglePassword);
     String getGooglePassword();
-    
-//    void setGoogleTasksClientId(final String aClientId);
-//    String getGoogleTasksClientId();
-//    
-//    void setGoogleTasksClientSecret(final String aClientId);
-//    String getGoogleTasksClientId();
 
+    void setCalendarOAuthParameters(final GoogleOAuthParameters aOauthParameters);
+    GoogleOAuthParameters getCalendarOAuthParameters();
 }
