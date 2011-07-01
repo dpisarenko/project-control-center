@@ -159,7 +159,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
             final OAuthParameters oauth = new OAuthParameters();
             oauth.setOAuthConsumerKey("pcchq.com");
-            oauth.setOAuthConsumerSecret(CLIENT_SECRET);
+//            oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(aAuthorizationCode);
             
             oauth.setOAuthTokenSecret(aOauthTokenSecret);
