@@ -28,6 +28,7 @@ import com.google.api.services.tasks.v1.Tasks;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
 import com.google.gdata.client.authn.oauth.OAuthParameters;
+import com.google.gdata.client.authn.oauth.OAuthParameters.OAuthType;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.Link;
@@ -156,20 +157,19 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private void
             exportBookingsToGoogleCalendar(final String aAuthorizationCode, final String aOauthTokenSecret) {
         try {
-
-            final OAuthParameters oauth = new OAuthParameters();
-            oauth.setOAuthConsumerKey("pcchq.com");
-//            oauth.setOAuthConsumerSecret(CLIENT_SECRET);
-            oauth.setOAuthToken(aAuthorizationCode);
+            final OAuthHmacSha1Signer signer = new OAuthHmacSha1Signer();
             
-            oauth.setOAuthTokenSecret(aOauthTokenSecret);
-
-            LOGGER.debug("oauth: {}", oauth);
-
+            final OAuthParameters oauth = new OAuthParameters();
+            
+            oauth.setOAuthConsumerKey("pcchq.com");
+            oauth.setOAuthConsumerSecret(CLIENT_SECRET);
+            oauth.setOAuthToken(aOauthTokenSecret);
+            
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
+            
             calendarService
-                    .setOAuthCredentials(oauth, new OAuthHmacSha1Signer());
+                    .setOAuthCredentials(oauth, signer);
 
             LOGGER.debug("calendarService: {}", calendarService);
 
