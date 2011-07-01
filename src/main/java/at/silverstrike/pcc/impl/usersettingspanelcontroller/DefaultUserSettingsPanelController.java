@@ -25,6 +25,7 @@ import ru.altruix.commons.api.di.PccException;
 import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
 import com.google.api.services.tasks.v1.Tasks;
+import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
 import com.google.gdata.client.authn.oauth.OAuthParameters;
@@ -159,18 +160,19 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         try {
             final OAuthHmacSha1Signer signer = new OAuthHmacSha1Signer();
             
-            final OAuthParameters oauth = new OAuthParameters();
+            final GoogleOAuthParameters  oauth = new GoogleOAuthParameters ();
             
             oauth.setOAuthConsumerKey("pcchq.com");
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(aOauthTokenSecret);
             oauth.setOAuthTokenSecret(aAuthorizationCode);
-            
+                        
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
             
             calendarService
                     .setOAuthCredentials(oauth, signer);
+            
 
             LOGGER.debug("calendarService: {}", calendarService);
 
