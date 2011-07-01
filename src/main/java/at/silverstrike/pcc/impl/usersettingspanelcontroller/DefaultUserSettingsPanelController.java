@@ -315,22 +315,40 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void writeBookingsToCalendar() {
-        final GoogleOAuthParameters oauthParameters =
-                new GoogleOAuthParameters();
-        oauthParameters.setOAuthConsumerKey("pcchq.com");
-        oauthParameters.setOAuthConsumerSecret(CLIENT_SECRET);
-        oauthParameters.setScope(SCOPE_CALENDAR);
-        oauthParameters
-                .setOAuthCallback(REDIRECT_URL);
+        // The clientId and clientSecret are copied from the API Access tab
+        // on
+        // the Google APIs Console
+        String clientId = CLIENT_ID;
 
-        final GoogleOAuthHelper oauthHelper =
-                new GoogleOAuthHelper(new OAuthHmacSha1Signer());
+        // Or your redirect URL for web based applications.
+        String redirectUrl = REDIRECT_URL;
+        String scope = SCOPE_CALENDAR;
 
-        try {
-            oauthHelper.getUnauthorizedRequestToken(oauthParameters);
-        } catch (final OAuthException exception) {
-            LOGGER.error("", exception);
-        }
+        // Step 1: Authorize -->
+        String authorizationUrl =
+                new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
+                        scope)
+                        .build();
+
+        TPTApplication.getCurrentApplication().getMainWindow()
+                .open(new ExternalResource(authorizationUrl), "_top");
+
+//        final GoogleOAuthParameters oauthParameters =
+//                new GoogleOAuthParameters();
+//        oauthParameters.setOAuthConsumerKey("pcchq.com");
+//        oauthParameters.setOAuthConsumerSecret(CLIENT_SECRET);
+//        oauthParameters.setScope(SCOPE_CALENDAR);
+//        oauthParameters
+//                .setOAuthCallback(REDIRECT_URL);
+//
+//        final GoogleOAuthHelper oauthHelper =
+//                new GoogleOAuthHelper(new OAuthHmacSha1Signer());
+//
+//        try {
+//            oauthHelper.getUnauthorizedRequestToken(oauthParameters);
+//        } catch (final OAuthException exception) {
+//            LOGGER.error("", exception);
+//        }
         
 //        final String approvalPageUrl =
 //                oauthHelper.createUserAuthorizationUrl(oauthParameters);

@@ -25,7 +25,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
-import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
 
