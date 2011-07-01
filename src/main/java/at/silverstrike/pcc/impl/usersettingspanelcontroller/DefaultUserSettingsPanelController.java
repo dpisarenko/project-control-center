@@ -22,9 +22,11 @@ import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 
+import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
 import com.google.api.services.tasks.v1.Tasks;
 import com.google.gdata.client.authn.oauth.OAuthException;
+import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
 import com.google.gdata.client.authn.oauth.OAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
 import com.google.gdata.client.calendar.CalendarService;
@@ -157,13 +159,15 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             oauth.setOAuthConsumerKey("pcchq.com");
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(aAuthorizationCode);
+            
+            oauth.setOAuthTokenSecret(CLIENT_SECRET);
 
             LOGGER.debug("oauth: {}", oauth);
 
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
             calendarService
-                    .setOAuthCredentials(oauth, new OAuthRsaSha1Signer());
+                    .setOAuthCredentials(oauth, new OAuthHmacSha1Signer());
 
             LOGGER.debug("calendarService: {}", calendarService);
 
