@@ -11,12 +11,16 @@
 
 package at.silverstrike.pcc.impl.mainwindow;
 
+import java.net.URL;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.version.PccVersionReader;
 
 import com.google.inject.Injector;
+import com.vaadin.terminal.DownloadStream;
+import com.vaadin.terminal.URIHandler;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
@@ -33,13 +37,13 @@ import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelControllerFactory;
 
-class DefaultMainWindow implements MainWindow {
+class DefaultMainWindow implements MainWindow, URIHandler {
+    private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultMainWindow.class);
     private Injector injector = null;
     private Window mainWindow;
     private TabSheet tabSheet;
-//    private PccDebugIdRegistry debugIdRegistry;
 
     public DefaultMainWindow() {
     }
@@ -58,6 +62,7 @@ class DefaultMainWindow implements MainWindow {
                         versionReader.getVersion()));
         mainWindow.setSizeFull();
         mainWindow.setDebugId("011.001");
+        mainWindow.addURIHandler(this);
 
         this.tabSheet = new TabSheet();
         this.tabSheet.setDebugId("011.002");
@@ -115,5 +120,12 @@ class DefaultMainWindow implements MainWindow {
 
     @Override
     public void setGuiController(final MainWindowController aController) {
+    }
+
+    @Override
+    public DownloadStream handleURI(final URL aContext, final String aRelativeUri) {
+        LOGGER.debug("aContext: {}", aContext);
+        LOGGER.debug("aRelativeUri: {}", aRelativeUri);
+        return null;
     }
 }
