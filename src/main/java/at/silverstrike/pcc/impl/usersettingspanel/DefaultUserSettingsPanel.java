@@ -106,6 +106,7 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         buttonPanel.addComponent(requestAuthCodeButton);
         buttonPanel.addComponent(calculateSyncDataButton);
         buttonPanel.addComponent(writeBookingsToCalendarButton);
+        buttonPanel.addComponent(writeBookingsToCalendarButton2);
         buttonPanel.addComponent(logoutButton);
         return buttonPanel;
     }
