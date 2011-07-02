@@ -13,6 +13,7 @@ package at.silverstrike.pcc;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +28,14 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
 
 import com.google.inject.Injector;
+import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
 import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
-public class ProjectControlCenterApplication extends TPTApplication {
+public class ProjectControlCenterApplication extends TPTApplication implements HttpServletRequestListener  {
     public static final String PARAM_INJECTOR = "PARAM_INJECTOR";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ProjectControlCenterApplication.class);
@@ -118,5 +120,16 @@ public class ProjectControlCenterApplication extends TPTApplication {
 
     @Override
     public void firstApplicationStartup() {
+    }
+
+    @Override
+    public void onRequestStart(final HttpServletRequest aRequest,
+            final HttpServletResponse aResponse) {
+        LOGGER.debug("aRequest.getQueryString(): {}", new Object[] {aRequest.getQueryString()});
+    }
+
+    @Override
+    public void onRequestEnd(final HttpServletRequest aRequest,
+            final HttpServletResponse aResponse) {
     }
 }
