@@ -46,6 +46,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
     private String writeBookingsToCalendarButtonCaption;
 
+    private String writeBookingsToCalendarButtonCaption2;
+
     @Override
     public Panel toPanel() {
         return this;
@@ -85,11 +87,14 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         
         final Button writeBookingsToCalendarButton = new Button(writeBookingsToCalendarButtonCaption);
         writeBookingsToCalendarButton.addListener(this);
+
+        writeBookingsToCalendarButtonCaption2 = TM.get("usersettingspanel.9-write-bookings2");
         
+        final Button writeBookingsToCalendarButton2 = new Button(writeBookingsToCalendarButtonCaption2);
+        writeBookingsToCalendarButton2.addListener(this);
+
         this.logoutButtonCaption = TM.get("usersettingspanel.8-logout");
         final Button logoutButton = new Button(this.logoutButtonCaption);
-        
-        // 
         
         logoutButton.addListener(this);
 
@@ -130,6 +135,10 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         else if (writeBookingsToCalendarButtonCaption.equals(buttonCaption))
         {
             this.controller.writeBookingsToCalendar();
+        }
+        else if (writeBookingsToCalendarButtonCaption2.equals(buttonCaption))
+        {
+            this.controller.writeBookingsToCalendar2();
         }
     }
 }

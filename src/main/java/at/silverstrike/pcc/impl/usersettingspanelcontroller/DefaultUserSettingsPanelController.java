@@ -25,7 +25,13 @@ import org.slf4j.LoggerFactory;
 import ru.altruix.commons.api.di.PccException;
 
 import com.google.api.client.auth.oauth.OAuthHmacSigner;
+import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
+import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
+import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
 import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
@@ -149,9 +155,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
             calculatePlan();
             LOGGER.debug("Calculated the plan");
-            exportBookingsToGoogleCalendar(aAuthorizationCode,
-                    serviceCreator.getOAuthAccessToken());
-
         } catch (final PccException exception) {
             LOGGER.error("", exception);
         }
@@ -159,23 +162,15 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     private void
             exportBookingsToGoogleCalendar(final String aAuthorizationCode,
-                    final String aOauthAccessToken) {
+                    final GoogleOAuthParameters aOauthParams) {
         try {
             final OAuthHmacSha1Signer signer = new OAuthHmacSha1Signer();
-
-            final GoogleOAuthParameters oauth = new GoogleOAuthParameters();
-
-            oauth.setOAuthConsumerKey("pcchq.com");
-            oauth.setOAuthConsumerSecret(CLIENT_SECRET);
-            oauth.setOAuthToken(aOauthAccessToken);
-            oauth.setOAuthTokenSecret(aAuthorizationCode);
-            oauth.setScope(SCOPE_CALENDAR);
 
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
 
             calendarService
-                    .setOAuthCredentials(oauth, signer);
+                    .setOAuthCredentials(aOauthParams, signer);
 
             LOGGER.debug("calendarService: {}", calendarService);
 
@@ -329,39 +324,48 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
                         scope)
                         .build();
-
+        
+        
         TPTApplication.getCurrentApplication().getMainWindow()
                 .open(new ExternalResource(authorizationUrl), "_top");
+    }
 
-//        final GoogleOAuthParameters oauthParameters =
-//                new GoogleOAuthParameters();
-//        oauthParameters.setOAuthConsumerKey("pcchq.com");
-//        oauthParameters.setOAuthConsumerSecret(CLIENT_SECRET);
-//        oauthParameters.setScope(SCOPE_CALENDAR);
-//        oauthParameters
-//                .setOAuthCallback(REDIRECT_URL);
-//
-//        final GoogleOAuthHelper oauthHelper =
-//                new GoogleOAuthHelper(new OAuthHmacSha1Signer());
-//
-//        try {
-//            oauthHelper.getUnauthorizedRequestToken(oauthParameters);
-//        } catch (final OAuthException exception) {
-//            LOGGER.error("", exception);
-//        }
-        
-//        final String approvalPageUrl =
-//                oauthHelper.createUserAuthorizationUrl(oauthParameters);
-//
-//        
-//        final UserData userData = (UserData)
-//                TPTApplication.getCurrentApplication().getUser();
-//
-//        userData.setCalendarOAuthParameters(oauthParameters);
-//
-//        TPTApplication.getCurrentApplication().getMainWindow()
-//                .open(new ExternalResource(approvalPageUrl), "_top");
+    @Override
+    public void writeBookingsToCalendar2(final String aAuthorizationCode) {
+        // TODO Auto-generated method stub
+        final HttpTransport httpTransport = new NetHttpTransport();
+        final JacksonFactory jsonFactory = new JacksonFactory();
+        try {
+            final String clientId = "pcchq.com";
+            
+            // Step 2: Exchange -->
+            final AccessTokenResponse response =
+                    new GoogleAuthorizationCodeGrant(httpTransport,
+                            jsonFactory,
+                            clientId, CLIENT_SECRET, aAuthorizationCode,
+                            REDIRECT_URL).execute();
+            // End of Step 2 <--
 
+            final GoogleAccessProtectedResource accessProtectedResource =
+                    new GoogleAccessProtectedResource(
+                            response.accessToken, httpTransport, jsonFactory,
+                            clientId, CLIENT_SECRET,
+                            response.refreshToken);
+            
+            LOGGER.debug("response.accessToken: {}", response.accessToken);
+            
+            final GoogleOAuthParameters oauth = new GoogleOAuthParameters();
+
+            oauth.setOAuthConsumerKey("pcchq.com");
+            oauth.setOAuthConsumerSecret(CLIENT_SECRET);
+            oauth.setOAuthToken(response.accessToken);
+            oauth.setOAuthTokenSecret(aAuthorizationCode);
+            oauth.setScope(SCOPE_CALENDAR);
+
+            exportBookingsToGoogleCalendar(aAuthorizationCode, oauth);
+        } catch (IOException exception) {
+            LOGGER.error("", exception);
+        }        
     }
 
 }
