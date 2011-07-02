@@ -309,11 +309,11 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     @Override
-    public void writeBookingsToCalendar() {
+    public void writeBookingsToCalendar() {        
         // The clientId and clientSecret are copied from the API Access tab
         // on
         // the Google APIs Console
-        String clientId = CLIENT_ID;
+        String clientId = "pcchq.com";
 
         // Or your redirect URL for web based applications.
         String redirectUrl = REDIRECT_URL;
