@@ -138,7 +138,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         }
         else if (writeBookingsToCalendarButtonCaption2.equals(buttonCaption))
         {
-            this.controller.writeBookingsToCalendar2();
+            this.controller.writeBookingsToCalendar2((String) this.googleCodeTextField
+                    .getValue());
         }
     }
 }
