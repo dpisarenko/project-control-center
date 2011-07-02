@@ -355,6 +355,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         oauthHelper.getOAuthParametersFromCallback(this.oauthQueryString,
                 oauthParameters);
 
+        this.oauthParameters.setScope(SCOPE_CALENDAR);
+        
 //        oauthParameters.setOAuthTokenSecret(oauthParameters
 //                .getOAuthTokenSecret());
 
