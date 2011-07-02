@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.version.PccVersionReader;
 
+import com.google.gdata.client.authn.oauth.OAuthParameters;
 import com.google.inject.Injector;
 import com.vaadin.terminal.ParameterHandler;
 import com.vaadin.ui.Component;
@@ -135,6 +136,16 @@ class DefaultMainWindow implements MainWindow, ParameterHandler {
 
     @Override
     public void handleParameters(final Map<String, String[]> aParameters) {
+//        if (aParameters.containsKey(OAuthParameters.OAUTH_TOKEN_KEY)) {
+//            final String accessToken = aParameters.get(OAuthParameters.OAUTH_TOKEN_KEY)[0];
+//
+//            this.userSettingsPanelController.setOauthAccessToken(accessToken);
+//        }
+//        
+//
+//        if (aParameters.containsKey(OAuthParameters.OAUTH_TOKEN_SECRET_KEY))
+        
+        
         final StringBuilder queryString = new StringBuilder();
         boolean firstValue = true;
 
@@ -154,7 +165,5 @@ class DefaultMainWindow implements MainWindow, ParameterHandler {
             }
         }
 
-        this.userSettingsPanelController.setOauthQueryString(queryString
-                .toString());
     }
 }

@@ -84,6 +84,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private Persistence persistence;
     private WebGuiBus webGuiBus;
     private String oauthQueryString;
+    private GoogleOAuthParameters oauthParameters;
+    private GoogleOAuthHelper oauthHelper;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -306,15 +308,13 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         final String CONSUMER_KEY = CLIENT_ID;
         final String CONSUMER_SECRET = CLIENT_SECRET;
 
-        final GoogleOAuthParameters oauthParameters =
-                new GoogleOAuthParameters();
+        oauthParameters = new GoogleOAuthParameters();
         oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
         oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
         oauthParameters.setScope(SCOPE_CALENDAR);
         oauthParameters.setOAuthCallback(REDIRECT_URL);
 
-        GoogleOAuthHelper oauthHelper =
-                new GoogleOAuthHelper(new OAuthHmacSha1Signer());
+        oauthHelper = new GoogleOAuthHelper(new OAuthHmacSha1Signer());
         try {
             oauthHelper.getUnauthorizedRequestToken(oauthParameters);
 
@@ -349,24 +349,20 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void writeBookingsToCalendar2(final String aAuthorizationCode) {
-        GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
-        oauthParameters.setOAuthConsumerKey(CLIENT_ID);
-        oauthParameters.setOAuthConsumerSecret(CLIENT_SECRET);
 
         LOGGER.debug("writeBookingsToCalendar2: {}", this.oauthQueryString);
 
-        GoogleOAuthHelper oauthHelper =
-                new GoogleOAuthHelper(new OAuthHmacSha1Signer());
         oauthHelper.getOAuthParametersFromCallback(this.oauthQueryString,
                 oauthParameters);
 
-        oauthParameters.setOAuthTokenSecret(oauthParameters
-                .getOAuthTokenSecret());
+//        oauthParameters.setOAuthTokenSecret(oauthParameters
+//                .getOAuthTokenSecret());
 
         LOGGER.debug(
-                "before exportBookingsToGoogleCalendar: token: '{}', token secret: '{}'",
+                "before exportBookingsToGoogleCalendar: token: '{}', token secret: '{}', this.oauthQueryString: '{}'",
                 new Object[] { oauthParameters.getOAuthToken(),
-                        oauthParameters.getOAuthTokenSecret() });
+                        oauthParameters.getOAuthTokenSecret(),
+                        this.oauthQueryString});
 
         exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
 
@@ -409,6 +405,12 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     public void setOauthQueryString(final String aQueryString) {
         LOGGER.debug("aQueryString={}", aQueryString);
         this.oauthQueryString = aQueryString;
+    }
+
+    @Override
+    public void setOauthAccessToken(String aAccessToken) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

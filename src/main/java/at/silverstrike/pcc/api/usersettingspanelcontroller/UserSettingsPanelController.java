@@ -34,4 +34,6 @@ public interface UserSettingsPanelController extends
     void writeBookingsToCalendar2(final String aAuthorizationCode);
 
     void setOauthQueryString(final String aQueryString);
+
+    void setOauthAccessToken(final String aAccessToken);
 }
