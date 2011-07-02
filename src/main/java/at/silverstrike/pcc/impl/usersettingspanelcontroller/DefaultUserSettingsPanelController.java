@@ -313,7 +313,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         // The clientId and clientSecret are copied from the API Access tab
         // on
         // the Google APIs Console
-        String clientId = "pcchq.com";
+        String clientId = CLIENT_ID;
 
         // Or your redirect URL for web based applications.
         String redirectUrl = REDIRECT_URL;
@@ -335,7 +335,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         final HttpTransport httpTransport = new NetHttpTransport();
         final JacksonFactory jsonFactory = new JacksonFactory();
         try {
-            final String clientId = "pcchq.com";
+            final String clientId = CLIENT_ID;
 
             // Step 2: Exchange -->
 
