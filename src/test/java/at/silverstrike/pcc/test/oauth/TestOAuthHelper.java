@@ -29,6 +29,7 @@ import com.google.gdata.client.authn.oauth.OAuthUtil;
  */
 public class TestOAuthHelper {
     private static final String TOKEN_SECRET = "bG_JiMC1QyJkBbkqaDdeFNhe";
+    private static final String TOKEN = "4/sESfTRqBIuH_2OZEFTzLjd9P5hS6";
     private static final String QUERY_STRING =
             "oauth_verifier=bG_JiMC1QyJkBbkqaDdeFNhe&oauth_token=4/sESfTRqBIuH_2OZEFTzLjd9P5hS6";
 
@@ -53,7 +54,7 @@ public class TestOAuthHelper {
         final Map<String, String> params =
                 OAuthUtil.parseQuerystring(QUERY_STRING);
 
-        Assert.assertEquals(TOKEN_SECRET,
-                params.get(OAuthParameters.OAUTH_TOKEN_SECRET_KEY));
+        Assert.assertEquals(TOKEN,
+                params.get(OAuthParameters.OAUTH_TOKEN_KEY));
     }
 }
