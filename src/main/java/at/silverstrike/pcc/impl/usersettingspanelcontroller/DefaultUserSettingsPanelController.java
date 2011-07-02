@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -28,6 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -315,14 +317,18 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     public PrivateKey getPrivateKey()
-            throws IOException, NoSuchAlgorithmException,
-            InvalidKeySpecException {
-        DataInputStream dis = new DataInputStream(getClass().getClassLoader()
-                .getResourceAsStream("privatekey"));
-
-        byte[] privKeyBytes = new byte[887];
-        dis.read(privKeyBytes);
-        dis.close();
+            throws NoSuchAlgorithmException,
+            InvalidKeySpecException, IOException {
+        
+        final InputStream inputStream = getClass().getClassLoader()
+                        .getResourceAsStream("privatekey");
+        byte[] privKeyBytes = null;
+        try {
+            privKeyBytes = IOUtils.toByteArray(inputStream);
+        } catch (final IOException exception) {
+            LOGGER.error("", exception);
+            IOUtils.closeQuietly(inputStream);
+        }
         
         LOGGER.debug("privKeyBytes: {}", privKeyBytes);
 

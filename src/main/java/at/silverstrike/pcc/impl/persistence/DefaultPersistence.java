@@ -951,7 +951,7 @@ public class DefaultPersistence implements Persistence {
                 "org.apache.derby.jdbc.EmbeddedDriver");
         cnf.setProperty(Environment.URL, aConnectionString);
         cnf.setProperty(Environment.DIALECT, DerbyDialect.class.getName());
-        cnf.setProperty(Environment.SHOW_SQL, "true");
+        cnf.setProperty(Environment.SHOW_SQL, "false");
         cnf.setProperty(Environment.HBM2DDL_AUTO, "update");
         cnf.setProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
