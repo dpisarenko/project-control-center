@@ -22,4 +22,6 @@ import com.vaadin.ui.Window;
 public interface MainWindow extends ModuleWithInjectableDependencies,
         InitializableGuiComponent, AbstractedWindow,
         ExternallyControlledGuiComponent<MainWindowController, Window> {
+
+    void setOauthQueryString(final String aQueryString);
 }

@@ -44,6 +44,7 @@ class DefaultMainWindow implements MainWindow, URIHandler {
     private Injector injector = null;
     private Window mainWindow;
     private TabSheet tabSheet;
+    private UserSettingsPanelController userSettingsPanelController;
 
     public DefaultMainWindow() {
     }
@@ -94,11 +95,11 @@ class DefaultMainWindow implements MainWindow, URIHandler {
         final UserSettingsPanelControllerFactory factory =
                 this.injector
                         .getInstance(UserSettingsPanelControllerFactory.class);
-        final UserSettingsPanelController controller = factory.create();
+        userSettingsPanelController = factory.create();
         
-        controller.setInjector(this.injector);
+        userSettingsPanelController.setInjector(this.injector);
         
-        return controller.initGui();
+        return userSettingsPanelController.initGui();
     }
 
     private Component getInvitationRequestTab() {
@@ -127,5 +128,13 @@ class DefaultMainWindow implements MainWindow, URIHandler {
         LOGGER.debug("aContext: {}", aContext);
         LOGGER.debug("aRelativeUri: {}", aRelativeUri);
         return null;
+    }
+
+    @Override
+    public void setOauthQueryString(final String aQueryString) {
+        if (this.userSettingsPanelController != null) {
+            userSettingsPanelController.setOauthQueryString(aQueryString);    
+        }
+                
     }
 }

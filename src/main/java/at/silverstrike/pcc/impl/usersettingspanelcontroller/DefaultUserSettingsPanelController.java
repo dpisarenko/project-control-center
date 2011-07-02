@@ -17,16 +17,12 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 
-import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant;
 import com.google.api.client.http.HttpTransport;
@@ -37,9 +33,6 @@ import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
-import com.google.gdata.client.authn.oauth.OAuthParameters;
-import com.google.gdata.client.authn.oauth.OAuthParameters.OAuthType;
-import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.Link;
 import com.google.gdata.data.calendar.CalendarEntry;
@@ -80,8 +73,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private static final String APPLICATION_NAME = PCCHQ_COM;
     private static final String SCOPE_CALENDAR =
             "https://www.google.com/calendar/feeds/";
-
-    // http(s)://www.google.com/calendar/feeds/
     private static final String SCOPE_TASKS =
             "https://www.googleapis.com/auth/tasks";
     private static final String CLIENT_ID =
@@ -92,7 +83,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private Injector injector;
     private Persistence persistence;
     private WebGuiBus webGuiBus;
-
+    private String oauthQueryString;
+    
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
@@ -356,40 +348,53 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void writeBookingsToCalendar2(final String aAuthorizationCode) {
-        // TODO Auto-generated method stub
-        final HttpTransport httpTransport = new NetHttpTransport();
-        final JacksonFactory jsonFactory = new JacksonFactory();
-        try {
-            final String clientId = CLIENT_ID;
+        GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
+        oauthParameters.setOAuthConsumerKey(CLIENT_ID);
+        oauthParameters.setOAuthConsumerSecret(CLIENT_SECRET);
 
-            // Step 2: Exchange -->
-
-            LOGGER.debug(
-                    "Calendar: clientId='{}', clientSecret='{}', authorizationCode='{}', redirectUrl='{}'",
-                    new Object[] { clientId, CLIENT_SECRET, aAuthorizationCode,
-                            REDIRECT_URL });
-
-            final AccessTokenResponse response =
-                    new GoogleAuthorizationCodeGrant(httpTransport,
-                            jsonFactory,
-                            clientId, CLIENT_SECRET, aAuthorizationCode,
-                            REDIRECT_URL).execute();
-            // End of Step 2 <--
-
-            LOGGER.debug("response.accessToken: {}", response.accessToken);
-
-            final GoogleOAuthParameters oauth = new GoogleOAuthParameters();
-
-            oauth.setOAuthConsumerKey(clientId);
-            oauth.setOAuthConsumerSecret(CLIENT_SECRET);
-            oauth.setOAuthToken(response.accessToken);
-            oauth.setOAuthTokenSecret(aAuthorizationCode);
-            oauth.setScope(SCOPE_CALENDAR);
-
-            exportBookingsToGoogleCalendar(aAuthorizationCode, oauth);
-        } catch (IOException exception) {
-            LOGGER.error("", exception);
-        }
+        LOGGER.debug("writeBookingsToCalendar2: {}", this.oauthQueryString);
+        
+        GoogleOAuthHelper oauthHelper = new GoogleOAuthHelper(new OAuthHmacSha1Signer());
+        oauthHelper.getOAuthParametersFromCallback(this.oauthQueryString, oauthParameters);
+        
+//        final HttpTransport httpTransport = new NetHttpTransport();
+//        final JacksonFactory jsonFactory = new JacksonFactory();
+//        try {
+//            final String clientId = CLIENT_ID;
+//
+//            // Step 2: Exchange -->
+//
+//            LOGGER.debug(
+//                    "Calendar: clientId='{}', clientSecret='{}', authorizationCode='{}', redirectUrl='{}'",
+//                    new Object[] { clientId, CLIENT_SECRET, aAuthorizationCode,
+//                            REDIRECT_URL });
+//
+//            final AccessTokenResponse response =
+//                    new GoogleAuthorizationCodeGrant(httpTransport,
+//                            jsonFactory,
+//                            clientId, CLIENT_SECRET, aAuthorizationCode,
+//                            REDIRECT_URL).execute();
+//            // End of Step 2 <--
+//
+//            LOGGER.debug("response.accessToken: {}", response.accessToken);
+//
+//            final GoogleOAuthParameters oauth = new GoogleOAuthParameters();
+//
+//            oauth.setOAuthConsumerKey(clientId);
+//            oauth.setOAuthConsumerSecret(CLIENT_SECRET);
+//            oauth.setOAuthToken(response.accessToken);
+//            oauth.setOAuthTokenSecret(aAuthorizationCode);
+//            oauth.setScope(SCOPE_CALENDAR);
+//
+//            exportBookingsToGoogleCalendar(aAuthorizationCode, oauth);
+//        } catch (IOException exception) {
+//            LOGGER.error("", exception);
+//        }
+    }
+    
+    @Override
+    public void setOauthQueryString(final String aQueryString) {
+        this.oauthQueryString = aQueryString;
     }
 
 }

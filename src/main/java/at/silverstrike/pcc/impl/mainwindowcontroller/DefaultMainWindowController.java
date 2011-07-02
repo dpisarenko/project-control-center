@@ -39,6 +39,7 @@ class DefaultMainWindowController implements MainWindowController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultMainWindowController.class);
     private Injector injector;
+    private MainWindow mainWindow;
 
     @Override
     public final void setInjector(final Injector aInjector) {
@@ -104,12 +105,19 @@ class DefaultMainWindowController implements MainWindowController {
     public Window initGui() {
         final MainWindowFactory mainWindowFactory = injector
                 .getInstance(MainWindowFactory.class);
-        final MainWindow mainWindow = mainWindowFactory.create();
+        mainWindow = mainWindowFactory.create();
 
         mainWindow.setInjector(injector);
         mainWindow.setGuiController(this);
         mainWindow.initGui();
-        
+
         return mainWindow.toWindow();
+    }
+
+    @Override
+    public void setOauthQueryString(final String aQueryString) {
+        if (this.mainWindow != null) {
+            this.mainWindow.setOauthQueryString(aQueryString);
+        }
     }
 }

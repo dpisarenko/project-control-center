@@ -15,6 +15,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,8 @@ import com.vaadin.ui.Window;
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
-public class ProjectControlCenterApplication extends TPTApplication implements HttpServletRequestListener  {
+public class ProjectControlCenterApplication extends TPTApplication implements
+        HttpServletRequestListener {
     public static final String PARAM_INJECTOR = "PARAM_INJECTOR";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ProjectControlCenterApplication.class);
@@ -49,6 +51,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements H
     private transient Injector injector;
     private EntryWindow entryWindow;
     private transient HttpServletRequest request;
+    private MainWindowController mainWindowController;
 
     @Override
     public final void applicationInit() {
@@ -61,9 +64,11 @@ public class ProjectControlCenterApplication extends TPTApplication implements H
                 ((WebApplicationContext) getContext()).getHttpSession()
                         .getServletContext();
 
-        final DefaultInjectorFactory injectorFactory = new DefaultInjectorFactory();
-        final String taskJugglerPath = servletContext.getInitParameter("TaskJuggler path");
-        
+        final DefaultInjectorFactory injectorFactory =
+                new DefaultInjectorFactory();
+        final String taskJugglerPath =
+                servletContext.getInitParameter("TaskJuggler path");
+
         injectorFactory.setTaskJugglerPath(taskJugglerPath);
         injector = injectorFactory.createInjector();
 
@@ -108,12 +113,11 @@ public class ProjectControlCenterApplication extends TPTApplication implements H
         } else {
             final MainWindowControllerFactory mainWindowControllerFactory =
                     injector.getInstance(MainWindowControllerFactory.class);
-            final MainWindowController controller =
-                    mainWindowControllerFactory.create();
+            mainWindowController = mainWindowControllerFactory.create();
 
-            controller.setInjector(injector);
+            mainWindowController.setInjector(injector);
 
-            final Window mainWindow = controller.initGui();
+            final Window mainWindow = mainWindowController.initGui();
             this.setMainWindow(mainWindow);
         }
     }
@@ -125,7 +129,14 @@ public class ProjectControlCenterApplication extends TPTApplication implements H
     @Override
     public void onRequestStart(final HttpServletRequest aRequest,
             final HttpServletResponse aResponse) {
-        LOGGER.debug("aRequest.getQueryString(): {}", new Object[] {aRequest.getQueryString()});
+        final String queryString = aRequest.getQueryString();
+        LOGGER.debug("aRequest.getQueryString(): {}",
+                new Object[] { queryString });
+
+        if (!StringUtils.isBlank(queryString) && queryString.contains("oauth")
+                && (this.mainWindowController != null)) {
+            this.mainWindowController.setOauthQueryString(queryString);
+        }
     }
 
     @Override
