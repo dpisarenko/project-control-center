@@ -11,29 +11,49 @@
 
 package at.silverstrike.pcc.test.oauth;
 
+import java.util.Map;
+
+import org.junit.Test;
+
 import junit.framework.Assert;
 
 import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
+import com.google.gdata.client.authn.oauth.OAuthParameters;
+import com.google.gdata.client.authn.oauth.OAuthUtil;
 
 /**
  * @author DP118M
  * 
  */
 public class TestOAuthHelper {
+    private static final String TOKEN_SECRET = "bG_JiMC1QyJkBbkqaDdeFNhe";
+    private static final String QUERY_STRING =
+            "oauth_verifier=bG_JiMC1QyJkBbkqaDdeFNhe&oauth_token=4/sESfTRqBIuH_2OZEFTzLjd9P5hS6";
+
+    @Test
     public void testAccessTokenSecretParsing() {
         final GoogleOAuthParameters oauthParameters =
                 new GoogleOAuthParameters();
 
-        final GoogleOAuthHelper oauthHelper =
+        final GoogleOAuthHelper objectUnderTest =
                 new GoogleOAuthHelper(new OAuthHmacSha1Signer());
-        oauthHelper
+        objectUnderTest
                 .getOAuthParametersFromCallback(
-                        "writeBookingsToCalendar2: oauth_verifier=bG_JiMC1QyJkBbkqaDdeFNhe&oauth_token=4/sESfTRqBIuH_2OZEFTzLjd9P5hS6",
+                        QUERY_STRING,
                         oauthParameters);
 
-        Assert.assertEquals("bG_JiMC1QyJkBbkqaDdeFNhe", oauthParameters
+        Assert.assertEquals(TOKEN_SECRET, oauthParameters
                 .getOAuthTokenSecret());
+    }
+
+    @Test
+    public void testOAuthUtil() {
+        final Map<String, String> params =
+                OAuthUtil.parseQuerystring(QUERY_STRING);
+
+        Assert.assertEquals(TOKEN_SECRET,
+                params.get(OAuthParameters.OAUTH_TOKEN_SECRET_KEY));
     }
 }
