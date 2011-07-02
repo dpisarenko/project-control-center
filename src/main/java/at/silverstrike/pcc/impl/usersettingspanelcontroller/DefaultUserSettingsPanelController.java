@@ -304,8 +304,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void writeBookingsToCalendar() {
-        final String CONSUMER_KEY = CLIENT_ID;
-        final String CONSUMER_SECRET = CLIENT_SECRET;
+        final String CONSUMER_KEY = "pcchq.com";
+        final String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
 
         oauthParameters = new GoogleOAuthParameters();
         oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
