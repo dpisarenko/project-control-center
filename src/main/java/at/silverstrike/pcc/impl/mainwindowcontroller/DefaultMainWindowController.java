@@ -116,6 +116,8 @@ class DefaultMainWindowController implements MainWindowController {
 
     @Override
     public void setOauthQueryString(final String aQueryString) {
+        LOGGER.debug("aQueryString: {}, this.mainWindow: {}", new Object[] {
+                aQueryString, this.mainWindow });
         if (this.mainWindow != null) {
             this.mainWindow.setOauthQueryString(aQueryString);
         }

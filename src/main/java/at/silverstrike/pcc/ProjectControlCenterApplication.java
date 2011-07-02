@@ -130,8 +130,8 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     public void onRequestStart(final HttpServletRequest aRequest,
             final HttpServletResponse aResponse) {
         final String queryString = aRequest.getQueryString();
-        LOGGER.debug("aRequest.getQueryString(): {}",
-                new Object[] { queryString });
+        LOGGER.debug("aRequest.getQueryString(): {}, this.mainWindowController={}",
+                new Object[] { queryString, this.mainWindowController });
 
         if (!StringUtils.isBlank(queryString) && queryString.contains("oauth")
                 && (this.mainWindowController != null)) {

@@ -85,7 +85,7 @@ class DefaultMainWindow implements MainWindow, URIHandler {
                 .get("mainwindow.22-user-settings-tab"), null);
         this.tabSheet.addTab(getInvitationRequestTab(), TM
                 .get("mainwindow.21-invitation-tab"), null);
-        
+
         mainLayout.addComponent(this.tabSheet);
 
         mainWindow.setContent(mainLayout);
@@ -96,9 +96,9 @@ class DefaultMainWindow implements MainWindow, URIHandler {
                 this.injector
                         .getInstance(UserSettingsPanelControllerFactory.class);
         userSettingsPanelController = factory.create();
-        
+
         userSettingsPanelController.setInjector(this.injector);
-        
+
         return userSettingsPanelController.initGui();
     }
 
@@ -124,7 +124,8 @@ class DefaultMainWindow implements MainWindow, URIHandler {
     }
 
     @Override
-    public DownloadStream handleURI(final URL aContext, final String aRelativeUri) {
+    public DownloadStream handleURI(final URL aContext,
+            final String aRelativeUri) {
         LOGGER.debug("aContext: {}", aContext);
         LOGGER.debug("aRelativeUri: {}", aRelativeUri);
         return null;
@@ -132,9 +133,12 @@ class DefaultMainWindow implements MainWindow, URIHandler {
 
     @Override
     public void setOauthQueryString(final String aQueryString) {
+        LOGGER.debug("aQueryString: {}, this.userSettingsPanelController: {}",
+                new
+                Object[] { aQueryString, this.userSettingsPanelController });
         if (this.userSettingsPanelController != null) {
-            userSettingsPanelController.setOauthQueryString(aQueryString);    
+            userSettingsPanelController.setOauthQueryString(aQueryString);
         }
-                
+
     }
 }
