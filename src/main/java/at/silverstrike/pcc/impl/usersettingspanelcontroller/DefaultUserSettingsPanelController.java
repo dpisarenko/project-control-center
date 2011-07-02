@@ -73,10 +73,11 @@ import at.silverstrike.pcc.api.webguibus.WebGuiBus;
  * 
  */
 class DefaultUserSettingsPanelController implements UserSettingsPanelController {
+    private static final String PCCHQ_COM = "pcchq.com";
     private static final String REDIRECT_URL =
             "http://localhost:8080/pcc/oauth2callback";
     private static final String CLIENT_SECRET = "J1JRmoTA-EmOjTwKkW-eLHLY";
-    private static final String APPLICATION_NAME = "pcchq.com";
+    private static final String APPLICATION_NAME = PCCHQ_COM;
     private static final String SCOPE_CALENDAR =
             "https://www.google.com/calendar/feeds/";
 
@@ -309,24 +310,40 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     @Override
-    public void writeBookingsToCalendar() {        
-        // The clientId and clientSecret are copied from the API Access tab
-        // on
-        // the Google APIs Console
-        String clientId = CLIENT_ID;
+    public void writeBookingsToCalendar() {
+        String CONSUMER_KEY = PCCHQ_COM;
+        String CONSUMER_SECRET = CLIENT_SECRET;
 
-        // Or your redirect URL for web based applications.
-        String redirectUrl = REDIRECT_URL;
-        String scope = SCOPE_CALENDAR;
+        GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
+        oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
+        oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
+        oauthParameters.setScope(SCOPE_CALENDAR);
+        oauthParameters.setOAuthCallback(REDIRECT_URL);
 
-        // Step 1: Authorize -->
-        String authorizationUrl =
-                new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
-                        scope)
-                        .build();
-
-        TPTApplication.getCurrentApplication().getMainWindow()
-                .open(new ExternalResource(authorizationUrl), "_top");
+        GoogleOAuthHelper oauthHelper = new GoogleOAuthHelper(new OAuthHmacSha1Signer());
+        try {
+            oauthHelper.getUnauthorizedRequestToken(oauthParameters);
+        } catch (final OAuthException exception) {
+            LOGGER.error("", exception);
+        }
+        
+//        // The clientId and clientSecret are copied from the API Access tab
+//        // on
+//        // the Google APIs Console
+//        String clientId = CLIENT_ID;
+//
+//        // Or your redirect URL for web based applications.
+//        String redirectUrl = REDIRECT_URL;
+//        String scope = SCOPE_CALENDAR;
+//
+//        // Step 1: Authorize -->
+//        String authorizationUrl =
+//                new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
+//                        scope)
+//                        .build();
+//
+//        TPTApplication.getCurrentApplication().getMainWindow()
+//                .open(new ExternalResource(authorizationUrl), "_top");
     }
 
     @Override
