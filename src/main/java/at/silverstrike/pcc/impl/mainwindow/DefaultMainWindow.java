@@ -11,7 +11,7 @@
 
 package at.silverstrike.pcc.impl.mainwindow;
 
-import java.net.URL;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +19,7 @@ import org.slf4j.LoggerFactory;
 import ru.altruix.commons.api.version.PccVersionReader;
 
 import com.google.inject.Injector;
-import com.vaadin.terminal.DownloadStream;
-import com.vaadin.terminal.URIHandler;
+import com.vaadin.terminal.ParameterHandler;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
@@ -37,7 +36,7 @@ import at.silverstrike.pcc.api.schedulingguicontroller.SchedulingPanelController
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelControllerFactory;
 
-class DefaultMainWindow implements MainWindow, URIHandler {
+class DefaultMainWindow implements MainWindow, ParameterHandler {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultMainWindow.class);
@@ -63,7 +62,7 @@ class DefaultMainWindow implements MainWindow, URIHandler {
                         versionReader.getVersion()));
         mainWindow.setSizeFull();
         mainWindow.setDebugId("011.001");
-        mainWindow.addURIHandler(this);
+        mainWindow.addParameterHandler(this);
 
         this.tabSheet = new TabSheet();
         this.tabSheet.setDebugId("011.002");
@@ -124,14 +123,6 @@ class DefaultMainWindow implements MainWindow, URIHandler {
     }
 
     @Override
-    public DownloadStream handleURI(final URL aContext,
-            final String aRelativeUri) {
-        LOGGER.debug("aContext: {}", aContext);
-        LOGGER.debug("aRelativeUri: {}", aRelativeUri);
-        return null;
-    }
-
-    @Override
     public void setOauthQueryString(final String aQueryString) {
         LOGGER.debug("aQueryString: {}, this.userSettingsPanelController: {}",
                 new
@@ -140,5 +131,25 @@ class DefaultMainWindow implements MainWindow, URIHandler {
             userSettingsPanelController.setOauthQueryString(aQueryString);
         }
 
+    }
+
+    @Override
+    public void handleParameters(final Map<String, String[]> aParameters) {
+        final StringBuilder queryString = new StringBuilder();
+        boolean firstValue = true;
+
+        for (final String curKey : aParameters.keySet()) {
+            if (!firstValue) {
+                queryString.append("&");
+            } else {
+                firstValue = false;
+            }
+            queryString.append(curKey);
+            queryString.append("=");
+            queryString.append(aParameters.get(curKey));
+        }
+
+        this.userSettingsPanelController.setOauthQueryString(queryString
+                .toString());
     }
 }
