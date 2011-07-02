@@ -311,39 +311,47 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void writeBookingsToCalendar() {
-        String CONSUMER_KEY = CLIENT_ID;
-        String CONSUMER_SECRET = CLIENT_SECRET;
+        final String CONSUMER_KEY = CLIENT_ID;
+        final String CONSUMER_SECRET = CLIENT_SECRET;
 
-        GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
+        final GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
         oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
         oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
         oauthParameters.setScope(SCOPE_CALENDAR);
         oauthParameters.setOAuthCallback(REDIRECT_URL);
 
-        GoogleOAuthHelper oauthHelper = new GoogleOAuthHelper(new OAuthHmacSha1Signer());
+        GoogleOAuthHelper oauthHelper =
+                new GoogleOAuthHelper(new OAuthHmacSha1Signer());
         try {
             oauthHelper.getUnauthorizedRequestToken(oauthParameters);
+
+            final String approvalPageUrl =
+                    oauthHelper.createUserAuthorizationUrl(oauthParameters);
+
+            TPTApplication.getCurrentApplication().getMainWindow()
+                    .open(new ExternalResource(approvalPageUrl), "_top");
+
         } catch (final OAuthException exception) {
             LOGGER.error("", exception);
         }
-        
-//        // The clientId and clientSecret are copied from the API Access tab
-//        // on
-//        // the Google APIs Console
-//        String clientId = CLIENT_ID;
-//
-//        // Or your redirect URL for web based applications.
-//        String redirectUrl = REDIRECT_URL;
-//        String scope = SCOPE_CALENDAR;
-//
-//        // Step 1: Authorize -->
-//        String authorizationUrl =
-//                new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
-//                        scope)
-//                        .build();
-//
-//        TPTApplication.getCurrentApplication().getMainWindow()
-//                .open(new ExternalResource(authorizationUrl), "_top");
+
+        // // The clientId and clientSecret are copied from the API Access tab
+        // // on
+        // // the Google APIs Console
+        // String clientId = CLIENT_ID;
+        //
+        // // Or your redirect URL for web based applications.
+        // String redirectUrl = REDIRECT_URL;
+        // String scope = SCOPE_CALENDAR;
+        //
+        // // Step 1: Authorize -->
+        // String authorizationUrl =
+        // new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
+        // scope)
+        // .build();
+        //
+        // TPTApplication.getCurrentApplication().getMainWindow()
+        // .open(new ExternalResource(authorizationUrl), "_top");
     }
 
     @Override
