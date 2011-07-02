@@ -86,6 +86,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private String oauthQueryString;
     private GoogleOAuthParameters oauthParameters;
     private GoogleOAuthHelper oauthHelper;
+    private OAuthHmacSha1Signer signer;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -159,14 +160,12 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             exportBookingsToGoogleCalendar(final String aAuthorizationCode,
                     final GoogleOAuthParameters aOauthParams) {
         try {
-            final OAuthHmacSha1Signer signer = new OAuthHmacSha1Signer();
-
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
 
             calendarService
                     .setOAuthCredentials(aOauthParams, signer);
-
+            
             LOGGER.debug("calendarService: {}", calendarService);
 
             final URL feedUrl =
@@ -314,7 +313,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         oauthParameters.setScope(SCOPE_CALENDAR);
         oauthParameters.setOAuthCallback(REDIRECT_URL);
 
-        oauthHelper = new GoogleOAuthHelper(new OAuthHmacSha1Signer());
+        signer = new OAuthHmacSha1Signer();
+        oauthHelper = new GoogleOAuthHelper(signer);
         try {
             oauthHelper.getUnauthorizedRequestToken(oauthParameters);
 
@@ -363,7 +363,14 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 new Object[] { oauthParameters.getOAuthToken(),
                         oauthParameters.getOAuthTokenSecret(),
                         this.oauthQueryString});
-
+        LOGGER.debug("OAuthType: {}, realm: '{}', scope: '{}'", new Object[] {oauthParameters.getOAuthType(), oauthParameters.getRealm(),
+                oauthParameters.getScope()});
+        
+        
+        
+        
+        
+        
         exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
 
         // final HttpTransport httpTransport = new NetHttpTransport();
