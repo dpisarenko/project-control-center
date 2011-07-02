@@ -355,7 +355,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
             final GoogleOAuthParameters oauth = new GoogleOAuthParameters();
 
-            oauth.setOAuthConsumerKey("pcchq.com");
+            oauth.setOAuthConsumerKey(clientId);
             oauth.setOAuthConsumerSecret(CLIENT_SECRET);
             oauth.setOAuthToken(response.accessToken);
             oauth.setOAuthTokenSecret(aAuthorizationCode);
