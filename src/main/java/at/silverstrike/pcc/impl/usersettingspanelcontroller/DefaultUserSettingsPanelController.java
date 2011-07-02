@@ -11,8 +11,18 @@
 
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.spec.EncodedKeySpec;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +38,7 @@ import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenReq
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
+import com.google.api.client.util.Base64;
 import com.google.api.services.tasks.v1.Tasks;
 import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
@@ -165,7 +176,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
             calendarService
                     .setOAuthCredentials(aOauthParams, signer);
-            
+
             LOGGER.debug("calendarService: {}", calendarService);
 
             final URL feedUrl =
@@ -302,8 +313,47 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 mainWindow.toWindow());
     }
 
+    public static PrivateKey getPrivateKey(String privKeyFileName)
+            throws IOException, NoSuchAlgorithmException,
+            InvalidKeySpecException {
+        FileInputStream fis = new FileInputStream(new File(privKeyFileName));
+        DataInputStream dis = new DataInputStream(fis);
+
+        byte[] privKeyBytes = new byte[887];
+        dis.read(privKeyBytes);
+        dis.close();
+        fis.close();
+        
+        LOGGER.debug("privKeyBytes: {}", privKeyBytes);
+
+        String BEGIN = "-----BEGIN RSA PRIVATE KEY-----";
+        String END = "-----END RSA PRIVATE KEY-----";
+        String str = new String(privKeyBytes);
+        if (str.contains(BEGIN) && str.contains(END)) {
+            str = str.substring(BEGIN.length(), str.lastIndexOf(END));
+        }
+
+        KeyFactory fac = KeyFactory.getInstance("RSA");
+        EncodedKeySpec privKeySpec =
+                new PKCS8EncodedKeySpec(Base64.decode(str.getBytes()));
+        return fac.generatePrivate(privKeySpec);
+    }
+
     @Override
     public void writeBookingsToCalendar() {
+        try {
+            PrivateKey privKey = getPrivateKey("privatekey");
+            
+            LOGGER.debug("private key: {}", privKey.getEncoded());
+        } catch (final NoSuchAlgorithmException exception) {
+            LOGGER.error("", exception);
+        } catch (final InvalidKeySpecException exception) {
+            LOGGER.error("", exception);
+        } catch (final IOException exception) {
+            LOGGER.error("", exception);
+        }
+
+        
         final String CONSUMER_KEY = "pcchq.com";
         final String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
 
@@ -356,23 +406,19 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 oauthParameters);
 
         this.oauthParameters.setScope(SCOPE_CALENDAR);
-        
-//        oauthParameters.setOAuthTokenSecret(oauthParameters
-//                .getOAuthTokenSecret());
+
+        // oauthParameters.setOAuthTokenSecret(oauthParameters
+        // .getOAuthTokenSecret());
 
         LOGGER.debug(
                 "before exportBookingsToGoogleCalendar: token: '{}', token secret: '{}', this.oauthQueryString: '{}'",
                 new Object[] { oauthParameters.getOAuthToken(),
                         oauthParameters.getOAuthTokenSecret(),
-                        this.oauthQueryString});
-        LOGGER.debug("OAuthType: {}, realm: '{}', scope: '{}'", new Object[] {oauthParameters.getOAuthType(), oauthParameters.getRealm(),
-                oauthParameters.getScope()});
-        
-        
-        
-        
-        
-        
+                        this.oauthQueryString });
+        LOGGER.debug("OAuthType: {}, realm: '{}', scope: '{}'", new Object[] {
+                oauthParameters.getOAuthType(), oauthParameters.getRealm(),
+                oauthParameters.getScope() });
+
         exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
 
         // final HttpTransport httpTransport = new NetHttpTransport();
@@ -419,7 +465,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     @Override
     public void setOauthAccessToken(String aAccessToken) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }
