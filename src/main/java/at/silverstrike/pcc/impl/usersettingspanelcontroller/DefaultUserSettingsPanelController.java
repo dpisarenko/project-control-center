@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -313,16 +314,15 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 mainWindow.toWindow());
     }
 
-    public static PrivateKey getPrivateKey(String privKeyFileName)
+    public PrivateKey getPrivateKey()
             throws IOException, NoSuchAlgorithmException,
             InvalidKeySpecException {
-        FileInputStream fis = new FileInputStream(new File(privKeyFileName));
-        DataInputStream dis = new DataInputStream(fis);
+        DataInputStream dis = new DataInputStream(getClass().getClassLoader()
+                .getResourceAsStream("privatekey"));
 
         byte[] privKeyBytes = new byte[887];
         dis.read(privKeyBytes);
         dis.close();
-        fis.close();
         
         LOGGER.debug("privKeyBytes: {}", privKeyBytes);
 
@@ -342,7 +342,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     @Override
     public void writeBookingsToCalendar() {
         try {
-            PrivateKey privKey = getPrivateKey("privatekey");
+            PrivateKey privKey = getPrivateKey();
             
             LOGGER.debug("private key: {}", privKey.getEncoded());
         } catch (final NoSuchAlgorithmException exception) {
