@@ -359,6 +359,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 new GoogleOAuthHelper(new OAuthHmacSha1Signer());
         oauthHelper.getOAuthParametersFromCallback(this.oauthQueryString,
                 oauthParameters);
+        
+        oauthParameters.setOAuthTokenSecret(oauthParameters.getOAuthTokenSecret());
         exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
 
         
