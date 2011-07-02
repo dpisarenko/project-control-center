@@ -146,7 +146,12 @@ class DefaultMainWindow implements MainWindow, ParameterHandler {
             }
             queryString.append(curKey);
             queryString.append("=");
-            queryString.append(aParameters.get(curKey));
+
+            final String[] values = aParameters.get(curKey);
+
+            for (final String curValue : values) {
+                queryString.append(curValue);
+            }
         }
 
         this.userSettingsPanelController.setOauthQueryString(queryString
