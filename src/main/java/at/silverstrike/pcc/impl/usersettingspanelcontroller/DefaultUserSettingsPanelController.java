@@ -359,11 +359,17 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 new GoogleOAuthHelper(new OAuthHmacSha1Signer());
         oauthHelper.getOAuthParametersFromCallback(this.oauthQueryString,
                 oauthParameters);
-        
-        oauthParameters.setOAuthTokenSecret(oauthParameters.getOAuthTokenSecret());
+
+        oauthParameters.setOAuthTokenSecret(oauthParameters
+                .getOAuthTokenSecret());
+
+        LOGGER.debug(
+                "before exportBookingsToGoogleCalendar: token: '{}', token secret: '{}'",
+                new Object[] { oauthParameters.getOAuthToken(),
+                        oauthParameters.getOAuthTokenSecret() });
+
         exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
 
-        
         // final HttpTransport httpTransport = new NetHttpTransport();
         // final JacksonFactory jsonFactory = new JacksonFactory();
         // try {
