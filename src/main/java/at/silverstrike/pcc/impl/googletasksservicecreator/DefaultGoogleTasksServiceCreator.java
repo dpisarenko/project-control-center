@@ -48,6 +48,9 @@ class DefaultGoogleTasksServiceCreator implements GoogleTasksServiceCreator {
         final HttpTransport httpTransport = new NetHttpTransport();
         final JacksonFactory jsonFactory = new JacksonFactory();
         try {
+            LOGGER.debug("Tasks: clientId='{}', clientSecret='{}', authorizationCode='{}', redirectUrl='{}'",
+                    new Object[]{clientId, clientSecret, authorizationCode, redirectUrl});
+            
             // Step 2: Exchange -->
             final AccessTokenResponse response =
                     new GoogleAuthorizationCodeGrant(httpTransport,

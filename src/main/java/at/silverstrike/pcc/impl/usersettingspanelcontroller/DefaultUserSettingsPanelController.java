@@ -324,8 +324,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
                         scope)
                         .build();
-        
-        
+
         TPTApplication.getCurrentApplication().getMainWindow()
                 .open(new ExternalResource(authorizationUrl), "_top");
     }
@@ -337,8 +336,14 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         final JacksonFactory jsonFactory = new JacksonFactory();
         try {
             final String clientId = "pcchq.com";
-            
+
             // Step 2: Exchange -->
+
+            LOGGER.debug(
+                    "Calendar: clientId='{}', clientSecret='{}', authorizationCode='{}', redirectUrl='{}'",
+                    new Object[] { clientId, CLIENT_SECRET, aAuthorizationCode,
+                            REDIRECT_URL });
+
             final AccessTokenResponse response =
                     new GoogleAuthorizationCodeGrant(httpTransport,
                             jsonFactory,
@@ -346,14 +351,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                             REDIRECT_URL).execute();
             // End of Step 2 <--
 
-            final GoogleAccessProtectedResource accessProtectedResource =
-                    new GoogleAccessProtectedResource(
-                            response.accessToken, httpTransport, jsonFactory,
-                            clientId, CLIENT_SECRET,
-                            response.refreshToken);
-            
             LOGGER.debug("response.accessToken: {}", response.accessToken);
-            
+
             final GoogleOAuthParameters oauth = new GoogleOAuthParameters();
 
             oauth.setOAuthConsumerKey("pcchq.com");
@@ -365,7 +364,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             exportBookingsToGoogleCalendar(aAuthorizationCode, oauth);
         } catch (IOException exception) {
             LOGGER.error("", exception);
-        }        
+        }
     }
 
 }
