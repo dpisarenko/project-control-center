@@ -17,9 +17,6 @@ import org.junit.Test;
 
 import junit.framework.Assert;
 
-import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
-import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
-import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
 import com.google.gdata.client.authn.oauth.OAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthUtil;
 
@@ -28,7 +25,6 @@ import com.google.gdata.client.authn.oauth.OAuthUtil;
  * 
  */
 public class TestOAuthHelper {
-    private static final String TOKEN_SECRET = "bG_JiMC1QyJkBbkqaDdeFNhe";
     private static final String TOKEN = "4/sESfTRqBIuH_2OZEFTzLjd9P5hS6";
     private static final String QUERY_STRING =
             "oauth_verifier=bG_JiMC1QyJkBbkqaDdeFNhe&oauth_token=4/sESfTRqBIuH_2OZEFTzLjd9P5hS6";

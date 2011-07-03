@@ -21,17 +21,13 @@ import org.slf4j.LoggerFactory;
 
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
-import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiController;
-import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiControllerFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
-import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
 
 import com.google.inject.Injector;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
-import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
@@ -42,15 +38,12 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ProjectControlCenterApplication.class);
     private static final String THEME = "pcc";
-    private static final boolean OPENID_DEBUGGED = true;
-    private static final boolean TEST_INVITATION = true;
 
     private static final long serialVersionUID = 1L;
 
     private transient Persistence persistence;
     private transient Injector injector;
     private EntryWindow entryWindow;
-    private transient HttpServletRequest request;
     private MainWindowController mainWindowController;
 
     @Override
@@ -82,44 +75,13 @@ public class ProjectControlCenterApplication extends TPTApplication implements
             this.persistence.createSuperUser();
         }
 
-        if (OPENID_DEBUGGED) {
-            final EntryWindowFactory entryWindowFactory = injector
-                    .getInstance(EntryWindowFactory.class);
-            entryWindow = entryWindowFactory.create();
+        final EntryWindowFactory entryWindowFactory = injector
+                .getInstance(EntryWindowFactory.class);
+        entryWindow = entryWindowFactory.create();
+        entryWindow.setInjector(injector);
+        entryWindow.initGui();
 
-            if (this.request == null) {
-                LOGGER.debug("{}: request is null.",
-                        new Object[] { "000.001" });
-            } else {
-                LOGGER.debug("{}: request is not null.",
-                        new Object[] { "000.001" });
-            }
-
-            entryWindow.setInjector(injector);
-            entryWindow.initGui();
-
-            setMainWindow(entryWindow.toWindow());
-        } else if (TEST_INVITATION) {
-            final InvitationGuiControllerFactory invitationGuiControllerFactory =
-                    injector.getInstance(InvitationGuiControllerFactory.class);
-            final InvitationGuiController controller =
-                    invitationGuiControllerFactory.create();
-
-            controller.setInjector(injector);
-
-            final Window invitationRequestWindow = controller.initGui();
-
-            this.setMainWindow(invitationRequestWindow);
-        } else {
-            final MainWindowControllerFactory mainWindowControllerFactory =
-                    injector.getInstance(MainWindowControllerFactory.class);
-            mainWindowController = mainWindowControllerFactory.create();
-
-            mainWindowController.setInjector(injector);
-
-            final Window mainWindow = mainWindowController.initGui();
-            this.setMainWindow(mainWindow);
-        }
+        setMainWindow(entryWindow.toWindow());
     }
 
     @Override
@@ -130,7 +92,8 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     public void onRequestStart(final HttpServletRequest aRequest,
             final HttpServletResponse aResponse) {
         final String queryString = aRequest.getQueryString();
-        LOGGER.debug("aRequest.getQueryString(): {}, this.mainWindowController={}",
+        LOGGER.debug(
+                "aRequest.getQueryString(): {}, this.mainWindowController={}",
                 new Object[] { queryString, this.mainWindowController });
 
         if (!StringUtils.isBlank(queryString) && queryString.contains("oauth")
