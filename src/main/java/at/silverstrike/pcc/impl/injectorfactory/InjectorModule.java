@@ -22,7 +22,6 @@ import ru.altruix.commons.impl.version.DefaultPccVersionReaderFactory;
 import at.silverstrike.pcc.api.automaticexport.AutomaticExporterFactory;
 import at.silverstrike.pcc.api.calendarpanel.CalendarPanelFactory;
 import at.silverstrike.pcc.api.calendarpanelcontroller.CalendarPanelControllerFactory;
-import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
@@ -95,7 +94,6 @@ import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.automaticexport.DefaultAutomaticExporterFactory;
 import at.silverstrike.pcc.impl.calendarpanel.DefaultCalendarPanelFactory;
 import at.silverstrike.pcc.impl.calendarpanelcontroller.DefaultCalendarPanelControllerFactory;
-import at.silverstrike.pcc.impl.centraleditingpanelbuttonstate.DefaultCentralEditingPanelButtonStateCalculatorFactory;
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultPccDebugIdRegistryFactory;
@@ -238,8 +236,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultGraph2ResourceConverterFactory().create());
         bind(ProjectTreeContainerFactory.class).toInstance(
                 new DefaultProjectTreeContainerFactory());
-        bind(CentralEditingPanelButtonStateCalculatorFactory.class).toInstance(
-                new DefaultCentralEditingPanelButtonStateCalculatorFactory());
         bind(MainWindowControllerFactory.class).toInstance(
                 new DefaultMainWindowControllerFactory());
         bind(TaskEditingPanelControllerFactory.class).toInstance(
