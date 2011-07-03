@@ -364,7 +364,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                     new Object[] { pccCalendar.getEditLink().getHref(),
                             pccCalendar.getSelfLink().getHref() });
 
-            final URL pccCalendarUrl = new URL("https://www.google.com/calendar/feeds/default/owncalendars/full/PCC");
+            final URL pccCalendarUrl = new URL("http://www.google.com/calendar/feeds/default/owncalendars/full/PCC");
             // calendarService.getFeed(feedUrl, feedClass)
 
             final CalendarEventFeed pccEventFeed =
