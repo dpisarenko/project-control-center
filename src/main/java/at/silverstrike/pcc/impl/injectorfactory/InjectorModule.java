@@ -35,10 +35,7 @@ import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParserFactory;
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFactory;
 import at.silverstrike.pcc.api.gtasktitleparser.GoogleTaskTitleParserFactory;
 import at.silverstrike.pcc.api.incorrectschedulingobjectsmarker.IncorrectSchedulingObjectsMarkerFactory;
-import at.silverstrike.pcc.api.invitationgui2.InvitationRequestWindowStep2Factory;
 import at.silverstrike.pcc.api.invitationgui2validator.InvitationRequestWindowStep2ValidatorFactory;
-import at.silverstrike.pcc.api.invitationgui3.InvitationRequestWindowStep3Factory;
-import at.silverstrike.pcc.api.invitationguicontroller.InvitationGuiControllerFactory;
 import at.silverstrike.pcc.api.invitationrequestadminpanel.InvitationRequestAdminPanelFactory;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelControllerFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
@@ -80,10 +77,7 @@ import at.silverstrike.pcc.impl.gtasknoteparser.DefaultGoogleTaskNotesParserFact
 import at.silverstrike.pcc.impl.gtaskrelevance.DefaultIsGoogleTaskRelevantCalculatorFactory;
 import at.silverstrike.pcc.impl.gtasktitleparser.DefaultGoogleTaskTitleParserFactory;
 import at.silverstrike.pcc.impl.incorrectschedulingobjectsmarker.DefaultIncorrectSchedulingObjectsMarkerFactory;
-import at.silverstrike.pcc.impl.invitationgui2.DefaultInvitationRequestWindowStep2Factory;
 import at.silverstrike.pcc.impl.invitationgui2validator.DefaultInvitationRequestWindowStep2ValidatorFactory;
-import at.silverstrike.pcc.impl.invitationgui3.DefaultInvitationRequestWindowStep3Factory;
-import at.silverstrike.pcc.impl.invitationguicontroller.DefaultInvitationGuiControllerFactory;
 import at.silverstrike.pcc.impl.invitationrequestadminpanel.DefaultInvitationRequestAdminPanelFactory;
 import at.silverstrike.pcc.impl.invitationrequestadminpanelcontroller.DefaultInvitationRequestAdminPanelControllerFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
@@ -165,12 +159,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultIncorrectSchedulingObjectsMarkerFactory());
         bind(AutomaticExporterFactory.class).toInstance(
                 new DefaultAutomaticExporterFactory());
-        bind(InvitationRequestWindowStep2Factory.class).toInstance(
-                new DefaultInvitationRequestWindowStep2Factory());
-        bind(InvitationRequestWindowStep3Factory.class).toInstance(
-                new DefaultInvitationRequestWindowStep3Factory());
-        bind(InvitationGuiControllerFactory.class).toInstance(
-                new DefaultInvitationGuiControllerFactory());
         bind(InvitationRequestWindowStep2ValidatorFactory.class).toInstance(
                 new DefaultInvitationRequestWindowStep2ValidatorFactory());
         bind(InvitationRequestAdminPanelControllerFactory.class).toInstance(
