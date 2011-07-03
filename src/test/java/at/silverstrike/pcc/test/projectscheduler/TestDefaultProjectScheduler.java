@@ -163,10 +163,16 @@ public final class TestDefaultProjectScheduler {
 
         assertNotNull(projectInfo);
 
+        persistence.createSuperUser();
         final UserData user = persistence.getUser(Persistence.SUPER_USER_NAME,
                 Persistence.SUPER_USER_PASSWORD);
 
+        assertNotNull(user);
+        
         this.helper.fillProjectInfo02(projectInfo, persistence, user);
+        
+        assertNotNull(projectInfo.getUserData());
+        
         objectUnderTest.setInjector(injector);
         objectUnderTest.setTaskJugglerPath(TJ3_PATH);
         /**
