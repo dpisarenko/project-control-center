@@ -46,12 +46,8 @@ class DefaultPrivateKeyReader implements PrivateKeyReader {
     public void run() throws PccException {
         try {
             byte[] privKeyBytes = null;
-            try {
-                privKeyBytes = IOUtils.toByteArray(inputStream);
-            } catch (final IOException exception) {
-                LOGGER.error("", exception);
-                IOUtils.closeQuietly(inputStream);
-            }
+
+            privKeyBytes = IOUtils.toByteArray(inputStream);
 
             LOGGER.debug("privKeyBytes: {}", privKeyBytes);
 
@@ -76,7 +72,10 @@ class DefaultPrivateKeyReader implements PrivateKeyReader {
         } catch (final InvalidKeySpecException exception) {
             LOGGER.error("", exception);
             throw new PccException(exception);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
         }
+
     }
 
     /**

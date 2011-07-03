@@ -71,6 +71,7 @@ import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponderFactory;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReaderFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReaderFactory;
 import at.silverstrike.pcc.api.projectnetworkdatacreator.ProjectNetworkDataCreatorFactory;
 import at.silverstrike.pcc.api.projectnetworkgraphcreator.ProjectNetworkGraphCreator;
 import at.silverstrike.pcc.api.projectnetworkgraphpanel.ProjectNetworkGraphPanelFactory;
@@ -139,6 +140,7 @@ import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationInitiatorFacto
 import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationResponderFactory;
 import at.silverstrike.pcc.impl.parameterdatareader.DefaultParameterDataReaderFactory;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
+import at.silverstrike.pcc.impl.privatekeyreader.DefaultPrivateKeyReaderFactory;
 import at.silverstrike.pcc.impl.projectnetworkdatacreator.DefaultProjectNetworkDataCreatorFactory;
 import at.silverstrike.pcc.impl.projectnetworkgraphcreator.DefaultProjectNetworkGraphCreatorFactory;
 import at.silverstrike.pcc.impl.projectnetworkgraphpanel.DefaultProjectNetworkGraphPanelFactory;
@@ -308,6 +310,8 @@ class InjectorModule extends AbstractModule {
                 DefaultGoogleCalendarTasks2PccImporter2Factory());
         bind(GoogleTaskTitleParserFactory.class).toInstance(new
                 DefaultGoogleTaskTitleParserFactory());
+        bind(PrivateKeyReaderFactory.class).toInstance(
+                new DefaultPrivateKeyReaderFactory());
     }
 
     private ProjectScheduler getScheduler() {

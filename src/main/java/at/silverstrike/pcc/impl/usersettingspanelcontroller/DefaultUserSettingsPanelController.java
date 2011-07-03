@@ -47,6 +47,7 @@ import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
+import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.Link;
 import com.google.gdata.data.calendar.CalendarEntry;
@@ -69,6 +70,8 @@ import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
+import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReader;
+import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReaderFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanel;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanelFactory;
@@ -100,7 +103,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private String oauthQueryString;
     private GoogleOAuthParameters oauthParameters;
     private GoogleOAuthHelper oauthHelper;
-    private OAuthHmacSha1Signer signer;
+    private  OAuthRsaSha1Signer signer;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -316,49 +319,28 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 mainWindow.toWindow());
     }
 
-    public PrivateKey getPrivateKey()
-            throws NoSuchAlgorithmException,
-            InvalidKeySpecException, IOException {
+    public PrivateKey getPrivateKey() {
+        final PrivateKeyReaderFactory factory = this.injector.getInstance(PrivateKeyReaderFactory.class);
+        final PrivateKeyReader reader = factory.create();
         
-        final InputStream inputStream = getClass().getClassLoader()
-                        .getResourceAsStream("privatekey");
-        byte[] privKeyBytes = null;
+        reader.setInputStream(getClass().getClassLoader()
+                        .getResourceAsStream("privatekey"));
+        
         try {
-            privKeyBytes = IOUtils.toByteArray(inputStream);
-        } catch (final IOException exception) {
+            reader.run();
+            
+            return reader.getPrivateKey();
+        } catch (final PccException exception) {
             LOGGER.error("", exception);
-            IOUtils.closeQuietly(inputStream);
+            return null;
         }
-        
-        LOGGER.debug("privKeyBytes: {}", privKeyBytes);
-
-        String BEGIN = "-----BEGIN RSA PRIVATE KEY-----";
-        String END = "-----END RSA PRIVATE KEY-----";
-        String str = new String(privKeyBytes);
-        if (str.contains(BEGIN) && str.contains(END)) {
-            str = str.substring(BEGIN.length(), str.lastIndexOf(END));
-        }
-
-        KeyFactory fac = KeyFactory.getInstance("RSA");
-        EncodedKeySpec privKeySpec =
-                new PKCS8EncodedKeySpec(Base64.decode(str.getBytes()));
-        return fac.generatePrivate(privKeySpec);
     }
 
     @Override
     public void writeBookingsToCalendar() {
-        try {
-            PrivateKey privKey = getPrivateKey();
-            
-            LOGGER.debug("private key: {}", privKey.getEncoded());
-        } catch (final NoSuchAlgorithmException exception) {
-            LOGGER.error("", exception);
-        } catch (final InvalidKeySpecException exception) {
-            LOGGER.error("", exception);
-        } catch (final IOException exception) {
-            LOGGER.error("", exception);
-        }
-
+        final PrivateKey privKey = getPrivateKey();
+        
+        LOGGER.debug("private key: {}", privKey.getEncoded());
         
         final String CONSUMER_KEY = "pcchq.com";
         final String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
@@ -369,9 +351,10 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         oauthParameters.setScope(SCOPE_CALENDAR);
         oauthParameters.setOAuthCallback(REDIRECT_URL);
 
-        signer = new OAuthHmacSha1Signer();
-        oauthHelper = new GoogleOAuthHelper(signer);
         try {
+            signer = new OAuthRsaSha1Signer(privKey);
+            oauthHelper = new GoogleOAuthHelper(signer);
+
             oauthHelper.getUnauthorizedRequestToken(oauthParameters);
 
             final String approvalPageUrl =
