@@ -29,7 +29,6 @@ import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.persistence.PersistenceState;
-import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
 import at.silverstrike.pcc.test.mockpersistence.MockPersistenceAdapter;
 
@@ -385,7 +384,6 @@ final class MockPersistenceHighestLevelTask extends MockPersistenceAdapter
         return null;
     }
 
-
     /*
      * (non-Javadoc)
      * 
@@ -475,19 +473,6 @@ final class MockPersistenceHighestLevelTask extends MockPersistenceAdapter
      */
     @Override
     public final void openSession() {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * at.silverstrike.pcc.api.persistence.Persistence#updateBookings(java.util
-     * .List)
-     */
-    @Override
-    public final void updateBookings(final List<BookingTuple> aBookingTuples) {
         // TODO Auto-generated method stub
 
     }

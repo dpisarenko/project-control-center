@@ -164,11 +164,6 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
 
     }
 
-    @Override
-    public void updateBookings(final List<BookingTuple> aBookingTuples) {
-        throw new NotImplementedException();
-
-    }
 
     @Override
     public void updateTask(final Task process) {

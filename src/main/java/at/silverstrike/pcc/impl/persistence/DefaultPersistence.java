@@ -813,7 +813,7 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public final void updateBookings(final List<BookingTuple> aBookingTuples) {
+    public final void updateBookings(final List<BookingTuple> aBookingTuples, final UserData aUserData) {
         final Transaction tx = session.beginTransaction();
         try {
             session.createQuery("delete from DefaultBooking").executeUpdate();
@@ -833,6 +833,7 @@ public class DefaultPersistence implements Persistence {
 
                 booking.setProcess(process);
                 booking.setResource(resource);
+                booking.setUserData(aUserData);
 
                 if (tuple.getBooking().getId() == null) {
                     session.save(booking);

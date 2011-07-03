@@ -94,7 +94,7 @@ class DefaultProjectScheduler implements ProjectScheduler {
 
         // Parse pccBookings.tji
         parseBookingsFile(this.directory);
-        persistence.updateBookings(this.bookingTuples);
+        persistence.updateBookings(this.bookingTuples, this.projectExportInfo.getUserData());
 
         // Update daily plans
         persistence.generateDailyPlans(this.now);

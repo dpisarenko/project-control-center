@@ -21,6 +21,7 @@ import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
 import at.silverstrike.pcc.impl.jruby.RubyDateTimeUtils;
@@ -89,7 +90,7 @@ class Helper {
     }
 
     public void fillProjectInfo02(final ProjectExportInfo anInfo,
-            final Persistence aPersistence) {
+            final Persistence aPersistence, final UserData aUserData) {
         final List<SchedulingObject> processes =
                 new LinkedList<SchedulingObject>();
 
@@ -120,6 +121,7 @@ class Helper {
                 30));
         anInfo.setProjectName("Sample project");
         anInfo.setSchedulingHorizonMonths(1);
+        anInfo.setUserData(aUserData);
 
     }
 }

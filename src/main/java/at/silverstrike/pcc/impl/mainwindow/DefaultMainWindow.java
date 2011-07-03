@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.version.PccVersionReader;
 
-import com.google.gdata.client.authn.oauth.OAuthParameters;
 import com.google.inject.Injector;
 import com.vaadin.terminal.ParameterHandler;
 import com.vaadin.ui.Component;

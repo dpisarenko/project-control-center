@@ -15,6 +15,7 @@ import java.util.List;
 
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Resource;
+import at.silverstrike.pcc.api.model.UserData;
 
 public interface ProjectExportInfo {
     /**
@@ -58,4 +59,8 @@ public interface ProjectExportInfo {
      */
     void setSchedulingHorizonMonths(final int aSchedulingHorizon);
     int getSchedulingHorizonMonths();
+    
+    
+    void setUserData(final UserData aUserData);
+    UserData getUserData();
 }

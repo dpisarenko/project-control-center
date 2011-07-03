@@ -85,7 +85,7 @@ public interface Persistence extends ModuleWithInjectableDependencies {
      * 4) Commit transaction.
      * </pre>
      */
-    void updateBookings(final List<BookingTuple> aBookingTuples);
+    void updateBookings(final List<BookingTuple> aBookingTuples, final UserData aUserData);
 
     void generateDailyPlans(final Date aNow);
 

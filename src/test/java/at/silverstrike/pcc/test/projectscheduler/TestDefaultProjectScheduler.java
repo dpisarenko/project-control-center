@@ -36,6 +36,7 @@ import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.DailySchedule;
 import at.silverstrike.pcc.api.model.DailyToDoList;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.projectscheduler.ProjectExportInfo;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
@@ -84,7 +85,7 @@ public final class TestDefaultProjectScheduler {
         this.helper.fillProjectInfo01(projectInfo);
         objectUnderTest.setInjector(injector);
         objectUnderTest.setTaskJugglerPath(TJ3_PATH);
-        
+
         /**
          * Set input data
          */
@@ -162,7 +163,10 @@ public final class TestDefaultProjectScheduler {
 
         assertNotNull(projectInfo);
 
-        this.helper.fillProjectInfo02(projectInfo, persistence);
+        final UserData user = persistence.getUser(Persistence.SUPER_USER_NAME,
+                Persistence.SUPER_USER_PASSWORD);
+
+        this.helper.fillProjectInfo02(projectInfo, persistence, user);
         objectUnderTest.setInjector(injector);
         objectUnderTest.setTaskJugglerPath(TJ3_PATH);
         /**

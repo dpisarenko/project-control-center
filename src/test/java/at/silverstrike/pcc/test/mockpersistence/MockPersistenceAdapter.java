@@ -153,7 +153,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public void updateBookings(final List<BookingTuple> aBookingTuples) {
+    public void updateBookings(final List<BookingTuple> aBookingTuples, final UserData aUserData) {
     }
 
     @Override

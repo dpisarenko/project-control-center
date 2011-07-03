@@ -123,12 +123,6 @@ class MockPersistenceEmptyDb extends MockPersistenceAdapter implements Persisten
     }
 
     @Override
-    public void updateBookings(final List<BookingTuple> aBookingTuples) {
-        throw new NotImplementedException();
-
-    }
-
-    @Override
     public void generateDailyPlans(final Date aNow) {
         throw new NotImplementedException();
 

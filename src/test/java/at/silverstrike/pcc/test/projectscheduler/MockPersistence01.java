@@ -71,7 +71,7 @@ class MockPersistence01 extends MockPersistenceAdapter {
     }
 
     @Override
-    public void updateBookings(final List<BookingTuple> aBookingTuples) {
+    public void updateBookings(final List<BookingTuple> aBookingTuples, final UserData aUserData) {
         Assert.assertNotNull(aBookingTuples);
         Assert.assertEquals(1, aBookingTuples.size());
 
