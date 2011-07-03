@@ -22,9 +22,7 @@ import ru.altruix.commons.impl.version.DefaultPccVersionReaderFactory;
 import at.silverstrike.pcc.api.automaticexport.AutomaticExporterFactory;
 import at.silverstrike.pcc.api.calendarpanel.CalendarPanelFactory;
 import at.silverstrike.pcc.api.calendarpanelcontroller.CalendarPanelControllerFactory;
-import at.silverstrike.pcc.api.centraleditingpanel.CentralEditingPanelFactory;
 import at.silverstrike.pcc.api.centraleditingpanelbuttonstate.CentralEditingPanelButtonStateCalculatorFactory;
-import at.silverstrike.pcc.api.centraleditingpanelcontroller.CentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapper;
 import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 import at.silverstrike.pcc.api.dailyplanpanel.DailyPlanPanelFactory;
@@ -97,9 +95,7 @@ import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.automaticexport.DefaultAutomaticExporterFactory;
 import at.silverstrike.pcc.impl.calendarpanel.DefaultCalendarPanelFactory;
 import at.silverstrike.pcc.impl.calendarpanelcontroller.DefaultCalendarPanelControllerFactory;
-import at.silverstrike.pcc.impl.centraleditingpanel.DefaultCentralEditingPanelFactory;
 import at.silverstrike.pcc.impl.centraleditingpanelbuttonstate.DefaultCentralEditingPanelButtonStateCalculatorFactory;
-import at.silverstrike.pcc.impl.centraleditingpanelcontroller.DefaultCentralEditingPanelControllerFactory;
 import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFactory;
 import at.silverstrike.pcc.impl.dailyplanpanel.DefaultDailyPlanPanelFactory;
 import at.silverstrike.pcc.impl.debugids.DefaultPccDebugIdRegistryFactory;
@@ -218,8 +214,6 @@ class InjectorModule extends AbstractModule {
         bind(OpenIdAuthenticationInitiator.class).toInstance(
                 getOpenIdAuthenticationInitiator());
         bind(Deauthenticator.class).toInstance(getDeauthenticator());
-        bind(CentralEditingPanelFactory.class).toInstance(
-                new DefaultCentralEditingPanelFactory());
         bind(DependenciesEditingPanelFactory.class).toInstance(
                 new DefaultDependenciesEditingPanelFactory());
         bind(TestTableCreator.class).toInstance(
@@ -230,8 +224,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultMeetingEditingPanelFactory());
         bind(MilestoneEditingPanelFactory.class).toInstance(
                 new DefaultMilestoneEditingPanelFactory());
-        bind(CentralEditingPanelControllerFactory.class).toInstance(new
-                DefaultCentralEditingPanelControllerFactory());
         bind(MilestoneEditingPanelController.class).toInstance(new
                 DefaultMilestoneEditingPanelControllerFactory().create());
         bind(EventEditingPanelController.class).toInstance(
