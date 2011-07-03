@@ -22,10 +22,8 @@ import java.util.List;
 import junit.framework.Assert;
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
-import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Resource;
-import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
@@ -98,62 +96,10 @@ class MockPersistence01 extends MockPersistenceAdapter {
         return null;
     }
 
-    @Override
-    public boolean deleteTask(final Task aTask) {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
     @Override
     public boolean deleteEvent(final Event aEvent) {
         // TODO Auto-generated method stub
         return false;
     }
-
-    @Override
-    public boolean deleteMilestone(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void updateMilestone(final Milestone aMilestone) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void updateEvent(final Event aEvent) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public boolean isHighestPriorityObjectInProject(SchedulingObject aProject,
-            SchedulingObject aSchedulingObject) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isLowestPriorityObjectInProject(SchedulingObject aProject,
-            SchedulingObject aSchedulingObject) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean markTaskAsCompleted(Task aTask) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
-            Long aProcessId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
 }
