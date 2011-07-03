@@ -171,9 +171,7 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     @Override
     public void
-            createInvitationRequest(
-                    final SupportedOpenIdProvider aOpenIdProvider,
-                    final String aUserUrl) {
+            createInvitationRequest(final String aUserUrl) {
 
     }
 
