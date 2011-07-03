@@ -32,7 +32,6 @@ import at.silverstrike.pcc.api.model.DailyLimitResourceAllocation;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.InvitationRequest;
 import at.silverstrike.pcc.api.model.InvitationRequestStatus;
-import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
@@ -45,7 +44,6 @@ import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
 import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
 import at.silverstrike.pcc.api.persistence.Persistence;
-import at.silverstrike.pcc.api.persistence.PersistenceState;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
 
@@ -71,7 +69,6 @@ public class DefaultPersistence implements Persistence {
             + DB_NAME + ";create=true";
     private static final String PROCESS_ID = "${processId}";
     private static final String USER_ID = "${userId}";
-    private static final String PARENT = "${parent}";
     private static final String STATE_BEING_ATTAINED = ":stateBeingAttained";
     private static final String STATE_DELETED = ":stateDeleted";
     private static final String STATE_ATTAINED = ":stateAttained";
@@ -97,51 +94,14 @@ public class DefaultPersistence implements Persistence {
                     + "((averageEstimatedEndDateTime is not null) or "
                     + "(bestEstimatedEndDateTime is not null) or "
                     + "(worstEstimatedEndDateTime is not null))";
-    private static final String POTENTIAL_PREDECESSORS_HQL =
-            "from DefaultSchedulingObject where (state <> "
-                    + STATE_DELETED + ") and (id <> ${id})";
-    private static final String SUB_PROCESSES_WITH_CHILDREN_INCL_COMPLETED_TASKS_HQL_TEMPLATE =
-            "from "
-                    + "DefaultSchedulingObject p where (p.parent.id = ${processId}) and (state <> "
-                    + STATE_DELETED + ") order by priority desc";
-    private static final String SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_INCL_COMPLETED_TASKS_HQL_TEMPLATE =
-            "from "
-                    + "DefaultSchedulingObject p where (p.parent is null) and (state <> "
-                    + STATE_DELETED + ") order by priority desc";
-
-    private static final String HIGHEST_PRIORITY_OBJECT_IN_PROJECT_HQL =
-            "select max(p.priority) from "
-                    + "DefaultSchedulingObject p where (p.parent = " + PARENT
-                    + ") and (state <> "
-                    + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
-                    + ")";
-    private static final String HIGHEST_PRIORITY_OBJECT_IN_PROJECT_HQL_NO_PARENT =
-            "select max(p.priority) from "
-                    + "DefaultSchedulingObject p where (state <> "
-                    + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
-                    + ")";
-
-    private static final String LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL =
-            "select min(p.priority) from "
-                    + "DefaultSchedulingObject p where (p.parent = " + PARENT
-                    + ") and (state <> "
-                    + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
-                    + ")";
-    private static final String LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL_NO_PARENT =
-            "select min(p.priority) from "
-                    + "DefaultSchedulingObject p where (state <> "
-                    + STATE_DELETED + ") and (state <> " + STATE_ATTAINED
-                    + ")";
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultPersistence.class);
 
     private Session session;
     private SessionFactory sessionFactory;
-    private PersistenceState state;
 
     public DefaultPersistence() {
-        state = PersistenceState.INITIAL;
     }
 
     /**
@@ -149,8 +109,6 @@ public class DefaultPersistence implements Persistence {
      */
     @Override
     public final void closeSession() {
-        state = PersistenceState.CLOSING_CONNECTION;
-
         if (sessionFactory == null) {
             return;
         }
@@ -163,8 +121,6 @@ public class DefaultPersistence implements Persistence {
         if (sess.isOpen()) {
             sess.close();
         }
-
-        state = PersistenceState.CONNECTION_CLOSED;
     }
 
     @Override
@@ -172,23 +128,6 @@ public class DefaultPersistence implements Persistence {
         return new DefaultBooking();
     }
 
-    @Override
-    public final void createChildProcess(final Long aParentProcessId) {
-        final Transaction tx = session.beginTransaction();
-        try {
-            final Task parent = getParentTask(aParentProcessId);
-
-            final Task newProcess = new DefaultTask();
-            newProcess.setParent(parent);
-
-            session.saveOrUpdate(newProcess);
-
-            tx.commit();
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
-    }
 
     @Override
     public final Long createHumanResource(final String aAbbreviation,
@@ -221,57 +160,6 @@ public class DefaultPersistence implements Persistence {
         }
 
         return id;
-    }
-
-    @Override
-    public final void createProcessParent(final String aName,
-            final Long aParentItemId) {
-        final Transaction tx = session.beginTransaction();
-
-        final DefaultSchedulingObject task = new DefaultTask();
-
-        task.setName(aName);
-
-        try {
-            if (aParentItemId != null) {
-                final DefaultSchedulingObject parentTask =
-                        (DefaultSchedulingObject) session.get(
-                                DefaultTask.class, aParentItemId);
-
-                task.setParent(parentTask);
-            }
-            session.save(task);
-            tx.commit();
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
-    }
-
-    @Override
-    public final void createSiblingProcess(final Long aSiblingProcessId) {
-        final Transaction tx = session.beginTransaction();
-        try {
-            SchedulingObject parent = null;
-
-            if (aSiblingProcessId != null) {
-                final Task sibling =
-                        (Task) session.get(
-                                DefaultTask.class, aSiblingProcessId);
-
-                parent = sibling.getParent();
-            }
-
-            final Task newProcess = new DefaultTask();
-            newProcess.setParent(parent);
-
-            session.saveOrUpdate(newProcess);
-
-            tx.commit();
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
     }
 
     @Override
@@ -341,37 +229,6 @@ public class DefaultPersistence implements Persistence {
         return task.getId();
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public final void deleteProcess(final Long aSelectedProjectId) {
-        final Transaction tx = session.beginTransaction();
-        try {
-            final String hql =
-                    "from DefaultTask p where p.parent.id = "
-                            + aSelectedProjectId;
-
-            final Query query = session.createQuery(hql);
-
-            final List<Task> childProcesses =
-                    (List<Task>) query.list();
-
-            for (final Task childProcess : childProcesses) {
-                childProcess.setParent(null);
-            }
-
-            final Task process =
-                    (Task) session.get(DefaultTask.class,
-                            aSelectedProjectId);
-
-            session.delete(process);
-
-            tx.commit();
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
-
-    }
 
     @Override
     public final void generateDailyPlans(final Date aNow) {
@@ -408,28 +265,6 @@ public class DefaultPersistence implements Persistence {
 
     }
 
-    @SuppressWarnings({ "rawtypes" })
-    @Override
-    public final List<Task> getAllIntentsAndGoalRegions() {
-        final List<Task> returnValue =
-                new LinkedList<Task>();
-
-        session.beginTransaction();
-        final Query query =
-                session.createQuery("from DefaultTask");
-
-        final List result = query.list();
-
-        for (final Object record : result) {
-            if (record instanceof DefaultTask) {
-                returnValue.add((DefaultTask) record);
-            }
-        }
-        session.getTransaction().commit();
-
-        return returnValue;
-
-    }
 
     @SuppressWarnings({ "rawtypes" })
     @Override
@@ -481,37 +316,6 @@ public class DefaultPersistence implements Persistence {
                             new Object[] { record,
                                     ((DefaultTask) record).getState() });
                     returnValue.add((DefaultSchedulingObject) record);
-                }
-            }
-            tx.commit();
-
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
-
-        return returnValue;
-    }
-
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    @Override
-    public final List<Worker> getAllWorkers() {
-        final List<Worker> returnValue = new LinkedList<Worker>();
-
-        final Transaction tx = session.beginTransaction();
-
-        try {
-            final List result =
-                    (List<Worker>) session.createQuery("from DefaultWorker")
-                            .list();
-
-            LOGGER.debug("result: " + result.size());
-
-            for (final Object record : result) {
-                LOGGER.debug("record: " + record.toString());
-
-                if (record instanceof DefaultWorker) {
-                    returnValue.add((DefaultWorker) record);
                 }
             }
             tx.commit();
@@ -650,8 +454,7 @@ public class DefaultPersistence implements Persistence {
     /**
      * @see at.silverstrike.pcc.api.persistence.Persistence#getSession()
      */
-    @Override
-    public final Session getSession() {
+    private final Session getSession() {
         if (sessionFactory == null) {
             return null;
         }
@@ -660,13 +463,6 @@ public class DefaultPersistence implements Persistence {
         return currentSession;
     }
 
-    /**
-     * @see at.silverstrike.pcc.api.persistence.Persistence#getState()
-     */
-    @Override
-    public final PersistenceState getState() {
-        return state;
-    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -925,7 +721,6 @@ public class DefaultPersistence implements Persistence {
 
     private void tryToCreateDb(final Throwable aException) {
         LOGGER.error("tryToCreateDb, 1, ", aException);
-        state = PersistenceState.CONNECTION_OPENINING_FAILURE;
 
         try {
             LOGGER.error("tryToCreateDb, 2");
@@ -933,7 +728,6 @@ public class DefaultPersistence implements Persistence {
             LOGGER.error("tryToCreateDb, 3");
         } catch (final Throwable exception2) {
             LOGGER.error("tryToCreateDb, 4", exception2);
-            state = PersistenceState.CONNECTION_OPENINING_FAILURE;
         }
     }
 
@@ -946,7 +740,6 @@ public class DefaultPersistence implements Persistence {
 
         LOGGER.debug("tryToOpenSession, 2");
 
-        state = PersistenceState.OPENING_CONNECTION;
         final Configuration cnf = new Configuration();
         cnf.setProperty(Environment.DRIVER,
                 "org.apache.derby.jdbc.EmbeddedDriver");
@@ -979,8 +772,6 @@ public class DefaultPersistence implements Persistence {
         getAllNotDeletedTasks(null);
 
         LOGGER.debug("tryToOpenSession, 6");
-
-        state = PersistenceState.CONNECTION_OPEN;
     }
 
     @SuppressWarnings("unchecked")
@@ -1192,32 +983,6 @@ public class DefaultPersistence implements Persistence {
         return userData;
     }
 
-    @Override
-    public final Milestone createNewMilestone(final String aUser,
-            final String aName,
-            final Long aParentTaskId) {
-        final Transaction tx = session.beginTransaction();
-        Milestone returnValue = null;
-
-        try {
-            final Milestone newMilestone = new DefaultMilestone();
-
-            newMilestone.setParent(getParentTask(aParentTaskId));
-            newMilestone.setName(aName);
-
-            newMilestone.setPriority(getNextSchedulingObjectPriority(
-                    getParentTask(aParentTaskId)));
-
-            session.save(newMilestone);
-            tx.commit();
-
-            returnValue = newMilestone;
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
-        return returnValue;
-    }
 
     @Override
     public final Event createSubEvent(final String aEventName,
@@ -1245,11 +1010,6 @@ public class DefaultPersistence implements Persistence {
         return returnValue;
     }
 
-    @Override
-    public final boolean deleteTask(final Task aTask) {
-        return deleteSchedulingObject(aTask);
-    }
-
     private boolean deleteSchedulingObject(
             final SchedulingObject aSchedulingObject) {
         final Transaction tx = session.beginTransaction();
@@ -1272,194 +1032,13 @@ public class DefaultPersistence implements Persistence {
         return deleteSchedulingObject(aEvent);
     }
 
-    @Override
-    public final boolean deleteMilestone(final Milestone aMilestone) {
-        return deleteSchedulingObject(aMilestone);
-    }
 
-    @Override
-    public final void updateMilestone(final Milestone aProcess) {
-        final Transaction tx = session.beginTransaction();
 
-        try {
-            session.update(aProcess);
-            tx.commit();
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
-    }
 
-    @Override
-    public final void updateEvent(final Event aProcess) {
-        final Transaction tx = session.beginTransaction();
 
-        try {
-            session.update(aProcess);
-            tx.commit();
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
-    }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public final List<SchedulingObject> getPotentialDependencies(
-            final SchedulingObject aObject) {
-        List<SchedulingObject> processes = new LinkedList<SchedulingObject>();
 
-        try {
-            final Query query =
-                    session.createQuery(POTENTIAL_PREDECESSORS_HQL.replace(
-                            "${id}", Long.toString(aObject.getId())));
 
-            query.setParameter(STATE_DELETED.substring(1),
-                    ProcessState.DELETED);
-
-            processes = (List<SchedulingObject>) query.list();
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-        }
-        return processes;
-    }
-
-    @Override
-    public final boolean isHighestPriorityObjectInProject(
-            final SchedulingObject aProject,
-            final SchedulingObject aSchedulingObject) {
-        boolean isHighest = false;
-        try {
-            final String hql;
-
-            if (aProject == null) {
-                hql = HIGHEST_PRIORITY_OBJECT_IN_PROJECT_HQL_NO_PARENT;
-            } else {
-                hql = HIGHEST_PRIORITY_OBJECT_IN_PROJECT_HQL
-                        .replace(
-                                "${parent}",
-                                Long.toString(aProject.getId()));
-            }
-
-            final Query query =
-                    session.createQuery(hql);
-
-            query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
-            query.setParameter(STATE_ATTAINED.substring(1),
-                    ProcessState.ATTAINED);
-
-            LOGGER.debug("query: {}", query);
-            final Object priorityNum = query.list().get(0);
-            isHighest = priorityNum.equals(aSchedulingObject.getPriority());
-            LOGGER.debug("PRIORITYNUM = {}", priorityNum);
-            LOGGER.debug("aSchedulingObject = {}",
-                    aSchedulingObject.getPriority());
-            LOGGER.debug("isEqual = {}", isHighest);
-
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-        }
-        return isHighest;
-    }
-
-    @Override
-    public final boolean isLowestPriorityObjectInProject(
-            final SchedulingObject aProject,
-            final SchedulingObject aSchedulingObject) {
-        boolean isLowest = false;
-        try {
-            final String hql;
-
-            if (aProject == null) {
-                hql = LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL_NO_PARENT;
-            } else {
-                hql =
-                        LOWEST_PRIORITY_OBJECT_IN_PROJECT_HQL.replace(
-                                "${parent}",
-                                Long.toString(aProject.getId()));
-            }
-
-            final Query query =
-                    session.createQuery(hql);
-
-            query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
-            query.setParameter(STATE_ATTAINED.substring(1),
-                    ProcessState.ATTAINED);
-
-            final Object priorityNum = query.list().get(0);
-            isLowest = priorityNum.equals(aSchedulingObject.getPriority());
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-        }
-        return isLowest;
-    }
-
-    @Override
-    public final boolean markTaskAsCompleted(final Task aTask) {
-        final Transaction tx = session.beginTransaction();
-        boolean success = false;
-        LOGGER.debug("Task done: {}", aTask);
-        try {
-            aTask.setState(ProcessState.ATTAINED);
-            session.update(aTask);
-            tx.commit();
-            success = true;
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
-        return success;
-    }
-
-    @Override
-    public final void
-            updateSchedulingObject(final SchedulingObject aSchedulingObject) {
-        final Transaction tx = session.beginTransaction();
-
-        try {
-            session.update(aSchedulingObject);
-            tx.commit();
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public final List<SchedulingObject>
-            getSubProcessesWithChildrenInclAttainedTasks(
-                    final Long aProcessId) {
-        List<SchedulingObject> processes = null;
-
-        try {
-            final String hql;
-
-            if (aProcessId != null) {
-                hql =
-                        SUB_PROCESSES_WITH_CHILDREN_INCL_COMPLETED_TASKS_HQL_TEMPLATE
-                                .replace(
-                                        PROCESS_ID, aProcessId.toString());
-            } else {
-                hql =
-                        SUB_PROCESSES_WITH_CHILDREN_TOP_LEVEL_INCL_COMPLETED_TASKS_HQL_TEMPLATE;
-            }
-
-            final Query query = session.createQuery(hql);
-
-            query.setParameter(STATE_DELETED.substring(1), ProcessState.DELETED);
-
-            processes = (List<SchedulingObject>) query.list();
-
-            if ((aProcessId == null)
-                    && ((processes == null) || (processes.size() < 1))) {
-                return getAllNotDeletedTasks(null);
-            }
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-        }
-        return processes;
-    }
 
     public final Integer getNextSchedulingObjectPriority(
             final SchedulingObject aParent) {
@@ -1771,18 +1350,6 @@ public class DefaultPersistence implements Persistence {
         }
 
         return returnValue;
-    }
-
-    @Override
-    public void updateUser(final UserData aUser) {
-        final Transaction tx = session.beginTransaction();
-
-        try {
-            session.update(aUser);
-        } catch (final Exception exception) {
-            LOGGER.error("", exception);
-            tx.rollback();
-        }
     }
 
     @SuppressWarnings("unchecked")
