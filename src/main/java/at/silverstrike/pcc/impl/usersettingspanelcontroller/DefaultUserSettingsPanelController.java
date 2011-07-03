@@ -364,6 +364,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         newParameters.setOAuthConsumerKey(this.oauthParameters.getOAuthConsumerKey());
         newParameters.setOAuthConsumerSecret(this.oauthParameters.getOAuthConsumerKey());
         newParameters.setOAuthToken(this.oauthParameters.getOAuthToken());
+        newParameters.setScope(SCOPE_CALENDAR);
         
         LOGGER.debug("private key: {}", this.privKey);
 
