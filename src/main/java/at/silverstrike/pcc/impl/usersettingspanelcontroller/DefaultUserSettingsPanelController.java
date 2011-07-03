@@ -71,7 +71,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private static final String CLIENT_SECRET = "J1JRmoTA-EmOjTwKkW-eLHLY";
     private static final String APPLICATION_NAME = PCCHQ_COM;
     private static final String SCOPE_CALENDAR =
-            "https://www.google.com/calendar/feeds/";
+            "http://www.google.com/calendar/feeds/";
     private static final String SCOPE_TASKS =
             "https://www.googleapis.com/auth/tasks";
     private static final String CLIENT_ID =
