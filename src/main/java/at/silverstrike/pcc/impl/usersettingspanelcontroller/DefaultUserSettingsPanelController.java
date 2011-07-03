@@ -161,9 +161,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         try {
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
-
             calendarService
-                    .setOAuthCredentials(aOauthParams, new OAuthRsaSha1Signer(privKey));
+                    .setOAuthCredentials(aOauthParams, this.signer);
 
             LOGGER.debug("calendarService: {}", calendarService);
 
