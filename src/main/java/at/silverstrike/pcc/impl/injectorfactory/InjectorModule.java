@@ -50,8 +50,6 @@ import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanelFactory;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelControllerFactory;
-import at.silverstrike.pcc.api.webguibus.WebGuiBus;
-import at.silverstrike.pcc.api.webguibus.WebGuiBusMessageFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlSerializerFactory;
 import at.silverstrike.pcc.impl.automaticexport.DefaultAutomaticExporterFactory;
@@ -83,8 +81,6 @@ import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultTj3BookingsParserFactor
 import at.silverstrike.pcc.impl.tj3deadlinesparser.DefaultTj3DeadlinesFileParserFactory;
 import at.silverstrike.pcc.impl.usersettingspanel.DefaultUserSettingsPanelFactory;
 import at.silverstrike.pcc.impl.usersettingspanelcontroller.DefaultUserSettingsPanelControllerFactory;
-import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusFactory;
-import at.silverstrike.pcc.impl.webguibus.DefaultWebGuiBusMessageFactory;
 import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlDeserializerFactory;
 import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlSerializerFactory;
 
@@ -119,10 +115,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultProjectSchedulerFactory());
         bind(PccDebugIdRegistry.class).toInstance(
                 new DefaultPccDebugIdRegistryFactory().create());
-        bind(WebGuiBus.class)
-                .toInstance(new DefaultWebGuiBusFactory().create());
-        bind(WebGuiBusMessageFactory.class).toInstance(
-                new DefaultWebGuiBusMessageFactory());
         bind(PccVersionReader.class).toInstance(getVersionReader());
         bind(XmlSerializerFactory.class).toInstance(
                 new DefaultXmlSerializerFactory());

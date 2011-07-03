@@ -63,7 +63,6 @@ import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanel;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanelFactory;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
-import at.silverstrike.pcc.api.webguibus.WebGuiBus;
 
 /**
  * @author DP118M
@@ -86,7 +85,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private static final int ONE_MONTH = 1;
     private Injector injector;
     private Persistence persistence;
-    private WebGuiBus webGuiBus;
     private String oauthQueryString;
     private GoogleOAuthParameters oauthParameters;
     private GoogleOAuthHelper oauthHelper;
@@ -99,7 +97,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         if (this.injector != null) {
             this.persistence = this.injector.getInstance(Persistence.class);
-            this.webGuiBus = this.injector.getInstance(WebGuiBus.class);
         }
     }
 
@@ -149,9 +146,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             importer.run();
 
             LOGGER.debug("Before webGuiBus.broadcastTasksImportedFromGoogleMessage");
-
-            this.webGuiBus.broadcastTasksImportedFromGoogleMessage();
-
             LOGGER.debug("Before calculatePlan");
 
             calculatePlan();
