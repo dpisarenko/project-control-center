@@ -366,9 +366,11 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                             pccCalendar.getContent(), pccCalendar.getId() });
 
             final String calendarId =
-                    pccCalendar.getId().substring(
-                            "http://www.google.com/calendar/feeds/default/calendars/"
-                                    .length());
+                    pccCalendar
+                            .getId()
+                            .substring(
+                                    "http://www.google.com/calendar/feeds/default/calendars/"
+                                            .length());
             final URL pccCalendarUrl =
                     new URL(
                             "https://www.google.com/calendar/feeds/${calendarId}/private/full"
@@ -388,7 +390,12 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                     this.persistence.getBookings((UserData) TPTApplication
                             .getCurrentApplication().getUser());
 
+            LOGGER.debug("Bookings to export: {}", bookings.size());
+            
             for (final Booking curBooking : bookings) {
+                LOGGER.debug("Exporting: start date time: {}",
+                        new Object[] { curBooking.getStartDateTime() });
+
                 final CalendarEventEntry event = new CalendarEventEntry();
 
                 event.setTitle(new PlainTextConstruct(curBooking.getProcess()
