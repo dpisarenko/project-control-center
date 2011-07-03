@@ -121,7 +121,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             serviceCreator.setAuthorizationCode(aAuthorizationCode);
             serviceCreator
                     .setClientId(CLIENT_ID);
-//            serviceCreator.setClientSecret(CLIENT_SECRET);
+            serviceCreator.setClientSecret(CLIENT_SECRET);
             serviceCreator.setRedirectUrl(REDIRECT_URL);
             serviceCreator.run();
 
@@ -329,7 +329,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         oauthParameters = new GoogleOAuthParameters();
         oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
-        oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
+//        oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
         oauthParameters.setScope(SCOPE_CALENDAR);
         oauthParameters.setOAuthCallback(REDIRECT_URL);
 
