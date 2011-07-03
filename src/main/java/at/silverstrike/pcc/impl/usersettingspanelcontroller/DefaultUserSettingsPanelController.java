@@ -12,6 +12,7 @@
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.PrivateKey;
 import java.util.Date;
@@ -84,7 +85,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private String oauthQueryString;
     private GoogleOAuthParameters oauthParameters;
     private GoogleOAuthHelper oauthHelper;
-    private  OAuthRsaSha1Signer signer;
+    private OAuthRsaSha1Signer signer;
     private PrivateKey privKey;
 
     @Override
@@ -301,15 +302,16 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     public PrivateKey getPrivateKey() {
-        final PrivateKeyReaderFactory factory = this.injector.getInstance(PrivateKeyReaderFactory.class);
+        final PrivateKeyReaderFactory factory =
+                this.injector.getInstance(PrivateKeyReaderFactory.class);
         final PrivateKeyReader reader = factory.create();
-        
+
         reader.setInputStream(getClass().getClassLoader()
                         .getResourceAsStream("privatekey"));
-        
+
         try {
             reader.run();
-            
+
             return reader.getPrivateKey();
         } catch (final PccException exception) {
             LOGGER.error("", exception);
@@ -320,21 +322,21 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     @Override
     public void writeBookingsToCalendar() {
         privKey = getPrivateKey();
-        
+
         LOGGER.debug("private key: {}", privKey.getEncoded());
-        
+
         final String CONSUMER_KEY = "pcchq.com";
         final String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
 
         oauthParameters = new GoogleOAuthParameters();
         oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
-//        oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
-        oauthParameters.setScope(SCOPE_CALENDAR);
-        oauthParameters.setOAuthCallback(REDIRECT_URL);
 
         try {
             signer = new OAuthRsaSha1Signer(privKey);
             oauthHelper = new GoogleOAuthHelper(signer);
+            oauthParameters.setScope(SCOPE_CALENDAR);
+
+            oauthParameters.setOAuthCallback(REDIRECT_URL);
 
             oauthHelper.getUnauthorizedRequestToken(oauthParameters);
 
@@ -356,7 +358,13 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         oauthHelper.getOAuthParametersFromCallback(this.oauthQueryString,
                 oauthParameters);
-                
+
+        try {
+            oauthHelper.getAccessToken(oauthParameters);
+        } catch (final OAuthException exception) {
+            LOGGER.error("", exception);
+        }
+
         LOGGER.debug("private key: {}", this.privKey);
 
         LOGGER.debug(
@@ -368,7 +376,35 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 oauthParameters.getOAuthType(), oauthParameters.getRealm(),
                 oauthParameters.getScope() });
 
-        exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
+        try {
+            final CalendarService calendarService =
+                    new CalendarService(APPLICATION_NAME);
+
+            calendarService
+                    .setOAuthCredentials(oauthParameters, this.signer);
+
+            LOGGER.debug("calendarService: {}", calendarService);
+
+            final URL feedUrl =
+                    new URL(
+                            "http://www.google.com/calendar/feeds/default/allcalendars/full");
+            final CalendarFeed resultFeed =
+                    calendarService.getFeed(feedUrl, CalendarFeed.class);
+
+            LOGGER.debug("resultFeed: {}", resultFeed);
+
+        } catch (final OAuthException exception) {
+            LOGGER.error("", exception);
+
+        } catch (final MalformedURLException exception) {
+            LOGGER.error("", exception);
+        } catch (final IOException exception) {
+            LOGGER.error("", exception);
+        } catch (final ServiceException exception) {
+            LOGGER.error("", exception);
+        }
+
+        // exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
     }
 
     @Override
