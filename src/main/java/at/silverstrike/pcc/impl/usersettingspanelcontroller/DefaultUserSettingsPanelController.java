@@ -30,7 +30,6 @@ import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
-import com.google.gdata.client.calendar.CalendarQuery;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.DateTime;
 import com.google.gdata.data.PlainTextConstruct;
@@ -221,6 +220,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         scheduler.getProjectExportInfo().setCopyright("Dmitri Pisarenko");
         scheduler.getProjectExportInfo().setCurrency("EUR");
         scheduler.getProjectExportInfo().setSchedulingHorizonMonths(ONE_MONTH);
+        scheduler.getProjectExportInfo().setUserData(
+                (UserData) TPTApplication.getCurrentApplication().getUser());
 
         scheduler.setDirectory(System.getProperty("user.dir") + "/");
         scheduler.setInjector(injector);
@@ -391,7 +392,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                             .getCurrentApplication().getUser());
 
             LOGGER.debug("Bookings to export: {}", bookings.size());
-            
+
             for (final Booking curBooking : bookings) {
                 LOGGER.debug("Exporting: start date time: {}",
                         new Object[] { curBooking.getStartDateTime() });
