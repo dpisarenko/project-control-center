@@ -31,7 +31,6 @@ import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
 import com.google.gdata.client.calendar.CalendarService;
-import com.google.gdata.data.Link;
 import com.google.gdata.data.calendar.CalendarEntry;
 import com.google.gdata.data.calendar.CalendarFeed;
 import com.google.gdata.util.ServiceException;
@@ -156,61 +155,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         }
     }
 
-    private void
-            exportBookingsToGoogleCalendar(final String aAuthorizationCode,
-                    final GoogleOAuthParameters aOauthParams) {
-        try {
-            final CalendarService calendarService =
-                    new CalendarService(APPLICATION_NAME);
-            calendarService
-                    .setOAuthCredentials(aOauthParams, this.signer);
-
-            LOGGER.debug("calendarService: {}", calendarService);
-
-            final URL feedUrl =
-                    new URL(
-                            "http://www.google.com/calendar/feeds/default/allcalendars/full");
-            final CalendarFeed resultFeed =
-                    calendarService.getFeed(feedUrl, CalendarFeed.class);
-
-            LOGGER.debug("resultFeed: {}", resultFeed);
-
-            final List<CalendarEntry> entries = resultFeed.getEntries();
-
-            LOGGER.debug("Entries (START)");
-
-            for (final CalendarEntry entry : entries) {
-                LOGGER.debug("---------------------");
-                LOGGER.debug("Title: {}", entry.getTitle().getPlainText());
-                LOGGER.debug("Edit Link: {}", entry.getEditLink().getHref());
-                LOGGER.debug("Self Link: {}", entry.getSelfLink().getHref());
-                LOGGER.debug("ID: {}", entry.getId());
-                LOGGER.debug("Etag: {}", entry.getEtag());
-
-                for (final Link link : entry.getLinks()) {
-                    // link.getTitle()
-                    LOGGER.debug("Link: Title: '{}', HREF: '{}'", new Object[] {
-                            link.getTitle(), link.getHref() });
-                }
-            }
-
-            LOGGER.debug("Entries (END)");
-
-            // Read bookings
-            // final UserData user =
-            // (UserData) TPTApplication.getCurrentApplication().getUser();
-            // final List<Booking> bookings =
-            // this.persistence.getBookings(user);
-
-        } catch (final OAuthException exception) {
-            LOGGER.error("", exception);
-        } catch (final IOException exception) {
-            LOGGER.error("", exception);
-        } catch (final ServiceException exception) {
-            LOGGER.error("", exception);
-        }
-    }
-
     @Override
     public void requestGoogleAuthorizationCode() {
         // The clientId and clientSecret are copied from the API Access tab
@@ -326,7 +270,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         LOGGER.debug("private key: {}", privKey.getEncoded());
 
         final String CONSUMER_KEY = "pcchq.com";
-        final String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
 
         oauthParameters = new GoogleOAuthParameters();
         oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
@@ -377,7 +320,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 oauthParameters.getScope() });
 
         oauthParameters.setScope(SCOPE_CALENDAR);
-        
+
         try {
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
@@ -395,9 +338,15 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
             LOGGER.debug("resultFeed: {}", resultFeed);
 
+            LOGGER.debug("Your calendars:");
+
+            for (int i = 0; i < resultFeed.getEntries().size(); i++) {
+                final CalendarEntry entry = resultFeed.getEntries().get(i);
+                LOGGER.debug("\t{}", entry.getTitle().getPlainText());
+            }
+
         } catch (final OAuthException exception) {
             LOGGER.error("", exception);
-
         } catch (final MalformedURLException exception) {
             LOGGER.error("", exception);
         } catch (final IOException exception) {
@@ -405,20 +354,12 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         } catch (final ServiceException exception) {
             LOGGER.error("", exception);
         }
-
-        // exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
     }
 
     @Override
     public void setOauthQueryString(final String aQueryString) {
         LOGGER.debug("aQueryString={}", aQueryString);
         this.oauthQueryString = aQueryString;
-    }
-
-    @Override
-    public void setOauthAccessToken(String aAccessToken) {
-        // TODO Auto-generated method stub
-
     }
 
 }
