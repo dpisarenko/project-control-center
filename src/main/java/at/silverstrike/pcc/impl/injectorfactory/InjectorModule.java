@@ -40,12 +40,6 @@ import at.silverstrike.pcc.api.invitationrequestadminpanel.InvitationRequestAdmi
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelControllerFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
-import at.silverstrike.pcc.api.openid.Deauthenticator;
-import at.silverstrike.pcc.api.openid.DeauthenticatorFactory;
-import at.silverstrike.pcc.api.openid.OpenIdAuthenticationInitiator;
-import at.silverstrike.pcc.api.openid.OpenIdAuthenticationInitiatorFactory;
-import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponder;
-import at.silverstrike.pcc.api.openid.OpenIdAuthenticationResponderFactory;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReaderFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
@@ -83,9 +77,6 @@ import at.silverstrike.pcc.impl.invitationrequestadminpanelcontroller.DefaultInv
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
-import at.silverstrike.pcc.impl.openid.DefaultDeauthenticatorFactory;
-import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationInitiatorFactory;
-import at.silverstrike.pcc.impl.openid.DefaultOpenIdAuthenticationResponderFactory;
 import at.silverstrike.pcc.impl.parameterdatareader.DefaultParameterDataReaderFactory;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import at.silverstrike.pcc.impl.privatekeyreader.DefaultPrivateKeyReaderFactory;
@@ -146,11 +137,6 @@ class InjectorModule extends AbstractModule {
         bind(ParameterDataReader.class).toInstance(getParameterDataReader());
         bind(CultureToLanguageMapper.class).toInstance(
                 getCultureToLanguageMapper());
-        bind(OpenIdAuthenticationResponder.class).toInstance(
-                getOpenIdAuthenticationResponder());
-        bind(OpenIdAuthenticationInitiator.class).toInstance(
-                getOpenIdAuthenticationInitiator());
-        bind(Deauthenticator.class).toInstance(getDeauthenticator());
         bind(TestTableCreator.class).toInstance(
                 getTestTableCreator());
         bind(MainWindowControllerFactory.class).toInstance(
@@ -201,24 +187,6 @@ class InjectorModule extends AbstractModule {
 
     private TestTableCreator getTestTableCreator() {
         return new DefaultTestTableCreatorFactory().create();
-    }
-
-    private Deauthenticator getDeauthenticator() {
-        final DeauthenticatorFactory factory =
-                new DefaultDeauthenticatorFactory();
-        return factory.create();
-    }
-
-    private OpenIdAuthenticationInitiator getOpenIdAuthenticationInitiator() {
-        final OpenIdAuthenticationInitiatorFactory factory =
-                new DefaultOpenIdAuthenticationInitiatorFactory();
-        return factory.create();
-    }
-
-    private OpenIdAuthenticationResponder getOpenIdAuthenticationResponder() {
-        final OpenIdAuthenticationResponderFactory factory =
-                new DefaultOpenIdAuthenticationResponderFactory();
-        return factory.create();
     }
 
     private CultureToLanguageMapper getCultureToLanguageMapper() {
