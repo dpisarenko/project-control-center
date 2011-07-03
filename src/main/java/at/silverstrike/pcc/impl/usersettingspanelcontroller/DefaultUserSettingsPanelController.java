@@ -85,6 +85,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private GoogleOAuthParameters oauthParameters;
     private GoogleOAuthHelper oauthHelper;
     private  OAuthRsaSha1Signer signer;
+    private PrivateKey privKey;
 
     @Override
     public void setInjector(final Injector aInjector) {
@@ -162,7 +163,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                     new CalendarService(APPLICATION_NAME);
 
             calendarService
-                    .setOAuthCredentials(aOauthParams, signer);
+                    .setOAuthCredentials(aOauthParams, new OAuthRsaSha1Signer(privKey));
 
             LOGGER.debug("calendarService: {}", calendarService);
 
@@ -319,7 +320,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void writeBookingsToCalendar() {
-        final PrivateKey privKey = getPrivateKey();
+        privKey = getPrivateKey();
         
         LOGGER.debug("private key: {}", privKey.getEncoded());
         
@@ -347,24 +348,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         } catch (final OAuthException exception) {
             LOGGER.error("", exception);
         }
-
-        // // The clientId and clientSecret are copied from the API Access tab
-        // // on
-        // // the Google APIs Console
-        // String clientId = CLIENT_ID;
-        //
-        // // Or your redirect URL for web based applications.
-        // String redirectUrl = REDIRECT_URL;
-        // String scope = SCOPE_CALENDAR;
-        //
-        // // Step 1: Authorize -->
-        // String authorizationUrl =
-        // new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
-        // scope)
-        // .build();
-        //
-        // TPTApplication.getCurrentApplication().getMainWindow()
-        // .open(new ExternalResource(authorizationUrl), "_top");
     }
 
     @Override
@@ -376,17 +359,24 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 oauthParameters);
 
         this.oauthParameters.setScope(SCOPE_CALENDAR);
+        
+        final GoogleOAuthParameters newParameters = new GoogleOAuthParameters();
+        newParameters.setOAuthConsumerKey(this.oauthParameters.getOAuthConsumerKey());
+        newParameters.setOAuthConsumerSecret(this.oauthParameters.getOAuthConsumerKey());
+        newParameters.setOAuthToken(this.oauthParameters.getOAuthToken());
+        
+        LOGGER.debug("private key: {}", this.privKey);
 
         LOGGER.debug(
                 "before exportBookingsToGoogleCalendar: token: '{}', token secret: '{}', this.oauthQueryString: '{}'",
-                new Object[] { oauthParameters.getOAuthToken(),
-                        oauthParameters.getOAuthTokenSecret(),
+                new Object[] { newParameters.getOAuthToken(),
+                        newParameters.getOAuthTokenSecret(),
                         this.oauthQueryString });
         LOGGER.debug("OAuthType: {}, realm: '{}', scope: '{}'", new Object[] {
-                oauthParameters.getOAuthType(), oauthParameters.getRealm(),
-                oauthParameters.getScope() });
+                newParameters.getOAuthType(), newParameters.getRealm(),
+                newParameters.getScope() });
 
-        exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
+        exportBookingsToGoogleCalendar(aAuthorizationCode, newParameters);
     }
 
     @Override
