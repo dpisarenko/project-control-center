@@ -1792,7 +1792,7 @@ public class DefaultPersistence implements Persistence {
 
         try {
             final String hql =
-                    "from DefaultBooking where user.id = ${userId}"
+                    "from DefaultBooking where userData.id = ${userId}"
                             .replace("${userId}", Long.toString(aUser.getId()));
 
             final Query query =

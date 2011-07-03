@@ -362,15 +362,24 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             LOGGER.debug(
                     "PCC calendar: edit link='{}', self link='{}', content='{}', id='{}'",
                     new Object[] { pccCalendar.getEditLink().getHref(),
-                            pccCalendar.getSelfLink().getHref(), pccCalendar.getContent(), pccCalendar.getId() });
+                            pccCalendar.getSelfLink().getHref(),
+                            pccCalendar.getContent(), pccCalendar.getId() });
 
-            
-            // 
-            final URL pccCalendarUrl = new URL("https://www.google.com/calendar/feeds/PCC/private/full");
+            final String calendarId =
+                    pccCalendar.getId().substring(
+                            "http://www.google.com/calendar/feeds/default/calendars/"
+                                    .length());
+            final URL pccCalendarUrl =
+                    new URL(
+                            "https://www.google.com/calendar/feeds/${calendarId}/private/full"
+                                    .replace("${calendarId}", calendarId));
+
+            LOGGER.debug("pccCalendarUrl: {}", pccCalendarUrl);
             // calendarService.getFeed(feedUrl, feedClass)
 
             final CalendarEventFeed pccEventFeed =
-                    calendarService.getFeed(pccCalendarUrl, CalendarEventFeed.class);
+                    calendarService.getFeed(pccCalendarUrl,
+                            CalendarEventFeed.class);
             for (final CalendarEventEntry curEvent : pccEventFeed.getEntries()) {
                 curEvent.delete();
             }
@@ -381,16 +390,19 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
             for (final Booking curBooking : bookings) {
                 final CalendarEventEntry event = new CalendarEventEntry();
-                
-                event.setTitle(new PlainTextConstruct(curBooking.getProcess().getName()));
-                
+
+                event.setTitle(new PlainTextConstruct(curBooking.getProcess()
+                        .getName()));
+
                 final When eventTime = new When();
-                final DateTime startDateTime = new DateTime(curBooking.getStartDateTime());
-                final DateTime endDateTime = new DateTime(curBooking.getEndDateTime());
-                
+                final DateTime startDateTime =
+                        new DateTime(curBooking.getStartDateTime());
+                final DateTime endDateTime =
+                        new DateTime(curBooking.getEndDateTime());
+
                 eventTime.setStartTime(startDateTime);
                 eventTime.setEndTime(endDateTime);
-                
+
                 calendarService.insert(pccCalendarUrl, event);
             }
         } catch (final OAuthException exception) {
