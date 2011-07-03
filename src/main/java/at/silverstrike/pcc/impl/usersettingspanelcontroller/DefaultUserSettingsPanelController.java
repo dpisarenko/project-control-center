@@ -360,11 +360,13 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             // Delete all events in the PCC calendar
 
             LOGGER.debug(
-                    "PCC calendar: edit link='{}', self link='{}'",
+                    "PCC calendar: edit link='{}', self link='{}', content='{}', id='{}'",
                     new Object[] { pccCalendar.getEditLink().getHref(),
-                            pccCalendar.getSelfLink().getHref() });
+                            pccCalendar.getSelfLink().getHref(), pccCalendar.getContent(), pccCalendar.getId() });
 
-            final URL pccCalendarUrl = new URL("http://www.google.com/calendar/feeds/default/owncalendars/full/PCC");
+            
+            // 
+            final URL pccCalendarUrl = new URL("https://www.google.com/calendar/feeds/PCC/private/full");
             // calendarService.getFeed(feedUrl, feedClass)
 
             final CalendarEventFeed pccEventFeed =
