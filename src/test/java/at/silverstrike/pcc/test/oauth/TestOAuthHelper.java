@@ -34,22 +34,6 @@ public class TestOAuthHelper {
             "oauth_verifier=bG_JiMC1QyJkBbkqaDdeFNhe&oauth_token=4/sESfTRqBIuH_2OZEFTzLjd9P5hS6";
 
     @Test
-    public void testAccessTokenSecretParsing() {
-        final GoogleOAuthParameters oauthParameters =
-                new GoogleOAuthParameters();
-
-        final GoogleOAuthHelper objectUnderTest =
-                new GoogleOAuthHelper(new OAuthHmacSha1Signer());
-        objectUnderTest
-                .getOAuthParametersFromCallback(
-                        QUERY_STRING,
-                        oauthParameters);
-
-        Assert.assertEquals(TOKEN_SECRET, oauthParameters
-                .getOAuthTokenSecret());
-    }
-
-    @Test
     public void testOAuthUtil() {
         final Map<String, String> params =
                 OAuthUtil.parseQuerystring(QUERY_STRING);
