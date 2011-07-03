@@ -376,6 +376,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 oauthParameters.getOAuthType(), oauthParameters.getRealm(),
                 oauthParameters.getScope() });
 
+        oauthParameters.setScope(SCOPE_CALENDAR);
+        
         try {
             final CalendarService calendarService =
                     new CalendarService(APPLICATION_NAME);
