@@ -70,7 +70,6 @@ import at.silverstrike.pcc.impl.gtasknoteparser.DefaultGoogleTaskNotesParserFact
 import at.silverstrike.pcc.impl.gtaskrelevance.DefaultIsGoogleTaskRelevantCalculatorFactory;
 import at.silverstrike.pcc.impl.gtasktitleparser.DefaultGoogleTaskTitleParserFactory;
 import at.silverstrike.pcc.impl.incorrectschedulingobjectsmarker.DefaultIncorrectSchedulingObjectsMarkerFactory;
-import at.silverstrike.pcc.impl.invitationgui2validator.DefaultInvitationRequestWindowStep2ValidatorFactory;
 import at.silverstrike.pcc.impl.invitationrequestadminpanel.DefaultInvitationRequestAdminPanelFactory;
 import at.silverstrike.pcc.impl.invitationrequestadminpanelcontroller.DefaultInvitationRequestAdminPanelControllerFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
