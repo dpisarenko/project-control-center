@@ -55,8 +55,8 @@ class DefaultPrivateKeyReader implements PrivateKeyReader {
 
             LOGGER.debug("privKeyBytes: {}", privKeyBytes);
 
-            String BEGIN = "-----BEGIN RSA PRIVATE KEY-----";
-            String END = "-----END RSA PRIVATE KEY-----";
+            String BEGIN = "-----BEGIN PRIVATE KEY-----";
+            String END = "-----END PRIVATE KEY-----";
             String str = new String(privKeyBytes);
             if (str.contains(BEGIN) && str.contains(END)) {
                 str = str.substring(BEGIN.length(), str.lastIndexOf(END));
