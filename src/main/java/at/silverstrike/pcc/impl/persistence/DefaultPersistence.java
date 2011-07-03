@@ -42,7 +42,6 @@ import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.ResourceAllocation;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.model.Worker;
-import at.silverstrike.pcc.api.openid.SupportedOpenIdProvider;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingTuple;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
@@ -127,7 +126,6 @@ public class DefaultPersistence implements Persistence {
     public final Booking createBooking() {
         return new DefaultBooking();
     }
-
 
     @Override
     public final Long createHumanResource(final String aAbbreviation,
@@ -229,7 +227,6 @@ public class DefaultPersistence implements Persistence {
         return task.getId();
     }
 
-
     @Override
     public final void generateDailyPlans(final Date aNow) {
         final Transaction tx = session.beginTransaction();
@@ -264,7 +261,6 @@ public class DefaultPersistence implements Persistence {
         }
 
     }
-
 
     @SuppressWarnings({ "rawtypes" })
     @Override
@@ -463,7 +459,6 @@ public class DefaultPersistence implements Persistence {
         return currentSession;
     }
 
-
     @SuppressWarnings("unchecked")
     @Override
     public final List<SchedulingObject> getSubProcessesWithChildren(
@@ -609,7 +604,8 @@ public class DefaultPersistence implements Persistence {
     }
 
     @Override
-    public final void updateBookings(final List<BookingTuple> aBookingTuples, final UserData aUserData) {
+    public final void updateBookings(final List<BookingTuple> aBookingTuples,
+            final UserData aUserData) {
         final Transaction tx = session.beginTransaction();
         try {
             session.createQuery("delete from DefaultBooking").executeUpdate();
@@ -983,7 +979,6 @@ public class DefaultPersistence implements Persistence {
         return userData;
     }
 
-
     @Override
     public final Event createSubEvent(final String aEventName,
             final Long aParentProcessId, final UserData aUser) {
@@ -1031,14 +1026,6 @@ public class DefaultPersistence implements Persistence {
     public final boolean deleteEvent(final Event aEvent) {
         return deleteSchedulingObject(aEvent);
     }
-
-
-
-
-
-
-
-
 
     public final Integer getNextSchedulingObjectPriority(
             final SchedulingObject aParent) {
@@ -1177,9 +1164,7 @@ public class DefaultPersistence implements Persistence {
 
     @Override
     public void
-            createInvitationRequest(
-                    final SupportedOpenIdProvider aOpenIdProvider,
-                    final String aEmail) {
+            createInvitationRequest(final String aEmail) {
 
         final InvitationRequest request = new DefaultInvitationRequest();
 
