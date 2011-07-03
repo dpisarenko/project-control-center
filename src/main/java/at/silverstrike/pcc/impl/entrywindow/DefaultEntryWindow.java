@@ -222,7 +222,7 @@ class DefaultEntryWindow implements EntryWindow, ClickListener {
             } else {
                 final Persistence persistence =
                         this.injector.getInstance(Persistence.class);
-                persistence.createInvitationRequest(null, email);
+                persistence.createInvitationRequest(email);
 
                 final Notification notification =
                         new Notification(

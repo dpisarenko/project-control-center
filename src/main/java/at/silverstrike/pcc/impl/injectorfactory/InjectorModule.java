@@ -143,8 +143,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultIncorrectSchedulingObjectsMarkerFactory());
         bind(AutomaticExporterFactory.class).toInstance(
                 new DefaultAutomaticExporterFactory());
-        bind(InvitationRequestWindowStep2ValidatorFactory.class).toInstance(
-                new DefaultInvitationRequestWindowStep2ValidatorFactory());
         bind(InvitationRequestAdminPanelControllerFactory.class).toInstance(
                 new DefaultInvitationRequestAdminPanelControllerFactory());
         bind(InvitationRequestAdminPanelFactory.class).toInstance(
