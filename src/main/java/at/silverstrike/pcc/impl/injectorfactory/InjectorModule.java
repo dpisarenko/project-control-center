@@ -45,7 +45,6 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReaderFactory;
 import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
-import at.silverstrike.pcc.api.testtablecreator.TestTableCreator;
 import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
 import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
 import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
@@ -79,7 +78,6 @@ import at.silverstrike.pcc.impl.parameterdatareader.DefaultParameterDataReaderFa
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import at.silverstrike.pcc.impl.privatekeyreader.DefaultPrivateKeyReaderFactory;
 import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
-import at.silverstrike.pcc.impl.testtablecreator.DefaultTestTableCreatorFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultBookingsFile2BookingsFactory;
 import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultTj3BookingsParserFactory;
 import at.silverstrike.pcc.impl.tj3deadlinesparser.DefaultTj3DeadlinesFileParserFactory;
@@ -135,8 +133,6 @@ class InjectorModule extends AbstractModule {
         bind(ParameterDataReader.class).toInstance(getParameterDataReader());
         bind(CultureToLanguageMapper.class).toInstance(
                 getCultureToLanguageMapper());
-        bind(TestTableCreator.class).toInstance(
-                getTestTableCreator());
         bind(MainWindowControllerFactory.class).toInstance(
                 new DefaultMainWindowControllerFactory());
         bind(IncorrectSchedulingObjectsMarkerFactory.class).toInstance(
@@ -179,10 +175,6 @@ class InjectorModule extends AbstractModule {
 
         scheduler.setTaskJugglerPath(this.taskJugglerPath);
         return scheduler;
-    }
-
-    private TestTableCreator getTestTableCreator() {
-        return new DefaultTestTableCreatorFactory().create();
     }
 
     private CultureToLanguageMapper getCultureToLanguageMapper() {
