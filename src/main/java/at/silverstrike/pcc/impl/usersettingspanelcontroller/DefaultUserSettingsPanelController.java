@@ -121,7 +121,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             serviceCreator.setAuthorizationCode(aAuthorizationCode);
             serviceCreator
                     .setClientId(CLIENT_ID);
-            serviceCreator.setClientSecret(CLIENT_SECRET);
+//            serviceCreator.setClientSecret(CLIENT_SECRET);
             serviceCreator.setRedirectUrl(REDIRECT_URL);
             serviceCreator.run();
 
