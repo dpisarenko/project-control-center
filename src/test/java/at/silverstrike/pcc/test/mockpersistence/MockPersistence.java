@@ -16,19 +16,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.NotImplementedException;
-import org.hibernate.Session;
 
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
-import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.UserData;
-import at.silverstrike.pcc.api.model.Worker;
 import at.silverstrike.pcc.api.persistence.Persistence;
-import at.silverstrike.pcc.api.persistence.PersistenceState;
 import at.silverstrike.pcc.api.tj3deadlinesparser.ProcessEndTimeTuple;
 
 import com.google.inject.Injector;
@@ -47,29 +43,10 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public void createChildProcess(final Long aParentProcessId) {
-        throw new NotImplementedException();
-
-    }
-
-    @Override
     public Long createHumanResource(final String aAbbreviation,
             final String aFirstName,
             final String aMiddleName, final String aSurname,
             final double aWorkHours) {
-        throw new NotImplementedException();
-
-    }
-
-    @Override
-    public void createProcessParent(final String aName,
-            final Long aParentItemId) {
-        throw new NotImplementedException();
-
-    }
-
-    @Override
-    public void createSiblingProcess(final Long aSiblingProcessId) {
         throw new NotImplementedException();
 
     }
@@ -81,26 +58,9 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public void deleteProcess(final Long aSelectedProjectId) {
-        throw new NotImplementedException();
-
-    }
-
-    @Override
     public void generateDailyPlans(final Date aNow) {
         throw new NotImplementedException();
 
-    }
-
-    @Override
-    public List<Task> getAllIntentsAndGoalRegions() {
-        throw new NotImplementedException();
-    }
-
-
-    @Override
-    public List<Worker> getAllWorkers() {
-        throw new NotImplementedException();
     }
 
     @Override
@@ -115,16 +75,6 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
 
     @Override
     public DailyPlan getDailyPlan(final Date aNewDate, final String aResource) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public Session getSession() {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public PersistenceState getState() {
         throw new NotImplementedException();
     }
 
@@ -192,68 +142,9 @@ class MockPersistence extends MockPersistenceAdapter implements Persistence {
         throw new NotImplementedException();
     }
 
-    @Override
-    public Milestone createNewMilestone(final String aUser, final String aName,
-            final Long aParentTaskId) {
-        return null;
-    }
-
-
-    @Override
-    public boolean deleteTask(final Task aTask) {
-        return false;
-    }
 
     @Override
     public boolean deleteEvent(final Event aEvent) {
         return false;
     }
-
-    @Override
-    public boolean deleteMilestone(final Milestone aMilestone) {
-        return false;
-    }
-
-    @Override
-    public void updateMilestone(final Milestone aMilestone) {
-    }
-
-    @Override
-    public void updateEvent(final Event aEvent) {
-    }
-
-    @Override
-    public List<SchedulingObject> getPotentialDependencies(
-            final SchedulingObject aObject) {
-        return null;
-
-    }
-
-    @Override
-    public boolean isHighestPriorityObjectInProject(
-            final SchedulingObject aProject,
-            final SchedulingObject aSchedulingObject) {
-        return false;
-    }
-
-    @Override
-    public boolean isLowestPriorityObjectInProject(
-            final SchedulingObject aProject,
-            final SchedulingObject aSchedulingObject) {
-        return false;
-    }
-
-    @Override
-    public boolean markTaskAsCompleted(final Task aTask) {
-        return false;
-    }
-
-    @Override
-    public List<SchedulingObject> getSubProcessesWithChildrenInclAttainedTasks(
-            final Long aProcessId) {
-        return null;
-    }
-
-
-    
 }
