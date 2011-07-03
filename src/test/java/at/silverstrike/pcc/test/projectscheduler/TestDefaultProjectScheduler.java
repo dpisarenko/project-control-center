@@ -244,6 +244,7 @@ public final class TestDefaultProjectScheduler {
         Assert.assertEquals(2.5, booking.getDuration(), TestConventions.DELTA);
         Assert.assertNotNull(booking.getProcess());
         Assert.assertNotNull(booking.getResource());
+        Assert.assertNotNull(booking.getUserData());
 
         final SchedulingObject expectedTask =
                 projectInfo.getSchedulingObjectsToExport().get(0);
