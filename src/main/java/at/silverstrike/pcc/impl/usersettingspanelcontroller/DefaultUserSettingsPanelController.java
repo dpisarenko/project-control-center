@@ -30,9 +30,15 @@ import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
+import com.google.gdata.client.calendar.CalendarQuery;
 import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.data.DateTime;
+import com.google.gdata.data.PlainTextConstruct;
 import com.google.gdata.data.calendar.CalendarEntry;
+import com.google.gdata.data.calendar.CalendarEventEntry;
+import com.google.gdata.data.calendar.CalendarEventFeed;
 import com.google.gdata.data.calendar.CalendarFeed;
+import com.google.gdata.data.extensions.When;
 import com.google.gdata.util.ServiceException;
 import com.google.inject.Injector;
 import com.vaadin.terminal.ExternalResource;
@@ -47,6 +53,7 @@ import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
+import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.UserData;
@@ -340,11 +347,51 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
             LOGGER.debug("Your calendars:");
 
-            for (int i = 0; i < resultFeed.getEntries().size(); i++) {
+            CalendarEntry pccCalendar = null;
+            for (int i = 0; (i < resultFeed.getEntries().size())
+                    && (pccCalendar == null); i++) {
                 final CalendarEntry entry = resultFeed.getEntries().get(i);
-                LOGGER.debug("\t{}", entry.getTitle().getPlainText());
+
+                if ("PCC".equals(entry.getTitle().getPlainText())) {
+                    pccCalendar = entry;
+                }
             }
 
+            // Delete all events in the PCC calendar
+
+            LOGGER.debug(
+                    "PCC calendar: edit link='{}', self link='{}'",
+                    new Object[] { pccCalendar.getEditLink().getHref(),
+                            pccCalendar.getSelfLink().getHref() });
+
+            final URL pccCalendarUrl = new URL(pccCalendar.getEditLink()
+                    .getHref());
+            // calendarService.getFeed(feedUrl, feedClass)
+
+            final CalendarEventFeed pccEventFeed =
+                    calendarService.getFeed(pccCalendarUrl, CalendarEventFeed.class);
+            for (final CalendarEventEntry curEvent : pccEventFeed.getEntries()) {
+                curEvent.delete();
+            }
+
+            final List<Booking> bookings =
+                    this.persistence.getBookings((UserData) TPTApplication
+                            .getCurrentApplication().getUser());
+
+            for (final Booking curBooking : bookings) {
+                final CalendarEventEntry event = new CalendarEventEntry();
+                
+                event.setTitle(new PlainTextConstruct(curBooking.getProcess().getName()));
+                
+                final When eventTime = new When();
+                final DateTime startDateTime = new DateTime(curBooking.getStartDateTime());
+                final DateTime endDateTime = new DateTime(curBooking.getEndDateTime());
+                
+                eventTime.setStartTime(startDateTime);
+                eventTime.setEndTime(endDateTime);
+                
+                calendarService.insert(pccCalendarUrl, event);
+            }
         } catch (final OAuthException exception) {
             LOGGER.error("", exception);
         } catch (final MalformedURLException exception) {
