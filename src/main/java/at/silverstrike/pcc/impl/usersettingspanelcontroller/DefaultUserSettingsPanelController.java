@@ -356,27 +356,19 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         oauthHelper.getOAuthParametersFromCallback(this.oauthQueryString,
                 oauthParameters);
-
-        this.oauthParameters.setScope(SCOPE_CALENDAR);
-        
-        final GoogleOAuthParameters newParameters = new GoogleOAuthParameters();
-        newParameters.setOAuthConsumerKey(this.oauthParameters.getOAuthConsumerKey());
-        newParameters.setOAuthConsumerSecret(this.oauthParameters.getOAuthConsumerKey());
-        newParameters.setOAuthToken(this.oauthParameters.getOAuthToken());
-        newParameters.setScope(SCOPE_CALENDAR);
-        
+                
         LOGGER.debug("private key: {}", this.privKey);
 
         LOGGER.debug(
                 "before exportBookingsToGoogleCalendar: token: '{}', token secret: '{}', this.oauthQueryString: '{}'",
-                new Object[] { newParameters.getOAuthToken(),
-                        newParameters.getOAuthTokenSecret(),
+                new Object[] { oauthParameters.getOAuthToken(),
+                        oauthParameters.getOAuthTokenSecret(),
                         this.oauthQueryString });
         LOGGER.debug("OAuthType: {}, realm: '{}', scope: '{}'", new Object[] {
-                newParameters.getOAuthType(), newParameters.getRealm(),
-                newParameters.getScope() });
+                oauthParameters.getOAuthType(), oauthParameters.getRealm(),
+                oauthParameters.getScope() });
 
-        exportBookingsToGoogleCalendar(aAuthorizationCode, newParameters);
+        exportBookingsToGoogleCalendar(aAuthorizationCode, oauthParameters);
     }
 
     @Override
