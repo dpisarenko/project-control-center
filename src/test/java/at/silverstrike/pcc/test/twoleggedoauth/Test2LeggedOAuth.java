@@ -11,28 +11,21 @@
 
 package at.silverstrike.pcc.test.twoleggedoauth;
 
-import java.net.URL;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import at.silverstrike.pcc.test.tj3deadlinesparser.TestDefaultTj3DeadlinesFileParserFactory;
-
+import com.google.api.client.auth.oauth.OAuthHmacSigner;
+import com.google.api.client.auth.oauth.OAuthParameters;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
-import com.google.gdata.client.GoogleService;
-import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
-import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
-import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
-import com.google.gdata.client.authn.oauth.OAuthParameters.OAuthType;
-import com.google.gdata.client.authn.oauth.OAuthSigner;
-import com.google.gdata.client.calendar.CalendarService;
-import com.google.gdata.data.BaseFeed;
-import com.google.gdata.data.Feed;
-import com.google.gdata.data.calendar.CalendarEntry;
-import com.google.gdata.data.calendar.CalendarFeed;
+import com.google.api.services.tasks.v1.Tasks.Tasklists.List;
+import com.google.api.services.tasks.v1.model.TaskList;
+import com.google.api.services.tasks.v1.model.TaskLists;
 
 /**
  * @author DP118M
@@ -49,40 +42,38 @@ public class Test2LeggedOAuth {
             String CONSUMER_KEY = "pcchq.com";
             String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
 
-            GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
-            oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
-            oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
+            HttpTransport httpTransport = new NetHttpTransport();
+            JacksonFactory jsonFactory = new JacksonFactory();
 
-            OAuthSigner signer = new OAuthHmacSha1Signer();
+            // The 2-LO authorization section
+            OAuthHmacSigner signer = new OAuthHmacSigner();
+            String OAUTH_CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
+            signer.clientSharedSecret = OAUTH_CONSUMER_SECRET ;
 
-            GoogleOAuthHelper helper = new GoogleOAuthHelper(signer);
+            OAuthParameters oauthParameters = new OAuthParameters();
+            oauthParameters.version = "1";
+            String OAUTH_CONSUMER_KEY = "pcchq.com";
+            oauthParameters.consumerKey = OAUTH_CONSUMER_KEY ;
+            oauthParameters.signer = signer;
+            oauthParameters.signRequestsUsingAuthorizationHeader(httpTransport);
 
-            
-            oauthParameters.setScope("http://www.google.com/calendar/feeds/");
-            
-            
-            
-            String feedUrlString = "http://www.google.com/calendar/feeds/default/allcalendars/full";
+            // Initializing the Tasks API service
+            Tasks service =
+                    new Tasks("2-lo-tasks-test/1.0", httpTransport, jsonFactory);
+            String API_KEY_FROM_APIS_CONSOLE = "AIzaSyCip62Ao6a56UaV3ZUMhW7YaG3fn4Azcms";
+            service.accessKey = API_KEY_FROM_APIS_CONSOLE;
 
-            feedUrlString += "?xoauth_requestor_id="
-                + "pcctest31331@gmail.com";
-            URL feedUrl = new URL(feedUrlString);
+            // Performing first request: Getting the tasks lists
+            List getTaskListsOperation = service.tasklists.list();
+            Object ACCOUNT_EMAIL = "pcctest31331@gmail.com";
+            getTaskListsOperation.unknownFields.add("xoauth_requestor_id",
+                    ACCOUNT_EMAIL );
+            TaskLists taskLists = getTaskListsOperation.execute();
 
-            oauthParameters.setOAuthType(OAuthType.TWO_LEGGED_OAUTH);
-            System.out.println("Type: " + oauthParameters.getOAuthType());
-            
-            System.out.println("Sending request to " + feedUrl.toString());
-            System.out.println();
-            
-            GoogleService googleService =
-                new GoogleService("cl",
-                    "2-legged-oauth-sample-app");
-
-            // Set the OAuth credentials which were obtained from the steps above.
-            googleService.setOAuthCredentials(oauthParameters, signer);
-
-            // Make the request to Google
-            BaseFeed resultFeed = googleService.getFeed(feedUrl, Feed.class);
+            // Simply printing the title of each tasks lists
+            for (TaskList taskList : taskLists.items) {
+                System.out.println(taskList.title);
+            }
 
         } catch (final Exception exception) {
             LOGGER.error("", exception);
