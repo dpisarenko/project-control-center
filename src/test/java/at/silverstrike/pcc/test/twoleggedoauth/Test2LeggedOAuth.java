@@ -22,9 +22,14 @@ import org.slf4j.LoggerFactory;
 import at.silverstrike.pcc.test.tj3deadlinesparser.TestDefaultTj3DeadlinesFileParserFactory;
 
 import com.google.api.services.tasks.v1.Tasks;
+import com.google.gdata.client.GoogleService;
+import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
+import com.google.gdata.client.authn.oauth.OAuthSigner;
 import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.data.BaseFeed;
+import com.google.gdata.data.Feed;
 import com.google.gdata.data.calendar.CalendarEntry;
 import com.google.gdata.data.calendar.CalendarFeed;
 
@@ -47,36 +52,29 @@ public class Test2LeggedOAuth {
             oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
             oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
 
-            CalendarService calendarService = new CalendarService("pcchq.com");
+            OAuthSigner signer = new OAuthHmacSha1Signer();
 
-            calendarService.setOAuthCredentials(oauthParameters,
-                    new OAuthHmacSha1Signer());
+            GoogleOAuthHelper oauthHelper = new GoogleOAuthHelper(signer);
 
-            String user = "pcctest31331@gmail.com";
+            oauthParameters.setScope("http://www.google.com/calendar/feeds/");
+            
+            String feedUrlString = "http://www.google.com/calendar/feeds/default/allcalendars/full";
 
-            final URL feedUrl =
-                    new URL(
-                            "http://www.google.com/calendar/feeds/default/allcalendars/full?xoauth_requestor_id=" + user);
-            final CalendarFeed resultFeed =
-                    calendarService.getFeed(feedUrl, CalendarFeed.class);
+            feedUrlString += "?xoauth_requestor_id="
+                + "pcctest31331@gmail.com";
+            URL feedUrl = new URL(feedUrlString);
 
-            LOGGER.debug("resultFeed: {}", resultFeed);
+            System.out.println("Sending request to " + feedUrl.toString());
+            System.out.println();
+            GoogleService googleService =
+                new GoogleService("cl",
+                    "2-legged-oauth-sample-app");
 
-            LOGGER.debug("Your calendars:");
+            // Set the OAuth credentials which were obtained from the steps above.
+            googleService.setOAuthCredentials(oauthParameters, signer);
 
-            CalendarEntry pccCalendar = null;
-            for (int i = 0; (i < resultFeed.getEntries().size())
-                    && (pccCalendar == null); i++) {
-                final CalendarEntry entry = resultFeed.getEntries().get(i);
-
-                if ("PCC".equals(entry.getTitle().getPlainText())) {
-                    pccCalendar = entry;
-                }
-            }
-
-//            Tasks tasksService = null;
-
-            // tasksService.
+            // Make the request to Google
+            BaseFeed resultFeed = googleService.getFeed(feedUrl, Feed.class);
 
         } catch (final Exception exception) {
             LOGGER.error("", exception);
