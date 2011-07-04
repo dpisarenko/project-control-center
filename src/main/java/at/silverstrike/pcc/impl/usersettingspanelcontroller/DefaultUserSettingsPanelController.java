@@ -280,7 +280,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         AuthorizationRequestUrl builder =
                     new AuthorizationRequestUrl(
-                            "http://localhost:8080/pcc/oauth2callback");
+                            "https://accounts.google.com/o/oauth2/auth");
 
         AuthorizationRequestUrl.ResponseType.CODE.set(builder);
 
