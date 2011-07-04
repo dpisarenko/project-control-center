@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.test.twoleggedoauth;
 
+import java.net.URL;
 import java.security.PrivateKey;
 
 import junit.framework.Assert;
@@ -29,6 +30,7 @@ import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.auth.oauth.OAuthParameters;
 import com.google.api.client.auth.oauth.OAuthRsaSigner;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
+import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
@@ -36,7 +38,13 @@ import com.google.api.services.tasks.v1.Tasks;
 import com.google.api.services.tasks.v1.Tasks.Tasklists.List;
 import com.google.api.services.tasks.v1.model.TaskList;
 import com.google.api.services.tasks.v1.model.TaskLists;
+import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
+import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
+import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
+import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.data.calendar.CalendarEntry;
+import com.google.gdata.data.calendar.CalendarFeed;
 
 /**
  * @author DP118M
@@ -49,7 +57,7 @@ public class Test2LeggedOAuth {
 
     @Test
     public void test() {
-        try {            
+        try {
             String CONSUMER_KEY = "pcchq.com";
             String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
 
@@ -58,41 +66,87 @@ public class Test2LeggedOAuth {
 
             // The 2-LO authorization section
             OAuthHmacSigner signer = new OAuthHmacSigner();
-            
+
             String OAUTH_CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
-            signer.clientSharedSecret = OAUTH_CONSUMER_SECRET ;
+            signer.clientSharedSecret = OAUTH_CONSUMER_SECRET;
 
             OAuthParameters oauthParameters = new OAuthParameters();
             oauthParameters.version = "1";
             String OAUTH_CONSUMER_KEY = "pcchq.com";
-            oauthParameters.consumerKey = OAUTH_CONSUMER_KEY ;
+            oauthParameters.consumerKey = OAUTH_CONSUMER_KEY;
             oauthParameters.signer = signer;
             oauthParameters.token = null;
-//            oauthParameters.signRequestsUsingAuthorizationHeader(httpTransport);
+            oauthParameters.signRequestsUsingAuthorizationHeader(httpTransport);
 
             // Initializing the Tasks API service
             Tasks service =
                     new Tasks("pcchq.com", httpTransport, jsonFactory);
-            String API_KEY_FROM_APIS_CONSOLE = "AIzaSyCip62Ao6a56UaV3ZUMhW7YaG3fn4Azcms";
+            String API_KEY_FROM_APIS_CONSOLE =
+                    "AIzaSyCip62Ao6a56UaV3ZUMhW7YaG3fn4Azcms";
             service.accessKey = API_KEY_FROM_APIS_CONSOLE;
 
             // Performing first request: Getting the tasks lists
             List getTaskListsOperation = service.tasklists.list();
             Object ACCOUNT_EMAIL = "dmitri.pissarenko@gmail.com";
             getTaskListsOperation.unknownFields.add("xoauth_requestor_id",
-                    ACCOUNT_EMAIL );
+                    ACCOUNT_EMAIL);
             TaskLists taskLists = getTaskListsOperation.execute();
 
             // Simply printing the title of each tasks lists
             for (TaskList taskList : taskLists.items) {
                 System.out.println(taskList.title);
             }
-
         } catch (final Exception exception) {
             LOGGER.error("", exception);
             Assert.fail(exception.getMessage());
         }
     }
+
+    @Test
+    public void test2() {
+        try {
+            String CONSUMER_KEY = "example.com";
+            String CONSUMER_SECRET = "abc123doremi";
+
+            GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
+            oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
+            oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
+
+            final CalendarService calendarService =
+                    new CalendarService("pcchq.com");
+
+            calendarService
+                    .setOAuthCredentials(oauthParameters, new OAuthHmacSha1Signer());
+
+            LOGGER.debug("calendarService: {}", calendarService);
+
+            final URL feedUrl =
+                    new URL(
+                            "http://www.google.com/calendar/feeds/default/allcalendars/full" +
+                            "?xoauth_requestor_id=dmitri.pissarenko@gmail.com");
+            final CalendarFeed resultFeed =
+                    calendarService.getFeed(feedUrl, CalendarFeed.class);
+
+            LOGGER.debug("resultFeed: {}", resultFeed);
+
+            LOGGER.debug("Your calendars:");
+
+            CalendarEntry pccCalendar = null;
+            for (int i = 0; (i < resultFeed.getEntries().size())
+                    && (pccCalendar == null); i++) {
+                final CalendarEntry entry = resultFeed.getEntries().get(i);
+
+                if ("PCC".equals(entry.getTitle().getPlainText())) {
+                    pccCalendar = entry;
+                }
+            }
+
+        } catch (Exception exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+    }
+
     public PrivateKey getPrivateKey() {
         final PrivateKeyReaderFactory factory =
                 new DefaultPrivateKeyReaderFactory();
