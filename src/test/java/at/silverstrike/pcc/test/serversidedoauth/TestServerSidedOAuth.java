@@ -27,6 +27,8 @@ import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReader;
 import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReaderFactory;
 import at.silverstrike.pcc.impl.privatekeyreader.DefaultPrivateKeyReaderFactory;
 
+import com.google.api.client.auth.oauth2.AccessProtectedResource;
+import com.google.api.client.auth.oauth2.AccessTokenRequest.RefreshTokenGrant;
 import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest;
@@ -110,19 +112,31 @@ public class TestServerSidedOAuth {
 
         try {
 
-//            final AccessTokenResponse response =
-//                    new GoogleAccessTokenRequest.GoogleRefreshTokenGrant(
-//                            httpTransport,
-//                            jsonFactory,
-//                            CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN_CALENDAR)
-//                            .execute();
-//
-//            final GoogleAccessProtectedResource accessProtectedResource =
-//                new GoogleAccessProtectedResource(
-//                        response.accessToken, httpTransport, jsonFactory,
-//                        CLIENT_ID, CLIENT_SECRET,
-//                        REFRESH_TOKEN_CALENDAR);
+            RefreshTokenGrant request = new RefreshTokenGrant();
 
+
+            request.authorizationServerUrl = "https://accounts.google.com/o/oauth2/token";
+
+            // The clientId and clientSecret are copied from the API Access tab on
+
+            // the Google APIs Console
+
+            request.clientId = CLIENT_ID;
+
+            request.clientSecret = CLIENT_SECRET;
+
+            request.refreshToken = "";
+
+            request.transport = httpTransport;
+
+            request.jsonFactory = jsonFactory;
+
+            request.useBasicAuthorization = false;
+
+            AccessTokenResponse response = request.execute().parseAs(AccessTokenResponse.class);
+
+
+            AccessProtectedResource.usingAuthorizationHeader(httpTransport, response.accessToken);
             
             
             
@@ -132,18 +146,15 @@ public class TestServerSidedOAuth {
             
             GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
             oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
-//            oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
 
             GoogleOAuthHelper oauthHelper = new GoogleOAuthHelper(signer);
 
 
             
             oauthParameters.setScope("http://www.google.com/calendar/feeds/");
-
-            oauthParameters.setOAuthVerifier("1L41l3iUvZnq7P0akfmfsUGW");
             
-            oauthParameters.setOAuthToken("4/f61wbQIjcCFlDfDY-cV4DKaMIy7m");
-            oauthParameters.setOAuthTokenSecret("HXQsH4GsbalJWPG8CAo3bjXW");
+            oauthParameters.setOAuthToken(response.accessToken);
+//            oauthParameters.setOAuthTokenSecret("HXQsH4GsbalJWPG8CAo3bjXW");
             
             oauthHelper.getAccessToken(oauthParameters);
             

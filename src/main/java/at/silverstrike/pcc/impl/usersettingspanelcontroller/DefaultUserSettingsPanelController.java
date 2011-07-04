@@ -24,7 +24,9 @@ import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 
+import com.google.api.client.auth.oauth2.draft10.AccessTokenRequest.AuthorizationCodeGrant;
 import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
+import com.google.api.client.auth.oauth2.draft10.AuthorizationRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant;
@@ -273,207 +275,87 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void writeBookingsToCalendar() {
-        try {
-            oauthParameters = new GoogleOAuthParameters();
-            oauthParameters.setOAuthConsumerKey("pcchq.com");
-            oauthParameters.setScope(SCOPE_CALENDAR);
-            oauthParameters.setOAuthCallback(REDIRECT_URL);
+        // GoogleAuthorizationRequestUrl a = new
+        // GoogleAuthorizationRequestUrl(clientId, redirectUri, scope);
 
-            privKey = getPrivateKey();
+        AuthorizationRequestUrl builder =
+                    new AuthorizationRequestUrl(
+                            "http://localhost:8080/pcc/oauth2callback");
 
-            oauthHelper =
-                    new GoogleOAuthHelper(new OAuthRsaSha1Signer(privKey));
-            oauthHelper.getUnauthorizedRequestToken(oauthParameters);
-            
-            TPTApplication
+        AuthorizationRequestUrl.ResponseType.CODE.set(builder);
+
+        // The clientId is copied from the API Access tab on
+
+        // the Google APIs Console
+
+        builder.clientId = CLIENT_ID;
+
+        builder.redirectUri = "http://localhost:8080/pcc/oauth2callback"; // Or
+                                                                          // your
+                                                                          // redirect
+                                                                          // URL
+                                                                          // for
+                                                                          // web
+                                                                          // based
+        // application.
+
+        builder.scope = SCOPE_CALENDAR; // "https://www.googleapis.com/auth/tasks";
+
+        String requestUrl = builder.build();
+
+        TPTApplication
                     .getCurrentApplication()
                     .getMainWindow()
-                    .open(new ExternalResource(oauthHelper
-                            .createUserAuthorizationUrl(oauthParameters)),
+                    .open(new ExternalResource(requestUrl),
                             "_top");
-
-        } catch (final OAuthException exception) {
-            LOGGER.error("", exception);
-        }
-        // privKey = getPrivateKey();
-        //
-        // LOGGER.debug("private key: {}", privKey.getEncoded());
-        //
-        // final String CONSUMER_KEY = "pcchq.com";
-        //
-        // oauthParameters = new GoogleOAuthParameters();
-        // oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
-        //
-        // try {
-        // signer = new OAuthRsaSha1Signer(privKey);
-        // oauthHelper = new GoogleOAuthHelper(signer);
-        // oauthParameters.setScope(SCOPE_CALENDAR);
-        //
-        // oauthParameters.setOAuthCallback(REDIRECT_URL);
-        //
-        // oauthHelper.getUnauthorizedRequestToken(oauthParameters);
-        //
-        // final String approvalPageUrl =
-        // oauthHelper.createUserAuthorizationUrl(oauthParameters);
-        //
-        // TPTApplication.getCurrentApplication().getMainWindow()
-        // .open(new ExternalResource(approvalPageUrl), "_top");
-        //
-        // } catch (final OAuthException exception) {
-        // LOGGER.error("", }exception);
-        // }
     }
 
     @Override
     public void writeBookingsToCalendar2(final String aAuthorizationCode) {
-        
-        oauthHelper.getOAuthParametersFromCallback(oauthQueryString, oauthParameters);
-        LOGGER.debug("Token secret: '{}'", oauthParameters.getOAuthTokenSecret());
-        
-        
-//        oauthParameters.get
-        
-        
-//        final HttpTransport httpTransport = new NetHttpTransport();
-//        final JacksonFactory jsonFactory = new JacksonFactory();
-//
-//        try {
-//            // Step 2: Exchange -->
-//            final AccessTokenResponse response =
-//                    new GoogleAuthorizationCodeGrant(httpTransport,
-//                            jsonFactory,
-//                            CLIENT_ID, CLIENT_SECRET, aAuthorizationCode,
-//                            REDIRECT_URL).execute();
-//            // End of Step 2 <--
-//
-//            LOGGER.debug("response.accessToken: {}", response.accessToken);
-//            LOGGER.debug("response.refreshToken: {}", response.refreshToken);
-//
-//        } catch (IOException exception) {
-//            LOGGER.error("", exception);
-//        }
+        final HttpTransport httpTransport = new NetHttpTransport();
+        final JacksonFactory jsonFactory = new JacksonFactory();
 
-        // LOGGER.debug("writeBookingsToCalendar2: {}", this.oauthQueryString);
-        //
-        // oauthHelper.getOAuthParametersFromCallback(this.oauthQueryString,
-        // oauthParameters);
-        //
-        // try {
-        // oauthHelper.getAccessToken(oauthParameters);
-        // } catch (final OAuthException exception) {
-        // LOGGER.error("", exception);
-        // }
-        //
-        // LOGGER.debug("private key: {}", this.privKey);
-        //
-        // LOGGER.debug(
-        // "before exportBookingsToGoogleCalendar: token: '{}', token secret: '{}', this.oauthQueryString: '{}'",
-        // new Object[] { oauthParameters.getOAuthToken(),
-        // oauthParameters.getOAuthTokenSecret(),
-        // this.oauthQueryString });
-        // LOGGER.debug("OAuthType: {}, realm: '{}', scope: '{}', refresh token: '{}",
-        // new Object[] {
-        // oauthParameters.getOAuthType(), oauthParameters.getRealm(),
-        // oauthParameters.getScope()});
-        //
-        // oauthParameters.setScope(SCOPE_CALENDAR);
-        //
-        // try {
-        // final CalendarService calendarService =
-        // new CalendarService(APPLICATION_NAME);
-        //
-        // calendarService
-        // .setOAuthCredentials(oauthParameters, this.signer);
-        //
-        // LOGGER.debug("calendarService: {}", calendarService);
-        //
-        // final URL feedUrl =
-        // new URL(
-        // "http://www.google.com/calendar/feeds/default/allcalendars/full");
-        // final CalendarFeed resultFeed =
-        // calendarService.getFeed(feedUrl, CalendarFeed.class);
-        //
-        // LOGGER.debug("resultFeed: {}", resultFeed);
-        //
-        // LOGGER.debug("Your calendars:");
-        //
-        // CalendarEntry pccCalendar = null;
-        // for (int i = 0; (i < resultFeed.getEntries().size())
-        // && (pccCalendar == null); i++) {
-        // final CalendarEntry entry = resultFeed.getEntries().get(i);
-        //
-        // if ("PCC".equals(entry.getTitle().getPlainText())) {
-        // pccCalendar = entry;
-        // }
-        // }
-        //
-        // // Delete all events in the PCC calendar
-        //
-        // LOGGER.debug(
-        // "PCC calendar: edit link='{}', self link='{}', content='{}', id='{}'",
-        // new Object[] { pccCalendar.getEditLink().getHref(),
-        // pccCalendar.getSelfLink().getHref(),
-        // pccCalendar.getContent(), pccCalendar.getId() });
-        //
-        // final String calendarId =
-        // pccCalendar
-        // .getId()
-        // .substring(
-        // "http://www.google.com/calendar/feeds/default/calendars/"
-        // .length());
-        // final URL pccCalendarUrl =
-        // new URL(
-        // "https://www.google.com/calendar/feeds/${calendarId}/private/full"
-        // .replace("${calendarId}", calendarId));
-        //
-        // LOGGER.debug("pccCalendarUrl: {}", pccCalendarUrl);
-        // // calendarService.getFeed(feedUrl, feedClass)
-        //
-        // final CalendarEventFeed pccEventFeed =
-        // calendarService.getFeed(pccCalendarUrl,
-        // CalendarEventFeed.class);
-        // for (final CalendarEventEntry curEvent : pccEventFeed.getEntries()) {
-        // curEvent.delete();
-        // }
-        //
-        // final List<Booking> bookings =
-        // this.persistence.getBookings((UserData) TPTApplication
-        // .getCurrentApplication().getUser());
-        //
-        // LOGGER.debug("Bookings to export: {}", bookings.size());
-        //
-        // for (final Booking curBooking : bookings) {
-        // LOGGER.debug("Exporting: start date time: {}, end date time: {}",
-        // new Object[] { curBooking.getStartDateTime(),
-        // curBooking.getEndDateTime() });
-        //
-        // final CalendarEventEntry event = new CalendarEventEntry();
-        //
-        // event.setTitle(new PlainTextConstruct(curBooking.getProcess()
-        // .getName()));
-        //
-        // final When eventTime = new When();
-        // final DateTime startDateTime =
-        // new DateTime(curBooking.getStartDateTime().getTime());
-        // final DateTime endDateTime =
-        // new DateTime(curBooking.getEndDateTime().getTime());
-        //
-        // eventTime.setStartTime(startDateTime);
-        // eventTime.setEndTime(endDateTime);
-        //
-        // event.addTime(eventTime);
-        //
-        // calendarService.insert(pccCalendarUrl, event);
-        // }
-        // } catch (final OAuthException exception) {
-        // LOGGER.error("", exception);
-        // } catch (final MalformedURLException exception) {
-        // LOGGER.error("", exception);
-        // } catch (final IOException exception) {
-        // LOGGER.error("", exception);
-        // } catch (final ServiceException exception) {
-        // LOGGER.error("", exception);
-        // }
+        try {
+            com.google.api.client.auth.oauth2.AccessTokenRequest.AuthorizationCodeGrant request = 
+                new com.google.api.client.auth.oauth2.AccessTokenRequest.AuthorizationCodeGrant();
+
+            request.authorizationServerUrl = REDIRECT_URL;
+
+            // The clientId and clientSecret are copied from the API Access tab
+            // on
+
+            // the Google APIs Console
+
+            request.clientId = CLIENT_ID;
+
+            request.clientSecret = CLIENT_SECRET;
+
+            request.code = aAuthorizationCode;
+
+            request.redirectUri = "oob"; // Or your redirect URL for web based
+                                         // applications.
+
+            request.transport = httpTransport;
+
+            request.jsonFactory = jsonFactory;
+
+            request.useBasicAuthorization = false;
+
+            
+            AccessTokenResponse response =
+                    request.execute().parseAs(AccessTokenResponse.class);
+            
+            LOGGER.debug("response.refreshToken: {}", response.refreshToken);
+
+        } catch (final IOException exception) {
+            LOGGER.error("", exception);
+        }
+
+        // THE REFRESH TOKEN IS IN THE response OBJECT: response.refreshToken
+
+        LOGGER.debug("Token secret: '{}'",
+                oauthParameters.getOAuthTokenSecret());
+
     }
 
     @Override
