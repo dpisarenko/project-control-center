@@ -41,6 +41,7 @@ import com.google.api.services.tasks.v1.model.TaskLists;
 import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
+import com.google.gdata.client.authn.oauth.OAuthParameters.OAuthType;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.calendar.CalendarEntry;
@@ -112,7 +113,7 @@ public class Test2LeggedOAuth {
             oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
             oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
             oauthParameters.setScope("http://www.google.com/calendar/feeds/");
-            
+            oauthParameters.setOAuthType(OAuthType.TWO_LEGGED_OAUTH);
             
             final CalendarService calendarService =
                     new CalendarService("pcchq.com");
