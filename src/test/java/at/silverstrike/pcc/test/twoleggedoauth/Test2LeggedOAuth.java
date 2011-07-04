@@ -36,6 +36,7 @@ import com.google.api.services.tasks.v1.Tasks.Tasklists.List;
 import com.google.api.services.tasks.v1.model.TaskList;
 import com.google.api.services.tasks.v1.model.TaskLists;
 import com.google.gdata.client.GoogleService;
+import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
@@ -110,16 +111,25 @@ public class Test2LeggedOAuth {
             String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
 
             GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
+            
+            final com.google.gdata.client.authn.oauth.OAuthSigner signer =
+                new OAuthHmacSha1Signer();
+
+            GoogleOAuthHelper helper = new GoogleOAuthHelper(signer);
+
+            
             oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
             oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
-            oauthParameters.setScope("http://www.google.com/calendar/feeds/");
-            oauthParameters.setOAuthType(OAuthType.TWO_LEGGED_OAUTH);
+            oauthParameters.setOAuthSignatureMethod("HMAC-SHA");
+            
+            //            oauthParameters.setScope("http://www.google.com/calendar/feeds/");
+//            oauthParameters.setOAuthType(OAuthType.TWO_LEGGED_OAUTH);
 
+            
+            
             final CalendarService calendarService =
                     new CalendarService("pcchq.com");
 
-            final com.google.gdata.client.authn.oauth.OAuthSigner signer =
-                    new OAuthRsaSha1Signer(getPrivateKey());
             calendarService
                     .setOAuthCredentials(oauthParameters, signer);
 
@@ -129,7 +139,7 @@ public class Test2LeggedOAuth {
                     new URL(
                             "https://www.google.com/calendar/feeds/default/allcalendars/full"
                                     +
-                                    "?xoauth_requestor_id=dmitri.pissarenko@gmail.com&key=AIzaSyCip62Ao6a56UaV3ZUMhW7YaG3fn4Azcms");
+                                    "?xoauth_requestor_id=dmitri.pissarenko@gmail.com");
             final CalendarFeed resultFeed =
                     calendarService.getFeed(feedUrl, CalendarFeed.class);
 
