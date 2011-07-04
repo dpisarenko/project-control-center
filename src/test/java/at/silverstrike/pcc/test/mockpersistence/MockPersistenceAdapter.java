@@ -39,7 +39,6 @@ public abstract class MockPersistenceAdapter implements Persistence {
         return null;
     }
 
-
     @Override
     public Long createHumanResource(final String aAbbreviation,
             final String aFirstName,
@@ -64,12 +63,10 @@ public abstract class MockPersistenceAdapter implements Persistence {
 
     }
 
-
     @Override
     public List<SchedulingObject> getAllNotDeletedTasks(final UserData aUser) {
         return null;
     }
-
 
     @Override
     public List<SchedulingObject> getChildTasks(final SchedulingObject aParent) {
@@ -85,7 +82,6 @@ public abstract class MockPersistenceAdapter implements Persistence {
     public DailyPlan getDailyPlan(final Date aNewDate, final String aResource) {
         return null;
     }
-
 
     @Override
     public List<SchedulingObject> getSubProcessesWithChildren(
@@ -113,7 +109,8 @@ public abstract class MockPersistenceAdapter implements Persistence {
     }
 
     @Override
-    public void updateBookings(final List<BookingTuple> aBookingTuples, final UserData aUserData) {
+    public void updateBookings(final List<BookingTuple> aBookingTuples,
+            final UserData aUserData) {
     }
 
     @Override
@@ -149,13 +146,11 @@ public abstract class MockPersistenceAdapter implements Persistence {
         return null;
     }
 
-
     @Override
     public boolean deleteEvent(final Event aEvent) {
 
         return false;
     }
-
 
     @Override
     public Worker getCurrentWorker(final UserData aUser) {
