@@ -38,12 +38,16 @@ import com.google.api.services.tasks.v1.Tasks;
 import com.google.api.services.tasks.v1.Tasks.Tasklists.List;
 import com.google.api.services.tasks.v1.model.TaskList;
 import com.google.api.services.tasks.v1.model.TaskLists;
+import com.google.gdata.client.GoogleService;
 import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
 import com.google.gdata.client.authn.oauth.OAuthParameters.OAuthType;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
 import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.data.BaseEntry;
+import com.google.gdata.data.BaseFeed;
+import com.google.gdata.data.Feed;
 import com.google.gdata.data.calendar.CalendarEntry;
 import com.google.gdata.data.calendar.CalendarFeed;
 
@@ -142,6 +146,52 @@ public class Test2LeggedOAuth {
                 if ("PCC".equals(entry.getTitle().getPlainText())) {
                     pccCalendar = entry;
                 }
+            }
+
+        } catch (Exception exception) {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+    }
+
+    
+    @Test
+    public void test3() {
+        try {
+            String CONSUMER_KEY = "pcchq.com";
+            String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
+
+            GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
+            oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
+            oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
+            oauthParameters.setScope("http://www.google.com/calendar/feeds/");
+            oauthParameters.setOAuthType(OAuthType.TWO_LEGGED_OAUTH);
+            
+            final URL feedUrl =
+                    new URL(
+                            "https://www.google.com/calendar/feeds/default/allcalendars/full" +
+                            "?xoauth_requestor_id=dmitri.pissarenko@gmail.com");
+
+            GoogleService googleService =
+                new GoogleService("cl",
+                    "2-legged-oauth-sample-app");
+
+            // Set the OAuth credentials which were obtained from the steps above.
+            googleService.setOAuthCredentials(oauthParameters, new OAuthHmacSha1Signer());
+
+            // Make the request to Google
+            BaseFeed resultFeed = googleService.getFeed(feedUrl, Feed.class);
+            System.out.println("Response Data:");
+            System.out.println("=====================================================");
+            System.out.println("| TITLE: " + resultFeed.getTitle().getPlainText());
+            if (resultFeed.getEntries().size() == 0) {
+              System.out.println("|\tNo entries found.");
+            } else {
+              for (int i = 0; i < resultFeed.getEntries().size(); i++) {
+                BaseEntry entry = (BaseEntry) resultFeed.getEntries().get(i);
+                System.out.println("|\t" + (i + 1) + ": "
+                    + entry.getTitle().getPlainText());
+              }
             }
 
         } catch (Exception exception) {
