@@ -68,7 +68,7 @@ public class Test2LeggedOAuth {
             oauthParameters.consumerKey = OAUTH_CONSUMER_KEY ;
             oauthParameters.signer = signer;
             oauthParameters.token = null;
-            oauthParameters.signRequestsUsingAuthorizationHeader(httpTransport);
+//            oauthParameters.signRequestsUsingAuthorizationHeader(httpTransport);
 
             // Initializing the Tasks API service
             Tasks service =
