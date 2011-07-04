@@ -130,7 +130,7 @@ public class Test2LeggedOAuth {
             final URL feedUrl =
                     new URL(
                             "https://www.google.com/calendar/feeds/default/allcalendars/full" +
-                            "?xoauth_requestor_id=dmitri.pissarenko@gmail.com");
+                            "?xoauth_requestor_id=dmitri.pissarenko@gmail.com&key=AIzaSyCip62Ao6a56UaV3ZUMhW7YaG3fn4Azcms");
             final CalendarFeed resultFeed =
                     calendarService.getFeed(feedUrl, CalendarFeed.class);
 
