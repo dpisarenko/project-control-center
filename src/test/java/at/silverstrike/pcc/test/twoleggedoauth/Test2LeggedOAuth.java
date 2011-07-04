@@ -55,7 +55,7 @@ public class Test2LeggedOAuth {
                     new GoogleAccessProtectedResource(
                             response.accessToken, httpTransport, jsonFactory,
                             CLIENT_ID, CLIENT_SECRET,
-                            response.refreshToken);
+                            REFRESH_TOKEN);
 
             Tasks service =
                     new Tasks(httpTransport, accessProtectedResource,
