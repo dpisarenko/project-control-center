@@ -26,6 +26,7 @@ import com.google.gdata.client.GoogleService;
 import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
+import com.google.gdata.client.authn.oauth.OAuthParameters.OAuthType;
 import com.google.gdata.client.authn.oauth.OAuthSigner;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.BaseFeed;
@@ -67,6 +68,7 @@ public class Test2LeggedOAuth {
                 + "pcctest31331@gmail.com";
             URL feedUrl = new URL(feedUrlString);
 
+            oauthParameters.setOAuthType(OAuthType.TWO_LEGGED_OAUTH);
             System.out.println("Type: " + oauthParameters.getOAuthType());
             
             System.out.println("Sending request to " + feedUrl.toString());
