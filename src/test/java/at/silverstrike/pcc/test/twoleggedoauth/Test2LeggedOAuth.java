@@ -28,9 +28,6 @@ import at.silverstrike.pcc.impl.privatekeyreader.DefaultPrivateKeyReaderFactory;
 
 import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.auth.oauth.OAuthParameters;
-import com.google.api.client.auth.oauth.OAuthRsaSigner;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
@@ -39,11 +36,10 @@ import com.google.api.services.tasks.v1.Tasks.Tasklists.List;
 import com.google.api.services.tasks.v1.model.TaskList;
 import com.google.api.services.tasks.v1.model.TaskLists;
 import com.google.gdata.client.GoogleService;
-import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthHmacSha1Signer;
-import com.google.gdata.client.authn.oauth.OAuthParameters.OAuthType;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
+import com.google.gdata.client.authn.oauth.OAuthParameters.OAuthType;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.BaseEntry;
 import com.google.gdata.data.BaseFeed;
@@ -118,19 +114,22 @@ public class Test2LeggedOAuth {
             oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
             oauthParameters.setScope("http://www.google.com/calendar/feeds/");
             oauthParameters.setOAuthType(OAuthType.TWO_LEGGED_OAUTH);
-            
+
             final CalendarService calendarService =
                     new CalendarService("pcchq.com");
 
+            final com.google.gdata.client.authn.oauth.OAuthSigner signer =
+                    new OAuthRsaSha1Signer(getPrivateKey());
             calendarService
-                    .setOAuthCredentials(oauthParameters, new OAuthHmacSha1Signer());
+                    .setOAuthCredentials(oauthParameters, signer);
 
             LOGGER.debug("calendarService: {}", calendarService);
 
             final URL feedUrl =
                     new URL(
-                            "https://www.google.com/calendar/feeds/default/allcalendars/full" +
-                            "?xoauth_requestor_id=dmitri.pissarenko@gmail.com&key=AIzaSyCip62Ao6a56UaV3ZUMhW7YaG3fn4Azcms");
+                            "https://www.google.com/calendar/feeds/default/allcalendars/full"
+                                    +
+                                    "?xoauth_requestor_id=dmitri.pissarenko@gmail.com&key=AIzaSyCip62Ao6a56UaV3ZUMhW7YaG3fn4Azcms");
             final CalendarFeed resultFeed =
                     calendarService.getFeed(feedUrl, CalendarFeed.class);
 
@@ -154,7 +153,6 @@ public class Test2LeggedOAuth {
         }
     }
 
-    
     @Test
     public void test3() {
         try {
@@ -166,32 +164,38 @@ public class Test2LeggedOAuth {
             oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
             oauthParameters.setScope("http://www.google.com/calendar/feeds/");
             oauthParameters.setOAuthType(OAuthType.TWO_LEGGED_OAUTH);
-            
+
             final URL feedUrl =
                     new URL(
-                            "https://www.google.com/calendar/feeds/default/allcalendars/full" +
-                            "?xoauth_requestor_id=dmitri.pissarenko@gmail.com");
+                            "https://www.google.com/calendar/feeds/default/allcalendars/full"
+                                    +
+                                    "?xoauth_requestor_id=dmitri.pissarenko@gmail.com");
 
             GoogleService googleService =
-                new GoogleService("cl",
-                    "2-legged-oauth-sample-app");
+                    new GoogleService("cl",
+                            "2-legged-oauth-sample-app");
 
-            // Set the OAuth credentials which were obtained from the steps above.
-            googleService.setOAuthCredentials(oauthParameters, new OAuthHmacSha1Signer());
+            // Set the OAuth credentials which were obtained from the steps
+            // above.
+            googleService.setOAuthCredentials(oauthParameters,
+                    new OAuthHmacSha1Signer());
 
             // Make the request to Google
             BaseFeed resultFeed = googleService.getFeed(feedUrl, Feed.class);
             System.out.println("Response Data:");
-            System.out.println("=====================================================");
-            System.out.println("| TITLE: " + resultFeed.getTitle().getPlainText());
+            System.out
+                    .println("=====================================================");
+            System.out.println("| TITLE: "
+                    + resultFeed.getTitle().getPlainText());
             if (resultFeed.getEntries().size() == 0) {
-              System.out.println("|\tNo entries found.");
+                System.out.println("|\tNo entries found.");
             } else {
-              for (int i = 0; i < resultFeed.getEntries().size(); i++) {
-                BaseEntry entry = (BaseEntry) resultFeed.getEntries().get(i);
-                System.out.println("|\t" + (i + 1) + ": "
-                    + entry.getTitle().getPlainText());
-              }
+                for (int i = 0; i < resultFeed.getEntries().size(); i++) {
+                    BaseEntry entry =
+                            (BaseEntry) resultFeed.getEntries().get(i);
+                    System.out.println("|\t" + (i + 1) + ": "
+                            + entry.getTitle().getPlainText());
+                }
             }
 
         } catch (Exception exception) {
