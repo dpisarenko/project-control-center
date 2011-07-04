@@ -78,7 +78,7 @@ public class Test2LeggedOAuth {
 
             // Performing first request: Getting the tasks lists
             List getTaskListsOperation = service.tasklists.list();
-            Object ACCOUNT_EMAIL = "pcctest31331@gmail.com";
+            Object ACCOUNT_EMAIL = "dmitri.pissarenko@gmail.com";
             getTaskListsOperation.unknownFields.add("xoauth_requestor_id",
                     ACCOUNT_EMAIL );
             TaskLists taskLists = getTaskListsOperation.execute();
