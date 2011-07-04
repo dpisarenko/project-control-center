@@ -68,7 +68,9 @@ class DefaultGoogleTasksServiceCreator implements GoogleTasksServiceCreator {
             LOGGER.debug("response.accessToken: {}", response.accessToken);
             
             this.oauthAccessToken = response.accessToken;
-                        
+            
+            LOGGER.debug("response.refreshToken: {}", response.refreshToken);
+            
             this.service =
                     new Tasks(httpTransport, accessProtectedResource,
                             jsonFactory);
