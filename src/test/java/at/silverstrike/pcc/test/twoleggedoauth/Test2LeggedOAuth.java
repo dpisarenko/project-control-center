@@ -88,7 +88,7 @@ public class Test2LeggedOAuth {
 
             new GoogleOAuthHelper(signer);
 
-            printCalendars(calendarService);
+//            printCalendars(calendarService);
             insertEvent(calendarService);
 
         } catch (Exception exception) {
@@ -101,7 +101,7 @@ public class Test2LeggedOAuth {
         // TODO Auto-generated method stub
         final URL feedUrl =
                 new URL(
-                        "http://www.google.com/calendar/feeds/default/allcalendars/full?xoauth_requestor_id=dmitri.pissarenko@gmail.com");
+                        "https://www.google.com/calendar/feeds/default/owncalendars/full?xoauth_requestor_id=dmitri.pissarenko@gmail.com");
         final CalendarFeed resultFeed =
                 calendarService.getFeed(feedUrl, CalendarFeed.class);
 
@@ -148,5 +148,46 @@ public class Test2LeggedOAuth {
         CalendarEventEntry insertedEntry =
                 calendarService.insert(feedUrl, entry);
     }
+    @Test
+    public void test3()
+    {
+        try
+        {
+            // Initializing some Objects
+            HttpTransport httpTransport = new NetHttpTransport();
+            JacksonFactory jsonFactory = new JacksonFactory();
 
+            // The 2-LO authorization section
+            OAuthHmacSigner signer = new OAuthHmacSigner();
+            final String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
+            signer.clientSharedSecret = CONSUMER_SECRET;
+
+            OAuthParameters oauthParameters = new OAuthParameters();
+            oauthParameters.version = "1";
+            oauthParameters.consumerKey = "pcchq.com";
+            oauthParameters.signer = signer;
+            oauthParameters.signRequestsUsingAuthorizationHeader(httpTransport);
+
+            // Initializing the Tasks API service
+            Tasks service = new Tasks("2-lo-tasks-test/1.0", httpTransport, jsonFactory);
+            String API_KEY_FROM_APIS_CONSOLE = "6KqjOMZ90rc7j252rn1L9nG2";
+            service.accessKey = API_KEY_FROM_APIS_CONSOLE ;
+
+            // Performing first request: Getting the tasks lists
+            List getTaskListsOperation = service.tasklists.list();
+            getTaskListsOperation.unknownFields.add("xoauth_requestor_id", "dmitri.pissarenko@gmail.com");
+            TaskLists taskLists = getTaskListsOperation.execute();
+
+            // Simply printing the title of each tasks lists
+            for (TaskList taskList : taskLists.items) {
+              System.out.println(taskList.title);
+            }
+            
+        }
+        catch (final Exception exception)
+        {
+            LOGGER.error("", exception);
+            Assert.fail(exception.getMessage());
+        }
+    }
 }
