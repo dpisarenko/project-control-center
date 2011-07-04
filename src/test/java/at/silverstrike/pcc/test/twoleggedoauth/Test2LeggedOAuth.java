@@ -111,7 +111,9 @@ public class Test2LeggedOAuth {
             GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
             oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
             oauthParameters.setOAuthConsumerSecret(CONSUMER_SECRET);
-
+            oauthParameters.setScope("http://www.google.com/calendar/feeds/");
+            
+            
             final CalendarService calendarService =
                     new CalendarService("pcchq.com");
 
