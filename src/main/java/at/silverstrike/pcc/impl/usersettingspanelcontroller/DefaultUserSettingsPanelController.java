@@ -320,7 +320,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         // .open(new ExternalResource(approvalPageUrl), "_top");
         //
         // } catch (final OAuthException exception) {
-        // LOGGER.error("", exception);
+        // LOGGER.error("", }exception);
         // }
     }
 
@@ -328,6 +328,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     public void writeBookingsToCalendar2(final String aAuthorizationCode) {
         
         oauthHelper.getOAuthParametersFromCallback(oauthQueryString, oauthParameters);
+        LOGGER.debug("Token secret: '{}'", oauthParameters.getOAuthTokenSecret());
+        
         
 //        oauthParameters.get
         
