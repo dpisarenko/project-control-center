@@ -86,9 +86,13 @@ public class Test2LeggedOAuth {
             
             new GoogleOAuthHelper(signer);
 
-            URL feedUrl = new URL("https://www.google.com/calendar/feeds"
-                    + "/private/full?xoauth_requestor_id=" + "dmitri.pissarenko@gmail.com");
+//            URL feedUrl = new URL("https://www.google.com/calendar/feeds"
+//                    + "/private/full?xoauth_requestor_id=" + "dmitri.pissarenko@gmail.com");
 
+          URL feedUrl = new URL("https://www.google.com/calendar/feeds/dmitri.pissarenko@gmail.com/private/full?xoauth_requestor_id="
+          + "dmitri.pissarenko@gmail.com");
+            
+            LOGGER.debug("feedUrl: {}", feedUrl);
             LOGGER.debug("calendarService: {}", calendarService);
 
             // Prepare entry
