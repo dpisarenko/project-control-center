@@ -280,7 +280,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         // Or your redirect URL for web based applications.
         String redirectUrl = REDIRECT_URL;
-        String scope = SCOPE_TASKS;
+        String scope = SCOPE_CALENDAR;
 
         // Step 1: Authorize -->
         String authorizationUrl =

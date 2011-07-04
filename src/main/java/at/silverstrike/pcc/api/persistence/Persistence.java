@@ -14,14 +14,11 @@ package at.silverstrike.pcc.api.persistence;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Session;
-
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 
 import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Event;
 import at.silverstrike.pcc.api.model.InvitationRequest;
-import at.silverstrike.pcc.api.model.Milestone;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.Task;
 import at.silverstrike.pcc.api.model.DailyPlan;
