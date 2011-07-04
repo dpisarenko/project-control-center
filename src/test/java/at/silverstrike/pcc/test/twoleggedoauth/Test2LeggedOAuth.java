@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.test.twoleggedoauth;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.PrivateKey;
 import java.util.Date;
@@ -52,6 +54,7 @@ import com.google.gdata.data.calendar.CalendarEntry;
 import com.google.gdata.data.calendar.CalendarEventEntry;
 import com.google.gdata.data.calendar.CalendarFeed;
 import com.google.gdata.data.extensions.When;
+import com.google.gdata.util.ServiceException;
 
 /**
  * @author DP118M
@@ -66,10 +69,10 @@ public class Test2LeggedOAuth {
     public void test2() {
         try {
             final com.google.gdata.client.authn.oauth.OAuthSigner signer =
-                new OAuthHmacSha1Signer();
+                    new OAuthHmacSha1Signer();
 
             GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
-            
+
             String CONSUMER_KEY = "pcchq.com";
             String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
 
@@ -78,43 +81,72 @@ public class Test2LeggedOAuth {
             oauthParameters.setScope("https://www.google.com/calendar/feeds");
 
             final CalendarService calendarService =
-                new CalendarService("pcchq.com");
+                    new CalendarService("pcchq.com");
 
             calendarService
-            .setOAuthCredentials(oauthParameters, signer);
-            
-            
+                    .setOAuthCredentials(oauthParameters, signer);
+
             new GoogleOAuthHelper(signer);
 
-//            URL feedUrl = new URL("https://www.google.com/calendar/feeds"
-//                    + "/private/full?xoauth_requestor_id=" + "dmitri.pissarenko@gmail.com");
-
-          URL feedUrl = new URL("https://www.google.com/calendar/feeds/dmitri.pissarenko@gmail.com/private/full?xoauth_requestor_id="
-          + "dmitri.pissarenko@gmail.com");
-            
-            LOGGER.debug("feedUrl: {}", feedUrl);
-            LOGGER.debug("calendarService: {}", calendarService);
-
-            // Prepare entry
-            CalendarEventEntry entry = new CalendarEventEntry();
-
-            entry.setTitle(new PlainTextConstruct("abc"));
-            entry.setContent(new PlainTextConstruct("def"));
-
-            DateTime start = new DateTime(new Date());
-            DateTime end = new DateTime(new Date());
-            When eventTimes = new When();
-            eventTimes.setStartTime(start);
-            eventTimes.setEndTime(end);
-            entry.addTime(eventTimes);
-
-            // Insert entry
-            CalendarEventEntry insertedEntry = calendarService.insert(feedUrl, entry); 
+            printCalendars(calendarService);
+            insertEvent(calendarService);
 
         } catch (Exception exception) {
             LOGGER.error("", exception);
             Assert.fail(exception.getMessage());
         }
+    }
+
+    private void printCalendars(CalendarService calendarService) throws IOException, ServiceException {
+        // TODO Auto-generated method stub
+        final URL feedUrl =
+                new URL(
+                        "http://www.google.com/calendar/feeds/default/allcalendars/full?xoauth_requestor_id=dmitri.pissarenko@gmail.com");
+        final CalendarFeed resultFeed =
+                calendarService.getFeed(feedUrl, CalendarFeed.class);
+
+        LOGGER.debug("resultFeed: {}", resultFeed);
+
+        LOGGER.debug("Your calendars:");
+
+        CalendarEntry pccCalendar = null;
+        for (int i = 0; (i < resultFeed.getEntries().size())
+                && (pccCalendar == null); i++) {
+            final CalendarEntry entry = resultFeed.getEntries().get(i);
+
+            if ("PCC".equals(entry.getTitle().getPlainText())) {
+                pccCalendar = entry;
+            }
+        }
+
+    }
+
+    private void insertEvent(final CalendarService calendarService)
+            throws MalformedURLException, IOException, ServiceException {
+        URL feedUrl =
+                new URL("https://www.google.com/calendar/feeds"
+                        + "/private/full?xoauth_requestor_id="
+                        + "dmitri.pissarenko@gmail.com");
+
+        LOGGER.debug("feedUrl: {}", feedUrl);
+        LOGGER.debug("calendarService: {}", calendarService);
+
+        // Prepare entry
+        CalendarEventEntry entry = new CalendarEventEntry();
+
+        entry.setTitle(new PlainTextConstruct("abc"));
+        entry.setContent(new PlainTextConstruct("def"));
+
+        DateTime start = new DateTime(new Date());
+        DateTime end = new DateTime(new Date());
+        When eventTimes = new When();
+        eventTimes.setStartTime(start);
+        eventTimes.setEndTime(end);
+        entry.addTime(eventTimes);
+
+        // Insert entry
+        CalendarEventEntry insertedEntry =
+                calendarService.insert(feedUrl, entry);
     }
 
 }
