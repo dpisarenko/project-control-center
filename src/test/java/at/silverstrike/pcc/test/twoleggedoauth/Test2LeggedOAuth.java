@@ -54,9 +54,12 @@ public class Test2LeggedOAuth {
 
             OAuthSigner signer = new OAuthHmacSha1Signer();
 
-            GoogleOAuthHelper oauthHelper = new GoogleOAuthHelper(signer);
+            GoogleOAuthHelper helper = new GoogleOAuthHelper(signer);
 
+            
             oauthParameters.setScope("http://www.google.com/calendar/feeds/");
+            
+            
             
             String feedUrlString = "http://www.google.com/calendar/feeds/default/allcalendars/full";
 
@@ -64,8 +67,11 @@ public class Test2LeggedOAuth {
                 + "pcctest31331@gmail.com";
             URL feedUrl = new URL(feedUrlString);
 
+            System.out.println("Type: " + oauthParameters.getOAuthType());
+            
             System.out.println("Sending request to " + feedUrl.toString());
             System.out.println();
+            
             GoogleService googleService =
                 new GoogleService("cl",
                     "2-legged-oauth-sample-app");
