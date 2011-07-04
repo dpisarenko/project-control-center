@@ -105,8 +105,8 @@ public class Test2LeggedOAuth {
     @Test
     public void test2() {
         try {
-            String CONSUMER_KEY = "example.com";
-            String CONSUMER_SECRET = "abc123doremi";
+            String CONSUMER_KEY = "pcchq.com";
+            String CONSUMER_SECRET = "6KqjOMZ90rc7j252rn1L9nG2";
 
             GoogleOAuthParameters oauthParameters = new GoogleOAuthParameters();
             oauthParameters.setOAuthConsumerKey(CONSUMER_KEY);
