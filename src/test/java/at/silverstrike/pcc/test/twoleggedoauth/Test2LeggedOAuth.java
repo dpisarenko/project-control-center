@@ -24,6 +24,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
+import com.google.api.services.tasks.v1.model.TaskList;
 
 /**
  * @author DP118M
@@ -61,6 +62,18 @@ public class Test2LeggedOAuth {
                     new Tasks(httpTransport, accessProtectedResource,
                             jsonFactory);
             service.setApplicationName("pcchq.com");
+
+            LOGGER.debug("Task lists (START)");
+
+            for (final TaskList curTaskList : service.tasklists.list()
+                    .execute().items) {
+                LOGGER.debug(
+                        "Task list: etag='{}', id='{}', kind='{}', title='{}'",
+                        new Object[] { curTaskList.etag, curTaskList.id,
+                                curTaskList.kind, curTaskList.title });
+            }
+
+            LOGGER.debug("Task lists (END)");
 
         } catch (final IOException exception) {
             LOGGER.error("", exception);
