@@ -28,6 +28,7 @@ import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReaderFactory;
 import at.silverstrike.pcc.impl.privatekeyreader.DefaultPrivateKeyReaderFactory;
 
 import com.google.api.client.auth.oauth2.AccessProtectedResource;
+import com.google.api.client.auth.oauth2.AccessTokenRequest.AuthorizationCodeGrant;
 import com.google.api.client.auth.oauth2.AccessTokenRequest.RefreshTokenGrant;
 import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
@@ -111,35 +112,6 @@ public class TestServerSidedOAuth {
         final JacksonFactory jsonFactory = new JacksonFactory();
 
         try {
-
-            RefreshTokenGrant request = new RefreshTokenGrant();
-
-
-            request.authorizationServerUrl = "https://accounts.google.com/o/oauth2/token";
-
-            // The clientId and clientSecret are copied from the API Access tab on
-
-            // the Google APIs Console
-
-            request.clientId = CLIENT_ID;
-
-            request.clientSecret = CLIENT_SECRET;
-
-            request.refreshToken = "";
-
-            request.transport = httpTransport;
-
-            request.jsonFactory = jsonFactory;
-
-            request.useBasicAuthorization = false;
-
-            AccessTokenResponse response = request.execute().parseAs(AccessTokenResponse.class);
-
-
-            AccessProtectedResource.usingAuthorizationHeader(httpTransport, response.accessToken);
-            
-            
-            
             PrivateKey privKey = getPrivateKey();
             final OAuthRsaSha1Signer signer = new OAuthRsaSha1Signer(privKey);
 
@@ -152,9 +124,11 @@ public class TestServerSidedOAuth {
 
             
             oauthParameters.setScope("http://www.google.com/calendar/feeds/");
+
+            oauthParameters.setOAuthVerifier("1L41l3iUvZnq7P0akfmfsUGW");
             
-            oauthParameters.setOAuthToken(response.accessToken);
-//            oauthParameters.setOAuthTokenSecret("HXQsH4GsbalJWPG8CAo3bjXW");
+            oauthParameters.setOAuthToken("4/f61wbQIjcCFlDfDY-cV4DKaMIy7m");
+            oauthParameters.setOAuthTokenSecret("HXQsH4GsbalJWPG8CAo3bjXW");
             
             oauthHelper.getAccessToken(oauthParameters);
             
