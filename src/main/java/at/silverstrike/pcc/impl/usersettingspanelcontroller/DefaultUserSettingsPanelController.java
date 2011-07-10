@@ -275,87 +275,36 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void writeBookingsToCalendar() {
-        // GoogleAuthorizationRequestUrl a = new
-        // GoogleAuthorizationRequestUrl(clientId, redirectUri, scope);
+        try {
+            oauthParameters = new GoogleOAuthParameters();
+            oauthParameters.setOAuthConsumerKey("pcchq.com");
+            oauthParameters.setScope(SCOPE_CALENDAR);
+            oauthParameters.setOAuthCallback(REDIRECT_URL);
 
-        AuthorizationRequestUrl builder =
-                    new AuthorizationRequestUrl(
-                            "https://accounts.google.com/o/oauth2/auth");
+            privKey = getPrivateKey();
 
-        AuthorizationRequestUrl.ResponseType.CODE.set(builder);
+            oauthHelper =
+                    new GoogleOAuthHelper(new OAuthRsaSha1Signer(privKey));
+            oauthHelper.getUnauthorizedRequestToken(oauthParameters);
 
-        // The clientId is copied from the API Access tab on
-
-        // the Google APIs Console
-
-        builder.clientId = CLIENT_ID;
-
-        builder.redirectUri = "http://localhost:8080/pcc/oauth2callback"; // Or
-                                                                          // your
-                                                                          // redirect
-                                                                          // URL
-                                                                          // for
-                                                                          // web
-                                                                          // based
-        // application.
-
-        builder.scope = SCOPE_CALENDAR; // "https://www.googleapis.com/auth/tasks";
-
-        String requestUrl = builder.build();
-
-        TPTApplication
+            TPTApplication
                     .getCurrentApplication()
                     .getMainWindow()
-                    .open(new ExternalResource(requestUrl),
+                    .open(new ExternalResource(oauthHelper
+                            .createUserAuthorizationUrl(oauthParameters)),
                             "_top");
+
+        } catch (final OAuthException exception) {
+            LOGGER.error("", exception);
+        }
     }
 
     @Override
     public void writeBookingsToCalendar2(final String aAuthorizationCode) {
-        final HttpTransport httpTransport = new NetHttpTransport();
-        final JacksonFactory jsonFactory = new JacksonFactory();
-
-        try {
-            com.google.api.client.auth.oauth2.AccessTokenRequest.AuthorizationCodeGrant request = 
-                new com.google.api.client.auth.oauth2.AccessTokenRequest.AuthorizationCodeGrant();
-
-            request.authorizationServerUrl = REDIRECT_URL;
-
-            // The clientId and clientSecret are copied from the API Access tab
-            // on
-
-            // the Google APIs Console
-
-            request.clientId = CLIENT_ID;
-
-            request.clientSecret = CLIENT_SECRET;
-
-            request.code = aAuthorizationCode;
-
-            request.redirectUri = "oob"; // Or your redirect URL for web based
-                                         // applications.
-
-            request.transport = httpTransport;
-
-            request.jsonFactory = jsonFactory;
-
-            request.useBasicAuthorization = false;
-
-            
-            AccessTokenResponse response =
-                    request.execute().parseAs(AccessTokenResponse.class);
-            
-            LOGGER.debug("response.refreshToken: {}", response.refreshToken);
-
-        } catch (final IOException exception) {
-            LOGGER.error("", exception);
-        }
-
-        // THE REFRESH TOKEN IS IN THE response OBJECT: response.refreshToken
-
+        oauthHelper.getOAuthParametersFromCallback(oauthQueryString,
+                oauthParameters);
         LOGGER.debug("Token secret: '{}'",
                 oauthParameters.getOAuthTokenSecret());
-
     }
 
     @Override
