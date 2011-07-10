@@ -125,10 +125,10 @@ public class TestServerSidedOAuth {
             
             oauthParameters.setScope("http://www.google.com/calendar/feeds/");
 
-            oauthParameters.setOAuthVerifier("1L41l3iUvZnq7P0akfmfsUGW");
+            oauthParameters.setOAuthVerifier("toy8IMW6sInKDTjPxfy5zMFD");
             
-            oauthParameters.setOAuthToken("4/f61wbQIjcCFlDfDY-cV4DKaMIy7m");
-            oauthParameters.setOAuthTokenSecret("HXQsH4GsbalJWPG8CAo3bjXW");
+            oauthParameters.setOAuthToken("4/Oj-Q3isN3rz8mvJbgAkaIHGkL882");
+            oauthParameters.setOAuthTokenSecret("xQ8-9M22ZSdITuaTFAhPpcoA");
             
             oauthHelper.getAccessToken(oauthParameters);
             
