@@ -11,9 +11,6 @@
 
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.security.PrivateKey;
 import java.util.Date;
 import java.util.LinkedList;
@@ -24,29 +21,12 @@ import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 
-import com.google.api.client.auth.oauth2.draft10.AccessTokenRequest.AuthorizationCodeGrant;
-import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
-import com.google.api.client.auth.oauth2.draft10.AuthorizationRequestUrl;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
-import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
 import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
 import com.google.gdata.client.authn.oauth.OAuthRsaSha1Signer;
-import com.google.gdata.client.calendar.CalendarService;
-import com.google.gdata.data.DateTime;
-import com.google.gdata.data.PlainTextConstruct;
-import com.google.gdata.data.calendar.CalendarEntry;
-import com.google.gdata.data.calendar.CalendarEventEntry;
-import com.google.gdata.data.calendar.CalendarEventFeed;
-import com.google.gdata.data.calendar.CalendarFeed;
-import com.google.gdata.data.extensions.When;
-import com.google.gdata.util.ServiceException;
 import com.google.inject.Injector;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Panel;
@@ -60,7 +40,6 @@ import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
 import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
-import at.silverstrike.pcc.api.model.Booking;
 import at.silverstrike.pcc.api.model.Resource;
 import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.UserData;
@@ -305,6 +284,15 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 oauthParameters);
         LOGGER.debug("Token secret: '{}'",
                 oauthParameters.getOAuthTokenSecret());
+        
+        
+        try {
+            final String accessToken = oauthHelper.getAccessToken(oauthParameters);
+            
+            LOGGER.debug("Access token: {}", accessToken);
+        } catch (final OAuthException exception) {
+            LOGGER.error("", exception);
+        }
     }
 
     @Override
