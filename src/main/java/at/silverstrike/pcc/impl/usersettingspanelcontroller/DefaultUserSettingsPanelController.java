@@ -22,6 +22,7 @@ import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
@@ -30,6 +31,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
+
+import co.altruix.pcc.api.cdm.ImmediateSchedulingRequest;
 
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
 import com.google.api.services.tasks.v1.Tasks;
@@ -343,6 +346,13 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                     + Thread.currentThread().getName());
             producer.send(message);
 
+            final UserData user = (UserData) TPTApplication.getCurrentApplication()
+            .getUser();
+
+            final ImmediateSchedulingRequest message2 = new DefaultImmediateSchedulingRequest(user.getId());
+            final ObjectMessage objectMessage = session.createObjectMessage(message2);
+            producer.send(objectMessage);
+            
             // Clean up
             session.close();
             connection.close();
