@@ -11,7 +11,6 @@
 
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
-import java.net.URL;
 import java.security.PrivateKey;
 import java.util.Date;
 import java.util.LinkedList;
@@ -33,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import ru.altruix.commons.api.di.PccException;
 
 import co.altruix.pcc.api.cdm.ImmediateSchedulingRequest;
+import co.altruix.pcc.impl.cdm.DefaultImmediateSchedulingRequest;
 
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
 import com.google.api.services.tasks.v1.Tasks;
@@ -349,7 +349,9 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             final UserData user = (UserData) TPTApplication.getCurrentApplication()
             .getUser();
 
-            final ImmediateSchedulingRequest message2 = new DefaultImmediateSchedulingRequest(user.getId());
+            final DefaultImmediateSchedulingRequest message2 = new DefaultImmediateSchedulingRequest();
+            
+            message2.setUserId(user.getId());
             final ObjectMessage objectMessage = session.createObjectMessage(message2);
             producer.send(objectMessage);
             
