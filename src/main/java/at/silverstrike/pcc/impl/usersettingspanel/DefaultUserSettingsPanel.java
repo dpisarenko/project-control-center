@@ -48,6 +48,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
     private String writeBookingsToCalendarButtonCaption2;
 
+    private String sendMessageToQueueCaption;
+
     @Override
     public Panel toPanel() {
         return this;
@@ -83,21 +85,32 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         final Button calculateSyncDataButton =
                 new Button(calculateSyncDataButtonCaption);
 
-        writeBookingsToCalendarButtonCaption = TM.get("usersettingspanel.5-write-bookings");
-        
-        final Button writeBookingsToCalendarButton = new Button(writeBookingsToCalendarButtonCaption);
+        writeBookingsToCalendarButtonCaption =
+                TM.get("usersettingspanel.5-write-bookings");
+
+        final Button writeBookingsToCalendarButton =
+                new Button(writeBookingsToCalendarButtonCaption);
         writeBookingsToCalendarButton.addListener(this);
 
-        writeBookingsToCalendarButtonCaption2 = TM.get("usersettingspanel.9-write-bookings2");
-        
-        final Button writeBookingsToCalendarButton2 = new Button(writeBookingsToCalendarButtonCaption2);
+        writeBookingsToCalendarButtonCaption2 =
+                TM.get("usersettingspanel.9-write-bookings2");
+
+        final Button writeBookingsToCalendarButton2 =
+                new Button(writeBookingsToCalendarButtonCaption2);
         writeBookingsToCalendarButton2.addListener(this);
 
         this.logoutButtonCaption = TM.get("usersettingspanel.8-logout");
         final Button logoutButton = new Button(this.logoutButtonCaption);
+
+        this.sendMessageToQueueCaption = TM.get("usersettingspanel.10-sendMessageToQueueCaption");
+        final Button sendMessageToQueueButton = new Button(this.sendMessageToQueueCaption);
+        
+        sendMessageToQueueButton.addListener(this);
         
         logoutButton.addListener(this);
 
+        
+        
         final VerticalLayout buttonPanel = new VerticalLayout();
 
         requestAuthCodeButton.addListener(this);
@@ -107,7 +120,9 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         buttonPanel.addComponent(calculateSyncDataButton);
         buttonPanel.addComponent(writeBookingsToCalendarButton);
         buttonPanel.addComponent(writeBookingsToCalendarButton2);
+        buttonPanel.addComponent(sendMessageToQueueButton);
         buttonPanel.addComponent(logoutButton);
+        
         return buttonPanel;
     }
 
@@ -120,10 +135,11 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     public void buttonClick(final ClickEvent aEvent) {
         final String buttonCaption = aEvent.getButton().getCaption();
 
-        LOGGER.debug("buttonCaption: '{}', this.fetchDataButtonCaption: '{}', this.logoutButtonCaption: '{}'",
+        LOGGER.debug(
+                "buttonCaption: '{}', this.fetchDataButtonCaption: '{}', this.logoutButtonCaption: '{}'",
                 new Object[] { buttonCaption,
                         this.calculateSyncDataButtonCaption,
-                        this.logoutButtonCaption});
+                        this.logoutButtonCaption });
         if (this.requestAuthCodeCaption.equals(buttonCaption)) {
             this.controller.requestGoogleAuthorizationCode();
         } else if (this.calculateSyncDataButtonCaption.equals(buttonCaption)) {
@@ -132,15 +148,15 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
                             .getValue());
         } else if (this.logoutButtonCaption.equals(buttonCaption)) {
             this.controller.logout();
-        }
-        else if (writeBookingsToCalendarButtonCaption.equals(buttonCaption))
-        {
+        } else if (writeBookingsToCalendarButtonCaption.equals(buttonCaption)) {
             this.controller.writeBookingsToCalendar();
+        } else if (writeBookingsToCalendarButtonCaption2.equals(buttonCaption)) {
+            this.controller
+                    .writeBookingsToCalendar2((String) this.googleCodeTextField
+                            .getValue());
         }
-        else if (writeBookingsToCalendarButtonCaption2.equals(buttonCaption))
-        {
-            this.controller.writeBookingsToCalendar2((String) this.googleCodeTextField
-                    .getValue());
+        else if (this.sendMessageToQueueCaption.equals(buttonCaption)) {
+            this.controller.sendMessageToQueue();
         }
     }
 }

@@ -2,7 +2,8 @@
 <!-- This file is part of Project Control Center (PCC). PCC (Project Control 
 	Center) project is intellectual property of Dmitri Anatol'evich Pisarenko. 
 	Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko All rights reserved -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
@@ -327,23 +328,23 @@
 		</repository>
 	</repositories>
 	<dependencies>
-					<dependency>
-						<groupId>com.google.gdata</groupId>
-						<artifactId>gdata-calendar</artifactId>
-						<version>1.0</version>
-					</dependency>
-					<dependency>
-						<groupId>com.google.gdata</groupId>
-						<artifactId>gdata-core</artifactId>
-						<version>1.0</version>
-					</dependency>
-					<dependency>
-						<groupId>com.google.gdata</groupId>
-						<artifactId>gdata-client</artifactId>
-						<version>1.0</version>
-					</dependency>
+		<dependency>
+			<groupId>com.google.gdata</groupId>
+			<artifactId>gdata-calendar</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gdata</groupId>
+			<artifactId>gdata-core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gdata</groupId>
+			<artifactId>gdata-client</artifactId>
+			<version>1.0</version>
+		</dependency>
 
-	
+
 		<dependency>
 			<groupId>com.google.api.services.tasks</groupId>
 			<artifactId>google-api-services-tasks-v1</artifactId>
@@ -359,7 +360,7 @@
 			<artifactId>gdata-core</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.collections</groupId>
 			<artifactId>google-collections</artifactId>
@@ -473,37 +474,6 @@
 			<version>1.3</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openid4java</groupId>
-			<artifactId>openid4java-consumer</artifactId>
-			<version>0.9.5</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.jung</groupId>
-			<artifactId>jung2</artifactId>
-			<version>2.0.1</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.jung</groupId>
-			<artifactId>jung-graph-impl</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.jung</groupId>
-			<artifactId>jung-api</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.jung</groupId>
-			<artifactId>jung-visualization</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>batik</groupId>
-			<artifactId>batik</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-		<dependency>
 			<groupId>ru.altruix</groupId>
 			<artifactId>commons</artifactId>
 			<version>1.1</version>
@@ -512,6 +482,11 @@
 			<groupId>org.vaadin.addons</groupId>
 			<artifactId>vaadin-calendar</artifactId>
 			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.5.0</version>
 		</dependency>
 	</dependencies>
 	<reporting>
