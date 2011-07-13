@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
+import java.net.URL;
 import java.security.PrivateKey;
 import java.util.Date;
 import java.util.LinkedList;
@@ -314,7 +315,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     public void sendMessageToQueue() {
         try {
             final ActiveMQConnectionFactory connectionFactory =
-                    new ActiveMQConnectionFactory("vm://localhost");
+                    new ActiveMQConnectionFactory("", "", "failover://tcp://localhost:61616");
 
             // Create a Connection
             Connection connection = connectionFactory.createConnection();
@@ -329,7 +330,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
             // Create a MessageProducer from the Session to the Topic or Queue
             MessageProducer producer = session.createProducer(destination);
-            producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+            producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
             // Create a messages
             String text =
