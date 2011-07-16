@@ -148,11 +148,6 @@
 						<version>1.0</version>
 					</dependency>
 					<dependency>
-						<groupId>javassist</groupId>
-						<artifactId>javassist</artifactId>
-						<version>3.8.0.GA</version>
-					</dependency>
-					<dependency>
 						<groupId>com.google.inject</groupId>
 						<artifactId>guice</artifactId>
 						<version>2.0</version>
@@ -483,7 +478,6 @@
 			<artifactId>pcc-logic</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-
 	</dependencies>
 	<reporting>
 		<plugins>
