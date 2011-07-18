@@ -23,7 +23,6 @@ import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
@@ -31,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import ru.altruix.commons.api.di.PccException;
 
-import co.altruix.pcc.api.cdm.ImmediateSchedulingRequest;
 import co.altruix.pcc.impl.cdm.DefaultImmediateSchedulingRequest;
 
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
@@ -335,20 +333,11 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
-            // Create a messages
-            String text =
-                    "Hello world! From: " + Thread.currentThread().getName()
-                            + " : " + this.hashCode();
-            TextMessage message = session.createTextMessage(text);
-
-            // Tell the producer to send the message
-            System.out.println("Sent message: " + message.hashCode() + " : "
-                    + Thread.currentThread().getName());
-            producer.send(message);
-
             final UserData user = (UserData) TPTApplication.getCurrentApplication()
             .getUser();
 
+            LOGGER.debug("Message with user ID {}", user.getId());
+            
             final DefaultImmediateSchedulingRequest message2 = new DefaultImmediateSchedulingRequest();
             
             message2.setUserId(user.getId());
