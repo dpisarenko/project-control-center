@@ -11,6 +11,8 @@
 
 package at.silverstrike.pcc.api.usersettingspanelcontroller;
 
+import java.util.Map;
+
 import ru.altruix.commons.api.di.ModuleWithInjectableDependencies;
 import ru.altruix.commons.api.gui.GuiController;
 
@@ -36,4 +38,12 @@ public interface UserSettingsPanelController extends
     void setOauthQueryString(final String aQueryString);
 
     void sendMessageToQueue();
+
+    void requestImmediateRecalculation();
+
+    void initiateGoogleCalendarAuthorization();
+
+    void initiateGoogleTasksAuthorization();
+
+    void processGoogleResponse(final Map<String, String[]> aParameters);
 }

@@ -23,8 +23,10 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanel;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
 
@@ -50,6 +52,12 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
     private String sendMessageToQueueCaption;
 
+    private String requestImmediateRecalculationButtonCaption;
+
+    private String grantAccessToGoogleTasksButtonCaption;
+
+    private String grantAccessToGoogleCalendarButtonCaption;
+
     @Override
     public Panel toPanel() {
         return this;
@@ -57,7 +65,7 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
     @Override
     public void initGui() {
-        final GridLayout gridLayout = new GridLayout(2, 3);
+        final GridLayout gridLayout = new GridLayout(2, 5);
 
         gridLayout.setSizeFull();
 
@@ -70,9 +78,53 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         gridLayout.addComponent(googleCodeLabel, 0, 0);
         gridLayout.addComponent(googleCodeTextField, 1, 0);
 
-        gridLayout.addComponent(buttonPanel, 0, 1, 1, 1);
+        final UserData user =
+                (UserData) TPTApplication.getCurrentApplication().getUser();
+
+        final String googleCalendarAccessStatusText =
+                getGoogleCalendarAccessStatusText(user);
+
+        final Label googleCalendarAccessStatusLabel =
+                new Label(googleCalendarAccessStatusText);
+
+        gridLayout.addComponent(googleCalendarAccessStatusLabel, 0, 1, 1, 1);
+
+        final String googleTasksAccessStatusText =
+                getGoogleTasksAccessStatusText(user);
+
+        final Label googleTasksAccessStatusLabel =
+                new Label(googleTasksAccessStatusText);
+
+        gridLayout.addComponent(googleTasksAccessStatusLabel, 0, 2, 1, 2);
+
+        final Label revokeLabel =
+                new Label(TM.get("usersettingspanel.17-revokeAccess"));
+
+        gridLayout.addComponent(revokeLabel, 0, 3, 1, 3);
+
+        gridLayout.addComponent(buttonPanel, 0, 4, 1, 4);
 
         this.addComponent(gridLayout);
+    }
+
+    private String getGoogleTasksAccessStatusText(final UserData aUser) {
+        if (aUser.isGoogleTasksAccessGranted()) {
+            return TM.get("usersettingspanel.15-tasksAccessStatusGranted");
+        } else {
+            return TM.get("usersettingspanel.16-tasksAccessStatusNotGranted");
+        }
+    }
+
+    private String getGoogleCalendarAccessStatusText(final UserData user) {
+        final String googleCalendarAccessStatusText;
+        if (user.isGoogleCalendarAccessGranted()) {
+            googleCalendarAccessStatusText =
+                    TM.get("usersettingspanel.13-calendarAccessStatusGranted");
+        } else {
+            googleCalendarAccessStatusText =
+                    TM.get("usersettingspanel.14-calendarAccessStatusNotGranted");
+        }
+        return googleCalendarAccessStatusText;
     }
 
     private VerticalLayout getButtonPanel() {
@@ -102,27 +154,52 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         this.logoutButtonCaption = TM.get("usersettingspanel.8-logout");
         final Button logoutButton = new Button(this.logoutButtonCaption);
 
-        this.sendMessageToQueueCaption = TM.get("usersettingspanel.10-sendMessageToQueueCaption");
-        final Button sendMessageToQueueButton = new Button(this.sendMessageToQueueCaption);
-        
+        this.sendMessageToQueueCaption =
+                TM.get("usersettingspanel.10-sendMessageToQueueCaption");
+        final Button sendMessageToQueueButton =
+                new Button(this.sendMessageToQueueCaption);
+
         sendMessageToQueueButton.addListener(this);
-        
+
         logoutButton.addListener(this);
 
-        
-        
         final VerticalLayout buttonPanel = new VerticalLayout();
 
         requestAuthCodeButton.addListener(this);
         calculateSyncDataButton.addListener(this);
 
-        buttonPanel.addComponent(requestAuthCodeButton);
-        buttonPanel.addComponent(calculateSyncDataButton);
-        buttonPanel.addComponent(writeBookingsToCalendarButton);
-        buttonPanel.addComponent(writeBookingsToCalendarButton2);
-        buttonPanel.addComponent(sendMessageToQueueButton);
+        requestImmediateRecalculationButtonCaption =
+                TM.get("usersettingspanel.18-requestImmediateRecalculationButtonCaption");
+
+        final Button requestImmediateRecalculationButton =
+                new Button(requestImmediateRecalculationButtonCaption);
+        requestImmediateRecalculationButton.addListener(this);
+
+        // usersettingspanel.11-grantAccessToGoogleTasksButtonCaption = Grant
+        // access to Google Tasks
+        // usersettingspanel.12-grantAccessToGoogleCalendarButtonCaption = Grant
+        // access to Google Calendar
+
+        grantAccessToGoogleTasksButtonCaption =
+                TM.get("usersettingspanel.11-grantAccessToGoogleTasksButtonCaption");
+        grantAccessToGoogleCalendarButtonCaption =
+                TM.get("usersettingspanel.12-grantAccessToGoogleCalendarButtonCaption");
+
+        final Button grantAccessToGoogleTasksButton =
+                new Button(grantAccessToGoogleTasksButtonCaption);
+        final Button grantAccessToGoogleCalendarButton =
+                new Button(grantAccessToGoogleCalendarButtonCaption);
+
+        grantAccessToGoogleTasksButton.addListener(this);
+        grantAccessToGoogleCalendarButton.addListener(this);
+         buttonPanel.addComponent(requestAuthCodeButton);
+         buttonPanel.addComponent(calculateSyncDataButton);
+         buttonPanel.addComponent(writeBookingsToCalendarButton);
+         buttonPanel.addComponent(writeBookingsToCalendarButton2);
+         buttonPanel.addComponent(sendMessageToQueueButton);
+        buttonPanel.addComponent(requestImmediateRecalculationButton);
         buttonPanel.addComponent(logoutButton);
-        
+
         return buttonPanel;
     }
 
@@ -154,9 +231,20 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
             this.controller
                     .writeBookingsToCalendar2((String) this.googleCodeTextField
                             .getValue());
-        }
-        else if (this.sendMessageToQueueCaption.equals(buttonCaption)) {
+        } else if (this.sendMessageToQueueCaption.equals(buttonCaption)) {
             this.controller.sendMessageToQueue();
+        } else if (this.requestImmediateRecalculationButtonCaption
+                .equals(buttonCaption)) {
+            this.controller.requestImmediateRecalculation();
         }
+         else if (this.grantAccessToGoogleCalendarButtonCaption.equals(buttonCaption))
+         {
+             this.controller.initiateGoogleCalendarAuthorization();
+         }
+         else if (this.grantAccessToGoogleTasksButtonCaption.equals(buttonCaption))
+         {
+             this.controller.initiateGoogleTasksAuthorization();
+         }
+
     }
 }

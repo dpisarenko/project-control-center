@@ -155,5 +155,7 @@ class DefaultMainWindow implements MainWindow, ParameterHandler {
             }
         }
         this.userSettingsPanelController.setOauthQueryString(queryString.toString());
+        
+        this.userSettingsPanelController.processGoogleResponse(aParameters);
     }
 }

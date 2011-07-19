@@ -15,6 +15,7 @@ import java.security.PrivateKey;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
@@ -351,5 +352,70 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         } catch (final JMSException exception) {
             LOGGER.error("", exception);
         }
+    }
+
+    @Override
+    public void requestImmediateRecalculation() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void initiateGoogleCalendarAuthorization() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void initiateGoogleTasksAuthorization() {
+        // The clientId and clientSecret are copied from the API Access tab
+        // on
+        // the Google APIs Console
+        String clientId = CLIENT_ID;
+
+        // Or your redirect URL for web based applications.
+        String redirectUrl = REDIRECT_URL;
+        String scope = SCOPE_TASKS;
+
+        // Step 1: Authorize -->
+        String authorizationUrl =
+                new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
+                        scope)
+                        .build();
+
+        TPTApplication.getCurrentApplication().getMainWindow()
+                .open(new ExternalResource(authorizationUrl), "_top");
+    }
+
+    @Override
+    public void processGoogleResponse(final Map<String, String[]> aParameters) {
+        if (isWaitingForGoogleTasks())
+        {
+            finalizeGoogleTasksAuthorization();
+        }
+        else if (isWaitingForGoogleCalendar())
+        {
+            finalizeGoogleCalendarAuthorization();
+        }
+    }
+
+    private void finalizeGoogleTasksAuthorization() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    private boolean isWaitingForGoogleCalendar() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    private void finalizeGoogleCalendarAuthorization() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    private boolean isWaitingForGoogleTasks() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }
