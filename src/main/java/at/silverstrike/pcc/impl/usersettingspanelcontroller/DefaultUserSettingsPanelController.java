@@ -418,11 +418,14 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void processGoogleResponse(final Map<String, String[]> aParameters) {
+        LOGGER.debug("processGoogleResponse, 1");
         if (isWaitingForGoogleTasks(aParameters)) {
+            LOGGER.debug("processGoogleResponse, 2");
             final String refreshToken = aParameters
                     .get(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER)[0];
             finalizeGoogleTasksAuthorization(refreshToken);
         } else if (isWaitingForGoogleCalendar(aParameters)) {
+            LOGGER.debug("processGoogleResponse, 3");
             finalizeGoogleCalendarAuthorization(aParameters);
         }
     }
@@ -485,7 +488,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                             .getUser();
             user.setGoogleCalendarOAuthTokenSecret(tokenSecret);
             user.setGoogleCalendarOAuthToken(accessToken);
-            user.setGoogleCalendarOAuthVerifier(oauthParameters.getOAuthVerifier());
+            user.setGoogleCalendarOAuthVerifier(oauthParameters
+                    .getOAuthVerifier());
             this.persistence.updateUser(user);
         } catch (final OAuthException exception) {
             LOGGER.error("", exception);
@@ -495,8 +499,16 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     private boolean isWaitingForGoogleTasks(
             final Map<String, String[]> aParameters) {
+        LOGGER.debug(
+                "isWaitingForGoogleTasks: ",
+                new Object[] {
+                        (aParameters != null),
+                        aParameters.keySet().size(),
+                        (aParameters
+                                .containsKey(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER)),
+                        (aParameters.get(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER).length == 1) });
         return (aParameters != null)
-                && (aParameters.keySet().size() == 0)
+                && (aParameters.keySet().size() == 1)
                 && (aParameters
                         .containsKey(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER))
                 && (aParameters.get(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER).length == 1);
