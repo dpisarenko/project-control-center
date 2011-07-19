@@ -68,6 +68,11 @@ import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelCont
  * 
  */
 class DefaultUserSettingsPanelController implements UserSettingsPanelController {
+    private static final String GOOGLE_CALENDAR_OAUTH_TOKEN_PARAMETER =
+            "oauth_token";
+    private static final String GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER =
+            "oauth_verifier";
+    private static final String GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER = "code";
     private static final String PCCHQ_COM = "pcchq.com";
     private static final String REDIRECT_URL =
             "http://localhost:8080/pcc/oauth2callback";
@@ -317,7 +322,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     public void sendMessageToQueue() {
         try {
             final ActiveMQConnectionFactory connectionFactory =
-                    new ActiveMQConnectionFactory("", "", "failover://tcp://localhost:61616");
+                    new ActiveMQConnectionFactory("", "",
+                            "failover://tcp://localhost:61616");
 
             // Create a Connection
             Connection connection = connectionFactory.createConnection();
@@ -334,17 +340,20 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
-            final UserData user = (UserData) TPTApplication.getCurrentApplication()
-            .getUser();
+            final UserData user =
+                    (UserData) TPTApplication.getCurrentApplication()
+                            .getUser();
 
             LOGGER.debug("Message with user ID {}", user.getId());
-            
-            final DefaultImmediateSchedulingRequest message2 = new DefaultImmediateSchedulingRequest();
-            
+
+            final DefaultImmediateSchedulingRequest message2 =
+                    new DefaultImmediateSchedulingRequest();
+
             message2.setUserId(user.getId());
-            final ObjectMessage objectMessage = session.createObjectMessage(message2);
+            final ObjectMessage objectMessage =
+                    session.createObjectMessage(message2);
             producer.send(objectMessage);
-            
+
             // Clean up
             session.close();
             connection.close();
@@ -357,13 +366,33 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     @Override
     public void requestImmediateRecalculation() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void initiateGoogleCalendarAuthorization() {
-        // TODO Auto-generated method stub
-        
+        try {
+            oauthParameters = new GoogleOAuthParameters();
+            oauthParameters.setOAuthConsumerKey("pcchq.com");
+            oauthParameters.setScope(SCOPE_CALENDAR);
+            oauthParameters.setOAuthCallback(REDIRECT_URL);
+
+            privKey = getPrivateKey();
+
+            oauthHelper =
+                    new GoogleOAuthHelper(new OAuthRsaSha1Signer(privKey));
+            oauthHelper.getUnauthorizedRequestToken(oauthParameters);
+
+            TPTApplication
+                    .getCurrentApplication()
+                    .getMainWindow()
+                    .open(new ExternalResource(oauthHelper
+                            .createUserAuthorizationUrl(oauthParameters)),
+                            "_top");
+
+        } catch (final OAuthException exception) {
+            LOGGER.error("", exception);
+        }
     }
 
     @Override
@@ -389,33 +418,87 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     @Override
     public void processGoogleResponse(final Map<String, String[]> aParameters) {
-        if (isWaitingForGoogleTasks())
-        {
-            finalizeGoogleTasksAuthorization();
+        if (isWaitingForGoogleTasks(aParameters)) {
+            final String refreshToken = aParameters
+                    .get(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER)[0];
+            finalizeGoogleTasksAuthorization(refreshToken);
+        } else if (isWaitingForGoogleCalendar(aParameters)) {
+            finalizeGoogleCalendarAuthorization(aParameters);
         }
-        else if (isWaitingForGoogleCalendar())
-        {
-            finalizeGoogleCalendarAuthorization();
+    }
+
+    private void finalizeGoogleTasksAuthorization(final String aRefreshToken) {
+        final UserData user = (UserData) TPTApplication.getCurrentApplication()
+                .getUser();
+        user.setGoogleTasksRefreshToken(aRefreshToken);
+        this.persistence.updateUser(user);
+    }
+
+    private boolean isWaitingForGoogleCalendar(
+            final Map<String, String[]> aParameters) {
+        return (aParameters != null)
+                && (aParameters.keySet().size() == 2)
+                && aParameters.keySet().contains(
+                        GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER)
+                && aParameters.keySet().contains(
+                        GOOGLE_CALENDAR_OAUTH_TOKEN_PARAMETER)
+                && (aParameters.get(GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER).length == 1)
+                && (aParameters.get(GOOGLE_CALENDAR_OAUTH_TOKEN_PARAMETER).length == 2);
+    }
+
+    private void finalizeGoogleCalendarAuthorization(
+            final Map<String, String[]> aParameters) {
+
+        final StringBuilder queryString = new StringBuilder();
+        boolean firstValue = true;
+
+        for (final String curKey : aParameters.keySet()) {
+            if (!firstValue) {
+                queryString.append("&");
+            } else {
+                firstValue = false;
+            }
+            queryString.append(curKey);
+            queryString.append("=");
+
+            final String[] values = aParameters.get(curKey);
+
+            for (final String curValue : values) {
+                queryString.append(curValue);
+            }
         }
+
+        oauthHelper.getOAuthParametersFromCallback(queryString.toString(),
+                oauthParameters);
+        final String tokenSecret = oauthParameters.getOAuthTokenSecret();
+        LOGGER.debug("Token secret: '{}'",
+                tokenSecret);
+
+        try {
+            final String accessToken =
+                    oauthHelper.getAccessToken(oauthParameters);
+
+            LOGGER.debug("Access token: {}", accessToken);
+
+            final UserData user =
+                    (UserData) TPTApplication.getCurrentApplication()
+                            .getUser();
+            user.setGoogleCalendarOAuthTokenSecret(tokenSecret);
+            user.setGoogleCalendarOAuthToken(accessToken);
+            user.setGoogleCalendarOAuthVerifier(oauthParameters.getOAuthVerifier());
+            this.persistence.updateUser(user);
+        } catch (final OAuthException exception) {
+            LOGGER.error("", exception);
+        }
+
     }
 
-    private void finalizeGoogleTasksAuthorization() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    private boolean isWaitingForGoogleCalendar() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    private void finalizeGoogleCalendarAuthorization() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    private boolean isWaitingForGoogleTasks() {
-        // TODO Auto-generated method stub
-        return false;
+    private boolean isWaitingForGoogleTasks(
+            final Map<String, String[]> aParameters) {
+        return (aParameters != null)
+                && (aParameters.keySet().size() == 0)
+                && (aParameters
+                        .containsKey(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER))
+                && (aParameters.get(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER).length == 1);
     }
 }

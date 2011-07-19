@@ -136,24 +136,7 @@ class DefaultMainWindow implements MainWindow, ParameterHandler {
 //        if (aParameters.containsKey(OAuthParameters.OAUTH_TOKEN_SECRET_KEY))
         
         
-        final StringBuilder queryString = new StringBuilder();
-        boolean firstValue = true;
 
-        for (final String curKey : aParameters.keySet()) {
-            if (!firstValue) {
-                queryString.append("&");
-            } else {
-                firstValue = false;
-            }
-            queryString.append(curKey);
-            queryString.append("=");
-
-            final String[] values = aParameters.get(curKey);
-
-            for (final String curValue : values) {
-                queryString.append(curValue);
-            }
-        }
         this.userSettingsPanelController.setOauthQueryString(queryString.toString());
         
         this.userSettingsPanelController.processGoogleResponse(aParameters);
