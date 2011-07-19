@@ -192,11 +192,15 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
         grantAccessToGoogleTasksButton.addListener(this);
         grantAccessToGoogleCalendarButton.addListener(this);
-         buttonPanel.addComponent(requestAuthCodeButton);
-         buttonPanel.addComponent(calculateSyncDataButton);
-         buttonPanel.addComponent(writeBookingsToCalendarButton);
-         buttonPanel.addComponent(writeBookingsToCalendarButton2);
-         buttonPanel.addComponent(sendMessageToQueueButton);
+
+        buttonPanel.addComponent(grantAccessToGoogleCalendarButton);
+        buttonPanel.addComponent(grantAccessToGoogleTasksButton);
+
+        buttonPanel.addComponent(requestAuthCodeButton);
+        buttonPanel.addComponent(calculateSyncDataButton);
+        buttonPanel.addComponent(writeBookingsToCalendarButton);
+        buttonPanel.addComponent(writeBookingsToCalendarButton2);
+        buttonPanel.addComponent(sendMessageToQueueButton);
         buttonPanel.addComponent(requestImmediateRecalculationButton);
         buttonPanel.addComponent(logoutButton);
 
@@ -236,15 +240,13 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         } else if (this.requestImmediateRecalculationButtonCaption
                 .equals(buttonCaption)) {
             this.controller.requestImmediateRecalculation();
+        } else if (this.grantAccessToGoogleCalendarButtonCaption
+                .equals(buttonCaption)) {
+            this.controller.initiateGoogleCalendarAuthorization();
+        } else if (this.grantAccessToGoogleTasksButtonCaption
+                .equals(buttonCaption)) {
+            this.controller.initiateGoogleTasksAuthorization();
         }
-         else if (this.grantAccessToGoogleCalendarButtonCaption.equals(buttonCaption))
-         {
-             this.controller.initiateGoogleCalendarAuthorization();
-         }
-         else if (this.grantAccessToGoogleTasksButtonCaption.equals(buttonCaption))
-         {
-             this.controller.initiateGoogleTasksAuthorization();
-         }
 
     }
 }
