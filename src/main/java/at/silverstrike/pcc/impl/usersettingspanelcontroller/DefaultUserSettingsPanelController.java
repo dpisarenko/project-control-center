@@ -470,6 +470,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 queryString.append(curValue);
             }
         }
+        
+        final String verifier = aParameters.get(GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER)[0];
 
         oauthHelper.getOAuthParametersFromCallback(queryString.toString(),
                 oauthParameters);
@@ -488,8 +490,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                             .getUser();
             user.setGoogleCalendarOAuthTokenSecret(tokenSecret);
             user.setGoogleCalendarOAuthToken(accessToken);
-            user.setGoogleCalendarOAuthVerifier(oauthParameters
-                    .getOAuthVerifier());
+            user.setGoogleCalendarOAuthVerifier(verifier);
             this.persistence.updateUser(user);
         } catch (final OAuthException exception) {
             LOGGER.error("", exception);
