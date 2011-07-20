@@ -115,30 +115,17 @@ class DefaultMainWindow implements MainWindow, ParameterHandler {
 
     @Override
     public void setOauthQueryString(final String aQueryString) {
-        LOGGER.debug("aQueryString: {}, this.userSettingsPanelController: {}",
-                new
-                Object[] { aQueryString, this.userSettingsPanelController });
-        if (this.userSettingsPanelController != null) {
-            userSettingsPanelController.setOauthQueryString(aQueryString);
-        }
+//        LOGGER.debug("aQueryString: {}, this.userSettingsPanelController: {}",
+//                new
+//                Object[] { aQueryString, this.userSettingsPanelController });
+//        if (this.userSettingsPanelController != null) {
+//            userSettingsPanelController.setOauthQueryString(aQueryString);
+//        }
 
     }
 
     @Override
     public void handleParameters(final Map<String, String[]> aParameters) {
-//        if (aParameters.containsKey(OAuthParameters.OAUTH_TOKEN_KEY)) {
-//            final String accessToken = aParameters.get(OAuthParameters.OAUTH_TOKEN_KEY)[0];
-//
-//            this.userSettingsPanelController.setOauthAccessToken(accessToken);
-//        }
-//        
-//
-//        if (aParameters.containsKey(OAuthParameters.OAUTH_TOKEN_SECRET_KEY))
-        
-        
-
-//        this.userSettingsPanelController.setOauthQueryString(queryString.toString());
-        
         this.userSettingsPanelController.processGoogleResponse(aParameters);
     }
 }
