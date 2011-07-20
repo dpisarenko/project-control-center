@@ -446,7 +446,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 && aParameters.keySet().contains(
                         GOOGLE_CALENDAR_OAUTH_TOKEN_PARAMETER)
                 && (aParameters.get(GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER).length == 1)
-                && (aParameters.get(GOOGLE_CALENDAR_OAUTH_TOKEN_PARAMETER).length == 2);
+                && (aParameters.get(GOOGLE_CALENDAR_OAUTH_TOKEN_PARAMETER).length == 1);
     }
 
     private void finalizeGoogleCalendarAuthorization(
