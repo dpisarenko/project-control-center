@@ -114,17 +114,6 @@ class DefaultMainWindow implements MainWindow, ParameterHandler {
     }
 
     @Override
-    public void setOauthQueryString(final String aQueryString) {
-//        LOGGER.debug("aQueryString: {}, this.userSettingsPanelController: {}",
-//                new
-//                Object[] { aQueryString, this.userSettingsPanelController });
-//        if (this.userSettingsPanelController != null) {
-//            userSettingsPanelController.setOauthQueryString(aQueryString);
-//        }
-
-    }
-
-    @Override
     public void handleParameters(final Map<String, String[]> aParameters) {
         this.userSettingsPanelController.processGoogleResponse(aParameters);
     }
