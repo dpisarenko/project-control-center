@@ -12,9 +12,6 @@
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
 import java.security.PrivateKey;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.jms.Connection;
@@ -34,7 +31,6 @@ import ru.altruix.commons.api.di.PccException;
 import co.altruix.pcc.impl.cdm.DefaultImmediateSchedulingRequest;
 
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
-import com.google.api.services.tasks.v1.Tasks;
 import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
@@ -47,18 +43,10 @@ import eu.livotov.tpt.TPTApplication;
 
 import at.silverstrike.pcc.api.entrywindow.EntryWindow;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
-import at.silverstrike.pcc.api.export2tj3.InvalidDurationException;
-import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporter;
-import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
-import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreator;
-import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreatorFactory;
-import at.silverstrike.pcc.api.model.Resource;
-import at.silverstrike.pcc.api.model.SchedulingObject;
 import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReader;
 import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReaderFactory;
-import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanel;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanelFactory;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
@@ -73,11 +61,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private static final String GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER =
             "oauth_verifier";
     private static final String GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER = "code";
-    private static final String PCCHQ_COM = "pcchq.com";
     private static final String REDIRECT_URL =
             "http://localhost:8080/pcc/oauth2callback";
-    private static final String CLIENT_SECRET = "J1JRmoTA-EmOjTwKkW-eLHLY";
-    private static final String APPLICATION_NAME = PCCHQ_COM;
     private static final String SCOPE_CALENDAR =
             "https://www.google.com/calendar/feeds";
     private static final String SCOPE_TASKS =
@@ -86,13 +71,10 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             "294496059397.apps.googleusercontent.com";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultUserSettingsPanelController.class);
-    private static final int ONE_MONTH = 1;
     private Injector injector;
     private Persistence persistence;
-    private String oauthQueryString;
     private GoogleOAuthParameters oauthParameters;
     private GoogleOAuthHelper oauthHelper;
-    private OAuthRsaSha1Signer signer;
     private PrivateKey privKey;
 
     @Override
@@ -112,126 +94,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         panel.initGui();
         panel.setGuiController(this);
         return panel.toPanel();
-    }
-
-    @Override
-    public void calculateAndSyncData(final String aAuthorizationCode) {
-        try {
-            LOGGER.debug("Before serviceCreator");
-
-            final GoogleTasksServiceCreatorFactory factory =
-                    this.injector
-                            .getInstance(GoogleTasksServiceCreatorFactory.class);
-            final GoogleTasksServiceCreator serviceCreator = factory.create();
-
-            serviceCreator.setApplicationName(APPLICATION_NAME);
-            serviceCreator.setAuthorizationCode(aAuthorizationCode);
-            serviceCreator
-                    .setClientId(CLIENT_ID);
-            serviceCreator.setClientSecret(CLIENT_SECRET);
-            serviceCreator.setRedirectUrl(REDIRECT_URL);
-            serviceCreator.run();
-
-            LOGGER.debug("Before tasksService = serviceCreator.getService()");
-
-            final Tasks tasksService = serviceCreator.getService();
-
-            final GoogleCalendarTasks2PccImporterFactory importerFactory =
-                    this.injector
-                            .getInstance(GoogleCalendarTasks2PccImporterFactory.class);
-            final GoogleCalendarTasks2PccImporter importer =
-                    importerFactory.create();
-
-            importer.setInjector(this.injector);
-            importer.setService(tasksService);
-            importer.setUser((UserData) TPTApplication.getCurrentApplication()
-                    .getUser());
-
-            importer.run();
-
-            LOGGER.debug("Before webGuiBus.broadcastTasksImportedFromGoogleMessage");
-            LOGGER.debug("Before calculatePlan");
-
-            calculatePlan();
-            LOGGER.debug("Calculated the plan");
-        } catch (final PccException exception) {
-            LOGGER.error("", exception);
-        }
-    }
-
-    @Override
-    public void requestGoogleAuthorizationCode() {
-        // The clientId and clientSecret are copied from the API Access tab
-        // on
-        // the Google APIs Console
-        String clientId = CLIENT_ID;
-
-        // Or your redirect URL for web based applications.
-        String redirectUrl = REDIRECT_URL;
-        String scope = SCOPE_TASKS;
-
-        // Step 1: Authorize -->
-        String authorizationUrl =
-                new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
-                        scope)
-                        .build();
-
-        TPTApplication.getCurrentApplication().getMainWindow()
-                .open(new ExternalResource(authorizationUrl), "_top");
-    }
-
-    private void calculatePlan() {
-        final ProjectScheduler scheduler =
-                injector.getInstance(ProjectScheduler.class);
-
-        final Persistence persistence =
-                this.injector.getInstance(Persistence.class);
-        final UserData user = (UserData) TPTApplication
-                .getCurrentApplication().getUser();
-
-        LOGGER.debug("calculatePlan, user: {}", user.getId());
-
-        final List<SchedulingObject> schedulingObjectsToExport =
-                persistence.getTopLevelTasks(user);
-
-        LOGGER.debug("SCHEDULING OBJECTS TO EXPORT (START)");
-        for (final SchedulingObject curSchedulingObject : schedulingObjectsToExport) {
-            LOGGER.debug("Name: {}, ID: {}",
-                    new Object[] { curSchedulingObject.getName(),
-                            curSchedulingObject.getId() });
-        }
-        LOGGER.debug("SCHEDULING OBJECTS TO EXPORT (END)");
-
-        scheduler.getProjectExportInfo().setSchedulingObjectsToExport(
-                schedulingObjectsToExport);
-
-        final List<Resource> resources = new LinkedList<Resource>();
-        resources.add(persistence.getCurrentWorker(user));
-
-        scheduler.getProjectExportInfo().setResourcesToExport(resources);
-
-        scheduler.getProjectExportInfo().setProjectName("pcc");
-
-        final Date now = new Date();
-
-        scheduler.getProjectExportInfo().setNow(now);
-        scheduler.getProjectExportInfo().setCopyright("Dmitri Pisarenko");
-        scheduler.getProjectExportInfo().setCurrency("EUR");
-        scheduler.getProjectExportInfo().setSchedulingHorizonMonths(ONE_MONTH);
-        scheduler.getProjectExportInfo().setUserData(
-                (UserData) TPTApplication.getCurrentApplication().getUser());
-
-        scheduler.setDirectory(System.getProperty("user.dir") + "/");
-        scheduler.setInjector(injector);
-        scheduler.setNow(now);
-
-        try {
-            scheduler.run();
-        } catch (final InvalidDurationException exception) {
-            LOGGER.error("", exception);
-        } catch (final PccException exception) {
-            LOGGER.error("", exception);
-        }
     }
 
     @Override
@@ -270,74 +132,29 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     }
 
     @Override
-    public void writeBookingsToCalendar() {
-        try {
-            oauthParameters = new GoogleOAuthParameters();
-            oauthParameters.setOAuthConsumerKey("pcchq.com");
-            oauthParameters.setScope(SCOPE_CALENDAR);
-            oauthParameters.setOAuthCallback(REDIRECT_URL);
-
-            privKey = getPrivateKey();
-
-            oauthHelper =
-                    new GoogleOAuthHelper(new OAuthRsaSha1Signer(privKey));
-            oauthHelper.getUnauthorizedRequestToken(oauthParameters);
-
-            TPTApplication
-                    .getCurrentApplication()
-                    .getMainWindow()
-                    .open(new ExternalResource(oauthHelper
-                            .createUserAuthorizationUrl(oauthParameters)),
-                            "_top");
-
-        } catch (final OAuthException exception) {
-            LOGGER.error("", exception);
-        }
-    }
-
-    @Override
-    public void writeBookingsToCalendar2(final String aAuthorizationCode) {
-        oauthHelper.getOAuthParametersFromCallback(oauthQueryString,
-                oauthParameters);
-        LOGGER.debug("Token secret: '{}'",
-                oauthParameters.getOAuthTokenSecret());
-
-        try {
-            final String accessToken =
-                    oauthHelper.getAccessToken(oauthParameters);
-
-            LOGGER.debug("Access token: {}", accessToken);
-        } catch (final OAuthException exception) {
-            LOGGER.error("", exception);
-        }
-    }
-
-    @Override
-    public void setOauthQueryString(final String aQueryString) {
-        LOGGER.debug("aQueryString={}", aQueryString);
-        this.oauthQueryString = aQueryString;
-    }
-
-    @Override
-    public void sendMessageToQueue() {
+    public void requestImmediateRecalculation() {
+        Session session = null;
+        Connection connection = null;
         try {
             final ActiveMQConnectionFactory connectionFactory =
                     new ActiveMQConnectionFactory("", "",
                             "failover://tcp://localhost:61616");
 
             // Create a Connection
-            Connection connection = connectionFactory.createConnection();
+            connection = connectionFactory.createConnection();
             connection.start();
 
             // Create a Session
-            Session session =
+            session =
                     connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
             // Create the destination (Topic or Queue)
-            Destination destination = session.createQueue("PCC.WEB.WORKER");
+            final Destination destination =
+                    session.createQueue("PCC.WEB.WORKER");
 
             // Create a MessageProducer from the Session to the Topic or Queue
-            MessageProducer producer = session.createProducer(destination);
+            final MessageProducer producer =
+                    session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
             final UserData user =
@@ -360,12 +177,23 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
         } catch (final JMSException exception) {
             LOGGER.error("", exception);
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (final JMSException exception) {
+                    LOGGER.error("", exception);
+                }
+            }
+            
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (final JMSException exception) {
+                    LOGGER.error("", exception);
+                }
+            }
         }
-    }
-
-    @Override
-    public void requestImmediateRecalculation() {
-        // TODO Auto-generated method stub
 
     }
 
@@ -470,8 +298,9 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 queryString.append(curValue);
             }
         }
-        
-        final String verifier = aParameters.get(GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER)[0];
+
+        final String verifier =
+                aParameters.get(GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER)[0];
 
         oauthHelper.getOAuthParametersFromCallback(queryString.toString(),
                 oauthParameters);
@@ -495,7 +324,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         } catch (final OAuthException exception) {
             LOGGER.error("", exception);
         }
-
     }
 
     private boolean isWaitingForGoogleTasks(

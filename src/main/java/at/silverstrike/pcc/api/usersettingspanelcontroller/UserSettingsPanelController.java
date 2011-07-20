@@ -25,19 +25,7 @@ import com.vaadin.ui.Panel;
 public interface UserSettingsPanelController extends
         ModuleWithInjectableDependencies, GuiController<Panel> {
 
-    void calculateAndSyncData(final String aAuthCode);
-
-    void requestGoogleAuthorizationCode();
-
     void logout();
-
-    void writeBookingsToCalendar();
-
-    void writeBookingsToCalendar2(final String aAuthorizationCode);
-
-    void setOauthQueryString(final String aQueryString);
-
-    void sendMessageToQueue();
 
     void requestImmediateRecalculation();
 

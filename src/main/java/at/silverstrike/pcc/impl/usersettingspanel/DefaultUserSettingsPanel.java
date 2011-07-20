@@ -11,16 +11,12 @@
 
 package at.silverstrike.pcc.impl.usersettingspanel;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import eu.livotov.tpt.TPTApplication;
@@ -36,26 +32,11 @@ import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelCont
  */
 class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         ClickListener {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(DefaultUserSettingsPanel.class);
-
     private static final long serialVersionUID = 1L;
     private UserSettingsPanelController controller;
-    private String requestAuthCodeCaption;
-    private String calculateSyncDataButtonCaption;
     private String logoutButtonCaption;
-    private TextField googleCodeTextField;
-
-    private String writeBookingsToCalendarButtonCaption;
-
-    private String writeBookingsToCalendarButtonCaption2;
-
-    private String sendMessageToQueueCaption;
-
     private String requestImmediateRecalculationButtonCaption;
-
     private String grantAccessToGoogleTasksButtonCaption;
-
     private String grantAccessToGoogleCalendarButtonCaption;
 
     @Override
@@ -69,14 +50,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
         gridLayout.setSizeFull();
 
-        final Label googleCodeLabel =
-                new Label(TM.get("usersettingspanel.6-google-code"));
-
-        this.googleCodeTextField = new TextField();
         final VerticalLayout buttonPanel = getButtonPanel();
 
-        gridLayout.addComponent(googleCodeLabel, 0, 0);
-        gridLayout.addComponent(googleCodeTextField, 1, 0);
 
         final UserData user =
                 (UserData) TPTApplication.getCurrentApplication().getUser();
@@ -128,45 +103,12 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     }
 
     private VerticalLayout getButtonPanel() {
-        requestAuthCodeCaption =
-                TM.get("usersettingspanel.7-request-auth-code");
-        final Button requestAuthCodeButton =
-                new Button(requestAuthCodeCaption);
-        calculateSyncDataButtonCaption =
-                TM.get("usersettingspanel.4-fetch-tasks");
-        final Button calculateSyncDataButton =
-                new Button(calculateSyncDataButtonCaption);
-
-        writeBookingsToCalendarButtonCaption =
-                TM.get("usersettingspanel.5-write-bookings");
-
-        final Button writeBookingsToCalendarButton =
-                new Button(writeBookingsToCalendarButtonCaption);
-        writeBookingsToCalendarButton.addListener(this);
-
-        writeBookingsToCalendarButtonCaption2 =
-                TM.get("usersettingspanel.9-write-bookings2");
-
-        final Button writeBookingsToCalendarButton2 =
-                new Button(writeBookingsToCalendarButtonCaption2);
-        writeBookingsToCalendarButton2.addListener(this);
-
         this.logoutButtonCaption = TM.get("usersettingspanel.8-logout");
         final Button logoutButton = new Button(this.logoutButtonCaption);
-
-        this.sendMessageToQueueCaption =
-                TM.get("usersettingspanel.10-sendMessageToQueueCaption");
-        final Button sendMessageToQueueButton =
-                new Button(this.sendMessageToQueueCaption);
-
-        sendMessageToQueueButton.addListener(this);
 
         logoutButton.addListener(this);
 
         final VerticalLayout buttonPanel = new VerticalLayout();
-
-        requestAuthCodeButton.addListener(this);
-        calculateSyncDataButton.addListener(this);
 
         requestImmediateRecalculationButtonCaption =
                 TM.get("usersettingspanel.18-requestImmediateRecalculationButtonCaption");
@@ -174,11 +116,6 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         final Button requestImmediateRecalculationButton =
                 new Button(requestImmediateRecalculationButtonCaption);
         requestImmediateRecalculationButton.addListener(this);
-
-        // usersettingspanel.11-grantAccessToGoogleTasksButtonCaption = Grant
-        // access to Google Tasks
-        // usersettingspanel.12-grantAccessToGoogleCalendarButtonCaption = Grant
-        // access to Google Calendar
 
         grantAccessToGoogleTasksButtonCaption =
                 TM.get("usersettingspanel.11-grantAccessToGoogleTasksButtonCaption");
@@ -196,11 +133,6 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         buttonPanel.addComponent(grantAccessToGoogleCalendarButton);
         buttonPanel.addComponent(grantAccessToGoogleTasksButton);
 
-        buttonPanel.addComponent(requestAuthCodeButton);
-        buttonPanel.addComponent(calculateSyncDataButton);
-        buttonPanel.addComponent(writeBookingsToCalendarButton);
-        buttonPanel.addComponent(writeBookingsToCalendarButton2);
-        buttonPanel.addComponent(sendMessageToQueueButton);
         buttonPanel.addComponent(requestImmediateRecalculationButton);
         buttonPanel.addComponent(logoutButton);
 
@@ -216,27 +148,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     public void buttonClick(final ClickEvent aEvent) {
         final String buttonCaption = aEvent.getButton().getCaption();
 
-        LOGGER.debug(
-                "buttonCaption: '{}', this.fetchDataButtonCaption: '{}', this.logoutButtonCaption: '{}'",
-                new Object[] { buttonCaption,
-                        this.calculateSyncDataButtonCaption,
-                        this.logoutButtonCaption });
-        if (this.requestAuthCodeCaption.equals(buttonCaption)) {
-            this.controller.requestGoogleAuthorizationCode();
-        } else if (this.calculateSyncDataButtonCaption.equals(buttonCaption)) {
-            this.controller
-                    .calculateAndSyncData((String) this.googleCodeTextField
-                            .getValue());
-        } else if (this.logoutButtonCaption.equals(buttonCaption)) {
+        if (this.logoutButtonCaption.equals(buttonCaption)) {
             this.controller.logout();
-        } else if (writeBookingsToCalendarButtonCaption.equals(buttonCaption)) {
-            this.controller.writeBookingsToCalendar();
-        } else if (writeBookingsToCalendarButtonCaption2.equals(buttonCaption)) {
-            this.controller
-                    .writeBookingsToCalendar2((String) this.googleCodeTextField
-                            .getValue());
-        } else if (this.sendMessageToQueueCaption.equals(buttonCaption)) {
-            this.controller.sendMessageToQueue();
         } else if (this.requestImmediateRecalculationButtonCaption
                 .equals(buttonCaption)) {
             this.controller.requestImmediateRecalculation();
@@ -247,6 +160,5 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
                 .equals(buttonCaption)) {
             this.controller.initiateGoogleTasksAuthorization();
         }
-
     }
 }
