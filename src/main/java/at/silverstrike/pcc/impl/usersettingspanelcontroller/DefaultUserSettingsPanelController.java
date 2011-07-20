@@ -499,14 +499,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     private boolean isWaitingForGoogleTasks(
             final Map<String, String[]> aParameters) {
-        LOGGER.debug(
-                "isWaitingForGoogleTasks: ",
-                new Object[] {
-                        (aParameters != null),
-                        aParameters.keySet().size(),
-                        (aParameters
-                                .containsKey(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER)),
-                        (aParameters.get(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER).length == 1) });
         return (aParameters != null)
                 && (aParameters.keySet().size() == 1)
                 && (aParameters
