@@ -1,2 +1,0 @@
-
-allocate ${resource} {limits {dailymax ${maxHoursPerDay}h}}
