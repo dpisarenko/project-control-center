@@ -11,6 +11,7 @@
 
 package at.silverstrike.pcc.impl.usersettingspanelcontroller;
 
+import java.io.IOException;
 import java.security.PrivateKey;
 import java.util.Map;
 
@@ -30,7 +31,11 @@ import ru.altruix.commons.api.di.PccException;
 
 import co.altruix.pcc.impl.cdm.DefaultImmediateSchedulingRequest;
 
+import com.google.api.client.auth.oauth2.draft10.AccessTokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.gdata.client.authn.oauth.GoogleOAuthHelper;
 import com.google.gdata.client.authn.oauth.GoogleOAuthParameters;
 import com.google.gdata.client.authn.oauth.OAuthException;
@@ -50,12 +55,14 @@ import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReaderFactory;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanel;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanelFactory;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
+import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessTokenRequest.GoogleAuthorizationCodeGrant;
 
 /**
  * @author DP118M
  * 
  */
 class DefaultUserSettingsPanelController implements UserSettingsPanelController {
+    private static final String CLIENT_SECRET = "J1JRmoTA-EmOjTwKkW-eLHLY";
     private static final String GOOGLE_CALENDAR_OAUTH_TOKEN_PARAMETER =
             "oauth_token";
     private static final String GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER =
@@ -185,7 +192,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                     LOGGER.error("", exception);
                 }
             }
-            
+
             if (connection != null) {
                 try {
                     connection.close();
@@ -258,11 +265,27 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         }
     }
 
-    private void finalizeGoogleTasksAuthorization(final String aRefreshToken) {
-        final UserData user = (UserData) TPTApplication.getCurrentApplication()
-                .getUser();
-        user.setGoogleTasksRefreshToken(aRefreshToken);
-        this.persistence.updateUser(user);
+    private void finalizeGoogleTasksAuthorization(final String aCode) {
+        final HttpTransport httpTransport = new NetHttpTransport();
+        final JacksonFactory jsonFactory = new JacksonFactory();
+
+        try {
+            final UserData user =
+                    (UserData) TPTApplication.getCurrentApplication()
+                            .getUser();
+            
+            final AccessTokenResponse response =
+                    new GoogleAuthorizationCodeGrant(httpTransport,
+                            jsonFactory,
+                            CLIENT_ID, CLIENT_SECRET, aCode,
+                            REDIRECT_URL).execute();
+            LOGGER.debug("response.refreshToken: {}", response.refreshToken);
+
+            user.setGoogleTasksRefreshToken(response.refreshToken);
+            this.persistence.updateUser(user);
+        } catch (IOException exception) {
+            LOGGER.error("", exception);
+        }
     }
 
     private boolean isWaitingForGoogleCalendar(

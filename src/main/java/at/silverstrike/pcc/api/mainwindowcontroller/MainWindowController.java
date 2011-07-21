@@ -21,6 +21,4 @@ public interface MainWindowController extends ModuleWithInjectableDependencies,
     void importFromXML();
 
     void exportToXML();
-
-    void setOauthQueryString(final String aQueryString);
 }

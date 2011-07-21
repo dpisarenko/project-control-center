@@ -98,7 +98,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 
         if (!StringUtils.isBlank(queryString) && queryString.contains("oauth")
                 && (this.mainWindowController != null)) {
-            this.mainWindowController.setOauthQueryString(queryString);
+//            this.mainWindowController.setOauthQueryString(queryString);
         }
     }
 
