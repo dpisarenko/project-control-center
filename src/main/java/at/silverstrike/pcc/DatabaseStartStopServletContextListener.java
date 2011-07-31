@@ -23,7 +23,6 @@ import com.google.inject.Injector;
 
 import at.silverstrike.pcc.api.automaticexport.AutomaticExporter;
 import at.silverstrike.pcc.api.automaticexport.AutomaticExporterFactory;
-import at.silverstrike.pcc.api.persistence.Persistence;
 
 /**
  * Application Lifecycle Listener implementation class
@@ -67,12 +66,5 @@ public class DatabaseStartStopServletContextListener implements
         } catch (final PccException exception) {
             LOGGER.error("", exception);
         }
-
-        shutdownDatabase(injector);
-    }
-
-    private void shutdownDatabase(final Injector injector) {
-        final Persistence persistence = injector.getInstance(Persistence.class);
-        persistence.closeSession();
     }
 }
