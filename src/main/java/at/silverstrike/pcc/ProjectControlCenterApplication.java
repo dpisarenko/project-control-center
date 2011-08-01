@@ -65,6 +65,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
         final String oauthRedirectUri = servletContext.getInitParameter("OauthRedirectUri");
 
         injectorFactory.setTaskJugglerPath(taskJugglerPath);
+        injectorFactory.setOauthRedirectUri(oauthRedirectUri);
         injector = injectorFactory.createInjector();
 
         servletContext.setAttribute(PARAM_INJECTOR, injector);

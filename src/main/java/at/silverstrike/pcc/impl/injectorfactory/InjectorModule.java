@@ -91,6 +91,7 @@ class InjectorModule extends AbstractModule {
             .getLogger(InjectorModule.class);
 
     private String taskJugglerPath;
+    private String oauthRedirectUri;
 
     @Override
     protected void configure() {
@@ -138,7 +139,7 @@ class InjectorModule extends AbstractModule {
         bind(UserSettingsPanelFactory.class).toInstance(
                 new DefaultUserSettingsPanelFactory());
         bind(UserSettingsPanelControllerFactory.class).toInstance(
-                new DefaultUserSettingsPanelControllerFactory());
+                getUserSettingsPanelControllerFactory());
         bind(GoogleCalendarServiceCreatorFactory.class).toInstance(
                 new DefaultGoogleCalendarServiceCreatorFactory());
         bind(GoogleCalendarTasks2PccImporterFactory.class).toInstance(
@@ -157,6 +158,14 @@ class InjectorModule extends AbstractModule {
                 DefaultGoogleTaskTitleParserFactory());
         bind(PrivateKeyReaderFactory.class).toInstance(
                 new DefaultPrivateKeyReaderFactory());
+    }
+
+    private DefaultUserSettingsPanelControllerFactory
+            getUserSettingsPanelControllerFactory() {
+        final DefaultUserSettingsPanelControllerFactory retVal =
+                new DefaultUserSettingsPanelControllerFactory();
+        retVal.setOauthRedirectUri(this.oauthRedirectUri);
+        return retVal;
     }
 
     private ProjectScheduler getScheduler() {
@@ -195,5 +204,9 @@ class InjectorModule extends AbstractModule {
 
     public void setTaskJugglerPath(final String aPath) {
         this.taskJugglerPath = aPath;
+    }
+
+    public void setOauthRedirectUri(final String aOauthRedirectUri) {
+        oauthRedirectUri = aOauthRedirectUri;
     }
 }
