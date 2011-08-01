@@ -61,6 +61,8 @@ public class ProjectControlCenterApplication extends TPTApplication implements
                 new DefaultInjectorFactory();
         final String taskJugglerPath =
                 servletContext.getInitParameter("TaskJuggler path");
+        
+        final String oauthRedirectUri = servletContext.getInitParameter("OauthRedirectUri");
 
         injectorFactory.setTaskJugglerPath(taskJugglerPath);
         injector = injectorFactory.createInjector();
