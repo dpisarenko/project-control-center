@@ -19,5 +19,5 @@ import ru.altruix.commons.api.conventions.Factory;
  */
 public interface UserSettingsPanelControllerFactory extends
         Factory<UserSettingsPanelController> {
-
+    void setOauthRedirectUri(final String aRedirectUri);
 }

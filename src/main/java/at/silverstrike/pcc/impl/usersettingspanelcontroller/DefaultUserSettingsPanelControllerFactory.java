@@ -16,14 +16,25 @@ import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelCont
 
 /**
  * @author DP118M
- *
+ * 
  */
 public final class DefaultUserSettingsPanelControllerFactory implements
         UserSettingsPanelControllerFactory {
 
+    private String oauthRedirectUri;
+
     @Override
     public UserSettingsPanelController create() {
-        return new DefaultUserSettingsPanelController();
+        final UserSettingsPanelController returnValue =
+                new DefaultUserSettingsPanelController();
+
+        returnValue.setOauthRedirectUri(this.oauthRedirectUri);
+
+        return returnValue;
+    }
+
+    public void setOauthRedirectUri(final String aOauthRedirectUri) {
+        this.oauthRedirectUri = aOauthRedirectUri;
     }
 
 }

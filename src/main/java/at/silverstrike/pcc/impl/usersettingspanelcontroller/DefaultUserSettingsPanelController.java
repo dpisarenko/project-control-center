@@ -68,8 +68,6 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private static final String GOOGLE_CALENDAR_OAUTH_VERIFIER_PARAMETER =
             "oauth_verifier";
     private static final String GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER = "code";
-    private static final String REDIRECT_URL =
-            "http://localhost:8080/pcc/oauth2callback";
     private static final String SCOPE_CALENDAR =
             "https://www.google.com/calendar/feeds";
     private static final String SCOPE_TASKS =
@@ -83,7 +81,8 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private GoogleOAuthParameters oauthParameters;
     private GoogleOAuthHelper oauthHelper;
     private PrivateKey privKey;
-
+    private String oauthRedirectUri;
+    
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
@@ -210,7 +209,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             oauthParameters = new GoogleOAuthParameters();
             oauthParameters.setOAuthConsumerKey("pcchq.com");
             oauthParameters.setScope(SCOPE_CALENDAR);
-            oauthParameters.setOAuthCallback(REDIRECT_URL);
+            oauthParameters.setOAuthCallback(oauthRedirectUri);
 
             privKey = getPrivateKey();
 
@@ -238,12 +237,11 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
         String clientId = CLIENT_ID;
 
         // Or your redirect URL for web based applications.
-        String redirectUrl = REDIRECT_URL;
         String scope = SCOPE_TASKS;
 
         // Step 1: Authorize -->
         String authorizationUrl =
-                new GoogleAuthorizationRequestUrl(clientId, redirectUrl,
+                new GoogleAuthorizationRequestUrl(clientId, oauthRedirectUri,
                         scope)
                         .build();
 
@@ -278,7 +276,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                     new GoogleAuthorizationCodeGrant(httpTransport,
                             jsonFactory,
                             CLIENT_ID, CLIENT_SECRET, aCode,
-                            REDIRECT_URL).execute();
+                            oauthRedirectUri).execute();
             LOGGER.debug("response.refreshToken: {}", response.refreshToken);
 
             user.setGoogleTasksRefreshToken(response.refreshToken);
@@ -356,5 +354,9 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
                 && (aParameters
                         .containsKey(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER))
                 && (aParameters.get(GOOGLE_TASKS_REFRESH_TOKEN_PARAMETER).length == 1);
+    }
+
+    public void setOauthRedirectUri(final String aOauthRedirectUri) {
+        this.oauthRedirectUri = aOauthRedirectUri;
     }
 }

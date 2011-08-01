@@ -34,4 +34,6 @@ public interface UserSettingsPanelController extends
     void initiateGoogleTasksAuthorization();
 
     void processGoogleResponse(final Map<String, String[]> aParameters);
+    
+    void setOauthRedirectUri(final String aRedirectUri);
 }
