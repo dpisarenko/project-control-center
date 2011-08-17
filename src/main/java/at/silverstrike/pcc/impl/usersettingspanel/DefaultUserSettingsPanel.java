@@ -14,6 +14,7 @@ package at.silverstrike.pcc.impl.usersettingspanel;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
@@ -38,6 +39,7 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     private String requestImmediateRecalculationButtonCaption;
     private String grantAccessToGoogleTasksButtonCaption;
     private String grantAccessToGoogleCalendarButtonCaption;
+    private String automaticReschedulingCheckBoxLettering;
 
     @Override
     public Panel toPanel() {
@@ -51,7 +53,6 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         gridLayout.setSizeFull();
 
         final VerticalLayout buttonPanel = getButtonPanel();
-
 
         final UserData user =
                 (UserData) TPTApplication.getCurrentApplication().getUser();
@@ -127,12 +128,21 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         final Button grantAccessToGoogleCalendarButton =
                 new Button(grantAccessToGoogleCalendarButtonCaption);
 
+        automaticReschedulingCheckBoxLettering =
+                TM.get("usersettingspanel.19-automaticPlanUpdateCheckBoxLettering");
+        final CheckBox automaticReschedulingCheckBox =
+                new CheckBox(
+                        automaticReschedulingCheckBoxLettering);
+        automaticReschedulingCheckBox.setImmediate(true);
+        automaticReschedulingCheckBox.addListener(this); // react to clicks
+
         grantAccessToGoogleTasksButton.addListener(this);
         grantAccessToGoogleCalendarButton.addListener(this);
 
         buttonPanel.addComponent(grantAccessToGoogleCalendarButton);
         buttonPanel.addComponent(grantAccessToGoogleTasksButton);
-
+        buttonPanel.addComponent(automaticReschedulingCheckBox);
+        
         buttonPanel.addComponent(requestImmediateRecalculationButton);
         buttonPanel.addComponent(logoutButton);
 
