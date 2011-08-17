@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author DP118M
  * 
@@ -26,15 +29,26 @@ import javax.servlet.http.HttpServletResponse;
 public class MqConsoleRedirectorServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(MqConsoleRedirectorServlet.class);
+
     @Override
     protected void service(final HttpServletRequest aRequest,
             final HttpServletResponse aResponse)
             throws ServletException, IOException {
 
-        final RequestDispatcher requestDispatcher =
-                getServletContext().getRequestDispatcher(
-                        "http://localhost:8161/admin");
-        requestDispatcher.forward(aRequest, aResponse);
+        aResponse.sendRedirect("http://localhost:8161/admin");
+        
+//        final RequestDispatcher requestDispatcher =
+//                getServletContext().getRequestDispatcher(
+//                        "http://localhost:8161/admin");
+//
+//        LOGGER.debug("requestDispatcher: {}, aRequest: {}, aResponse: {}",
+//                new Object[] { requestDispatcher, aRequest, aResponse });
+//
+//        
+//        
+//        requestDispatcher.forward(aRequest, aResponse);
     }
 
 }
