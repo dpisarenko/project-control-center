@@ -37,18 +37,8 @@ public class MqConsoleRedirectorServlet extends HttpServlet {
             final HttpServletResponse aResponse)
             throws ServletException, IOException {
 
-        aResponse.sendRedirect("http://localhost:8161/admin");
-        
-//        final RequestDispatcher requestDispatcher =
-//                getServletContext().getRequestDispatcher(
-//                        "http://localhost:8161/admin");
-//
-//        LOGGER.debug("requestDispatcher: {}, aRequest: {}, aResponse: {}",
-//                new Object[] { requestDispatcher, aRequest, aResponse });
-//
-//        
-//        
-//        requestDispatcher.forward(aRequest, aResponse);
+        aRequest.getRequestDispatcher("http://78.47.242.60:8161/admin")
+                .forward(aRequest, aResponse);
     }
 
 }
