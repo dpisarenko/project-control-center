@@ -1,2 +1,0 @@
-# Module at.silverstrike.pcc.widgetset.PccWidgetset
-# RPC service class, partial path of RPC policy file

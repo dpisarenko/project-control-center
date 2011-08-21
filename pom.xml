@@ -24,6 +24,7 @@
 
 	<build>
 		<finalName>pcc</finalName>
+		<outputDirectory>war/WEB-INF/classes</outputDirectory>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -41,6 +42,88 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>war/WEB-INF/lib</directory>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>war/WEB-INF/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<warSourceDirectory>war</warSourceDirectory>
+					<webResources>
+						<resource>
+							<directory>WebContent</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpversion>2.0</wtpversion>
+					<testOutputDirectory>target/test-classes</testOutputDirectory>
+					<classpathContainers>
+						<classpathContainer>com.google.appengine.eclipse.core.GAE_CONTAINER</classpathContainer>
+					</classpathContainers>
+					<buildcommands>
+						<buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+						<buildcommand>com.google.gdt.eclipse.core.webAppProjectValidator</buildcommand>
+						<buildcommand>com.google.appengine.eclipse.core.enhancerbuilder</buildcommand>
+						<buildcommand>com.google.appengine.eclipse.core.projectValidator</buildcommand>
+					</buildcommands>
+					<additionalProjectnatures>
+						<projectnature>org.eclipse.jdt.core.javanature</projectnature>
+						<projectnature>com.google.appengine.eclipse.core.gaeNature</projectnature>
+						<projectnature>com.google.gdt.eclipse.core.webAppNature</projectnature>
+						<projectnature>com.vaadin.integration.eclipse.widgetsetNature</projectnature>
+						<projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
+					</additionalProjectnatures>
+					<excludes>
+						<!-- Included in GAE_CONTAINER -->
+						<exclude>com.google.appengine:appengine-api-1.0-sdk</exclude>
+						<exclude>com.google.appengine:appengine-api-1.0-labs</exclude>
+						<exclude>com.google.appengine.orm:datanucleus-appengine</exclude>
+						<exclude>org.datanucleus:datanucleus-jpa</exclude>
+						<exclude>org.datanucleus:datanucleus-core</exclude>
+						<exclude>org.apache.geronimo.specs:geronimo-jpa_3.0_spec</exclude>
+						<exclude>org.apache.geronimo.specs:geronimo-jta_1.1_spec</exclude>
+						<exclude>javax.jdo:jdo2-api</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
@@ -242,6 +325,50 @@
 						<artifactId>cobertura</artifactId>
 						<version>1.9.4</version>
 					</dependency>
+
+
+					<!-- GAE dependencies (START) -->
+					<dependency>
+						<groupId>com.google.appengine</groupId>
+						<artifactId>appengine-api-1.0-sdk</artifactId>
+						<version>1.5.2</version>
+					</dependency>
+					<dependency>
+						<groupId>com.google.appengine</groupId>
+						<artifactId>appengine-api-1.0-labs</artifactId>
+						<version>1.5.2</version>
+					</dependency>
+					<dependency>
+						<groupId>com.google.appengine.orm</groupId>
+						<artifactId>datanucleus-appengine</artifactId>
+						<version>1.0.4.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-jpa</artifactId>
+						<version>1.1.5</version>
+					</dependency>
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-core</artifactId>
+						<version>1.1.5</version>
+					</dependency>
+							<dependency>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-jpa_3.0_spec</artifactId>
+						<version>1.1.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-jta_1.1_spec</artifactId>
+						<version>1.1.1</version>
+					</dependency>
+					<dependency>
+						<groupId>javax.jdo</groupId>
+						<artifactId>jdo2-api</artifactId>
+						<version>2.3-eb</version>
+					</dependency>
+					<!-- GAE dependencies (END) -->					
 				</dependencies>
 			</plugin>
 		</plugins>
@@ -316,6 +443,11 @@
 			<id>google-api-services</id>
 			<url>http://mavenrepo.google-api-java-client.googlecode.com/hg</url>
 		</repository>
+		<repository>
+			<id>www.mvnsearch.org</id>
+			<name>Maven search repository</name>
+			<url>http://www.mvnsearch.org/maven2/</url>
+		</repository>		
 	</repositories>
 	<dependencies>
 		<dependency>

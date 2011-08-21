@@ -56,15 +56,15 @@ public class DatabaseStartStopServletContextListener implements
 
         LOGGER.debug("injector: {}", injector);
 
-        final AutomaticExporterFactory factory =
-                injector.getInstance(AutomaticExporterFactory.class);
-        final AutomaticExporter exporter = factory.create();
-
-        exporter.setInjector(injector);
-        try {
-            exporter.run();
-        } catch (final PccException exception) {
-            LOGGER.error("", exception);
-        }
+//        final AutomaticExporterFactory factory =
+//                injector.getInstance(AutomaticExporterFactory.class);
+//        final AutomaticExporter exporter = factory.create();
+//
+//        exporter.setInjector(injector);
+//        try {
+//            exporter.run();
+//        } catch (final PccException exception) {
+//            LOGGER.error("", exception);
+//        }
     }
 }
