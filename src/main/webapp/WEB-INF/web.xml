@@ -36,7 +36,7 @@
 		1) Normal (no GAE) execution: at.silverstrike.pcc.ProjectControlCenterApplicationServlet
 		2) GAE: GAEApplicationServlet 
 		 -->
-		<servlet-class>GAEApplicationServlet</servlet-class>
+		<servlet-class>at.silverstrike.pcc.ProjectControlCenterApplicationServlet</servlet-class>
 		<init-param>
 			<description>Vaadin application class to start</description>
 			<param-name>application</param-name>

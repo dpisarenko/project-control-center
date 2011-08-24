@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" id="WebApp_ID">
-	<display-name>pcc</display-name>
+<!-- This file is part of Project Control Center (PCC). PCC (Project Control 
+	Center) project is intellectual property of Dmitri Anatol'evich Pisarenko. 
+	Copyright 2010, 2011 Dmitri Anatol'evich Pisarenko All rights reserved -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>pcc</display-name>	
+	<context-param>
+		<description>Vaadin production mode</description>
+		<param-name>productionMode</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>TaskJuggler path</param-name>
+		<!-- 
+			Ubuntu: /var/lib/gems/1.8/bin/tj3
+			Windows: C:\\Ruby191\\bin\\tj3.bat
+		-->
+		<param-value>C:\\Ruby191\\bin\\tj3.bat</param-value>
+	</context-param>
+	<context-param>
+		<param-name>OauthRedirectUri</param-name>
+		<!--
+			Notebook: http://localhost:8080/pcc/oauth2callback
+			Hosting: http://pcchq.com/oauth2callback
+		 -->
+		<param-value>http://pcchq.com/oauth2callback</param-value>
+	</context-param>
+	
+	<servlet>
+		<servlet-name>Project Control Center Application</servlet-name>
+		<!-- 
+		servlet-class:
+		1) Normal (no GAE) execution: at.silverstrike.pcc.ProjectControlCenterApplicationServlet
+		2) GAE: GAEApplicationServlet 
+		 -->
+		<servlet-class>at.silverstrike.pcc.ProjectControlCenterApplicationServlet</servlet-class>
+		<init-param>
+			<description>Vaadin application class to start</description>
+			<param-name>application</param-name>
+			<param-value>at.silverstrike.pcc.ProjectControlCenterApplication</param-value>
+		</init-param>
+		<init-param>
+		    <param-name>widgetset</param-name>
+		    <param-value>at.silverstrike.pcc.widgetset.PccWidgetset</param-value>
+		</init-param>
+	</servlet>
+	<!-- 
+	<servlet>
+		<servlet-name>MqConsoleRedirectorServlet</servlet-name>
+		<servlet-class>at.silverstrike.pcc.MqConsoleRedirectorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MqConsoleRedirectorServlet</servlet-name>
+		<url-pattern>/mq-console</url-pattern>
+	</servlet-mapping>
+
+	 -->
+	<servlet-mapping>
+		<servlet-name>Project Control Center Application</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -9,4 +70,10 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	<listener>
+		<listener-class>at.silverstrike.pcc.DatabaseStartStopServletContextListener</listener-class>
+	</listener>
+	<session-config>
+		<session-timeout>480</session-timeout>
+	</session-config>	
 </web-app>
