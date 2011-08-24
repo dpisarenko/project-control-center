@@ -47,6 +47,7 @@
 		    <param-value>at.silverstrike.pcc.widgetset.PccWidgetset</param-value>
 		</init-param>
 	</servlet>
+	<!-- 
 	<servlet>
 		<servlet-name>MqConsoleRedirectorServlet</servlet-name>
 		<servlet-class>at.silverstrike.pcc.MqConsoleRedirectorServlet</servlet-class>
@@ -55,6 +56,8 @@
 		<servlet-name>MqConsoleRedirectorServlet</servlet-name>
 		<url-pattern>/mq-console</url-pattern>
 	</servlet-mapping>
+
+	 -->
 	<servlet-mapping>
 		<servlet-name>Project Control Center Application</servlet-name>
 		<url-pattern>/*</url-pattern>
