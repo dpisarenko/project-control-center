@@ -419,6 +419,20 @@
 			<name>Maven search repository</name>
 			<url>http://www.mvnsearch.org/maven2/</url>
 		</repository>
+		<repository>
+			<id>objectify-appengine</id>
+			<url>http://objectify-appengine.googlecode.com/svn/maven</url>
+		</repository>
+        <repository>
+            <id>datanucleus</id>
+            <name>Datanucleus Repository</name>
+            <url>http://www.datanucleus.org/downloads/maven2</url>
+        </repository>
+        <repository>
+            <id>atlassian</id>
+            <name>Atlassian Repository</name>
+            <url>https://maven.atlassian.com/repository/centralmirror</url>
+        </repository>
 	</repositories>
 	<dependencies>
 		<dependency>
@@ -591,11 +605,6 @@
 					<dependency>
 						<groupId>com.google.appengine</groupId>
 						<artifactId>appengine-api-1.0-sdk</artifactId>
-						<version>1.5.2</version>
-					</dependency>
-					<dependency>
-						<groupId>com.google.appengine</groupId>
-						<artifactId>appengine-api-1.0-labs</artifactId>
 						<version>1.5.2</version>
 					</dependency>
 					<dependency>
