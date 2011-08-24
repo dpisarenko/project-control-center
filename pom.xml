@@ -43,6 +43,15 @@
 		</pluginManagement>
 		<plugins>
 			<plugin>
+				<groupId>net.kindleit</groupId>
+				<artifactId>maven-gae-plugin</artifactId>
+				<version>0.8.1</version>
+				<configuration>
+					<serverId>appengine.google.com</serverId>
+					<sdkDir>C:\Program Files\eclipse-jee-helios-SR1-win32\eclipse\plugins\com.google.appengine.eclipse.sdkbundle_1.5.2.r36v201107211953\appengine-java-sdk-1.5.2</sdkDir>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
 					<filesets>
@@ -123,7 +132,7 @@
 			</plugin>
 
 
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
@@ -229,7 +238,7 @@
 						<groupId>javassist</groupId>
 						<artifactId>javassist</artifactId>
 						<version>3.8.0.GA</version>
-					</dependency>				
+					</dependency>
 					<dependency>
 						<groupId>aopalliance</groupId>
 						<artifactId>aopalliance</artifactId>
@@ -353,7 +362,7 @@
 						<artifactId>datanucleus-core</artifactId>
 						<version>1.1.5</version>
 					</dependency>
-							<dependency>
+					<dependency>
 						<groupId>org.apache.geronimo.specs</groupId>
 						<artifactId>geronimo-jpa_3.0_spec</artifactId>
 						<version>1.1.1</version>
@@ -368,7 +377,7 @@
 						<artifactId>jdo2-api</artifactId>
 						<version>2.3-eb</version>
 					</dependency>
-					<!-- GAE dependencies (END) -->					
+					<!-- GAE dependencies (END) -->
 				</dependencies>
 			</plugin>
 		</plugins>
@@ -447,7 +456,7 @@
 			<id>www.mvnsearch.org</id>
 			<name>Maven search repository</name>
 			<url>http://www.mvnsearch.org/maven2/</url>
-		</repository>		
+		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
