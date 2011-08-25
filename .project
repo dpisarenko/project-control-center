@@ -40,21 +40,6 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-		<buildCommand>
-			<name>com.google.gdt.eclipse.core.webAppProjectValidator</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>com.google.appengine.eclipse.core.enhancerbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>com.google.appengine.eclipse.core.projectValidator</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.maven.ide.eclipse.maven2Nature</nature>
@@ -65,6 +50,5 @@
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 		<nature>com.vaadin.integration.eclipse.widgetsetNature</nature>
 		<nature>org.rubypeople.rdt.core.rubynature</nature>
-		<nature>com.google.appengine.eclipse.core.gaeNature</nature>
 	</natures>
 </projectDescription>
