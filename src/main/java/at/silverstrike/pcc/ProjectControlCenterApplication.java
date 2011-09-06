@@ -72,7 +72,7 @@ public class ProjectControlCenterApplication extends TPTApplication implements
 
         persistence = injector.getInstance(Persistence.class);
 
-        persistence.openSession(Persistence.HOST_LOCAL, null, null, "pcc");
+        persistence.openSession(Persistence.HOST_LOCAL, null, null, Persistence.DB_PRODUCTION);
 
         if (this.persistence.getUserCount() < 1) {
             this.persistence.createSuperUser();
