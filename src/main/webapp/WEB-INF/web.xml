@@ -13,22 +13,13 @@
 		<param-value>true</param-value>
 	</context-param>
 	<context-param>
-		<param-name>TaskJuggler path</param-name>
-		<!-- 
-			Ubuntu: /var/lib/gems/1.8/bin/tj3
-			Windows: C:\\Ruby191\\bin\\tj3.bat
-		-->
-		<param-value>C:\\Ruby191\\bin\\tj3.bat</param-value>
-	</context-param>
-	<context-param>
 		<param-name>OauthRedirectUri</param-name>
 		<!--
 			Notebook: http://localhost:8080/pcc/oauth2callback
 			Hosting: http://pcchq.com/oauth2callback
 		 -->
-		<param-value>http://localhost:8080/pcc/oauth2callback</param-value>
-	</context-param>
-	
+		<param-value>http://pcchq.com/oauth2callback</param-value>
+	</context-param>	
 	<servlet>
 		<servlet-name>Project Control Center Application</servlet-name>
 		<servlet-class>at.silverstrike.pcc.ProjectControlCenterApplicationServlet</servlet-class>

@@ -25,7 +25,6 @@ import at.silverstrike.pcc.api.culture2lang.CultureToLanguageMapperFactory;
 import at.silverstrike.pcc.api.debugids.PccDebugIdRegistry;
 import at.silverstrike.pcc.api.embeddedfilereading.EmbeddedFileReader;
 import at.silverstrike.pcc.api.entrywindow.EntryWindowFactory;
-import at.silverstrike.pcc.api.export2tj3.TaskJuggler3Exporter;
 import at.silverstrike.pcc.api.gcalservicecreator.GoogleCalendarServiceCreatorFactory;
 import at.silverstrike.pcc.api.gcaltasks2pcc.GoogleCalendarTasks2PccImporterFactory;
 import at.silverstrike.pcc.api.gcaltasks2pccimporter.GoogleCalendarTasks2PccImporter2Factory;
@@ -33,7 +32,6 @@ import at.silverstrike.pcc.api.googletasksservicecreator.GoogleTasksServiceCreat
 import at.silverstrike.pcc.api.gtask2pcctaskconverter.GoogleTask2PccTaskConverterFactory;
 import at.silverstrike.pcc.api.gtasknoteparser.GoogleTaskNotesParserFactory;
 import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFactory;
-import at.silverstrike.pcc.api.gtasktitleparser.GoogleTaskTitleParserFactory;
 import at.silverstrike.pcc.api.incorrectschedulingobjectsmarker.IncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.api.invitationrequestadminpanel.InvitationRequestAdminPanelFactory;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelControllerFactory;
@@ -43,11 +41,6 @@ import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReaderFactory;
 import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.api.privatekeyreader.PrivateKeyReaderFactory;
-import at.silverstrike.pcc.api.projectscheduler.ProjectScheduler;
-import at.silverstrike.pcc.api.projectscheduler.ProjectSchedulerFactory;
-import at.silverstrike.pcc.api.tj3bookingsparser.BookingsFile2BookingsFactory;
-import at.silverstrike.pcc.api.tj3bookingsparser.Tj3BookingsParserFactory;
-import at.silverstrike.pcc.api.tj3deadlinesparser.Tj3DeadlinesFileParserFactory;
 import at.silverstrike.pcc.api.usersettingspanel.UserSettingsPanelFactory;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelControllerFactory;
 import at.silverstrike.pcc.api.xmlserialization.XmlDeserializerFactory;
@@ -57,7 +50,6 @@ import at.silverstrike.pcc.impl.culture2lang.DefaultCultureToLanguageMapperFacto
 import at.silverstrike.pcc.impl.debugids.DefaultPccDebugIdRegistryFactory;
 import at.silverstrike.pcc.impl.embeddedfilereading.DefaultEmbeddedFileReaderFactory;
 import at.silverstrike.pcc.impl.entrywindow.DefaultEntryWindowFactory;
-import at.silverstrike.pcc.impl.export2tj3.DefaultTaskJuggler3ExporterFactory;
 import at.silverstrike.pcc.impl.gcalservicecreator.DefaultGoogleCalendarServiceCreatorFactory;
 import at.silverstrike.pcc.impl.gcaltasks2pcc.DefaultGoogleCalendarTasks2PccImporterFactory;
 import at.silverstrike.pcc.impl.gcaltasks2pccimporter.DefaultGoogleCalendarTasks2PccImporter2Factory;
@@ -65,7 +57,6 @@ import at.silverstrike.pcc.impl.googletasksservicecreator.DefaultGoogleTasksServ
 import at.silverstrike.pcc.impl.gtask2pcctaskconverter.DefaultGoogleTask2PccTaskConverterFactory;
 import at.silverstrike.pcc.impl.gtasknoteparser.DefaultGoogleTaskNotesParserFactory;
 import at.silverstrike.pcc.impl.gtaskrelevance.DefaultIsGoogleTaskRelevantCalculatorFactory;
-import at.silverstrike.pcc.impl.gtasktitleparser.DefaultGoogleTaskTitleParserFactory;
 import at.silverstrike.pcc.impl.incorrectschedulingobjectsmarker.DefaultIncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.impl.invitationrequestadminpanel.DefaultInvitationRequestAdminPanelFactory;
 import at.silverstrike.pcc.impl.invitationrequestadminpanelcontroller.DefaultInvitationRequestAdminPanelControllerFactory;
@@ -75,10 +66,6 @@ import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowController
 import at.silverstrike.pcc.impl.parameterdatareader.DefaultParameterDataReaderFactory;
 import at.silverstrike.pcc.impl.persistence.DefaultPersistence;
 import at.silverstrike.pcc.impl.privatekeyreader.DefaultPrivateKeyReaderFactory;
-import at.silverstrike.pcc.impl.projectscheduler.DefaultProjectSchedulerFactory;
-import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultBookingsFile2BookingsFactory;
-import at.silverstrike.pcc.impl.tj3bookingsparser.DefaultTj3BookingsParserFactory;
-import at.silverstrike.pcc.impl.tj3deadlinesparser.DefaultTj3DeadlinesFileParserFactory;
 import at.silverstrike.pcc.impl.usersettingspanel.DefaultUserSettingsPanelFactory;
 import at.silverstrike.pcc.impl.usersettingspanelcontroller.DefaultUserSettingsPanelControllerFactory;
 import at.silverstrike.pcc.impl.xmlserialization.DefaultXmlDeserializerFactory;
@@ -90,7 +77,6 @@ class InjectorModule extends AbstractModule {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(InjectorModule.class);
 
-    private String taskJugglerPath;
     private String oauthRedirectUri;
 
     @Override
@@ -102,18 +88,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultJRubySandBoxFactory());
         bind(EmbeddedFileReader.class).toInstance(
                 new DefaultEmbeddedFileReaderFactory().create());
-        bind(BookingsFile2BookingsFactory.class).toInstance(
-                new DefaultBookingsFile2BookingsFactory());
-        bind(TaskJuggler3Exporter.class).toInstance(
-                new DefaultTaskJuggler3ExporterFactory().create());
-        bind(Tj3DeadlinesFileParserFactory.class).toInstance(
-                new DefaultTj3DeadlinesFileParserFactory());
-        bind(Tj3BookingsParserFactory.class).toInstance(
-                new DefaultTj3BookingsParserFactory());
-        bind(ProjectScheduler.class).toInstance(
-                getScheduler());
-        bind(ProjectSchedulerFactory.class).toInstance(
-                new DefaultProjectSchedulerFactory());
         bind(PccDebugIdRegistry.class).toInstance(
                 new DefaultPccDebugIdRegistryFactory().create());
         bind(PccVersionReader.class).toInstance(getVersionReader());
@@ -154,8 +128,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultGoogleTaskNotesParserFactory());
         bind(GoogleCalendarTasks2PccImporter2Factory.class).toInstance(new
                 DefaultGoogleCalendarTasks2PccImporter2Factory());
-        bind(GoogleTaskTitleParserFactory.class).toInstance(new
-                DefaultGoogleTaskTitleParserFactory());
         bind(PrivateKeyReaderFactory.class).toInstance(
                 new DefaultPrivateKeyReaderFactory());
     }
@@ -166,16 +138,6 @@ class InjectorModule extends AbstractModule {
                 new DefaultUserSettingsPanelControllerFactory();
         retVal.setOauthRedirectUri(this.oauthRedirectUri);
         return retVal;
-    }
-
-    private ProjectScheduler getScheduler() {
-        final ProjectScheduler scheduler =
-                new DefaultProjectSchedulerFactory().create();
-
-        LOGGER.debug("this.taskJugglerPath: {}", this.taskJugglerPath);
-
-        scheduler.setTaskJugglerPath(this.taskJugglerPath);
-        return scheduler;
     }
 
     private CultureToLanguageMapper getCultureToLanguageMapper() {
@@ -200,10 +162,6 @@ class InjectorModule extends AbstractModule {
             LOGGER.error(ErrorCodes.M_001_VERSION_READER, exception);
         }
         return versionReader;
-    }
-
-    public void setTaskJugglerPath(final String aPath) {
-        this.taskJugglerPath = aPath;
     }
 
     public void setOauthRedirectUri(final String aOauthRedirectUri) {

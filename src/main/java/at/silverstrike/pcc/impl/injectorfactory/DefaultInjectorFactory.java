@@ -17,20 +17,14 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class DefaultInjectorFactory implements PccInjectorFactory {
-    private String taskJugglerPath;
     private String oauthRedirectUri;
 
     public final Injector createInjector() {
         final InjectorModule injectorModule = new InjectorModule();
-        injectorModule.setTaskJugglerPath(this.taskJugglerPath);
         injectorModule.setOauthRedirectUri(oauthRedirectUri);
         final Injector injector = Guice.createInjector(injectorModule);
 
         return injector;
-    }
-
-    public void setTaskJugglerPath(final String aPath) {
-        this.taskJugglerPath = aPath;
     }
 
     public void setOauthRedirectUri(final String aOauthRedirectUri) {

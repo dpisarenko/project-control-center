@@ -18,5 +18,4 @@ import ru.altruix.commons.api.di.InjectorFactory;
  *
  */
 public interface PccInjectorFactory extends InjectorFactory {
-    void setTaskJugglerPath(final String aPath);
 }
