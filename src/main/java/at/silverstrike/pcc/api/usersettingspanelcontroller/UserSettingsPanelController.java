@@ -36,4 +36,6 @@ public interface UserSettingsPanelController extends
     void processGoogleResponse(final Map<String, String[]> aParameters);
     
     void setOauthRedirectUri(final String aRedirectUri);
+
+    void setAutomaticScheduling(final boolean aValue);
 }

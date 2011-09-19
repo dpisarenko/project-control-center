@@ -170,5 +170,9 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
                 .equals(buttonCaption)) {
             this.controller.initiateGoogleTasksAuthorization();
         }
+        else if (this.automaticReschedulingCheckBoxLettering.equals(buttonCaption))
+        {
+            this.controller.setAutomaticScheduling(aEvent.getButton().booleanValue());
+        }
     }
 }

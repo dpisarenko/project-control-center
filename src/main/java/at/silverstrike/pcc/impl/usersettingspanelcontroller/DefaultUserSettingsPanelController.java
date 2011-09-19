@@ -82,7 +82,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
     private GoogleOAuthHelper oauthHelper;
     private PrivateKey privKey;
     private String oauthRedirectUri;
-    
+
     @Override
     public void setInjector(final Injector aInjector) {
         this.injector = aInjector;
@@ -271,7 +271,7 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
             final UserData user =
                     (UserData) TPTApplication.getCurrentApplication()
                             .getUser();
-            
+
             final AccessTokenResponse response =
                     new GoogleAuthorizationCodeGrant(httpTransport,
                             jsonFactory,
@@ -358,5 +358,14 @@ class DefaultUserSettingsPanelController implements UserSettingsPanelController 
 
     public void setOauthRedirectUri(final String aOauthRedirectUri) {
         this.oauthRedirectUri = aOauthRedirectUri;
+    }
+
+    @Override
+    public void setAutomaticScheduling(final boolean aValue) {
+        final UserData user =
+                (UserData) TPTApplication.getCurrentApplication()
+                        .getUser();
+        user.setAutomaticScheduling(aValue);
+        this.persistence.updateUser(user);
     }
 }
