@@ -83,7 +83,12 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
         this.addComponent(gridLayout);
         
-        this.automaticReschedulingCheckBox.setValue(user.isAutomaticScheduling());
+        final Boolean automaticScheduling = user.isAutomaticScheduling();
+        if (automaticScheduling != null)
+        {
+            this.automaticReschedulingCheckBox.setValue(automaticScheduling);
+        }
+        
     }
 
     private String getGoogleTasksAccessStatusText(final UserData aUser) {
