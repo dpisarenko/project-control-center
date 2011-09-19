@@ -40,6 +40,7 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
     private String grantAccessToGoogleTasksButtonCaption;
     private String grantAccessToGoogleCalendarButtonCaption;
     private String automaticReschedulingCheckBoxLettering;
+    private CheckBox automaticReschedulingCheckBox;
 
     @Override
     public Panel toPanel() {
@@ -81,6 +82,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
         gridLayout.addComponent(buttonPanel, 0, 4, 1, 4);
 
         this.addComponent(gridLayout);
+        
+        this.automaticReschedulingCheckBox.setValue(user.isAutomaticScheduling());
     }
 
     private String getGoogleTasksAccessStatusText(final UserData aUser) {
@@ -130,9 +133,8 @@ class DefaultUserSettingsPanel extends Panel implements UserSettingsPanel,
 
         automaticReschedulingCheckBoxLettering =
                 TM.get("usersettingspanel.19-automaticPlanUpdateCheckBoxLettering");
-        final CheckBox automaticReschedulingCheckBox =
-                new CheckBox(
-                        automaticReschedulingCheckBoxLettering);
+        automaticReschedulingCheckBox = new CheckBox(
+                automaticReschedulingCheckBoxLettering);
         automaticReschedulingCheckBox.setImmediate(true);
         automaticReschedulingCheckBox.addListener(this); // react to clicks
 
