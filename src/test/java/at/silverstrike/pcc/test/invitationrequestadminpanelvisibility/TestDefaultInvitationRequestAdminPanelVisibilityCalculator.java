@@ -107,6 +107,6 @@ public class TestDefaultInvitationRequestAdminPanelVisibilityCalculator {
         } catch (final PccException exception) {
             Assert.fail(exception.getMessage());
         }
-        Assert.assertTrue(objectUnderTest.isInvitationPanelVisible());
+        Assert.assertFalse(objectUnderTest.isInvitationPanelVisible());
     }
 }

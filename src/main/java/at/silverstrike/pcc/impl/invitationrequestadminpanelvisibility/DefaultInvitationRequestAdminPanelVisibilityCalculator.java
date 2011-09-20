@@ -11,9 +11,10 @@
 
 package at.silverstrike.pcc.impl.invitationrequestadminpanelvisibility;
 
+import org.apache.commons.lang.StringUtils;
+
 import ru.altruix.commons.api.di.PccException;
-import at.silverstrike.pcc.api.invitationrequestadminpanelvisibility.
-    InvitationRequestAdminPanelVisibilityCalculator;
+import at.silverstrike.pcc.api.invitationrequestadminpanelvisibility.InvitationRequestAdminPanelVisibilityCalculator;
 
 /**
  * @author DP118M
@@ -35,8 +36,14 @@ final class DefaultInvitationRequestAdminPanelVisibilityCalculator implements
 
     @Override
     public void run() throws PccException {
-        // TODO Auto-generated method stub
-
+        if (this.invitationAdmins == null) {
+            this.invitationPanelVisible = false;
+        } else if (StringUtils.isBlank(this.currentUsername)) {
+            this.invitationPanelVisible = false;
+        } else {
+            this.invitationPanelVisible =
+                    this.invitationAdmins.contains(this.currentUsername);
+        }
     }
 
     public void setCurrentUsername(final String aCurrentUsername) {
