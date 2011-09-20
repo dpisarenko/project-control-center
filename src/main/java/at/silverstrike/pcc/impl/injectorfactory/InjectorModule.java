@@ -35,6 +35,8 @@ import at.silverstrike.pcc.api.gtaskrelevance.IsGoogleTaskRelevantCalculatorFact
 import at.silverstrike.pcc.api.incorrectschedulingobjectsmarker.IncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.api.invitationrequestadminpanel.InvitationRequestAdminPanelFactory;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelControllerFactory;
+import at.silverstrike.pcc.api.invitationrequestadminpanelvisibility.InvitationRequestAdminPanelVisibilityCalculator;
+import at.silverstrike.pcc.api.invitationrequestadminpanelvisibility.InvitationRequestAdminPanelVisibilityCalculatorFactory;
 import at.silverstrike.pcc.api.mainwindow.MainWindowFactory;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowControllerFactory;
 import at.silverstrike.pcc.api.parameterdatareader.ParameterDataReader;
@@ -60,6 +62,7 @@ import at.silverstrike.pcc.impl.gtaskrelevance.DefaultIsGoogleTaskRelevantCalcul
 import at.silverstrike.pcc.impl.incorrectschedulingobjectsmarker.DefaultIncorrectSchedulingObjectsMarkerFactory;
 import at.silverstrike.pcc.impl.invitationrequestadminpanel.DefaultInvitationRequestAdminPanelFactory;
 import at.silverstrike.pcc.impl.invitationrequestadminpanelcontroller.DefaultInvitationRequestAdminPanelControllerFactory;
+import at.silverstrike.pcc.impl.invitationrequestadminpanelvisibility.DefaultInvitationRequestAdminPanelVisibilityCalculatorFactory;
 import at.silverstrike.pcc.impl.jruby.DefaultJRubySandBoxFactory;
 import at.silverstrike.pcc.impl.mainwindow.DefaultMainWindowFactory;
 import at.silverstrike.pcc.impl.mainwindowcontroller.DefaultMainWindowControllerFactory;
@@ -131,6 +134,21 @@ class InjectorModule extends AbstractModule {
                 DefaultGoogleCalendarTasks2PccImporter2Factory());
         bind(PrivateKeyReaderFactory.class).toInstance(
                 new DefaultPrivateKeyReaderFactory());
+
+        bind(InvitationRequestAdminPanelVisibilityCalculator.class).toInstance(
+                getInvitationRequestAdminPanelVisibilityCalculator());
+    }
+
+    private InvitationRequestAdminPanelVisibilityCalculator
+            getInvitationRequestAdminPanelVisibilityCalculator() {
+        final InvitationRequestAdminPanelVisibilityCalculatorFactory factory =
+                new DefaultInvitationRequestAdminPanelVisibilityCalculatorFactory();
+        final InvitationRequestAdminPanelVisibilityCalculator calculator =
+                factory.create();
+
+        calculator.setInvitationAdmins(this.invitationAdmins);
+
+        return calculator;
     }
 
     private DefaultUserSettingsPanelControllerFactory

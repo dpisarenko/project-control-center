@@ -16,6 +16,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ru.altruix.commons.api.di.PccException;
 import ru.altruix.commons.api.version.PccVersionReader;
 
 import com.google.inject.Injector;
@@ -25,12 +26,15 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
+import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelController;
 import at.silverstrike.pcc.api.invitationrequestadminpanelcontroller.InvitationRequestAdminPanelControllerFactory;
+import at.silverstrike.pcc.api.invitationrequestadminpanelvisibility.InvitationRequestAdminPanelVisibilityCalculator;
 import at.silverstrike.pcc.api.mainwindow.MainWindow;
 import at.silverstrike.pcc.api.mainwindowcontroller.MainWindowController;
+import at.silverstrike.pcc.api.model.UserData;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelController;
 import at.silverstrike.pcc.api.usersettingspanelcontroller.UserSettingsPanelControllerFactory;
 
@@ -73,12 +77,33 @@ class DefaultMainWindow implements MainWindow, ParameterHandler {
 
         this.tabSheet.addTab(getUserSettingsTab(), TM
                 .get("mainwindow.22-user-settings-tab"), null);
-        this.tabSheet.addTab(getInvitationRequestTab(), TM
-                .get("mainwindow.21-invitation-tab"), null);
+
+        if (isInvitationAdminPanelVisible()) {
+            this.tabSheet.addTab(getInvitationRequestTab(), TM
+                    .get("mainwindow.21-invitation-tab"), null);
+        }
 
         mainLayout.addComponent(this.tabSheet);
 
         mainWindow.setContent(mainLayout);
+    }
+
+    private boolean isInvitationAdminPanelVisible() {
+        final InvitationRequestAdminPanelVisibilityCalculator calculator =
+                this.injector
+                        .getInstance(InvitationRequestAdminPanelVisibilityCalculator.class);
+        
+        final UserData user =
+            (UserData) TPTApplication.getCurrentApplication()
+                    .getUser();
+        calculator.setCurrentUsername(user.getUsername());
+        try {
+            calculator.run();
+        } catch (final PccException exception) {
+            LOGGER.error("", exception);
+        }
+        
+        return calculator.isInvitationPanelVisible();
     }
 
     private Component getUserSettingsTab() {
