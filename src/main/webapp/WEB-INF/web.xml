@@ -20,6 +20,11 @@
 		 -->
 		<param-value>http://pcchq.com/oauth2callback</param-value>
 	</context-param>
+	<context-param>
+		<!-- Comma-separated list of all users, who are allowed to accept/reject invitations. -->
+		<param-name>InvitationAdmins</param-name>
+		<param-value>dp@sw-dev.at</param-value>
+	</context-param>
 	<servlet>
 		<servlet-name>Project Control Center Application</servlet-name>
 		<servlet-class>at.silverstrike.pcc.ProjectControlCenterApplicationServlet</servlet-class>

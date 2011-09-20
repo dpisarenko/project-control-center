@@ -55,8 +55,10 @@ public class ProjectControlCenterApplication extends TPTApplication {
                 new DefaultInjectorFactory();
         
         final String oauthRedirectUri = servletContext.getInitParameter("OauthRedirectUri");
+        final String invitationAdmins = servletContext.getInitParameter("InvitationAdmins");
 
         injectorFactory.setOauthRedirectUri(oauthRedirectUri);
+        injectorFactory.setInvitationAdmins(invitationAdmins);
         injector = injectorFactory.createInjector();
 
         servletContext.setAttribute(PARAM_INJECTOR, injector);

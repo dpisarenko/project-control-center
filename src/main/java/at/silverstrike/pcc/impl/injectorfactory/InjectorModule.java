@@ -78,6 +78,7 @@ class InjectorModule extends AbstractModule {
             .getLogger(InjectorModule.class);
 
     private String oauthRedirectUri;
+    private String invitationAdmins;
 
     @Override
     protected void configure() {
@@ -166,5 +167,9 @@ class InjectorModule extends AbstractModule {
 
     public void setOauthRedirectUri(final String aOauthRedirectUri) {
         oauthRedirectUri = aOauthRedirectUri;
+    }
+
+    public void setInvitationAdmins(final String aInvitationAdmins) {
+        this.invitationAdmins = aInvitationAdmins;
     }
 }
