@@ -12,10 +12,6 @@
 package at.silverstrike.pcc;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,14 +22,12 @@ import at.silverstrike.pcc.api.persistence.Persistence;
 import at.silverstrike.pcc.impl.injectorfactory.DefaultInjectorFactory;
 
 import com.google.inject.Injector;
-import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
 import com.vaadin.terminal.gwt.server.WebApplicationContext;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
 
-public class ProjectControlCenterApplication extends TPTApplication implements
-        HttpServletRequestListener {
+public class ProjectControlCenterApplication extends TPTApplication {
     public static final String PARAM_INJECTOR = "PARAM_INJECTOR";
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ProjectControlCenterApplication.class);
@@ -88,22 +82,4 @@ public class ProjectControlCenterApplication extends TPTApplication implements
     public void firstApplicationStartup() {
     }
 
-    @Override
-    public void onRequestStart(final HttpServletRequest aRequest,
-            final HttpServletResponse aResponse) {
-        final String queryString = aRequest.getQueryString();
-        LOGGER.debug(
-                "aRequest.getQueryString(): {}, this.mainWindowController={}",
-                new Object[] { queryString, this.mainWindowController });
-
-        if (!StringUtils.isBlank(queryString) && queryString.contains("oauth")
-                && (this.mainWindowController != null)) {
-//            this.mainWindowController.setOauthQueryString(queryString);
-        }
-    }
-
-    @Override
-    public void onRequestEnd(final HttpServletRequest aRequest,
-            final HttpServletResponse aResponse) {
-    }
 }
