@@ -8,7 +8,7 @@
 	<groupId>at.swdev</groupId>
 	<artifactId>pcc</artifactId>
 	<packaging>war</packaging>
-	<version>1.25</version>
+	<version>1.26</version>
 	<name>Project Control Center</name>
 
 	<scm>
